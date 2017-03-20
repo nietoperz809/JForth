@@ -25,7 +25,7 @@ public abstract class BaseWord implements ExecuteIF
     return (name.equals(bw.name) && (isPrimitive == bw.isPrimitive));
   }
   
-  public String name;
+  public final String name;
   public boolean immediate;
-  public boolean isPrimitive;
+  public final boolean isPrimitive;
 }

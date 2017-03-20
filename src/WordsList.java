@@ -5,10 +5,10 @@ public class WordsList
 {
   public WordsList()
   {
-    wordsList = new LinkedList<BaseWord>();
+    wordsList = new LinkedList<>();
   }
 
-  public boolean isEmpty()
+  private boolean isEmpty ()
   {
     return wordsList.size() == 0;
   }
@@ -29,7 +29,7 @@ public class WordsList
     {
       return "WordsList is empty\n";
     }
-    StringBuffer sb = new StringBuffer();
+    StringBuilder sb = new StringBuilder();
     sb.append("Words:\n");
     Iterator<BaseWord> i1 = wordsList.listIterator(0);
     while (i1.hasNext())
@@ -75,6 +75,6 @@ public class WordsList
     }
   }
 
-  private LinkedList<BaseWord> wordsList;
+  private final LinkedList<BaseWord> wordsList;
 }
   

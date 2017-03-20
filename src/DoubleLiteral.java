@@ -12,5 +12,5 @@ public final class DoubleLiteral extends BaseWord
     return 1;
   }
 
-  private Double number;
+  private final Double number;
 }

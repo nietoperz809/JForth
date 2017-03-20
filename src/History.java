@@ -2,15 +2,15 @@ import java.util.*;
 
 public class History
 {
-  private ArrayList<String> history;
-  private int length;
+  private final ArrayList<String> history;
+  private final int length;
   private int nextIndex;
 
   History(int length)
   {
     this.length = length;
     nextIndex = 0;
-    history = new ArrayList<String>(length);
+    history = new ArrayList<>(length);
   }
   
   public void add(String s)
