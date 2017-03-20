@@ -1228,6 +1228,19 @@ public class JForth
       }
     ),
 
+          new PrimitiveWord
+                  (
+                          "sp", false,
+                          new ExecuteIF()
+                          {
+                              public int execute(OStack dStack, OStack vStack)
+                              {
+                                  System.out.print(' ');
+                                  return 1;
+                              }
+                          }
+                  ),
+
     new PrimitiveWord
     (
       "spaces", false,
@@ -2712,34 +2725,44 @@ public class JForth
   {
     dStack.removeAllElements();
     JTextArea display = console.getDisplay();
+    Scanner scanner = new Scanner(System.in);
     while (true)
     {
       System.out.print(PROMPT);
-      int start = display.getDocument().getLength();
-      display.setCaretPosition(start);
-      while (!display.getText().endsWith("\n"))
+//      int start = display.getDocument().getLength();
+//      display.setCaretPosition(start);
+//      while (!display.getText().endsWith("\n"))
+//      {
+//        if (display.getText().endsWith("^"))
+//        {
+//          display.setText((display.getText().substring(0, start) + history.getNext()));
+//          display.setCaretPosition(display.getDocument().getLength());
+//        }
+//        try
+//        {
+//          Thread.sleep(100);
+//        }
+//        catch (InterruptedException ie)
+//        {
+//        }
+     // }
+      String input;
+      try
       {
-        if (display.getText().endsWith("^"))
-        {
-          display.setText((display.getText().substring(0, start) + history.getNext()));
-          display.setCaretPosition(display.getDocument().getLength());
-        }
-        try
-        {
-          Thread.sleep(100);
-        }
-        catch (InterruptedException ie)
-        {
-        }
+        input = scanner.nextLine();
+        //input = display.getText().substring(start, display.getText().length() - 1);
       }
-      String input = display.getText().substring(start, display.getText().length() - 1);
+      catch (Exception ex)
+      {
+        continue;
+      }
       history.add(input);
       if (!interpretLine(input))
       {
         dStack.removeAllElements();
       }
       else
-        System.out.println(OK);
+        System.out.print(OK);
     }
   }
 
