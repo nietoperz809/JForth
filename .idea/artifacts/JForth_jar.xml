@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JForth:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JForth_jar</output-path>
+    <root id="archive" name="JForth.jar">
+      <element id="module-output" name="JForth" />
+    </root>
+  </artifact>
+</component>
