@@ -1,12 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
 
 public class JForth
 {
-  private static final int WIDTH = 600;
-  private static final int HEIGHT = 400;
   private static final String PROMPT = "\n> ";
   private static final String OK = " OK";
   public static final Long TRUE  = new Long(1);
@@ -2721,64 +2718,29 @@ public class JForth
     }
   }
 
-  public void outerInterpreter(Console console)
+  public void outerInterpreter()
   {
     dStack.removeAllElements();
-    JTextArea display = console.getDisplay();
     Scanner scanner = new Scanner(System.in);
     while (true)
     {
       System.out.print(PROMPT);
-//      int start = display.getDocument().getLength();
-//      display.setCaretPosition(start);
-//      while (!display.getText().endsWith("\n"))
-//      {
-//        if (display.getText().endsWith("^"))
-//        {
-//          display.setText((display.getText().substring(0, start) + history.getNext()));
-//          display.setCaretPosition(display.getDocument().getLength());
-//        }
-//        try
-//        {
-//          Thread.sleep(100);
-//        }
-//        catch (InterruptedException ie)
-//        {
-//        }
-     // }
-      String input;
-      try
-      {
-        input = scanner.nextLine();
-        //input = display.getText().substring(start, display.getText().length() - 1);
-      }
-      catch (Exception ex)
-      {
-        continue;
-      }
+      String input = scanner.nextLine();
       history.add(input);
       if (!interpretLine(input))
       {
         dStack.removeAllElements();
       }
       else
+      {
         System.out.print(OK);
+      }
     }
   }
 
   public static void main(String [] args)
   {
-    JFrame mainFrame = new JFrame("Forth Console");
-    mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    Toolkit k = Toolkit.getDefaultToolkit();
-    Dimension s = k.getScreenSize();
-    mainFrame.setSize(WIDTH, HEIGHT);
-    mainFrame.setLocation((s.width - WIDTH) / 2, (s.height - HEIGHT) / 2);
-    Console console = new Console();
-    mainFrame.add(console);
-    mainFrame.pack();
-    mainFrame.setVisible(true);
     JForth forth = new JForth();
-    forth.outerInterpreter(console);
+    forth.outerInterpreter();
   }
 }
