@@ -6,7 +6,7 @@ public class JForth
 {
   private static final String PROMPT = "\n> ";
   private static final String OK = " OK";
-  public static final Long TRUE  = 1L;
+  static final Long TRUE  = 1L;
   private static final Long FALSE = 0L;
   private static final int HISTORY_LENGTH = 25;
 
@@ -2467,6 +2467,7 @@ public class JForth
   {
     dStack.removeAllElements();
     Scanner scanner = new Scanner(System.in);
+    System.out.println("JForth from (http://linuxenvy.com/bprentice/JForth/");
     while (true)
     {
       System.out.print(PROMPT);
