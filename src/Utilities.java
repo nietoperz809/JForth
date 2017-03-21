@@ -1,5 +1,9 @@
 import org.apache.commons.math3.complex.Complex;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
  * Created by Administrator on 3/21/2017.
  */
@@ -34,4 +38,36 @@ public class Utilities
             parts[1] = "-"+parts[1];
         return new Complex (Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
     }
+
+    static String dir (String path)
+    {
+        StringBuilder sb = new StringBuilder();
+        File[] filesInFolder = new File(path).listFiles();
+        if (filesInFolder == null)
+            return "";
+        Arrays.sort(filesInFolder, new Comparator<File>()
+        {
+            public int compare(File f1, File f2)
+            {
+                if (f2.isDirectory())
+                    return 1;
+                return -1;
+            }
+        });
+        for (final File fileEntry :  filesInFolder)
+        {
+            String formatted;
+            if (fileEntry.isDirectory())
+            {
+                formatted = String.format("<%s>\n", fileEntry.getName());
+            }
+            else
+            {
+                formatted = String.format("%-15s = %d\n", fileEntry.getName(), fileEntry.length());
+            }
+            sb.append(formatted);
+        }
+        return sb.toString();
+    }
+
 }

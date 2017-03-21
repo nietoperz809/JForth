@@ -1010,6 +1010,63 @@ public class JForth
                           }
                   ),
 
+          new PrimitiveWord   //
+                  (
+                          "conj", false,
+                          (dStack, vStack) ->
+                          {
+                              if (dStack.empty())
+                                  return 0;
+                              Object o1 = dStack.pop();
+                              if (o1 instanceof Complex)
+                              {
+                                  Complex d1 = (Complex) o1;
+                                  dStack.push(d1.conjugate());
+                              }
+                              else
+                                  return 0;
+                              return 1;
+                          }
+                  ),
+
+          new PrimitiveWord   //
+                  (
+                          "re", false,
+                          (dStack, vStack) ->
+                          {
+                              if (dStack.empty())
+                                  return 0;
+                              Object o1 = dStack.pop();
+                              if (o1 instanceof Complex)
+                              {
+                                  Complex d1 = (Complex) o1;
+                                  dStack.push(d1.getReal());
+                              }
+                              else
+                                  return 0;
+                              return 1;
+                          }
+                  ),
+
+          new PrimitiveWord   //
+                  (
+                          "im", false,
+                          (dStack, vStack) ->
+                          {
+                              if (dStack.empty())
+                                  return 0;
+                              Object o1 = dStack.pop();
+                              if (o1 instanceof Complex)
+                              {
+                                  Complex d1 = (Complex) o1;
+                                  dStack.push(d1.getImaginary());
+                              }
+                              else
+                                  return 0;
+                              return 1;
+                          }
+                  ),
+
     new PrimitiveWord
     (
       "and", false,
@@ -1778,6 +1835,11 @@ public class JForth
                 dStack.push(Math.sin((Double) o1));
                 return 1;
               }
+              if (o1 instanceof Complex)
+              {
+                  dStack.push(((Complex)o1).sin());
+                  return 1;
+              }
               else
                 return 0;
             }
@@ -1795,6 +1857,11 @@ public class JForth
               {
                 dStack.push(Math.cos((Double) o1));
                 return 1;
+              }
+              if (o1 instanceof Complex)
+              {
+                  dStack.push(((Complex)o1).cos());
+                  return 1;
               }
               else
                 return 0;
@@ -1814,6 +1881,11 @@ public class JForth
                 dStack.push(Math.tan((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).tan());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1832,6 +1904,11 @@ public class JForth
                 dStack.push(Math.asin((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).asin());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1850,6 +1927,11 @@ public class JForth
                 dStack.push(Math.acos((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).acos());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1868,6 +1950,11 @@ public class JForth
                 dStack.push(Math.atan((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).atan());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1907,6 +1994,11 @@ public class JForth
                 dStack.push(Math.sinh((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).sinh());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1925,6 +2017,11 @@ public class JForth
                 dStack.push(Math.cosh((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).cosh());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1943,6 +2040,11 @@ public class JForth
                 dStack.push(Math.tanh((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    dStack.push(((Complex)o1).tanh());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -2076,6 +2178,22 @@ public class JForth
                 return 0;
             }
     ),
+
+          new PrimitiveWord
+                  (
+                          "dir", false,
+                          (dStack, vStack) ->
+                          {
+                              String path;
+                              if (dStack.empty())
+                                path = ".";
+                              else
+                                  path = (String)dStack.pop();
+                              String s = Utilities.dir(path);
+                              dStack.push(s);
+                              return 1;
+                          }
+                  ),
 
     new PrimitiveWord
     (
