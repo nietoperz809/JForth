@@ -9,6 +9,9 @@ import java.util.Comparator;
  */
 public class Utilities
 {
+    public static final String BUILD_NUMBER = "14";
+    public static final String BUILD_DATE = "03/21/2017 08:44:16 PM";
+
     static String formatComplex (Complex c)
     {
         double re = c.getReal();

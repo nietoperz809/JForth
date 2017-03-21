@@ -2660,11 +2660,15 @@ public class JForth implements Serializable
                               @Override
                               public int execute (OStack dStack, OStack vStack)
                               {
-                                  String path;
-                                  if (dStack.empty())
-                                      path = ".";
-                                  else
-                                      path = (String) dStack.pop();
+                                  String path = ".";
+                                  if (!dStack.empty())
+                                  {
+                                      Object o = dStack.pop();
+                                      if (o instanceof String)
+                                        path = (String)o;
+                                      else
+                                          dStack.push(o);
+                                  }
                                   String s = Utilities.dir(path);
                                   dStack.push(s);
                                   return 1;
@@ -3158,7 +3162,7 @@ public class JForth implements Serializable
   {
     dStack.removeAllElements();
     Scanner scanner = new Scanner(System.in);
-    System.out.println("JForth from (http://linuxenvy.com/bprentice/JForth/");
+    System.out.println("JForth, Build: "+Utilities.BUILD_NUMBER+", "+Utilities.BUILD_DATE);
     while (true)
     {
       System.out.print(PROMPT);
