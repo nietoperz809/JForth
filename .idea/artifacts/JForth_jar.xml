@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="JForth:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/JForth_jar</output-path>
+    <output-path>$PROJECT_DIR$/JForth_jar</output-path>
     <root id="archive" name="JForth.jar">
       <element id="module-output" name="JForth" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6/commons-math3-3.6.jar" path-in-jar="/" />

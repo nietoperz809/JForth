@@ -1002,7 +1002,7 @@ public class JForth
                               if (o1 instanceof Complex)
                               {
                                   Complex d1 = (Complex) o1;
-                                  dStack.push(d1.getArgument());
+                                  dStack.push(Math.atan(d1.getImaginary()/d1.getReal()));
                               }
                               else
                                   return 0;
@@ -1742,6 +1742,12 @@ public class JForth
                 dStack.push(Math.sqrt((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    Complex oc = (Complex)o1;
+                    dStack.push(oc.sqrt());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1770,7 +1776,7 @@ public class JForth
 
     new PrimitiveWord
     (
-      "log", false,
+      "ln", false,
             (dStack, vStack) ->
             {
               if (dStack.empty())
@@ -1781,6 +1787,16 @@ public class JForth
                 dStack.push(Math.log((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    Complex oc = (Complex)o1;
+                    double re = oc.getReal()*oc.getReal()+oc.getImaginary()*oc.getImaginary();
+                    re = Math.log(re)/2.0;
+                    double im = oc.getImaginary()/oc.getReal();
+                    im = Math.atan(im);
+                    dStack.push(new Complex(re, im));
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1817,6 +1833,12 @@ public class JForth
                 dStack.push(Math.exp((Double) o1));
                 return 1;
               }
+                if (o1 instanceof Complex)
+                {
+                    Complex oc = (Complex)o1;
+                    dStack.push(oc.exp());
+                    return 1;
+                }
               else
                 return 0;
             }
@@ -1952,7 +1974,8 @@ public class JForth
               }
                 if (o1 instanceof Complex)
                 {
-                    dStack.push(((Complex)o1).atan());
+                    Complex oc = (Complex)o1;
+                    dStack.push(oc.atan());
                     return 1;
                 }
               else
