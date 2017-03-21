@@ -66,17 +66,22 @@ public class WordsList
     return null;
   }
 
-  public void truncateList(BaseWord bw)
-  { 
-    int size = wordsList.size();
-    int index = wordsList.indexOf(bw);
-    if (index != -1)
-    {
-      for (int i = 0; i <= index; i++)
-      {
-        wordsList.remove(0);
-      }
-    }
+//  public void truncateList(BaseWord bw)
+//  {
+//    int size = wordsList.size();
+//    int index = wordsList.indexOf(bw);
+//    if (index != -1)
+//    {
+//      for (int i = 0; i <= index; i++)
+//      {
+//        wordsList.remove(0);
+//      }
+//    }
+//  }
+
+  public void remove(BaseWord bw)
+  {
+    wordsList.remove(bw);
   }
 
   private final LinkedList<BaseWord> wordsList;

@@ -1,11 +1,19 @@
+import com.cedarsoftware.util.io.JsonReader;
+import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 import java.util.Scanner;
 
-public class JForth
+public class JForth implements Serializable
 {
+    private static final long serialVersionUID = 7526471155622776147L;
+
   private static final String PROMPT = "\n> ";
   private static final String OK = " OK";
   static final Long TRUE  = 1L;
@@ -27,15 +35,19 @@ public class JForth
     new PrimitiveWord
     (
       "(", true,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              String token = getNextToken();
-              while ((token != null) && (!token.equals(")")))
-                token = getNextToken();
-              if (token != null)
-                return 1;
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    String token = JForth.this.getNextToken();
+                    while ((token != null) && (!token.equals(")")))
+                        token = JForth.this.getNextToken();
+                    if (token != null)
+                        return 1;
+                    else
+                        return 0;
+                }
             }
     ),
 
@@ -71,19 +83,23 @@ public class JForth
     new PrimitiveWord
     (
       "execute", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o = dStack.pop();
-              if (o instanceof BaseWord)
-              {
-                BaseWord bw = (BaseWord) o;
-                return bw.execute(dStack, vStack);
-              }
-              else
-               return 0;
-           }
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o = dStack.pop();
+                    if (o instanceof BaseWord)
+                    {
+                        BaseWord bw = (BaseWord) o;
+                        return bw.execute(dStack, vStack);
+                    }
+                    else
+                        return 0;
+                }
+            }
     ),
 
     new PrimitiveWord
@@ -181,30 +197,38 @@ public class JForth
     new PrimitiveWord
     (
       "i", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.peek();
-              dStack.push(o);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.peek();
+                    dStack.push(o);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "j", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.size() < 4)
-                return 0;
-              Object o1 = vStack.pop();
-              Object o2 = vStack.pop();
-              Object o3 = vStack.peek();
-              dStack.push(o3);
-              vStack.push(o2);
-              vStack.push(o1);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.size() < 4)
+                        return 0;
+                    Object o1 = vStack.pop();
+                    Object o2 = vStack.pop();
+                    Object o3 = vStack.peek();
+                    dStack.push(o3);
+                    vStack.push(o2);
+                    vStack.push(o1);
+                    return 1;
+                }
             }
     ),
 
@@ -317,863 +341,1011 @@ public class JForth
     new PrimitiveWord
     (
       "dup", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o = dStack.peek();
-              dStack.push(o);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o = dStack.peek();
+                    dStack.push(o);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "drop", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              dStack.pop();
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    dStack.pop();
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "swap", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              dStack.push(o1);
-              dStack.push(o2);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    dStack.push(o1);
+                    dStack.push(o2);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "over", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              dStack.push(o2);
-              dStack.push(o1);
-              dStack.push(o2);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    dStack.push(o2);
+                    dStack.push(o1);
+                    dStack.push(o2);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "rot", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 3)
-                return 0;
-              Object o3 = dStack.pop();
-              Object o2 = dStack.pop();
-              Object o1 = dStack.pop();
-              dStack.push(o2);
-              dStack.push(o3);
-              dStack.push(o1);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 3)
+                        return 0;
+                    Object o3 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    Object o1 = dStack.pop();
+                    dStack.push(o2);
+                    dStack.push(o3);
+                    dStack.push(o1);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "pick", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                if ((i1 < 0) || (i1 >= dStack.size()))
-                  return 0;
-                else
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  dStack.push(dStack.get((int)i1));
-                  return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        if ((i1 < 0) || (i1 >= dStack.size()))
+                            return 0;
+                        else
+                        {
+                            dStack.push(dStack.get((int) i1));
+                            return 1;
+                        }
+                    }
+                    else
+                        return 0;
                 }
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "depth", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              Long i = (long) dStack.size();
-              dStack.push(i);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    Long i = (long) dStack.size();
+                    dStack.push(i);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "<", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o2 = dStack.pop();
-              Object o1 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                if (i1 < i2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                if (d1 < d2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s1 = (String) o1;
-                String s2 = (String) o2;
-                int result = s1.compareTo(s2);
-                if (result < 0)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o2 = dStack.pop();
+                    Object o1 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        if (i1 < i2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        if (d1 < d2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s1 = (String) o1;
+                        String s2 = (String) o2;
+                        int result = s1.compareTo(s2);
+                        if (result < 0)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "=", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o2 = dStack.pop();
-              Object o1 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                if (i1 == i2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                if (d1 == d2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s1 = (String) o1;
-                String s2 = (String) o2;
-                int result = s1.compareTo(s2);
-                if (result == 0)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o2 = dStack.pop();
+                    Object o1 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        if (i1 == i2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        if (d1 == d2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s1 = (String) o1;
+                        String s2 = (String) o2;
+                        int result = s1.compareTo(s2);
+                        if (result == 0)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       ">", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o2 = dStack.pop();
-              Object o1 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                if (i1 > i2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                if (d1 > d2)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s1 = (String) o1;
-                String s2 = (String) o2;
-                int result = s1.compareTo(s2);
-                if (result > 0)
-                  dStack.push(TRUE);
-                else
-                  dStack.push(FALSE);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o2 = dStack.pop();
+                    Object o1 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        if (i1 > i2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        if (d1 > d2)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s1 = (String) o1;
+                        String s2 = (String) o2;
+                        int result = s1.compareTo(s2);
+                        if (result > 0)
+                            dStack.push(TRUE);
+                        else
+                            dStack.push(FALSE);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "0<", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push((i1 < 0) ? TRUE : FALSE);
-                return 1;
-              }
-              else if (o1 instanceof Double)
-              {
-                double d1 = (Double) o1;
-                dStack.push((d1 < 0) ? TRUE : FALSE);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push((i1 < 0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else if (o1 instanceof Double)
+                    {
+                        double d1 = (Double) o1;
+                        dStack.push((d1 < 0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "0=", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push((i1 == 0) ? TRUE : FALSE);
-                return 1;
-              }
-              else if (o1 instanceof Double)
-              {
-                double d1 = (Double) o1;
-                dStack.push((d1 == 0.0) ? TRUE : FALSE);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push((i1 == 0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else if (o1 instanceof Double)
+                    {
+                        double d1 = (Double) o1;
+                        dStack.push((d1 == 0.0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "0>", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push((i1 > 0) ? TRUE : FALSE);
-                return 1;
-              }
-              else if (o1 instanceof Double)
-              {
-                double d1 = (Double) o1;
-                dStack.push((d1 > 0) ? TRUE : FALSE);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push((i1 > 0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else if (o1 instanceof Double)
+                    {
+                        double d1 = (Double) o1;
+                        dStack.push((d1 > 0) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "not", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push((i1 == FALSE) ? TRUE : FALSE);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push((i1 == FALSE) ? TRUE : FALSE);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "true", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              dStack.push(TRUE);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    dStack.push(TRUE);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "false", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              dStack.push(FALSE);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    dStack.push(FALSE);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "+", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 += i1;
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                d2 += d1;
-                dStack.push(d2);
-              }
-              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-              {
-                  Complex d1 = (Complex) o1;
-                  Complex d2 = (Complex) o2;
-                  dStack.push(d2.add(d1));
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s = (String) o2 + (String) o1;
-                dStack.push(s);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 += i1;
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        d2 += d1;
+                        dStack.push(d2);
+                    }
+                    else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                    {
+                        Complex d1 = (Complex) o1;
+                        Complex d2 = (Complex) o2;
+                        dStack.push(d2.add(d1));
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s = (String) o2 + (String) o1;
+                        dStack.push(s);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "-", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 -= i1;
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-              {
-                  Complex d1 = (Complex) o1;
-                  Complex d2 = (Complex) o2;
-                  dStack.push(d2.subtract(d1));
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                d2 -= d1;
-                dStack.push(d2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 -= i1;
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                    {
+                        Complex d1 = (Complex) o1;
+                        Complex d2 = (Complex) o2;
+                        dStack.push(d2.subtract(d1));
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        d2 -= d1;
+                        dStack.push(d2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "1+", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push(i1 + 1);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push(i1 + 1);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "1-", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push(i1 - 1);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push(i1 - 1);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "2+", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push(i1 + 2);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push(i1 + 2);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "2-", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                dStack.push(i1 - 2);
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        dStack.push(i1 - 2);
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "*", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 *= i1;
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-              {
-                  Complex d1 = (Complex) o1;
-                  Complex d2 = (Complex) o2;
-                  dStack.push(d2.multiply(d1));
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                d2 *= d1;
-                dStack.push(d2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 *= i1;
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                    {
+                        Complex d1 = (Complex) o1;
+                        Complex d2 = (Complex) o2;
+                        dStack.push(d2.multiply(d1));
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        d2 *= d1;
+                        dStack.push(d2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "/", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 /= i1;
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-              {
-                  Complex d1 = (Complex) o1;
-                  Complex d2 = (Complex) o2;
-                  dStack.push(d2.divide(d1));
-              }
-              else if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                d2 /= d1;
-                dStack.push(d2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 /= i1;
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                    {
+                        Complex d1 = (Complex) o1;
+                        Complex d2 = (Complex) o2;
+                        dStack.push(d2.divide(d1));
+                    }
+                    else if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        d2 /= d1;
+                        dStack.push(d2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "mod", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 %= i1;
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 %= i1;
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "max", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 = Math.max(i1, i2);
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s1 = (String) o1;
-                String s2 = (String) o2;
-                s2 = (s1.compareTo(s2) > 0) ? s1 : s2;
-                dStack.push(s2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 = Math.max(i1, i2);
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s1 = (String) o1;
+                        String s2 = (String) o2;
+                        s2 = (s1.compareTo(s2) > 0) ? s1 : s2;
+                        dStack.push(s2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "min", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 = Math.min(i1, i2);
-                dStack.push(i2);
-              }
-              else if ((o1 instanceof String) && (o2 instanceof String))
-              {
-                String s1 = (String) o1;
-                String s2 = (String) o2;
-                s2 = (s1.compareTo(s2) < 0) ? s1 : s2;
-                dStack.push(s2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 = Math.min(i1, i2);
+                        dStack.push(i2);
+                    }
+                    else if ((o1 instanceof String) && (o2 instanceof String))
+                    {
+                        String s1 = (String) o1;
+                        String s2 = (String) o2;
+                        s2 = (s1.compareTo(s2) < 0) ? s1 : s2;
+                        dStack.push(s2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "abs", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                i1 = Math.abs(i1);
-                dStack.push(i1);
-              }
-              else if (o1 instanceof Complex)
-              {
-                  Complex d1 = (Complex) o1;
-                  dStack.push(d1.abs());
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        i1 = Math.abs(i1);
+                        dStack.push(i1);
+                    }
+                    else if (o1 instanceof Complex)
+                    {
+                        Complex d1 = (Complex) o1;
+                        dStack.push(d1.abs());
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
           new PrimitiveWord   // 
                   (
                           "phi", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              if (dStack.empty())
-                                  return 0;
-                              Object o1 = dStack.pop();
-                              if (o1 instanceof Complex)
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
                               {
-                                  Complex d1 = (Complex) o1;
-                                  dStack.push(Math.atan(d1.getImaginary()/d1.getReal()));
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Complex)
+                                  {
+                                      Complex d1 = (Complex) o1;
+                                      dStack.push(Math.atan(d1.getImaginary() / d1.getReal()));
+                                  }
+                                  else
+                                      return 0;
+                                  return 1;
                               }
-                              else
-                                  return 0;
-                              return 1;
                           }
                   ),
 
           new PrimitiveWord   //
                   (
                           "conj", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              if (dStack.empty())
-                                  return 0;
-                              Object o1 = dStack.pop();
-                              if (o1 instanceof Complex)
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
                               {
-                                  Complex d1 = (Complex) o1;
-                                  dStack.push(d1.conjugate());
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Complex)
+                                  {
+                                      Complex d1 = (Complex) o1;
+                                      dStack.push(d1.conjugate());
+                                  }
+                                  else
+                                      return 0;
+                                  return 1;
                               }
-                              else
-                                  return 0;
-                              return 1;
                           }
                   ),
 
           new PrimitiveWord   //
                   (
                           "re", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              if (dStack.empty())
-                                  return 0;
-                              Object o1 = dStack.pop();
-                              if (o1 instanceof Complex)
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
                               {
-                                  Complex d1 = (Complex) o1;
-                                  dStack.push(d1.getReal());
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Complex)
+                                  {
+                                      Complex d1 = (Complex) o1;
+                                      dStack.push(d1.getReal());
+                                  }
+                                  else
+                                      return 0;
+                                  return 1;
                               }
-                              else
-                                  return 0;
-                              return 1;
                           }
                   ),
 
           new PrimitiveWord   //
                   (
                           "im", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              if (dStack.empty())
-                                  return 0;
-                              Object o1 = dStack.pop();
-                              if (o1 instanceof Complex)
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
                               {
-                                  Complex d1 = (Complex) o1;
-                                  dStack.push(d1.getImaginary());
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Complex)
+                                  {
+                                      Complex d1 = (Complex) o1;
+                                      dStack.push(d1.getImaginary());
+                                  }
+                                  else
+                                      return 0;
+                                  return 1;
                               }
-                              else
-                                  return 0;
-                              return 1;
                           }
                   ),
 
     new PrimitiveWord
     (
       "and", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 &= i1;
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 &= i1;
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "or", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 |= i1;
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 |= i1;
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "xor", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i1 = (Long) o1;
-                long i2 = (Long) o2;
-                i2 ^= i1;
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i1 = (Long) o1;
+                        long i2 = (Long) o2;
+                        i2 ^= i1;
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "<<", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i2 = (Long) o2;
-                int i1 = (int)((Long) o1).longValue();
-                i2 = Long.rotateLeft(i2, i1);
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i2 = (Long) o2;
+                        int i1 = (int) ((Long) o1).longValue();
+                        i2 = Long.rotateLeft(i2, i1);
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       ">>", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long))
-              {
-                long i2 = (Long) o2;
-                int i1 = (int)((Long) o1).longValue();
-                i2 = Long.rotateRight(i2, i1);
-                dStack.push(i2);
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        long i2 = (Long) o2;
+                        int i1 = (int) ((Long) o1).longValue();
+                        i2 = Long.rotateRight(i2, i1);
+                        dStack.push(i2);
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
@@ -1213,42 +1385,54 @@ public class JForth
     new PrimitiveWord
     (
       "cr", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              System.out.println();
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    System.out.println();
+                    return 1;
+                }
             }
     ),
 
           new PrimitiveWord
                   (
                           "sp", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              System.out.print(' ');
-                              return 1;
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  System.out.print(' ');
+                                  return 1;
+                              }
                           }
                   ),
 
     new PrimitiveWord
     (
       "spaces", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-              {
-                long i1 = (Long) o1;
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < i1; i++)
-                  sb.append(" ");
-                System.out.print(sb.toString());
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                    {
+                        long i1 = (Long) o1;
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 0; i < i1; i++)
+                            sb.append(" ");
+                        System.out.print(sb.toString());
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
@@ -1346,305 +1530,422 @@ public class JForth
     new PrimitiveWord
     (
       "words", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              System.out.println(dictionary.toString(false));
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    System.out.println(dictionary.toString(false));
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "wordsd", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              System.out.println(dictionary.toString(true));
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    System.out.println(dictionary.toString(true));
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "forget", true,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              String name = getNextToken();
-              if (name == null)
-                return 0;
-              BaseWord bw = null;
-              try
-              {
-                bw = dictionary.search(name);
-              }
-              catch (Exception ignore) {}
-              if (bw != null)
-              {
-                if (!bw.isPrimitive)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  dictionary.truncateList(bw);
+                    String name = JForth.this.getNextToken();
+                    if (name == null)
+                        return 0;
+                    BaseWord bw = null;
+                    try
+                    {
+                        bw = dictionary.search(name);
+                    }
+                    catch (Exception ignore)
+                    {
+                        return 0;
+                    }
+                    if (bw != null)
+                    {
+                        if (!bw.isPrimitive)
+                        {
+                            //dictionary.truncateList(bw);
+                            dictionary.remove (bw);
+                            return 1;
+                        }
+                    }
+                    return 0;
                 }
-                else
-                  return 0;
-              }
-              else
-                return 0;
-              return 1;
             }
     ),
 
     new PrimitiveWord
     (
       "constant", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              String name = getNextToken();
-              if (name == null)
-                return 0;
-              NonPrimitiveWord constant = new NonPrimitiveWord(name);
-              dictionary.add(constant);
-              Object o1 = dStack.pop();
-              if (o1 instanceof String)
-              {
-                String stringConstant = (String) o1;
-                constant.addWord(new StringLiteral(stringConstant));
-              }
-              else if (o1 instanceof Long)
-              {
-                Long numericConstant = (Long) o1;
-                constant.addWord(new LongLiteral(numericConstant));
-              }
-              else if (o1 instanceof Double)
-              {
-                Double floatingPointConstant = (Double) o1;
-                constant.addWord(new DoubleLiteral(floatingPointConstant));
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    String name = JForth.this.getNextToken();
+                    if (name == null)
+                        return 0;
+                    NonPrimitiveWord constant = new NonPrimitiveWord(name);
+                    dictionary.add(constant);
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        String stringConstant = (String) o1;
+                        constant.addWord(new StringLiteral(stringConstant));
+                    }
+                    else if (o1 instanceof Long)
+                    {
+                        Long numericConstant = (Long) o1;
+                        constant.addWord(new LongLiteral(numericConstant));
+                    }
+                    else if (o1 instanceof Double)
+                    {
+                        Double floatingPointConstant = (Double) o1;
+                        constant.addWord(new DoubleLiteral(floatingPointConstant));
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "variable", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              String name = getNextToken();
-              if (name == null)
-                return 0;
-              StorageWord sw = new StorageWord(name, 1, false);
-              dictionary.add(sw);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    String name = JForth.this.getNextToken();
+                    if (name == null)
+                        return 0;
+                    StorageWord sw = new StorageWord(name, 1, false);
+                    dictionary.add(sw);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       ">r", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o = dStack.pop();
-              vStack.push(o);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o = dStack.pop();
+                    vStack.push(o);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "r>", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.pop();
-              dStack.push(o);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.pop();
+                    dStack.push(o);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "r@", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.peek();
-              dStack.push(o);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.peek();
+                    dStack.push(o);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "!", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.pop();
-              if (!(o instanceof StorageWord))
-                return 0;
-              StorageWord sw = (StorageWord) o;
-              int offset = 0;
-              if (!sw.isArray())
-              {
-                if (dStack.empty())
-                  return 0;
-              }
-              else
-              {
-                if (dStack.size() < 2)
-                  return 0;
-                Object off = dStack.pop();
-                if (!(off instanceof Long))
-                  return 0;
-                offset = (int)((Long) off).longValue();
-              }
-              return sw.store(dStack.pop(), offset);
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.pop();
+                    if (!(o instanceof StorageWord))
+                        return 0;
+                    StorageWord sw = (StorageWord) o;
+                    int offset = 0;
+                    if (!sw.isArray())
+                    {
+                        if (dStack.empty())
+                            return 0;
+                    }
+                    else
+                    {
+                        if (dStack.size() < 2)
+                            return 0;
+                        Object off = dStack.pop();
+                        if (!(off instanceof Long))
+                            return 0;
+                        offset = (int) ((Long) off).longValue();
+                    }
+                    return sw.store(dStack.pop(), offset);
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "+!", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.pop();
-              if (!(o instanceof StorageWord))
-                return 0;
-              StorageWord sw = (StorageWord) o;
-              int offset = 0;
-              if (!sw.isArray())
-              {
-                if (dStack.empty())
-                  return 0;
-              }
-              else
-              {
-                if (dStack.size() < 2)
-                  return 0;
-                Object off = dStack.pop();
-                if (!(off instanceof Long))
-                  return 0;
-                offset = (int)((Long) off).longValue();
-              }
-              return sw.plusStore(dStack.pop(), offset);
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.pop();
+                    if (!(o instanceof StorageWord))
+                        return 0;
+                    StorageWord sw = (StorageWord) o;
+                    int offset = 0;
+                    if (!sw.isArray())
+                    {
+                        if (dStack.empty())
+                            return 0;
+                    }
+                    else
+                    {
+                        if (dStack.size() < 2)
+                            return 0;
+                        Object off = dStack.pop();
+                        if (!(off instanceof Long))
+                            return 0;
+                        offset = (int) ((Long) off).longValue();
+                    }
+                    return sw.plusStore(dStack.pop(), offset);
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "@", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (vStack.empty())
-                return 0;
-              Object o = vStack.pop();
-              if (!(o instanceof StorageWord))
-                return 0;
-              StorageWord sw = (StorageWord) o;
-              Object data;
-              if (!sw.isArray())
-              {
-                data = sw.fetch(0);
-                if (data == null)
-                  return 0;
-              }
-              else
-              {
-                if (dStack.empty())
-                  return 0;
-                Object off = dStack.pop();
-                if (!(off instanceof Long))
-                  return 0;
-                int offset = (int)((Long) off).longValue();
-                data = sw.fetch(offset);
-                if (data == null)
-                  return 0;
-              }
-              dStack.push(data);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (vStack.empty())
+                        return 0;
+                    Object o = vStack.pop();
+                    if (!(o instanceof StorageWord))
+                        return 0;
+                    StorageWord sw = (StorageWord) o;
+                    Object data;
+                    if (!sw.isArray())
+                    {
+                        data = sw.fetch(0);
+                        if (data == null)
+                            return 0;
+                    }
+                    else
+                    {
+                        if (dStack.empty())
+                            return 0;
+                        Object off = dStack.pop();
+                        if (!(off instanceof Long))
+                            return 0;
+                        int offset = (int) ((Long) off).longValue();
+                        data = sw.fetch(offset);
+                        if (data == null)
+                            return 0;
+                    }
+                    dStack.push(data);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "array", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o = dStack.pop();
-              if (!(o instanceof Long))
-                return 0;
-              int size = (int)((Long) o).longValue();
-              String name = getNextToken();
-              if (name == null)
-                return 0;
-              StorageWord sw = new StorageWord(name, size, true);
-              dictionary.add(sw);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o = dStack.pop();
+                    if (!(o instanceof Long))
+                        return 0;
+                    int size = (int) ((Long) o).longValue();
+                    String name = JForth.this.getNextToken();
+                    if (name == null)
+                        return 0;
+                    StorageWord sw = new StorageWord(name, size, true);
+                    dictionary.add(sw);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "round", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.round((Double) o1));
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.round((Double) o1));
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
+
+          new PrimitiveWord
+                  (
+                          "time", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (!(o1 instanceof String))
+                                      return 0;
+                                  SimpleDateFormat sdf = new SimpleDateFormat((String) o1);
+                                  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                  dStack.push(System.currentTimeMillis());
+                                  dStack.push(sdf.format(timestamp));
+                                  return 1;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "emit", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Long)
+                                  {
+                                      Long l = (Long) o1;
+                                      System.out.print((char) (long) l);
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
       "toLong", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-                dStack.push(((Double) o1).longValue());
-              else if(o1 instanceof String)
-                dStack.push(Long.parseLong((String)o1));
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                        dStack.push(((Double) o1).longValue());
+                    else if (o1 instanceof String)
+                        dStack.push(Long.parseLong((String) o1));
+                    else if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        dStack.push((long) oc.getReal());
+                        dStack.push((long) oc.getImaginary());
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "toDouble", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Long)
-                dStack.push((double) (Long) o1);
-              else if(o1 instanceof String)
-                dStack.push(Double.parseDouble((String)o1));
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Long)
+                        dStack.push((double) (Long) o1);
+                    else if (o1 instanceof String)
+                        dStack.push(Double.parseDouble((String) o1));
+                    else if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        dStack.push(oc.getReal());
+                        dStack.push(oc.getImaginary());
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
@@ -1672,424 +1973,565 @@ public class JForth
     new PrimitiveWord
     (
       "length", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if(o1 instanceof String)
-              {
-                dStack.push((long) ((String) o1).length());
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        dStack.push((long) ((String) o1).length());
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "subString", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 3)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              Object o3 = dStack.pop();
-              if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof String))
-              {
-                int i1 = (int)((Long)o1).longValue();
-                int i2 = (int)((Long)o2).longValue();
-                dStack.push(((String)o3).substring(i2, i1));
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 3)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    Object o3 = dStack.pop();
+                    if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof String))
+                    {
+                        int i1 = (int) ((Long) o1).longValue();
+                        int i2 = (int) ((Long) o2).longValue();
+                        dStack.push(((String) o3).substring(i2, i1));
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "E", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              dStack.push(Math.E);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    dStack.push(Math.E);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "PI", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              dStack.push(Math.PI);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    dStack.push(Math.PI);
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "sqrt", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.sqrt((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    Complex oc = (Complex)o1;
-                    dStack.push(oc.sqrt());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.sqrt((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        dStack.push(oc.sqrt());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "pow", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                dStack.push(Math.pow(d2, d1));
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        dStack.push(Math.pow(d2, d1));
+                    }
+                    else if ((o1 instanceof Long) && (o2 instanceof Long))
+                    {
+                        Long d1 = (Long) o1;
+                        Long d2 = (Long) o2;
+                        dStack.push((long) Math.pow(d2, d1));
+                    }
+                    else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                    {
+                        Complex d1 = (Complex) o1;
+                        Complex d2 = (Complex) o2;
+                        dStack.push(d2.pow(d1));
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "ln", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.log((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    Complex oc = (Complex)o1;
-                    double re = oc.getReal()*oc.getReal()+oc.getImaginary()*oc.getImaginary();
-                    re = Math.log(re)/2.0;
-                    double im = oc.getImaginary()/oc.getReal();
-                    im = Math.atan(im);
-                    dStack.push(new Complex(re, im));
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.log((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        double re = oc.getReal() * oc.getReal() + oc.getImaginary() * oc.getImaginary();
+                        re = Math.log(re) / 2.0;
+                        double im = oc.getImaginary() / oc.getReal();
+                        im = Math.atan(im);
+                        dStack.push(new Complex(re, im));
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
+
+          new PrimitiveWord
+                  (
+                          "factorial", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Long)
+                                  {
+                                      Long ol = (Long) o1;
+                                      double fact = 1;
+                                      for (long i = 1; i <= ol; i++)
+                                      {
+                                          fact = fact * i;
+                                      }
+                                      dStack.push(fact);
+                                      return 1;
+                                  }
+                                  else
+                                      return 0;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
       "log10", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.log10((Double) o1));
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.log10((Double) o1));
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "exp", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.exp((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    Complex oc = (Complex)o1;
-                    dStack.push(oc.exp());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.exp((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        dStack.push(oc.exp());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "sin", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.sin((Double) o1));
-                return 1;
-              }
-              if (o1 instanceof Complex)
-              {
-                  dStack.push(((Complex)o1).sin());
-                  return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.sin((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).sin());
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "cos", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.cos((Double) o1));
-                return 1;
-              }
-              if (o1 instanceof Complex)
-              {
-                  dStack.push(((Complex)o1).cos());
-                  return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.cos((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).cos());
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "tan", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.tan((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).tan());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.tan((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).tan());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "asin", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.asin((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).asin());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.asin((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).asin());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "acos", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.acos((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).acos());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.acos((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).acos());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "atan", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.atan((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    Complex oc = (Complex)o1;
-                    dStack.push(oc.atan());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.atan((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        Complex oc = (Complex) o1;
+                        dStack.push(oc.atan());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "atan2", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.size() < 2)
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof Double) && (o2 instanceof Double))
-              {
-                double d1 = (Double) o1;
-                double d2 = (Double) o2;
-                dStack.push(Math.atan2(d2, d1));
-              }
-              else
-                return 0;
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.size() < 2)
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof Double) && (o2 instanceof Double))
+                    {
+                        double d1 = (Double) o1;
+                        double d2 = (Double) o2;
+                        dStack.push(Math.atan2(d2, d1));
+                    }
+                    else
+                        return 0;
+                    return 1;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "sinh", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.sinh((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).sinh());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.sinh((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).sinh());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "cosh", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.cosh((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).cosh());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.cosh((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).cosh());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "tanh", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof Double)
-              {
-                dStack.push(Math.tanh((Double) o1));
-                return 1;
-              }
-                if (o1 instanceof Complex)
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                    dStack.push(((Complex)o1).tanh());
-                    return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof Double)
+                    {
+                        dStack.push(Math.tanh((Double) o1));
+                        return 1;
+                    }
+                    if (o1 instanceof Complex)
+                    {
+                        dStack.push(((Complex) o1).tanh());
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "load", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof String)
-              {
-                String fileName = (String) o1;
-                return fileLoad(fileName);
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        String fileName = (String) o1;
+                        return JForth.this.fileLoad(fileName);
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
+
+          new PrimitiveWord
+                  (
+                          "saveState", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  try
+                                  {
+                                      save("state", JForth.this);
+                                  }
+                                  catch (Exception ex)
+                                  {
+                                      return 0;
+                                  }
+                                  return 1;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
@@ -2152,210 +2594,242 @@ public class JForth
     new PrimitiveWord
     (
       "openByteReader", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof String)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  File f = new File((String) o1);
-                  dStack.push(new FileInputStream(f));
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        try
+                        {
+                            File f = new File((String) o1);
+                            dStack.push(new FileInputStream(f));
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-                return 1;
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "readByte", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof FileInputStream)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  dStack.push((long) (((FileInputStream) o1).read()));
-                  return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof FileInputStream)
+                    {
+                        try
+                        {
+                            dStack.push((long) (((FileInputStream) o1).read()));
+                            return 1;
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-              }
-              else
-                return 0;
             }
     ),
 
           new PrimitiveWord
                   (
                           "dir", false,
-                          (dStack, vStack) ->
+                          new ExecuteIF()
                           {
-                              String path;
-                              if (dStack.empty())
-                                path = ".";
-                              else
-                                  path = (String)dStack.pop();
-                              String s = Utilities.dir(path);
-                              dStack.push(s);
-                              return 1;
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  String path;
+                                  if (dStack.empty())
+                                      path = ".";
+                                  else
+                                      path = (String) dStack.pop();
+                                  String s = Utilities.dir(path);
+                                  dStack.push(s);
+                                  return 1;
+                              }
                           }
                   ),
 
     new PrimitiveWord
     (
       "closeByteReader", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof FileInputStream)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  ((FileInputStream) o1).close();
-                  return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof FileInputStream)
+                    {
+                        try
+                        {
+                            ((FileInputStream) o1).close();
+                            return 1;
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "openReader", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof String)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  File f = new File((String) o1);
-                  dStack.push(new BufferedReader(new FileReader(f)));
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        try
+                        {
+                            File f = new File((String) o1);
+                            dStack.push(new BufferedReader(new FileReader(f)));
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-                return 1;
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "readLine", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof BufferedReader)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  String s = ((BufferedReader) o1).readLine();
-                  if (s != null)
-                  {
-                    dStack.push(s);
-                    dStack.push("");
-                  }
-                  else
-                  {
-                    dStack.push("EOF");
-                  }
-                  return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof BufferedReader)
+                    {
+                        try
+                        {
+                            String s = ((BufferedReader) o1).readLine();
+                            if (s != null)
+                            {
+                                dStack.push(s);
+                                dStack.push("");
+                            }
+                            else
+                            {
+                                dStack.push("EOF");
+                            }
+                            return 1;
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "closeReader", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof BufferedReader)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  ((BufferedReader) o1).close();
-                  return 1;
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof BufferedReader)
+                    {
+                        try
+                        {
+                            ((BufferedReader) o1).close();
+                            return 1;
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-              }
-              else
-                return 0;
             }
     ),
 
     new PrimitiveWord
     (
       "openWriter", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof String)
-              {
-                try
+                @Override
+                public int execute (OStack dStack, OStack vStack)
                 {
-                  File f = new File((String) o1);
-                  dStack.push(new PrintStream(f));
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof String)
+                    {
+                        try
+                        {
+                            File f = new File((String) o1);
+                            dStack.push(new PrintStream(f));
+                        }
+                        catch (IOException ioe)
+                        {
+                            ioe.printStackTrace();
+                            return 0;
+                        }
+                        return 1;
+                    }
+                    else
+                        return 0;
                 }
-                catch(IOException ioe)
-                {
-                  ioe.printStackTrace();
-                  return 0;
-                }
-                return 1;
-              }
-              else
-                return 0;
             }
     ),
 
@@ -2391,65 +2865,81 @@ public class JForth
     new PrimitiveWord
     (
       "writeEol", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof PrintStream)
-              {
-                ((PrintStream) o1).println();
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof PrintStream)
+                    {
+                        ((PrintStream) o1).println();
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "writeByte", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              Object o2 = dStack.pop();
-              if ((o1 instanceof PrintStream) && (o2 instanceof Long))
-              {
-                ((PrintStream) o1).write((byte)(((Long) o2).longValue()));
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    Object o2 = dStack.pop();
+                    if ((o1 instanceof PrintStream) && (o2 instanceof Long))
+                    {
+                        ((PrintStream) o1).write((byte) (((Long) o2).longValue()));
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "closeWriter", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              if (dStack.empty())
-                return 0;
-              Object o1 = dStack.pop();
-              if (o1 instanceof PrintStream)
-              {
-                ((PrintStream) o1).close();
-                return 1;
-              }
-              else
-                return 0;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    if (dStack.empty())
+                        return 0;
+                    Object o1 = dStack.pop();
+                    if (o1 instanceof PrintStream)
+                    {
+                        ((PrintStream) o1).close();
+                        return 1;
+                    }
+                    else
+                        return 0;
+                }
             }
     ),
 
     new PrimitiveWord
     (
       "bye", false,
-            (dStack, vStack) ->
+            new ExecuteIF()
             {
-              System.exit(0);
-              return 1;
+                @Override
+                public int execute (OStack dStack, OStack vStack)
+                {
+                    System.exit(0);
+                    return 1;
+                }
             }
     ),
   };
@@ -2685,9 +3175,39 @@ public class JForth
     }
   }
 
-  public static void main(String [] args)
+  public static void main(String [] args) throws IOException, ClassNotFoundException
   {
-    JForth forth = new JForth();
-    forth.outerInterpreter();
+      JForth forth;
+      try
+      {
+          forth = load("state");
+          System.out.println("Used ...");
+      }
+      catch(Exception ex)
+      {
+          forth = new JForth();
+          System.out.println("Fresh ...");
+      }
+      forth.outerInterpreter();
   }
+
+    private static void save (String name, JForth obj) throws IOException
+    {
+        if (name.isEmpty())
+            name = "default";
+        String j1 = JsonWriter.objectToJson(obj);
+        PrintWriter p = new PrintWriter(name+".json");
+        p.println (JsonWriter.formatJson(j1));
+        p.close();
+    }
+
+    private static JForth load (String name) throws IOException, ClassNotFoundException
+    {
+        if (name.isEmpty())
+            name = "default";
+        byte[] b = Files.readAllBytes(Paths.get(name+".json"));
+        String s = new String(b);
+        JForth m = (JForth) JsonReader.jsonToJava(s);
+        return m;
+    }
 }

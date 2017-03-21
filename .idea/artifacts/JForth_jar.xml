@@ -4,6 +4,7 @@
     <root id="archive" name="JForth.jar">
       <element id="module-output" name="JForth" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6/commons-math3-3.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/cedarsoftware/json-io/4.9.10/json-io-4.9.10.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
