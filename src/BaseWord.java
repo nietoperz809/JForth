@@ -1,4 +1,6 @@
-public abstract class BaseWord implements ExecuteIF
+
+
+public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>
 {
   public BaseWord(String name, boolean immediate, boolean isPrimitive)
   {
@@ -28,4 +30,10 @@ public abstract class BaseWord implements ExecuteIF
   public final String name;
   public boolean immediate;
   public final boolean isPrimitive;
+
+    @Override
+    public int compareTo (BaseWord o)
+    {
+        return o.name.compareTo(this.name);
+    }
 }

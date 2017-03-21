@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -13,10 +14,12 @@ public class WordsList
     return wordsList.size() == 0;
   }
 
-  public void clear()
-  {
-    wordsList.clear();
-  }
+// --Commented out by Inspection START (3/21/2017 2:16 AM):
+//  public void clear()
+//  {
+//    wordsList.clear();
+//  }
+// --Commented out by Inspection STOP (3/21/2017 2:16 AM)
 
   public void add(BaseWord bw)
   { 
@@ -29,6 +32,7 @@ public class WordsList
     {
       return "WordsList is empty\n";
     }
+    Collections.sort(wordsList, Collections.reverseOrder());
     StringBuilder sb = new StringBuilder();
     sb.append("Words:\n");
     Iterator<BaseWord> i1 = wordsList.listIterator(0);

@@ -1,3 +1,5 @@
+import org.apache.commons.math3.complex.Complex;
+
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
@@ -686,6 +688,12 @@ public class JForth
                 d2 += d1;
                 dStack.push(d2);
               }
+              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+              {
+                  Complex d1 = (Complex) o1;
+                  Complex d2 = (Complex) o2;
+                  dStack.push(d2.add(d1));
+              }
               else if ((o1 instanceof String) && (o2 instanceof String))
               {
                 String s = (String) o2 + (String) o1;
@@ -712,6 +720,12 @@ public class JForth
                 long i2 = (Long) o2;
                 i2 -= i1;
                 dStack.push(i2);
+              }
+              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+              {
+                  Complex d1 = (Complex) o1;
+                  Complex d2 = (Complex) o2;
+                  dStack.push(d2.subtract(d1));
               }
               else if ((o1 instanceof Double) && (o2 instanceof Double))
               {
@@ -818,6 +832,12 @@ public class JForth
                 i2 *= i1;
                 dStack.push(i2);
               }
+              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+              {
+                  Complex d1 = (Complex) o1;
+                  Complex d2 = (Complex) o2;
+                  dStack.push(d2.multiply(d1));
+              }
               else if ((o1 instanceof Double) && (o2 instanceof Double))
               {
                 double d1 = (Double) o1;
@@ -846,6 +866,12 @@ public class JForth
                 long i2 = (Long) o2;
                 i2 /= i1;
                 dStack.push(i2);
+              }
+              else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+              {
+                  Complex d1 = (Complex) o1;
+                  Complex d2 = (Complex) o2;
+                  dStack.push(d2.divide(d1));
               }
               else if ((o1 instanceof Double) && (o2 instanceof Double))
               {
@@ -954,11 +980,35 @@ public class JForth
                 i1 = Math.abs(i1);
                 dStack.push(i1);
               }
+              else if (o1 instanceof Complex)
+              {
+                  Complex d1 = (Complex) o1;
+                  dStack.push(d1.abs());
+              }
               else
                 return 0;
               return 1;
             }
     ),
+
+          new PrimitiveWord   // 
+                  (
+                          "phi", false,
+                          (dStack, vStack) ->
+                          {
+                              if (dStack.empty())
+                                  return 0;
+                              Object o1 = dStack.pop();
+                              if (o1 instanceof Complex)
+                              {
+                                  Complex d1 = (Complex) o1;
+                                  dStack.push(d1.getArgument());
+                              }
+                              else
+                                  return 0;
+                              return 1;
+                          }
+                  ),
 
     new PrimitiveWord
     (
@@ -1085,6 +1135,8 @@ public class JForth
             outstr = Long.toString((Long) o, base).toUpperCase();
           else if (o instanceof Double)
             outstr = Double.toString((Double) o);
+          else if (o instanceof Complex)
+            outstr = Utilities.formatComplex((Complex)o);
           else if (o instanceof String)
             outstr = (String) o;
           else if (o instanceof BaseWord)
@@ -2348,7 +2400,7 @@ public class JForth
           {
             if (bw.execute(dStack, vStack) == 0)
             {
-              System.out.println(word + " ?  word execution or stack error");
+              System.out.print(word + " ?  word execution or stack error");
               return false;
             }
           }
@@ -2368,8 +2420,16 @@ public class JForth
               }
               else
               {
-                System.out.println(word + " ?");
-                return false;
+                  Complex co = Utilities.parseComplex(word);
+                  if (co != null)
+                  {
+                    dStack.push (co);
+                  }
+                  else
+                  {
+                      System.out.println(word + " ?");
+                      return false;
+                  }
               }
             }
           }
