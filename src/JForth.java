@@ -2643,11 +2643,9 @@ public class JForth implements Serializable
                         catch (IOException ioe)
                         {
                             ioe.printStackTrace();
-                            return 0;
                         }
                     }
-                    else
-                        return 0;
+                    return 0;
                 }
             }
     ),
@@ -2671,6 +2669,29 @@ public class JForth implements Serializable
                                   }
                                   String s = Utilities.dir(path);
                                   dStack.push(s);
+                                  return 1;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "key", true,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  DataInputStream di = new DataInputStream(System.in);
+                                  try
+                                  {
+                                      byte b = di.readByte();
+                                      dStack.push((long)b);
+                                  }
+                                  catch (IOException e)
+                                  {
+                                      return 0;
+                                  }
                                   return 1;
                               }
                           }

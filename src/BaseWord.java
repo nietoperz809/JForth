@@ -1,7 +1,9 @@
+import java.io.Serializable;
 
-
-public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>
+public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Serializable
 {
+  private static final long serialVersionUID = 7526471155622776148L;
+
   public BaseWord(String name, boolean immediate, boolean isPrimitive)
   {
     this.name = name;

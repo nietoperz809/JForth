@@ -1,4 +1,3 @@
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -22,7 +21,8 @@ public class WordsList
 // --Commented out by Inspection STOP (3/21/2017 2:16 AM)
 
   public void add(BaseWord bw)
-  { 
+  {
+    //System.out.println(bw.name);
     wordsList.addFirst(bw);
   }
 
@@ -32,7 +32,7 @@ public class WordsList
     {
       return "WordsList is empty\n";
     }
-    Collections.sort(wordsList, Collections.reverseOrder());
+//    Collections.sort(wordsList, Collections.reverseOrder());
     StringBuilder sb = new StringBuilder();
     sb.append("Words:\n");
     Iterator<BaseWord> i1 = wordsList.listIterator(0);
