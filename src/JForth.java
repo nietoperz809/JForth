@@ -2682,17 +2682,18 @@ public class JForth implements Serializable
                               @Override
                               public int execute (OStack dStack, OStack vStack)
                               {
-                                  DataInputStream di = new DataInputStream(System.in);
                                   try
                                   {
-                                      byte b = di.readByte();
-                                      dStack.push((long)b);
+                                      int c = RawConsoleInput.read (true);
+                                      RawConsoleInput.resetConsoleMode();
+                                      dStack.push((long)c);
+                                      return 1;
                                   }
-                                  catch (IOException e)
+                                  catch (Exception e)
                                   {
+                                      e.printStackTrace();
                                       return 0;
                                   }
-                                  return 1;
                               }
                           }
                   ),

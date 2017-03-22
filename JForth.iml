@@ -13,5 +13,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.apache.commons:commons-math3:3.6" level="project" />
     <orderEntry type="library" name="com.cedarsoftware:json-io:4.9.10" level="project" />
+    <orderEntry type="library" name="net.java.dev.jna:jna:4.4.0" level="project" />
   </component>
 </module>
