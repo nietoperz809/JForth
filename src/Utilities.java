@@ -1,7 +1,7 @@
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 
-import java.io.File;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -10,8 +10,8 @@ import java.util.Comparator;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "71";
-    public static final String BUILD_DATE = "03/23/2017 11:11:10 AM";
+    public static final String BUILD_NUMBER = "94";
+    public static final String BUILD_DATE = "03/23/2017 04:41:08 PM";
 
     static String formatComplex (Complex c)
     {
@@ -93,4 +93,21 @@ public class Utilities
         return sb.toString();
     }
 
+    public static Object deepCopy( Object o )
+    {
+        try
+        {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            new ObjectOutputStream(baos).writeObject(o);
+
+            ByteArrayInputStream bais =
+                    new ByteArrayInputStream(baos.toByteArray());
+
+            return new ObjectInputStream(bais).readObject();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 }

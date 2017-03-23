@@ -9,8 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class JForth implements Serializable
 {
@@ -361,7 +360,15 @@ public class JForth implements Serializable
                     if (dStack.empty())
                         return 0;
                     Object o = dStack.peek();
-                    dStack.push(o);
+                    if (o instanceof LongSequence)
+                    {
+                        LongSequence s2 = new LongSequence((LongSequence)o);
+                        dStack.push(s2);
+                    }
+                    else
+                    {
+                        dStack.push(o);
+                    }
                     return 1;
                 }
             }
@@ -806,6 +813,11 @@ public class JForth implements Serializable
                     else if ((o1 instanceof String) && (o2 instanceof String))
                     {
                         String s = (String) o2 + (String) o1;
+                        dStack.push(s);
+                    }
+                    else if ((o1 instanceof LongSequence) && (o2 instanceof LongSequence))
+                    {
+                        LongSequence s = new LongSequence ((LongSequence)o2, (LongSequence)o1);
                         dStack.push(s);
                     }
                     else
@@ -2147,6 +2159,32 @@ public class JForth implements Serializable
                           }
                   ),
 
+          new PrimitiveWord
+                  (
+                          "toList", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Long)
+                                  {
+                                      dStack.push (new LongSequence ((Long)o1));
+                                      return 1;
+                                  }
+                                  else if (o1 instanceof Double)
+                                  {
+                                      dStack.push (new LongSequence (((Double)o1).longValue()));
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
+
     new PrimitiveWord
     (
       "toString", false,
@@ -2165,6 +2203,8 @@ public class JForth implements Serializable
               dStack.push(Utilities.formatFraction((Fraction)o1));
           else if (o1 instanceof Complex)
               dStack.push(Utilities.formatComplex((Complex)o1));
+          else if (o1 instanceof LongSequence)
+              dStack.push (((LongSequence)o1).toString());
           else
             return 0;
           return 1;
@@ -3247,6 +3287,92 @@ public class JForth implements Serializable
                 }
             }
     ),
+          new PrimitiveWord
+                  (
+                          "sort", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o = dStack.pop();
+                                  if (o instanceof LongSequence)
+                                  {
+                                      dStack.push(((LongSequence)o).sort());
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "rev", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o = dStack.pop();
+                                  if (o instanceof LongSequence)
+                                  {
+                                      LongSequence l = (LongSequence)o;
+                                      dStack.push(l.reverse());
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "shuffle", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o = dStack.pop();
+                                  if (o instanceof LongSequence)
+                                  {
+                                      LongSequence l = (LongSequence)o;
+                                      dStack.push(l.shuffle());
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "lpick", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (!(o1 instanceof Long))
+                                      return 0;
+                                  Object o2 = dStack.pop();
+                                  if (!(o2 instanceof LongSequence))
+                                      return 0;
+                                  dStack.push(((LongSequence)o2).pick(((Long)o1).intValue()));
+                                  return 1;
+                              }
+                          }
+                  ),
   };
 
   private String getNextToken()
@@ -3267,34 +3393,26 @@ public class JForth implements Serializable
 
   private Long parseLong(String word)
   {
-    boolean isNumber = false;
-    long number = 0;
     try
     {
-      number = Long.parseLong(word, base);
-      isNumber = true;
+      return  Long.parseLong(word, base);
     }
-    catch(NumberFormatException ignored) {}
-    if (isNumber)
-      return number;
-    else
-      return null;
+    catch(Exception ignored)
+    {
+        return null;
+    }
   }
 
   private Double parseDouble(String word)
   {
-    boolean isDouble = false;
-    double number = 0.0;
     try
     {
-      number = Double.parseDouble(word);
-      isDouble = true;
+      return Double.parseDouble(word);
     }
-    catch(NumberFormatException ignored) {}
-    if (isDouble)
-      return number;
-    else
-      return null;
+    catch(Exception ignored)
+    {
+        return null;
+    }
   }
 
   private JForth (PrintStream out)
@@ -3317,7 +3435,7 @@ public class JForth implements Serializable
       StringReader sr = new StringReader(text);
       st = new StreamTokenizer(sr);
       st.resetSyntax();
-      st.wordChars('!', 'z');
+      st.wordChars('!', '~');
       st.quoteChar('"');
       st.whitespaceChars('\u0000', '\u0020');
       int ttype = st.nextToken();
@@ -3371,8 +3489,16 @@ public class JForth implements Serializable
                       }
                       else
                       {
-                          _out.print(word + " ?");
-                          return false;
+                          LongSequence lo = LongSequence.parseSequence(word);
+                          if (lo != null)
+                          {
+                            dStack.push(lo);
+                          }
+                          else
+                          {
+                              _out.print(word + " ?");
+                              return false;
+                          }
                       }
                   }
               }
@@ -3534,6 +3660,8 @@ public class JForth implements Serializable
         String outstr;
         if (o instanceof Long)
             outstr = Long.toString((Long) o, base).toUpperCase();
+        else if (o instanceof LongSequence)
+            outstr = ((LongSequence)o).toString();
         else if (o instanceof Double)
             outstr = Double.toString((Double) o);
         else if (o instanceof Complex)
