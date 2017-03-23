@@ -1,6 +1,7 @@
 import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.fraction.Fraction;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -785,6 +786,12 @@ public class JForth implements Serializable
                         Complex d2 = (Complex) o2;
                         dStack.push(d2.add(d1));
                     }
+                    else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
+                    {
+                        Fraction d1 = (Fraction) o1;
+                        Fraction d2 = (Fraction) o2;
+                        dStack.push(d2.add(d1));
+                    }
                     else if ((o1 instanceof String) && (o2 instanceof String))
                     {
                         String s = (String) o2 + (String) o1;
@@ -820,6 +827,12 @@ public class JForth implements Serializable
                     {
                         Complex d1 = (Complex) o1;
                         Complex d2 = (Complex) o2;
+                        dStack.push(d2.subtract(d1));
+                    }
+                    else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
+                    {
+                        Fraction d1 = (Fraction) o1;
+                        Fraction d2 = (Fraction) o2;
                         dStack.push(d2.subtract(d1));
                     }
                     else if ((o1 instanceof Double) && (o2 instanceof Double))
@@ -953,6 +966,12 @@ public class JForth implements Serializable
                         Complex d2 = (Complex) o2;
                         dStack.push(d2.multiply(d1));
                     }
+                    else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
+                    {
+                        Fraction d1 = (Fraction) o1;
+                        Fraction d2 = (Fraction) o2;
+                        dStack.push(d2.multiply(d1));
+                    }
                     else if ((o1 instanceof Double) && (o2 instanceof Double))
                     {
                         double d1 = (Double) o1;
@@ -990,6 +1009,12 @@ public class JForth implements Serializable
                     {
                         Complex d1 = (Complex) o1;
                         Complex d2 = (Complex) o2;
+                        dStack.push(d2.divide(d1));
+                    }
+                    else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
+                    {
+                        Fraction d1 = (Fraction) o1;
+                        Fraction d2 = (Fraction) o2;
                         dStack.push(d2.divide(d1));
                     }
                     else if ((o1 instanceof Double) && (o2 instanceof Double))
@@ -1120,6 +1145,11 @@ public class JForth implements Serializable
                         Complex d1 = (Complex) o1;
                         dStack.push(d1.abs());
                     }
+                    else if (o1 instanceof Fraction)
+                    {
+                        Fraction d1 = (Fraction) o1;
+                        dStack.push(d1.abs());
+                    }
                     else
                         return 0;
                     return 1;
@@ -1165,6 +1195,11 @@ public class JForth implements Serializable
                                   {
                                       Complex d1 = (Complex) o1;
                                       dStack.push(d1.conjugate());
+                                  }
+                                  if (o1 instanceof Fraction)
+                                  {
+                                      Fraction d1 = (Fraction) o1;
+                                      dStack.push(d1.reciprocal());
                                   }
                                   else
                                       return 0;
@@ -1366,6 +1401,8 @@ public class JForth implements Serializable
             outstr = Double.toString((Double) o);
           else if (o instanceof Complex)
             outstr = Utilities.formatComplex((Complex)o);
+          else if (o instanceof Fraction)
+            outstr = Utilities.formatFraction((Fraction)o);
           else if (o instanceof String)
             outstr = (String) o;
           else if (o instanceof BaseWord)
@@ -1474,6 +1511,19 @@ public class JForth implements Serializable
         }
       }
     ),
+
+          new PrimitiveWord
+                  (
+                          "octal", false,
+                          new ExecuteIF()
+                          {
+                              public int execute(OStack dStack, OStack vStack)
+                              {
+                                  base = 8;
+                                  return 1;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
@@ -1873,6 +1923,32 @@ public class JForth implements Serializable
 
           new PrimitiveWord
                   (
+                          "sleep", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (!(o1 instanceof Long))
+                                      return 0;
+                                  try
+                                  {
+                                      Thread.sleep((Long)o1);
+                                  }
+                                  catch (InterruptedException e)
+                                  {
+                                      return 0;
+                                  }
+                                  return 1;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
                           "emit", false,
                           new ExecuteIF()
                           {
@@ -1914,6 +1990,11 @@ public class JForth implements Serializable
                         dStack.push((long) oc.getReal());
                         dStack.push((long) oc.getImaginary());
                     }
+                    else if (o1 instanceof Fraction)
+                    {
+                        Fraction oc = (Fraction) o1;
+                        dStack.push ((long) oc.getNumerator() / (long) oc.getDenominator());
+                    }
                     else
                         return 0;
                     return 1;
@@ -1942,6 +2023,11 @@ public class JForth implements Serializable
                         dStack.push(oc.getReal());
                         dStack.push(oc.getImaginary());
                     }
+                    else if (o1 instanceof Fraction)
+                    {
+                        Fraction oc = (Fraction) o1;
+                        dStack.push((double)oc.getNumerator()/(double)oc.getDenominator());
+                    }
                     else
                         return 0;
                     return 1;
@@ -1963,6 +2049,10 @@ public class JForth implements Serializable
             dStack.push(Long.toString((Long) o1, base).toUpperCase());
           else if (o1 instanceof Double)
             dStack.push(Double.toString((Double) o1));
+          else if (o1 instanceof Fraction)
+              dStack.push(Utilities.formatFraction((Fraction)o1));
+          else if (o1 instanceof Complex)
+              dStack.push(Utilities.formatComplex((Complex)o1));
           else
             return 0;
           return 1;
@@ -2676,6 +2766,24 @@ public class JForth implements Serializable
 
           new PrimitiveWord
                   (
+                          "unlink", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                    return 0;
+                                  Object o = dStack.pop();
+                                  if (!(o instanceof String))
+                                      return 0;
+                                  return Utilities.del((String)o) ? 1:0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
                           "key", true,
                           new ExecuteIF()
                           {
@@ -2687,6 +2795,63 @@ public class JForth implements Serializable
                                       int c = RawConsoleInput.read (true);
                                       RawConsoleInput.resetConsoleMode();
                                       dStack.push((long)c);
+                                      return 1;
+                                  }
+                                  catch (Exception e)
+                                  {
+                                      e.printStackTrace();
+                                      return 0;
+                                  }
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "accept", true,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  long l;
+                                  if (dStack.empty())
+                                  {
+                                    l = -1;
+                                  }
+                                  else
+                                  {
+                                      Object o = dStack.pop();
+                                      if (!(o instanceof Long))
+                                          return 0;
+                                      l = (Long)o;
+                                      if (l < 0)
+                                          return 0;
+                                  }
+                                  String s = "";
+                                  try
+                                  {
+                                      if (l == -1)
+                                      {
+                                          while (true)
+                                          {
+                                              char c = (char) RawConsoleInput.read(true);
+                                              if (c == '\r')
+                                                  break;
+                                              s += c;
+                                              System.out.print('-');
+                                          }
+                                      }
+                                      else
+                                      {
+                                          while (l-- != 0)
+                                          {
+                                              s += (char) RawConsoleInput.read(true);
+                                              System.out.print('-');
+                                          }
+                                      }
+                                      RawConsoleInput.resetConsoleMode();
+                                      dStack.push(s);
                                       return 1;
                                   }
                                   catch (Exception e)
@@ -3084,8 +3249,16 @@ public class JForth implements Serializable
                   }
                   else
                   {
-                      System.out.println(word + " ?");
-                      return false;
+                      Fraction fr = Utilities.parseFraction(word);
+                      if (fr != null)
+                      {
+                          dStack.push(fr);
+                      }
+                      else
+                      {
+                          System.out.println(word + " ?");
+                          return false;
+                      }
                   }
               }
             }

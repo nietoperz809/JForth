@@ -1,4 +1,5 @@
 import org.apache.commons.math3.complex.Complex;
+import org.apache.commons.math3.fraction.Fraction;
 
 import java.io.File;
 import java.util.Arrays;
@@ -9,8 +10,8 @@ import java.util.Comparator;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "37";
-    public static final String BUILD_DATE = "03/22/2017 08:39:53 AM";
+    public static final String BUILD_NUMBER = "50";
+    public static final String BUILD_DATE = "03/23/2017 02:55:49 AM";
 
     static String formatComplex (Complex c)
     {
@@ -40,6 +41,25 @@ public class Utilities
         if (in.substring(1).contains("-"))
             parts[1] = "-"+parts[1];
         return new Complex (Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+    }
+
+    static Fraction parseFraction (String in)
+    {
+        String[] parts = in.split("/");
+        if (parts.length != 2)
+            return null;
+        return new Fraction (Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+    }
+
+    static String formatFraction (Fraction f)
+    {
+        return f.getNumerator()+"/"+f.getDenominator();
+    }
+
+    static boolean del (String path)
+    {
+        File f = new File(path);
+        return f.delete();
     }
 
     static String dir (String path)

@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -32,7 +33,7 @@ public class WordsList
     {
       return "WordsList is empty\n";
     }
-//    Collections.sort(wordsList, Collections.reverseOrder());
+    Collections.sort(wordsList, Collections.reverseOrder());
     StringBuilder sb = new StringBuilder();
     sb.append("Words:\n");
     Iterator<BaseWord> i1 = wordsList.listIterator(0);
