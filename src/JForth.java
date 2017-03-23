@@ -2,6 +2,7 @@ import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.fusesource.jansi.AnsiConsole;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,6 +16,12 @@ public class JForth implements Serializable
 {
     private static final long serialVersionUID = 7526471155622776147L;
 
+    private static final String ANSI_CLS = "\u001b[2J";
+    private static final String ANSI_BOLD = "\u001b[1m";
+    private static final String ANSI_NORMAL = "\u001b[0m";
+    private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
+    private static final String ANSI_ERROR = "\u001b[93;41m";
+
   private static final String PROMPT = "\n> ";
   private static final String OK = " OK";
   static final Long TRUE  = 1L;
@@ -24,6 +31,9 @@ public class JForth implements Serializable
   private final OStack dStack = new OStack();
   private final OStack vStack = new OStack();
   private final WordsList dictionary = new WordsList();
+
+  private transient PrintStream _out; // output channel
+
   private boolean compiling;
   private int base;
   private StreamTokenizer st = null;
@@ -1057,6 +1067,33 @@ public class JForth implements Serializable
             }
     ),
 
+          new PrimitiveWord
+                  (
+                          "/mod", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.size() < 2)
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  Object o2 = dStack.pop();
+                                  if ((o1 instanceof Long) && (o2 instanceof Long))
+                                  {
+                                      long i1 = (Long) o1;
+                                      long i2 = (Long) o2;
+                                      long i3 = i1 % i2;
+                                      long i4 = i1 / i2;
+                                      dStack.push(i3);
+                                      dStack.push(i4);
+                                    return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
+
     new PrimitiveWord
     (
       "max", false,
@@ -1393,31 +1430,31 @@ public class JForth implements Serializable
         {
           if (dStack.empty())
             return 0;
-          String outstr = "";
           Object o = dStack.pop();
-          if (o instanceof Long)
-            outstr = Long.toString((Long) o, base).toUpperCase();
-          else if (o instanceof Double)
-            outstr = Double.toString((Double) o);
-          else if (o instanceof Complex)
-            outstr = Utilities.formatComplex((Complex)o);
-          else if (o instanceof Fraction)
-            outstr = Utilities.formatFraction((Fraction)o);
-          else if (o instanceof String)
-            outstr = (String) o;
-          else if (o instanceof BaseWord)
-            outstr = "BaseWord address on stack";
-          else if (o instanceof FileInputStream)
-            outstr = "FileInputStream address on stack";
-          else if (o instanceof BufferedReader)
-            outstr = "BufferedReader address on stack";
-          else if (o instanceof PrintStream)
-            outstr = "PrintStream address on stack";
-          System.out.print(outstr);
+          String outstr = JForth.stackElementToString(o, base);
+          if (outstr == null)
+              return 0;
+          _out.print(outstr);
           return 1;
         }
       }
     ),
+
+          new PrimitiveWord
+                  (
+                          ".s", false,
+                          new ExecuteIF()
+                          {
+                              public int execute(OStack dStack, OStack vStack)
+                              {
+                                  for (Object o : dStack)
+                                  {
+                                      _out.print(JForth.stackElementToString(o, base)+" ");
+                                  }
+                                  return 1;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
@@ -1427,7 +1464,7 @@ public class JForth implements Serializable
                 @Override
                 public int execute (OStack dStack, OStack vStack)
                 {
-                    System.out.println();
+                    _out.println();
                     return 1;
                 }
             }
@@ -1441,7 +1478,7 @@ public class JForth implements Serializable
                               @Override
                               public int execute (OStack dStack, OStack vStack)
                               {
-                                  System.out.print(' ');
+                                  _out.print(' ');
                                   return 1;
                               }
                           }
@@ -1464,7 +1501,7 @@ public class JForth implements Serializable
                         StringBuilder sb = new StringBuilder();
                         for (int i = 0; i < i1; i++)
                             sb.append(" ");
-                        System.out.print(sb.toString());
+                        _out.print(sb.toString());
                         return 1;
                     }
                     else
@@ -1511,19 +1548,6 @@ public class JForth implements Serializable
         }
       }
     ),
-
-          new PrimitiveWord
-                  (
-                          "octal", false,
-                          new ExecuteIF()
-                          {
-                              public int execute(OStack dStack, OStack vStack)
-                              {
-                                  base = 8;
-                                  return 1;
-                              }
-                          }
-                  ),
 
     new PrimitiveWord
     (
@@ -1585,7 +1609,7 @@ public class JForth implements Serializable
                 @Override
                 public int execute (OStack dStack, OStack vStack)
                 {
-                    System.out.println(dictionary.toString(false));
+                    _out.print(dictionary.toString(false));
                     return 1;
                 }
             }
@@ -1599,7 +1623,7 @@ public class JForth implements Serializable
                 @Override
                 public int execute (OStack dStack, OStack vStack)
                 {
-                    System.out.println(dictionary.toString(true));
+                    _out.println(dictionary.toString(true));
                     return 1;
                 }
             }
@@ -1961,10 +1985,56 @@ public class JForth implements Serializable
                                   if (o1 instanceof Long)
                                   {
                                       Long l = (Long) o1;
-                                      System.out.print((char) (long) l);
+                                      _out.print((char) (long) l);
                                       return 1;
                                   }
                                   return 0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "fraction", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  Object o1 = dStack.pop();
+                                  Object o2 = dStack.pop();
+                                  Fraction f;
+                                  if (o1 instanceof Double && o2 instanceof Double)
+                                    f = new Fraction (((Double) o1).intValue(), ((Double) o2).intValue());
+                                  else if (o1 instanceof Long && o2 instanceof Long)
+                                    f = new Fraction (((Long) o1).intValue(), ((Long) o2).intValue());
+                                  else
+                                    return 0;
+                                  dStack.push(f);
+                                  return 1;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "complex", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  Object o1 = dStack.pop();
+                                  Object o2 = dStack.pop();
+                                  Complex f;
+                                  if (o1 instanceof Double && o2 instanceof Double)
+                                      f = new Complex ((Double) o1, (Double) o2);
+                                  else if (o1 instanceof Long && o2 instanceof Long)
+                                      f = new Complex (((Long) o1).doubleValue(), ((Long) o2).doubleValue());
+                                  else
+                                      return 0;
+                                  dStack.push(f);
+                                  return 1;
                               }
                           }
                   ),
@@ -2839,7 +2909,7 @@ public class JForth implements Serializable
                                               if (c == '\r')
                                                   break;
                                               s += c;
-                                              System.out.print('-');
+                                              _out.print('-');
                                           }
                                       }
                                       else
@@ -2847,7 +2917,7 @@ public class JForth implements Serializable
                                           while (l-- != 0)
                                           {
                                               s += (char) RawConsoleInput.read(true);
-                                              System.out.print('-');
+                                              _out.print('-');
                                           }
                                       }
                                       RawConsoleInput.resetConsoleMode();
@@ -3183,16 +3253,17 @@ public class JForth implements Serializable
       return null;
   }
 
-  private JForth ()
+  private JForth (PrintStream out)
   {
-    for (BaseWord forthWord : forthWords)
-    {
-      dictionary.add(forthWord);
-    }
-    compiling = false;
-    base = 10;
-    random = new Random();
-    history = new History(HISTORY_LENGTH);
+      for (BaseWord forthWord : forthWords)
+      {
+          dictionary.add(forthWord);
+      }
+      _out = out;
+      compiling = false;
+      base = 10;
+      random = new Random();
+      history = new History(HISTORY_LENGTH);
   }
 
   private boolean interpretLine (String text)
@@ -3222,7 +3293,7 @@ public class JForth implements Serializable
           {
             if (bw.execute(dStack, vStack) == 0)
             {
-              System.out.print(word + " ?  word execution or stack error");
+              _out.print(word + " ?  word execution or stack error");
               return false;
             }
           }
@@ -3256,7 +3327,7 @@ public class JForth implements Serializable
                       }
                       else
                       {
-                          System.out.println(word + " ?");
+                          _out.print(word + " ?");
                           return false;
                       }
                   }
@@ -3300,7 +3371,7 @@ public class JForth implements Serializable
               }
               else
               {
-                System.out.println(word + " ?");
+                _out.print(word + " ?");
                 compiling = false;
                 return false;
               }
@@ -3357,10 +3428,11 @@ public class JForth implements Serializable
   {
     dStack.removeAllElements();
     Scanner scanner = new Scanner(System.in);
-    System.out.println("JForth, Build: "+Utilities.BUILD_NUMBER+", "+Utilities.BUILD_DATE);
+    _out.println("JForth, Build: "+Utilities.BUILD_NUMBER+", "+Utilities.BUILD_DATE);
     while (true)
     {
-      System.out.print(PROMPT);
+      _out.print(PROMPT);
+      _out.flush();
       String input = scanner.nextLine();
       history.add(input);
       if (!interpretLine(input))
@@ -3369,22 +3441,25 @@ public class JForth implements Serializable
       }
       else
       {
-        System.out.print(OK);
+        _out.print(OK);
       }
+      _out.flush();
     }
   }
 
   public static void main(String [] args) throws IOException, ClassNotFoundException
   {
+      AnsiConsole.systemInstall();
       JForth forth;
       try
       {
           forth = load("state");
+          forth.setPrintStream (AnsiConsole.out);
           System.out.println("Used ...");
       }
       catch(Exception ex)
       {
-          forth = new JForth();
+          forth = new JForth(AnsiConsole.out);
           System.out.println("Fresh ...");
       }
       forth.outerInterpreter();
@@ -3408,5 +3483,36 @@ public class JForth implements Serializable
         String s = new String(b);
         JForth m = (JForth) JsonReader.jsonToJava(s);
         return m;
+    }
+
+    private static String stackElementToString (Object o, int base)
+    {
+        String outstr;
+        if (o instanceof Long)
+            outstr = Long.toString((Long) o, base).toUpperCase();
+        else if (o instanceof Double)
+            outstr = Double.toString((Double) o);
+        else if (o instanceof Complex)
+            outstr = Utilities.formatComplex((Complex)o);
+        else if (o instanceof Fraction)
+            outstr = Utilities.formatFraction((Fraction)o);
+        else if (o instanceof String)
+            outstr = (String) o;
+        else if (o instanceof BaseWord)
+            outstr = "BaseWord address on stack";
+        else if (o instanceof FileInputStream)
+            outstr = "FileInputStream address on stack";
+        else if (o instanceof BufferedReader)
+            outstr = "BufferedReader address on stack";
+        else if (o instanceof PrintStream)
+            outstr = "PrintStream address on stack";
+        else
+            return null;
+        return ANSI_BOLD+outstr+ANSI_NORMAL;
+    }
+
+    public void setPrintStream (PrintStream printStream)
+    {
+        _out = printStream;
     }
 }
