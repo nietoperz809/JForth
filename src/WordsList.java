@@ -14,13 +14,6 @@ public class WordsList
     return wordsList.size() == 0;
   }
 
-// --Commented out by Inspection START (3/21/2017 2:16 AM):
-//  public void clear()
-//  {
-//    wordsList.clear();
-//  }
-// --Commented out by Inspection STOP (3/21/2017 2:16 AM)
-
   public void add(BaseWord bw)
   {
     //System.out.println(bw.name);
