@@ -1247,7 +1247,7 @@ public class JForth implements Serializable
 
           new PrimitiveWord   //
                   (
-                          "re", false,
+                          "split", false,
                           new ExecuteIF()
                           {
                               @Override
@@ -1260,33 +1260,24 @@ public class JForth implements Serializable
                                   {
                                       Complex d1 = (Complex) o1;
                                       dStack.push(d1.getReal());
-                                  }
-                                  else
-                                      return 0;
-                                  return 1;
-                              }
-                          }
-                  ),
-
-          new PrimitiveWord   //
-                  (
-                          "im", false,
-                          new ExecuteIF()
-                          {
-                              @Override
-                              public int execute (OStack dStack, OStack vStack)
-                              {
-                                  if (dStack.empty())
-                                      return 0;
-                                  Object o1 = dStack.pop();
-                                  if (o1 instanceof Complex)
-                                  {
-                                      Complex d1 = (Complex) o1;
                                       dStack.push(d1.getImaginary());
+                                      return 1;
                                   }
-                                  else
-                                      return 0;
-                                  return 1;
+                                  if (o1 instanceof Fraction)
+                                  {
+                                      Fraction d1 = (Fraction) o1;
+                                      dStack.push(d1.getNumerator());
+                                      dStack.push(d1.getDenominator());
+                                      return 1;
+                                  }
+                                  if (o1 instanceof Double)
+                                  {
+                                      Double d1 = (Double) o1;
+                                      dStack.push(Math.floor(d1));
+                                      dStack.push(d1-Math.floor(d1));
+                                      return 1;
+                                  }
+                                  return 0;
                               }
                           }
                   ),
@@ -2104,6 +2095,32 @@ public class JForth implements Serializable
                 }
             }
     ),
+
+          new PrimitiveWord
+                  (
+                          "toFraction", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (o1 instanceof Long)
+                                  {
+                                      dStack.push (new Fraction((double) (Long) o1));
+                                      return 1;
+                                  }
+                                  else if (o1 instanceof Double)
+                                  {
+                                      dStack.push (new Fraction((Double) o1));
+                                      return 1;
+                                  }
+                                  return 0;
+                              }
+                          }
+                  ),
 
     new PrimitiveWord
     (
