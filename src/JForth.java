@@ -360,9 +360,9 @@ public class JForth implements Serializable
                     if (dStack.empty())
                         return 0;
                     Object o = dStack.peek();
-                    if (o instanceof LongSequence)
+                    if (o instanceof DoubleSequence)
                     {
-                        LongSequence s2 = new LongSequence((LongSequence)o);
+                        DoubleSequence s2 = new DoubleSequence((DoubleSequence)o);
                         dStack.push(s2);
                     }
                     else
@@ -815,9 +815,9 @@ public class JForth implements Serializable
                         String s = (String) o2 + (String) o1;
                         dStack.push(s);
                     }
-                    else if ((o1 instanceof LongSequence) && (o2 instanceof LongSequence))
+                    else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
                     {
-                        LongSequence s = new LongSequence ((LongSequence)o2, (LongSequence)o1);
+                        DoubleSequence s = new DoubleSequence((DoubleSequence)o2, (DoubleSequence)o1);
                         dStack.push(s);
                     }
                     else
@@ -864,6 +864,12 @@ public class JForth implements Serializable
                         double d2 = (Double) o2;
                         d2 -= d1;
                         dStack.push(d2);
+                    }
+                    else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+                    {
+                        DoubleSequence d1 = (DoubleSequence) o1;
+                        DoubleSequence d2 = (DoubleSequence) o2;
+                        dStack.push(d2.difference(d1));
                     }
                     else
                         return 0;
@@ -1406,10 +1412,16 @@ public class JForth implements Serializable
                         int i1 = (int) ((Long) o1).longValue();
                         i2 = Long.rotateLeft(i2, i1);
                         dStack.push(i2);
+                        return 1;
                     }
-                    else
-                        return 0;
-                    return 1;
+                    if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                    {
+                        DoubleSequence i2 = (DoubleSequence)o2;
+                        int i1 = (int) ((Long) o1).longValue();
+                        dStack.push (i2.rotateLeft(i1));
+                        return 1;
+                    }
+                    return 0;
                 }
             }
     ),
@@ -1432,10 +1444,16 @@ public class JForth implements Serializable
                         int i1 = (int) ((Long) o1).longValue();
                         i2 = Long.rotateRight(i2, i1);
                         dStack.push(i2);
+                        return 1;
                     }
-                    else
-                        return 0;
-                    return 1;
+                    if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                    {
+                        DoubleSequence i2 = (DoubleSequence)o2;
+                        int i1 = (int) ((Long) o1).longValue();
+                        dStack.push (i2.rotateRight(i1));
+                        return 1;
+                    }
+                    return 0;
                 }
             }
     ),
@@ -2172,12 +2190,12 @@ public class JForth implements Serializable
                                   Object o1 = dStack.pop();
                                   if (o1 instanceof Long)
                                   {
-                                      dStack.push (new LongSequence ((Long)o1));
+                                      dStack.push (new DoubleSequence((Long)o1));
                                       return 1;
                                   }
                                   else if (o1 instanceof Double)
                                   {
-                                      dStack.push (new LongSequence (((Double)o1).longValue()));
+                                      dStack.push (new DoubleSequence(((Double)o1).longValue()));
                                       return 1;
                                   }
                                   return 0;
@@ -2203,8 +2221,8 @@ public class JForth implements Serializable
               dStack.push(Utilities.formatFraction((Fraction)o1));
           else if (o1 instanceof Complex)
               dStack.push(Utilities.formatComplex((Complex)o1));
-          else if (o1 instanceof LongSequence)
-              dStack.push (((LongSequence)o1).toString());
+          else if (o1 instanceof DoubleSequence)
+              dStack.push (((DoubleSequence)o1).toString());
           else
             return 0;
           return 1;
@@ -2228,8 +2246,12 @@ public class JForth implements Serializable
                         dStack.push((long) ((String) o1).length());
                         return 1;
                     }
-                    else
-                        return 0;
+                    if (o1 instanceof DoubleSequence)
+                    {
+                        dStack.push((long) ((DoubleSequence) o1).length());
+                        return 1;
+                    }
+                    return 0;
                 }
             }
     ),
@@ -3298,9 +3320,9 @@ public class JForth implements Serializable
                                   if (dStack.empty())
                                       return 0;
                                   Object o = dStack.pop();
-                                  if (o instanceof LongSequence)
+                                  if (o instanceof DoubleSequence)
                                   {
-                                      dStack.push(((LongSequence)o).sort());
+                                      dStack.push(((DoubleSequence)o).sort());
                                       return 1;
                                   }
                                   return 0;
@@ -3319,9 +3341,9 @@ public class JForth implements Serializable
                                   if (dStack.empty())
                                       return 0;
                                   Object o = dStack.pop();
-                                  if (o instanceof LongSequence)
+                                  if (o instanceof DoubleSequence)
                                   {
-                                      LongSequence l = (LongSequence)o;
+                                      DoubleSequence l = (DoubleSequence)o;
                                       dStack.push(l.reverse());
                                       return 1;
                                   }
@@ -3341,13 +3363,58 @@ public class JForth implements Serializable
                                   if (dStack.empty())
                                       return 0;
                                   Object o = dStack.pop();
-                                  if (o instanceof LongSequence)
+                                  if (o instanceof DoubleSequence)
                                   {
-                                      LongSequence l = (LongSequence)o;
+                                      DoubleSequence l = (DoubleSequence)o;
                                       dStack.push(l.shuffle());
                                       return 1;
                                   }
                                   return 0;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "intersect", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (! (o1 instanceof DoubleSequence))
+                                    return 0;
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o2 = dStack.pop();
+                                  if (! (o2 instanceof DoubleSequence))
+                                      return 0;
+                                  DoubleSequence l = ((DoubleSequence) o1).intersect((DoubleSequence) o2);
+                                  dStack.push(l);
+                                  return 1;
+                              }
+                          }
+                  ),
+
+          new PrimitiveWord
+                  (
+                          "unique", false,
+                          new ExecuteIF()
+                          {
+                              @Override
+                              public int execute (OStack dStack, OStack vStack)
+                              {
+                                  if (dStack.empty())
+                                      return 0;
+                                  Object o1 = dStack.pop();
+                                  if (! (o1 instanceof DoubleSequence))
+                                      return 0;
+                                  DoubleSequence l = ((DoubleSequence)o1).unique();
+                                  dStack.push(l);
+                                  return 1;
                               }
                           }
                   ),
@@ -3366,9 +3433,9 @@ public class JForth implements Serializable
                                   if (!(o1 instanceof Long))
                                       return 0;
                                   Object o2 = dStack.pop();
-                                  if (!(o2 instanceof LongSequence))
+                                  if (!(o2 instanceof DoubleSequence))
                                       return 0;
-                                  dStack.push(((LongSequence)o2).pick(((Long)o1).intValue()));
+                                  dStack.push(((DoubleSequence)o2).pick(((Long)o1).intValue()));
                                   return 1;
                               }
                           }
@@ -3489,7 +3556,7 @@ public class JForth implements Serializable
                       }
                       else
                       {
-                          LongSequence lo = LongSequence.parseSequence(word);
+                          DoubleSequence lo = DoubleSequence.parseSequence(word);
                           if (lo != null)
                           {
                             dStack.push(lo);
@@ -3660,8 +3727,8 @@ public class JForth implements Serializable
         String outstr;
         if (o instanceof Long)
             outstr = Long.toString((Long) o, base).toUpperCase();
-        else if (o instanceof LongSequence)
-            outstr = ((LongSequence)o).toString();
+        else if (o instanceof DoubleSequence)
+            outstr = ((DoubleSequence)o).toString();
         else if (o instanceof Double)
             outstr = Double.toString((Double) o);
         else if (o instanceof Complex)

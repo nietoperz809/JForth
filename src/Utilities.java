@@ -10,8 +10,8 @@ import java.util.Comparator;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "94";
-    public static final String BUILD_DATE = "03/23/2017 04:41:08 PM";
+    public static final String BUILD_NUMBER = "106";
+    public static final String BUILD_DATE = "03/23/2017 07:08:57 PM";
 
     static String formatComplex (Complex c)
     {
@@ -109,5 +109,13 @@ public class Utilities
         {
             return null;
         }
+    }
+
+    public static String removeTrailingZero (double v)
+    {
+        String str = ""+v;
+        if (str.endsWith(".0"))
+            return str.substring(0, str.length()-2);
+        return str;
     }
 }
