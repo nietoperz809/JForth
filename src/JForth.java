@@ -18,6 +18,7 @@ public class JForth implements Serializable
 
     private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_BOLD = "\u001b[1m";
+    private static final String ANSI_YELLOW = "\u001b[33m";
     private static final String ANSI_NORMAL = "\u001b[0m";
     private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
     private static final String ANSI_ERROR = "\u001b[93;41m";
@@ -1277,6 +1278,21 @@ public class JForth implements Serializable
                                       dStack.push(d1-Math.floor(d1));
                                       return 1;
                                   }
+                                  if (o1 instanceof String)
+                                  {
+                                      String s = (String)o1;
+                                      if (dStack.empty())
+                                          return 0;
+                                      Object o2 = dStack.pop();
+                                      if (!(o2 instanceof String))
+                                          return 0;
+                                      String[] sp = s.split((String)o2);
+                                      for (String x : sp)
+                                      {
+                                        dStack.push(x);
+                                      }
+                                      return 1;
+                                  }
                                   return 0;
                               }
                           }
@@ -1977,6 +1993,15 @@ public class JForth implements Serializable
                                   {
                                       Long l = (Long) o1;
                                       _out.print((char) (long) l);
+                                      return 1;
+                                  }
+                                  if (o1 instanceof String)
+                                  {
+                                      String str = (String)o1;
+                                      for (int s=0; s<str.length(); s++)
+                                      {
+                                          _out.print (str.charAt(s));
+                                      }
                                       return 1;
                                   }
                                   return 0;
@@ -2927,6 +2952,7 @@ public class JForth implements Serializable
                                                   break;
                                               s += c;
                                               _out.print('-');
+                                              _out.flush();
                                           }
                                       }
                                       else
@@ -2935,6 +2961,7 @@ public class JForth implements Serializable
                                           {
                                               s += (char) RawConsoleInput.read(true);
                                               _out.print('-');
+                                              _out.flush();
                                           }
                                       }
                                       RawConsoleInput.resetConsoleMode();
@@ -3525,7 +3552,7 @@ public class JForth implements Serializable
             outstr = "PrintStream address on stack";
         else
             return null;
-        return ANSI_BOLD+outstr+ANSI_NORMAL;
+        return ANSI_YELLOW+ANSI_BOLD+outstr+ANSI_NORMAL;
     }
 
     public void setPrintStream (PrintStream printStream)
