@@ -10,8 +10,8 @@ import java.util.Comparator;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "106";
-    public static final String BUILD_DATE = "03/23/2017 07:08:57 PM";
+    public static final String BUILD_NUMBER = "107";
+    public static final String BUILD_DATE = "03/24/2017 02:37:58 AM";
 
     static String formatComplex (Complex c)
     {
