@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class WordsList
 {
-  public WordsList()
+  WordsList()
   {
     wordsList = new LinkedList<>();
   }
@@ -14,13 +14,13 @@ public class WordsList
     return wordsList.size() == 0;
   }
 
-  public void add(BaseWord bw)
+  void add(BaseWord bw)
   {
     //System.out.println(bw.name);
     wordsList.addFirst(bw);
   }
 
-  public String toString(boolean showDetail)
+  String toString(boolean showDetail)
   {
     if (isEmpty())
     {
@@ -28,7 +28,6 @@ public class WordsList
     }
     Collections.sort(wordsList, Collections.reverseOrder());
     StringBuilder sb = new StringBuilder();
-    sb.append("Words:\n");
     Iterator<BaseWord> i1 = wordsList.listIterator(0);
     while (i1.hasNext())
     {
@@ -42,7 +41,7 @@ public class WordsList
     return sb.toString();
   }
 
-  public BaseWord search(String wordName) throws Exception
+  BaseWord search(String wordName) throws Exception
   {
     if (isEmpty())
     {
@@ -73,7 +72,7 @@ public class WordsList
 //    }
 //  }
 
-  public void remove(BaseWord bw)
+  void remove(BaseWord bw)
   {
     wordsList.remove(bw);
   }
