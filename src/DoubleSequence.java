@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  * Created by Administrator on 3/23/2017.
@@ -39,9 +40,9 @@ public class DoubleSequence
         }
     }
 
-    public DoubleSequence (ArrayList<Double> list)
+    public DoubleSequence (List<Double> list)
     {
-        mem = list;
+        mem = new ArrayList<Double>(list);
     }
 
     public DoubleSequence (double ... vals)
@@ -159,6 +160,11 @@ public class DoubleSequence
             return new DoubleSequence(vals);
         }
         return null;
+    }
+
+    public DoubleSequence subList (int from, int to)
+    {
+        return new DoubleSequence(this.mem.subList(from, to));
     }
 
     public String toString()

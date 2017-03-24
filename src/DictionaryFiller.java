@@ -4,6 +4,7 @@ import org.apache.commons.math3.fraction.Fraction;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 final public class DictionaryFiller
 {
@@ -1199,6 +1200,26 @@ final public class DictionaryFiller
                                     double d2 = (Double) o2;
                                     d2 /= d1;
                                     dStack.push(d2);
+                                }
+                                else if ((o1 instanceof Long) && (o2 instanceof String))
+                                {
+                                    long d1 = (Long) o1;
+                                    String d2 = (String) o2;
+                                    List<String> ll = Utilities.splitEqually(d2, (int)d1);
+                                    if (ll == null)
+                                        return 0;
+                                    for (String s : ll)
+                                        dStack.push(s);
+                                }
+                                else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                                {
+                                    long d1 = (Long) o1;
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    List<DoubleSequence> ll = Utilities.splitEqually(d2, (int)d1);
+                                    if (ll == null)
+                                        return 0;
+                                    for (DoubleSequence s : ll)
+                                        dStack.push(s);
                                 }
                                 else
                                 {

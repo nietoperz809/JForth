@@ -6,16 +6,18 @@ import org.apache.commons.math3.fraction.Fraction;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "134";
-    public static final String BUILD_DATE = "03/24/2017 10:26:23 AM";
+    public static final String BUILD_NUMBER = "136";
+    public static final String BUILD_DATE = "03/24/2017 11:06:13 AM";
 
     static String formatComplex (Complex c)
     {
@@ -162,4 +164,37 @@ public class Utilities
         return JsonReader.jsonToJava(s);
     }
 
+    public static List<String> splitEqually(String text, int size)
+    {
+        try
+        {
+            List<String> ret = new ArrayList<String>((text.length() + size - 1) / size);
+            for (int start = 0; start < text.length(); start += size)
+            {
+                ret.add(text.substring(start, Math.min(text.length(), start + size)));
+            }
+            return ret;
+        }
+        catch (Exception unused)
+        {
+            return null;
+        }
+    }
+
+    public static List<DoubleSequence> splitEqually(DoubleSequence text, int size)
+    {
+        try
+        {
+            List<DoubleSequence> ret = new ArrayList<DoubleSequence>((text.length() + size - 1) / size);
+            for (int start = 0; start < text.length(); start += size)
+            {
+                ret.add(text.subList(start, Math.min(text.length(), start + size)));
+            }
+            return ret;
+        }
+        catch (Exception unused)
+        {
+            return null;
+        }
+    }
 }
