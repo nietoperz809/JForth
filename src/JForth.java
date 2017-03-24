@@ -1,20 +1,15 @@
-import com.cedarsoftware.util.io.JsonReader;
-import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Random;
 import java.util.Scanner;
 
-public class JForth implements Serializable
+public class JForth
 {
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
-    private static final long serialVersionUID = 7526471155622776147L;
     private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_BOLD = "\u001b[1m";
     private static final String ANSI_YELLOW = "\u001b[33m";
@@ -23,12 +18,12 @@ public class JForth implements Serializable
     private static final String ANSI_ERROR = "\u001b[93;41m";
     private static final String PROMPT = "\n> ";
     private static final String OK = " OK";
-    private static final int HISTORY_LENGTH = 25;
-    public final WordsList dictionary = new WordsList();
+    private static final int HISTORY_LENGTH = 1000;
     public final Random random;
-    private final OStack dStack = new OStack();
-    private final OStack vStack = new OStack();
-    private final History history;
+    public WordsList dictionary = new WordsList();
+    public OStack dStack = new OStack();
+    public OStack vStack = new OStack();
+    public final History history;
     public transient PrintStream _out; // output channel
     public boolean compiling;
     public int base;
@@ -49,35 +44,29 @@ public class JForth implements Serializable
     public static void main (String[] args) throws IOException, ClassNotFoundException
     {
         AnsiConsole.systemInstall();
-        JForth forth;
-        try
-        {
-            forth = load("state");
-            forth.setPrintStream(AnsiConsole.out);
-            System.out.println("Used ...");
-        }
-        catch (Exception ex)
-        {
-            forth = new JForth(AnsiConsole.out);
-            System.out.println("Fresh ...");
-        }
+        JForth forth = new JForth(AnsiConsole.out);
+        forth.setPrintStream (AnsiConsole.out());
         forth.outerInterpreter();
-    }
-
-    private static JForth load (String name) throws IOException
-    {
-        if (name.isEmpty())
-        {
-            name = "default";
-        }
-        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
-        String s = new String(b);
-        return (JForth) JsonReader.jsonToJava(s);
     }
 
     private void setPrintStream (PrintStream printStream)
     {
         _out = printStream;
+    }
+
+    public void play()
+    {
+        for (String s : history.history)
+        {
+            if (s.equals ("playHist"))
+                continue;
+            _out.println(s);
+            if (!interpretLine(s))
+            {
+                dStack.removeAllElements();
+            }
+            _out.flush();
+        }
     }
 
     private void outerInterpreter ()
@@ -89,7 +78,7 @@ public class JForth implements Serializable
         {
             _out.print(PROMPT);
             _out.flush();
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().trim();
             history.add(input);
             if (!interpretLine(input))
             {
@@ -103,17 +92,6 @@ public class JForth implements Serializable
         }
     }
 
-    public static void save (String name, JForth obj) throws IOException
-    {
-        if (name.isEmpty())
-        {
-            name = "default";
-        }
-        String j1 = JsonWriter.objectToJson(obj);
-        PrintWriter p = new PrintWriter(name + ".json");
-        p.println(JsonWriter.formatJson(j1));
-        p.close();
-    }
 
     public static String stackElementToString (Object o, int base)
     {
@@ -256,19 +234,20 @@ public class JForth implements Serializable
                             _out.print(word + " - " + ANSI_ERROR +
                                     " word execution or stack error "+
                                     ANSI_NORMAL);
+                            history.removeLast();
                             return false;
                         }
                     }
                     else
                     {
-                        Long num = parseLong(word);
+                        Long num = Utilities.parseLong (word, base);
                         if (num != null)
                         {
                             dStack.push(num);
                         }
                         else
                         {
-                            Double dnum = parseDouble(word);
+                            Double dnum = Utilities.parseDouble(word);
                             if (dnum != null)
                             {
                                 dStack.push(dnum);
@@ -297,6 +276,7 @@ public class JForth implements Serializable
                                         else
                                         {
                                             _out.print(word + " ?");
+                                            history.removeLast();
                                             return false;
                                         }
                                     }
@@ -327,14 +307,14 @@ public class JForth implements Serializable
                     }
                     else
                     {
-                        Long num = parseLong(word);
+                        Long num = Utilities.parseLong (word, base);
                         if (num != null)
                         {
                             wordBeingDefined.addWord(new LongLiteral(num));
                         }
                         else
                         {
-                            Double dnum = parseDouble(word);
+                            Double dnum = Utilities.parseDouble(word);
                             if (dnum != null)
                             {
                                 wordBeingDefined.addWord(new DoubleLiteral(dnum));
@@ -359,27 +339,4 @@ public class JForth implements Serializable
         }
     }
 
-    private Long parseLong (String word)
-    {
-        try
-        {
-            return Long.parseLong(word, base);
-        }
-        catch (Exception ignored)
-        {
-            return null;
-        }
-    }
-
-    private Double parseDouble (String word)
-    {
-        try
-        {
-            return Double.parseDouble(word);
-        }
-        catch (Exception ignored)
-        {
-            return null;
-        }
-    }
 }

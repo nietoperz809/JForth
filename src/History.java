@@ -1,8 +1,9 @@
+import java.io.IOException;
 import java.util.*;
 
 public class History
 {
-  private final ArrayList<String> history;
+  public ArrayList<String> history;
   private final int length;
   private int nextIndex;
 
@@ -12,7 +13,27 @@ public class History
     nextIndex = 0;
     history = new ArrayList<>(length);
   }
-  
+
+  public void removeLast()
+  {
+    history.remove(history.size()-1);
+  }
+
+  public void clear()
+  {
+    history.clear();
+  }
+
+  public void save() throws IOException
+  {
+    Utilities.saveObject("history", history);
+  }
+
+  public void load() throws IOException
+  {
+    history = (ArrayList<String>) Utilities.loadObject("history");
+  }
+
   public void add(String s)
   {
     if (history.size() == length)

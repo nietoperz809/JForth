@@ -9,6 +9,21 @@ public class DoubleSequence
 {
     private ArrayList<Double> mem = new ArrayList<>();
 
+    public DoubleSequence()
+    {
+
+    }
+
+    public void add (double d)
+    {
+        mem.add(d);
+    }
+
+    public void add (DoubleSequence other)
+    {
+        mem.addAll(other.mem);
+    }
+
     public DoubleSequence (String[] values)
     {
         for (int s=0; s<values.length; s++)

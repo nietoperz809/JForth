@@ -4,60 +4,44 @@ import java.util.LinkedList;
 
 public class WordsList
 {
-  WordsList()
-  {
-    wordsList = new LinkedList<>();
-  }
+    private LinkedList<BaseWord> wordsList;
 
-  private boolean isEmpty ()
-  {
-    return wordsList.size() == 0;
-  }
+    WordsList ()
+    {
+        wordsList = new LinkedList<>();
+    }
 
-  void add(BaseWord bw)
-  {
-    //System.out.println(bw.name);
-    wordsList.addFirst(bw);
-  }
+    void add (BaseWord bw)
+    {
+        //System.out.println(bw.name);
+        wordsList.addFirst(bw);
+    }
 
-  String toString(boolean showDetail)
-  {
-    if (isEmpty())
+    String toString (boolean showDetail)
     {
-      return "WordsList is empty\n";
+        if (isEmpty())
+        {
+            return "WordsList is empty\n";
+        }
+        Collections.sort(wordsList, Collections.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+        while (i1.hasNext())
+        {
+            BaseWord bw = i1.next();
+            sb.append(bw.toString(showDetail));
+            if (showDetail)
+            {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
     }
-    Collections.sort(wordsList, Collections.reverseOrder());
-    StringBuilder sb = new StringBuilder();
-    Iterator<BaseWord> i1 = wordsList.listIterator(0);
-    while (i1.hasNext())
-    {
-      BaseWord bw = i1.next();
-      sb.append(bw.toString(showDetail));
-      if (showDetail)
-      {
-        sb.append("\n");
-      }
-    }
-    return sb.toString();
-  }
 
-  BaseWord search(String wordName) throws Exception
-  {
-    if (isEmpty())
+    private boolean isEmpty ()
     {
-      throw new Exception("WordsList is empty");
+        return wordsList.size() == 0;
     }
-    Iterator<BaseWord> i1 = wordsList.listIterator(0);
-    while (i1.hasNext())
-    {
-      BaseWord bw = i1.next();
-      if (bw.name.equals(wordName))
-      {
-        return bw;
-      }
-    }
-    return null;
-  }
 
 //  public void truncateList(BaseWord bw)
 //  {
@@ -72,11 +56,27 @@ public class WordsList
 //    }
 //  }
 
-  void remove(BaseWord bw)
-  {
-    wordsList.remove(bw);
-  }
+    BaseWord search (String wordName) throws Exception
+    {
+        if (isEmpty())
+        {
+            throw new Exception("WordsList is empty");
+        }
+        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+        while (i1.hasNext())
+        {
+            BaseWord bw = i1.next();
+            if (bw.name.equals(wordName))
+            {
+                return bw;
+            }
+        }
+        return null;
+    }
 
-  private final LinkedList<BaseWord> wordsList;
+    void remove (BaseWord bw)
+    {
+        wordsList.remove(bw);
+    }
 }
   

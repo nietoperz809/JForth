@@ -1,7 +1,11 @@
+import com.cedarsoftware.util.io.JsonReader;
+import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -10,8 +14,8 @@ import java.util.Comparator;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "118";
-    public static final String BUILD_DATE = "03/24/2017 04:57:23 AM";
+    public static final String BUILD_NUMBER = "134";
+    public static final String BUILD_DATE = "03/24/2017 10:26:23 AM";
 
     static String formatComplex (Complex c)
     {
@@ -118,4 +122,44 @@ public class Utilities
             return str.substring(0, str.length()-2);
         return str;
     }
+
+    public static Long parseLong (String word, int base)
+    {
+        try
+        {
+            return Long.parseLong(word, base);
+        }
+        catch (Exception ignored)
+        {
+            return null;
+        }
+    }
+
+    public static Double parseDouble (String word)
+    {
+        try
+        {
+            return Double.parseDouble(word);
+        }
+        catch (Exception ignored)
+        {
+            return null;
+        }
+    }
+
+    public static void saveObject (String name, Object obj) throws IOException
+    {
+        String j1 = JsonWriter.objectToJson(obj);
+        PrintWriter p = new PrintWriter(name + ".json");
+        p.println(JsonWriter.formatJson(j1));
+        p.close();
+    }
+
+    public static Object loadObject (String name) throws IOException
+    {
+        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
+        String s = new String(b);
+        return JsonReader.jsonToJava(s);
+    }
+
 }

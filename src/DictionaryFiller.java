@@ -2501,17 +2501,24 @@ final public class DictionaryFiller
                                     return 0;
                                 }
                                 Object o1 = dStack.pop();
-                                if (o1 instanceof Long)
+                                if (!(o1 instanceof Long))
+                                    return 0;
+                                long cnt = (Long) o1;
+                                DoubleSequence seq = new DoubleSequence();
+                                for (long n=0; n<cnt; n++)
                                 {
-                                    dStack.push(new DoubleSequence((Long) o1));
-                                    return 1;
+                                    if (dStack.empty())
+                                        break;
+                                    Object o2 = dStack.pop();
+                                    if (o2 instanceof Double)
+                                        seq.add((Double)o2);
+                                    else if (o2 instanceof Long)
+                                        seq.add ((Long)o2);
+                                    else if (o2 instanceof DoubleSequence)
+                                        seq.add ((DoubleSequence)o2);
                                 }
-                                else if (o1 instanceof Double)
-                                {
-                                    dStack.push(new DoubleSequence(((Double) o1).longValue()));
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push(seq);
+                                return 1;
                             }
                         }
                 ));
@@ -3179,7 +3186,7 @@ final public class DictionaryFiller
 
         _fw.add(new PrimitiveWord
                 (
-                        "saveState", false,
+                        "saveHist", false,
                         new ExecuteIF()
                         {
                             @Override
@@ -3187,12 +3194,61 @@ final public class DictionaryFiller
                             {
                                 try
                                 {
-                                    JForth.save("state", _jforth);
+                                    _jforth.history.save();
                                 }
                                 catch (Exception ex)
                                 {
                                     return 0;
                                 }
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "loadHist", false,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                try
+                                {
+                                    _jforth.history.load();
+                                }
+                                catch (Exception ex)
+                                {
+                                    return 0;
+                                }
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "playHist", false,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                _jforth.play();
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "clearHist", false,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                _jforth.history.clear();
                                 return 1;
                             }
                         }
@@ -3435,6 +3491,32 @@ final public class DictionaryFiller
                                     return 0;
                                 }
                                 Object n = dStack.get(dStack.size()-((Long)o).intValue()-1);
+                                if (n == null)
+                                    return 0;
+                                dStack.push(n);
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "roll", true,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.empty())
+                                {
+                                    return 0;
+                                }
+                                Object o = dStack.pop();
+                                if (!(o instanceof Long))
+                                {
+                                    return 0;
+                                }
+                                Object n = dStack.remove(dStack.size()-((Long)o).intValue()-1);
                                 if (n == null)
                                     return 0;
                                 dStack.push(n);
