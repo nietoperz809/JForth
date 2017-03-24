@@ -1,0 +1,1 @@
+: NESTED ( n m --) cr 0 do dup  ( n n --) 0 do cr j .  i . loop loop drop ;

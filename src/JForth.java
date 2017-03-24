@@ -222,11 +222,19 @@ public class JForth
                 {
                     if (word.equals(".\""))
                     {
-                        st.nextToken();
-                        String word2 = st.sval;
-                        if (!word2.endsWith("\""))
-                            return false;
-                        dStack.push (word2.substring(0, word2.length()-1));
+                        StringBuilder sb = new StringBuilder();
+                        for(;;)
+                        {
+                            st.nextToken();
+                            String word2 = st.sval;
+                            if (word2.endsWith("\""))
+                            {
+                                sb.append(word2.substring(0, word2.length()-1));
+                                break;
+                            }
+                            sb.append(word2).append(' ');
+                        }
+                        dStack.push (sb.toString());
                         word = ".";
                     }
                     else
@@ -302,11 +310,19 @@ public class JForth
                 {
                     if (word.equals(".\""))
                     {
-                        st.nextToken();
-                        String word2 = st.sval;
-                        if (!word2.endsWith("\""))
-                            return false;
-                        wordBeingDefined.addWord(new StringLiteral(word2.substring(0, word2.length()-1)));
+                        StringBuilder sb = new StringBuilder();
+                        for(;;)
+                        {
+                            st.nextToken();
+                            String word2 = st.sval;
+                            if (word2.endsWith("\""))
+                            {
+                                sb.append(word2.substring(0, word2.length()-1));
+                                break;
+                            }
+                            sb.append(word2).append(' ');
+                        }
+                        wordBeingDefined.addWord(new StringLiteral(sb.toString()));
                         word = ".";
                     }
                     else
