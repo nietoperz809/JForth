@@ -2,7 +2,7 @@ public final class StringLiteral extends BaseWord
 {
   public StringLiteral(String str)
   {
-    super("", false, false);
+    super("", false, false, null);
     this.str = str;
   }
 

@@ -212,7 +212,7 @@ public class JForth
             st = new StreamTokenizer(sr);
             st.resetSyntax();
             st.wordChars('!', '~');
-            st.quoteChar('"');
+            //st.quoteChar('"');
             st.whitespaceChars('\u0000', '\u0020');
             int ttype = st.nextToken();
             while (ttype != StreamTokenizer.TT_EOF)
@@ -220,11 +220,24 @@ public class JForth
                 String word = st.sval;
                 if (!compiling)
                 {
-                    if (ttype == '"')
+                    if (word.equals(".\""))
                     {
-                        dStack.push(word);
-                        ttype = st.nextToken();
-                        continue;
+                        st.nextToken();
+                        String word2 = st.sval;
+                        if (!word2.endsWith("\""))
+                            return false;
+                        dStack.push (word2.substring(0, word2.length()-1));
+                        word = ".";
+                    }
+                    else
+                    {
+                        String ws = Utilities.parseString(word);
+                        if (ws != null)
+                        {
+                            dStack.push(ws);
+                            ttype = st.nextToken();
+                            continue;
+                        }
                     }
                     BaseWord bw = dictionary.search(word);
                     if (bw != null)
@@ -287,11 +300,24 @@ public class JForth
                 }
                 else
                 {
-                    if (ttype == '"')
+                    if (word.equals(".\""))
                     {
-                        wordBeingDefined.addWord(new StringLiteral(word));
-                        ttype = st.nextToken();
-                        continue;
+                        st.nextToken();
+                        String word2 = st.sval;
+                        if (!word2.endsWith("\""))
+                            return false;
+                        wordBeingDefined.addWord(new StringLiteral(word2.substring(0, word2.length()-1)));
+                        word = ".";
+                    }
+                    else
+                    {
+                        String ws = Utilities.parseString(word);
+                        if (ws != null)
+                        {
+                            wordBeingDefined.addWord(new StringLiteral(word));
+                            ttype = st.nextToken();
+                            continue;
+                        }
                     }
                     BaseWord bw = dictionary.search(word);
                     if (bw != null)

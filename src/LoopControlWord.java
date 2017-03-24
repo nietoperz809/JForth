@@ -2,7 +2,7 @@ public final class LoopControlWord extends BaseWord
 {
   public LoopControlWord(int indexIncrement)
   {
-    super("", false, false);
+    super("", false, false, null);
     this.indexIncrement = indexIncrement;
   }
 

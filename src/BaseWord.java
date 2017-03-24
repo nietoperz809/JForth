@@ -4,11 +4,12 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
 {
   private static final long serialVersionUID = 7526471155622776148L;
 
-  public BaseWord(String name, boolean immediate, boolean isPrimitive)
+  public BaseWord(String name, boolean immediate, boolean isPrimitive, String inf)
   {
     this.name = name;
     this.immediate = immediate;
     this.isPrimitive = isPrimitive;
+    this.info = inf;
   }
 
   public String toString(boolean showDetail)
@@ -32,6 +33,7 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
   public final String name;
   public boolean immediate;
   public final boolean isPrimitive;
+  public final String info;
 
     @Override
     public int compareTo (BaseWord o)

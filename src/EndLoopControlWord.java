@@ -2,7 +2,7 @@ public final class EndLoopControlWord extends BaseWord
 {
   public EndLoopControlWord(int indexIncrement)
   {
-    super("", false, false);
+    super("", false, false, null);
     this.indexIncrement = indexIncrement;
   }
 

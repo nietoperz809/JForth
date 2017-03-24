@@ -167,6 +167,16 @@ public class DoubleSequence
         return new DoubleSequence(this.mem.subList(from, to));
     }
 
+    public String asString ()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (Double d : this.mem)
+        {
+            sb.append((char)d.intValue());
+        }
+        return sb.toString();
+    }
+
     public String toString()
     {
         StringBuilder sb = new StringBuilder();

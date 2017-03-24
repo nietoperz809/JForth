@@ -20,7 +20,7 @@ final public class DictionaryFiller
     {
         _fw.add(new PrimitiveWord
                 (
-                        "(", true,
+                        "(", true, "Begin comment",
                         new ExecuteIF()
                         {
                             @Override
@@ -46,7 +46,7 @@ final public class DictionaryFiller
 
         _fw.add(new PrimitiveWord
                 (
-                        "'", true,
+                        "'", true,  "Push word from dictionary on stack",
                         new ExecuteIF()
                         {
                             public int execute (OStack dStack, OStack vStack)
@@ -83,7 +83,7 @@ final public class DictionaryFiller
 
         _fw.add(new PrimitiveWord
                 (
-                        "execute", false,
+                        "execute", false,  "executes word from stack",
                         new ExecuteIF()
                         {
                             @Override
@@ -106,6 +106,26 @@ final public class DictionaryFiller
                             }
                         }
                 ));
+
+//        _fw.add(new PrimitiveWord
+//                (
+//                        ".\"", true,
+//                        new ExecuteIF()
+//                        {
+//                            public int execute (OStack dStack, OStack vStack)
+//                            {
+//                                String s = _jforth.getNextToken();
+//                                if (s.endsWith("\""))
+//                                {
+//                                    s = s.substring(0, s.length()-1);
+//                                    _jforth._out.print(s);
+//                                    return 1;
+//                                }
+//                                return 0;
+//                            }
+//                        }
+//                ));
+//
 
         _fw.add(new PrimitiveWord
                 (
@@ -1483,8 +1503,8 @@ final public class DictionaryFiller
                                 if (o1 instanceof Fraction)
                                 {
                                     Fraction d1 = (Fraction) o1;
-                                    dStack.push(d1.getNumerator());
-                                    dStack.push(d1.getDenominator());
+                                    dStack.push((double)d1.getNumerator());
+                                    dStack.push((double)d1.getDenominator());
                                     return 1;
                                 }
                                 if (o1 instanceof Double)
@@ -1694,6 +1714,19 @@ final public class DictionaryFiller
                                     return 0;
                                 }
                                 _jforth._out.print(outstr);
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        ".r", false,
+                        new ExecuteIF()
+                        {
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                dStack.unpop();
                                 return 1;
                             }
                         }
@@ -2522,6 +2555,17 @@ final public class DictionaryFiller
                                     return 0;
                                 }
                                 Object o1 = dStack.pop();
+                                if (o1 instanceof String)
+                                {
+                                    String str = (String)o1;
+                                    DoubleSequence ds = new DoubleSequence();
+                                    for (int s=0; s<str.length(); s++)
+                                    {
+                                        ds.add(str.charAt(s));
+                                    }
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 if (!(o1 instanceof Long))
                                     return 0;
                                 long cnt = (Long) o1;
@@ -2574,7 +2618,7 @@ final public class DictionaryFiller
                                 }
                                 else if (o1 instanceof DoubleSequence)
                                 {
-                                    dStack.push(((DoubleSequence) o1).toString());
+                                    dStack.push(((DoubleSequence) o1).asString());
                                 }
                                 else
                                 {

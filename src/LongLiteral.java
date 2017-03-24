@@ -2,7 +2,7 @@ public final class LongLiteral extends BaseWord
 {
   public LongLiteral(Long number)
   {
-    super("", false, false);
+    super("", false, false, null);
     this.number = number;
   }
 

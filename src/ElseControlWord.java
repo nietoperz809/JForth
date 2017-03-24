@@ -2,7 +2,7 @@ public final class ElseControlWord extends BaseWord
 {
   public ElseControlWord(int indexFollowingElse)
   {
-    super("", false, false);
+    super("", false, false, null);
     this.indexFollowingElse = indexFollowingElse;
   }
 

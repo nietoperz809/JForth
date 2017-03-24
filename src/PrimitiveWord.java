@@ -1,12 +1,13 @@
-import java.io.Serializable;
-
-public final class PrimitiveWord extends BaseWord implements Serializable
+public final class PrimitiveWord extends BaseWord
 {
-  private static final long serialVersionUID = 7526471155622776149L;
-
   public PrimitiveWord(String name, boolean isImmediate, ExecuteIF eif)
   {
-    super(name, isImmediate, true);
+    this(name, isImmediate, null, eif);
+  }
+
+  public PrimitiveWord(String name, boolean isImmediate, String info, ExecuteIF eif)
+  {
+    super(name, isImmediate, true, info);
     this.eif = eif;
   }
 

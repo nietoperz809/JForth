@@ -2,7 +2,7 @@ public final class LeaveLoopControlWord extends BaseWord
 {
   public LeaveLoopControlWord()
   {
-    super("", false, false);
+    super("", false, false, null);
   }
 
   public int execute(OStack dStack, OStack vStack)

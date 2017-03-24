@@ -4,7 +4,7 @@ public final class NonPrimitiveWord extends BaseWord
 {
   public NonPrimitiveWord(String name)
   {
-    super(name, false, false);
+    super(name, false, false, null);
   }
 
   public void addWord(ExecuteIF eif)

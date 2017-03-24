@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "136";
-    public static final String BUILD_DATE = "03/24/2017 11:06:13 AM";
+    public static final String BUILD_NUMBER = "160";
+    public static final String BUILD_DATE = "03/24/2017 05:05:51 PM";
 
     static String formatComplex (Complex c)
     {
@@ -196,5 +196,16 @@ public class Utilities
         {
             return null;
         }
+    }
+
+    public static String parseString (String in)
+    {
+        if (in.length() < 2)
+            return null;
+        if (!in.startsWith("\""))
+            return null;
+        if (!in.endsWith("\""))
+            return null;
+        return in.substring(1, in.length()-1);
     }
 }
