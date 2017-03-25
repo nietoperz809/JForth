@@ -960,6 +960,18 @@ final public class DictionaryFiller
                                     DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
                                     dStack.push(s);
                                 }
+                                else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence))
+                                {
+                                    Double d1 = (Double) o1;
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    dStack.push (d2.add(d1));
+                                }
+                                else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                                {
+                                    Long d1 = (Long) o1;
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    dStack.push (d2.add(d1.doubleValue()));
+                                }
                                 else
                                 {
                                     return 0;
@@ -1014,6 +1026,12 @@ final public class DictionaryFiller
                                     DoubleSequence d1 = (DoubleSequence) o1;
                                     DoubleSequence d2 = (DoubleSequence) o2;
                                     dStack.push(d2.difference(d1));
+                                }
+                                else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                                {
+                                    Long d1 = (Long) o1;
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    dStack.push(d2.subList(0, d2.length()-d1.intValue()));
                                 }
                                 else
                                 {
@@ -2561,7 +2579,7 @@ final public class DictionaryFiller
                                     DoubleSequence ds = new DoubleSequence();
                                     for (int s=0; s<str.length(); s++)
                                     {
-                                        ds.add(str.charAt(s));
+                                        ds = ds.add(str.charAt(s));
                                     }
                                     dStack.push(ds);
                                     return 1;
@@ -2576,11 +2594,11 @@ final public class DictionaryFiller
                                         break;
                                     Object o2 = dStack.pop();
                                     if (o2 instanceof Double)
-                                        seq.add((Double)o2);
+                                        seq = seq.add((Double)o2);
                                     else if (o2 instanceof Long)
-                                        seq.add ((Long)o2);
+                                        seq = seq.add ((Long)o2);
                                     else if (o2 instanceof DoubleSequence)
-                                        seq.add ((DoubleSequence)o2);
+                                        seq = seq.add ((DoubleSequence)o2);
                                 }
                                 dStack.push(seq);
                                 return 1;

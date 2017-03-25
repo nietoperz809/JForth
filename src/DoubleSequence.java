@@ -15,14 +15,18 @@ public class DoubleSequence
 
     }
 
-    public void add (double d)
+    public DoubleSequence add (double d)
     {
-        mem.add(d);
+        DoubleSequence ds = new DoubleSequence(this);
+        ds.mem.add(d);
+        return ds;
     }
 
-    public void add (DoubleSequence other)
+    public DoubleSequence add (DoubleSequence other)
     {
-        mem.addAll(other.mem);
+        DoubleSequence ds = new DoubleSequence(this);
+        ds.mem.addAll(other.mem);
+        return ds;
     }
 
     public DoubleSequence (String[] values)
