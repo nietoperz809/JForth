@@ -109,26 +109,6 @@ final public class DictionaryFiller
                         }
                 ));
 
-//        _fw.add(new PrimitiveWord
-//                (
-//                        ".\"", true,
-//                        new ExecuteIF()
-//                        {
-//                            public int execute (OStack dStack, OStack vStack)
-//                            {
-//                                String s = _jforth.getNextToken();
-//                                if (s.endsWith("\""))
-//                                {
-//                                    s = s.substring(0, s.length()-1);
-//                                    _jforth._out.print(s);
-//                                    return 1;
-//                                }
-//                                return 0;
-//                            }
-//                        }
-//                ));
-//
-
         _fw.add(new PrimitiveWord
                 (
                         "if", true,
@@ -1138,18 +1118,21 @@ final public class DictionaryFiller
                                     long i2 = (Long) o2;
                                     i2 *= i1;
                                     dStack.push(i2);
+                                    return 1;
                                 }
                                 else if ((o1 instanceof Complex) && (o2 instanceof Complex))
                                 {
                                     Complex d1 = (Complex) o1;
                                     Complex d2 = (Complex) o2;
                                     dStack.push(d2.multiply(d1));
+                                    return 1;
                                 }
                                 else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
                                 {
                                     Fraction d1 = (Fraction) o1;
                                     Fraction d2 = (Fraction) o2;
                                     dStack.push(d2.multiply(d1));
+                                    return 1;
                                 }
                                 else if ((o1 instanceof Double) && (o2 instanceof Double))
                                 {
@@ -1157,12 +1140,29 @@ final public class DictionaryFiller
                                     double d2 = (Double) o2;
                                     d2 *= d1;
                                     dStack.push(d2);
+                                    return 1;
                                 }
-                                else
+                                else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
                                 {
-                                    return 0;
+                                    Long d1 = (Long) o1;
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    DoubleSequence d3 = new DoubleSequence();  // empty
+                                    while (d1-- != 0)
+                                        d3 = d3.add(d2);
+                                    dStack.push(d3);
+                                    return 1;
                                 }
-                                return 1;
+                                else if ((o1 instanceof Long) && (o2 instanceof String))
+                                {
+                                    Long d1 = (Long) o1;
+                                    String d2 = (String) o2;
+                                    StringBuilder sb = new StringBuilder();  // empty
+                                    while (d1-- != 0)
+                                        sb.append(d2);
+                                    dStack.push(sb.toString());
+                                    return 1;
+                                }
+                                return 0;
                             }
                         }
                 ));
@@ -2645,7 +2645,7 @@ final public class DictionaryFiller
 
         _fw.add(new PrimitiveWord
                 (
-                        "subString", false,
+                        "subSeq", false, "Subsequence of string or list",
                         new ExecuteIF()
                         {
                             @Override
@@ -2665,10 +2665,14 @@ final public class DictionaryFiller
                                     dStack.push(((String) o3).substring(i2, i1));
                                     return 1;
                                 }
-                                else
+                                if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence))
                                 {
-                                    return 0;
+                                    int i1 = (int) ((Long) o1).longValue();
+                                    int i2 = (int) ((Long) o2).longValue();
+                                    dStack.push(((DoubleSequence) o3).subList(i2, i1));
+                                    return 1;
                                 }
+                                return 0;
                             }
                         }
                 ));

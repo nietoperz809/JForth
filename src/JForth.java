@@ -10,20 +10,20 @@ public class JForth
 {
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
-    private static final String ANSI_CLS = "\u001b[2J";
+    // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_CLS = "\u001b[2J";
     private static final String ANSI_BOLD = "\u001b[1m";
     private static final String ANSI_YELLOW = "\u001b[33m";
     private static final String ANSI_NORMAL = "\u001b[0m";
-    private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
+    // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
     private static final String ANSI_ERROR = "\u001b[93;41m";
     private static final String PROMPT = "\n> ";
     private static final String OK = " OK";
     private static final int HISTORY_LENGTH = 1000;
     public final Random random;
-    public WordsList dictionary = new WordsList();
-    public OStack dStack = new OStack();
-    public OStack vStack = new OStack();
     public final History history;
+    public final WordsList dictionary = new WordsList();
+    private final OStack dStack = new OStack();
+    private final OStack vStack = new OStack();
     public transient PrintStream _out; // output channel
     public boolean compiling;
     public int base;
@@ -45,28 +45,13 @@ public class JForth
     {
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
-        forth.setPrintStream (AnsiConsole.out());
+        forth.setPrintStream(AnsiConsole.out());
         forth.outerInterpreter();
     }
 
     private void setPrintStream (PrintStream printStream)
     {
         _out = printStream;
-    }
-
-    public void play()
-    {
-        for (String s : history.history)
-        {
-            if (s.equals ("playHist"))
-                continue;
-            _out.println(s);
-            if (!interpretLine(s))
-            {
-                dStack.removeAllElements();
-            }
-            _out.flush();
-        }
     }
 
     private void outerInterpreter ()
@@ -92,6 +77,234 @@ public class JForth
         }
     }
 
+    private boolean interpretLine (String text)
+    {
+        try
+        {
+            StringReader sr = new StringReader(text);
+            st = new StreamTokenizer(sr);
+            st.resetSyntax();
+            st.wordChars('!', '~');
+            //st.quoteChar('"');
+            st.whitespaceChars('\u0000', '\u0020');
+            int ttype = st.nextToken();
+            while (ttype != StreamTokenizer.TT_EOF)
+            {
+                String word = st.sval;
+                if (word.equals("(")) // filter out comments
+                {
+                    for (; ; )
+                    {
+                        st.nextToken();
+                        String word2 = st.sval;
+                        if (word2.endsWith(")"))
+                        {
+                            break;
+                        }
+                    }
+                    st.nextToken();
+                    continue;
+                }
+                if (!compiling)
+                {
+                    if (!doInterpret(word, st))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!doCompile(word, st))
+                    {
+                        return false;
+                    }
+                }
+                ttype = st.nextToken();
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean doInterpret (String word, StreamTokenizer st) throws Exception
+    {
+        if (word.equals(".\""))
+        {
+            StringBuilder sb = new StringBuilder();
+            for (; ; )
+            {
+                st.nextToken();
+                String word2 = st.sval;
+                if (word2.endsWith("\""))
+                {
+                    sb.append(word2.substring(0, word2.length() - 1));
+                    break;
+                }
+                sb.append(word2).append(' ');
+            }
+            dStack.push(sb.toString());
+            word = ".";
+        }
+        BaseWord bw = dictionary.search(word);
+        if (bw != null)
+        {
+            if (bw.execute(dStack, vStack) == 0)
+            {
+                _out.print(word + " - " + ANSI_ERROR +
+                        " word execution or stack error " +
+                        ANSI_NORMAL);
+                history.removeLast();
+                return false;
+            }
+        }
+        else
+        {
+            Long num = Utilities.parseLong(word, base);
+            if (num != null)
+            {
+                dStack.push(num);
+            }
+            else
+            {
+                Double dnum = Utilities.parseDouble(word);
+                if (dnum != null)
+                {
+                    dStack.push(dnum);
+                }
+                else
+                {
+                    Complex co = Utilities.parseComplex(word);
+                    if (co != null)
+                    {
+                        dStack.push(co);
+                    }
+                    else
+                    {
+                        Fraction fr = Utilities.parseFraction(word);
+                        if (fr != null)
+                        {
+                            dStack.push(fr);
+                        }
+                        else
+                        {
+                            DoubleSequence lo = DoubleSequence.parseSequence(word);
+                            if (lo != null)
+                            {
+                                dStack.push(lo);
+                            }
+                            else
+                            {
+                                String ws = Utilities.parseString(word);
+                                if (ws != null)
+                                {
+                                    dStack.push(ws);
+                                }
+                                else
+                                {
+                                    _out.print(word + " ?");
+                                    history.removeLast();
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean doCompile (String word, StreamTokenizer st) throws Exception
+    {
+        if (word.equals(".\""))
+        {
+            StringBuilder sb = new StringBuilder();
+            for (; ; )
+            {
+                st.nextToken();
+                String word2 = st.sval;
+                if (word2.endsWith("\""))
+                {
+                    sb.append(word2.substring(0, word2.length() - 1));
+                    break;
+                }
+                sb.append(word2).append(' ');
+            }
+            wordBeingDefined.addWord(new StringLiteral(sb.toString()));
+            word = ".";
+        }
+        BaseWord bw = dictionary.search(word);
+        if (bw != null)
+        {
+            if (bw.immediate)
+            {
+                bw.execute(dStack, vStack);
+            }
+            else
+            {
+                wordBeingDefined.addWord(bw);
+            }
+        }
+        else
+        {
+            Long num = Utilities.parseLong(word, base);
+            if (num != null)
+            {
+                wordBeingDefined.addWord(new LongLiteral(num));
+            }
+            else
+            {
+                Double dnum = Utilities.parseDouble(word);
+                if (dnum != null)
+                {
+                    wordBeingDefined.addWord(new DoubleLiteral(dnum));
+                }
+                else
+                {
+                    DoubleSequence ds = DoubleSequence.parseSequence(word);
+                    if (ds != null)
+                    {
+                        wordBeingDefined.addWord(new DListLiteral(ds));
+                    }
+                    else
+                    {
+                        Fraction fr = Utilities.parseFraction(word);
+                        if (fr != null)
+                        {
+                            wordBeingDefined.addWord(new FractionLiteral(fr));
+                        }
+                        else
+                        {
+                            Complex cpl = Utilities.parseComplex(word);
+                            if (cpl != null)
+                            {
+                                wordBeingDefined.addWord(new ComplexLiteral(cpl));
+                            }
+                            else
+                            {
+                                String ws = Utilities.parseString(word);
+                                if (ws != null)
+                                {
+                                    wordBeingDefined.addWord(new StringLiteral(word));
+                                }
+                                else
+                                {
+                                    _out.print(word + " ?");
+                                    compiling = false;
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
     public static String stackElementToString (Object o, int base)
     {
@@ -141,6 +354,23 @@ public class JForth
             return null;
         }
         return ANSI_YELLOW + ANSI_BOLD + outstr + ANSI_NORMAL;
+    }
+
+    public void play ()
+    {
+        for (String s : history.history)
+        {
+            if (s.equals("playHist"))
+            {
+                continue;
+            }
+            _out.println(s);
+            if (!interpretLine(s))
+            {
+                dStack.removeAllElements();
+            }
+            _out.flush();
+        }
     }
 
     public String getNextToken ()
@@ -203,218 +433,4 @@ public class JForth
             }
         }
     }
-
-    private boolean interpretLine (String text)
-    {
-        try
-        {
-            StringReader sr = new StringReader(text);
-            st = new StreamTokenizer(sr);
-            st.resetSyntax();
-            st.wordChars('!', '~');
-            //st.quoteChar('"');
-            st.whitespaceChars('\u0000', '\u0020');
-            int ttype = st.nextToken();
-            while (ttype != StreamTokenizer.TT_EOF)
-            {
-                String word = st.sval;
-                if (word.equals("(")) // filter out comments
-                {
-                    for (;;)
-                    {
-                        st.nextToken();
-                        String word2 = st.sval;
-                        if (word2.endsWith(")"))
-                            break;
-                    }
-                    st.nextToken();
-                    continue;
-                }
-                if (!compiling)
-                {
-                    if (word.equals(".\""))
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        for(;;)
-                        {
-                            st.nextToken();
-                            String word2 = st.sval;
-                            if (word2.endsWith("\""))
-                            {
-                                sb.append(word2.substring(0, word2.length()-1));
-                                break;
-                            }
-                            sb.append(word2).append(' ');
-                        }
-                        dStack.push (sb.toString());
-                        word = ".";
-                    }
-                    else
-                    {
-                        String ws = Utilities.parseString(word);
-                        if (ws != null)
-                        {
-                            dStack.push(ws);
-                            ttype = st.nextToken();
-                            continue;
-                        }
-                    }
-                    BaseWord bw = dictionary.search(word);
-                    if (bw != null)
-                    {
-                        if (bw.execute(dStack, vStack) == 0)
-                        {
-                            _out.print(word + " - " + ANSI_ERROR +
-                                    " word execution or stack error "+
-                                    ANSI_NORMAL);
-                            history.removeLast();
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        Long num = Utilities.parseLong (word, base);
-                        if (num != null)
-                        {
-                            dStack.push(num);
-                        }
-                        else
-                        {
-                            Double dnum = Utilities.parseDouble(word);
-                            if (dnum != null)
-                            {
-                                dStack.push(dnum);
-                            }
-                            else
-                            {
-                                Complex co = Utilities.parseComplex(word);
-                                if (co != null)
-                                {
-                                    dStack.push(co);
-                                }
-                                else
-                                {
-                                    Fraction fr = Utilities.parseFraction(word);
-                                    if (fr != null)
-                                    {
-                                        dStack.push(fr);
-                                    }
-                                    else
-                                    {
-                                        DoubleSequence lo = DoubleSequence.parseSequence(word);
-                                        if (lo != null)
-                                        {
-                                            dStack.push(lo);
-                                        }
-                                        else
-                                        {
-                                            _out.print(word + " ?");
-                                            history.removeLast();
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (word.equals(".\""))
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        for(;;)
-                        {
-                            st.nextToken();
-                            String word2 = st.sval;
-                            if (word2.endsWith("\""))
-                            {
-                                sb.append(word2.substring(0, word2.length()-1));
-                                break;
-                            }
-                            sb.append(word2).append(' ');
-                        }
-                        wordBeingDefined.addWord(new StringLiteral(sb.toString()));
-                        word = ".";
-                    }
-                    else
-                    {
-                        String ws = Utilities.parseString(word);
-                        if (ws != null)
-                        {
-                            wordBeingDefined.addWord(new StringLiteral(word));
-                            ttype = st.nextToken();
-                            continue;
-                        }
-                    }
-                    BaseWord bw = dictionary.search(word);
-                    if (bw != null)
-                    {
-                        if (bw.immediate)
-                        {
-                            bw.execute(dStack, vStack);
-                        }
-                        else
-                        {
-                            wordBeingDefined.addWord(bw);
-                        }
-                    }
-                    else
-                    {
-                        Long num = Utilities.parseLong (word, base);
-                        if (num != null)
-                        {
-                            wordBeingDefined.addWord(new LongLiteral(num));
-                        }
-                        else
-                        {
-                            Double dnum = Utilities.parseDouble(word);
-                            if (dnum != null)
-                            {
-                                wordBeingDefined.addWord(new DoubleLiteral(dnum));
-                            }
-                            else
-                            {
-                                DoubleSequence ds = DoubleSequence.parseSequence(word);
-                                if (ds != null)
-                                {
-                                    wordBeingDefined.addWord(new DListLiteral(ds));
-                                }
-                                else
-                                {
-                                    Fraction fr = Utilities.parseFraction(word);
-                                    if (fr != null)
-                                    {
-                                        wordBeingDefined.addWord(new FractionLiteral(fr));
-                                    }
-                                    else
-                                    {
-                                        Complex cpl = Utilities.parseComplex(word);
-                                        if (cpl != null)
-                                        {
-                                            wordBeingDefined.addWord(new ComplexLiteral(cpl));
-                                        }
-                                        else
-                                        {
-                                            _out.print(word + " ?");
-                                            compiling = false;
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                ttype = st.nextToken();
-            }
-            return true;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
 }
