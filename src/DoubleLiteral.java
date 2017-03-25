@@ -1,3 +1,4 @@
+
 public final class DoubleLiteral extends BaseWord
 {
   public DoubleLiteral(Double number)

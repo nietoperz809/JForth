@@ -375,9 +375,33 @@ public class JForth
                             }
                             else
                             {
-                                _out.print(word + " ?");
-                                compiling = false;
-                                return false;
+                                DoubleSequence ds = DoubleSequence.parseSequence(word);
+                                if (ds != null)
+                                {
+                                    wordBeingDefined.addWord(new DListLiteral(ds));
+                                }
+                                else
+                                {
+                                    Fraction fr = Utilities.parseFraction(word);
+                                    if (fr != null)
+                                    {
+                                        wordBeingDefined.addWord(new FractionLiteral(fr));
+                                    }
+                                    else
+                                    {
+                                        Complex cpl = Utilities.parseComplex(word);
+                                        if (cpl != null)
+                                        {
+                                            wordBeingDefined.addWord(new ComplexLiteral(cpl));
+                                        }
+                                        else
+                                        {
+                                            _out.print(word + " ?");
+                                            compiling = false;
+                                            return false;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
