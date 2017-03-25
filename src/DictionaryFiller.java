@@ -18,27 +18,29 @@ final public class DictionaryFiller
 
     private void fill (WordsList _fw)
     {
-        _fw.add(new PrimitiveWord
+        _fw.add(new PrimitiveWord   // dummy
                 (
                         "(", true, "Begin comment",
                         new ExecuteIF()
                         {
-                            @Override
+                            @Override // do nothing. comments handled by tokenizer
                             public int execute (OStack dStack, OStack vStack)
                             {
-                                String token = _jforth.getNextToken();
-                                while ((token != null) && (!token.equals(")")))
-                                {
-                                    token = _jforth.getNextToken();
-                                }
-                                if (token != null)
-                                {
-                                    return 1;
-                                }
-                                else
-                                {
-                                    return 0;
-                                }
+                                return 1;
+                            }
+                        }
+                )
+        );
+
+        _fw.add(new PrimitiveWord  // dummy
+                (
+                        ".\"", true, "String output",
+                        new ExecuteIF()
+                        {
+                            @Override // do nothing. this handled by tokenizer
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                return 1;
                             }
                         }
                 )
@@ -514,40 +516,6 @@ final public class DictionaryFiller
                                 dStack.push(o3);
                                 dStack.push(o1);
                                 return 1;
-                            }
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "pick", false,
-                        new ExecuteIF()
-                        {
-                            @Override
-                            public int execute (OStack dStack, OStack vStack)
-                            {
-                                if (dStack.empty())
-                                {
-                                    return 0;
-                                }
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof Long)
-                                {
-                                    long i1 = (Long) o1;
-                                    if ((i1 < 0) || (i1 >= dStack.size()))
-                                    {
-                                        return 0;
-                                    }
-                                    else
-                                    {
-                                        dStack.push(dStack.get((int) i1));
-                                        return 1;
-                                    }
-                                }
-                                else
-                                {
-                                    return 0;
-                                }
                             }
                         }
                 ));
