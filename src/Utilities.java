@@ -1,5 +1,6 @@
 import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "192";
-    public static final String BUILD_DATE = "03/25/2017 11:30:41 AM";
+    public static final String BUILD_NUMBER = "220";
+    public static final String BUILD_DATE = "03/25/2017 09:42:52 PM";
 
     static String formatComplex (Complex c)
     {
@@ -207,5 +208,17 @@ public class Utilities
         if (!in.endsWith("\""))
             return null;
         return in.substring(1, in.length()-1);
+    }
+
+    public static PolynomialFunction antiDerive (PolynomialFunction p)
+    {
+        double[] in = p.getCoefficients();
+        double[] out = new double[in.length+1];
+        out[0] = 0.0; // constant
+        for (int s=1; s<out.length; s++)
+        {
+            out[s] = in[s-1]/s;
+        }
+        return new PolynomialFunction(out);
     }
 }

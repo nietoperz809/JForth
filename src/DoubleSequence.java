@@ -181,6 +181,14 @@ public class DoubleSequence
         return sb.toString();
     }
 
+    public double[] asPrimitiveArray ()
+    {
+        double[] out = new double[mem.size()];
+        for (int s=0; s<mem.size(); s++)
+            out[s] = mem.get(s);
+        return out;
+    }
+
     public String toString()
     {
         StringBuilder sb = new StringBuilder();

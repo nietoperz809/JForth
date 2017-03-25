@@ -1,3 +1,4 @@
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
@@ -38,7 +39,7 @@ public class JForth
         base = 10;
         random = new Random();
         history = new History(HISTORY_LENGTH);
-        new DictionaryFiller(this, dictionary);
+        new PredefinedWords(this, dictionary);
     }
 
     public static void main (String[] args) throws IOException, ClassNotFoundException
@@ -205,9 +206,17 @@ public class JForth
                                 }
                                 else
                                 {
-                                    _out.print(word + " ?");
-                                    history.removeLast();
-                                    return false;
+                                    double[] pd = PolynomParser.parsePolynom(word);
+                                    if (pd != null)
+                                    {
+                                        dStack.push(new PolynomialFunction(pd));
+                                    }
+                                    else
+                                    {
+                                        _out.print(word + " ?");
+                                        history.removeLast();
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -348,6 +357,10 @@ public class JForth
         else if (o instanceof PrintStream)
         {
             outstr = "PrintStream address on stack";
+        }
+        else if (o instanceof PolynomialFunction)
+        {
+            outstr = ((PolynomialFunction)o).toString().replaceAll("\\s","");
         }
         else
         {

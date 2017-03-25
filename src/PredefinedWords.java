@@ -1,3 +1,5 @@
+import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 
@@ -6,11 +8,11 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-final public class DictionaryFiller
+final public class PredefinedWords
 {
     private final JForth _jforth;
 
-    public DictionaryFiller (JForth jf, WordsList wl)
+    public PredefinedWords (JForth jf, WordsList wl)
     {
         this._jforth = jf;
         fill(wl);
@@ -920,6 +922,12 @@ final public class DictionaryFiller
                                     DoubleSequence d2 = (DoubleSequence) o2;
                                     dStack.push (d2.add(d1.doubleValue()));
                                 }
+                                else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
+                                {
+                                    PolynomialFunction d1 = (PolynomialFunction) o1;
+                                    PolynomialFunction d2 = (PolynomialFunction) o2;
+                                    dStack.push(d2.add(d1));
+                                }
                                 else
                                 {
                                     return 0;
@@ -968,6 +976,12 @@ final public class DictionaryFiller
                                     double d2 = (Double) o2;
                                     d2 -= d1;
                                     dStack.push(d2);
+                                }
+                                else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
+                                {
+                                    PolynomialFunction d1 = (PolynomialFunction) o1;
+                                    PolynomialFunction d2 = (PolynomialFunction) o2;
+                                    dStack.push(d2.subtract(d1));
                                 }
                                 else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
                                 {
@@ -1140,6 +1154,13 @@ final public class DictionaryFiller
                                     double d2 = (Double) o2;
                                     d2 *= d1;
                                     dStack.push(d2);
+                                    return 1;
+                                }
+                                else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
+                                {
+                                    PolynomialFunction d1 = (PolynomialFunction) o1;
+                                    PolynomialFunction d2 = (PolynomialFunction) o2;
+                                    dStack.push(d2.multiply(d1));
                                     return 1;
                                 }
                                 else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
@@ -2570,6 +2591,118 @@ final public class DictionaryFiller
                                 }
                                 dStack.push(seq);
                                 return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toPoly", false,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.empty())
+                                {
+                                    return 0;
+                                }
+                                Object o = dStack.pop();
+                                if (!(o instanceof DoubleSequence))
+                                    return 0;
+                                PolynomialFunction p =
+                                        new PolynomialFunction(((DoubleSequence)o).asPrimitiveArray());
+                                dStack.push(p);
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "f'=", false, "derive a polynomial",
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.empty())
+                                {
+                                    return 0;
+                                }
+                                Object o = dStack.pop();
+                                if (!(o instanceof PolynomialFunction))
+                                    return 0;
+                                PolynomialFunction p = (PolynomialFunction)o;
+                                dStack.push(p.polynomialDerivative());
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "Sf=", false, "Antiderive of a polynomial",
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                Object o = dStack.pop();
+                                Object o2 = null;
+                                Object o3 = null;
+                                PolynomialFunction p;
+                                if (!dStack.isEmpty())
+                                {
+                                    o2 = dStack.pop();
+                                    o3 = dStack.pop();
+                                    p = (PolynomialFunction)o3;
+                                }
+                                else
+                                {
+                                    p = (PolynomialFunction)o;
+                                    dStack.push(Utilities.antiDerive(p));
+                                    return 1;
+                                }
+                                if (o2 instanceof Long)
+                                    o2 = ((Long)o2).doubleValue();
+                                if (o instanceof Long)
+                                    o = ((Long)o).doubleValue();
+                                if (!(o2 instanceof Double && o instanceof Double))
+                                    return 0;
+                                SimpsonIntegrator si = new SimpsonIntegrator();
+                                double d = si.integrate(1000, p,
+                                        (Double)o2, (Double)o);
+                                dStack.push (d);
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "x=", false, "solve a polynomial",
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.size()<2)
+                                {
+                                    return 0;
+                                }
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof Long)
+                                    o1 = new Double(((Long) o1).doubleValue());
+                                Object o2 = dStack.pop();
+                                if (o1 instanceof Double && o2 instanceof PolynomialFunction)
+                                {
+                                    Double d1 = (Double)o1;
+                                    PolynomialFunction p1 = (PolynomialFunction)o2;
+                                    dStack.push(p1.value(d1));
+                                    return 1;
+                                }
+                                return 0;
                             }
                         }
                 ));
