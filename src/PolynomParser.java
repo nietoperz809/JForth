@@ -57,34 +57,40 @@ public class PolynomParser
 
     public static double[] parsePolynom (String poly)
     {
-        AddMap adm = new AddMap();
-        ArrayList<String> arl = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        for (int s=0; s<poly.length(); s++)
+        try
         {
-            char c = poly.charAt(s);
-            if (Character.isWhitespace(c))
-                continue;
-            if (c == '+' || c == '-')
+            AddMap adm = new AddMap();
+            ArrayList<String> arl = new ArrayList<>();
+            StringBuilder sb = new StringBuilder();
+            for (int s = 0; s < poly.length(); s++)
             {
-                arl.add(adjustX(sb.toString()));
-                sb = new StringBuilder();
+                char c = poly.charAt(s);
+                if (Character.isWhitespace(c))
+                    continue;
+                if (c == '+' || c == '-')
+                {
+                    arl.add(adjustX(sb.toString()));
+                    sb = new StringBuilder();
+                }
+                sb.append(c);
             }
-            sb.append(c);
-        }
-        arl.add (adjustX(sb.toString()));
+            arl.add(adjustX(sb.toString()));
 
-        for (String v : arl)
+            for (String v : arl)
+            {
+                int sign = v.charAt(0) == '-' ? -1 : 1;
+                v = v.substring(1);
+                int xindex = v.indexOf("x^");
+                String val = v.substring(0, xindex);
+                String exp = v.substring(xindex + 2, v.length());
+                adm.add(Double.parseDouble(val) * sign, Integer.parseInt(exp));
+            }
+            return adm.toArray();
+        }
+        catch (Exception unused)
         {
-            int sign = v.charAt(0) == '-' ? -1 : 1;
-            v = v.substring(1);
-            int xindex = v.indexOf ("x^");
-            String val = v.substring(0, xindex);
-            String exp = v.substring(xindex+2, v.length());
-            adm.add (Double.parseDouble(val)*sign, Integer.parseInt(exp));
+            return null;
         }
-
-        return adm.toArray();
     }
 
     public static void main (String[] args)

@@ -645,6 +645,47 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "<>", false,
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.size() < 2)
+                                {
+                                    return 0;
+                                }
+                                Object o2 = dStack.pop();
+                                Object o1 = dStack.pop();
+                                if ((o1 instanceof Long) && (o2 instanceof Long))
+                                {
+                                    long i1 = (Long) o1;
+                                    long i2 = (Long) o2;
+                                    dStack.push(i1 != i2 ? JForth.TRUE : JForth.FALSE);
+                                }
+                                else if ((o1 instanceof Double) && (o2 instanceof Double))
+                                {
+                                    double d1 = (Double) o1;
+                                    double d2 = (Double) o2;
+                                    dStack.push(d1 != d2 ? JForth.TRUE : JForth.FALSE);
+                                }
+                                else if ((o1 instanceof String) && (o2 instanceof String))
+                                {
+                                    String s1 = (String) o1;
+                                    String s2 = (String) o2;
+                                    dStack.push(s1.compareTo(s2) != 0 ? JForth.TRUE : JForth.FALSE);
+                                }
+                                else
+                                {
+                                    return 0;
+                                }
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         ">", false,
                         new ExecuteIF()
                         {
@@ -1856,7 +1897,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "setbase", false,
+                        "setbase", false, "Set a new number base",
                         new ExecuteIF()
                         {
                             public int execute (OStack dStack, OStack vStack)

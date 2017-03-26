@@ -47,6 +47,11 @@ public class JForth
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
         forth.setPrintStream(AnsiConsole.out());
+
+//        StorageWord sw = new StorageWord("base", 1, false);
+//        sw.store (10, 0);
+//        forth.vStack.push(sw);
+
         forth.outerInterpreter();
     }
 
@@ -92,6 +97,10 @@ public class JForth
             while (ttype != StreamTokenizer.TT_EOF)
             {
                 String word = st.sval;
+                if (word.equals("\\"))   // Comment until line end
+                {
+                    return true;
+                }
                 if (word.equals("(")) // filter out comments
                 {
                     for (; ; )
@@ -161,70 +170,53 @@ public class JForth
                 history.removeLast();
                 return false;
             }
+            return true;
         }
-        else
+        Long num = Utilities.parseLong(word, base);
+        if (num != null)
         {
-            Long num = Utilities.parseLong(word, base);
-            if (num != null)
-            {
-                dStack.push(num);
-            }
-            else
-            {
-                Double dnum = Utilities.parseDouble(word);
-                if (dnum != null)
-                {
-                    dStack.push(dnum);
-                }
-                else
-                {
-                    Complex co = Utilities.parseComplex(word);
-                    if (co != null)
-                    {
-                        dStack.push(co);
-                    }
-                    else
-                    {
-                        Fraction fr = Utilities.parseFraction(word);
-                        if (fr != null)
-                        {
-                            dStack.push(fr);
-                        }
-                        else
-                        {
-                            DoubleSequence lo = DoubleSequence.parseSequence(word);
-                            if (lo != null)
-                            {
-                                dStack.push(lo);
-                            }
-                            else
-                            {
-                                String ws = Utilities.parseString(word);
-                                if (ws != null)
-                                {
-                                    dStack.push(ws);
-                                }
-                                else
-                                {
-                                    double[] pd = PolynomParser.parsePolynom(word);
-                                    if (pd != null)
-                                    {
-                                        dStack.push(new PolynomialFunction(pd));
-                                    }
-                                    else
-                                    {
-                                        _out.print(word + " ?");
-                                        history.removeLast();
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            dStack.push(num);
+            return true;
         }
-        return true;
+        Double dnum = Utilities.parseDouble(word);
+        if (dnum != null)
+        {
+            dStack.push(dnum);
+            return true;
+        }
+        Complex co = Utilities.parseComplex(word);
+        if (co != null)
+        {
+            dStack.push(co);
+            return true;
+        }
+        Fraction fr = Utilities.parseFraction(word);
+        if (fr != null)
+        {
+            dStack.push(fr);
+            return true;
+        }
+        DoubleSequence lo = DoubleSequence.parseSequence(word);
+        if (lo != null)
+        {
+            dStack.push(lo);
+            return true;
+        }
+        String ws = Utilities.parseString(word);
+        if (ws != null)
+        {
+            dStack.push(ws);
+            return true;
+        }
+        double[] pd = PolynomParser.parsePolynom(word);
+        if (pd != null)
+        {
+            dStack.push(new PolynomialFunction(pd));
+            return true;
+        }
+        _out.print(word + " ?");
+        history.removeLast();
+        return false;
     }
 
     private boolean doCompile (String word, StreamTokenizer st) throws Exception
@@ -302,9 +294,19 @@ public class JForth
                                 }
                                 else
                                 {
-                                    _out.print(word + " ?");
-                                    compiling = false;
-                                    return false;
+                                    double[] pd = PolynomParser.parsePolynom(word);
+                                    if (pd != null)
+                                    {
+                                        wordBeingDefined.addWord(
+                                                new PolynomLiteral(
+                                                        new PolynomialFunction(pd)));
+                                    }
+                                    else
+                                    {
+                                        _out.print(word + " ?");
+                                        compiling = false;
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -360,7 +362,7 @@ public class JForth
         }
         else if (o instanceof PolynomialFunction)
         {
-            outstr = ((PolynomialFunction)o).toString().replaceAll("\\s","");
+            outstr = ((PolynomialFunction) o).toString().replaceAll("\\s", "");
         }
         else
         {

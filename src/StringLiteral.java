@@ -1,3 +1,5 @@
+
+
 public final class StringLiteral extends BaseWord
 {
   public StringLiteral(String str)
