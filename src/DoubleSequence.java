@@ -77,6 +77,11 @@ public class DoubleSequence
         }
     }
 
+    public boolean isEmpty()
+    {
+        return mem.isEmpty();
+    }
+
     public DoubleSequence reverse()
     {
         DoubleSequence ret = new DoubleSequence(this);

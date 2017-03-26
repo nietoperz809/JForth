@@ -404,15 +404,58 @@ final public class PredefinedWords
                                     return 0;
                                 }
                                 Object o = dStack.peek();
-                                if (o instanceof DoubleSequence)
-                                {
-                                    DoubleSequence s2 = new DoubleSequence((DoubleSequence) o);
-                                    dStack.push(s2);
-                                }
-                                else
+                                if (o instanceof Long ||
+                                        o instanceof  Double ||
+                                        o instanceof String)
                                 {
                                     dStack.push(o);
                                 }
+                                else if (o instanceof DoubleSequence)
+                                {
+                                    dStack.push(new DoubleSequence((DoubleSequence)o));
+                                }
+                                else
+                                    return 0;
+                                return 1;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "?dup", false, "Duplicate TOS if not zero",
+                        new ExecuteIF()
+                        {
+                            @Override
+                            public int execute (OStack dStack, OStack vStack)
+                            {
+                                if (dStack.empty())
+                                {
+                                    return 0;
+                                }
+                                Object o = dStack.peek();
+                                if (o instanceof Long)
+                                {
+                                    if (((Long)o) != 0)
+                                        dStack.push(o);
+                                }
+                                else if (o instanceof Double)
+                                {
+                                    if (((Double)o) != 0.0)
+                                        dStack.push(o);
+                                }
+                                else if (o instanceof DoubleSequence)
+                                {
+                                    if (!((DoubleSequence)o).isEmpty())
+                                        dStack.push(new DoubleSequence((DoubleSequence)o));
+                                }
+                                else if (o instanceof String)
+                                {
+                                    if (!((String)o).isEmpty())
+                                        dStack.push(o);
+                                }
+                                else
+                                    return 0;
                                 return 1;
                             }
                         }

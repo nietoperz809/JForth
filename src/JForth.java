@@ -249,72 +249,55 @@ public class JForth
             {
                 wordBeingDefined.addWord(bw);
             }
+            return true;
         }
-        else
+        Long num = Utilities.parseLong(word, base);
+        if (num != null)
         {
-            Long num = Utilities.parseLong(word, base);
-            if (num != null)
-            {
-                wordBeingDefined.addWord(new LongLiteral(num));
-            }
-            else
-            {
-                Double dnum = Utilities.parseDouble(word);
-                if (dnum != null)
-                {
-                    wordBeingDefined.addWord(new DoubleLiteral(dnum));
-                }
-                else
-                {
-                    DoubleSequence ds = DoubleSequence.parseSequence(word);
-                    if (ds != null)
-                    {
-                        wordBeingDefined.addWord(new DListLiteral(ds));
-                    }
-                    else
-                    {
-                        Fraction fr = Utilities.parseFraction(word);
-                        if (fr != null)
-                        {
-                            wordBeingDefined.addWord(new FractionLiteral(fr));
-                        }
-                        else
-                        {
-                            Complex cpl = Utilities.parseComplex(word);
-                            if (cpl != null)
-                            {
-                                wordBeingDefined.addWord(new ComplexLiteral(cpl));
-                            }
-                            else
-                            {
-                                String ws = Utilities.parseString(word);
-                                if (ws != null)
-                                {
-                                    wordBeingDefined.addWord(new StringLiteral(word));
-                                }
-                                else
-                                {
-                                    double[] pd = PolynomParser.parsePolynom(word);
-                                    if (pd != null)
-                                    {
-                                        wordBeingDefined.addWord(
-                                                new PolynomLiteral(
-                                                        new PolynomialFunction(pd)));
-                                    }
-                                    else
-                                    {
-                                        _out.print(word + " ?");
-                                        compiling = false;
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            wordBeingDefined.addWord(new LongLiteral(num));
+            return true;
         }
-        return true;
+        Double dnum = Utilities.parseDouble(word);
+        if (dnum != null)
+        {
+            wordBeingDefined.addWord(new DoubleLiteral(dnum));
+            return true;
+        }
+        DoubleSequence ds = DoubleSequence.parseSequence(word);
+        if (ds != null)
+        {
+            wordBeingDefined.addWord(new DListLiteral(ds));
+            return true;
+        }
+        Fraction fr = Utilities.parseFraction(word);
+        if (fr != null)
+        {
+            wordBeingDefined.addWord(new FractionLiteral(fr));
+            return true;
+        }
+        Complex cpl = Utilities.parseComplex(word);
+        if (cpl != null)
+        {
+            wordBeingDefined.addWord(new ComplexLiteral(cpl));
+            return true;
+        }
+        String ws = Utilities.parseString(word);
+        if (ws != null)
+        {
+            wordBeingDefined.addWord(new StringLiteral(word));
+            return true;
+        }
+        double[] pd = PolynomParser.parsePolynom(word);
+        if (pd != null)
+        {
+            wordBeingDefined.addWord(
+                    new PolynomLiteral(
+                            new PolynomialFunction(pd)));
+            return true;
+        }
+        _out.print(word + " ?");
+        compiling = false;
+        return false;
     }
 
     public static String stackElementToString (Object o, int base)
