@@ -57,6 +57,14 @@ public class DoubleSequence
         }
     }
 
+    public DoubleSequence (int ... vals)
+    {
+        for (int s=0; s<vals.length; s++)
+        {
+            mem.add ((double)vals[s]);
+        }
+    }
+
     public DoubleSequence (DoubleSequence src)
     {
         for (int s=0; s<src.mem.size(); s++)

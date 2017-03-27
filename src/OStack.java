@@ -4,16 +4,22 @@ public class OStack extends Stack<Object>
 {
     SizedStack<Object> saveStack = new SizedStack<>(1000);
 
+    @Override
+    public synchronized void removeAllElements ()
+    {
+        while (!isEmpty())
+        {
+            Object o = super.pop();
+            saveStack.push(o);
+        }
+        super.removeAllElements();
+    }
+
     public Object get (int n)
     {
-        try
-        {
-            return super.get(n);
-        }
-        catch (Exception unused)
-        {
+        if (isEmpty())
             return null;
-        }
+        return super.get(n);
     }
 
     public Object pop()
@@ -23,11 +29,12 @@ public class OStack extends Stack<Object>
         return o;
     }
 
-    public void unpop()
+    public boolean unpop()
     {
         if (saveStack.isEmpty())
-            return;
+            return false;
         Object o = saveStack.pop();
         push(o);
+        return true;
     }
 }
