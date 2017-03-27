@@ -401,22 +401,22 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "lehm", false, "Generate permutation",
+                        "permute", false, "Generate permutation",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop(); // how many elements
-                            Object o2 = dStack.pop(); // perm number
-                            if (!(o1 instanceof Long && o2 instanceof Long))
+                            Object o2 = dStack.pop(); // how many elements
+                            Object o1 = dStack.pop(); // perm number
+                            if (!(o1 instanceof DoubleSequence && o2 instanceof Long))
                                 return 0;
-                            Long l1 = (Long)o1;
+                            DoubleSequence l1 = (DoubleSequence)o1;
                             Long l2 = (Long)o2;
-                            int[] arr = LehmerCode.perm(l1.intValue(), l2.intValue());
-                            DoubleSequence sq = new DoubleSequence(arr);
-                            dStack.push(sq);
+                            int[] arr = LehmerCode.perm(l1.length(), l2.intValue());
+                            DoubleSequence out = l1.rearrange(arr);
+                            dStack.push(out);
                             return 1;
                         }
                 ));
@@ -1637,7 +1637,17 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ".s", false,
+                        ".v", false,   "Show whole variable stack",
+                        (dStack, vStack) ->
+                        {
+                            _jforth._out.print(_jforth.dictionary.variableList());
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        ".s", false,   "Show whole data stack",
                         (dStack, vStack) ->
                         {
                             for (Object o : dStack)
@@ -1650,7 +1660,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "cr", false,
+                        "cr", false, "Emit carriage return",
                         (dStack, vStack) ->
                         {
                             _jforth._out.println();
@@ -1660,7 +1670,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sp", false,
+                        "sp", false,   "Emit single space",
                         (dStack, vStack) ->
                         {
                             _jforth._out.print(' ');
@@ -1670,7 +1680,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "spaces", false,
+                        "spaces", false,  "Emit multiple spaces",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1698,7 +1708,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "binary", false,
+                        "binary", false, "Set binary number base",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 2;
@@ -1708,7 +1718,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "decimal", false,
+                        "decimal", false, "Set decimal number base",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 10;
@@ -1718,7 +1728,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "hex", false,
+                        "hex", false,  "Set hexadecimal number base",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 16;
@@ -1750,7 +1760,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ":", false,
+                        ":", false,  "Begin word definition",
                         (dStack, vStack) ->
                         {
                             _jforth.compiling = true;
@@ -1766,7 +1776,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ";", true,
+                        ";", true, "End word definition",
                         (dStack, vStack) ->
                         {
                             _jforth.compiling = false;
@@ -1777,7 +1787,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "words", false,
+                        "words", false,  "Show all words",
                         (dStack, vStack) ->
                         {
                             dStack.push(_jforth.dictionary.toString(false));
@@ -1787,7 +1797,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "wordsd", false,
+                        "wordsd", false, "Show words and description",
                         (dStack, vStack) ->
                         {
                             _jforth._out.println(_jforth.dictionary.toString(true));
@@ -1797,7 +1807,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "forget", true,
+                        "forget", true, "Delete word from dictionary",
                         (dStack, vStack) ->
                         {
                             String name = _jforth.getNextToken();
@@ -1829,7 +1839,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "constant", false,
+                        "constant", false, "create new Constant",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1869,7 +1879,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "variable", false,
+                        "variable", true, "Create new variable",
                         (dStack, vStack) ->
                         {
                             String name = _jforth.getNextToken();
@@ -1885,7 +1895,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ">r", false,
+                        ">r", false, "Put TOS to variable stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1900,7 +1910,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "r>", false,
+                        "r>", false, "Put variable on data stack",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())
@@ -1915,7 +1925,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "r@", false,
+                        "r@", false, "Put variable on data stack",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())
@@ -1930,7 +1940,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "!", false,
+                        "!", false,  "Store value into varable or array",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())

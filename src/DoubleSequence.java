@@ -184,6 +184,16 @@ public class DoubleSequence
         return new DoubleSequence(this.mem.subList(from, to));
     }
 
+    public DoubleSequence rearrange (int pos[])
+    {
+        DoubleSequence out = new DoubleSequence();
+        for (int p : pos)
+        {
+            out = out.add(this.mem.get(p));
+        }
+        return out;
+    }
+
     public String asString ()
     {
         StringBuilder sb = new StringBuilder();

@@ -1,6 +1,4 @@
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 public class WordsList
 {
@@ -34,6 +32,24 @@ public class WordsList
             {
                 sb.append("\n");
             }
+        }
+        return sb.toString();
+    }
+
+    public String variableList ()
+    {
+        if (isEmpty())
+        {
+            return null;
+        }
+        Collections.sort(wordsList, Collections.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+        while (i1.hasNext())
+        {
+            BaseWord bw = i1.next();
+            if (bw instanceof StorageWord)
+                sb.append(bw.toString(false)).append(' ');
         }
         return sb.toString();
     }

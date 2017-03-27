@@ -284,7 +284,7 @@ public class JForth
         String ws = Utilities.parseString(word);
         if (ws != null)
         {
-            wordBeingDefined.addWord(new StringLiteral(word));
+            wordBeingDefined.addWord(new StringLiteral(ws));
             return true;
         }
         double[] pd = PolynomParser.parsePolynom(word);
