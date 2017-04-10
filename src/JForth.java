@@ -2,6 +2,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
+import scala.math.BigInt;
 
 import java.io.*;
 import java.util.Random;
@@ -346,6 +347,10 @@ public class JForth
         else if (o instanceof PolynomialFunction)
         {
             outstr = ((PolynomialFunction) o).toString().replaceAll("\\s", "");
+        }
+        else if (o instanceof BigInt)
+        {
+            outstr = ((BigInt)o).toString();
         }
         else
         {

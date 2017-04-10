@@ -38,7 +38,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "'", true,  "Push word from dictionary on stack",
+                        "'", true, "Push word from dictionary on stack",
                         (dStack, vStack) ->
                         {
                             if (_jforth.compiling)
@@ -72,7 +72,28 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "execute", false,  "executes word from stack",
+                        "seq", false, "generate sequence",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                double d3 = Utilities.readDouble(dStack);
+                                long l2 = Utilities.readLong(dStack);
+                                double d1 = Utilities.readDouble(dStack);
+                                DoubleSequence ds = DoubleSequence.makeCounted(d1,l2,d3);
+                                dStack.push(ds);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "execute", false, "executes word from stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -85,10 +106,7 @@ final public class PredefinedWords
                                 BaseWord bw = (BaseWord) o;
                                 return bw.execute(dStack, vStack);
                             }
-                            else
-                            {
-                                return 0;
-                            }
+                            return 0;
                         }
                 ));
 
@@ -348,17 +366,19 @@ final public class PredefinedWords
                             }
                             Object o = dStack.peek();
                             if (o instanceof Long ||
-                                    o instanceof  Double ||
+                                    o instanceof Double ||
                                     o instanceof String)
                             {
                                 dStack.push(o);
                             }
                             else if (o instanceof DoubleSequence)
                             {
-                                dStack.push(new DoubleSequence((DoubleSequence)o));
+                                dStack.push(new DoubleSequence((DoubleSequence) o));
                             }
                             else
+                            {
                                 return 0;
+                            }
                             return 1;
                         }
                 ));
@@ -375,26 +395,36 @@ final public class PredefinedWords
                             Object o = dStack.peek();
                             if (o instanceof Long)
                             {
-                                if (((Long)o) != 0)
+                                if (((Long) o) != 0)
+                                {
                                     dStack.push(o);
+                                }
                             }
                             else if (o instanceof Double)
                             {
-                                if (((Double)o) != 0.0)
+                                if (((Double) o) != 0.0)
+                                {
                                     dStack.push(o);
+                                }
                             }
                             else if (o instanceof DoubleSequence)
                             {
-                                if (!((DoubleSequence)o).isEmpty())
-                                    dStack.push(new DoubleSequence((DoubleSequence)o));
+                                if (!((DoubleSequence) o).isEmpty())
+                                {
+                                    dStack.push(new DoubleSequence((DoubleSequence) o));
+                                }
                             }
                             else if (o instanceof String)
                             {
-                                if (!((String)o).isEmpty())
+                                if (!((String) o).isEmpty())
+                                {
                                     dStack.push(o);
+                                }
                             }
                             else
+                            {
                                 return 0;
+                            }
                             return 1;
                         }
                 ));
@@ -411,9 +441,11 @@ final public class PredefinedWords
                             Object o2 = dStack.pop(); // how many elements
                             Object o1 = dStack.pop(); // perm number
                             if (!(o1 instanceof DoubleSequence && o2 instanceof Long))
+                            {
                                 return 0;
-                            DoubleSequence l1 = (DoubleSequence)o1;
-                            Long l2 = (Long)o2;
+                            }
+                            DoubleSequence l1 = (DoubleSequence) o1;
+                            Long l2 = (Long) o2;
                             int[] arr = LehmerCode.perm(l1.length(), l2.intValue());
                             DoubleSequence out = l1.rearrange(arr);
                             dStack.push(out);
@@ -896,13 +928,13 @@ final public class PredefinedWords
                             {
                                 Double d1 = (Double) o1;
                                 DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push (d2.add(d1));
+                                dStack.push(d2.add(d1));
                             }
                             else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
                             {
                                 Long d1 = (Long) o1;
                                 DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push (d2.add(d1.doubleValue()));
+                                dStack.push(d2.add(d1.doubleValue()));
                             }
                             else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
                             {
@@ -971,7 +1003,7 @@ final public class PredefinedWords
                             {
                                 Long d1 = (Long) o1;
                                 DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push(d2.subList(0, d2.length()-d1.intValue()));
+                                dStack.push(d2.subList(0, d2.length() - d1.intValue()));
                             }
                             else
                             {
@@ -1127,7 +1159,9 @@ final public class PredefinedWords
                                 DoubleSequence d2 = (DoubleSequence) o2;
                                 DoubleSequence d3 = new DoubleSequence();  // empty
                                 while (d1-- != 0)
+                                {
                                     d3 = d3.add(d2);
+                                }
                                 dStack.push(d3);
                                 return 1;
                             }
@@ -1137,7 +1171,9 @@ final public class PredefinedWords
                                 String d2 = (String) o2;
                                 StringBuilder sb = new StringBuilder();  // empty
                                 while (d1-- != 0)
+                                {
                                     sb.append(d2);
+                                }
                                 dStack.push(sb.toString());
                                 return 1;
                             }
@@ -1186,21 +1222,29 @@ final public class PredefinedWords
                             {
                                 long d1 = (Long) o1;
                                 String d2 = (String) o2;
-                                List<String> ll = Utilities.splitEqually(d2, (int)d1);
+                                List<String> ll = Utilities.splitEqually(d2, (int) d1);
                                 if (ll == null)
+                                {
                                     return 0;
+                                }
                                 for (String s : ll)
+                                {
                                     dStack.push(s);
+                                }
                             }
                             else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
                             {
                                 long d1 = (Long) o1;
                                 DoubleSequence d2 = (DoubleSequence) o2;
-                                List<DoubleSequence> ll = Utilities.splitEqually(d2, (int)d1);
+                                List<DoubleSequence> ll = Utilities.splitEqually(d2, (int) d1);
                                 if (ll == null)
+                                {
                                     return 0;
+                                }
                                 for (DoubleSequence s : ll)
+                                {
                                     dStack.push(s);
+                                }
                             }
                             else
                             {
@@ -1414,7 +1458,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "split", false,
+                        "split", false, "Split object into partitions",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1432,8 +1476,8 @@ final public class PredefinedWords
                             if (o1 instanceof Fraction)
                             {
                                 Fraction d1 = (Fraction) o1;
-                                dStack.push((double)d1.getNumerator());
-                                dStack.push((double)d1.getDenominator());
+                                dStack.push((double) d1.getNumerator());
+                                dStack.push((double) d1.getDenominator());
                                 return 1;
                             }
                             if (o1 instanceof Double)
@@ -1468,7 +1512,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "and", false,
+                        "and", false, "Binary and of 2 values",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -1494,7 +1538,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "or", false,
+                        "or", false, "Binary or of 2 values",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -1520,7 +1564,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "xor", false,
+                        "xor", false, "Xors two values",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -1546,7 +1590,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "<<", false,
+                        "<<", false, "Rotate left",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -1570,13 +1614,20 @@ final public class PredefinedWords
                                 dStack.push(i2.rotateLeft(i1));
                                 return 1;
                             }
+                            if ((o1 instanceof Long) && (o2 instanceof String))
+                            {
+                                String i2 = (String) o2;
+                                int i1 = ((Long) o1).intValue();
+                                dStack.push(Utilities.rotLeft(i2, i1));
+                                return 1;
+                            }
                             return 0;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        ">>", false,
+                        ">>", false, "Rotate right",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -1600,13 +1651,20 @@ final public class PredefinedWords
                                 dStack.push(i2.rotateRight(i1));
                                 return 1;
                             }
+                            if ((o1 instanceof Long) && (o2 instanceof String))
+                            {
+                                String i2 = (String) o2;
+                                int i1 = ((Long) o1).intValue();
+                                dStack.push(Utilities.rotRight(i2, i1));
+                                return 1;
+                            }
                             return 0;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        ".", false,
+                        ".", false, "Pop TOS and print it",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1626,18 +1684,20 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ".r", false,
+                        "<.", false, "Restore last stack object",
                         (dStack, vStack) ->
                         {
                             if (!dStack.unpop())
+                            {
                                 _jforth._out.print("Nothing to do ...");
+                            }
                             return 1;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        ".v", false,   "Show whole variable stack",
+                        ".v", false, "Show whole variable stack",
                         (dStack, vStack) ->
                         {
                             _jforth._out.print(_jforth.dictionary.variableList());
@@ -1647,7 +1707,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ".s", false,   "Show whole data stack",
+                        ".s", false, "Show whole data stack",
                         (dStack, vStack) ->
                         {
                             for (Object o : dStack)
@@ -1670,7 +1730,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sp", false,   "Emit single space",
+                        "sp", false, "Emit single space",
                         (dStack, vStack) ->
                         {
                             _jforth._out.print(' ');
@@ -1680,7 +1740,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "spaces", false,  "Emit multiple spaces",
+                        "spaces", false, "Emit multiple spaces",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1708,7 +1768,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "binary", false, "Set binary number base",
+                        "binary", false, "Set number base to 2",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 2;
@@ -1718,7 +1778,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "decimal", false, "Set decimal number base",
+                        "decimal", false, "Set number base to 10",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 10;
@@ -1728,7 +1788,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "hex", false,  "Set hexadecimal number base",
+                        "hex", false, "Set number base to 16",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 16;
@@ -1760,7 +1820,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        ":", false,  "Begin word definition",
+                        ":", false, "Begin word definition",
                         (dStack, vStack) ->
                         {
                             _jforth.compiling = true;
@@ -1787,7 +1847,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "words", false,  "Show all words",
+                        "words", false, "Show all words",
                         (dStack, vStack) ->
                         {
                             dStack.push(_jforth.dictionary.toString(false));
@@ -1800,7 +1860,7 @@ final public class PredefinedWords
                         "wordsd", false, "Show words and description",
                         (dStack, vStack) ->
                         {
-                            _jforth._out.println(_jforth.dictionary.toString(true));
+                            dStack.push(_jforth.dictionary.toString(true));
                             return 1;
                         }
                 ));
@@ -1940,7 +2000,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "!", false,  "Store value into varable or array",
+                        "!", false, "Store value into varable or array",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())
@@ -1980,7 +2040,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "+!", false,
+                        "+!", false, "Add value to variable",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())
@@ -2020,7 +2080,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "@", false,
+                        "@", false, "Put variable value on stack",
                         (dStack, vStack) ->
                         {
                             if (vStack.empty())
@@ -2067,7 +2127,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "array", false,
+                        "array", false, "Create array",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2093,7 +2153,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "round", false,
+                        "round", false, "Round double value",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2115,7 +2175,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "time", false,
+                        "time", false, "Get a time string",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2137,7 +2197,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sleep", false,
+                        "sleep", false, "Sleep some milliseconds",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2163,7 +2223,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "emit", false,
+                        "emit", false, "Emit single char to console",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2192,7 +2252,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "fraction", false,
+                        "fraction", false, "Create a fraction from 2 Numbers",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2217,7 +2277,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "complex", false,
+                        "complex", false, "Create a complex from 2 numbers",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2242,7 +2302,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toLong", false,
+                        "toLong", false, "Make long values of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2279,7 +2339,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toDouble", false,
+                        "toDouble", false, "Make double value of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2316,7 +2376,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toFraction", false,
+                        "toFraction", false, "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2340,7 +2400,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toList", false,
+                        "toList", false, "Make list of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2350,9 +2410,9 @@ final public class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof String)
                             {
-                                String str = (String)o1;
+                                String str = (String) o1;
                                 DoubleSequence ds = new DoubleSequence();
-                                for (int s=0; s<str.length(); s++)
+                                for (int s = 0; s < str.length(); s++)
                                 {
                                     ds = ds.add(str.charAt(s));
                                 }
@@ -2360,20 +2420,30 @@ final public class PredefinedWords
                                 return 1;
                             }
                             if (!(o1 instanceof Long))
+                            {
                                 return 0;
+                            }
                             long cnt = (Long) o1;
                             DoubleSequence seq = new DoubleSequence();
-                            for (long n=0; n<cnt; n++)
+                            for (long n = 0; n < cnt; n++)
                             {
                                 if (dStack.empty())
+                                {
                                     break;
+                                }
                                 Object o2 = dStack.pop();
                                 if (o2 instanceof Double)
-                                    seq = seq.add((Double)o2);
+                                {
+                                    seq = seq.add((Double) o2);
+                                }
                                 else if (o2 instanceof Long)
-                                    seq = seq.add ((Long)o2);
+                                {
+                                    seq = seq.add((Long) o2);
+                                }
                                 else if (o2 instanceof DoubleSequence)
-                                    seq = seq.add ((DoubleSequence)o2);
+                                {
+                                    seq = seq.add((DoubleSequence) o2);
+                                }
                             }
                             dStack.push(seq);
                             return 1;
@@ -2382,7 +2452,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toPoly", false,
+                        "toPoly", false, "Make polynomial of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2391,9 +2461,11 @@ final public class PredefinedWords
                             }
                             Object o = dStack.pop();
                             if (!(o instanceof DoubleSequence))
+                            {
                                 return 0;
+                            }
                             PolynomialFunction p =
-                                    new PolynomialFunction(((DoubleSequence)o).asPrimitiveArray());
+                                    new PolynomialFunction(((DoubleSequence) o).asPrimitiveArray());
                             dStack.push(p);
                             return 1;
                         }
@@ -2401,7 +2473,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "f'=", false, "derive a polynomial",
+                        "f'=", false, "Derive a polynomial",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2410,8 +2482,10 @@ final public class PredefinedWords
                             }
                             Object o = dStack.pop();
                             if (!(o instanceof PolynomialFunction))
+                            {
                                 return 0;
-                            PolynomialFunction p = (PolynomialFunction)o;
+                            }
+                            PolynomialFunction p = (PolynomialFunction) o;
                             dStack.push(p.polynomialDerivative());
                             return 1;
                         }
@@ -2430,45 +2504,53 @@ final public class PredefinedWords
                             {
                                 o2 = dStack.pop();
                                 o3 = dStack.pop();
-                                p = (PolynomialFunction)o3;
+                                p = (PolynomialFunction) o3;
                             }
                             else
                             {
-                                p = (PolynomialFunction)o;
+                                p = (PolynomialFunction) o;
                                 dStack.push(Utilities.antiDerive(p));
                                 return 1;
                             }
                             if (o2 instanceof Long)
-                                o2 = ((Long)o2).doubleValue();
+                            {
+                                o2 = ((Long) o2).doubleValue();
+                            }
                             if (o instanceof Long)
-                                o = ((Long)o).doubleValue();
+                            {
+                                o = ((Long) o).doubleValue();
+                            }
                             if (!(o2 instanceof Double && o instanceof Double))
+                            {
                                 return 0;
+                            }
                             SimpsonIntegrator si = new SimpsonIntegrator();
                             double d = si.integrate(1000, p,
-                                    (Double)o2, (Double)o);
-                            dStack.push (d);
+                                    (Double) o2, (Double) o);
+                            dStack.push(d);
                             return 1;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "x=", false, "solve a polynomial",
+                        "x=", false, "Solve a polynomial",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size()<2)
+                            if (dStack.size() < 2)
                             {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
+                            {
                                 o1 = ((Long) o1).doubleValue();
+                            }
                             Object o2 = dStack.pop();
                             if (o1 instanceof Double && o2 instanceof PolynomialFunction)
                             {
-                                Double d1 = (Double)o1;
-                                PolynomialFunction p1 = (PolynomialFunction)o2;
+                                Double d1 = (Double) o1;
+                                PolynomialFunction p1 = (PolynomialFunction) o2;
                                 dStack.push(p1.value(d1));
                                 return 1;
                             }
@@ -2478,7 +2560,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toString", false,
+                        "toString", false, "Make string of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2516,7 +2598,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "length", false,
+                        "length", false, "Get length of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2570,7 +2652,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "E", false,
+                        "E", false, "Natural logarithm base",
                         (dStack, vStack) ->
                         {
                             dStack.push(Math.E);
@@ -2580,7 +2662,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "PI", false,
+                        "PI", false, "Circle constant PI",
                         (dStack, vStack) ->
                         {
                             dStack.push(Math.PI);
@@ -2590,7 +2672,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sqrt", false,
+                        "sqrt", false, "Square root",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2618,7 +2700,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "pow", false,
+                        "pow", false, "Exponentation",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -2655,7 +2737,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "ln", false,
+                        "ln", false, "Natural logarithm",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2687,7 +2769,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "factorial", false,
+                        "factorial", false, "Factorial",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2698,12 +2780,13 @@ final public class PredefinedWords
                             if (o1 instanceof Long)
                             {
                                 Long ol = (Long) o1;
-                                double fact = 1;
-                                for (long i = 1; i <= ol; i++)
-                                {
-                                    fact = fact * i;
-                                }
-                                dStack.push(fact);
+                                dStack.push (ScalaMath.factorial(ol));
+//                                double fact = 1;
+//                                for (long i = 1; i <= ol; i++)
+//                                {
+//                                    fact = fact * i;
+//                                }
+//                                dStack.push(fact);
                                 return 1;
                             }
                             else
@@ -2715,7 +2798,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "log10", false,
+                        "log10", false, "Logarithm to base 10",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2737,7 +2820,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "exp", false,
+                        "exp", false, "E^x",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2765,7 +2848,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sin", false,
+                        "sin", false, "Sine",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2792,7 +2875,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "cos", false,
+                        "cos", false, "Cosine",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2819,7 +2902,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "tan", false,
+                        "tan", false, "Tangent",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2846,7 +2929,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "asin", false,
+                        "asin", false, "Inverse sine",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2873,7 +2956,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "acos", false,
+                        "acos", false, "Inverse cosine",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2900,7 +2983,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "atan", false,
+                        "atan", false, "Inverse tangent",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2928,7 +3011,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "atan2", false,
+                        "atan2", false, "Second arctan, see: https://de.wikipedia.org/wiki/Arctan2",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -2953,7 +3036,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "sinh", false,
+                        "sinh", false, "Sinus hyperbolicus",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2980,7 +3063,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "cosh", false,
+                        "cosh", false, "Cosinus hyperbolicus",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3007,7 +3090,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "tanh", false,
+                        "tanh", false, "Tangent hyperbolicus",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3034,7 +3117,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "load", false,
+                        "load", false, "load program file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3056,7 +3139,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "saveHist", false,
+                        "saveHist", false, "Save history",
                         (dStack, vStack) ->
                         {
                             try
@@ -3073,7 +3156,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "loadHist", false,
+                        "loadHist", false, "Load history",
                         (dStack, vStack) ->
                         {
                             try
@@ -3090,7 +3173,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "playHist", false,
+                        "playHist", false, "Execute History",
                         (dStack, vStack) ->
                         {
                             _jforth.play();
@@ -3100,7 +3183,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "clearHist", false,
+                        "clearHist", false, "Clear History",
                         (dStack, vStack) ->
                         {
                             _jforth.history.clear();
@@ -3110,7 +3193,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "gaussian", false,
+                        "gaussian", false, "Gaussian random number",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3140,7 +3223,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "random", false,
+                        "random", false, "Pseudo random number",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3170,7 +3253,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "openByteReader", false,
+                        "openByteReader", false, "Open file for reading",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3201,7 +3284,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "readByte", false,
+                        "readByte", false, "Read byte from file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3227,7 +3310,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "dir", false,
+                        "dir", false, "Get directory",
                         (dStack, vStack) ->
                         {
                             String path = ".";
@@ -3251,25 +3334,25 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "unlink", false,
+                        "unlink", false, "Delete file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            String o = null;
+                            try
+                            {
+                                o = Utilities.readString(dStack);
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o = dStack.pop();
-                            if (!(o instanceof String))
-                            {
-                                return 0;
-                            }
-                            return Utilities.del((String) o) ? 1 : 0;
+                            return Utilities.del (o) ? 1 : 0;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "key", true,
+                        "key", true, "Get key from keyboard",
                         (dStack, vStack) ->
                         {
                             try
@@ -3289,7 +3372,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "clear", true,
+                        "clear", true, "Clear the stack",
                         (dStack, vStack) ->
                         {
                             dStack.clear();
@@ -3299,7 +3382,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "pick", true,
+                        "pick", true, "Get value from arbitrary Positon and place it on TOS",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3311,9 +3394,11 @@ final public class PredefinedWords
                             {
                                 return 0;
                             }
-                            Object n = dStack.get(dStack.size()-((Long)o).intValue()-1);
+                            Object n = dStack.get(dStack.size() - ((Long) o).intValue() - 1);
                             if (n == null)
+                            {
                                 return 0;
+                            }
                             dStack.push(n);
                             return 1;
                         }
@@ -3333,9 +3418,11 @@ final public class PredefinedWords
                             {
                                 return 0;
                             }
-                            Object n = dStack.remove(dStack.size()-((Long)o).intValue()-1);
+                            Object n = dStack.remove(dStack.size() - ((Long) o).intValue() - 1);
                             if (n == null)
+                            {
                                 return 0;
+                            }
                             dStack.push(n);
                             return 1;
                         }
@@ -3343,7 +3430,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "accept", true,
+                        "accept", true, "Read string from keyboard",
                         (dStack, vStack) ->
                         {
                             long l;
@@ -3353,12 +3440,14 @@ final public class PredefinedWords
                             }
                             else
                             {
-                                Object o = dStack.pop();
-                                if (!(o instanceof Long))
+                                try
+                                {
+                                    l = Utilities.readLong(dStack);
+                                }
+                                catch (Exception e)
                                 {
                                     return 0;
                                 }
-                                l = (Long) o;
                                 if (l < 0)
                                 {
                                     return 0;
@@ -3367,28 +3456,20 @@ final public class PredefinedWords
                             StringBuilder s = new StringBuilder();
                             try
                             {
-                                if (l == -1)
+                                while (true)
                                 {
-                                    while (true)
+                                    char c = (char) RawConsoleInput.read(true);
+                                    if (l > 0)
                                     {
-                                        char c = (char) RawConsoleInput.read(true);
-                                        if (c == '\r')
-                                        {
-                                            break;
-                                        }
-                                        s.append(c);
-                                        _jforth._out.print('-');
-                                        _jforth._out.flush();
+                                        l--;
                                     }
-                                }
-                                else
-                                {
-                                    while (l-- != 0)
+                                    if (c == '\r' || l == 0)
                                     {
-                                        s.append((char) RawConsoleInput.read(true));
-                                        _jforth._out.print('-');
-                                        _jforth._out.flush();
+                                        break;
                                     }
+                                    s.append(c);
+                                    _jforth._out.print('-');
+                                    _jforth._out.flush();
                                 }
                                 RawConsoleInput.resetConsoleMode();
                                 dStack.push(s.toString());
@@ -3396,7 +3477,6 @@ final public class PredefinedWords
                             }
                             catch (Exception e)
                             {
-                                e.printStackTrace();
                                 return 0;
                             }
                         }
@@ -3404,7 +3484,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeByteReader", false,
+                        "closeByteReader", false, "Close file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3434,7 +3514,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "openReader", false,
+                        "openReader", false, "Open file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3465,7 +3545,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "readLine", false,
+                        "readLine", false, "Read line from file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3504,7 +3584,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeReader", false,
+                        "closeReader", false, "Close file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3534,7 +3614,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "openWriter", false,
+                        "openWriter", false, "Open file for Writing",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3565,7 +3645,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeString", false,
+                        "writeString", false, "Write string to file",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 2)
@@ -3603,7 +3683,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeEol", false,
+                        "writeEol", false, "Write string end into file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3625,7 +3705,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeByte", false,
+                        "writeByte", false, "Write byte into file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3648,7 +3728,7 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeWriter", false,
+                        "closeWriter", false, "Close file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3670,142 +3750,121 @@ final public class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "bye", false,
+                        "bye", false, "End the Forth interpreter",
                         (dStack, vStack) ->
                         {
                             System.exit(0);
                             return 1;
                         }
                 ));
+
         _fw.add(new PrimitiveWord
                 (
-                        "sort", false,
+                        "sort", false, "Sort a Sequence",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o = dStack.pop();
-                            if (o instanceof DoubleSequence)
-                            {
-                                dStack.push(((DoubleSequence) o).sort());
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.sort());
                                 return 1;
                             }
-                            return 0;
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "rev", false,
+                        "rev", false, "Reverse a sequence",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o = dStack.pop();
-                            if (o instanceof DoubleSequence)
-                            {
-                                DoubleSequence l = (DoubleSequence) o;
-                                dStack.push(l.reverse());
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.reverse());
                                 return 1;
                             }
-                            return 0;
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "shuffle", false,
+                        "shuffle", false, "Random shuffles a sequence",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o = dStack.pop();
-                            if (o instanceof DoubleSequence)
-                            {
-                                DoubleSequence l = (DoubleSequence) o;
-                                dStack.push(l.shuffle());
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.shuffle());
                                 return 1;
                             }
-                            return 0;
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "intersect", false,
+                        "intersect", false, "Make intersection of 2 sequences",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
+                            {
+                                DoubleSequence o1 = Utilities.readDoubleSequence(dStack);
+                                DoubleSequence o2 = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o1.intersect(o2));
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            if (!(o1 instanceof DoubleSequence))
-                            {
-                                return 0;
-                            }
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o2 = dStack.pop();
-                            if (!(o2 instanceof DoubleSequence))
-                            {
-                                return 0;
-                            }
-                            DoubleSequence l = ((DoubleSequence) o1).intersect((DoubleSequence) o2);
-                            dStack.push(l);
-                            return 1;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "unique", false,
+                        "unique", false, "Only keep unique elements of sequence",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
+                            {
+                                DoubleSequence o1 = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o1.unique());
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            if (!(o1 instanceof DoubleSequence))
-                            {
-                                return 0;
-                            }
-                            DoubleSequence l = ((DoubleSequence) o1).unique();
-                            dStack.push(l);
-                            return 1;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "lpick", false,
+                        "lpick", false, "Get one Element from sequence",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
+                            {
+                                long l1 = Utilities.readLong(dStack);
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                dStack.push(ds.pick((int) l1));
+                                return 1;
+                            }
+                            catch (Exception ex)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            if (!(o1 instanceof Long))
-                            {
-                                return 0;
-                            }
-                            Object o2 = dStack.pop();
-                            if (!(o2 instanceof DoubleSequence))
-                            {
-                                return 0;
-                            }
-                            dStack.push(((DoubleSequence) o2).pick(((Long) o1).intValue()));
-                            return 1;
                         }
                 ));
     }

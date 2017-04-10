@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.DoubleStream;
 
 /**
  * Created by Administrator on 3/23/2017.
@@ -165,6 +166,18 @@ public class DoubleSequence
         return new DoubleSequence(nodupe);
     }
 
+    public static DoubleSequence makeCounted (double start, long howmuch, double step)
+    {
+        DoubleStream ds = DoubleStream.iterate(start, n -> n + step).limit(howmuch);
+        return new DoubleSequence (ds.toArray());
+    }
+
+//    public static DoubleSequence makeCounted (double start, long howmuch, PolynomialFunction pf)
+//    {
+//        DoubleStream ds = DoubleStream.iterate(start, n -> pf.).limit(howmuch);
+//        return new DoubleSequence (ds.toArray());
+//    }
+//
 
     public static DoubleSequence parseSequence (String in)
     {

@@ -3,6 +3,7 @@ import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import scala.math.BigInt;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,8 +18,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "260";
-    public static final String BUILD_DATE = "03/27/2017 10:41:20 AM";
+    public static final String BUILD_NUMBER = "280";
+    public static final String BUILD_DATE = "04/10/2017 01:05:54 PM";
 
     static String formatComplex (Complex c)
     {
@@ -221,4 +222,93 @@ public class Utilities
         }
         return new PolynomialFunction(out);
     }
+
+    public static String rotRight (String in, int num)
+    {
+        while (num-- != 0)
+        {
+            char last = in.charAt(in.length() - 1);
+            in = "" + last + in.substring(0, in.length() - 1);
+        }
+        return in;
+    }
+
+    public static String rotLeft (String in, int num)
+    {
+        while (num-- != 0)
+        {
+            char last = in.charAt(0);
+            in = in.substring(1, in.length())+last;
+        }
+        return in;
+    }
+
+    public static double readDouble (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof BigInt)
+        {
+            return ((BigInt)o).doubleValue();
+        }
+        if (o instanceof Double)
+        {
+            return (Double)o;
+        }
+        if (o instanceof Long)
+        {
+            return ((Long)o).doubleValue();
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
+    public static long readLong (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof BigInt)
+        {
+            return ((BigInt)o).longValue();
+        }
+        if (o instanceof Double)
+        {
+            return ((Double)o).longValue();
+        }
+        if (o instanceof Long)
+        {
+            return (Long)o;
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
+    public static String readString (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof String)
+        {
+            return (String)o;
+        }
+        if (o instanceof Long)
+        {
+            return ((Long)o).toString();
+        }
+        if (o instanceof Double)
+        {
+            return ((Double)o).toString();
+        }
+        if (o instanceof BigInt)
+        {
+            return ((BigInt)o).toString();
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
+    public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof DoubleSequence)
+        {
+            return (DoubleSequence)o;
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
 }
