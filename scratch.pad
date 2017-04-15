@@ -2,10 +2,9 @@
 5 6 NESTED
 ---------------------------------------------------------
 
-: test variable hello hello ! hello @ length
-    factorial 0 do
-                i 1 + . sp "->" . sp hello @ i permute . cr
-                loop
-;
+: test variable hello hello ! hello @ length fact 0 do i 1 + . sp "->" . sp hello @ i permute . cr loop ;
 
 \ -- aufruf: {1,2,3,4} test
+
+: test variable hello hello ! hello @ length
+    fact 0 ;
