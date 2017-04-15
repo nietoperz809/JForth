@@ -5,17 +5,18 @@ import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import webserver.SimpleWebserver;
 
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-final public class PredefinedWords
+final class PredefinedWords
 {
     private final JForth _jforth;
 
-    public PredefinedWords (JForth jf, WordsList wl)
+    PredefinedWords (JForth jf, WordsList wl)
     {
         this._jforth = jf;
         fill(wl);
@@ -2537,24 +2538,36 @@ final public class PredefinedWords
                         "x=", false, "Solve a polynomial",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                o1 = ((Long) o1).doubleValue();
-                            }
-                            Object o2 = dStack.pop();
-                            if (o1 instanceof Double && o2 instanceof PolynomialFunction)
-                            {
-                                Double d1 = (Double) o1;
-                                PolynomialFunction p1 = (PolynomialFunction) o2;
+                                double d1 = Utilities.readDouble(dStack);
+                                PolynomialFunction p1 = Utilities.readPoly(dStack);
                                 dStack.push(p1.value(d1));
                                 return 1;
                             }
-                            return 0;
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "apply", false, "Apply polynomial to sequence",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
+                                PolynomialFunction p1 = Utilities.readPoly(dStack);
+                                dStack.push(s1.apply(p1));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
@@ -3779,5 +3792,25 @@ final public class PredefinedWords
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "http", false, "run web server",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long o = Utilities.readLong(dStack);
+                                SimpleWebserver.start((int)o);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+
     }
 }

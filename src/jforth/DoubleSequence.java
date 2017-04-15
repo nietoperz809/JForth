@@ -1,5 +1,6 @@
 package jforth;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
@@ -43,6 +44,16 @@ public class DoubleSequence
     public double prod()
     {
         return new Product().evaluate (this.asPrimitiveArray());
+    }
+
+    public DoubleSequence apply (PolynomialFunction p)
+    {
+        DoubleSequence ret = new DoubleSequence();
+        for (double d : mem)
+        {
+            ret.mem.add(p.value(d));
+        }
+        return ret;
     }
 
     public DoubleSequence add (double d)

@@ -10,10 +10,12 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
 
-class SimpleWebserver
+public class SimpleWebserver
 {
     private static StringStream _ss = new StringStream();
     private static JForth forth = new JForth(_ss.getPrintStream());
+
+    private static boolean running = false;
 
     private static byte[] makePage (String content)
     {
@@ -31,7 +33,7 @@ class SimpleWebserver
     }
 
 
-    public static void startServer(int port) throws IOException
+    private static void startServer(int port) throws IOException
     {
         HttpServer server = HttpServer.create(new InetSocketAddress (port),10);
 
@@ -57,13 +59,15 @@ class SimpleWebserver
 
         server.createContext("/", httpHandler);
         server.start();
+        running = true;
     }
 
-    public static void main (String[] args)
+    public static void start (int port)
     {
         try
         {
-            startServer(80);
+            if (!running)
+                startServer(80);
         }
         catch (IOException e)
         {
