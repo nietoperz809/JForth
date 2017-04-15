@@ -20,15 +20,15 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "333";
-    public static final String BUILD_DATE = "04/15/2017 10:20:51 AM";
+    public static final String BUILD_NUMBER = "346";
+    public static final String BUILD_DATE = "04/15/2017 03:23:29 PM";
 
     static String formatComplex (Complex c)
     {
         double re = c.getReal();
         double im = c.getImaginary();
-        if (im<0.0)
-            return (""+re+""+im+"i");
+        if (im == 0.0)
+            return (""+re);
         return (""+re+"+"+im+"i");
     }
 
@@ -303,12 +303,34 @@ public class Utilities
         throw new Exception ("Wrong or no Type on Stack");
     }
 
+    public static Complex readComplex (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof Complex)
+        {
+            return (Complex) o;
+        }
+        if (o instanceof Double)
+        {
+            return new Complex ((Double)o);
+        }
+        if (o instanceof Long)
+        {
+            return new Complex (((Long)o).doubleValue());
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
         if (o instanceof DoubleSequence)
         {
             return (DoubleSequence)o;
+        }
+        if (o instanceof String)
+        {
+            return new DoubleSequence((String)o);
         }
         throw new Exception ("Wrong or no Type on Stack");
     }

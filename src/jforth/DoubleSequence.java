@@ -1,5 +1,9 @@
 package jforth;
 
+import org.apache.commons.math3.stat.descriptive.summary.Product;
+import org.apache.commons.math3.stat.descriptive.summary.Sum;
+import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -16,6 +20,29 @@ public class DoubleSequence
     public DoubleSequence()
     {
 
+    }
+
+    public DoubleSequence (String s)
+    {
+        for(char c : s.toCharArray())
+        {
+            mem.add ((double)c);
+        }
+    }
+
+    public double sum()
+    {
+        return new Sum().evaluate (this.asPrimitiveArray());
+    }
+
+    public double sumQ()
+    {
+        return new SumOfSquares().evaluate (this.asPrimitiveArray());
+    }
+
+    public double prod()
+    {
+        return new Product().evaluate (this.asPrimitiveArray());
     }
 
     public DoubleSequence add (double d)

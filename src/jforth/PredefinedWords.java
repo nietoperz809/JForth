@@ -2675,23 +2675,13 @@ final public class PredefinedWords
                         "sqrt", false, "Square root",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.sqrt((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.sqrt());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                Complex oc = (Complex) o1;
-                                dStack.push(oc.sqrt());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2703,35 +2693,17 @@ final public class PredefinedWords
                         "pow", false, "Exponentation",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
+                            try
+                            {
+                                Complex o1 = Utilities.readComplex(dStack);
+                                Complex o2 = Utilities.readComplex(dStack);
+                                dStack.push(o2.pow(o1));
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                dStack.push(Math.pow(d2, d1));
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
-                                Long d1 = (Long) o1;
-                                Long d2 = (Long) o2;
-                                dStack.push((long) Math.pow(d2, d1));
-                            }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
-                                Complex d1 = (Complex) o1;
-                                Complex d2 = (Complex) o2;
-                                dStack.push(d2.pow(d1));
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
                         }
                 ));
 
@@ -2740,19 +2712,9 @@ final public class PredefinedWords
                         "ln", false, "Natural logarithm",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.log((Double) o1));
-                                return 1;
-                            }
-                            if (o1 instanceof Complex)
-                            {
-                                Complex oc = (Complex) o1;
+                                Complex oc = Utilities.readComplex(dStack);
                                 double re = oc.getReal() * oc.getReal() + oc.getImaginary() * oc.getImaginary();
                                 re = Math.log(re) / 2.0;
                                 double im = oc.getImaginary() / oc.getReal();
@@ -2760,7 +2722,7 @@ final public class PredefinedWords
                                 dStack.push(new Complex(re, im));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2817,23 +2779,13 @@ final public class PredefinedWords
                         "exp", false, "E^x",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.exp((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.exp());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                Complex oc = (Complex) o1;
-                                dStack.push(oc.exp());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2845,22 +2797,13 @@ final public class PredefinedWords
                         "sin", false, "Sine",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.sin((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.sin());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).sin());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2872,22 +2815,13 @@ final public class PredefinedWords
                         "cos", false, "Cosine",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.cos((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.cos());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).cos());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2899,22 +2833,13 @@ final public class PredefinedWords
                         "tan", false, "Tangent",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.tan((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push (o1.tan());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).tan());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2926,22 +2851,13 @@ final public class PredefinedWords
                         "asin", false, "Inverse sine",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.asin((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.asin());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).asin());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2953,22 +2869,13 @@ final public class PredefinedWords
                         "acos", false, "Inverse cosine",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.acos((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.acos());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).acos());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2980,23 +2887,13 @@ final public class PredefinedWords
                         "atan", false, "Inverse tangent",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.atan((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.atan());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                Complex oc = (Complex) o1;
-                                dStack.push(oc.atan());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3008,23 +2905,17 @@ final public class PredefinedWords
                         "atan2", false, "Second arctan, see: https://de.wikipedia.org/wiki/Arctan2",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
+                            try
+                            {
+                                Double o1 = Utilities.readDouble(dStack);
+                                Double o2 = Utilities.readDouble(dStack);
+                                dStack.push(Math.atan2(o2, o1));
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                dStack.push(Math.atan2(d2, d1));
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
                         }
                 ));
 
@@ -3033,22 +2924,13 @@ final public class PredefinedWords
                         "sinh", false, "Sinus hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.sinh((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.sinh());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).sinh());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3060,22 +2942,13 @@ final public class PredefinedWords
                         "cosh", false, "Cosinus hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.cosh((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.cosh());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).cosh());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3087,22 +2960,13 @@ final public class PredefinedWords
                         "tanh", false, "Tangent hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.tanh((Double) o1));
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.tanh());
                                 return 1;
                             }
-                            if (o1 instanceof Complex)
-                            {
-                                dStack.push(((Complex) o1).tanh());
-                                return 1;
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3797,6 +3661,60 @@ final public class PredefinedWords
                             {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 dStack.push(o.shuffle());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sum", false, "Add all elements together",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.sum());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sumq", false, "Make sum of squares",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.sumQ());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "prod", false, "Product of all values",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.prod());
                                 return 1;
                             }
                             catch (Exception e)

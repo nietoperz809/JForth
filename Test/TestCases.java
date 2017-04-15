@@ -108,4 +108,23 @@ public class TestCases
         System.out.println(s);
         Assert.assertEquals(result, s);
     }
+
+    @Test
+    public void TestStringRev()
+    {
+        String s = check ("\"hello\" rev toString",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("olleh OK\n> ", s);
+    }
+
+    @Test
+    public void TestSortString  ()
+    {
+        String s = check ("\"thequickbrownfoxjumpsoverthelazydog\" sort unique toString",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("abcdefghijklmnopqrstuvwxyz OK\n> ", s);
+    }
+
 }
