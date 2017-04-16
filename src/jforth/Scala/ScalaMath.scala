@@ -9,4 +9,9 @@ object ScalaMath
       if (n == 0) f else fac(n-1, n*f)
     fac(n, 1)
   }
+
+  def bigPow (a: Long,  b: Int): BigInt =
+  {
+    BigInt(a).pow(b)
+  }
 }

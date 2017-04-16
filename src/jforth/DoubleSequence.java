@@ -1,15 +1,18 @@
 package jforth;
 
+import jforth.Scala.SieveOfEratosthenes;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
+import scala.math.BigInt;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.DoubleStream;
+
 
 /**
  * Created by Administrator on 3/23/2017.
@@ -212,12 +215,19 @@ public class DoubleSequence
         return new DoubleSequence (ds.toArray());
     }
 
-//    public static DoubleSequence makeCounted (double start, long howmuch, PolynomialFunction pf)
-//    {
-//        DoubleStream ds = DoubleStream.iterate(start, n -> pf.).limit(howmuch);
-//        return new DoubleSequence (ds.toArray());
-//    }
-//
+    public static DoubleSequence primes (long in)
+    {
+        DoubleSequence out = new DoubleSequence();
+
+        BigInt big = BigInt.apply(in);
+        List<BigInt> list = SieveOfEratosthenes.toJList(SieveOfEratosthenes.factors(big));
+        for (BigInt i : list)
+        {
+            out.mem.add (i.toDouble());
+        }
+
+        return out;
+    }
 
     public static DoubleSequence parseSequence (String in)
     {

@@ -127,4 +127,12 @@ public class TestCases
         Assert.assertEquals("abcdefghijklmnopqrstuvwxyz OK\n> ", s);
     }
 
+    @Test
+    public void TestPrimFac  ()
+    {
+        String s = check ("{2,3,5,7,11,13,17,19,23} prod primes 8 primes",
+                ". .");
+        System.out.println(s);
+        Assert.assertEquals("{2,2,2}{2,3,5,7,11,13,17,19,23} OK\n> ", s);
+    }
 }

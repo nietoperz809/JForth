@@ -5,6 +5,7 @@ import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.util.ArithmeticUtils;
 import webserver.SimpleWebserver;
 
 import java.io.*;
@@ -2201,24 +2202,16 @@ final class PredefinedWords
                         "sleep", false, "Sleep some milliseconds",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (!(o1 instanceof Long))
-                            {
-                                return 0;
-                            }
                             try
                             {
-                                Thread.sleep((Long) o1);
+                                long l1 = Utilities.readLong(dStack);
+                                Thread.sleep(l1);
+                                return 1;
                             }
-                            catch (InterruptedException e)
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            return 1;
                         }
                 ));
 
@@ -2256,23 +2249,17 @@ final class PredefinedWords
                         "fraction", false, "Create a fraction from 2 Numbers",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            Fraction f;
-                            if (o1 instanceof Double && o2 instanceof Double)
+                            try
                             {
-                                f = new Fraction(((Double) o1).intValue(), ((Double) o2).intValue());
+                                int o1 = (int)Utilities.readLong(dStack);
+                                int o2 = (int)Utilities.readLong(dStack);
+                                dStack.push(new Fraction(o1, o2));
+                                return 1;
                             }
-                            else if (o1 instanceof Long && o2 instanceof Long)
-                            {
-                                f = new Fraction(((Long) o1).intValue(), ((Long) o2).intValue());
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            dStack.push(f);
-                            return 1;
                         }
                 ));
 
@@ -2281,23 +2268,17 @@ final class PredefinedWords
                         "complex", false, "Create a complex from 2 numbers",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            Complex f;
-                            if (o1 instanceof Double && o2 instanceof Double)
+                            try
                             {
-                                f = new Complex((Double) o1, (Double) o2);
+                                double o1 = Utilities.readDouble(dStack);
+                                double o2 = Utilities.readDouble(dStack);
+                                dStack.push(new Complex (o1, o2));
+                                return 1;
                             }
-                            else if (o1 instanceof Long && o2 instanceof Long)
-                            {
-                                f = new Complex(((Long) o1).doubleValue(), ((Long) o2).doubleValue());
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            dStack.push(f);
-                            return 1;
                         }
                 ));
 
@@ -2703,14 +2684,83 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "gcd", false, "Greates common divisor",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Long o1 = Utilities.readLong(dStack);
+                                Long o2 = Utilities.readLong(dStack);
+                                dStack.push(ArithmeticUtils.gcd(o1, o2));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "lcm", false, "Least common multiple",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Long o1 = Utilities.readLong(dStack);
+                                Long o2 = Utilities.readLong(dStack);
+                                dStack.push(ArithmeticUtils.lcm(o1, o2));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "primes", false, "Prime factorisation",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long o1 = Utilities.readLong(dStack);
+                                dStack.push (DoubleSequence.primes(o1));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                e.printStackTrace();
+                                //System.out.println(e.getStackTrace());
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "pow", false, "Exponentation",
                         (dStack, vStack) ->
                         {
                             try
                             {
-                                Complex o1 = Utilities.readComplex(dStack);
-                                Complex o2 = Utilities.readComplex(dStack);
-                                dStack.push(o2.pow(o1));
+                                Object o1 = dStack.pop();
+                                Object o2 = dStack.pop();
+                                if (o1 instanceof Long && o2 instanceof Long)
+                                {
+                                    Long l1 = (Long)o1;
+                                    Long l2 = (Long)o2;
+                                    dStack.push (ScalaMath.bigPow(l2, l1.intValue()));
+                                }
+                                else
+                                {
+                                    Complex c1 = Utilities.readComplex(o1);
+                                    Complex c2 = Utilities.readComplex(o2);
+                                    dStack.push(c2.pow(c1));
+                                }
                                 return 1;
                             }
                             catch (Exception e)

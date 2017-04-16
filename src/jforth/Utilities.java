@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "349";
-    public static final String BUILD_DATE = "04/15/2017 05:56:34 PM";
+    public static final String BUILD_NUMBER = "372";
+    public static final String BUILD_DATE = "04/16/2017 06:19:58 AM";
 
     static String formatComplex (Complex c)
     {
@@ -303,9 +303,8 @@ public class Utilities
         throw new Exception ("Wrong or no Type on Stack");
     }
 
-    public static Complex readComplex (OStack dStack) throws Exception
+    public static Complex readComplex (Object o) throws Exception
     {
-        Object o = dStack.pop();
         if (o instanceof Complex)
         {
             return (Complex) o;
@@ -319,6 +318,11 @@ public class Utilities
             return new Complex (((Long)o).doubleValue());
         }
         throw new Exception ("Wrong or no Type on Stack");
+    }
+
+    public static Complex readComplex (OStack dStack) throws Exception
+    {
+        return readComplex(dStack.pop());
     }
 
     public static PolynomialFunction readPoly (OStack dStack) throws Exception
