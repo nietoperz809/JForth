@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "372";
-    public static final String BUILD_DATE = "04/16/2017 06:19:58 AM";
+    public static final String BUILD_NUMBER = "385";
+    public static final String BUILD_DATE = "04/18/2017 03:19:40 PM";
 
     static String formatComplex (Complex c)
     {
@@ -281,6 +281,25 @@ public class Utilities
         throw new Exception ("Wrong or no Type on Stack");
     }
 
+    public static BigInt readBig (OStack dStack) throws Exception
+    {
+        Object o = dStack.pop();
+        if (o instanceof BigInt)
+        {
+            return (BigInt)o;
+        }
+        if (o instanceof Double)
+        {
+            return BigInt.apply(((Double)o).longValue());
+        }
+        if (o instanceof Long)
+        {
+            return BigInt.apply((Long)o);
+        }
+        throw new Exception ("Wrong or no Type on Stack");
+    }
+
+
     public static String readString (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
@@ -348,5 +367,4 @@ public class Utilities
         }
         throw new Exception ("Wrong or no Type on Stack");
     }
-
 }

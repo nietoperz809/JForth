@@ -1,11 +1,12 @@
 package jforth;
 
-import Scala.ScalaMath;
+import jforth.scalacode.MyMath;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.util.ArithmeticUtils;
+import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
 import java.io.*;
@@ -370,19 +371,13 @@ final class PredefinedWords
                                 return 0;
                             }
                             Object o = dStack.peek();
-                            if (o instanceof Long ||
-                                    o instanceof Double ||
-                                    o instanceof String)
-                            {
-                                dStack.push(o);
-                            }
-                            else if (o instanceof DoubleSequence)
+                            if (o instanceof DoubleSequence)
                             {
                                 dStack.push(new DoubleSequence((DoubleSequence) o));
                             }
                             else
                             {
-                                return 0;
+                                dStack.push(o);
                             }
                             return 1;
                         }
@@ -1287,23 +1282,18 @@ final class PredefinedWords
                         "/mod", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
+                            try
+                            {
+                                long l1 = Utilities.readLong(dStack);
+                                long l2 = Utilities.readLong(dStack);
+                                dStack.push(l2%l1);
+                                dStack.push(l2/l1);
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                long i3 = i1 % i2;
-                                long i4 = i1 / i2;
-                                dStack.push(i3);
-                                dStack.push(i4);
-                                return 1;
-                            }
-                            return 0;
                         }
                 ));
 
@@ -2311,11 +2301,71 @@ final class PredefinedWords
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((long) oc.getNumerator() / (long) oc.getDenominator());
                             }
+                            else if (o1 instanceof BigInt)
+                            {
+                                BigInt oc = (BigInt) o1;
+                                dStack.push(oc.longValue());
+                            }
                             else
                             {
                                 return 0;
                             }
                             return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toBig", false, "Make BigInt values of what is on the stack",
+                        (dStack, vStack) ->
+                        {
+                            if (dStack.empty())
+                            {
+                                return 0;
+                            }
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof Double)
+                            {
+                                dStack.push(BigInt.apply (((Double) o1).longValue()));
+                            }
+                            else if (o1 instanceof String)
+                            {
+                                dStack.push(BigInt.apply (((String) o1)));
+                            }
+                            else if (o1 instanceof Complex)
+                            {
+                                Complex oc = (Complex) o1;
+                                dStack.push(BigInt.apply((long) oc.getReal()));
+                                dStack.push(BigInt.apply((long) oc.getImaginary()));
+                            }
+                            else if (o1 instanceof Fraction)
+                            {
+                                Fraction oc = (Fraction) o1;
+                                dStack.push(BigInt.apply((long) oc.getNumerator() / (long) oc.getDenominator()));
+                            }
+                            else
+                            {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toBits", false, "Make bit sequence",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long l = Utilities.readLong(dStack);
+                                dStack.push (DoubleSequence.makeBits(l));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
@@ -2348,10 +2398,30 @@ final class PredefinedWords
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((double) oc.getNumerator() / (double) oc.getDenominator());
                             }
+                            else if (o1 instanceof BigInt)
+                            {
+                                BigInt oc = (BigInt) o1;
+                                dStack.push(oc.doubleValue());
+                            }
                             else
                             {
                                 return 0;
                             }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "type", false, "Get type of TOS as string",
+                        (dStack, vStack) ->
+                        {
+                            if (dStack.empty())
+                            {
+                                return 0;
+                            }
+                            Object o1 = dStack.peek();
+                            dStack.push (o1.getClass().getSimpleName());
                             return 1;
                         }
                 ));
@@ -2727,14 +2797,12 @@ final class PredefinedWords
                         {
                             try
                             {
-                                long o1 = Utilities.readLong(dStack);
+                                BigInt o1 = Utilities.readBig(dStack);
                                 dStack.push (DoubleSequence.primes(o1));
                                 return 1;
                             }
                             catch (Exception e)
                             {
-                                e.printStackTrace();
-                                //System.out.println(e.getStackTrace());
                                 return 0;
                             }
                         }
@@ -2753,7 +2821,7 @@ final class PredefinedWords
                                 {
                                     Long l1 = (Long)o1;
                                     Long l2 = (Long)o2;
-                                    dStack.push (ScalaMath.bigPow(l2, l1.intValue()));
+                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
                                 }
                                 else
                                 {
@@ -2761,6 +2829,24 @@ final class PredefinedWords
                                     Complex c2 = Utilities.readComplex(o2);
                                     dStack.push(c2.pow(c1));
                                 }
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "fib", false, "Fibonacci number",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long l = Utilities.readLong(dStack);
+                                dStack.push (MyMath.fibonacci(l));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2805,7 +2891,7 @@ final class PredefinedWords
                             if (o1 instanceof Long)
                             {
                                 Long ol = (Long) o1;
-                                dStack.push (ScalaMath.factorial(ol));
+                                dStack.push (MyMath.factorial(ol));
                                 return 1;
                             }
                             else

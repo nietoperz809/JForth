@@ -1,6 +1,7 @@
 package jforth;
 
-import jforth.Scala.SieveOfEratosthenes;
+import jforth.scalacode.MyMath;
+import jforth.scalacode.SieveOfEratosthenes;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
@@ -34,45 +35,6 @@ public class DoubleSequence
         }
     }
 
-    public double sum()
-    {
-        return new Sum().evaluate (this.asPrimitiveArray());
-    }
-
-    public double sumQ()
-    {
-        return new SumOfSquares().evaluate (this.asPrimitiveArray());
-    }
-
-    public double prod()
-    {
-        return new Product().evaluate (this.asPrimitiveArray());
-    }
-
-    public DoubleSequence apply (PolynomialFunction p)
-    {
-        DoubleSequence ret = new DoubleSequence();
-        for (double d : mem)
-        {
-            ret.mem.add(p.value(d));
-        }
-        return ret;
-    }
-
-    public DoubleSequence add (double d)
-    {
-        DoubleSequence ds = new DoubleSequence(this);
-        ds.mem.add(d);
-        return ds;
-    }
-
-    public DoubleSequence add (DoubleSequence other)
-    {
-        DoubleSequence ds = new DoubleSequence(this);
-        ds.mem.addAll(other.mem);
-        return ds;
-    }
-
     public DoubleSequence (String[] values)
     {
         for (int s=0; s<values.length; s++)
@@ -83,7 +45,7 @@ public class DoubleSequence
             }
             catch (Exception unused)
             {
-                
+
             }
         }
     }
@@ -119,14 +81,103 @@ public class DoubleSequence
 
     public DoubleSequence (DoubleSequence src1, DoubleSequence src2)
     {
-        for (int s=0; s<src1.mem.size(); s++)
+        mem.addAll(src1.mem);
+        mem.addAll(src2.mem);
+    }
+
+    public static DoubleSequence makeCounted (double start, long howmuch, double step)
+    {
+        DoubleStream ds = DoubleStream.iterate(start, n -> n + step).limit(howmuch);
+        return new DoubleSequence (ds.toArray());
+    }
+
+    public static DoubleSequence makeBits (long in)
+    {
+        DoubleSequence out = new DoubleSequence();
+        do
         {
-            mem.add (src1.mem.get(s));
-        }
-        for (int s=0; s<src2.mem.size(); s++)
+            if (in % 2 == 0)
+            {
+                out.mem.add(0.0);
+            }
+            else
+            {
+                out.mem.add(1.0);
+            }
+            in /= 2;
+        } while (in != 0);
+        return out.reverse();
+    }
+
+    public static DoubleSequence primes (long in)
+    {
+        return primes (BigInt.apply(in));
+    }
+
+    public static DoubleSequence primes (BigInt in)
+    {
+        DoubleSequence out = new DoubleSequence();
+        List<BigInt> list = MyMath.toJList(SieveOfEratosthenes.factors(in));
+        for (BigInt i : list)
         {
-            mem.add (src2.mem.get(s));
+            out.mem.add (i.toDouble());
         }
+
+        return out;
+    }
+
+
+    public static DoubleSequence parseSequence (String in)
+    {
+        if (in.length() < 2)
+            return null;
+        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
+        {
+            in = in.substring(1, in.length()-1);
+            String vals[] = in.split(",");
+            return new DoubleSequence(vals);
+        }
+        return null;
+    }
+
+    public double sum()
+    {
+        return new Sum().evaluate (this.asPrimitiveArray());
+    }
+
+    public double[] asPrimitiveArray ()
+    {
+        double[] out = new double[mem.size()];
+        for (int s=0; s<mem.size(); s++)
+            out[s] = mem.get(s);
+        return out;
+    }
+
+    public double sumQ()
+    {
+        return new SumOfSquares().evaluate (this.asPrimitiveArray());
+    }
+
+    public double prod()
+    {
+        return new Product().evaluate (this.asPrimitiveArray());
+    }
+
+    public DoubleSequence apply (PolynomialFunction p)
+    {
+        DoubleSequence ret = new DoubleSequence();
+        for (double d : mem)
+        {
+            ret.mem.add(p.value(d));
+        }
+        return ret;
+    }
+
+    public DoubleSequence add (DoubleSequence other)
+    {
+        DoubleSequence ds = new DoubleSequence(this);
+        ds.mem.addAll(other.mem);
+        return ds;
     }
 
     public boolean isEmpty()
@@ -209,39 +260,6 @@ public class DoubleSequence
         return new DoubleSequence(nodupe);
     }
 
-    public static DoubleSequence makeCounted (double start, long howmuch, double step)
-    {
-        DoubleStream ds = DoubleStream.iterate(start, n -> n + step).limit(howmuch);
-        return new DoubleSequence (ds.toArray());
-    }
-
-    public static DoubleSequence primes (long in)
-    {
-        DoubleSequence out = new DoubleSequence();
-
-        BigInt big = BigInt.apply(in);
-        List<BigInt> list = SieveOfEratosthenes.toJList(SieveOfEratosthenes.factors(big));
-        for (BigInt i : list)
-        {
-            out.mem.add (i.toDouble());
-        }
-
-        return out;
-    }
-
-    public static DoubleSequence parseSequence (String in)
-    {
-        if (in.length() < 2)
-            return null;
-        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
-        {
-            in = in.substring(1, in.length()-1);
-            String vals[] = in.split(",");
-            return new DoubleSequence(vals);
-        }
-        return null;
-    }
-
     public DoubleSequence subList (int from, int to)
     {
         return new DoubleSequence(this.mem.subList(from, to));
@@ -257,6 +275,13 @@ public class DoubleSequence
         return out;
     }
 
+    public DoubleSequence add (double d)
+    {
+        DoubleSequence ds = new DoubleSequence(this);
+        ds.mem.add(d);
+        return ds;
+    }
+
     public String asString ()
     {
         StringBuilder sb = new StringBuilder();
@@ -265,14 +290,6 @@ public class DoubleSequence
             sb.append((char)d.intValue());
         }
         return sb.toString();
-    }
-
-    public double[] asPrimitiveArray ()
-    {
-        double[] out = new double[mem.size()];
-        for (int s=0; s<mem.size(); s++)
-            out[s] = mem.get(s);
-        return out;
     }
 
     public String toString()
