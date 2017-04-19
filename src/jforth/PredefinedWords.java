@@ -2792,7 +2792,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "primes", false, "Prime factorisation",
+                        "factor", false, "Prime factorisation",
                         (dStack, vStack) ->
                         {
                             try

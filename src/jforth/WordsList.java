@@ -4,17 +4,24 @@ import java.util.*;
 
 public class WordsList
 {
-    private LinkedList<BaseWord> wordsList;
+    private HashMap<String, BaseWord> wordsList;
+    private HashMap<String, BaseWord> saveList;
 
     WordsList ()
     {
-        wordsList = new LinkedList<>();
+        wordsList = new HashMap<>();
+        saveList = new HashMap<>();
     }
 
     void add (BaseWord bw)
     {
-        //System.out.println(bw.name);
-        wordsList.addFirst(bw);
+        BaseWord old = wordsList.get(bw.name);
+        if (old != null)
+        {
+            saveList.put (old.name, old);
+            System.out.println("Overwrite: "+bw.name);
+        }
+        wordsList.put(bw.name, bw);
     }
 
     String toString (boolean showDetail)
@@ -23,12 +30,12 @@ public class WordsList
         {
             return "WordsList is empty\n";
         }
-        Collections.sort(wordsList, Collections.reverseOrder());
+        //Collections.sort(wordsList, Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
-        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+        Iterator<Map.Entry<String, BaseWord>> i1 = wordsList.entrySet().iterator();
         while (i1.hasNext())
         {
-            BaseWord bw = i1.next();
+            BaseWord bw = i1.next().getValue();
             sb.append(bw.toString(showDetail));
             if (showDetail)
             {
@@ -44,12 +51,12 @@ public class WordsList
         {
             return null;
         }
-        Collections.sort(wordsList, Collections.reverseOrder());
+        //Collections.sort(wordsList, Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
-        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+        Iterator<Map.Entry<String, BaseWord>> i1 = wordsList.entrySet().iterator();
         while (i1.hasNext())
         {
-            BaseWord bw = i1.next();
+            BaseWord bw = i1.next().getValue();
             if (bw instanceof StorageWord)
                 sb.append(bw.toString(false)).append(' ');
         }
@@ -80,21 +87,28 @@ public class WordsList
         {
             throw new Exception("WordsList is empty");
         }
-        Iterator<BaseWord> i1 = wordsList.listIterator(0);
-        while (i1.hasNext())
-        {
-            BaseWord bw = i1.next();
-            if (bw.name.equals(wordName))
-            {
-                return bw;
-            }
-        }
-        return null;
+        return wordsList.get(wordName);
+//        Iterator<BaseWord> i1 = wordsList.listIterator(0);
+//        while (i1.hasNext())
+//        {
+//            BaseWord bw = i1.next();
+//            if (bw.name.equals(wordName))
+//            {
+//                return bw;
+//            }
+//        }
+//        return null;
     }
 
     void remove (BaseWord bw)
     {
-        wordsList.remove(bw);
+        BaseWord old = saveList.get (bw.name);
+        wordsList.remove(bw.name);
+        if (old != null)
+        {
+            wordsList.put(old.name, old);
+            saveList.remove(old.name);
+        }
     }
 }
   
