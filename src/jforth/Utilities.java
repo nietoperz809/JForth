@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "389";
-    public static final String BUILD_DATE = "04/19/2017 10:13:17 AM";
+    public static final String BUILD_NUMBER = "435";
+    public static final String BUILD_DATE = "04/21/2017 01:41:45 PM";
 
     static String formatComplex (Complex c)
     {
@@ -127,6 +127,23 @@ public class Utilities
         if (str.endsWith(".0"))
             return str.substring(0, str.length()-2);
         return str;
+    }
+
+    public static BigInt parseBigInt (String word, int base)
+    {
+        try
+        {
+            if (word.endsWith("L"))
+            {
+                word = word.substring(0, word.length()-1);
+                return BigInt.apply(word, base);
+            }
+            return null;
+        }
+        catch (Exception ignored)
+        {
+            return null;
+        }
     }
 
     public static Long parseLong (String word, int base)

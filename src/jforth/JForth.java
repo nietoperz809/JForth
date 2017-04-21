@@ -187,6 +187,12 @@ public class JForth
             dStack.push(num);
             return true;
         }
+        BigInt big = Utilities.parseBigInt(word, base);
+        if (big != null)
+        {
+            dStack.push(big);
+            return true;
+        }
         Double dnum = Utilities.parseDouble(word);
         if (dnum != null)
         {
@@ -264,6 +270,12 @@ public class JForth
         if (num != null)
         {
             wordBeingDefined.addWord(new LongLiteral(num));
+            return true;
+        }
+        BigInt big = Utilities.parseBigInt(word, base);
+        if (big != null)
+        {
+            wordBeingDefined.addWord(new BigIntLiteral(big));
             return true;
         }
         Double dnum = Utilities.parseDouble(word);

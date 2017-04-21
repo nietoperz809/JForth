@@ -885,6 +885,16 @@ final class PredefinedWords
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
+                            try
+                            {
+                                BigIntCalculator bc = new BigIntCalculator(o1, o2, BigInt::$plus);
+                                dStack.push (bc.getResult());
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -958,6 +968,16 @@ final class PredefinedWords
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
+                            try
+                            {
+                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::$minus);
+                                dStack.push (bc.getResult());
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -1113,13 +1133,47 @@ final class PredefinedWords
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
+                            try
+                            {
+                                BigIntCalculator bc = new BigIntCalculator(o1, o2, BigInt::$times);
+                                dStack.push (bc.getResult());
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            if (o1 instanceof Long)
                             {
                                 long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 *= i1;
-                                dStack.push(i2);
-                                return 1;
+                                if (o2 instanceof Long)
+                                {
+                                    long i2 = (Long) o2;
+                                    dStack.push(i2*i1);
+                                    return 1;
+                                }
+                                else if (o2 instanceof DoubleSequence)
+                                {
+                                    DoubleSequence d2 = (DoubleSequence) o2;
+                                    DoubleSequence d3 = new DoubleSequence();  // empty
+                                    while (i1-- != 0)
+                                    {
+                                        d3 = d3.add(d2);
+                                    }
+                                    dStack.push(d3);
+                                    return 1;
+                                }
+                                else if (o2 instanceof String)
+                                {
+                                    String d2 = (String) o2;
+                                    StringBuilder sb = new StringBuilder();  // empty
+                                    while (i1-- != 0)
+                                    {
+                                        sb.append(d2);
+                                    }
+                                    dStack.push(sb.toString());
+                                    return 1;
+                                }
                             }
                             else if ((o1 instanceof Complex) && (o2 instanceof Complex))
                             {
@@ -1150,30 +1204,6 @@ final class PredefinedWords
                                 dStack.push(d2.multiply(d1));
                                 return 1;
                             }
-                            else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-                            {
-                                Long d1 = (Long) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                DoubleSequence d3 = new DoubleSequence();  // empty
-                                while (d1-- != 0)
-                                {
-                                    d3 = d3.add(d2);
-                                }
-                                dStack.push(d3);
-                                return 1;
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof String))
-                            {
-                                Long d1 = (Long) o1;
-                                String d2 = (String) o2;
-                                StringBuilder sb = new StringBuilder();  // empty
-                                while (d1-- != 0)
-                                {
-                                    sb.append(d2);
-                                }
-                                dStack.push(sb.toString());
-                                return 1;
-                            }
                             return 0;
                         }
                 ));
@@ -1189,6 +1219,16 @@ final class PredefinedWords
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
+                            try
+                            {
+                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::$div);
+                                dStack.push (bc.getResult());
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -1262,6 +1302,16 @@ final class PredefinedWords
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
+                            try
+                            {
+                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::mod);
+                                dStack.push (bc.getResult());
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -2286,6 +2336,12 @@ final class PredefinedWords
                             {
                                 dStack.push(((Double) o1).longValue());
                             }
+                            else if (o1 instanceof DoubleSequence)
+                            {
+                                int[] arr = ((DoubleSequence)o1).asIntArray();
+                                long l = MyMath.fromBinaryListLong(arr);
+                                dStack.push(l);
+                            }
                             else if (o1 instanceof String)
                             {
                                 dStack.push(Long.parseLong((String) o1));
@@ -2328,6 +2384,12 @@ final class PredefinedWords
                             {
                                 dStack.push(BigInt.apply (((Double) o1).longValue()));
                             }
+                            else if (o1 instanceof DoubleSequence)
+                            {
+                                int[] arr = ((DoubleSequence)o1).asIntArray();
+                                BigInt l = MyMath.fromBinaryListBig(arr);
+                                dStack.push(l);
+                            }
                             else if (o1 instanceof String)
                             {
                                 dStack.push(BigInt.apply (((String) o1)));
@@ -2358,7 +2420,7 @@ final class PredefinedWords
                         {
                             try
                             {
-                                long l = Utilities.readLong(dStack);
+                                BigInt l = Utilities.readBig(dStack);
                                 dStack.push (DoubleSequence.makeBits(l));
                                 return 1;
                             }
@@ -2817,6 +2879,16 @@ final class PredefinedWords
                             {
                                 Object o1 = dStack.pop();
                                 Object o2 = dStack.pop();
+                                try
+                                {
+                                    BigIntCalculator bc = new BigIntCalculator(o2, o1, BigIntCalculator::pow);
+                                    dStack.push (bc.getResult());
+                                    return 1;
+                                }
+                                catch (Exception unused)
+                                {
+                                    //e.printStackTrace();
+                                }
                                 if (o1 instanceof Long && o2 instanceof Long)
                                 {
                                     Long l1 = (Long)o1;

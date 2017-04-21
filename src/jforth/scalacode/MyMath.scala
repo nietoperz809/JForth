@@ -1,6 +1,8 @@
 
 package jforth.scalacode
 
+import java.math.BigInteger
+
 import scala.annotation.tailrec
 import scala.collection.JavaConverters.seqAsJavaList
 import scala.math.BigInt
@@ -43,18 +45,16 @@ object MyMath
 
   def toJList (l: List[BigInt]): java.util.List[BigInt] = seqAsJavaList(l)
 
-  val B0 = BigInt(0)
-
-  def primeFactorsSlow(n:BigInt): List[BigInt] = {
-    def tryDivisor(n:BigInt, d:BigInt, factors:List[BigInt]):List[BigInt] = {
-      if(n == 1)
-        factors
-      else
-        n /% d match {
-          case (q,B0) => tryDivisor(q, d,   d :: factors)
-          case _      => tryDivisor(n, d+1,      factors)
-        }
-    }
-    tryDivisor(n, 2, List())
+  def fromBinaryListBig(in: Array[Int]): BigInt = {
+    var sum: BigInt = 0
+    in foreach (x => {sum <<= 1; sum += (x&1)})
+    sum
   }
+
+  def fromBinaryListLong(in: Array[Int]): Long = {
+    var sum: Long = 0
+    in foreach (x => {sum <<= 1; sum += (x&1)})
+    sum
+  }
+
 }

@@ -91,12 +91,14 @@ public class DoubleSequence
         return new DoubleSequence (ds.toArray());
     }
 
-    public static DoubleSequence makeBits (long in)
+    public static DoubleSequence makeBits (BigInt in)
     {
         DoubleSequence out = new DoubleSequence();
+        BigInt two = BigInt.apply(2);
+        BigInt zero = BigInt.apply(0);
         do
         {
-            if (in % 2 == 0)
+            if (in.mod(two).equals(zero))
             {
                 out.mem.add(0.0);
             }
@@ -104,8 +106,8 @@ public class DoubleSequence
             {
                 out.mem.add(1.0);
             }
-            in /= 2;
-        } while (in != 0);
+            in = in.$div(two);
+        } while (!in.equals(zero));
         return out.reverse();
     }
 
@@ -150,6 +152,14 @@ public class DoubleSequence
         double[] out = new double[mem.size()];
         for (int s=0; s<mem.size(); s++)
             out[s] = mem.get(s);
+        return out;
+    }
+
+    public int[] asIntArray ()
+    {
+        int[] out = new int[mem.size()];
+        for (int s=0; s<mem.size(); s++)
+            out[s] = mem.get(s).intValue();
         return out;
     }
 
