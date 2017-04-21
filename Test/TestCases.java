@@ -130,9 +130,28 @@ public class TestCases
     @Test
     public void TestPrimFac  ()
     {
-        String s = check ("{2,3,5,7,11,13,17,19,23} prod primes 8 primes",
+        String s = check ("{2,3,5,7,11,13,17,19,23} prod factor 8 factor",
                 ". .");
         System.out.println(s);
         Assert.assertEquals("{2,2,2}{2,3,5,7,11,13,17,19,23} OK\n> ", s);
     }
+
+    @Test
+    public void TestSub()
+    {
+        String s = check ("12 11 - 12L 11 - 12L 11.0 - 12.0 11 -",
+                ". . . .");
+        System.out.println(s);
+        Assert.assertEquals("1.0111 OK\n> ", s);
+    }
+
+    @Test
+    public void TestBitsBig()
+    {
+        String s = check ("2 77 pow dup toBits toBig",
+                ". sp .");
+        System.out.println(s);
+        Assert.assertEquals("151115727451828646838272 151115727451828646838272 OK\n> ", s);
+    }
+
 }

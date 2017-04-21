@@ -887,8 +887,34 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                BigIntCalculator bc = new BigIntCalculator(o1, o2, BigInt::$plus);
-                                dStack.push (bc.getResult());
+                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::add));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::add));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::add));
                                 return 1;
                             }
                             catch (Exception unused)
@@ -901,25 +927,6 @@ final class PredefinedWords
                                 long i2 = (Long) o2;
                                 i2 += i1;
                                 dStack.push(i2);
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                d2 += d1;
-                                dStack.push(d2);
-                            }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
-                                Complex d1 = (Complex) o1;
-                                Complex d2 = (Complex) o2;
-                                dStack.push(d2.add(d1));
-                            }
-                            else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
-                            {
-                                Fraction d1 = (Fraction) o1;
-                                Fraction d2 = (Fraction) o2;
-                                dStack.push(d2.add(d1));
                             }
                             else if ((o1 instanceof String) && (o2 instanceof String))
                             {
@@ -970,8 +977,34 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::$minus);
-                                dStack.push (bc.getResult());
+                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::subtract));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::subtract));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::sub));
                                 return 1;
                             }
                             catch (Exception unused)
@@ -984,25 +1017,6 @@ final class PredefinedWords
                                 long i2 = (Long) o2;
                                 i2 -= i1;
                                 dStack.push(i2);
-                            }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
-                                Complex d1 = (Complex) o1;
-                                Complex d2 = (Complex) o2;
-                                dStack.push(d2.subtract(d1));
-                            }
-                            else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
-                            {
-                                Fraction d1 = (Fraction) o1;
-                                Fraction d2 = (Fraction) o2;
-                                dStack.push(d2.subtract(d1));
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                d2 -= d1;
-                                dStack.push(d2);
                             }
                             else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
                             {
@@ -1135,8 +1149,34 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                BigIntCalculator bc = new BigIntCalculator(o1, o2, BigInt::$times);
-                                dStack.push (bc.getResult());
+                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::multiply));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::multiply));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::mult));
                                 return 1;
                             }
                             catch (Exception unused)
@@ -1175,28 +1215,6 @@ final class PredefinedWords
                                     return 1;
                                 }
                             }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
-                                Complex d1 = (Complex) o1;
-                                Complex d2 = (Complex) o2;
-                                dStack.push(d2.multiply(d1));
-                                return 1;
-                            }
-                            else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
-                            {
-                                Fraction d1 = (Fraction) o1;
-                                Fraction d2 = (Fraction) o2;
-                                dStack.push(d2.multiply(d1));
-                                return 1;
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                d2 *= d1;
-                                dStack.push(d2);
-                                return 1;
-                            }
                             else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
                             {
                                 PolynomialFunction d1 = (PolynomialFunction) o1;
@@ -1221,8 +1239,34 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::$div);
-                                dStack.push (bc.getResult());
+                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::divide));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::divide));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                                //e.printStackTrace();
+                            }
+                            try
+                            {
+                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::div));
                                 return 1;
                             }
                             catch (Exception unused)
@@ -1235,25 +1279,6 @@ final class PredefinedWords
                                 long i2 = (Long) o2;
                                 i2 /= i1;
                                 dStack.push(i2);
-                            }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
-                                Complex d1 = (Complex) o1;
-                                Complex d2 = (Complex) o2;
-                                dStack.push(d2.divide(d1));
-                            }
-                            else if ((o1 instanceof Fraction) && (o2 instanceof Fraction))
-                            {
-                                Fraction d1 = (Fraction) o1;
-                                Fraction d2 = (Fraction) o2;
-                                dStack.push(d2.divide(d1));
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                d2 /= d1;
-                                dStack.push(d2);
                             }
                             else if ((o1 instanceof Long) && (o2 instanceof String))
                             {
@@ -1304,8 +1329,7 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                BigIntCalculator bc = new BigIntCalculator(o2, o1, BigInt::mod);
-                                dStack.push (bc.getResult());
+                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::mod));
                                 return 1;
                             }
                             catch (Exception unused)
@@ -2881,8 +2905,16 @@ final class PredefinedWords
                                 Object o2 = dStack.pop();
                                 try
                                 {
-                                    BigIntCalculator bc = new BigIntCalculator(o2, o1, BigIntCalculator::pow);
-                                    dStack.push (bc.getResult());
+                                    dStack.push (Calculator.doCalcBigInt(o2, o1, Calculator::pow));
+                                    return 1;
+                                }
+                                catch (Exception unused)
+                                {
+                                    //e.printStackTrace();
+                                }
+                                try
+                                {
+                                    dStack.push (Calculator.doCalcComplex(o2, o1, Complex::pow));
                                     return 1;
                                 }
                                 catch (Exception unused)
@@ -2894,12 +2926,6 @@ final class PredefinedWords
                                     Long l1 = (Long)o1;
                                     Long l2 = (Long)o2;
                                     dStack.push (MyMath.bigPow(l2, l1.intValue()));
-                                }
-                                else
-                                {
-                                    Complex c1 = Utilities.readComplex(o1);
-                                    Complex c2 = Utilities.readComplex(o2);
-                                    dStack.push(c2.pow(c1));
                                 }
                                 return 1;
                             }

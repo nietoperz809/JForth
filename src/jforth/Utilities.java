@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "435";
-    public static final String BUILD_DATE = "04/21/2017 01:41:45 PM";
+    public static final String BUILD_NUMBER = "451";
+    public static final String BUILD_DATE = "04/21/2017 10:18:32 PM";
 
     static String formatComplex (Complex c)
     {
@@ -352,6 +352,10 @@ public class Utilities
         if (o instanceof Long)
         {
             return new Complex (((Long)o).doubleValue());
+        }
+        if (o instanceof BigInt)
+        {
+            return new Complex (((BigInt)o).doubleValue());
         }
         throw new Exception ("Wrong or no Type on Stack");
     }
