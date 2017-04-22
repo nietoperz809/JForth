@@ -154,4 +154,12 @@ public class TestCases
         Assert.assertEquals("151115727451828646838272 151115727451828646838272 OK\n> ", s);
     }
 
+    @Test
+    public void TestPolyMult()
+    {
+        String s = check ("x^2+x x^2+x *",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("x^2+2x^3+x^4 OK\n> ", s);
+    }
 }

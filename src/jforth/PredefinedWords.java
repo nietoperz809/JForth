@@ -890,37 +890,31 @@ final class PredefinedWords
                                 dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcComplex(o2, o1, Complex::add));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::add));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored) {}
+                            try
                             {
-                                //e.printStackTrace();
+                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction ::add));
+                                return 1;
                             }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::add));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -950,12 +944,6 @@ final class PredefinedWords
                                 DoubleSequence d2 = (DoubleSequence) o2;
                                 dStack.push(d2.add(d1.doubleValue()));
                             }
-                            else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
-                            {
-                                PolynomialFunction d1 = (PolynomialFunction) o1;
-                                PolynomialFunction d2 = (PolynomialFunction) o2;
-                                dStack.push(d2.add(d1));
-                            }
                             else
                             {
                                 return 0;
@@ -980,49 +968,37 @@ final class PredefinedWords
                                 dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcComplex(o2, o1, Complex::subtract));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::subtract));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored) {}
+                            try
                             {
-                                //e.printStackTrace();
+                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction::subtract));
+                                return 1;
                             }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::sub));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 -= i1;
                                 dStack.push(i2);
-                            }
-                            else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
-                            {
-                                PolynomialFunction d1 = (PolynomialFunction) o1;
-                                PolynomialFunction d2 = (PolynomialFunction) o2;
-                                dStack.push(d2.subtract(d1));
                             }
                             else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
                             {
@@ -1152,37 +1128,31 @@ final class PredefinedWords
                                 dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcComplex(o2, o1, Complex::multiply));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::multiply));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored) {}
+                            try
                             {
-                                //e.printStackTrace();
+                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction::multiply));
+                                return 1;
                             }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::mult));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             if (o1 instanceof Long)
                             {
                                 long i1 = (Long) o1;
@@ -1215,13 +1185,6 @@ final class PredefinedWords
                                     return 1;
                                 }
                             }
-                            else if ((o1 instanceof PolynomialFunction) && (o2 instanceof PolynomialFunction))
-                            {
-                                PolynomialFunction d1 = (PolynomialFunction) o1;
-                                PolynomialFunction d2 = (PolynomialFunction) o2;
-                                dStack.push(d2.multiply(d1));
-                                return 1;
-                            }
                             return 0;
                         }
                 ));
@@ -1242,37 +1205,31 @@ final class PredefinedWords
                                 dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcComplex(o2, o1, Complex::divide));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::divide));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored) {}
+                            try
                             {
-                                //e.printStackTrace();
+                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyDiv));
+                                return 1;
                             }
+                            catch (Exception ignored) {}
                             try
                             {
                                 dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::div));
                                 return 1;
                             }
-                            catch (Exception unused)
-                            {
-                                //e.printStackTrace();
-                            }
+                            catch (Exception ignored) {}
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -1332,10 +1289,13 @@ final class PredefinedWords
                                 dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::mod));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored) {}
+                            try
                             {
-                                //e.printStackTrace();
+                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyMod));
+                                return 1;
                             }
+                            catch (Exception ignored) {}
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -1356,10 +1316,23 @@ final class PredefinedWords
                         "/mod", false,
                         (dStack, vStack) ->
                         {
+                            if (dStack.size() < 2)
+                            {
+                                return 0;
+                            }
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
                             try
                             {
-                                long l1 = Utilities.readLong(dStack);
-                                long l2 = Utilities.readLong(dStack);
+                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyMod));
+                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyDiv));
+                                return 1;
+                            }
+                            catch (Exception ignored) {}
+                            try
+                            {
+                                long l1 = Utilities.getLong(o1);
+                                long l2 = Utilities.getLong(o2);
                                 dStack.push(l2%l1);
                                 dStack.push(l2/l1);
                                 return 1;

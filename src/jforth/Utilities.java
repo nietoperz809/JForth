@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "451";
-    public static final String BUILD_DATE = "04/21/2017 10:18:32 PM";
+    public static final String BUILD_NUMBER = "460";
+    public static final String BUILD_DATE = "04/22/2017 11:17:10 AM";
 
     static String formatComplex (Complex c)
     {
@@ -242,6 +242,44 @@ public class Utilities
         return new PolynomialFunction(out);
     }
 
+    private static int polylength(final double[] a)
+    {
+        int d = a.length - 1;
+        while(d >= 0  && Math.abs(a[d]) < 1E-12)
+            d--;
+        return d + 1;
+    }
+
+    public static PolynomialFunction polyDiv (PolynomialFunction here, PolynomialFunction p)
+    {
+        return polyDivComplete(here, p)[0];
+    }
+
+    public static PolynomialFunction polyMod (PolynomialFunction here, PolynomialFunction p)
+    {
+        return polyDivComplete(here, p)[1];
+    }
+
+    public static PolynomialFunction[] polyDivComplete (PolynomialFunction here, PolynomialFunction p)
+    {
+        final int dq = here.degree() - p.degree() + 1;
+        if(dq <= 0)
+            return new PolynomialFunction[] {new PolynomialFunction(new double[]{0.0}), here};
+        final double[] rest = Arrays.copyOf(here.getCoefficients(), polylength(here.getCoefficients()));
+        final double[] quotient = new double[dq];
+        final int dr = p.degree();
+        final double c = p.getCoefficients()[dr];
+        for(int i = dq - 1; i >= 0; i--)
+        {
+            final double q = rest[dr + i]/c;
+            quotient[i] = q;
+            for(int j = 0; j <= dr; j++)
+                rest[i + j] -= q*p.getCoefficients()[j];
+        }
+        return new PolynomialFunction[] {new PolynomialFunction(quotient), new PolynomialFunction(rest)};
+    }
+
+
     public static String rotRight (String in, int num)
     {
         while (num-- != 0)
@@ -280,9 +318,8 @@ public class Utilities
         throw new Exception ("Wrong or no Type on Stack");
     }
 
-    public static long readLong (OStack dStack) throws Exception
+    public static long getLong (Object o) throws Exception
     {
-        Object o = dStack.pop();
         if (o instanceof BigInt)
         {
             return ((BigInt)o).longValue();
@@ -296,6 +333,11 @@ public class Utilities
             return (Long)o;
         }
         throw new Exception ("Wrong or no Type on Stack");
+    }
+
+    public static long readLong (OStack dStack) throws Exception
+    {
+        return getLong (dStack.pop());
     }
 
     public static BigInt readBig (OStack dStack) throws Exception
