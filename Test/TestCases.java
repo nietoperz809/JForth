@@ -3,6 +3,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import tools.StringStream;
 
+import java.util.Arrays;
+
+import static jforth.PolynomParser.parsePolynom;
+
 /**
  * Created by Administrator on 4/15/2017.
  */
@@ -161,5 +165,49 @@ public class TestCases
                 ".");
         System.out.println(s);
         Assert.assertEquals("x^2+2x^3+x^4 OK\n> ", s);
+    }
+
+    @Test
+    public void TestPolyDiv()
+    {
+        String s = check ("4x^5+3x^2 x^2-6 1 pick 1 pick / ",
+                ". .\" +(\" mod . .\" )\"");
+        System.out.println(s);
+        Assert.assertEquals("3+24x+4x^3+(18+144x) OK\n> ", s);
+    }
+
+    @Test
+    public void TestPolyDiv2()
+    {
+        String s = check ("-13x^7+3x^5 x^2-6 /mod ",
+                ". sp .\" rest:\" .");
+        System.out.println(s);
+        Assert.assertEquals("-450x-75x^3-13x^5 rest:1-2700x OK\n> ", s);
+    }
+
+    @Test
+    public void TestSimpleCalc()
+    {
+        String s = check ("12.0 7 / 100L * type ",
+                ". sp .\" - \" .");
+        System.out.println(s);
+        Assert.assertEquals("BigInt - 100 OK\n> ", s);
+    }
+
+    @Test
+    public void TestTrig()
+    {
+        String s = check ("10 dup dup",
+                "sin . sp cos . sp tan .");
+        System.out.println(s);
+        Assert.assertEquals("-0.5440211108893698 -0.8390715290764524 0.6483608274590866 OK\n> ", s);
+    }
+
+    @Test
+    public void TestPolyParser()
+    {
+        double[] poly = parsePolynom("8x^4+10.7+34x^2-7x+7x-9x^4");
+        String s = Arrays.toString(poly);
+        Assert.assertEquals("[10.7, 0.0, 34.0, 0.0, -1.0]", s);
     }
 }

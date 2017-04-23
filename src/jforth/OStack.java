@@ -31,6 +31,11 @@ public class OStack extends Stack<Object>
         return o;
     }
 
+    public Object peek()
+    {
+        return super.peek();
+    }
+
     public boolean unpop()
     {
         if (saveStack.isEmpty())

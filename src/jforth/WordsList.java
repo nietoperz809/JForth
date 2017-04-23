@@ -4,13 +4,13 @@ import java.util.*;
 
 public class WordsList
 {
-    private HashMap<String, BaseWord> wordsList;
-    private HashMap<String, BaseWord> saveList;
+    private TreeMap<String, BaseWord> wordsList;
+    private TreeMap<String, BaseWord> saveList;
 
     WordsList ()
     {
-        wordsList = new HashMap<>();
-        saveList = new HashMap<>();
+        wordsList = new TreeMap<>();
+        saveList = new TreeMap<>();
     }
 
     void add (BaseWord bw)

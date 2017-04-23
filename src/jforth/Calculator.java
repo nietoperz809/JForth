@@ -1,6 +1,5 @@
 package jforth;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import scala.math.BigInt;
@@ -69,57 +68,6 @@ public class Calculator
         return func.apply(b1, b2);
     }
 
-    static PolynomialFunction doCalcPoly (Object o1, Object o2, BiFunction<PolynomialFunction, PolynomialFunction, PolynomialFunction> func) throws Exception
-    {
-        PolynomialFunction b1;
-        PolynomialFunction b2;
-        if (o1 instanceof PolynomialFunction)
-        {
-            b1 = (PolynomialFunction)o1;
-            if (o2 instanceof Long)
-            {
-                b2 = new PolynomialFunction (new double[]{((Long)o2).doubleValue()});
-            }
-            else if (o2 instanceof Double)
-            {
-                b2 = new PolynomialFunction(new double[]{(Double)o2});
-            }
-            else if (o2 instanceof BigInt)
-            {
-                b2 = new PolynomialFunction (new double[]{((BigInt)o2).doubleValue()});
-            }
-            else if (o2 instanceof PolynomialFunction)
-            {
-                b2 = (PolynomialFunction)o2;
-            }
-            else
-                throw new Exception ("Wrong args");
-        }
-        else if (o2 instanceof PolynomialFunction)
-        {
-            b2 = (PolynomialFunction)o2;
-            if (o1 instanceof Long)
-            {
-                b1 = new PolynomialFunction(new double[]{((Long)o1).doubleValue()});
-            }
-            else if (o1 instanceof Double)
-            {
-                b1 = new PolynomialFunction (new double[]{(Double)o1});
-            }
-            else if (o1 instanceof BigInt)
-            {
-                b1 = new PolynomialFunction (new double[]{((BigInt)o1).doubleValue()});
-            }
-            else
-                throw new Exception ("Wrong args");
-        }
-        else
-        {
-            throw new Exception ("Wrong args");
-        }
-        return func.apply(b1, b2);
-    }
-    
     static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
     {
         Complex b1;

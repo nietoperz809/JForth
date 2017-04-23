@@ -1,7 +1,6 @@
 package jforth;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 class AddMap
@@ -91,11 +90,5 @@ public class PolynomParser
         {
             return null;
         }
-    }
-
-    public static void main (String[] args)
-    {
-        double[] poly = parsePolynom("8x^4+10.7+34x^2-7x+7x-9x^4");
-        System.out.println(Arrays.toString(poly));
     }
 }

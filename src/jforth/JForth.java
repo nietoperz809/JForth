@@ -51,6 +51,11 @@ public class JForth
 
     public static void main (String[] args) throws IOException, ClassNotFoundException
     {
+//        PolynomialFunction p = new PolynomialFunction(new double[]{1,2,3,4});
+//        System.out.println(p);
+//        System.out.println(PolySupport.toString(p));
+//        System.exit(0);
+
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
         forth.outerInterpreter();
@@ -66,6 +71,13 @@ public class JForth
         history.add(input);
         if (!interpretLine(input))
         {
+            if (_out == AnsiConsole.out)
+                _out.print(input + " - " + ANSI_ERROR +
+                        " word execution or stack error " +
+                        ANSI_NORMAL);
+            else
+                _out.print(input +
+                        " word execution or stack error");
             dStack.removeAllElements();
         }
         else
@@ -140,7 +152,7 @@ public class JForth
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
     }
@@ -169,13 +181,6 @@ public class JForth
         {
             if (bw.execute(dStack, vStack) == 0)
             {
-                if (_out == AnsiConsole.out)
-                    _out.print(word + " - " + ANSI_ERROR +
-                            " word execution or stack error " +
-                            ANSI_NORMAL);
-                else
-                    _out.print(word +
-                            " word execution or stack error");
                 history.removeLast();
                 return false;
             }
@@ -366,7 +371,7 @@ public class JForth
         }
         else if (o instanceof PolynomialFunction)
         {
-            outstr = ((PolynomialFunction) o).toString().replaceAll("\\s", "");
+            outstr = PolySupport.formatPoly((PolynomialFunction) o);
         }
         else if (o instanceof BigInt)
         {

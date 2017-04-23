@@ -44,9 +44,9 @@ public final class StorageWord extends BaseWord
     Object o2 = data;
     if ((o1 instanceof Long) && (o2 instanceof Long))
     {
-      long i1 = ((Long) o1).longValue();
-      long i2 = ((Long) o2).longValue();
-      array[offset] = new Long(i1 + i2);
+      long i1 = (Long) o1;
+      long i2 = (Long) o2;
+      array[offset] = i1 + i2;
     }
     else if ((o1 instanceof String) && (o2 instanceof String))
     {

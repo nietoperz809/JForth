@@ -102,10 +102,6 @@ final class PredefinedWords
                         "execute", false, "executes word from stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             if (o instanceof BaseWord)
                             {
@@ -142,10 +138,6 @@ final class PredefinedWords
                             {
                                 return 1;
                             }
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             int thenIndex = _jforth.wordBeingDefined.getNextWordIndex();
                             if (o instanceof ElseControlWord)
@@ -173,10 +165,6 @@ final class PredefinedWords
                             if (!_jforth.compiling)
                             {
                                 return 1;
-                            }
-                            if (vStack.empty())
-                            {
-                                return 0;
                             }
                             Object o = vStack.peek();
                             if (o instanceof IfControlWord)
@@ -217,10 +205,6 @@ final class PredefinedWords
                         "i", false,
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.peek();
                             dStack.push(o);
                             return 1;
@@ -232,10 +216,6 @@ final class PredefinedWords
                         "j", false,
                         (dStack, vStack) ->
                         {
-                            if (vStack.size() < 4)
-                            {
-                                return 0;
-                            }
                             Object o1 = vStack.pop();
                             Object o2 = vStack.pop();
                             Object o3 = vStack.peek();
@@ -255,10 +235,6 @@ final class PredefinedWords
                             {
                                 return 1;
                             }
-                            if (vStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             LeaveLoopControlWord llcw = new LeaveLoopControlWord();
                             _jforth.wordBeingDefined.addWord(llcw);
                             return 1;
@@ -273,10 +249,6 @@ final class PredefinedWords
                             if (!_jforth.compiling)
                             {
                                 return 1;
-                            }
-                            if (vStack.empty())
-                            {
-                                return 0;
                             }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
@@ -300,10 +272,6 @@ final class PredefinedWords
                             if (!_jforth.compiling)
                             {
                                 return 1;
-                            }
-                            if (vStack.empty())
-                            {
-                                return 0;
                             }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
@@ -343,10 +311,6 @@ final class PredefinedWords
                             {
                                 return 1;
                             }
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
                             {
@@ -366,19 +330,23 @@ final class PredefinedWords
                         "dup", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.peek();
-                            if (o instanceof DoubleSequence)
-                            {
-                                dStack.push(new DoubleSequence((DoubleSequence) o));
-                            }
-                            else
-                            {
-                                dStack.push(o);
-                            }
+                            dup (o, dStack);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "2dup", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            dup (o2, dStack);
+                            dup (o1, dStack);
+                            dup (o2, dStack);
+                            dup (o1, dStack);
                             return 1;
                         }
                 ));
@@ -456,10 +424,6 @@ final class PredefinedWords
                         "drop", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             dStack.pop();
                             return 1;
                         }
@@ -470,10 +434,6 @@ final class PredefinedWords
                         "swap", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             dStack.push(o1);
@@ -487,10 +447,6 @@ final class PredefinedWords
                         "over", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             dStack.push(o2);
@@ -505,10 +461,6 @@ final class PredefinedWords
                         "rot", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 3)
-                            {
-                                return 0;
-                            }
                             Object o3 = dStack.pop();
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
@@ -535,10 +487,6 @@ final class PredefinedWords
                         "<", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -594,10 +542,6 @@ final class PredefinedWords
                         "=", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -653,10 +597,6 @@ final class PredefinedWords
                         "<>", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -690,10 +630,6 @@ final class PredefinedWords
                         ">", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -749,10 +685,6 @@ final class PredefinedWords
                         "0<", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -778,10 +710,6 @@ final class PredefinedWords
                         "0=", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -807,10 +735,6 @@ final class PredefinedWords
                         "0>", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -836,10 +760,6 @@ final class PredefinedWords
                         "not", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -879,76 +799,9 @@ final class PredefinedWords
                         "+", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
-                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::add));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::add));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction ::add));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::add));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 += i1;
-                                dStack.push(i2);
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
-                            {
-                                String s = (String) o2 + (String) o1;
-                                dStack.push(s);
-                            }
-                            else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
-                            {
-                                DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
-                                dStack.push(s);
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence))
-                            {
-                                Double d1 = (Double) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push(d2.add(d1));
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-                            {
-                                Long d1 = (Long) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push(d2.add(d1.doubleValue()));
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
+                            return add (dStack, o1, o2);
                         }
                 ));
 
@@ -957,66 +810,9 @@ final class PredefinedWords
                         "-", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
-                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::subtract));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::subtract));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction::subtract));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::sub));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 -= i1;
-                                dStack.push(i2);
-                            }
-                            else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
-                            {
-                                DoubleSequence d1 = (DoubleSequence) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push(d2.difference(d1));
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-                            {
-                                Long d1 = (Long) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                dStack.push(d2.subList(0, d2.length() - d1.intValue()));
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
+                            return sub (dStack, o1, o2);
                         }
                 ));
 
@@ -1025,21 +821,8 @@ final class PredefinedWords
                         "1+", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                long i1 = (Long) o1;
-                                dStack.push(i1 + 1);
-                                return 1;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
+                            Object o2 = dStack.pop();
+                            return add (dStack, 1L, o2);
                         }
                 ));
 
@@ -1048,21 +831,8 @@ final class PredefinedWords
                         "1-", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                long i1 = (Long) o1;
-                                dStack.push(i1 - 1);
-                                return 1;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
+                            Object o2 = dStack.pop();
+                            return sub (dStack, 1L, o2);
                         }
                 ));
 
@@ -1071,21 +841,8 @@ final class PredefinedWords
                         "2+", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                long i1 = (Long) o1;
-                                dStack.push(i1 + 2);
-                                return 1;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
+                            Object o2 = dStack.pop();
+                            return add (dStack, 2L, o2);
                         }
                 ));
 
@@ -1094,21 +851,8 @@ final class PredefinedWords
                         "2-", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                long i1 = (Long) o1;
-                                dStack.push(i1 - 2);
-                                return 1;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
+                            Object o2 = dStack.pop();
+                            return sub (dStack, 2L, o2);
                         }
                 ));
 
@@ -1117,75 +861,19 @@ final class PredefinedWords
                         "*", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
-                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::multiply));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::multiply));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, PolynomialFunction::multiply));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::mult));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            if (o1 instanceof Long)
-                            {
-                                long i1 = (Long) o1;
-                                if (o2 instanceof Long)
-                                {
-                                    long i2 = (Long) o2;
-                                    dStack.push(i2*i1);
-                                    return 1;
-                                }
-                                else if (o2 instanceof DoubleSequence)
-                                {
-                                    DoubleSequence d2 = (DoubleSequence) o2;
-                                    DoubleSequence d3 = new DoubleSequence();  // empty
-                                    while (i1-- != 0)
-                                    {
-                                        d3 = d3.add(d2);
-                                    }
-                                    dStack.push(d3);
-                                    return 1;
-                                }
-                                else if (o2 instanceof String)
-                                {
-                                    String d2 = (String) o2;
-                                    StringBuilder sb = new StringBuilder();  // empty
-                                    while (i1-- != 0)
-                                    {
-                                        sb.append(d2);
-                                    }
-                                    dStack.push(sb.toString());
-                                    return 1;
-                                }
-                            }
-                            return 0;
+                            return mult(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "2*", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            return mult(dStack, o1, 2L);
                         }
                 ));
 
@@ -1194,82 +882,19 @@ final class PredefinedWords
                         "/", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
-                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcComplex(o2, o1, Complex::divide));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::divide));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyDiv));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            try
-                            {
-                                dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::div));
-                                return 1;
-                            }
-                            catch (Exception ignored) {}
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 /= i1;
-                                dStack.push(i2);
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof String))
-                            {
-                                long d1 = (Long) o1;
-                                String d2 = (String) o2;
-                                List<String> ll = Utilities.splitEqually(d2, (int) d1);
-                                if (ll == null)
-                                {
-                                    return 0;
-                                }
-                                for (String s : ll)
-                                {
-                                    dStack.push(s);
-                                }
-                            }
-                            else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-                            {
-                                long d1 = (Long) o1;
-                                DoubleSequence d2 = (DoubleSequence) o2;
-                                List<DoubleSequence> ll = Utilities.splitEqually(d2, (int) d1);
-                                if (ll == null)
-                                {
-                                    return 0;
-                                }
-                                for (DoubleSequence s : ll)
-                                {
-                                    dStack.push(s);
-                                }
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
+                            return div(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "2/", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o2 = dStack.pop();
+                            return div(dStack,2L, o2);
                         }
                 ));
 
@@ -1278,10 +903,6 @@ final class PredefinedWords
                         "mod", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try
@@ -1292,7 +913,7 @@ final class PredefinedWords
                             catch (Exception ignored) {}
                             try
                             {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyMod));
+                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyMod));
                                 return 1;
                             }
                             catch (Exception ignored) {}
@@ -1316,16 +937,12 @@ final class PredefinedWords
                         "/mod", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try
                             {
-                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyMod));
-                                dStack.push (Calculator.doCalcPoly(o2, o1, Utilities::polyDiv));
+                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyMod));
+                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyDiv));
                                 return 1;
                             }
                             catch (Exception ignored) {}
@@ -1349,10 +966,6 @@ final class PredefinedWords
                         "max", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1382,10 +995,6 @@ final class PredefinedWords
                         "min", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1415,10 +1024,6 @@ final class PredefinedWords
                         "abs", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -1449,10 +1054,6 @@ final class PredefinedWords
                         "phi", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Complex)
                             {
@@ -1472,10 +1073,6 @@ final class PredefinedWords
                         "conj", false,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Complex)
                             {
@@ -1500,10 +1097,6 @@ final class PredefinedWords
                         "split", false, "Split object into partitions",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Complex)
                             {
@@ -1554,10 +1147,6 @@ final class PredefinedWords
                         "and", false, "Binary and of 2 values",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1580,10 +1169,6 @@ final class PredefinedWords
                         "or", false, "Binary or of 2 values",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1606,10 +1191,6 @@ final class PredefinedWords
                         "xor", false, "Xors two values",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1632,10 +1213,6 @@ final class PredefinedWords
                         "<<", false, "Rotate left",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1669,10 +1246,6 @@ final class PredefinedWords
                         ">>", false, "Rotate right",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
@@ -1706,10 +1279,6 @@ final class PredefinedWords
                         ".", false, "Pop TOS and print it",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             String outstr = _jforth.stackElementToString(o, _jforth.base);
                             if (outstr == null)
@@ -1782,10 +1351,6 @@ final class PredefinedWords
                         "spaces", false, "Emit multiple spaces",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -1840,10 +1405,6 @@ final class PredefinedWords
                         "setbase", false, "Set a new number base",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -1997,10 +1558,6 @@ final class PredefinedWords
                         ">r", false, "Put TOS to variable stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             vStack.push(o);
                             return 1;
@@ -2012,10 +1569,6 @@ final class PredefinedWords
                         "r>", false, "Put variable on data stack",
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             dStack.push(o);
                             return 1;
@@ -2027,10 +1580,6 @@ final class PredefinedWords
                         "r@", false, "Put variable on data stack",
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.peek();
                             dStack.push(o);
                             return 1;
@@ -2042,10 +1591,6 @@ final class PredefinedWords
                         "!", false, "Store value into varable or array",
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof StorageWord))
                             {
@@ -2082,10 +1627,6 @@ final class PredefinedWords
                         "+!", false, "Add value to variable",
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof StorageWord))
                             {
@@ -2122,10 +1663,6 @@ final class PredefinedWords
                         "@", false, "Put variable value on stack",
                         (dStack, vStack) ->
                         {
-                            if (vStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof StorageWord))
                             {
@@ -2169,10 +1706,6 @@ final class PredefinedWords
                         "array", false, "Create array",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             if (!(o instanceof Long))
                             {
@@ -2195,10 +1728,6 @@ final class PredefinedWords
                         "round", false, "Round double value",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Double)
                             {
@@ -2217,10 +1746,6 @@ final class PredefinedWords
                         "time", false, "Get a time string",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (!(o1 instanceof String))
                             {
@@ -2257,10 +1782,6 @@ final class PredefinedWords
                         "emit", false, "Emit single char to console",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -2324,10 +1845,6 @@ final class PredefinedWords
                         "toLong", false, "Make long values of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Double)
                             {
@@ -2372,10 +1889,6 @@ final class PredefinedWords
                         "toBig", false, "Make BigInt values of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Double)
                             {
@@ -2433,10 +1946,6 @@ final class PredefinedWords
                         "toDouble", false, "Make double value of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -2475,10 +1984,6 @@ final class PredefinedWords
                         "type", false, "Get type of TOS as string",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.peek();
                             dStack.push (o1.getClass().getSimpleName());
                             return 1;
@@ -2490,10 +1995,6 @@ final class PredefinedWords
                         "toFraction", false, "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -2514,10 +2015,6 @@ final class PredefinedWords
                         "toList", false, "Make list of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof String)
                             {
@@ -2566,10 +2063,6 @@ final class PredefinedWords
                         "toPoly", false, "Make polynomial of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             if (!(o instanceof DoubleSequence))
                             {
@@ -2587,10 +2080,6 @@ final class PredefinedWords
                         "f'=", false, "Derive a polynomial",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o = dStack.pop();
                             if (!(o instanceof PolynomialFunction))
                             {
@@ -2620,7 +2109,7 @@ final class PredefinedWords
                             else
                             {
                                 p = (PolynomialFunction) o;
-                                dStack.push(Utilities.antiDerive(p));
+                                dStack.push (PolySupport.antiDerive(p));
                                 return 1;
                             }
                             if (o2 instanceof Long)
@@ -2651,7 +2140,7 @@ final class PredefinedWords
                             try
                             {
                                 double d1 = Utilities.readDouble(dStack);
-                                PolynomialFunction p1 = Utilities.readPoly(dStack);
+                                PolynomialFunction p1 = PolySupport.readPoly(dStack);
                                 dStack.push(p1.value(d1));
                                 return 1;
                             }
@@ -2670,7 +2159,7 @@ final class PredefinedWords
                             try
                             {
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
-                                PolynomialFunction p1 = Utilities.readPoly(dStack);
+                                PolynomialFunction p1 = PolySupport.readPoly(dStack);
                                 dStack.push(s1.apply(p1));
                                 return 1;
                             }
@@ -2686,10 +2175,6 @@ final class PredefinedWords
                         "toString", false, "Make string of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
-                                return 0;
-                            }
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long)
                             {
@@ -2710,6 +2195,10 @@ final class PredefinedWords
                             else if (o1 instanceof DoubleSequence)
                             {
                                 dStack.push(((DoubleSequence) o1).asString());
+                            }
+                            else if (o1 instanceof PolynomialFunction)
+                            {
+                                dStack.push(PolySupport.formatPoly ((PolynomialFunction)o1));
                             }
                             else
                             {
@@ -4019,5 +3508,284 @@ final class PredefinedWords
                 ));
 
 
+    }
+
+    private int div (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::divide));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::divide));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (PolySupport.execute(o2, o1, PolySupport::polyDiv));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::div));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            long i1 = (Long) o1;
+            long i2 = (Long) o2;
+            i2 /= i1;
+            dStack.push(i2);
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof String))
+        {
+            long d1 = (Long) o1;
+            String d2 = (String) o2;
+            List<String> ll = Utilities.splitEqually(d2, (int) d1);
+            if (ll == null)
+            {
+                return 0;
+            }
+            for (String s : ll)
+            {
+                dStack.push(s);
+            }
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+        {
+            long d1 = (Long) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            List<DoubleSequence> ll = Utilities.splitEqually(d2, (int) d1);
+            if (ll == null)
+            {
+                return 0;
+            }
+            for (DoubleSequence s : ll)
+            {
+                dStack.push(s);
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    private int mult (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::multiply));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::multiply));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction::multiply));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::mult));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        if (o1 instanceof Long)
+        {
+            long i1 = (Long) o1;
+            if (o2 instanceof Long)
+            {
+                long i2 = (Long) o2;
+                dStack.push(i2*i1);
+                return 1;
+            }
+            else if (o2 instanceof DoubleSequence)
+            {
+                DoubleSequence d2 = (DoubleSequence) o2;
+                DoubleSequence d3 = new DoubleSequence();  // empty
+                while (i1-- != 0)
+                {
+                    d3 = d3.add(d2);
+                }
+                dStack.push(d3);
+                return 1;
+            }
+            else if (o2 instanceof String)
+            {
+                String d2 = (String) o2;
+                StringBuilder sb = new StringBuilder();  // empty
+                while (i1-- != 0)
+                {
+                    sb.append(d2);
+                }
+                dStack.push(sb.toString());
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    private int add (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::add));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::add));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction ::add));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::add));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            long i1 = (Long) o1;
+            long i2 = (Long) o2;
+            i2 += i1;
+            dStack.push(i2);
+        }
+        else if ((o1 instanceof String) && (o2 instanceof String))
+        {
+            String s = (String) o2 + (String) o1;
+            dStack.push(s);
+        }
+        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+        {
+            DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
+            dStack.push(s);
+        }
+        else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence))
+        {
+            Double d1 = (Double) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.add(d1));
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+        {
+            Long d1 = (Long) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.add(d1.doubleValue()));
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    private int sub (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::subtract));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::subtract));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction::subtract));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
+            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::sub));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            long i1 = (Long) o1;
+            long i2 = (Long) o2;
+            i2 -= i1;
+            dStack.push(i2);
+        }
+        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+        {
+            DoubleSequence d1 = (DoubleSequence) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.difference(d1));
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+        {
+            Long d1 = (Long) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.subList(0, d2.length() - d1.intValue()));
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    private void dup (Object o, OStack dStack)
+    {
+        if (o instanceof DoubleSequence)
+        {
+            dStack.push(new DoubleSequence((DoubleSequence) o));
+        }
+        else
+        {
+            dStack.push(o);
+        }
     }
 }

@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "460";
-    public static final String BUILD_DATE = "04/22/2017 11:17:10 AM";
+    public static final String BUILD_NUMBER = "492";
+    public static final String BUILD_DATE = "04/23/2017 10:09:31 PM";
 
     static String formatComplex (Complex c)
     {
@@ -230,55 +230,6 @@ public class Utilities
         return in.substring(1, in.length()-1);
     }
 
-    public static PolynomialFunction antiDerive (PolynomialFunction p)
-    {
-        double[] in = p.getCoefficients();
-        double[] out = new double[in.length+1];
-        out[0] = 0.0; // constant
-        for (int s=1; s<out.length; s++)
-        {
-            out[s] = in[s-1]/s;
-        }
-        return new PolynomialFunction(out);
-    }
-
-    private static int polylength(final double[] a)
-    {
-        int d = a.length - 1;
-        while(d >= 0  && Math.abs(a[d]) < 1E-12)
-            d--;
-        return d + 1;
-    }
-
-    public static PolynomialFunction polyDiv (PolynomialFunction here, PolynomialFunction p)
-    {
-        return polyDivComplete(here, p)[0];
-    }
-
-    public static PolynomialFunction polyMod (PolynomialFunction here, PolynomialFunction p)
-    {
-        return polyDivComplete(here, p)[1];
-    }
-
-    public static PolynomialFunction[] polyDivComplete (PolynomialFunction here, PolynomialFunction p)
-    {
-        final int dq = here.degree() - p.degree() + 1;
-        if(dq <= 0)
-            return new PolynomialFunction[] {new PolynomialFunction(new double[]{0.0}), here};
-        final double[] rest = Arrays.copyOf(here.getCoefficients(), polylength(here.getCoefficients()));
-        final double[] quotient = new double[dq];
-        final int dr = p.degree();
-        final double c = p.getCoefficients()[dr];
-        for(int i = dq - 1; i >= 0; i--)
-        {
-            final double q = rest[dr + i]/c;
-            quotient[i] = q;
-            for(int j = 0; j <= dr; j++)
-                rest[i + j] -= q*p.getCoefficients()[j];
-        }
-        return new PolynomialFunction[] {new PolynomialFunction(quotient), new PolynomialFunction(rest)};
-    }
-
 
     public static String rotRight (String in, int num)
     {
@@ -405,16 +356,6 @@ public class Utilities
     public static Complex readComplex (OStack dStack) throws Exception
     {
         return readComplex(dStack.pop());
-    }
-
-    public static PolynomialFunction readPoly (OStack dStack) throws Exception
-    {
-        Object o = dStack.pop();
-        if (o instanceof PolynomialFunction)
-        {
-            return (PolynomialFunction)o;
-        }
-        throw new Exception ("Wrong or no Type on Stack");
     }
 
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
