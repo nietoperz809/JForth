@@ -210,4 +210,33 @@ public class TestCases
         String s = Arrays.toString(poly);
         Assert.assertEquals("[10.7, 0.0, 34.0, 0.0, -1.0]", s);
     }
+
+    @Test
+    public void TestHex1()
+    {
+        String s = check ("hex 0a 14 *",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("C8 OK\n> ", s);
+    }
+
+    @Test
+    public void TestDefinedOp()
+    {
+        String s = check (": *+ * + ;",
+                "5 6 7 *+ .");
+        System.out.println(s);
+        Assert.assertEquals("47 OK\n> ", s);
+    }
+
+    @Test
+    public void TestVariable()
+    {
+        String s = check ("variable x " +
+                        "3 x !",
+                "x @ .");
+        System.out.println(s);
+        Assert.assertEquals("3 OK\n> ", s);
+    }
+
 }

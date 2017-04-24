@@ -444,6 +444,23 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "2swap", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            Object o3 = dStack.pop();
+                            Object o4 = dStack.pop();
+                            dStack.push(o2);
+                            dStack.push(o1);
+                            dStack.push(o4);
+                            dStack.push(o3);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "over", false,
                         (dStack, vStack) ->
                         {
@@ -452,6 +469,25 @@ final class PredefinedWords
                             dStack.push(o2);
                             dStack.push(o1);
                             dStack.push(o2);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "2over", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            Object o3 = dStack.pop();
+                            Object o4 = dStack.pop();
+                            dStack.push(o4);
+                            dStack.push(o3);
+                            dStack.push(o2);
+                            dStack.push(o1);
+                            dStack.push(o4);
+                            dStack.push(o3);
                             return 1;
                         }
                 ));
@@ -467,6 +503,27 @@ final class PredefinedWords
                             dStack.push(o2);
                             dStack.push(o3);
                             dStack.push(o1);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "2rot", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o6 = dStack.pop();
+                            Object o5 = dStack.pop();
+                            Object o4 = dStack.pop();
+                            Object o3 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            Object o1 = dStack.pop();
+                            dStack.push(o3);
+                            dStack.push(o4);
+                            dStack.push(o5);
+                            dStack.push(o6);
+                            dStack.push(o1);
+                            dStack.push(o2);
                             return 1;
                         }
                 ));

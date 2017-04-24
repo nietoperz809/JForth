@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "492";
-    public static final String BUILD_DATE = "04/23/2017 10:09:31 PM";
+    public static final String BUILD_NUMBER = "512";
+    public static final String BUILD_DATE = "04/24/2017 07:14:33 AM";
 
     static String formatComplex (Complex c)
     {
