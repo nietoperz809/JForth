@@ -33,6 +33,7 @@ public class JForth
     public int base;
     public NonPrimitiveWord wordBeingDefined = null;
     private StreamTokenizer st = null;
+    public BaseWord currentWord;
 
     public JForth ()
     {
@@ -179,6 +180,10 @@ public class JForth
         BaseWord bw = dictionary.search(word);
         if (bw != null)
         {
+            if (bw instanceof NonPrimitiveWord)
+            {
+                currentWord = bw;  // Save for recursion
+            }
             if (bw.execute(dStack, vStack) == 0)
             {
                 history.removeLast();

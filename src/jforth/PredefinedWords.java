@@ -17,7 +17,6 @@ import java.util.List;
 final class PredefinedWords
 {
     private final JForth _jforth;
-    private String lastCompileWord;
     private final WordsList _wl;
 
     PredefinedWords (JForth jf, WordsList wl)
@@ -313,6 +312,37 @@ final class PredefinedWords
                             if (!_jforth.compiling)
                             {
                                 return 1;
+                            }
+                            Object o = vStack.pop();
+                            if (!(o instanceof Long))
+                            {
+                                return 0;
+                            }
+                            int beginIndex = ((Long) o).intValue();
+                            int endIndex = _jforth.wordBeingDefined.getNextWordIndex();
+                            int increment = beginIndex - endIndex;
+                            EndLoopControlWord ecw = new EndLoopControlWord(increment);
+                            _jforth.wordBeingDefined.addWord(ecw);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "again", true,
+                        (dStack, vStack) ->
+                        {
+                            if (!_jforth.compiling)
+                            {
+                                return 1;
+                            }
+                            try
+                            {
+                                _jforth.wordBeingDefined.addWord (_wl.search("false"));
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
                             }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
@@ -1500,8 +1530,7 @@ final class PredefinedWords
                         {
                             try
                             {
-                                BaseWord bw = _wl.search(lastCompileWord);
-                                return bw.execute(dStack, vStack);
+                                return _jforth.currentWord.execute(dStack, vStack);
                             }
                             catch (Exception e)
                             {
@@ -1517,7 +1546,6 @@ final class PredefinedWords
                         {
                             _jforth.compiling = true;
                             String name = _jforth.getNextToken();
-                            lastCompileWord = name;
                             if (name == null)
                             {
                                 return 0;

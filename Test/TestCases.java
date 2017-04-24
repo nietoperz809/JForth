@@ -275,4 +275,13 @@ public class TestCases
         Assert.assertEquals(" 5 4 3 2 1 0 -1 stop OK\n> ", s);
     }
 
+    @Test
+    public void TestBeginUntilCompiled()
+    {
+        String s = check (": test 0 begin dup . 1+ dup 5 = until ;",
+                "test");
+        System.out.println(s);
+        Assert.assertEquals("01234 OK\n> ", s);
+    }
+
 }
