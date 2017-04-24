@@ -12,7 +12,7 @@ public final class StorageWord extends BaseWord
 
   public int execute(OStack dStack, OStack vStack)
   {
-    vStack.push(this);
+    dStack.push(this);
     return 1;
   }
 

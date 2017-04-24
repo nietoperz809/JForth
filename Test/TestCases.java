@@ -239,4 +239,40 @@ public class TestCases
         Assert.assertEquals("3 OK\n> ", s);
     }
 
+    @Test
+    public void TestConstant()
+    {
+        String s = check ("4711 constant bla",
+                "bla .");
+        System.out.println(s);
+        Assert.assertEquals("4711 OK\n> ", s);
+    }
+
+    @Test
+    public void TestTuck()
+    {
+        String s = check ("1 2 3 4 5 6 tuck",
+                ". . . . . . .");
+        System.out.println(s);
+        Assert.assertEquals("6564321 OK\n> ", s);
+    }
+
+    @Test
+    public void TestIf()
+    {
+        String s = check (": konto dup abs . 0< if \"soll\" . else \"haben\" . then ;",
+                "0 konto -1 konto");
+        System.out.println(s);
+        Assert.assertEquals("0haben1soll OK\n> ", s);
+    }
+
+    @Test
+    public void TestRecurse()
+    {
+        String s = check (": rtest dup 0< if sp \"stop\" . else 1 - dup sp . recurse then ;",
+                "6 rtest");
+        System.out.println(s);
+        Assert.assertEquals(" 5 4 3 2 1 0 -1 stop OK\n> ", s);
+    }
+
 }

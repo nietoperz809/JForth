@@ -17,9 +17,12 @@ import java.util.List;
 final class PredefinedWords
 {
     private final JForth _jforth;
+    private String lastCompileWord;
+    private final WordsList _wl;
 
     PredefinedWords (JForth jf, WordsList wl)
     {
+        this._wl = wl;
         this._jforth = jf;
         fill(wl);
     }
@@ -458,6 +461,21 @@ final class PredefinedWords
                             return 1;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "tuck", false,
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            dStack.push(o1);
+                            dStack.push(o2);
+                            dStack.push(o1);
+                            return 1;
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (
@@ -1477,11 +1495,29 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "recurse", false, "Re-run current word",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                BaseWord bw = _wl.search(lastCompileWord);
+                                return bw.execute(dStack, vStack);
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         ":", false, "Begin word definition",
                         (dStack, vStack) ->
                         {
                             _jforth.compiling = true;
                             String name = _jforth.getNextToken();
+                            lastCompileWord = name;
                             if (name == null)
                             {
                                 return 0;
@@ -1571,25 +1607,10 @@ final class PredefinedWords
                             NonPrimitiveWord constant = new NonPrimitiveWord(name);
                             _jforth.dictionary.add(constant);
                             Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
-                                String stringConstant = (String) o1;
-                                constant.addWord(new StringLiteral(stringConstant));
-                            }
-                            else if (o1 instanceof Long)
-                            {
-                                Long numericConstant = (Long) o1;
-                                constant.addWord(new LongLiteral(numericConstant));
-                            }
-                            else if (o1 instanceof Double)
-                            {
-                                Double floatingPointConstant = (Double) o1;
-                                constant.addWord(new DoubleLiteral(floatingPointConstant));
-                            }
-                            else
-                            {
+                            BaseWord bw = toLiteral(o1);
+                            if (bw == null)
                                 return 0;
-                            }
+                            constant.addWord(bw);
                             return 1;
                         }
                 ));
@@ -1648,7 +1669,7 @@ final class PredefinedWords
                         "!", false, "Store value into varable or array",
                         (dStack, vStack) ->
                         {
-                            Object o = vStack.pop();
+                            Object o = dStack.pop();
                             if (!(o instanceof StorageWord))
                             {
                                 return 0;
@@ -1684,7 +1705,7 @@ final class PredefinedWords
                         "+!", false, "Add value to variable",
                         (dStack, vStack) ->
                         {
-                            Object o = vStack.pop();
+                            Object o = dStack.pop();
                             if (!(o instanceof StorageWord))
                             {
                                 return 0;
@@ -1720,7 +1741,7 @@ final class PredefinedWords
                         "@", false, "Put variable value on stack",
                         (dStack, vStack) ->
                         {
-                            Object o = vStack.pop();
+                            Object o = dStack.pop();
                             if (!(o instanceof StorageWord))
                             {
                                 return 0;
@@ -3844,5 +3865,45 @@ final class PredefinedWords
         {
             dStack.push(o);
         }
+    }
+
+    private BaseWord toLiteral (Object o1)
+    {
+        if (o1 instanceof String)
+        {
+            String stringConstant = (String) o1;
+            return new StringLiteral(stringConstant);
+        }
+        else if (o1 instanceof Long)
+        {
+            Long numericConstant = (Long) o1;
+            return new LongLiteral(numericConstant);
+        }
+        else if (o1 instanceof Double)
+        {
+            Double floatingPointConstant = (Double) o1;
+            return new DoubleLiteral(floatingPointConstant);
+        }
+        else if (o1 instanceof DoubleSequence)
+        {
+            DoubleSequence seq = (DoubleSequence) o1;
+            return new DListLiteral(seq);
+        }
+        else if (o1 instanceof PolynomialFunction)
+        {
+            PolynomialFunction seq = (PolynomialFunction) o1;
+            return new PolynomLiteral(seq);
+        }
+        else if (o1 instanceof Fraction)
+        {
+            Fraction seq = (Fraction) o1;
+            return new FractionLiteral(seq);
+        }
+        else if (o1 instanceof Complex)
+        {
+            Complex seq = (Complex) o1;
+            return new ComplexLiteral(seq);
+        }
+        return null;
     }
 }

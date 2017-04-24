@@ -329,6 +329,8 @@ public class JForth
     public String stackElementToString (Object o, int base)
     {
         String outstr;
+        if (o == null)
+            return null;
         if (o instanceof Long)
         {
             outstr = Long.toString((Long) o, base).toUpperCase();
@@ -353,22 +355,6 @@ public class JForth
         {
             outstr = (String) o;
         }
-        else if (o instanceof BaseWord)
-        {
-            outstr = "BaseWord address on stack";
-        }
-        else if (o instanceof FileInputStream)
-        {
-            outstr = "FileInputStream address on stack";
-        }
-        else if (o instanceof BufferedReader)
-        {
-            outstr = "BufferedReader address on stack";
-        }
-        else if (o instanceof PrintStream)
-        {
-            outstr = "PrintStream address on stack";
-        }
         else if (o instanceof PolynomialFunction)
         {
             outstr = PolySupport.formatPoly((PolynomialFunction) o);
@@ -379,7 +365,7 @@ public class JForth
         }
         else
         {
-            return null;
+            outstr = o.toString();
         }
         if (_out != AnsiConsole.out)
             return outstr;
