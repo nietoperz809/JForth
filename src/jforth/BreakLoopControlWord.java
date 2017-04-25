@@ -5,17 +5,14 @@ package jforth;
  */
 public class BreakLoopControlWord extends BaseWord
 {
-    private final int indexIncrement;
-
-    public BreakLoopControlWord (int indexIncrement)
+    public BreakLoopControlWord ()
     {
         super("", false, false, null);
-        this.indexIncrement = indexIncrement;
     }
 
     @Override
     public int execute (OStack dataStack, OStack variableStack)
     {
-        return 1;
+        return 1; // Not used
     }
 }

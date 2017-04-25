@@ -360,25 +360,14 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "break", true,
+                        "leave", true,
                         (dStack, vStack) ->
                         {
                             if (!_jforth.compiling)
                             {
                                 return 1;
                             }
-                            Object o1 = vStack.pop();
-                            Object o2 = vStack.pop();
-                            vStack.push(o2);
-                            vStack.push(o1);
-                            if (!(o2 instanceof Long))
-                            {
-                                return 0;
-                            }
-                            int beginIndex = ((Long) o2).intValue();
-                            int endIndex = _jforth.wordBeingDefined.getNextWordIndex();
-                            int increment = beginIndex - endIndex;
-                            BreakLoopControlWord ecw = new BreakLoopControlWord(increment);
+                            BreakLoopControlWord ecw = new BreakLoopControlWord();
                             _jforth.wordBeingDefined.addWord(ecw);
                             return 1;
                         }

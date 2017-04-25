@@ -305,4 +305,13 @@ public class TestCases
         Assert.assertEquals("1098765-4-3-2-1-0test word execution or stack error\n> ", s);
     }
 
+    @Test
+    public void TestBeginAgainBreak()
+    {
+        // : test 0 begin dup . 1+ again ;
+        String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if leave then again ;",
+                "test");
+        System.out.println(s);
+        Assert.assertEquals("1098765 OK\n> ", s);
+    }
 }
