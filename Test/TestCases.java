@@ -278,10 +278,31 @@ public class TestCases
     @Test
     public void TestBeginUntilCompiled()
     {
+        // : test 0 begin dup . 1+ again ;
         String s = check (": test 0 begin dup . 1+ dup 5 = until ;",
                 "test");
         System.out.println(s);
         Assert.assertEquals("01234 OK\n> ", s);
+    }
+
+    @Test
+    public void TestBeginAgainCompiled()
+    {
+        // : test 0 begin dup . 1+ again ;
+        String s = check (": test 0 1 2 3 4 5 begin . again ;",
+                "test");
+        System.out.println(s);
+        Assert.assertEquals("543210test word execution or stack error\n> ", s);
+    }
+
+    @Test
+    public void TestBeginAgainIfThen()
+    {
+        // : test 0 begin dup . 1+ again ;
+        String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if \"-\" . then again ;",
+                "test");
+        System.out.println(s);
+        Assert.assertEquals("1098765-4-3-2-1-0test word execution or stack error\n> ", s);
     }
 
 }

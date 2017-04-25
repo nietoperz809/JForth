@@ -26,6 +26,8 @@ public final class NonPrimitiveWord extends BaseWord
     while (index < size)
     {
       ExecuteIF eif = words.get(index);
+      if (eif instanceof BreakLoopControlWord)
+        return 1;
       int increment = eif.execute(dStack, vStack);
       if (increment == 0)
         return 0;
@@ -37,6 +39,11 @@ public final class NonPrimitiveWord extends BaseWord
   public void setImmediate()
   {
     immediate = true;
+  }
+
+  public ArrayList<ExecuteIF> getList()
+  {
+    return words;
   }
 
   private ArrayList<ExecuteIF> words = new ArrayList<ExecuteIF>();
