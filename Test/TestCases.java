@@ -309,9 +309,30 @@ public class TestCases
     public void TestBeginAgainBreak()
     {
         // : test 0 begin dup . 1+ again ;
-        String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if leave then again ;",
+        String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if break then again ;",
                 "test");
         System.out.println(s);
         Assert.assertEquals("1098765 OK\n> ", s);
+    }
+
+    @Test
+    public void TestTwoWords()
+    {
+        // : test 0 begin dup . 1+ again ;
+        String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if break then again ; " +
+                        ": fump 10 spaces \"lala\" . ; " +
+                        ": check test fump ;",
+                    "check");
+        System.out.println(s);
+        Assert.assertEquals("1098765          lala OK\n> ", s);
+    }
+
+    @Test
+    public void TestAddFractions()
+    {
+        String s = check ("1/2 1/8 1/32 1/128",
+                "+ + + .");
+        System.out.println(s);
+        Assert.assertEquals("85/128 OK\n> ", s);
     }
 }

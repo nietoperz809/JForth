@@ -11,8 +11,11 @@ public class BreakLoopControlWord extends BaseWord
     }
 
     @Override
-    public int execute (OStack dataStack, OStack variableStack)
+    public int execute (OStack dataStack, OStack vStack)
     {
-        return 1; // Not used
+//        vStack.pop();
+//        Object o2 = vStack.peek();
+//        vStack.push(o2);
+        return 1;
     }
 }

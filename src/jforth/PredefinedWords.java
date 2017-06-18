@@ -360,7 +360,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "leave", true,
+                        "break", true, "Breaks out of the word",
                         (dStack, vStack) ->
                         {
                             if (!_jforth.compiling)
