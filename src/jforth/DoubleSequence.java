@@ -131,13 +131,10 @@ public class DoubleSequence
 
     public static DoubleSequence parseSequence (String in)
     {
-        if (in.length() < 2)
-            return null;
         if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
         {
             in = in.substring(1, in.length()-1);
-            String vals[] = in.split(",");
-            return new DoubleSequence(vals);
+            return new DoubleSequence(Utilities.parseCSVtoDoubleArray(in));
         }
         return null;
     }

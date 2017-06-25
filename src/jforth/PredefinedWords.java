@@ -5,6 +5,9 @@ import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.MatrixUtils;
+import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import scala.math.BigInt;
 import webserver.SimpleWebserver;
@@ -12,6 +15,7 @@ import webserver.SimpleWebserver;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 final class PredefinedWords
@@ -2133,6 +2137,117 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "toM", false, "Make Matrix from Sequences",
+                        (dStack, vStack) ->
+                        {
+                            ArrayList<DoubleSequence> arr = new ArrayList<>();
+                            for (;;)
+                            {
+                                if (dStack.isEmpty())
+                                {
+                                    break;
+                                }
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    arr.add((DoubleSequence)o1);
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            dStack.push(DoubleMatrix.fromSequenceArray(arr));
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "detM", false, "Determinant of a Matrix",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleMatrix)
+                            {
+                                RealMatrix bm = ((DoubleMatrix)o1);
+                                dStack.push (new LUDecomposition(bm).getDeterminant());
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "transM", false, "Transpose a Matrix",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleMatrix)
+                            {
+                                RealMatrix bm = ((DoubleMatrix)o1).transpose();
+                                dStack.push (new DoubleMatrix(bm));
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "invM", false, "Inverse of a Matrix",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleMatrix)
+                            {
+                                RealMatrix inv = MatrixUtils.inverse((DoubleMatrix)o1);
+                                dStack.push (new DoubleMatrix(inv));
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "idM", false, "Create Identity Matrix",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Long d = Utilities.readLong(dStack);
+                                dStack.push(DoubleMatrix.identity(d.intValue()));
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "diagM", false, "Create diagonal Matrix from List",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence d = Utilities.readDoubleSequence(dStack);
+                                dStack.push(DoubleMatrix.diagonal(d));
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "toList", false, "Make list of what is on the stack",
                         (dStack, vStack) ->
                         {
@@ -2148,18 +2263,17 @@ final class PredefinedWords
                                 dStack.push(ds);
                                 return 1;
                             }
-                            if (!(o1 instanceof Long))
+                            if (o1 instanceof DoubleMatrix)
                             {
-                                return 0;
+                                DoubleSequence[] seq = ((DoubleMatrix)o1).toSequence();
+                                for (DoubleSequence d: seq)
+                                    dStack.push(d);
+                                return 1;
                             }
-                            long cnt = (Long) o1;
+                            dStack.push(o1);
                             DoubleSequence seq = new DoubleSequence();
-                            for (long n = 0; n < cnt; n++)
+                            for (;;)
                             {
-                                if (dStack.empty())
-                                {
-                                    break;
-                                }
                                 Object o2 = dStack.pop();
                                 if (o2 instanceof Double)
                                 {
@@ -2172,6 +2286,10 @@ final class PredefinedWords
                                 else if (o2 instanceof DoubleSequence)
                                 {
                                     seq = seq.add((DoubleSequence) o2);
+                                }
+                                if (dStack.empty())
+                                {
+                                    break;
                                 }
                             }
                             dStack.push(seq);
@@ -3635,6 +3753,12 @@ final class PredefinedWords
     {
         try
         {
+            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::div));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
             dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
             return 1;
         }
@@ -3709,6 +3833,12 @@ final class PredefinedWords
     {
         try
         {
+            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::mult));
+            return 1;
+        }
+        catch (Exception ignored) {}
+        try
+        {
             dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
             return 1;
         }
@@ -3774,6 +3904,12 @@ final class PredefinedWords
 
     private int add (OStack dStack, Object o1, Object o2)
     {
+        try
+        {
+            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::add));
+            return 1;
+        }
+        catch (Exception ignored) {}
         try
         {
             dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
@@ -3842,6 +3978,12 @@ final class PredefinedWords
 
     private int sub (OStack dStack, Object o1, Object o2)
     {
+        try
+        {
+            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::sub));
+            return 1;
+        }
+        catch (Exception ignored) {}
         try
         {
             dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));

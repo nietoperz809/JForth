@@ -2,7 +2,6 @@ package jforth;
 
 import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import scala.math.BigInt;
@@ -20,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "595";
-    public static final String BUILD_DATE = "06/18/2017 09:23:39 PM";
+    public static final String BUILD_NUMBER = "637";
+    public static final String BUILD_DATE = "06/25/2017 05:11:58 AM";
 
     static String formatComplex (Complex c)
     {
@@ -356,6 +355,17 @@ public class Utilities
     public static Complex readComplex (OStack dStack) throws Exception
     {
         return readComplex(dStack.pop());
+    }
+
+    public static double[] parseCSVtoDoubleArray (String in)
+    {
+        String vals[] = in.split(",");
+        double[] out = new double[vals.length];
+        for (int s=0; s<vals.length; s++)
+        {
+            out[s] = Double.parseDouble(vals[s]);
+        }
+        return out;
     }
 
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception

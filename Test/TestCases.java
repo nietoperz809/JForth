@@ -17,7 +17,6 @@ public class TestCases
         StringStream _ss = new StringStream();
         JForth _forth = new JForth();
         _forth.setPrintStream(_ss.getPrintStream());
-
         _forth.singleShot(prg);
         _ss.clear();
         _forth.singleShot (call);
@@ -335,4 +334,41 @@ public class TestCases
         System.out.println(s);
         Assert.assertEquals("85/128 OK\n> ", s);
     }
+
+    @Test
+    public void TestStringOpAddMult()
+    {
+        String s = check ("\"lala\" \"dumm\"",
+                "+ 2 * .");
+        System.out.println(s);
+        Assert.assertEquals("laladummlaladumm OK\n> ", s);
+    }
+
+    @Test
+    public void TestDSCreate()
+    {
+        String s = check ("{1.2,2.3,3,4,4.5} type",
+                ". .");
+        System.out.println(s);
+        Assert.assertEquals("DoubleSequence{1.2,2.3,3,4,4.5} OK\n> ", s);
+    }
+
+    @Test
+    public void TestMToList()
+    {
+        String s = check ("{{1,2,3}{4,5}{6,7,8,9}} toList",
+                ". . .");
+        System.out.println(s);
+        Assert.assertEquals("{6,7,8,9}{4,5,0,0}{1,2,3,0} OK\n> ", s);
+    }
+
+    @Test
+    public void TestToMatrix()
+    {
+        String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toMatrix",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}} OK\n> ", s);
+    }
+
 }

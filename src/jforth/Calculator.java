@@ -2,6 +2,8 @@ package jforth;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.linear.BlockRealMatrix;
+import org.apache.commons.math3.linear.MatrixUtils;
 import scala.math.BigInt;
 
 import java.util.function.BiFunction;
@@ -16,6 +18,30 @@ public class Calculator
     static Double add (Double a, Double b)
     {
         return a + b;
+    }
+
+    static DoubleMatrix add (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.add(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix sub (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.subtract(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix mult (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.multiply(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix div (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.multiply(MatrixUtils.inverse(b));
+        return new DoubleMatrix(res);
     }
 
     static Double sub (Double a, Double b)
@@ -36,7 +62,9 @@ public class Calculator
     static Double doCalcDouble (Object o1, Object o2, BiFunction<Double, Double, Double> func) throws Exception
     {
         if (o1 instanceof Double || o2 instanceof Double)
+        {
             return func.apply(getDoub(o1), getDoub(o2));
+        }
         throw new Exception("Wrong args");
     }
 
@@ -52,6 +80,34 @@ public class Calculator
         }
         throw new Exception("Wrong args");
     }
+
+    static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
+    {
+        if (areObjects(o1, o2, Complex.class))
+        {
+            return func.apply(getComp(o1), getComp(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static boolean areObjects (Object o1, Object o2, Class c)
+    {
+        return (c.isInstance(o1) || c.isInstance(o2));
+    }
+
+//    public static void main (String[] args)
+//    {
+//        Double c = 1.1;
+//        Double d = 1.2;
+//        String a ="lala";
+//        String b = "kaka";
+//        System.out.println(areObjects(a,b,Double.class));
+//        System.out.println(areObjects(a,b,String.class));
+//        System.out.println(areObjects(c,d,Double.class));
+//        System.out.println(areObjects(c,d,String.class));
+//        System.out.println(areObjects(c,a,String.class));
+//        System.out.println(areObjects(c,a,Double.class));
+//    }
 
     static private Complex getComp (Object o1) throws Exception
     {
@@ -74,17 +130,12 @@ public class Calculator
         throw new Exception("Wrong args");
     }
 
-    static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
-    {
-        if (o1 instanceof Complex || o2 instanceof Complex)
-            return func.apply(getComp(o1), getComp(o2));
-        throw new Exception("Wrong args");
-    }
-
     static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
     {
-        if (o1 instanceof Fraction || o2 instanceof Fraction)
+        if (areObjects(o1, o2, Fraction.class))
+        {
             return func.apply(getFrac(o1), getFrac(o2));
+        }
         throw new Exception("Wrong args");
     }
 
@@ -109,6 +160,24 @@ public class Calculator
         throw new Exception("Wrong args");
     }
 
+    static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
+    {
+        if (areObjects(o1, o2, BigInt.class))
+        {
+            return func.apply(getBig(o1), getBig(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static DoubleMatrix doCalcMatrix (Object o1, Object o2, BiFunction<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
+    {
+        if (areObjects(o1, o2, DoubleMatrix.class))
+        {
+            return func.apply(getMatrix(o1), getMatrix(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+    
     static private BigInt getBig (Object o1) throws Exception
     {
         if (o1 instanceof BigInt)
@@ -126,10 +195,12 @@ public class Calculator
         throw new Exception("Wrong args");
     }
 
-    static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
+    static private DoubleMatrix getMatrix (Object o1) throws Exception
     {
-        if (o1 instanceof BigInt || o2 instanceof BigInt)
-            return func.apply(getBig(o1), getBig(o2));
+        if (o1 instanceof DoubleMatrix)
+        {
+            return (DoubleMatrix) o1;
+        }
         throw new Exception("Wrong args");
     }
 }

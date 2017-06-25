@@ -221,6 +221,12 @@ public class JForth
             dStack.push(fr);
             return true;
         }
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(word);
+        if (ma != null)
+        {
+            dStack.push(ma);
+            return true;
+        }
         DoubleSequence lo = DoubleSequence.parseSequence(word);
         if (lo != null)
         {
@@ -294,6 +300,12 @@ public class JForth
             wordBeingDefined.addWord(new DoubleLiteral(dnum));
             return true;
         }
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(word);
+        if (ma != null)
+        {
+            wordBeingDefined.addWord(new DMatrixLiteral(ma));
+            return true;
+        }
         DoubleSequence ds = DoubleSequence.parseSequence(word);
         if (ds != null)
         {
@@ -340,10 +352,14 @@ public class JForth
         {
             outstr = Long.toString((Long) o, base).toUpperCase();
         }
-        else if (o instanceof DoubleSequence)
-        {
-            outstr = o.toString();
-        }
+//        else if (o instanceof DoubleMatrix)
+//        {
+//            outstr = o.toString();
+//        }
+//        else if (o instanceof DoubleSequence)
+//        {
+//            outstr = o.toString();
+//        }
         else if (o instanceof Double)
         {
             outstr = Double.toString((Double) o);
