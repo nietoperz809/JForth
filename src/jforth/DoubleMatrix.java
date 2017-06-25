@@ -41,10 +41,10 @@ public class DoubleMatrix extends BlockRealMatrix
             double[] d = getRow(s);
             for (int i=0; i<d.length-1; i++)
             {
-                str = Utilities.removeTrailingZero(d[i]);
+                str = Utilities.removeTrailingZero(d[i], true);
                 sb.append(str).append(',');
             }
-            str = Utilities.removeTrailingZero(d[d.length - 1]);
+            str = Utilities.removeTrailingZero(d[d.length - 1], true);
             sb.append(str);
             sb.append("}");
         }

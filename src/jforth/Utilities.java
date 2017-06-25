@@ -122,7 +122,15 @@ public class Utilities
 
     public static String removeTrailingZero (double v)
     {
-        String str = ""+v;
+        return removeTrailingZero(v, false);
+    }
+
+    public static String removeTrailingZero (double v, boolean round)
+    {
+        String str;
+        if (round)
+            v = Math.round(10000.0 * v) / 10000.0;
+        str = ""+v;
         if (str.endsWith(".0"))
             return str.substring(0, str.length()-2);
         return str;

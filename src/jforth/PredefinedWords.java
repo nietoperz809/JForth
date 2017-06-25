@@ -1853,13 +1853,16 @@ final class PredefinedWords
                         "round", false, "Round double value",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
+                            try
                             {
-                                dStack.push(Math.round((Double) o1));
+                                Double d1 = Utilities.readDouble(dStack);
+                                Double d2 = Utilities.readDouble(dStack);
+                                double r = Math.pow(10,d1);
+                                double dd = Math.round(r * d2) / r;
+                                dStack.push(dd);
                                 return 1;
                             }
-                            else
+                            catch (Exception ex)
                             {
                                 return 0;
                             }
@@ -2172,6 +2175,25 @@ final class PredefinedWords
                             {
                                 RealMatrix bm = ((DoubleMatrix)o1);
                                 dStack.push (new LUDecomposition(bm).getDeterminant());
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "lupM", false, "Determinant of a Matrix",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleMatrix)
+                            {
+                                RealMatrix bm = ((DoubleMatrix)o1);
+                                LUDecomposition lud = new LUDecomposition(bm);
+                                dStack.push (new DoubleMatrix(lud.getL()));
+                                dStack.push (new DoubleMatrix(lud.getU()));
+                                dStack.push (new DoubleMatrix(lud.getP()));
                                 return 1;
                             }
                             return 0;

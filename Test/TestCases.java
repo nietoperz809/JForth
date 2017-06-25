@@ -365,10 +365,27 @@ public class TestCases
     @Test
     public void TestToMatrix()
     {
-        String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toMatrix",
+        String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toM",
                 ".");
         System.out.println(s);
         Assert.assertEquals("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}} OK\n> ", s);
     }
 
+    @Test
+    public void TestDeterminant()
+    {
+        String s = check ("{{1,2,3}{4,5,6}{7,8,1}} detM 3 round",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("24.0 OK\n> ", s);
+    }
+
+    @Test
+    public void TestDecompLUP()
+    {
+        String s = check (" {{1,2,3}{4,5,6}{7,8,1}} lupM",
+                ". . .");
+        System.out.println(s);
+        Assert.assertEquals("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}} OK\n> ", s);
+    }
 }
