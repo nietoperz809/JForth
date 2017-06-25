@@ -63,13 +63,17 @@ public class Calculator
     {
         if (o1 instanceof Double || o2 instanceof Double)
         {
-            return func.apply(getDoub(o1), getDoub(o2));
+            return func.apply(getDouble(o1), getDouble(o2));
         }
         throw new Exception("Wrong args");
     }
 
-    static private Double getDoub (Object o1) throws Exception
+    static public Double getDouble (Object o1) throws Exception
     {
+        if (o1 instanceof BigInt)
+        {
+            return ((BigInt)o1).doubleValue();
+        }
         if (o1 instanceof Double)
         {
             return (Double) o1;
@@ -85,7 +89,7 @@ public class Calculator
     {
         if (areObjects(o1, o2, Complex.class))
         {
-            return func.apply(getComp(o1), getComp(o2));
+            return func.apply(getComplex(o1), getComplex(o2));
         }
         throw new Exception("Wrong args");
     }
@@ -109,7 +113,7 @@ public class Calculator
 //        System.out.println(areObjects(c,a,Double.class));
 //    }
 
-    static private Complex getComp (Object o1) throws Exception
+    static public Complex getComplex (Object o1) throws Exception
     {
         if (o1 instanceof Complex)
         {
@@ -178,7 +182,7 @@ public class Calculator
         throw new Exception("Wrong args");
     }
     
-    static private BigInt getBig (Object o1) throws Exception
+    static public BigInt getBig (Object o1) throws Exception
     {
         if (o1 instanceof BigInt)
         {

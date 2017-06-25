@@ -27,8 +27,10 @@ public class Utilities
         double re = c.getReal();
         double im = c.getImaginary();
         if (im == 0.0)
-            return (""+re);
-        return (""+re+"+"+im+"i");
+        {
+            return ("" + re);
+        }
+        return ("" + re + "+" + im + "i");
     }
 
     static Complex parseComplex (String in)
@@ -41,28 +43,38 @@ public class Utilities
         }
         String[] parts = in.split("(-)|(\\+)");
         if (parts.length != 2)
+        {
             return null;
+        }
         if (!parts[1].endsWith("i"))
+        {
             return null;
-        parts[1] = parts[1].substring(0, parts[1].length()-1);
+        }
+        parts[1] = parts[1].substring(0, parts[1].length() - 1);
         if (negreal)
-            parts[0] = "-"+parts[0];
+        {
+            parts[0] = "-" + parts[0];
+        }
         if (in.substring(1).contains("-"))
-            parts[1] = "-"+parts[1];
-        return new Complex (Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        {
+            parts[1] = "-" + parts[1];
+        }
+        return new Complex(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
     }
 
     static Fraction parseFraction (String in)
     {
         String[] parts = in.split("/");
         if (parts.length != 2)
+        {
             return null;
-        return new Fraction (Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+        }
+        return new Fraction(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     }
 
     static String formatFraction (Fraction f)
     {
-        return f.getNumerator()+"/"+f.getDenominator();
+        return f.getNumerator() + "/" + f.getDenominator();
     }
 
     static boolean del (String path)
@@ -76,17 +88,21 @@ public class Utilities
         StringBuilder sb = new StringBuilder();
         File[] filesInFolder = new File(path).listFiles();
         if (filesInFolder == null)
+        {
             return "";
+        }
         Arrays.sort(filesInFolder, new Comparator<File>()
         {
-            public int compare(File f1, File f2)
+            public int compare (File f1, File f2)
             {
                 if (f2.isDirectory())
+                {
                     return 1;
+                }
                 return -1;
             }
         });
-        for (final File fileEntry :  filesInFolder)
+        for (final File fileEntry : filesInFolder)
         {
             String formatted;
             if (fileEntry.isDirectory())
@@ -102,7 +118,7 @@ public class Utilities
         return sb.toString();
     }
 
-    public static Object deepCopy( Object o )
+    public static Object deepCopy (Object o)
     {
         try
         {
@@ -129,10 +145,14 @@ public class Utilities
     {
         String str;
         if (round)
+        {
             v = Math.round(10000.0 * v) / 10000.0;
-        str = ""+v;
+        }
+        str = "" + v;
         if (str.endsWith(".0"))
-            return str.substring(0, str.length()-2);
+        {
+            return str.substring(0, str.length() - 2);
+        }
         return str;
     }
 
@@ -142,7 +162,7 @@ public class Utilities
         {
             if (word.endsWith("L"))
             {
-                word = word.substring(0, word.length()-1);
+                word = word.substring(0, word.length() - 1);
                 return BigInt.apply(word, base);
             }
             return null;
@@ -192,7 +212,7 @@ public class Utilities
         return JsonReader.jsonToJava(s);
     }
 
-    public static List<String> splitEqually(String text, int size)
+    public static List<String> splitEqually (String text, int size)
     {
         try
         {
@@ -209,7 +229,7 @@ public class Utilities
         }
     }
 
-    public static List<DoubleSequence> splitEqually(DoubleSequence text, int size)
+    public static List<DoubleSequence> splitEqually (DoubleSequence text, int size)
     {
         try
         {
@@ -229,12 +249,18 @@ public class Utilities
     public static String parseString (String in)
     {
         if (in.length() < 2)
+        {
             return null;
+        }
         if (!in.startsWith("\""))
+        {
             return null;
+        }
         if (!in.endsWith("\""))
+        {
             return null;
-        return in.substring(1, in.length()-1);
+        }
+        return in.substring(1, in.length() - 1);
     }
 
 
@@ -253,7 +279,7 @@ public class Utilities
         while (num-- != 0)
         {
             char last = in.charAt(0);
-            in = in.substring(1, in.length())+last;
+            in = in.substring(1, in.length()) + last;
         }
         return in;
     }
@@ -261,59 +287,35 @@ public class Utilities
     public static double readDouble (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
-        if (o instanceof BigInt)
-        {
-            return ((BigInt)o).doubleValue();
-        }
-        if (o instanceof Double)
-        {
-            return (Double)o;
-        }
-        if (o instanceof Long)
-        {
-            return ((Long)o).doubleValue();
-        }
-        throw new Exception ("Wrong or no Type on Stack");
+        return Calculator.getDouble(o);
+    }
+
+    public static long readLong (OStack dStack) throws Exception
+    {
+        return getLong(dStack.pop());
     }
 
     public static long getLong (Object o) throws Exception
     {
         if (o instanceof BigInt)
         {
-            return ((BigInt)o).longValue();
+            return ((BigInt) o).longValue();
         }
         if (o instanceof Double)
         {
-            return ((Double)o).longValue();
+            return ((Double) o).longValue();
         }
         if (o instanceof Long)
         {
-            return (Long)o;
+            return (Long) o;
         }
-        throw new Exception ("Wrong or no Type on Stack");
-    }
-
-    public static long readLong (OStack dStack) throws Exception
-    {
-        return getLong (dStack.pop());
+        throw new Exception("Wrong or no Type on Stack");
     }
 
     public static BigInt readBig (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
-        if (o instanceof BigInt)
-        {
-            return (BigInt)o;
-        }
-        if (o instanceof Double)
-        {
-            return BigInt.apply(((Double)o).longValue());
-        }
-        if (o instanceof Long)
-        {
-            return BigInt.apply((Long)o);
-        }
-        throw new Exception ("Wrong or no Type on Stack");
+        return Calculator.getBig(o);
     }
 
 
@@ -322,54 +324,33 @@ public class Utilities
         Object o = dStack.pop();
         if (o instanceof String)
         {
-            return (String)o;
+            return (String) o;
         }
         if (o instanceof Long)
         {
-            return ((Long)o).toString();
+            return ((Long) o).toString();
         }
         if (o instanceof Double)
         {
-            return ((Double)o).toString();
+            return ((Double) o).toString();
         }
         if (o instanceof BigInt)
         {
-            return ((BigInt)o).toString();
+            return ((BigInt) o).toString();
         }
-        throw new Exception ("Wrong or no Type on Stack");
-    }
-
-    public static Complex readComplex (Object o) throws Exception
-    {
-        if (o instanceof Complex)
-        {
-            return (Complex) o;
-        }
-        if (o instanceof Double)
-        {
-            return new Complex ((Double)o);
-        }
-        if (o instanceof Long)
-        {
-            return new Complex (((Long)o).doubleValue());
-        }
-        if (o instanceof BigInt)
-        {
-            return new Complex (((BigInt)o).doubleValue());
-        }
-        throw new Exception ("Wrong or no Type on Stack");
+        throw new Exception("Wrong or no Type on Stack");
     }
 
     public static Complex readComplex (OStack dStack) throws Exception
     {
-        return readComplex(dStack.pop());
+        return Calculator.getComplex(dStack.pop());
     }
 
     public static double[] parseCSVtoDoubleArray (String in)
     {
         String vals[] = in.split(",");
         double[] out = new double[vals.length];
-        for (int s=0; s<vals.length; s++)
+        for (int s = 0; s < vals.length; s++)
         {
             out[s] = Double.parseDouble(vals[s]);
         }
@@ -381,12 +362,12 @@ public class Utilities
         Object o = dStack.pop();
         if (o instanceof DoubleSequence)
         {
-            return (DoubleSequence)o;
+            return (DoubleSequence) o;
         }
         if (o instanceof String)
         {
-            return new DoubleSequence((String)o);
+            return new DoubleSequence((String) o);
         }
-        throw new Exception ("Wrong or no Type on Stack");
+        throw new Exception("Wrong or no Type on Stack");
     }
 }
