@@ -52,11 +52,6 @@ public class JForth
 
     public static void main (String[] args) throws IOException, ClassNotFoundException
     {
-//        PolynomialFunction p = new PolynomialFunction(new double[]{1,2,3,4});
-//        System.out.println(p);
-//        System.out.println(PolySupport.toString(p));
-//        System.exit(0);
-
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
         forth.outerInterpreter();
@@ -95,6 +90,7 @@ public class JForth
         Scanner scanner = new Scanner(System.in);
         _out.println(Utilities.buildInfo);
         singleShot ("\n"); // to show prompt immediately
+        fileLoad("autoexec.4th");
         while (true)
         {
             singleShot (scanner.nextLine().trim());
@@ -445,6 +441,7 @@ public class JForth
             String text = file.readLine();
             while (text != null)
             {
+                //_out.println(text);
                 if (interpretLine(text))
                 {
                     return 0;

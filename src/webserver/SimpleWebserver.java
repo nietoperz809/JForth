@@ -31,9 +31,14 @@ public class SimpleWebserver
     private static void sendContent (String name, OutputStream os) throws IOException
     {
         InputStream jqStream = ClassLoader.getSystemResourceAsStream(name);
-        byte[] buff = new byte[jqStream.available()];
-        jqStream.read (buff);
-        os.write(buff);
+        byte[] buff = new byte[4096];
+        for (;;)
+        {
+            int r = jqStream.read (buff);
+            if (r == -1)
+                break;
+            os.write(buff, 0, r);
+        }
     }
 
     private static void startServer (int port) throws IOException
@@ -68,7 +73,7 @@ public class SimpleWebserver
             {
                 sendContent("jquery-3.2.1.min.js", os);
             }
-            else if (txt.equals("/favicon.ico")) //send jquery
+            else if (txt.equals("/favicon.ico")) //send icon
             {
                 sendContent("tiger.png", os);
             }
