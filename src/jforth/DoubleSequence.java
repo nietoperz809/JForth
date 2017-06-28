@@ -37,46 +37,43 @@ public class DoubleSequence
 
     public DoubleSequence (String[] values)
     {
-        for (int s=0; s<values.length; s++)
+        for (String value : values)
         {
             try
             {
-                mem.add(Double.parseDouble(values[s]));
+                mem.add(Double.parseDouble(value));
             }
-            catch (Exception unused)
+            catch (Exception ignored)
             {
 
             }
         }
     }
 
-    public DoubleSequence (List<Double> list)
+    private DoubleSequence (List<Double> list)
     {
-        mem = new ArrayList<Double>(list);
+        mem = new ArrayList<>(list);
     }
 
     public DoubleSequence (double ... vals)
     {
-        for (int s=0; s<vals.length; s++)
+        for (double val : vals)
         {
-            mem.add (vals[s]);
+            mem.add(val);
         }
     }
 
     public DoubleSequence (int ... vals)
     {
-        for (int s=0; s<vals.length; s++)
+        for (int val : vals)
         {
-            mem.add ((double)vals[s]);
+            mem.add((double) val);
         }
     }
 
     public DoubleSequence (DoubleSequence src)
     {
-        for (int s=0; s<src.mem.size(); s++)
-        {
-            mem.add (src.mem.get(s));
-        }
+        mem.addAll(src.mem);
     }
 
     public DoubleSequence (DoubleSequence src1, DoubleSequence src2)

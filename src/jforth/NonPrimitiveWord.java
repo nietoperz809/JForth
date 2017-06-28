@@ -46,5 +46,5 @@ public final class NonPrimitiveWord extends BaseWord
     return words;
   }
 
-  private ArrayList<ExecuteIF> words = new ArrayList<ExecuteIF>();
+  private final ArrayList<ExecuteIF> words = new ArrayList<>();
 }

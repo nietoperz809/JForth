@@ -8,7 +8,7 @@ import scala.math.BigInt;
 
 import java.util.function.BiFunction;
 
-public class Calculator
+class Calculator
 {
     static BigInt pow (BigInt a, BigInt b)
     {
@@ -94,7 +94,7 @@ public class Calculator
         throw new Exception("Wrong args");
     }
 
-    static boolean areObjects (Object o1, Object o2, Class c)
+    private static boolean areObjects (Object o1, Object o2, Class c)
     {
         return (c.isInstance(o1) || c.isInstance(o2));
     }

@@ -1723,7 +1723,7 @@ final class PredefinedWords
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (!sw.isArray())
+                            if (sw.isArray())
                             {
                                 if (dStack.empty())
                                 {
@@ -1759,7 +1759,7 @@ final class PredefinedWords
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (!sw.isArray())
+                            if (sw.isArray())
                             {
                                 if (dStack.empty())
                                 {
@@ -1795,7 +1795,7 @@ final class PredefinedWords
                             }
                             StorageWord sw = (StorageWord) o;
                             Object data;
-                            if (!sw.isArray())
+                            if (sw.isArray())
                             {
                                 data = sw.fetch(0);
                                 if (data == null)
@@ -3165,7 +3165,7 @@ final class PredefinedWords
                         "unlink", false, "Delete file",
                         (dStack, vStack) ->
                         {
-                            String o = null;
+                            String o;
                             try
                             {
                                 o = Utilities.readString(dStack);
@@ -3971,7 +3971,7 @@ final class PredefinedWords
         }
         else if ((o1 instanceof String) && (o2 instanceof String))
         {
-            String s = (String) o2 + (String) o1;
+            String s = (String)o2 + (String)o1;
             dStack.push(s);
         }
         else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))

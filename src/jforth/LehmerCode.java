@@ -42,7 +42,7 @@ public class LehmerCode
      * @param perm the permuted array
      * @return permutation index
      */
-    public static int inv(int[] perm)
+    private static int inv (int[] perm)
     {
         int i, k = 0, m = 1;
         int n = perm.length;

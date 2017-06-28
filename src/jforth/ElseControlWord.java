@@ -18,6 +18,6 @@ public final class ElseControlWord extends BaseWord
     return thenIndexIncrement - indexFollowingElse + 1;
   }
 
-  private int indexFollowingElse;
+  private final int indexFollowingElse;
   private int thenIndexIncrement;
 }

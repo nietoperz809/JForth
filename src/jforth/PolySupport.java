@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
 /**
  * Created by Administrator on 4/23/2017.
  */
-public class PolySupport
+class PolySupport
 {
     /**
      * Make antiderivate of polynomial

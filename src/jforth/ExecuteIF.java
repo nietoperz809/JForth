@@ -1,6 +1,6 @@
 package jforth;
 
-public interface ExecuteIF
+interface ExecuteIF
 {
-  public int execute(OStack dataStack, OStack variableStack);
+  int execute (OStack dataStack, OStack variableStack);
 }

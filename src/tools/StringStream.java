@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class StringStream
 {
-    private ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    private PrintStream ps = new PrintStream(baos);
+    private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    private final PrintStream ps = new PrintStream(baos);
 
     public OutputStream getOutputStream()
     {

@@ -11,7 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -19,8 +18,10 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "637";
-    public static final String BUILD_DATE = "06/25/2017 05:11:58 AM";
+    public static final String BUILD_NUMBER = "643";
+    public static final String BUILD_DATE = "06/28/2017 11:33:46 AM";
+
+    public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
     static String formatComplex (Complex c)
     {
@@ -91,16 +92,13 @@ public class Utilities
         {
             return "";
         }
-        Arrays.sort(filesInFolder, new Comparator<File>()
+        Arrays.sort(filesInFolder, (f1, f2) ->
         {
-            public int compare (File f1, File f2)
+            if (f2.isDirectory())
             {
-                if (f2.isDirectory())
-                {
-                    return 1;
-                }
-                return -1;
+                return 1;
             }
+            return -1;
         });
         for (final File fileEntry : filesInFolder)
         {
@@ -216,7 +214,7 @@ public class Utilities
     {
         try
         {
-            List<String> ret = new ArrayList<String>((text.length() + size - 1) / size);
+            List<String> ret = new ArrayList<>((text.length() + size - 1) / size);
             for (int start = 0; start < text.length(); start += size)
             {
                 ret.add(text.substring(start, Math.min(text.length(), start + size)));
@@ -233,7 +231,7 @@ public class Utilities
     {
         try
         {
-            List<DoubleSequence> ret = new ArrayList<DoubleSequence>((text.length() + size - 1) / size);
+            List<DoubleSequence> ret = new ArrayList<>((text.length() + size - 1) / size);
             for (int start = 0; start < text.length(); start += size)
             {
                 ret.add(text.subList(start, Math.min(text.length(), start + size)));
@@ -328,15 +326,15 @@ public class Utilities
         }
         if (o instanceof Long)
         {
-            return ((Long) o).toString();
+            return o.toString();
         }
         if (o instanceof Double)
         {
-            return ((Double) o).toString();
+            return o.toString();
         }
         if (o instanceof BigInt)
         {
-            return ((BigInt) o).toString();
+            return o.toString();
         }
         throw new Exception("Wrong or no Type on Stack");
     }

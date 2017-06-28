@@ -16,5 +16,5 @@ public final class BigIntLiteral extends BaseWord
         return 1;
     }
 
-    private BigInt number;
+    private final BigInt number;
 }

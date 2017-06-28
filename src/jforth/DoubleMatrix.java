@@ -95,7 +95,7 @@ public class DoubleMatrix extends BlockRealMatrix
         if (in.startsWith("{{") && in.endsWith("}}"))
         {
             in = in.substring(2, in.length()-2);
-            String[] rows = in.split("\\}\\{");
+            String[] rows = in.split("}\\{");
             double[][] mtd = new double[rows.length][];
             int max = 0;
             for (int s=0; s<rows.length; s++)

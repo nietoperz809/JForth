@@ -30,7 +30,7 @@ import java.util.List;
  * <p>This class is used for console mode programs.
  * It supports non-blocking reads of single key strokes without echo.
  */
-public class RawConsoleInput {
+class RawConsoleInput {
 
     private static final boolean           isWindows     = System.getProperty("os.name").startsWith("Windows");
     private static final int               invalidKey    = 0xFFFE;
@@ -72,14 +72,12 @@ public class RawConsoleInput {
             resetConsoleModeUnix(); }}
 
     private static void registerShutdownHook() {
-        Runtime.getRuntime().addShutdownHook( new Thread() {
-            public void run() {
-                shutdownHook(); }}); }
+        Runtime.getRuntime().addShutdownHook(new Thread(RawConsoleInput::shutdownHook)); }
 
     private static void shutdownHook() {
         try {
             resetConsoleMode(); }
-        catch (Exception e) {}}
+        catch (Exception ignored) {}}
 
 //--- Windows ------------------------------------------------------------------
 
@@ -116,11 +114,12 @@ public class RawConsoleInput {
             return invalidKey; }
         return c; }                                             // normal key
 
-    private static synchronized void initWindows() throws IOException {
+    private static synchronized void initWindows()
+    {
         if (initDone) {
             return; }
-        msvcrt = (Msvcrt)Native.loadLibrary("msvcrt", Msvcrt.class);
-        kernel32 = (Kernel32)Native.loadLibrary("kernel32", Kernel32.class);
+        msvcrt = Native.loadLibrary("msvcrt", Msvcrt.class);
+        kernel32 = Native.loadLibrary("kernel32", Kernel32.class);
         try {
             consoleHandle = getStdInputHandle();
             originalConsoleMode = getConsoleMode(consoleHandle);
@@ -155,7 +154,7 @@ public class RawConsoleInput {
         setConsoleMode(consoleHandle, originalConsoleMode);
         consoleModeAltered = false; }
 
-    private static interface Msvcrt extends Library {
+    private interface Msvcrt extends Library {
         int _kbhit();
         int _getwch();
         int getwchar(); }
@@ -168,7 +167,7 @@ public class RawConsoleInput {
         static final int  ENABLE_ECHO_INPUT      = 0x0004;
         static final int  ENABLE_WINDOW_INPUT    = 0x0008; }
 
-    private static interface Kernel32 extends Library {
+    private interface Kernel32 extends Library {
         int GetConsoleMode (Pointer hConsoleHandle, IntByReference lpMode);
         int SetConsoleMode (Pointer hConsoleHandle, int dwMode);
         Pointer GetStdHandle (int nStdHandle); }
@@ -247,7 +246,7 @@ public class RawConsoleInput {
     private static synchronized void initUnix() throws IOException {
         if (initDone) {
             return; }
-        libc = (Libc)Native.loadLibrary("c", Libc.class);
+        libc = Native.loadLibrary("c", Libc.class);
         stdinIsConsole = libc.isatty(stdinFd) == 1;
         charsetDecoder = Charset.defaultCharset().newDecoder();
         if (stdinIsConsole) {
@@ -266,7 +265,7 @@ public class RawConsoleInput {
         setTerminalAttrs(stdinFd, originalTermios);
         consoleModeAltered = false; }
 
-    protected static class Termios extends Structure
+    static class Termios extends Structure
     {         // termios.h
         public int      c_iflag;
         public int      c_oflag;
@@ -287,13 +286,13 @@ public class RawConsoleInput {
 
     private static class LibcDefs {
         // termios.h
-        static final int ISIG    = 0000001;
-        static final int ICANON  = 0000002;
-        static final int ECHO    = 0000010;
-        static final int ECHONL  = 0000100;
+        static final int ISIG    = 1;
+        static final int ICANON  = 2;
+        static final int ECHO    = 10;
+        static final int ECHONL  = 100;
         static final int TCSANOW = 0; }
 
-    private static interface Libc extends Library {
+    private interface Libc extends Library {
         // termios.h
         int tcgetattr (int fd, Termios termios) throws LastErrorException;
         int tcsetattr (int fd, int opt, Termios termios) throws LastErrorException;

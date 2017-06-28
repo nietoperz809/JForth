@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 class AddMap
 {
-    HashMap<Integer, Double> ar = new HashMap<>();
+    private final HashMap<Integer, Double> ar = new HashMap<>();
 
     void add (double val, int pos)
     {

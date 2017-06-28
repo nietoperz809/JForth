@@ -16,5 +16,5 @@ public final class PolynomLiteral extends BaseWord
         return 1;
     }
 
-    private PolynomialFunction str;
+    private final PolynomialFunction str;
 }

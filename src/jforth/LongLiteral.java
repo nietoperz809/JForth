@@ -14,5 +14,5 @@ public final class LongLiteral extends BaseWord
     return 1;
   }
 
-  private Long number;
+  private final Long number;
 }

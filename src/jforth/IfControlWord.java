@@ -1,5 +1,7 @@
 package jforth;
 
+import java.util.Objects;
+
 public final class IfControlWord extends BaseWord
 {
   public IfControlWord(int currentIndex)
@@ -27,7 +29,7 @@ public final class IfControlWord extends BaseWord
     Object o = dStack.pop();
     if (o instanceof Long)
     {
-      if (((Long) o) == JForth.TRUE)
+      if (Objects.equals(o, JForth.TRUE))
       {
         return 1;
       }
@@ -43,7 +45,7 @@ public final class IfControlWord extends BaseWord
       return 0; 
   }
 
-  private int currentIndex;
+  private final int currentIndex;
   private int thenIndexIncrement;
   private int elseIndexIncrement;
 }

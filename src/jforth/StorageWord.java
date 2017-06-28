@@ -18,7 +18,7 @@ public final class StorageWord extends BaseWord
 
   public boolean isArray()
   {
-    return isArray;
+    return !isArray;
   }
 
   public Object fetch(int offset)
@@ -41,17 +41,16 @@ public final class StorageWord extends BaseWord
     if ((offset < 0) || (offset >= size))
       return 0;
     Object o1 = array[offset];
-    Object o2 = data;
-    if ((o1 instanceof Long) && (o2 instanceof Long))
+    if ((o1 instanceof Long) && (data instanceof Long))
     {
       long i1 = (Long) o1;
-      long i2 = (Long) o2;
+      long i2 = (Long) data;
       array[offset] = i1 + i2;
     }
-    else if ((o1 instanceof String) && (o2 instanceof String))
+    else if ((o1 instanceof String) && (data instanceof String))
     {
       String s1 = (String) o1;
-      String s2 = (String) o2;
+      String s2 = (String) data;
       array[offset] = s1 + s2;
     }
     else
@@ -59,7 +58,7 @@ public final class StorageWord extends BaseWord
     return 1;
   }
 
-  private int size;
+  private final int size;
   private Object [] array = null;
-  private boolean isArray;
+  private final boolean isArray;
 }

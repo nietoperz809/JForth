@@ -70,7 +70,7 @@ public class JForth
     public void singleShot (String input)
     {
         history.add(input);
-        if (!interpretLine(input))
+        if (interpretLine(input))
         {
             if (_out == AnsiConsole.out)
                 _out.print(input + " - " + ANSI_ERROR +
@@ -93,7 +93,7 @@ public class JForth
     {
         dStack.removeAllElements();
         Scanner scanner = new Scanner(System.in);
-        _out.println("JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE);
+        _out.println(Utilities.buildInfo);
         singleShot ("\n"); // to show prompt immediately
         while (true)
         {
@@ -117,7 +117,7 @@ public class JForth
                 String word = st.sval;
                 if (word.equals("\\"))   // Comment until line end
                 {
-                    return true;
+                    return false;
                 }
                 if (word.equals("(")) // filter out comments
                 {
@@ -137,24 +137,24 @@ public class JForth
                 {
                     if (!doInterpret(word, st))
                     {
-                        return false;
+                        return true;
                     }
                 }
                 else
                 {
                     if (!doCompile(word, st))
                     {
-                        return false;
+                        return true;
                     }
                 }
                 ttype = st.nextToken();
             }
-            return true;
+            return false;
         }
         catch (Exception e)
         {
             //e.printStackTrace();
-            return false;
+            return true;
         }
     }
 
@@ -382,7 +382,7 @@ public class JForth
         }
         else if (o instanceof BigInt)
         {
-            outstr = ((BigInt)o).toString();
+            outstr = o.toString();
         }
         else
         {
@@ -402,7 +402,7 @@ public class JForth
                 continue;
             }
             _out.println(s);
-            if (!interpretLine(s))
+            if (interpretLine(s))
             {
                 dStack.removeAllElements();
             }
@@ -445,7 +445,7 @@ public class JForth
             String text = file.readLine();
             while (text != null)
             {
-                if (!interpretLine(text))
+                if (interpretLine(text))
                 {
                     return 0;
                 }

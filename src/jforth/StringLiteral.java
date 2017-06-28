@@ -14,5 +14,5 @@ public final class StringLiteral extends BaseWord
     return 1;
   }
 
-  private String str;
+  private final String str;
 }

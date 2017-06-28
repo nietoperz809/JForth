@@ -1,5 +1,7 @@
 package jforth;
 
+import java.util.Objects;
+
 public final class EndLoopControlWord extends BaseWord
 {
   public EndLoopControlWord(int indexIncrement)
@@ -15,11 +17,11 @@ public final class EndLoopControlWord extends BaseWord
     Object o = dStack.pop();
     if (!(o instanceof Long))
       return 0;
-    if (((Long) o) == JForth.TRUE)
+    if (Objects.equals(o, JForth.TRUE))
       return 1;
     else
       return indexIncrement;
   }
 
-  private int indexIncrement;
+  private final int indexIncrement;
 }

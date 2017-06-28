@@ -2,9 +2,9 @@ package jforth;
 
 import java.util.Stack;
 
-public class OStack extends Stack<Object>
+class OStack extends Stack<Object>
 {
-    SizedStack<Object> saveStack = new SizedStack<>(1000);
+    private final SizedStack<Object> saveStack = new SizedStack<>(1000);
 
     @Override
     public synchronized void removeAllElements ()
@@ -29,11 +29,6 @@ public class OStack extends Stack<Object>
         Object o = super.pop();
         saveStack.push (o);
         return o;
-    }
-
-    public Object peek()
-    {
-        return super.peek();
     }
 
     public boolean unpop()

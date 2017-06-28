@@ -16,8 +16,8 @@ public final class LoopControlWord extends BaseWord
     Object o2 = vStack.peek();
     if ((o1 instanceof Long) && (o2 instanceof Long))
     {
-      long index = ((Long) o1).longValue();
-      long limit = ((Long) o2).longValue();
+      long index = (Long) o1;
+      long limit = (Long) o2;
       index += 1;
       if (index >= limit)
       {
@@ -26,7 +26,7 @@ public final class LoopControlWord extends BaseWord
       }
       else
       {
-        vStack.push(new Long(index));
+        vStack.push(index);
         return indexIncrement;
       }
     }
@@ -34,5 +34,5 @@ public final class LoopControlWord extends BaseWord
       return 0;
   }
 
-  private int indexIncrement;
+  private final int indexIncrement;
 }

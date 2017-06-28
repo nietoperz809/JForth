@@ -7,9 +7,9 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
     private static final long serialVersionUID = 7526471155622776148L;
     public final String name;
     public final boolean isPrimitive;
-    public final String info;
+    private final String info;
     public boolean immediate;
-    public BaseWord (String name, boolean immediate, boolean isPrimitive, String inf)
+    BaseWord (String name, boolean immediate, boolean isPrimitive, String inf)
     {
         this.name = name;
         this.immediate = immediate;

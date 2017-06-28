@@ -17,9 +17,9 @@ public final class PlusLoopControlWord extends BaseWord
     Object o3 = dStack.pop();
     if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof Long))
     {
-      long index = ((Long) o1).longValue();
-      long limit = ((Long) o2).longValue();
-      long inc   = ((Long) o3).longValue();
+      long index = (Long) o1;
+      long limit = (Long) o2;
+      long inc   = (Long) o3;
       index += inc;
       boolean condition;
       if (inc >= 0)
@@ -33,7 +33,7 @@ public final class PlusLoopControlWord extends BaseWord
       }
       else
       {
-        vStack.push(new Long(index));
+        vStack.push(index);
         return indexIncrement;
       }
     }
@@ -41,5 +41,5 @@ public final class PlusLoopControlWord extends BaseWord
       return 0;
   }
 
-  private int indexIncrement;
+  private final int indexIncrement;
 }

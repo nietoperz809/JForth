@@ -4,8 +4,8 @@ import java.util.*;
 
 public class WordsList
 {
-    private TreeMap<String, BaseWord> wordsList;
-    private TreeMap<String, BaseWord> saveList;
+    private final TreeMap<String, BaseWord> wordsList;
+    private final TreeMap<String, BaseWord> saveList;
 
     WordsList ()
     {
@@ -32,10 +32,9 @@ public class WordsList
         }
         //Collections.sort(wordsList, Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
-        Iterator<Map.Entry<String, BaseWord>> i1 = wordsList.entrySet().iterator();
-        while (i1.hasNext())
+        for (Map.Entry<String, BaseWord> stringBaseWordEntry : wordsList.entrySet())
         {
-            BaseWord bw = i1.next().getValue();
+            BaseWord bw = stringBaseWordEntry.getValue();
             sb.append(bw.toString(showDetail));
             if (showDetail)
             {
@@ -53,12 +52,13 @@ public class WordsList
         }
         //Collections.sort(wordsList, Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
-        Iterator<Map.Entry<String, BaseWord>> i1 = wordsList.entrySet().iterator();
-        while (i1.hasNext())
+        for (Map.Entry<String, BaseWord> stringBaseWordEntry : wordsList.entrySet())
         {
-            BaseWord bw = i1.next().getValue();
+            BaseWord bw = stringBaseWordEntry.getValue();
             if (bw instanceof StorageWord)
+            {
                 sb.append(bw.toString(false)).append(' ');
+            }
         }
         return sb.toString();
     }
