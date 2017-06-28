@@ -3,13 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style> pre { margin-left: 3em;
-                  color: yellow; }
+    <style>
+        pre {
+            margin-left: 3em;
+            margin-top: 9em;
+            color: yellow; }
+        header {
+            background-color: navy;
+            position: fixed;
+            padding: 10px;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
     </style>
 </head>
 <body bgcolor="#000000">
-    <img src="favicon.ico" alt="Tiger face" height="42" width="42">
-    <input type="text" id="txt"/><br>
+    <header>
+        <p>#TITLE</p>
+        <img src="favicon.ico" alt="Tiger face" height="32" width="32">
+        <input type="text" id="txt"/>
+    </header>
     <pre id="cod"></pre>
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
