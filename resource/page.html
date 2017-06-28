@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="text" id="txt"/><br>
+    <pre id="cod"></pre>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#txt').keydown(function (e)
+        {
+            if(e.keyCode == 13)
+            {
+                var input = $('#txt').val();
+                $('#txt').val('');
+                $.get("forth", encodeURIComponent(input), function( data )
+                {
+                    $('#cod').text(data);
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>
