@@ -18,10 +18,26 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "680";
-    public static final String BUILD_DATE = "06/28/2017 04:49:29 PM";
+    public static final String BUILD_NUMBER = "682";
+    public static final String BUILD_DATE = "06/29/2017 06:38:26 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
+
+    static void terminate (int delay)
+    {
+        new Thread(() ->
+        {
+            try
+            {
+                Thread.sleep(delay);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            System.exit(0);
+        }).start();
+    }
 
     static String formatComplex (Complex c)
     {

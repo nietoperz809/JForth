@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        pre {
+        #hline {
+            color: coral;
+        }
+        #cod {
             margin-left: 3em;
             margin-top: 9em;
-            color: yellow; }
+            color: yellow;
+            word-break: break-all;
+            word-wrap: break-word;
+            white-space: pre;
+            white-space: -moz-pre-wrap;
+            white-space: pre-wrap;
+            white-space: pre\9; 
+        }
         header {
             background-color: navy;
             position: fixed;
@@ -20,7 +30,7 @@
 </head>
 <body bgcolor="#000000">
     <header>
-        <p>#TITLE</p>
+        <p id="hline"></p>
         <img src="favicon.ico" alt="Tiger face" height="32" width="32">
         <input type="text" id="txt"/>
     </header>
@@ -30,12 +40,17 @@
 
     $(document).ready(function()
     {
-        $('#txt').keydown(function (e)
+        $.get("headline", function(data)
         {
-            if(e.keyCode == 13)
+            $('#hline').text(data);
+        });
+        var txt = $('#txt');
+        txt.keydown(function (e)
+        {
+            if(e.keyCode === 13)
             {
-                var input = $('#txt').val();
-                $('#txt').val('');
+                var input = txt.val();
+                txt.val('');
                 $.get("forth", encodeURIComponent(input), function( data )
                 {
                     $('#cod').text(data);

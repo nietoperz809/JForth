@@ -1,6 +1,12 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="JForth:jar">
     <output-path>$PROJECT_DIR$/JForth_jar</output-path>
+    <properties id="ant-preprocessing">
+      <options enabled="true">
+        <file>file://$PROJECT_DIR$/src/jforth/buildnum.xml</file>
+        <target>init</target>
+      </options>
+    </properties>
     <root id="archive" name="JForth.jar">
       <element id="module-output" name="JForth" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6/commons-math3-3.6.jar" path-in-jar="/" />

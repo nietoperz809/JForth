@@ -3581,7 +3581,9 @@ final class PredefinedWords
                         "bye", false, "End the Forth interpreter",
                         (dStack, vStack) ->
                         {
-                            System.exit(0);
+                            _jforth._out.println("JForth will close now!");
+                            _jforth._out.flush();
+                            Utilities.terminate(1000);
                             return 1;
                         }
                 ));
