@@ -18,8 +18,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "682";
-    public static final String BUILD_DATE = "06/29/2017 06:38:26 AM";
+    public static final String BUILD_NUMBER = "694";
+    public static final String BUILD_DATE = "07/13/2017 11:00:12 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 

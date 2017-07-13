@@ -3,6 +3,8 @@ package jforth;
 import jforth.scalacode.MyMath;
 import jforth.scalacode.SieveOfEratosthenes;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+import org.apache.commons.math3.fitting.PolynomialCurveFitter;
+import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
@@ -294,6 +296,27 @@ public class DoubleSequence
             sb.append((char)d.intValue());
         }
         return sb.toString();
+    }
+
+    /**
+     * Uses polynomial fitter to fit a sequence of points
+     * This DoubleSequence must be even size.
+     * Every pair is x/y coords of a point
+     * @return a new PolynomialFunction
+     */
+    public PolynomialFunction polyFit() throws Exception
+    {
+        if (this.length()%2 == 1)
+            throw new Exception("DoubleSeq must be even size");
+        int numPoints = this.length()/2;
+        PolynomialCurveFitter fitter= PolynomialCurveFitter.create(numPoints-1);
+        List<WeightedObservedPoint> points = new ArrayList<>();
+        for (int s=0; s<this.length(); s+=2)
+        {
+            WeightedObservedPoint p = new WeightedObservedPoint(1, mem.get(s), mem.get(s+1));
+            points.add(p);
+        }
+        return new PolynomialFunction(fitter.fit(points));
     }
 
     public String toString()

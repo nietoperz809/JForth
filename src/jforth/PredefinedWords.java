@@ -1856,8 +1856,16 @@ final class PredefinedWords
                             try
                             {
                                 Double d1 = Utilities.readDouble(dStack);
-                                Double d2 = Utilities.readDouble(dStack);
                                 double r = Math.pow(10,d1);
+                                Object o = dStack.pop();
+                                if (o instanceof PolynomialFunction)
+                                {
+                                    PolynomialFunction p = PolySupport.roundPoly(
+                                            (PolynomialFunction)o, r);
+                                    dStack.push(p);
+                                    return 1;
+                                }
+                                Double d2 = Calculator.getDouble(o);
                                 double dd = Math.round(r * d2) / r;
                                 dStack.push(dd);
                                 return 1;
@@ -2321,7 +2329,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toPoly", false, "Make polynomial of what is on the stack",
+                        "toPoly", false, "Make polynomial from doubleSequence",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2333,6 +2341,29 @@ final class PredefinedWords
                                     new PolynomialFunction(((DoubleSequence) o).asPrimitiveArray());
                             dStack.push(p);
                             return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "fitPoly", false, "Make polynomial sequence of Points",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            if (!(o instanceof DoubleSequence))
+                            {
+                                return 0;
+                            }
+                            try
+                            {
+                                PolynomialFunction p = ((DoubleSequence) o).polyFit();
+                                dStack.push(p);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 

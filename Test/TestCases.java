@@ -388,4 +388,14 @@ public class TestCases
         System.out.println(s);
         Assert.assertEquals("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}} OK\n> ", s);
     }
+
+    @Test
+    public void TestFitpolyRound()
+    {
+        String s = check ("{1,1,2,4,3,9} fitPoly 3 round",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("x^2 OK\n> ", s);
+    }
+
 }

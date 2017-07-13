@@ -167,4 +167,20 @@ class PolySupport
     {
         return p.toString().replaceAll("\\s", "");
     }
+
+    /**
+     * Rounds a polynomial
+     * @param p the poly
+     * @param r rounding value, must be multiple of 10
+     * @return a rounded poly
+     */
+    public static PolynomialFunction roundPoly (PolynomialFunction p, double r)
+    {
+        double[] coeff = p.getCoefficients();
+        for (int s=0; s<coeff.length; s++)
+        {
+            coeff[s] = Math.round(r * coeff[s]) / r;
+        }
+        return new PolynomialFunction(coeff);
+    }
 }
