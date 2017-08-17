@@ -398,4 +398,12 @@ public class TestCases
         Assert.assertEquals("x^2 OK\n> ", s);
     }
 
+    @Test
+    public void TestlagPoly()
+    {
+        String s = check ("{1,2,2,4,3,9} lagPoly",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("3-2.5x+1.5x^2 OK\n> ", s);
+    }
 }

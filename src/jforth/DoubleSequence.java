@@ -3,6 +3,7 @@ package jforth;
 import jforth.scalacode.MyMath;
 import jforth.scalacode.SieveOfEratosthenes;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
@@ -317,6 +318,22 @@ public class DoubleSequence
             points.add(p);
         }
         return new PolynomialFunction(fitter.fit(points));
+    }
+
+    public PolynomialFunction lagFit() throws Exception
+    {
+        if (this.length()%2 == 1)
+            throw new Exception("DoubleSeq must be even size");
+        int len = this.length()/2;
+        double[] xp = new double[len];
+        double[] yp = new double[len];
+        for (int s=0; s<len; s++)
+        {
+            xp[s] = mem.get(s*2);
+            yp[s] = mem.get(s*2+1);
+        }
+        PolynomialFunctionLagrangeForm pfl = new PolynomialFunctionLagrangeForm(xp, yp);
+        return new PolynomialFunction(pfl.getCoefficients());
     }
 
     public String toString()

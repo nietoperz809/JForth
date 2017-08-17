@@ -2369,6 +2369,29 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "lagPoly", false, "Make lagrange polynomial sequence of Points",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            if (!(o instanceof DoubleSequence))
+                            {
+                                return 0;
+                            }
+                            try
+                            {
+                                PolynomialFunction p = ((DoubleSequence) o).lagFit();
+                                dStack.push(p);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "f'=", false, "Derive a polynomial",
                         (dStack, vStack) ->
                         {
