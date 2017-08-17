@@ -79,10 +79,29 @@ public class DoubleSequence
         mem.addAll(src.mem);
     }
 
+    /**
+     * Constructor to append 2 DS
+     * @param src1 DS1
+     * @param src2 DS2
+     */
     public DoubleSequence (DoubleSequence src1, DoubleSequence src2)
     {
         mem.addAll(src1.mem);
         mem.addAll(src2.mem);
+    }
+
+    public static DoubleSequence mixin (DoubleSequence d1, DoubleSequence d2)
+    {
+        int len = Math.max (d1.length(),d2.length());
+        ArrayList<Double> ar = new ArrayList<>();
+        for (int s=0; s<len; s++)
+        {
+            if (s < d1.length())
+                ar.add(d1.mem.get(s));
+            if (s < d2.length())
+                ar.add (d2.mem.get(s));
+        }
+        return new DoubleSequence(ar);
     }
 
     public static DoubleSequence makeCounted (double start, long howmuch, double step)

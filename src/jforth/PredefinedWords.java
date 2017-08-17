@@ -2148,6 +2148,28 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "mix", false, "Mix two Lists",
+                        (dStack, vStack) ->
+                        {
+                            DoubleSequence o1 = null;
+                            DoubleSequence o2 = null;
+                            try
+                            {
+                                o1 = Utilities.readDoubleSequence(dStack);
+                                o2 = Utilities.readDoubleSequence(dStack);
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                            DoubleSequence ds = DoubleSequence.mixin(o2,o1);
+                            dStack.push(ds);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "toM", false, "Make Matrix from Sequences",
                         (dStack, vStack) ->
                         {
