@@ -235,7 +235,7 @@ public class JForth
             dStack.push(ws);
             return true;
         }
-        double[] pd = PolynomParser.parsePolynom(word);
+        double[] pd = PolynomialParser.parsePolynomial(word);
         if (pd != null)
         {
             dStack.push(new PolynomialFunction(pd));
@@ -326,7 +326,7 @@ public class JForth
             wordBeingDefined.addWord(new StringLiteral(ws));
             return true;
         }
-        double[] pd = PolynomParser.parsePolynom(word);
+        double[] pd = PolynomialParser.parsePolynomial(word);
         if (pd != null)
         {
             wordBeingDefined.addWord(

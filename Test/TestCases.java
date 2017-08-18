@@ -5,7 +5,7 @@ import tools.StringStream;
 
 import java.util.Arrays;
 
-import static jforth.PolynomParser.parsePolynom;
+import static jforth.PolynomialParser.parsePolynomial;
 
 /**
  * Created by Administrator on 4/15/2017.
@@ -205,7 +205,7 @@ public class TestCases
     @Test
     public void TestPolyParser()
     {
-        double[] poly = parsePolynom("8x^4+10.7+34x^2-7x+7x-9x^4");
+        double[] poly = parsePolynomial("8x^4+10.7+34x^2-7x+7x-9x^4");
         String s = Arrays.toString(poly);
         Assert.assertEquals("[10.7, 0.0, 34.0, 0.0, -1.0]", s);
     }
@@ -405,5 +405,14 @@ public class TestCases
                 ".");
         System.out.println(s);
         Assert.assertEquals("3-2.5x+1.5x^2 OK\n> ", s);
+    }
+
+    @Test
+    public void TestMix()
+    {
+        String s = check ("\"peter\" \"doof\" mix toString",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("pdeotoefr OK\n> ", s);
     }
 }
