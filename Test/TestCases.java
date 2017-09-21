@@ -415,4 +415,14 @@ public class TestCases
         System.out.println(s);
         Assert.assertEquals("pdeotoefr OK\n> ", s);
     }
+
+    @Test
+    public void TestPowDouble()
+    {
+        String s = check ("0.5 10 pow 4 round",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("0.001 OK\n> ", s);
+    }
+
 }

@@ -4,8 +4,6 @@ package jforth;/*
  * and open the template in the editor.
  */
 
-import java.util.Arrays;
-
 /**
  *
  * @author Administrator
@@ -63,25 +61,25 @@ public class LehmerCode
         return k;
     }
 
-    public static void main(String[] args)
-    {
-        int n = 10;
-        int[] i1 = new int[n];
-        for (int s=0; s<n; s++)
-        {
-            i1[s] = n-s-1;
-        }
-        //CryptMath.shuffleArray(i1);
-        System.out.println(Arrays.toString(i1));
-        System.out.println(inv(i1));
-        
-        int[] i2 = perm (n, inv(i1));
-        System.out.println(Arrays.toString(i2));
-        
-//        for (int s=0; s<20; s++)
+//    public static void main(String[] args)
+//    {
+//        int n = 10;
+//        int[] i1 = new int[n];
+//        for (int s=0; s<n; s++)
 //        {
-//            int[] l = perm (3,s);
-//            System.out.println(s+" -- "+Arrays.toString(l) + " : "+inv(l));
+//            i1[s] = n-s-1;
 //        }
-    }
+//        //CryptMath.shuffleArray(i1);
+//        System.out.println(Arrays.toString(i1));
+//        System.out.println(inv(i1));
+//
+//        int[] i2 = perm (n, inv(i1));
+//        System.out.println(Arrays.toString(i2));
+//
+////        for (int s=0; s<20; s++)
+////        {
+////            int[] l = perm (3,s);
+////            System.out.println(s+" -- "+Arrays.toString(l) + " : "+inv(l));
+////        }
+//    }
 }

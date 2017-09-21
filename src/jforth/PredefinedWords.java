@@ -2725,13 +2725,19 @@ final class PredefinedWords
                                     Long l1 = (Long)o1;
                                     Long l2 = (Long)o2;
                                     dStack.push (MyMath.bigPow(l2, l1.intValue()));
+                                    return 1;
                                 }
-                                return 1;
+                                else if (o1 instanceof Long && o2 instanceof Double)
+                                {
+                                    double res = Math.pow ((Double)o2, ((Long) o1).doubleValue());
+                                    dStack.push(res);
+                                    return 1;
+                                }
                             }
-                            catch (Exception e)
+                            catch (Exception unused)
                             {
-                                return 0;
                             }
+                            return 0;
                         }
                 ));
 
