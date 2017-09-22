@@ -4,6 +4,8 @@ import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.linear.BlockRealMatrix;
+import org.apache.commons.math3.linear.MatrixUtils;
 import scala.math.BigInt;
 
 import java.io.*;
@@ -12,14 +14,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 
 /**
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "729";
-    public static final String BUILD_DATE = "09/21/2017 02:29:34 PM";
+    public static final String BUILD_NUMBER = "750";
+    public static final String BUILD_DATE = "09/22/2017 04:36:19 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -301,7 +304,7 @@ public class Utilities
     public static double readDouble (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
-        return Calculator.getDouble(o);
+        return getDouble(o);
     }
 
     public static long readLong (OStack dStack) throws Exception
@@ -323,13 +326,22 @@ public class Utilities
         {
             return (Long) o;
         }
+        if (o instanceof Fraction)
+        {
+            int denom = ((Fraction) o).getDenominator();
+            int nume = ((Fraction) o).getNumerator();
+            if (nume%denom == 0)
+            {
+                return nume/denom;
+            }
+        }
         throw new Exception("Wrong or no Type on Stack");
     }
 
     public static BigInt readBig (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
-        return Calculator.getBig(o);
+        return getBig(o);
     }
 
 
@@ -357,7 +369,7 @@ public class Utilities
 
     public static Complex readComplex (OStack dStack) throws Exception
     {
-        return Calculator.getComplex(dStack.pop());
+        return getComplex(dStack.pop());
     }
 
     public static double[] parseCSVtoDoubleArray (String in)
@@ -383,5 +395,202 @@ public class Utilities
             return new DoubleSequence((String) o);
         }
         throw new Exception("Wrong or no Type on Stack");
+    }
+
+    static Fraction pow (Fraction f, Long n)
+    {
+        int denom = (int)Math.pow (f.getDenominator(), n);
+        int num = (int)Math.pow (f.getNumerator(), n);
+        return Fraction.getReducedFraction(num, denom);
+    }
+
+    static BigInt pow (BigInt a, BigInt b)
+    {
+        return a.pow(b.intValue());
+    }
+
+    static Double add (Double a, Double b)
+    {
+        return a + b;
+    }
+
+    static DoubleMatrix add (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.add(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix sub (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.subtract(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix mult (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.multiply(b);
+        return new DoubleMatrix(res);
+    }
+
+    static DoubleMatrix div (DoubleMatrix a, DoubleMatrix b)
+    {
+        BlockRealMatrix res = a.multiply(MatrixUtils.inverse(b));
+        return new DoubleMatrix(res);
+    }
+
+    static Double sub (Double a, Double b)
+    {
+        return a - b;
+    }
+
+    static Double mult (Double a, Double b)
+    {
+        return a * b;
+    }
+
+    static Double div (Double a, Double b)
+    {
+        return a / b;
+    }
+
+    static Double doCalcDouble (Object o1, Object o2, BiFunction<Double, Double, Double> func) throws Exception
+    {
+        if (o1 instanceof Double || o2 instanceof Double)
+        {
+            return func.apply(getDouble(o1), getDouble(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static public Double getDouble (Object o1) throws Exception
+    {
+        if (o1 instanceof BigInt)
+        {
+            return ((BigInt)o1).doubleValue();
+        }
+        if (o1 instanceof Double)
+        {
+            return (Double) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return ((Long) o1).doubleValue();
+        }
+        if (o1 instanceof Fraction)
+        {
+            double denom = ((Fraction) o1).getDenominator();
+            double nume = ((Fraction) o1).getNumerator();
+            return nume/denom;
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
+    {
+        if (areBothObjectsOfType(o1, o2, Complex.class))
+        {
+            return func.apply(getComplex(o1), getComplex(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    private static boolean areBothObjectsOfType (Object o1, Object o2, Class c)
+    {
+        return (c.isInstance(o1) || c.isInstance(o2));
+    }
+
+    static public Complex getComplex (Object o1) throws Exception
+    {
+        if (o1 instanceof Complex)
+        {
+            return (Complex) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return new Complex((Long) o1);
+        }
+        else if (o1 instanceof Double)
+        {
+            return new Complex((Double) o1);
+        }
+        else if (o1 instanceof BigInt)
+        {
+            return new Complex(((BigInt) o1).longValue());
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
+    {
+        if (areBothObjectsOfType(o1, o2, Fraction.class))
+        {
+            return func.apply(getFrac(o1), getFrac(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static private Fraction getFrac (Object o1) throws Exception
+    {
+        if (o1 instanceof Fraction)
+        {
+            return (Fraction) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return new Fraction((Long) o1);
+        }
+        if (o1 instanceof Double)
+        {
+            return new Fraction((Double) o1);
+        }
+        if (o1 instanceof BigInt)
+        {
+            return new Fraction(((BigInt) o1).longValue());
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
+    {
+        if (areBothObjectsOfType(o1, o2, BigInt.class))
+        {
+            return func.apply(getBig(o1), getBig(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static DoubleMatrix doCalcMatrix (Object o1, Object o2, BiFunction<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
+    {
+        if (areBothObjectsOfType(o1, o2, DoubleMatrix.class))
+        {
+            return func.apply(getMatrix(o1), getMatrix(o2));
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static public BigInt getBig (Object o1) throws Exception
+    {
+        if (o1 instanceof BigInt)
+        {
+            return (BigInt) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return BigInt.apply((Long) o1);
+        }
+        if (o1 instanceof Double)
+        {
+            return BigInt.apply(((Double) o1).longValue());
+        }
+        throw new Exception("Wrong args");
+    }
+
+    static private DoubleMatrix getMatrix (Object o1) throws Exception
+    {
+        if (o1 instanceof DoubleMatrix)
+        {
+            return (DoubleMatrix) o1;
+        }
+        throw new Exception("Wrong args");
     }
 }

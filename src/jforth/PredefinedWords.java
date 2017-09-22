@@ -1031,7 +1031,7 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::mod));
+                                dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::mod));
                                 return 1;
                             }
                             catch (Exception ignored) {}
@@ -1865,7 +1865,7 @@ final class PredefinedWords
                                     dStack.push(p);
                                     return 1;
                                 }
-                                Double d2 = Calculator.getDouble(o);
+                                Double d2 = Utilities.getDouble(o);
                                 double dd = Math.round(r * d2) / r;
                                 dStack.push(dd);
                                 return 1;
@@ -2704,7 +2704,7 @@ final class PredefinedWords
                                 Object o2 = dStack.pop();
                                 try
                                 {
-                                    dStack.push (Calculator.doCalcBigInt(o2, o1, Calculator::pow));
+                                    dStack.push (Utilities.doCalcBigInt(o2, o1, Utilities::pow));
                                     return 1;
                                 }
                                 catch (Exception unused)
@@ -2713,24 +2713,34 @@ final class PredefinedWords
                                 }
                                 try
                                 {
-                                    dStack.push (Calculator.doCalcComplex(o2, o1, Complex::pow));
+                                    dStack.push (Utilities.doCalcComplex(o2, o1, Complex::pow));
                                     return 1;
                                 }
                                 catch (Exception unused)
                                 {
                                     //e.printStackTrace();
                                 }
-                                if (o1 instanceof Long && o2 instanceof Long)
+                                try
                                 {
-                                    Long l1 = (Long)o1;
-                                    Long l2 = (Long)o2;
-                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
+                                    dStack.push (Utilities.pow ((Fraction)o2, Utilities.getLong(o1)));
                                     return 1;
                                 }
-                                else if (o1 instanceof Long && o2 instanceof Double)
+                                catch (Exception unused)
                                 {
-                                    double res = Math.pow ((Double)o2, ((Long) o1).doubleValue());
-                                    dStack.push(res);
+                                    //e.printStackTrace();
+                                }
+//                                if (o1 instanceof Long && o2 instanceof Long)
+//                                {
+//                                    Long l1 = (Long)o1;
+//                                    Long l2 = (Long)o2;
+//                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
+//                                    return 1;
+//                                }
+                                //else
+                                {
+                                    Double d1 = Utilities.getDouble(o1);
+                                    Double d2 = Utilities.getDouble(o2);
+                                    dStack.push(Math.pow (d2, d1));
                                     return 1;
                                 }
                             }
@@ -3859,25 +3869,25 @@ final class PredefinedWords
     {
         try
         {
-            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::div));
+            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::div));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$div));
+            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$div));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::divide));
+            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::divide));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::divide));
+            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::divide));
             return 1;
         }
         catch (Exception ignored) {}
@@ -3889,7 +3899,7 @@ final class PredefinedWords
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::div));
+            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::div));
             return 1;
         }
         catch (Exception ignored) {}
@@ -3939,25 +3949,25 @@ final class PredefinedWords
     {
         try
         {
-            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::mult));
+            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::mult));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$times));
+            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$times));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::multiply));
+            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::multiply));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::multiply));
+            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::multiply));
             return 1;
         }
         catch (Exception ignored) {}
@@ -3969,7 +3979,7 @@ final class PredefinedWords
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::mult));
+            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::mult));
             return 1;
         }
         catch (Exception ignored) {}
@@ -4012,25 +4022,25 @@ final class PredefinedWords
     {
         try
         {
-            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::add));
+            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::add));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$plus));
+            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$plus));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::add));
+            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::add));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::add));
+            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::add));
             return 1;
         }
         catch (Exception ignored) {}
@@ -4042,7 +4052,7 @@ final class PredefinedWords
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::add));
+            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::add));
             return 1;
         }
         catch (Exception ignored) {}
@@ -4086,25 +4096,25 @@ final class PredefinedWords
     {
         try
         {
-            dStack.push (Calculator.doCalcMatrix(o2, o1, Calculator::sub));
+            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::sub));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcBigInt(o2, o1, BigInt::$minus));
+            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$minus));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcComplex(o2, o1, Complex::subtract));
+            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::subtract));
             return 1;
         }
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcFraction(o2, o1, Fraction::subtract));
+            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::subtract));
             return 1;
         }
         catch (Exception ignored) {}
@@ -4116,7 +4126,7 @@ final class PredefinedWords
         catch (Exception ignored) {}
         try
         {
-            dStack.push (Calculator.doCalcDouble(o2, o1, Calculator::sub));
+            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::sub));
             return 1;
         }
         catch (Exception ignored) {}
