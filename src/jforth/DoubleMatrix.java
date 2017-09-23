@@ -90,8 +90,10 @@ public class DoubleMatrix extends BlockRealMatrix
         return res;
     }
 
-    static DoubleMatrix parseMatrix (String in)
+    static DoubleMatrix parseMatrix (String in, int base)
     {
+        if (base != 10)
+            return null;
         if (in.startsWith("{{") && in.endsWith("}}"))
         {
             in = in.substring(2, in.length()-2);

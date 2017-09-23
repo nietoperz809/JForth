@@ -54,8 +54,10 @@ public class PolynomialParser
         return in;
     }
 
-    public static double[] parsePolynomial (String poly)
+    public static double[] parsePolynomial (String poly, int base)
     {
+        if (base != 10)
+            return null;
         try
         {
             AddMap adm = new AddMap();

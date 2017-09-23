@@ -205,7 +205,7 @@ public class TestCases
     @Test
     public void TestPolyParser()
     {
-        double[] poly = parsePolynomial("8x^4+10.7+34x^2-7x+7x-9x^4");
+        double[] poly = parsePolynomial("8x^4+10.7+34x^2-7x+7x-9x^4", 10);
         String s = Arrays.toString(poly);
         Assert.assertEquals("[10.7, 0.0, 34.0, 0.0, -1.0]", s);
     }
@@ -425,4 +425,12 @@ public class TestCases
         Assert.assertEquals("0.001 OK\n> ", s);
     }
 
+    @Test
+    public void TestHexXor()
+    {
+        String s = check ("hex 1fff 1 xor",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("1FFE OK\n> ", s);
+    }
 }

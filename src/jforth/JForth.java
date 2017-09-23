@@ -199,31 +199,31 @@ public class JForth
             dStack.push(big);
             return true;
         }
-        Double dnum = Utilities.parseDouble(word);
+        Double dnum = Utilities.parseDouble(word, base);
         if (dnum != null)
         {
             dStack.push(dnum);
             return true;
         }
-        Complex co = Utilities.parseComplex(word);
+        Complex co = Utilities.parseComplex(word, base);
         if (co != null)
         {
             dStack.push(co);
             return true;
         }
-        Fraction fr = Utilities.parseFraction(word);
+        Fraction fr = Utilities.parseFraction(word, base);
         if (fr != null)
         {
             dStack.push(fr);
             return true;
         }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(word);
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
         if (ma != null)
         {
             dStack.push(ma);
             return true;
         }
-        DoubleSequence lo = DoubleSequence.parseSequence(word);
+        DoubleSequence lo = DoubleSequence.parseSequence(word, base);
         if (lo != null)
         {
             dStack.push(lo);
@@ -235,7 +235,7 @@ public class JForth
             dStack.push(ws);
             return true;
         }
-        double[] pd = PolynomialParser.parsePolynomial(word);
+        double[] pd = PolynomialParser.parsePolynomial(word, base);
         if (pd != null)
         {
             dStack.push(new PolynomialFunction(pd));
@@ -290,31 +290,31 @@ public class JForth
             wordBeingDefined.addWord(new BigIntLiteral(big));
             return true;
         }
-        Double dnum = Utilities.parseDouble(word);
+        Double dnum = Utilities.parseDouble(word, base);
         if (dnum != null)
         {
             wordBeingDefined.addWord(new DoubleLiteral(dnum));
             return true;
         }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(word);
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
         if (ma != null)
         {
             wordBeingDefined.addWord(new DMatrixLiteral(ma));
             return true;
         }
-        DoubleSequence ds = DoubleSequence.parseSequence(word);
+        DoubleSequence ds = DoubleSequence.parseSequence(word, base);
         if (ds != null)
         {
             wordBeingDefined.addWord(new DListLiteral(ds));
             return true;
         }
-        Fraction fr = Utilities.parseFraction(word);
+        Fraction fr = Utilities.parseFraction(word, base);
         if (fr != null)
         {
             wordBeingDefined.addWord(new FractionLiteral(fr));
             return true;
         }
-        Complex cpl = Utilities.parseComplex(word);
+        Complex cpl = Utilities.parseComplex(word, base);
         if (cpl != null)
         {
             wordBeingDefined.addWord(new ComplexLiteral(cpl));
@@ -326,7 +326,7 @@ public class JForth
             wordBeingDefined.addWord(new StringLiteral(ws));
             return true;
         }
-        double[] pd = PolynomialParser.parsePolynomial(word);
+        double[] pd = PolynomialParser.parsePolynomial(word, base);
         if (pd != null)
         {
             wordBeingDefined.addWord(

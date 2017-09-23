@@ -21,8 +21,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "753";
-    public static final String BUILD_DATE = "09/23/2017 09:37:51 AM";
+    public static final String BUILD_NUMBER = "760";
+    public static final String BUILD_DATE = "09/23/2017 05:15:46 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -53,8 +53,10 @@ public class Utilities
         return ("" + re + "+" + im + "i");
     }
 
-    static Complex parseComplex (String in)
+    static Complex parseComplex (String in, int base)
     {
+        if (base != 10)
+            return null;
         boolean negreal = false;
         if (in.startsWith("-"))
         {
@@ -82,8 +84,10 @@ public class Utilities
         return new Complex(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
     }
 
-    static Fraction parseFraction (String in)
+    static Fraction parseFraction (String in, int base)
     {
+        if (base != 10)
+            return null;
         String[] parts = in.split("/");
         if (parts.length != 2)
         {
@@ -202,8 +206,10 @@ public class Utilities
         }
     }
 
-    public static Double parseDouble (String word)
+    public static Double parseDouble (String word, int base)
     {
+        if (base != 10)
+            return null;
         try
         {
             return Double.parseDouble(word);

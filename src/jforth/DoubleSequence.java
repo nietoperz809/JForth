@@ -148,8 +148,10 @@ public class DoubleSequence
     }
 
 
-    public static DoubleSequence parseSequence (String in)
+    public static DoubleSequence parseSequence (String in, int base)
     {
+        if (base != 10)
+            return null;
         if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
         {
             in = in.substring(1, in.length()-1);
