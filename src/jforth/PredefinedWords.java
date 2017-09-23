@@ -2707,45 +2707,50 @@ final class PredefinedWords
                                     dStack.push (Utilities.doCalcBigInt(o2, o1, Utilities::pow));
                                     return 1;
                                 }
-                                catch (Exception unused)
+                                catch (Exception u)
                                 {
-                                    //e.printStackTrace();
-                                }
-                                try
-                                {
-                                    dStack.push (Utilities.doCalcComplex(o2, o1, Complex::pow));
-                                    return 1;
-                                }
-                                catch (Exception unused)
-                                {
-                                    //e.printStackTrace();
-                                }
-                                try
-                                {
-                                    dStack.push (Utilities.pow ((Fraction)o2, Utilities.getLong(o1)));
-                                    return 1;
-                                }
-                                catch (Exception unused)
-                                {
-                                    //e.printStackTrace();
-                                }
-//                                if (o1 instanceof Long && o2 instanceof Long)
-//                                {
-//                                    Long l1 = (Long)o1;
-//                                    Long l2 = (Long)o2;
-//                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
-//                                    return 1;
-//                                }
-                                //else
-                                {
-                                    Double d1 = Utilities.getDouble(o1);
-                                    Double d2 = Utilities.getDouble(o2);
-                                    dStack.push(Math.pow (d2, d1));
-                                    return 1;
+                                    try
+                                    {
+                                        dStack.push (Utilities.doCalcComplex(o2, o1, Complex::pow));
+                                        return 1;
+                                    }
+                                    catch (Exception u2)
+                                    {
+                                        try
+                                        {
+                                            dStack.push (Utilities.pow ((Fraction)o2, Utilities.getLong(o1)));
+                                            return 1;
+                                        }
+                                        catch (Exception u3)
+                                        {
+                                            try
+                                            {
+                                                if (o1 instanceof Long && o2 instanceof Long)
+                                                {
+                                                    Long l1 = (Long)o1;
+                                                    Long l2 = (Long)o2;
+                                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
+                                                    return 1;
+                                                }
+                                                else
+                                                {
+                                                    Double d1 = Utilities.getDouble(o1);
+                                                    Double d2 = Utilities.getDouble(o2);
+                                                    dStack.push(Math.pow (d2, d1));
+                                                    return 1;
+                                                }
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                return 0;
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception e)
                             {
+                                //
                             }
                             return 0;
                         }
