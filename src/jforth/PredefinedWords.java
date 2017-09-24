@@ -12,6 +12,8 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -50,7 +52,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "'", true, "Push word from dictionary on stack",
+                        "'", true, "Push word from dictionary onto stack",
                         (dStack, vStack) ->
                         {
                             if (_jforth.compiling)
@@ -94,6 +96,26 @@ final class PredefinedWords
                                 double d1 = Utilities.readDouble(dStack);
                                 DoubleSequence ds = DoubleSequence.makeCounted(d1,l2,d3);
                                 dStack.push(ds);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "eval", false, "evaluate js expression string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+                                Object o = engine.eval(ss);
+                                dStack.push(o);
                                 return 1;
                             }
                             catch (Exception ex)
