@@ -22,9 +22,9 @@ import java.util.List;
 
 final class PredefinedWords
 {
+    public static final String IMMEDIATE = "__immediate";
     private final JForth _jforth;
     private final WordsList _wl;
-    public static final String TEMPWORD = "__immediate";
 
     PredefinedWords (JForth jf, WordsList wl)
     {
@@ -95,7 +95,7 @@ final class PredefinedWords
                                 double d3 = Utilities.readDouble(dStack);
                                 long l2 = Utilities.readLong(dStack);
                                 double d1 = Utilities.readDouble(dStack);
-                                DoubleSequence ds = DoubleSequence.makeCounted(d1,l2,d3);
+                                DoubleSequence ds = DoubleSequence.makeCounted(d1, l2, d3);
                                 dStack.push(ds);
                                 return 1;
                             }
@@ -217,20 +217,7 @@ final class PredefinedWords
                         "do", true,
                         (dStack, vStack) ->
                         {
-                            if (_jforth.wordBeingDefined == null) // Loop in direct mode
-                            {
-                                try
-                                {
-                                    BaseWord bw = _jforth.dictionary.search(TEMPWORD);
-                                    _jforth.dictionary.remove(bw);
-                                }
-                                catch (Exception unused)
-                                {
-                                    //e.printStackTrace();
-                                }
-                                _jforth.compiling = true;
-                                _jforth.wordBeingDefined = new NonPrimitiveWord(TEMPWORD);
-                            }
+                            createTemporaryImmediateWord();
                             DoLoopControlWord dlcw = new DoLoopControlWord();
                             _jforth.wordBeingDefined.addWord(dlcw);
                             int index = _jforth.wordBeingDefined.getNextWordIndex();
@@ -296,10 +283,7 @@ final class PredefinedWords
                             LoopControlWord lcw = new LoopControlWord(increment);
                             _jforth.wordBeingDefined.addWord(lcw);
 
-                            if (_jforth.wordBeingDefined.name.equals(TEMPWORD))
-                            {
-                                _jforth.interpretLine("; "+TEMPWORD);
-                            }
+                            executeTemporaryImmediateWord();
 
                             return 1;
                         }
@@ -310,10 +294,6 @@ final class PredefinedWords
                         "+loop", true, "",
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
-                            {
-                                return 1;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
                             {
@@ -324,6 +304,7 @@ final class PredefinedWords
                             int increment = beginIndex - endIndex;
                             PlusLoopControlWord plcw = new PlusLoopControlWord(increment);
                             _jforth.wordBeingDefined.addWord(plcw);
+                            executeTemporaryImmediateWord();
                             return 1;
                         }
                 ));
@@ -333,10 +314,7 @@ final class PredefinedWords
                         "begin", true,
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
-                            {
-                                return 1;
-                            }
+                            createTemporaryImmediateWord();
                             int index = _jforth.wordBeingDefined.getNextWordIndex();
                             vStack.push((long) index);
                             return 1;
@@ -348,10 +326,6 @@ final class PredefinedWords
                         "until", true,
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
-                            {
-                                return 1;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
                             {
@@ -362,6 +336,7 @@ final class PredefinedWords
                             int increment = beginIndex - endIndex;
                             EndLoopControlWord ecw = new EndLoopControlWord(increment);
                             _jforth.wordBeingDefined.addWord(ecw);
+                            executeTemporaryImmediateWord();
                             return 1;
                         }
                 ));
@@ -371,13 +346,9 @@ final class PredefinedWords
                         "again", true,
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
-                            {
-                                return 1;
-                            }
                             try
                             {
-                                _jforth.wordBeingDefined.addWord (_wl.search("false"));
+                                _jforth.wordBeingDefined.addWord(_wl.search("false"));
                             }
                             catch (Exception e)
                             {
@@ -393,6 +364,7 @@ final class PredefinedWords
                             int increment = beginIndex - endIndex;
                             EndLoopControlWord ecw = new EndLoopControlWord(increment);
                             _jforth.wordBeingDefined.addWord(ecw);
+                            executeTemporaryImmediateWord();
                             return 1;
                         }
                 ));
@@ -418,7 +390,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o = dStack.peek();
-                            dup (o, dStack);
+                            dup(o, dStack);
                             return 1;
                         }
                 ));
@@ -430,10 +402,10 @@ final class PredefinedWords
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            dup (o2, dStack);
-                            dup (o1, dStack);
-                            dup (o2, dStack);
-                            dup (o1, dStack);
+                            dup(o2, dStack);
+                            dup(o1, dStack);
+                            dup(o2, dStack);
+                            dup(o1, dStack);
                             return 1;
                         }
                 ));
@@ -841,7 +813,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0<", false,  "Gives 1 of TOS smaller than 0",
+                        "0<", false, "Gives 1 of TOS smaller than 0",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -866,7 +838,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0=", false,  "Gives 1 if TOS is zero",
+                        "0=", false, "Gives 1 if TOS is zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -891,7 +863,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0>", false,  "Gives 1 if TOS greater than zero",
+                        "0>", false, "Gives 1 if TOS greater than zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -959,7 +931,7 @@ final class PredefinedWords
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return add (dStack, o1, o2);
+                            return add(dStack, o1, o2);
                         }
                 ));
 
@@ -970,7 +942,7 @@ final class PredefinedWords
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return sub (dStack, o1, o2);
+                            return sub(dStack, o1, o2);
                         }
                 ));
 
@@ -980,7 +952,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return add (dStack, 1L, o2);
+                            return add(dStack, 1L, o2);
                         }
                 ));
 
@@ -990,7 +962,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return sub (dStack, 1L, o2);
+                            return sub(dStack, 1L, o2);
                         }
                 ));
 
@@ -1000,7 +972,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return add (dStack, 2L, o2);
+                            return add(dStack, 2L, o2);
                         }
                 ));
 
@@ -1010,13 +982,13 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return sub (dStack, 2L, o2);
+                            return sub(dStack, 2L, o2);
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "*", false,  "Multiply TOS and TOS-1",
+                        "*", false, "Multiply TOS and TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1037,7 +1009,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "/", false,  "Divide TOS-1 by TOS",
+                        "/", false, "Divide TOS-1 by TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1052,7 +1024,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return div(dStack,2L, o2);
+                            return div(dStack, 2L, o2);
                         }
                 ));
 
@@ -1065,16 +1037,20 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::mod));
+                                dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::mod));
                                 return 1;
                             }
-                            catch (Exception ignored) {}
+                            catch (Exception ignored)
+                            {
+                            }
                             try
                             {
-                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyMod));
+                                dStack.push(PolySupport.execute(o2, o1, PolySupport::polyMod));
                                 return 1;
                             }
-                            catch (Exception ignored) {}
+                            catch (Exception ignored)
+                            {
+                            }
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
                                 long i1 = (Long) o1;
@@ -1099,17 +1075,19 @@ final class PredefinedWords
                             Object o2 = dStack.pop();
                             try
                             {
-                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyMod));
-                                dStack.push (PolySupport.execute(o2, o1, PolySupport::polyDiv));
+                                dStack.push(PolySupport.execute(o2, o1, PolySupport::polyMod));
+                                dStack.push(PolySupport.execute(o2, o1, PolySupport::polyDiv));
                                 return 1;
                             }
-                            catch (Exception ignored) {}
+                            catch (Exception ignored)
+                            {
+                            }
                             try
                             {
                                 long l1 = Utilities.getLong(o1);
                                 long l2 = Utilities.getLong(o2);
-                                dStack.push(l2%l1);
-                                dStack.push(l2/l1);
+                                dStack.push(l2 % l1);
+                                dStack.push(l2 / l1);
                                 return 1;
                             }
                             catch (Exception e)
@@ -1691,7 +1669,9 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             BaseWord bw = toLiteral(o1);
                             if (bw == null)
+                            {
                                 return 0;
+                            }
                             constant.addWord(bw);
                             return 1;
                         }
@@ -1891,12 +1871,12 @@ final class PredefinedWords
                             try
                             {
                                 Double d1 = Utilities.readDouble(dStack);
-                                double r = Math.pow(10,d1);
+                                double r = Math.pow(10, d1);
                                 Object o = dStack.pop();
                                 if (o instanceof PolynomialFunction)
                                 {
                                     PolynomialFunction p = PolySupport.roundPoly(
-                                            (PolynomialFunction)o, r);
+                                            (PolynomialFunction) o, r);
                                     dStack.push(p);
                                     return 1;
                                 }
@@ -1980,8 +1960,8 @@ final class PredefinedWords
                         {
                             try
                             {
-                                int o1 = (int)Utilities.readLong(dStack);
-                                int o2 = (int)Utilities.readLong(dStack);
+                                int o1 = (int) Utilities.readLong(dStack);
+                                int o2 = (int) Utilities.readLong(dStack);
                                 dStack.push(new Fraction(o1, o2));
                                 return 1;
                             }
@@ -2001,7 +1981,7 @@ final class PredefinedWords
                             {
                                 double o1 = Utilities.readDouble(dStack);
                                 double o2 = Utilities.readDouble(dStack);
-                                dStack.push(new Complex (o1, o2));
+                                dStack.push(new Complex(o1, o2));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2023,7 +2003,7 @@ final class PredefinedWords
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
-                                int[] arr = ((DoubleSequence)o1).asIntArray();
+                                int[] arr = ((DoubleSequence) o1).asIntArray();
                                 long l = MyMath.fromBinaryListLong(arr);
                                 dStack.push(l);
                             }
@@ -2063,17 +2043,17 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof Double)
                             {
-                                dStack.push(BigInt.apply (((Double) o1).longValue()));
+                                dStack.push(BigInt.apply(((Double) o1).longValue()));
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
-                                int[] arr = ((DoubleSequence)o1).asIntArray();
+                                int[] arr = ((DoubleSequence) o1).asIntArray();
                                 BigInt l = MyMath.fromBinaryListBig(arr);
                                 dStack.push(l);
                             }
                             else if (o1 instanceof String)
                             {
-                                dStack.push(BigInt.apply (((String) o1)));
+                                dStack.push(BigInt.apply(((String) o1)));
                             }
                             else if (o1 instanceof Complex)
                             {
@@ -2102,7 +2082,7 @@ final class PredefinedWords
                             try
                             {
                                 BigInt l = Utilities.readBig(dStack);
-                                dStack.push (DoubleSequence.makeBits(l));
+                                dStack.push(DoubleSequence.makeBits(l));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2156,7 +2136,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.peek();
-                            dStack.push (o1.getClass().getSimpleName());
+                            dStack.push(o1.getClass().getSimpleName());
                             return 1;
                         }
                 ));
@@ -2197,7 +2177,7 @@ final class PredefinedWords
                             {
                                 return 0;
                             }
-                            DoubleSequence ds = DoubleSequence.mixin(o2,o1);
+                            DoubleSequence ds = DoubleSequence.mixin(o2, o1);
                             dStack.push(ds);
                             return 1;
                         }
@@ -2209,7 +2189,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             ArrayList<DoubleSequence> arr = new ArrayList<>();
-                            for (;;)
+                            for (; ; )
                             {
                                 if (dStack.isEmpty())
                                 {
@@ -2218,7 +2198,7 @@ final class PredefinedWords
                                 Object o1 = dStack.pop();
                                 if (o1 instanceof DoubleSequence)
                                 {
-                                    arr.add((DoubleSequence)o1);
+                                    arr.add((DoubleSequence) o1);
                                 }
                                 else
                                 {
@@ -2238,8 +2218,8 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleMatrix)
                             {
-                                RealMatrix bm = ((DoubleMatrix)o1);
-                                dStack.push (new LUDecomposition(bm).getDeterminant());
+                                RealMatrix bm = ((DoubleMatrix) o1);
+                                dStack.push(new LUDecomposition(bm).getDeterminant());
                                 return 1;
                             }
                             return 0;
@@ -2254,11 +2234,11 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleMatrix)
                             {
-                                RealMatrix bm = ((DoubleMatrix)o1);
+                                RealMatrix bm = ((DoubleMatrix) o1);
                                 LUDecomposition lud = new LUDecomposition(bm);
-                                dStack.push (new DoubleMatrix(lud.getL()));
-                                dStack.push (new DoubleMatrix(lud.getU()));
-                                dStack.push (new DoubleMatrix(lud.getP()));
+                                dStack.push(new DoubleMatrix(lud.getL()));
+                                dStack.push(new DoubleMatrix(lud.getU()));
+                                dStack.push(new DoubleMatrix(lud.getP()));
                                 return 1;
                             }
                             return 0;
@@ -2273,8 +2253,8 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleMatrix)
                             {
-                                RealMatrix bm = ((DoubleMatrix)o1).transpose();
-                                dStack.push (new DoubleMatrix(bm));
+                                RealMatrix bm = ((DoubleMatrix) o1).transpose();
+                                dStack.push(new DoubleMatrix(bm));
                                 return 1;
                             }
                             return 0;
@@ -2289,8 +2269,8 @@ final class PredefinedWords
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleMatrix)
                             {
-                                RealMatrix inv = MatrixUtils.inverse((DoubleMatrix)o1);
-                                dStack.push (new DoubleMatrix(inv));
+                                RealMatrix inv = MatrixUtils.inverse((DoubleMatrix) o1);
+                                dStack.push(new DoubleMatrix(inv));
                                 return 1;
                             }
                             return 0;
@@ -2352,14 +2332,16 @@ final class PredefinedWords
                             }
                             if (o1 instanceof DoubleMatrix)
                             {
-                                DoubleSequence[] seq = ((DoubleMatrix)o1).toSequence();
-                                for (DoubleSequence d: seq)
+                                DoubleSequence[] seq = ((DoubleMatrix) o1).toSequence();
+                                for (DoubleSequence d : seq)
+                                {
                                     dStack.push(d);
+                                }
                                 return 1;
                             }
                             dStack.push(o1);
                             DoubleSequence seq = new DoubleSequence();
-                            for (;;)
+                            for (; ; )
                             {
                                 Object o2 = dStack.pop();
                                 if (o2 instanceof Double)
@@ -2481,7 +2463,7 @@ final class PredefinedWords
                             else
                             {
                                 p = (PolynomialFunction) o;
-                                dStack.push (PolySupport.antiDerive(p));
+                                dStack.push(PolySupport.antiDerive(p));
                                 return 1;
                             }
                             if (o2 instanceof Long)
@@ -2570,7 +2552,7 @@ final class PredefinedWords
                             }
                             else if (o1 instanceof PolynomialFunction)
                             {
-                                dStack.push(PolySupport.formatPoly ((PolynomialFunction)o1));
+                                dStack.push(PolySupport.formatPoly((PolynomialFunction) o1));
                             }
                             else
                             {
@@ -2718,7 +2700,7 @@ final class PredefinedWords
                             try
                             {
                                 BigInt o1 = Utilities.readBig(dStack);
-                                dStack.push (DoubleSequence.primes(o1));
+                                dStack.push(DoubleSequence.primes(o1));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2739,21 +2721,21 @@ final class PredefinedWords
                                 Object o2 = dStack.pop();
                                 try
                                 {
-                                    dStack.push (Utilities.doCalcBigInt(o2, o1, Utilities::pow));
+                                    dStack.push(Utilities.doCalcBigInt(o2, o1, Utilities::pow));
                                     return 1;
                                 }
                                 catch (Exception u)
                                 {
                                     try
                                     {
-                                        dStack.push (Utilities.doCalcComplex(o2, o1, Complex::pow));
+                                        dStack.push(Utilities.doCalcComplex(o2, o1, Complex::pow));
                                         return 1;
                                     }
                                     catch (Exception u2)
                                     {
                                         try
                                         {
-                                            dStack.push (Utilities.pow ((Fraction)o2, Utilities.getLong(o1)));
+                                            dStack.push(Utilities.pow((Fraction) o2, Utilities.getLong(o1)));
                                             return 1;
                                         }
                                         catch (Exception u3)
@@ -2762,16 +2744,16 @@ final class PredefinedWords
                                             {
                                                 if (o1 instanceof Long && o2 instanceof Long)
                                                 {
-                                                    Long l1 = (Long)o1;
-                                                    Long l2 = (Long)o2;
-                                                    dStack.push (MyMath.bigPow(l2, l1.intValue()));
+                                                    Long l1 = (Long) o1;
+                                                    Long l2 = (Long) o2;
+                                                    dStack.push(MyMath.bigPow(l2, l1.intValue()));
                                                     return 1;
                                                 }
                                                 else
                                                 {
                                                     Double d1 = Utilities.getDouble(o1);
                                                     Double d2 = Utilities.getDouble(o2);
-                                                    dStack.push(Math.pow (d2, d1));
+                                                    dStack.push(Math.pow(d2, d1));
                                                     return 1;
                                                 }
                                             }
@@ -2799,7 +2781,7 @@ final class PredefinedWords
                             try
                             {
                                 long l = Utilities.readLong(dStack);
-                                dStack.push (MyMath.fibonacci(l));
+                                dStack.push(MyMath.fibonacci(l));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2844,7 +2826,7 @@ final class PredefinedWords
                             if (o1 instanceof Long)
                             {
                                 Long ol = (Long) o1;
-                                dStack.push (MyMath.factorial(ol));
+                                dStack.push(MyMath.factorial(ol));
                                 return 1;
                             }
                             else
@@ -2938,7 +2920,7 @@ final class PredefinedWords
                             try
                             {
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push (o1.tan());
+                                dStack.push(o1.tan());
                                 return 1;
                             }
                             catch (Exception e)
@@ -3306,7 +3288,7 @@ final class PredefinedWords
                             {
                                 return 0;
                             }
-                            return Utilities.del (o) ? 1 : 0;
+                            return Utilities.del(o) ? 1 : 0;
                         }
                 ));
 
@@ -3847,7 +3829,7 @@ final class PredefinedWords
                             try
                             {
                                 long o = Utilities.readLong(dStack);
-                                SimpleWebserver.start((int)o);
+                                SimpleWebserver.start((int) o);
                                 return 1;
                             }
                             catch (Exception e)
@@ -3860,44 +3842,347 @@ final class PredefinedWords
 
     }
 
+    /**
+     * Create an immediate word immediately execution of new words
+     */
+    private void createTemporaryImmediateWord ()
+    {
+        if (_jforth.wordBeingDefined == null) // Loop in direct mode
+        {
+            try
+            {
+                BaseWord bw = _jforth.dictionary.search(IMMEDIATE);
+                _jforth.dictionary.remove(bw);
+            }
+            catch (Exception unused)
+            {
+                //e.printStackTrace();
+            }
+            _jforth.compiling = true;
+            _jforth.wordBeingDefined = new NonPrimitiveWord(IMMEDIATE);
+        }
+    }
+
+    /**
+     * Call temporary immediate word
+     */
+    private void executeTemporaryImmediateWord()
+    {
+        if (_jforth.wordBeingDefined.name.equals(IMMEDIATE))
+        {
+            _jforth.interpretLine("; " + IMMEDIATE);
+        }
+    }
+
+    private void dup (Object o, OStack dStack)
+    {
+        if (o instanceof DoubleSequence)
+        {
+            dStack.push(new DoubleSequence((DoubleSequence) o));
+        }
+        else
+        {
+            dStack.push(o);
+        }
+    }
+
+    private int add (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::add));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$plus));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcComplex(o2, o1, Complex::add));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcFraction(o2, o1, Fraction::add));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(PolySupport.execute(o2, o1, PolynomialFunction::add));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcDouble(o2, o1, Utilities::add));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            long i1 = (Long) o1;
+            long i2 = (Long) o2;
+            i2 += i1;
+            dStack.push(i2);
+        }
+        else if ((o1 instanceof String) && (o2 instanceof String))
+        {
+            String s = (String) o2 + (String) o1;
+            dStack.push(s);
+        }
+        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+        {
+            DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
+            dStack.push(s);
+        }
+        else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence))
+        {
+            Double d1 = (Double) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.add(d1));
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+        {
+            Long d1 = (Long) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.add(d1.doubleValue()));
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    private int sub (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::sub));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$minus));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcComplex(o2, o1, Complex::subtract));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcFraction(o2, o1, Fraction::subtract));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(PolySupport.execute(o2, o1, PolynomialFunction::subtract));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcDouble(o2, o1, Utilities::sub));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            long i1 = (Long) o1;
+            long i2 = (Long) o2;
+            i2 -= i1;
+            dStack.push(i2);
+        }
+        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+        {
+            DoubleSequence d1 = (DoubleSequence) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.difference(d1));
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+        {
+            Long d1 = (Long) o1;
+            DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.subList(0, d2.length() - d1.intValue()));
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    private int mult (OStack dStack, Object o1, Object o2)
+    {
+        try
+        {
+            dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::mult));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$times));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcComplex(o2, o1, Complex::multiply));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcFraction(o2, o1, Fraction::multiply));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(PolySupport.execute(o2, o1, PolynomialFunction::multiply));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        try
+        {
+            dStack.push(Utilities.doCalcDouble(o2, o1, Utilities::mult));
+            return 1;
+        }
+        catch (Exception ignored)
+        {
+        }
+        if (o1 instanceof Long)
+        {
+            long i1 = (Long) o1;
+            if (o2 instanceof Long)
+            {
+                long i2 = (Long) o2;
+                dStack.push(i2 * i1);
+                return 1;
+            }
+            else if (o2 instanceof DoubleSequence)
+            {
+                DoubleSequence d2 = (DoubleSequence) o2;
+                DoubleSequence d3 = new DoubleSequence();  // empty
+                while (i1-- != 0)
+                {
+                    d3 = d3.add(d2);
+                }
+                dStack.push(d3);
+                return 1;
+            }
+            else if (o2 instanceof String)
+            {
+                String d2 = (String) o2;
+                StringBuilder sb = new StringBuilder();  // empty
+                while (i1-- != 0)
+                {
+                    sb.append(d2);
+                }
+                dStack.push(sb.toString());
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     private int div (OStack dStack, Object o1, Object o2)
     {
         try
         {
-            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::div));
+            dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::div));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         try
         {
-            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$div));
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$div));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         try
         {
-            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::divide));
+            dStack.push(Utilities.doCalcComplex(o2, o1, Complex::divide));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         try
         {
-            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::divide));
+            dStack.push(Utilities.doCalcFraction(o2, o1, Fraction::divide));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         try
         {
-            dStack.push (PolySupport.execute(o2, o1, PolySupport::polyDiv));
+            dStack.push(PolySupport.execute(o2, o1, PolySupport::polyDiv));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         try
         {
-            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::div));
+            dStack.push(Utilities.doCalcDouble(o2, o1, Utilities::div));
             return 1;
         }
-        catch (Exception ignored) {}
+        catch (Exception ignored)
+        {
+        }
         if ((o1 instanceof Long) && (o2 instanceof Long))
         {
             long i1 = (Long) o1;
@@ -3938,229 +4223,6 @@ final class PredefinedWords
             return 0;
         }
         return 1;
-    }
-
-    private int mult (OStack dStack, Object o1, Object o2)
-    {
-        try
-        {
-            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::mult));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$times));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::multiply));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::multiply));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction::multiply));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::mult));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        if (o1 instanceof Long)
-        {
-            long i1 = (Long) o1;
-            if (o2 instanceof Long)
-            {
-                long i2 = (Long) o2;
-                dStack.push(i2*i1);
-                return 1;
-            }
-            else if (o2 instanceof DoubleSequence)
-            {
-                DoubleSequence d2 = (DoubleSequence) o2;
-                DoubleSequence d3 = new DoubleSequence();  // empty
-                while (i1-- != 0)
-                {
-                    d3 = d3.add(d2);
-                }
-                dStack.push(d3);
-                return 1;
-            }
-            else if (o2 instanceof String)
-            {
-                String d2 = (String) o2;
-                StringBuilder sb = new StringBuilder();  // empty
-                while (i1-- != 0)
-                {
-                    sb.append(d2);
-                }
-                dStack.push(sb.toString());
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    private int add (OStack dStack, Object o1, Object o2)
-    {
-        try
-        {
-            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::add));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$plus));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::add));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::add));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction ::add));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::add));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        if ((o1 instanceof Long) && (o2 instanceof Long))
-        {
-            long i1 = (Long) o1;
-            long i2 = (Long) o2;
-            i2 += i1;
-            dStack.push(i2);
-        }
-        else if ((o1 instanceof String) && (o2 instanceof String))
-        {
-            String s = (String)o2 + (String)o1;
-            dStack.push(s);
-        }
-        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
-        {
-            DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
-            dStack.push(s);
-        }
-        else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence))
-        {
-            Double d1 = (Double) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.add(d1));
-        }
-        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-        {
-            Long d1 = (Long) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.add(d1.doubleValue()));
-        }
-        else
-        {
-            return 0;
-        }
-        return 1;
-    }
-
-    private int sub (OStack dStack, Object o1, Object o2)
-    {
-        try
-        {
-            dStack.push (Utilities.doCalcMatrix(o2, o1, Utilities::sub));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcBigInt(o2, o1, BigInt::$minus));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcComplex(o2, o1, Complex::subtract));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcFraction(o2, o1, Fraction::subtract));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (PolySupport.execute(o2, o1, PolynomialFunction::subtract));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        try
-        {
-            dStack.push (Utilities.doCalcDouble(o2, o1, Utilities::sub));
-            return 1;
-        }
-        catch (Exception ignored) {}
-        if ((o1 instanceof Long) && (o2 instanceof Long))
-        {
-            long i1 = (Long) o1;
-            long i2 = (Long) o2;
-            i2 -= i1;
-            dStack.push(i2);
-        }
-        else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
-        {
-            DoubleSequence d1 = (DoubleSequence) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.difference(d1));
-        }
-        else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
-        {
-            Long d1 = (Long) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.subList(0, d2.length() - d1.intValue()));
-        }
-        else
-        {
-            return 0;
-        }
-        return 1;
-    }
-
-    private void dup (Object o, OStack dStack)
-    {
-        if (o instanceof DoubleSequence)
-        {
-            dStack.push(new DoubleSequence((DoubleSequence) o));
-        }
-        else
-        {
-            dStack.push(o);
-        }
     }
 
     private BaseWord toLiteral (Object o1)

@@ -293,6 +293,15 @@ public class TestCases
     }
 
     @Test
+    public void TestBeginUntilImmediate()
+    {
+        String s = check ("0 begin dup . 6 + dup 99 >",
+                "until");
+        System.out.println(s);
+        Assert.assertEquals("06121824303642485460667278849096 OK\n> ", s);
+    }
+
+    @Test
     public void TestBeginAgainCompiled()
     {
         // : test 0 begin dup . 1+ again ;
@@ -300,6 +309,16 @@ public class TestCases
                 "test");
         System.out.println(s);
         Assert.assertEquals("543210test word execution or stack error\n> ", s);
+    }
+
+    @Test
+    public void TestBeginAgainImmediate()
+    {
+        // : test 0 begin dup . 1+ again ;
+        String s = check ("0 1 2 3 4 5 begin .",
+                "again");
+        System.out.println(s);
+        Assert.assertEquals("543210 OK\n> ", s);
     }
 
     @Test
