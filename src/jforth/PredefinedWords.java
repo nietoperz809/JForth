@@ -24,6 +24,7 @@ final class PredefinedWords
 {
     private final JForth _jforth;
     private final WordsList _wl;
+    public static final String TEMPWORD = "__immediate";
 
     PredefinedWords (JForth jf, WordsList wl)
     {
@@ -216,9 +217,19 @@ final class PredefinedWords
                         "do", true,
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
+                            if (_jforth.wordBeingDefined == null) // Loop in direct mode
                             {
-                                return 1;
+                                try
+                                {
+                                    BaseWord bw = _jforth.dictionary.search(TEMPWORD);
+                                    _jforth.dictionary.remove(bw);
+                                }
+                                catch (Exception unused)
+                                {
+                                    //e.printStackTrace();
+                                }
+                                _jforth.compiling = true;
+                                _jforth.wordBeingDefined = new NonPrimitiveWord(TEMPWORD);
                             }
                             DoLoopControlWord dlcw = new DoLoopControlWord();
                             _jforth.wordBeingDefined.addWord(dlcw);
@@ -274,10 +285,6 @@ final class PredefinedWords
                         "loop", true,
                         (dStack, vStack) ->
                         {
-                            if (!_jforth.compiling)
-                            {
-                                return 1;
-                            }
                             Object o = vStack.pop();
                             if (!(o instanceof Long))
                             {
@@ -288,13 +295,19 @@ final class PredefinedWords
                             int increment = beginIndex - endIndex;
                             LoopControlWord lcw = new LoopControlWord(increment);
                             _jforth.wordBeingDefined.addWord(lcw);
+
+                            if (_jforth.wordBeingDefined.name.equals(TEMPWORD))
+                            {
+                                _jforth.interpretLine("; "+TEMPWORD);
+                            }
+
                             return 1;
                         }
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "+loop", true,
+                        "+loop", true, "",
                         (dStack, vStack) ->
                         {
                             if (!_jforth.compiling)
@@ -828,7 +841,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0<", false,
+                        "0<", false,  "Gives 1 of TOS smaller than 0",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -853,7 +866,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0=", false,
+                        "0=", false,  "Gives 1 if TOS is zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -878,7 +891,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "0>", false,
+                        "0>", false,  "Gives 1 if TOS greater than zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -903,17 +916,16 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "not", false,
+                        "not", false, "Gives 0 if TOS is not 0, otherwise 1",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
+                            try
                             {
-                                long i1 = (Long) o1;
+                                Long i1 = Utilities.readLong(dStack);
                                 dStack.push((i1 == JForth.FALSE) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -922,7 +934,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "true", false,
+                        "true", false, "Gives 1",
                         (dStack, vStack) ->
                         {
                             dStack.push(JForth.TRUE);
@@ -932,7 +944,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "false", false,
+                        "false", false, "Gives 0",
                         (dStack, vStack) ->
                         {
                             dStack.push(JForth.FALSE);
@@ -942,7 +954,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "+", false,
+                        "+", false, "Add 2 values on stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -953,7 +965,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "-", false,
+                        "-", false, "Substract values",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -964,7 +976,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "1+", false,
+                        "1+", false, "Add 1 to TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -974,7 +986,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "1-", false,
+                        "1-", false, "Substract 1 from TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -984,7 +996,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "2+", false,
+                        "2+", false, "Add 2 to TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -994,7 +1006,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "2-", false,
+                        "2-", false, "Substract 2 from TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -1004,7 +1016,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "*", false,
+                        "*", false,  "Multiply TOS and TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1015,7 +1027,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "2*", false,
+                        "2*", false, "Multiply TOS by 2",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1025,7 +1037,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "/", false,
+                        "/", false,  "Divide TOS-1 by TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1036,7 +1048,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "2/", false,
+                        "2/", false, "Divide TOS by 2",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -1046,7 +1058,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "mod", false,
+                        "mod", false, "Division remainder",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1080,7 +1092,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "/mod", false,
+                        "/mod", false, "Dividend and Remainder",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1109,7 +1121,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "max", false,
+                        "max", false, "Biggest value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1138,7 +1150,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "min", false,
+                        "min", false, "Smallest value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1167,7 +1179,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "abs", false,
+                        "abs", false, "Absolute value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1197,7 +1209,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "phi", false,
+                        "phi", false, "Phi of complex number",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1216,7 +1228,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "conj", false,
+                        "conj", false, "Conjugate of complex or fraction",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1603,6 +1615,7 @@ final class PredefinedWords
                         {
                             _jforth.compiling = false;
                             _jforth.dictionary.add(_jforth.wordBeingDefined);
+                            _jforth.wordBeingDefined = null;
                             return 1;
                         }
                 ));
@@ -3464,26 +3477,14 @@ final class PredefinedWords
                         "openReader", false, "Open file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
-                                try
-                                {
-                                    File f = new File((String) o1);
-                                    dStack.push(new BufferedReader(new FileReader(f)));
-                                }
-                                catch (IOException ioe)
-                                {
-                                    ioe.printStackTrace();
-                                    return 0;
-                                }
+                                String o1 = Utilities.readString(dStack);
+                                File f = new File((String) o1);
+                                dStack.push(new BufferedReader(new FileReader(f)));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3517,7 +3518,7 @@ final class PredefinedWords
                                 }
                                 catch (IOException ioe)
                                 {
-                                    ioe.printStackTrace();
+                                    //ioe.printStackTrace();
                                     return 0;
                                 }
                             }

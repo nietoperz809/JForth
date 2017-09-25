@@ -24,6 +24,14 @@ public class TestCases
     }
 
     @Test
+    public void TestImmediate()
+    {
+        String s = check ("10 0 do i .", "loop");
+        System.out.println(s);
+        Assert.assertEquals("0123456789 OK\n> ", s);
+    }
+
+    @Test
     public void TestPrg2()
     {
         String s = check (": test 10 0 do i . loop ;", "test");

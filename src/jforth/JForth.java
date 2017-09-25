@@ -97,7 +97,7 @@ public class JForth
         }
     }
 
-    private boolean interpretLine (String text)
+    public boolean interpretLine (String text)
     {
         try
         {

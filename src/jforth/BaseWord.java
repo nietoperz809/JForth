@@ -9,6 +9,7 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
     public final boolean isPrimitive;
     private final String info;
     public boolean immediate;
+
     BaseWord (String name, boolean immediate, boolean isPrimitive, String inf)
     {
         this.name = name;
