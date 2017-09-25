@@ -3499,7 +3499,7 @@ final class PredefinedWords
                             {
                                 return 0;
                             }
-                            Object o1 = dStack.pop();
+                            Object o1 = dStack.peek();
                             if (o1 instanceof BufferedReader)
                             {
                                 try
@@ -3508,11 +3508,10 @@ final class PredefinedWords
                                     if (s != null)
                                     {
                                         dStack.push(s);
-                                        dStack.push("");
                                     }
                                     else
                                     {
-                                        dStack.push("EOF");
+                                        dStack.push("*EOF*");
                                     }
                                     return 1;
                                 }
@@ -3564,26 +3563,13 @@ final class PredefinedWords
                         "openWriter", false, "Open file for Writing",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
-                                try
-                                {
-                                    File f = new File((String) o1);
-                                    dStack.push(new PrintStream(f));
-                                }
-                                catch (IOException ioe)
-                                {
-                                    ioe.printStackTrace();
-                                    return 0;
-                                }
+                                String fname = Utilities.readString(dStack);
+                                dStack.push(new PrintStream(new File(fname)));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3595,33 +3581,14 @@ final class PredefinedWords
                         "writeString", false, "Write string to file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 2)
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if (o1 instanceof PrintStream)
-                            {
-                                if (o2 instanceof String)
-                                {
-                                    ((PrintStream) o1).print((String) o2);
-                                }
-                                else if (o2 instanceof Long)
-                                {
-                                    ((PrintStream) o1).print(Long.toString((Long) o2, _jforth.base).toUpperCase());
-                                }
-                                else if (o2 instanceof Double)
-                                {
-                                    ((PrintStream) o1).print(Double.toString((Double) o2));
-                                }
-                                else
-                                {
-                                    return 0;
-                                }
+                                String o2 = Utilities.readString(dStack);
+                                Object o1 = dStack.peek();
+                                ((PrintStream) o1).print((String) o2);
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }

@@ -443,4 +443,23 @@ public class TestCases
         Assert.assertEquals("0-3-6-9-12-15-18-21-24-27- OK\n> ", s);
     }
 
+    @Test
+    public void TestEval2()
+    {
+        String s = check ("\"str='Visit_W3Schools';n=str.search(/w3schools/i);\" eval",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("6 OK\n> ", s);
+    }
+
+    @Test
+    public void TestRWFile()
+    {
+        check ("\"lala\" openWriter \"hallo\" writeString \"_doof\" writeString closeWriter",
+                ".");
+        String s = check ("\"lala\" openReader readLine swap readLine rot +",
+                ".");
+        Assert.assertEquals("*EOF*hallo_doof OK\n> ", s);
+    }
+
 }
