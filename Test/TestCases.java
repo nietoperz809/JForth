@@ -433,4 +433,14 @@ public class TestCases
         System.out.println(s);
         Assert.assertEquals("1FFE OK\n> ", s);
     }
+
+    @Test
+    public void TestEval()
+    {
+        String s = check ("\"text='';for(i=0;i<10;i++)text+=3*i+'-';\" eval",
+                ".");
+        System.out.println(s);
+        Assert.assertEquals("0-3-6-9-12-15-18-21-24-27- OK\n> ", s);
+    }
+
 }
