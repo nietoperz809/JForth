@@ -3376,24 +3376,13 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             long l;
-                            if (dStack.empty())
+                            try
+                            {
+                                l = Utilities.readLong(dStack);
+                            }
+                            catch (Exception e)
                             {
                                 l = -1;
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    l = Utilities.readLong(dStack);
-                                }
-                                catch (Exception e)
-                                {
-                                    return 0;
-                                }
-                                if (l < 0)
-                                {
-                                    return 0;
-                                }
                             }
                             StringBuilder s = new StringBuilder();
                             try
@@ -3405,11 +3394,15 @@ final class PredefinedWords
                                     {
                                         l--;
                                     }
-                                    if (c == '\r' || l == 0)
+                                    if (c == '\r')
                                     {
                                         break;
                                     }
                                     s.append(c);
+                                    if (l == 0)
+                                    {
+                                        break;
+                                    }
                                     _jforth._out.print('-');
                                     _jforth._out.flush();
                                 }
@@ -3421,6 +3414,17 @@ final class PredefinedWords
                             {
                                 return 0;
                             }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "tick", false, "Get clock value",
+                        (dStack, vStack) ->
+                        {
+                            long n = System.currentTimeMillis();
+                            dStack.push(n);
+                            return 1;
                         }
                 ));
 
@@ -3866,7 +3870,7 @@ final class PredefinedWords
     /**
      * Call temporary immediate word
      */
-    private void executeTemporaryImmediateWord()
+    private void executeTemporaryImmediateWord ()
     {
         if (_jforth.wordBeingDefined.name.equals(IMMEDIATE))
         {
