@@ -1938,6 +1938,7 @@ final class PredefinedWords
                             {
                                 Long l = (Long) o1;
                                 _jforth._out.print((char) (long) l);
+                                _jforth._out.flush();
                                 return 1;
                             }
                             if (o1 instanceof String)
