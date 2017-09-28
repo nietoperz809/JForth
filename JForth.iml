@@ -28,5 +28,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="cmu_us_kal" level="project" />
+    <orderEntry type="library" name="cmulex" level="project" />
   </component>
 </module>

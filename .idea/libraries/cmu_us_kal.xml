@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cmu_us_kal">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/cmu_us_kal.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

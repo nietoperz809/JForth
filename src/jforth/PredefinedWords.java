@@ -1,5 +1,7 @@
 package jforth;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import jforth.scalacode.MyMath;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -9,6 +11,7 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
+import org.fusesource.jansi.AnsiConsole;
 import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
@@ -25,9 +28,14 @@ final class PredefinedWords
     public static final String IMMEDIATE = "__immediate";
     private final JForth _jforth;
     private final WordsList _wl;
+    private Voice voice;
 
     PredefinedWords (JForth jf, WordsList wl)
     {
+        KevinVoiceDirectory dir = new KevinVoiceDirectory();
+        voice = dir.getVoices()[0];
+        voice.allocate();
+
         this._wl = wl;
         this._jforth = jf;
         fill(wl);
@@ -108,7 +116,25 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "eval", false, "evaluate js expression string",
+                        "say", false, "speak a string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                voice.speak(ss);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "js", false, "evaluate js expression string",
                         (dStack, vStack) ->
                         {
                             try
@@ -117,6 +143,29 @@ final class PredefinedWords
                                 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
                                 Object o = engine.eval(ss);
                                 dStack.push(o);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "forth", false, "execute csv separated forth line asynchronously",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                final String ss = Utilities.readString(dStack).replace(',', ' ');
+                                new Thread(() ->
+                                {
+                                    JForth f = new JForth(AnsiConsole.out);
+                                    f.interpretLine(ss);
+                                    AnsiConsole.out.flush();
+                                }).start();
                                 return 1;
                             }
                             catch (Exception ex)
@@ -1728,7 +1777,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "!", false, "Store value into varable or array",
+                        "!", false, "Store value into variable or array",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2077,7 +2126,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "toBits", false, "Make bit sequence",
+                        "toBits", false, "Make bit sequence from number",
                         (dStack, vStack) ->
                         {
                             try
