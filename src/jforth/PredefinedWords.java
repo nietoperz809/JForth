@@ -28,17 +28,23 @@ final class PredefinedWords
     public static final String IMMEDIATE = "__immediate";
     private final JForth _jforth;
     private final WordsList _wl;
-    private Voice voice;
+    private static Voice voice = null;
 
     PredefinedWords (JForth jf, WordsList wl)
     {
-        KevinVoiceDirectory dir = new KevinVoiceDirectory();
-        voice = dir.getVoices()[0];
-        voice.allocate();
-
         this._wl = wl;
         this._jforth = jf;
         fill(wl);
+    }
+
+    private static void loadVoice()
+    {
+        if (voice == null)
+        {
+            KevinVoiceDirectory dir = new KevinVoiceDirectory();
+            voice = dir.getVoices()[0];
+            voice.allocate();
+        }
     }
 
     private void fill (WordsList _fw)
@@ -122,6 +128,7 @@ final class PredefinedWords
                             try
                             {
                                 String ss = Utilities.readString(dStack);
+                                loadVoice();
                                 voice.speak(ss);
                                 return 1;
                             }

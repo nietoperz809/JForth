@@ -10,34 +10,16 @@
  */
 package com.sun.speech.freetts.lexicon;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.Console;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.sun.speech.freetts.util.BulkTimer;
+import com.sun.speech.freetts.util.Utilities;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
-import com.sun.speech.freetts.util.BulkTimer;
-import com.sun.speech.freetts.util.Utilities;
+import java.util.*;
 
 /** Provides an implementation of a Lexicon.
  * <p>
@@ -167,7 +149,7 @@ abstract public class LexiconImpl implements Lexicon {
 	 * @throws IOException if errors occur during loading */
 	public void load() throws IOException {
 		BulkTimer.LOAD.start("Lexicon");
-		System.out.println("Loading lexicon: " + compiledURL);
+		//System.out.println("Loading lexicon: " + compiledURL);
 		if (compiledURL == null) {
 			throw new IOException("Can't load lexicon");
 		}
