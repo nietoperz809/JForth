@@ -49,6 +49,11 @@ public class LineEdit
         p.println(helpText);
     }
 
+    private void printErr()
+    {
+        _out.println("ERROR");
+    }
+
     /**
      * Tester
      *
@@ -102,7 +107,7 @@ public class LineEdit
                     }
                     catch (Exception e)
                     {
-                        _out.println("ERROR");
+                        printErr();
                     }
                 }
                 else
@@ -115,54 +120,57 @@ public class LineEdit
             {
 
             }
-            if (cmd.equals("l"))
+            try
             {
-                for (int s = 0; s < list.size(); s++)
+                if (cmd.equals("l")) // List with line numbers
                 {
-                    _out.println(s + ": " + list.get(s));
+                    for (int s = 0; s < list.size(); s++)
+                    {
+                        _out.println(s + ": " + list.get(s));
+                    }
                 }
-            }
-            else if (cmd.equals("t"))
-            {
-                String s = toString();
-                if (!s.isEmpty())
+                else if (cmd.equals("t")) // List without line numbers
                 {
+                    String s = toString();
+                    if (!s.isEmpty())
+                    {
+                        _out.println(s);
+                    }
+                }
+                else if (cmd.equals("c"))  // clear program
+                {
+                    clear();
+                }
+                else if (cmd.equals("r"))   // load new program
+                {
+                    load(args);
+                }
+                else if (cmd.equals("a"))   // append program from disk
+                {
+                    append(args);
+                }
+                else if (cmd.equals("s"))   // save program
+                {
+                    save(args);
+                }
+                else if (cmd.equals("dir")) // show directory
+                {
+                    String s = Utilities.dir(".");
                     _out.println(s);
                 }
-            }
-            else if (cmd.equals("c"))
-            {
-                clear();
-            }
-            else if (cmd.equals("r"))
-            {
-                load(args);
-            }
-            else if (cmd.equals("s"))
-            {
-                save(args);
-            }
-            else if (cmd.equals("dir"))
-            {
-                String s = Utilities.dir(".");
-                _out.println(s);
-            }
-            else if (cmd.equals("x"))
-            {
-                return false;
-            }
-            else if (cmd.startsWith("i"))
-            {
-                //System.out.println("Insert "+cmd.substring(1));
-                try
+                else if (cmd.equals("x"))   // leave editor
+                {
+                    return false;
+                }
+                else if (cmd.startsWith("i"))
                 {
                     int pos = Integer.parseInt(cmd.substring(1));
                     list.add(pos, args);
                 }
-                catch (Exception e)
-                {
-                    _out.println("ERROR");
-                }
+            }
+            catch (Exception e)
+            {
+                printErr();
             }
         }
         else
@@ -190,12 +198,18 @@ public class LineEdit
         list.clear();
     }
 
-    public void load (String name)
+    public void load (String name) throws Exception
     {
         list = Utilities.fileLoad(name);
     }
 
-    public void save (String name)
+    public void append (String name) throws Exception
+    {
+        ArrayList<String> l2 = Utilities.fileLoad(name);
+        list.addAll(l2);
+    }
+
+    public void save (String name) throws Exception
     {
         Utilities.fileSave(list, name);
     }

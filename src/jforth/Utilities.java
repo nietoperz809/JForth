@@ -21,8 +21,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "867";
-    public static final String BUILD_DATE = "10/01/2017 04:36:25 PM";
+    public static final String BUILD_NUMBER = "870";
+    public static final String BUILD_DATE = "10/01/2017 06:38:36 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -56,7 +56,9 @@ public class Utilities
     static Complex parseComplex (String in, int base)
     {
         if (base != 10)
+        {
             return null;
+        }
         boolean negreal = false;
         if (in.startsWith("-"))
         {
@@ -87,7 +89,9 @@ public class Utilities
     static Fraction parseFraction (String in, int base)
     {
         if (base != 10)
+        {
             return null;
+        }
         String[] parts = in.split("/");
         if (parts.length != 2)
         {
@@ -209,7 +213,9 @@ public class Utilities
     public static Double parseDouble (String word, int base)
     {
         if (base != 10)
+        {
             return null;
+        }
         try
         {
             return Double.parseDouble(word);
@@ -313,6 +319,29 @@ public class Utilities
         return getDouble(o);
     }
 
+    static public Double getDouble (Object o1) throws Exception
+    {
+        if (o1 instanceof BigInt)
+        {
+            return ((BigInt) o1).doubleValue();
+        }
+        if (o1 instanceof Double)
+        {
+            return (Double) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return ((Long) o1).doubleValue();
+        }
+        if (o1 instanceof Fraction)
+        {
+            double denom = ((Fraction) o1).getDenominator();
+            double nume = ((Fraction) o1).getNumerator();
+            return nume / denom;
+        }
+        throw new Exception("Wrong args");
+    }
+
     public static long readLong (OStack dStack) throws Exception
     {
         return getLong(dStack.pop());
@@ -336,9 +365,9 @@ public class Utilities
         {
             int denom = ((Fraction) o).getDenominator();
             int nume = ((Fraction) o).getNumerator();
-            if (nume%denom == 0)
+            if (nume % denom == 0)
             {
-                return nume/denom;
+                return nume / denom;
             }
         }
         throw new Exception("Wrong or no Type on Stack");
@@ -350,41 +379,51 @@ public class Utilities
         return getBig(o);
     }
 
-    public static boolean fileSave (ArrayList<String>as, String filename)
+    static public BigInt getBig (Object o1) throws Exception
     {
-        try
+        if (o1 instanceof BigInt)
         {
-            FileWriter fw = new FileWriter(filename);
-            for (String str : as)
-                fw.write(str+"\n");
-            fw.close();
+            return (BigInt) o1;
         }
-        catch (IOException e)
+        if (o1 instanceof Long)
         {
-            return false;
+            return BigInt.apply((Long) o1);
         }
-        return true;
+        if (o1 instanceof Double)
+        {
+            return BigInt.apply(((Double) o1).longValue());
+        }
+        throw new Exception("Wrong args");
     }
 
-    public static ArrayList<String> fileLoad (String fileName)
+    public static void fileSave (ArrayList<String> as, String filename) throws Exception
+    {
+            FileWriter fw = new FileWriter(filename);
+            for (String str : as)
+            {
+                fw.write(str + "\n");
+            }
+            fw.close();
+    }
+
+    public static ArrayList<String> fileLoad (String fileName) throws Exception
     {
         ArrayList<String> ret = new ArrayList<>();
-        try
+        BufferedReader file = new BufferedReader(new FileReader(fileName));
+        while (file.ready())
         {
-            BufferedReader file = new BufferedReader(
-                    new FileReader(fileName));
-            while (file.ready())
+            String s = file.readLine();
+            if (s == null)
             {
-                String s = file.readLine().trim();
-                if (!s.isEmpty())
-                    ret.add(s);
+                break;
             }
-            file.close();
+            s = s.trim();
+            if (!s.isEmpty())
+            {
+                ret.add(s);
+            }
         }
-        catch (Exception e)
-        {
-            //return ret;
-        }
+        file.close();
         return ret;
     }
 
@@ -415,6 +454,27 @@ public class Utilities
         return getComplex(dStack.pop());
     }
 
+    static public Complex getComplex (Object o1) throws Exception
+    {
+        if (o1 instanceof Complex)
+        {
+            return (Complex) o1;
+        }
+        if (o1 instanceof Long)
+        {
+            return new Complex((Long) o1);
+        }
+        else if (o1 instanceof Double)
+        {
+            return new Complex((Double) o1);
+        }
+        else if (o1 instanceof BigInt)
+        {
+            return new Complex(((BigInt) o1).longValue());
+        }
+        throw new Exception("Wrong args");
+    }
+
     public static double[] parseCSVtoDoubleArray (String in)
     {
         String vals[] = in.split(",");
@@ -442,8 +502,8 @@ public class Utilities
 
     static Fraction pow (Fraction f, Long n)
     {
-        int denom = (int)Math.pow (f.getDenominator(), n);
-        int num = (int)Math.pow (f.getNumerator(), n);
+        int denom = (int) Math.pow(f.getDenominator(), n);
+        int num = (int) Math.pow(f.getNumerator(), n);
         return Fraction.getReducedFraction(num, denom);
     }
 
@@ -505,29 +565,6 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    static public Double getDouble (Object o1) throws Exception
-    {
-        if (o1 instanceof BigInt)
-        {
-            return ((BigInt)o1).doubleValue();
-        }
-        if (o1 instanceof Double)
-        {
-            return (Double) o1;
-        }
-        if (o1 instanceof Long)
-        {
-            return ((Long) o1).doubleValue();
-        }
-        if (o1 instanceof Fraction)
-        {
-            double denom = ((Fraction) o1).getDenominator();
-            double nume = ((Fraction) o1).getNumerator();
-            return nume/denom;
-        }
-        throw new Exception("Wrong args");
-    }
-
     static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, Complex.class))
@@ -540,27 +577,6 @@ public class Utilities
     private static boolean areBothObjectsOfType (Object o1, Object o2, Class c)
     {
         return (c.isInstance(o1) || c.isInstance(o2));
-    }
-
-    static public Complex getComplex (Object o1) throws Exception
-    {
-        if (o1 instanceof Complex)
-        {
-            return (Complex) o1;
-        }
-        if (o1 instanceof Long)
-        {
-            return new Complex((Long) o1);
-        }
-        else if (o1 instanceof Double)
-        {
-            return new Complex((Double) o1);
-        }
-        else if (o1 instanceof BigInt)
-        {
-            return new Complex(((BigInt) o1).longValue());
-        }
-        throw new Exception("Wrong args");
     }
 
     static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
@@ -607,23 +623,6 @@ public class Utilities
         if (areBothObjectsOfType(o1, o2, DoubleMatrix.class))
         {
             return func.apply(getMatrix(o1), getMatrix(o2));
-        }
-        throw new Exception("Wrong args");
-    }
-
-    static public BigInt getBig (Object o1) throws Exception
-    {
-        if (o1 instanceof BigInt)
-        {
-            return (BigInt) o1;
-        }
-        if (o1 instanceof Long)
-        {
-            return BigInt.apply((Long) o1);
-        }
-        if (o1 instanceof Double)
-        {
-            return BigInt.apply(((Double) o1).longValue());
         }
         throw new Exception("Wrong args");
     }

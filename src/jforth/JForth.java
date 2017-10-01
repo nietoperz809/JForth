@@ -100,7 +100,14 @@ public class JForth
         Scanner scanner = new Scanner(System.in);
         _out.println(Utilities.buildInfo);
         singleShot ("\n"); // to show prompt immediately
-        fileLoad("autoexec.4th");
+        try
+        {
+            executeFile("autoexec.4th");
+        }
+        catch (Exception unused)
+        {
+            // execution error
+        }
         while (true)
         {
             singleShot (scanner.nextLine().trim());
@@ -436,14 +443,12 @@ public class JForth
         }
     }
 
-    public int fileLoad (String fileName)
+    public void executeFile (String fileName) throws Exception
     {
         ArrayList<String> as = Utilities.fileLoad(fileName);
         for (String s : as)
         {
-            if (interpretLine(s))
-                return 0;
+            interpretLine(s);
         }
-        return 1;
     }
 }

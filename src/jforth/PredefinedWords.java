@@ -29,14 +29,14 @@ final class PredefinedWords
     private final JForth _jforth;
     private final WordsList _wl;
     private static Voice voice = null;
-    private LineEdit _le;
+    private LineEdit _lineEditor;
 
 
     PredefinedWords (JForth jf, WordsList wl)
     {
         this._wl = wl;
         this._jforth = jf;
-        _le = new LineEdit(System.in, jf._out);
+        _lineEditor = new LineEdit(System.in, jf._out);
         fill(wl);
     }
 
@@ -3123,17 +3123,13 @@ final class PredefinedWords
                         "runFile", false, "run program file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
+                                String fileName = Utilities.readString(dStack);
+                                _jforth.executeFile(fileName);
+                                return 1;
                             }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
-                                String fileName = (String) o1;
-                                return _jforth.fileLoad(fileName);
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3199,10 +3195,10 @@ final class PredefinedWords
                         "editor", false, "Enter line editor",
                         (dStack, vStack) ->
                         {
-                            _le.run();
-                            String s = _le.toString();
+                            _lineEditor.run();
+                            String s = _lineEditor.toString();
                             if (!s.isEmpty())
-                                dStack.push(_le.toString());
+                                dStack.push(_lineEditor.toString());
                             return 1;
                         }
                 ));
@@ -3212,7 +3208,7 @@ final class PredefinedWords
                         "run", false, "Runs program in editor",
                         (dStack, vStack) ->
                         {
-                            String s = _le.toString();
+                            String s = _lineEditor.toString();
                             _jforth.interpretLine(s);
                             return 1;
                         }
@@ -3223,7 +3219,7 @@ final class PredefinedWords
                         "list", false, "Show program in editor",
                         (dStack, vStack) ->
                         {
-                            dStack.push(_le.toString());
+                            dStack.push(_lineEditor.toString());
                             return 1;
                         }
                 ));
