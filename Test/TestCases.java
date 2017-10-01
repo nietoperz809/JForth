@@ -28,7 +28,7 @@ public class TestCases
     {
         String s = check ("10 0 do i .", "loop");
         System.out.println(s);
-        Assert.assertEquals("0123456789 OK\n> ", s);
+        Assert.assertEquals("0123456789 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestCases
     {
         String s = check (": test 10 0 do i . loop ;", "test");
         System.out.println(s);
-        Assert.assertEquals("0123456789 OK\n> ", s);
+        Assert.assertEquals("0123456789 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestCases
         String s = check (": test variable hello hello ! hello @ length hello @ ;",
                 "{1,2,3,4} test . .");
         System.out.println(s);
-        Assert.assertEquals("{1,2,3,4}4 OK\n> ", s);
+        Assert.assertEquals("{1,2,3,4}4 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TestCases
         String s = check (": test variable hello hello ! hello @ length fact ;",
                 "{1,2,3,4} test .");
         System.out.println(s);
-        Assert.assertEquals("24 OK\n> ", s);
+        Assert.assertEquals("24 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class TestCases
         String s = check (": test variable hello hello ! hello @ length fact 0 ;",
                 "{1,2,3,4} test . .");
         System.out.println(s);
-        Assert.assertEquals("024 OK\n> ", s);
+        Assert.assertEquals("024 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TestCases
         String s = check (": test variable hello hello ! hello @ length 24 0 do i . loop ;",
                 "{1,2,3,4} test .");
         System.out.println(s);
-        Assert.assertEquals("012345678910111213141516171819202122234 OK\n> ", s);
+        Assert.assertEquals("012345678910111213141516171819202122234 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -81,40 +81,40 @@ public class TestCases
         String s = check (": test variable hello hello ! hello @ length fact 0 do i . loop ;",
                 "{1,2,3} test");
         System.out.println(s);
-        Assert.assertEquals("012345 OK\n> ", s);
+        Assert.assertEquals("012345 OK\nJFORTH> ", s);
     }
 
     @Test
     public void TestPrg_Permute()
     {
-        String result = "1 -> {1,4,3,2}\r\n" +
-                "2 -> {2,1,3,4}\r\n" +
-                "3 -> {3,1,4,2}\r\n" +
-                "4 -> {4,1,3,2}\r\n" +
-                "5 -> {1,2,4,3}\r\n" +
-                "6 -> {2,4,1,3}\r\n" +
-                "7 -> {3,2,1,4}\r\n" +
-                "8 -> {4,2,1,3}\r\n" +
-                "9 -> {1,3,4,2}\r\n" +
-                "10 -> {2,3,1,4}\r\n" +
-                "11 -> {3,4,1,2}\r\n" +
-                "12 -> {4,3,1,2}\r\n" +
-                "13 -> {1,4,2,3}\r\n" +
-                "14 -> {2,1,4,3}\r\n" +
-                "15 -> {3,1,2,4}\r\n" +
-                "16 -> {4,1,2,3}\r\n" +
-                "17 -> {1,2,3,4}\r\n" +
-                "18 -> {2,4,3,1}\r\n" +
-                "19 -> {3,2,4,1}\r\n" +
-                "20 -> {4,2,3,1}\r\n" +
-                "21 -> {1,3,2,4}\r\n" +
-                "22 -> {2,3,4,1}\r\n" +
-                "23 -> {3,4,2,1}\r\n" +
-                "24 -> {4,3,2,1}\r\n" +
-                " OK\n> ";
+        String result = "1 -JFORTH> {1,4,3,2}\r\n" +
+                "2 -JFORTH> {2,1,3,4}\r\n" +
+                "3 -JFORTH> {3,1,4,2}\r\n" +
+                "4 -JFORTH> {4,1,3,2}\r\n" +
+                "5 -JFORTH> {1,2,4,3}\r\n" +
+                "6 -JFORTH> {2,4,1,3}\r\n" +
+                "7 -JFORTH> {3,2,1,4}\r\n" +
+                "8 -JFORTH> {4,2,1,3}\r\n" +
+                "9 -JFORTH> {1,3,4,2}\r\n" +
+                "10 -JFORTH> {2,3,1,4}\r\n" +
+                "11 -JFORTH> {3,4,1,2}\r\n" +
+                "12 -JFORTH> {4,3,1,2}\r\n" +
+                "13 -JFORTH> {1,4,2,3}\r\n" +
+                "14 -JFORTH> {2,1,4,3}\r\n" +
+                "15 -JFORTH> {3,1,2,4}\r\n" +
+                "16 -JFORTH> {4,1,2,3}\r\n" +
+                "17 -JFORTH> {1,2,3,4}\r\n" +
+                "18 -JFORTH> {2,4,3,1}\r\n" +
+                "19 -JFORTH> {3,2,4,1}\r\n" +
+                "20 -JFORTH> {4,2,3,1}\r\n" +
+                "21 -JFORTH> {1,3,2,4}\r\n" +
+                "22 -JFORTH> {2,3,4,1}\r\n" +
+                "23 -JFORTH> {3,4,2,1}\r\n" +
+                "24 -JFORTH> {4,3,2,1}\r\n" +
+                " OK\nJFORTH> ";
         String s = check (": test variable hello hello ! " +
                         "hello @ length fact 0 do i 1 + . " +
-                        "sp \"->\" . sp hello @ i permute . cr loop ;\n",
+                        "sp \"-JFORTH>\" . sp hello @ i permute . cr loop ;\n",
                 "{1,2,3,4} test");
         System.out.println(s);
         Assert.assertEquals(result, s);
@@ -126,7 +126,7 @@ public class TestCases
         String s = check ("\"hello\" rev toString",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("olleh OK\n> ", s);
+        Assert.assertEquals("olleh OK\nJFORTH> ", s);
     }
 
     @Test
@@ -135,7 +135,7 @@ public class TestCases
         String s = check ("\"thequickbrownfoxjumpsoverthelazydog\" sort unique toString",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("abcdefghijklmnopqrstuvwxyz OK\n> ", s);
+        Assert.assertEquals("abcdefghijklmnopqrstuvwxyz OK\nJFORTH> ", s);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class TestCases
         String s = check ("{2,3,5,7,11,13,17,19,23} prod factor 8 factor",
                 ". .");
         System.out.println(s);
-        Assert.assertEquals("{2,2,2}{2,3,5,7,11,13,17,19,23} OK\n> ", s);
+        Assert.assertEquals("{2,2,2}{2,3,5,7,11,13,17,19,23} OK\nJFORTH> ", s);
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TestCases
         String s = check ("12 11 - 12L 11 - 12L 11.0 - 12.0 11 -",
                 ". . . .");
         System.out.println(s);
-        Assert.assertEquals("1.0111 OK\n> ", s);
+        Assert.assertEquals("1.0111 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -162,7 +162,7 @@ public class TestCases
         String s = check ("2 77 pow dup toBits toBig",
                 ". sp .");
         System.out.println(s);
-        Assert.assertEquals("151115727451828646838272 151115727451828646838272 OK\n> ", s);
+        Assert.assertEquals("151115727451828646838272 151115727451828646838272 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -171,7 +171,7 @@ public class TestCases
         String s = check ("x^2+x x^2+x *",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("x^2+2x^3+x^4 OK\n> ", s);
+        Assert.assertEquals("x^2+2x^3+x^4 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -180,7 +180,7 @@ public class TestCases
         String s = check ("4x^5+3x^2 x^2-6 1 pick 1 pick / ",
                 ". .\" +(\" mod . .\" )\"");
         System.out.println(s);
-        Assert.assertEquals("3+24x+4x^3+(18+144x) OK\n> ", s);
+        Assert.assertEquals("3+24x+4x^3+(18+144x) OK\nJFORTH> ", s);
     }
 
     @Test
@@ -189,7 +189,7 @@ public class TestCases
         String s = check ("-13x^7+3x^5 x^2-6 /mod ",
                 ". sp .\" rest:\" .");
         System.out.println(s);
-        Assert.assertEquals("-450x-75x^3-13x^5 rest:1-2700x OK\n> ", s);
+        Assert.assertEquals("-450x-75x^3-13x^5 rest:1-2700x OK\nJFORTH> ", s);
     }
 
     @Test
@@ -198,7 +198,7 @@ public class TestCases
         String s = check ("12.0 7 / 100L * type ",
                 ". sp .\" - \" .");
         System.out.println(s);
-        Assert.assertEquals("BigInt - 100 OK\n> ", s);
+        Assert.assertEquals("BigInt - 100 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -207,7 +207,7 @@ public class TestCases
         String s = check ("10 dup dup",
                 "sin . sp cos . sp tan .");
         System.out.println(s);
-        Assert.assertEquals("-0.5440211108893698 -0.8390715290764524 0.6483608274590866 OK\n> ", s);
+        Assert.assertEquals("-0.5440211108893698 -0.8390715290764524 0.6483608274590866 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -224,7 +224,7 @@ public class TestCases
         String s = check ("hex 0a 14 *",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("C8 OK\n> ", s);
+        Assert.assertEquals("C8 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -233,7 +233,7 @@ public class TestCases
         String s = check (": *+ * + ;",
                 "5 6 7 *+ .");
         System.out.println(s);
-        Assert.assertEquals("47 OK\n> ", s);
+        Assert.assertEquals("47 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -243,7 +243,7 @@ public class TestCases
                         "3 x !",
                 "x @ .");
         System.out.println(s);
-        Assert.assertEquals("3 OK\n> ", s);
+        Assert.assertEquals("3 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -252,7 +252,7 @@ public class TestCases
         String s = check ("4711 constant bla",
                 "bla .");
         System.out.println(s);
-        Assert.assertEquals("4711 OK\n> ", s);
+        Assert.assertEquals("4711 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -261,7 +261,7 @@ public class TestCases
         String s = check ("1 2 3 4 5 6 tuck",
                 ". . . . . . .");
         System.out.println(s);
-        Assert.assertEquals("6564321 OK\n> ", s);
+        Assert.assertEquals("6564321 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -270,7 +270,7 @@ public class TestCases
         String s = check (": konto dup abs . 0< if \"soll\" . else \"haben\" . then ;",
                 "0 konto -1 konto");
         System.out.println(s);
-        Assert.assertEquals("0haben1soll OK\n> ", s);
+        Assert.assertEquals("0haben1soll OK\nJFORTH> ", s);
     }
 
     @Test
@@ -279,7 +279,7 @@ public class TestCases
         String s = check (": rtest dup 0< if sp \"stop\" . else 1 - dup sp . recurse then ;",
                 "6 rtest");
         System.out.println(s);
-        Assert.assertEquals(" 5 4 3 2 1 0 -1 stop OK\n> ", s);
+        Assert.assertEquals(" 5 4 3 2 1 0 -1 stop OK\nJFORTH> ", s);
     }
 
     @Test
@@ -289,7 +289,7 @@ public class TestCases
         String s = check (": test 0 begin dup . 1+ dup 5 = until ;",
                 "test");
         System.out.println(s);
-        Assert.assertEquals("01234 OK\n> ", s);
+        Assert.assertEquals("01234 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -298,7 +298,7 @@ public class TestCases
         String s = check ("0 begin dup . 6 + dup 99 >",
                 "until");
         System.out.println(s);
-        Assert.assertEquals("06121824303642485460667278849096 OK\n> ", s);
+        Assert.assertEquals("06121824303642485460667278849096 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -308,7 +308,7 @@ public class TestCases
         String s = check (": test 0 1 2 3 4 5 begin . again ;",
                 "test");
         System.out.println(s);
-        Assert.assertEquals("543210test word execution or stack error\n> ", s);
+        Assert.assertEquals("543210test word execution or stack error\nJFORTH> ", s);
     }
 
     @Test
@@ -318,7 +318,7 @@ public class TestCases
         String s = check ("0 1 2 3 4 5 begin .",
                 "again");
         System.out.println(s);
-        Assert.assertEquals("543210 OK\n> ", s);
+        Assert.assertEquals("543210 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -328,7 +328,7 @@ public class TestCases
         String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if \"-\" . then again ;",
                 "test");
         System.out.println(s);
-        Assert.assertEquals("1098765-4-3-2-1-0test word execution or stack error\n> ", s);
+        Assert.assertEquals("1098765-4-3-2-1-0test word execution or stack error\nJFORTH> ", s);
     }
 
     @Test
@@ -338,7 +338,7 @@ public class TestCases
         String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if break then again ;",
                 "test");
         System.out.println(s);
-        Assert.assertEquals("1098765 OK\n> ", s);
+        Assert.assertEquals("1098765 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -350,7 +350,7 @@ public class TestCases
                         ": check test fump ;",
                     "check");
         System.out.println(s);
-        Assert.assertEquals("1098765          lala OK\n> ", s);
+        Assert.assertEquals("1098765          lala OK\nJFORTH> ", s);
     }
 
     @Test
@@ -359,7 +359,7 @@ public class TestCases
         String s = check ("1/2 1/8 1/32 1/128",
                 "+ + + .");
         System.out.println(s);
-        Assert.assertEquals("85/128 OK\n> ", s);
+        Assert.assertEquals("85/128 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -368,7 +368,7 @@ public class TestCases
         String s = check ("\"lala\" \"dumm\"",
                 "+ 2 * .");
         System.out.println(s);
-        Assert.assertEquals("laladummlaladumm OK\n> ", s);
+        Assert.assertEquals("laladummlaladumm OK\nJFORTH> ", s);
     }
 
     @Test
@@ -377,7 +377,7 @@ public class TestCases
         String s = check ("{1.2,2.3,3,4,4.5} type",
                 ". .");
         System.out.println(s);
-        Assert.assertEquals("DoubleSequence{1.2,2.3,3,4,4.5} OK\n> ", s);
+        Assert.assertEquals("DoubleSequence{1.2,2.3,3,4,4.5} OK\nJFORTH> ", s);
     }
 
     @Test
@@ -386,7 +386,7 @@ public class TestCases
         String s = check ("{{1,2,3}{4,5}{6,7,8,9}} toList",
                 ". . .");
         System.out.println(s);
-        Assert.assertEquals("{6,7,8,9}{4,5,0,0}{1,2,3,0} OK\n> ", s);
+        Assert.assertEquals("{6,7,8,9}{4,5,0,0}{1,2,3,0} OK\nJFORTH> ", s);
     }
 
     @Test
@@ -395,7 +395,7 @@ public class TestCases
         String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toM",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}} OK\n> ", s);
+        Assert.assertEquals("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}} OK\nJFORTH> ", s);
     }
 
     @Test
@@ -404,7 +404,7 @@ public class TestCases
         String s = check ("{{1,2,3}{4,5,6}{7,8,1}} detM 3 round",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("24.0 OK\n> ", s);
+        Assert.assertEquals("24.0 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -413,7 +413,7 @@ public class TestCases
         String s = check (" {{1,2,3}{4,5,6}{7,8,1}} lupM",
                 ". . .");
         System.out.println(s);
-        Assert.assertEquals("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}} OK\n> ", s);
+        Assert.assertEquals("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}} OK\nJFORTH> ", s);
     }
 
     @Test
@@ -422,7 +422,7 @@ public class TestCases
         String s = check ("{1,1,2,4,3,9} fitPoly 3 round",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("x^2 OK\n> ", s);
+        Assert.assertEquals("x^2 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -431,7 +431,7 @@ public class TestCases
         String s = check ("{1,2,2,4,3,9} lagPoly",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("3-2.5x+1.5x^2 OK\n> ", s);
+        Assert.assertEquals("3-2.5x+1.5x^2 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -440,7 +440,7 @@ public class TestCases
         String s = check ("\"peter\" \"doof\" mix toString",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("pdeotoefr OK\n> ", s);
+        Assert.assertEquals("pdeotoefr OK\nJFORTH> ", s);
     }
 
     @Test
@@ -449,7 +449,7 @@ public class TestCases
         String s = check ("0.5 10 pow 4 round",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("0.001 OK\n> ", s);
+        Assert.assertEquals("0.001 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -458,25 +458,25 @@ public class TestCases
         String s = check ("hex 1fff 1 xor",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("1FFE OK\n> ", s);
+        Assert.assertEquals("1FFE OK\nJFORTH> ", s);
     }
 
     @Test
     public void TestEval()
     {
-        String s = check ("\"text='';for(i=0;i<10;i++)text+=3*i+'-';\" eval",
+        String s = check ("\"text='';for(i=0;i<10;i++)text+=3*i+'-';\" js",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("0-3-6-9-12-15-18-21-24-27- OK\n> ", s);
+        Assert.assertEquals("0-3-6-9-12-15-18-21-24-27- OK\nJFORTH> ", s);
     }
 
     @Test
     public void TestEval2()
     {
-        String s = check ("\"str='Visit_W3Schools';n=str.search(/w3schools/i);\" eval",
+        String s = check ("\"str='Visit_W3Schools';n=str.search(/w3schools/i);\" js",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("6 OK\n> ", s);
+        Assert.assertEquals("6 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -486,7 +486,7 @@ public class TestCases
                 ".");
         String s = check ("\"lala\" openReader readLine swap readLine rot +",
                 ".");
-        Assert.assertEquals("*EOF*hallo_doof OK\n> ", s);
+        Assert.assertEquals("*EOF*hallo_doof OK\nJFORTH> ", s);
     }
 
 }

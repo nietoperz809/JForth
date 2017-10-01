@@ -21,8 +21,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "831";
-    public static final String BUILD_DATE = "09/29/2017 03:55:16 AM";
+    public static final String BUILD_NUMBER = "867";
+    public static final String BUILD_DATE = "10/01/2017 04:36:25 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -350,6 +350,43 @@ public class Utilities
         return getBig(o);
     }
 
+    public static boolean fileSave (ArrayList<String>as, String filename)
+    {
+        try
+        {
+            FileWriter fw = new FileWriter(filename);
+            for (String str : as)
+                fw.write(str+"\n");
+            fw.close();
+        }
+        catch (IOException e)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static ArrayList<String> fileLoad (String fileName)
+    {
+        ArrayList<String> ret = new ArrayList<>();
+        try
+        {
+            BufferedReader file = new BufferedReader(
+                    new FileReader(fileName));
+            while (file.ready())
+            {
+                String s = file.readLine().trim();
+                if (!s.isEmpty())
+                    ret.add(s);
+            }
+            file.close();
+        }
+        catch (Exception e)
+        {
+            //return ret;
+        }
+        return ret;
+    }
 
     public static String readString (OStack dStack) throws Exception
     {

@@ -29,11 +29,14 @@ final class PredefinedWords
     private final JForth _jforth;
     private final WordsList _wl;
     private static Voice voice = null;
+    private LineEdit _le;
+
 
     PredefinedWords (JForth jf, WordsList wl)
     {
         this._wl = wl;
         this._jforth = jf;
+        _le = new LineEdit(System.in, jf._out);
         fill(wl);
     }
 
@@ -42,6 +45,7 @@ final class PredefinedWords
         if (voice == null)
         {
             KevinVoiceDirectory dir = new KevinVoiceDirectory();
+            //AlanVoiceDirectory dir = new AlanVoiceDirectory();
             voice = dir.getVoices()[0];
             voice.allocate();
         }
@@ -3116,7 +3120,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "load", false, "load program file",
+                        "runFile", false, "run program file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3186,6 +3190,40 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             _jforth.history.clear();
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "editor", false, "Enter line editor",
+                        (dStack, vStack) ->
+                        {
+                            _le.run();
+                            String s = _le.toString();
+                            if (!s.isEmpty())
+                                dStack.push(_le.toString());
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "run", false, "Runs program in editor",
+                        (dStack, vStack) ->
+                        {
+                            String s = _le.toString();
+                            _jforth.interpretLine(s);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "list", false, "Show program in editor",
+                        (dStack, vStack) ->
+                        {
+                            dStack.push(_le.toString());
                             return 1;
                         }
                 ));

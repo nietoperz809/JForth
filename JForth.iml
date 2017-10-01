@@ -30,5 +30,7 @@
     </orderEntry>
     <orderEntry type="library" name="cmulex" level="project" />
     <orderEntry type="library" name="cmu_us_kal-1.2.2" level="project" />
+    <orderEntry type="library" name="cmu_time_awb-1.2.2" level="project" />
+    <orderEntry type="library" name="cmutimelex" level="project" />
   </component>
 </module>

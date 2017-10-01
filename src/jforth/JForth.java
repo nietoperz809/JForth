@@ -7,6 +7,7 @@ import org.fusesource.jansi.AnsiConsole;
 import scala.math.BigInt;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,7 +21,7 @@ public class JForth
     private static final String ANSI_NORMAL = "\u001b[0m";
     // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
     private static final String ANSI_ERROR = "\u001b[93;41m";
-    private static final String PROMPT = "\n> ";
+    private static final String PROMPT = "\nJFORTH> ";
     private static final String OK = " OK";
     private static final int HISTORY_LENGTH = 1000;
     public final Random random;
@@ -41,13 +42,18 @@ public class JForth
         base = 10;
         random = new Random();
         history = new History(HISTORY_LENGTH);
+        _out = System.out;
         new PredefinedWords(this, dictionary);
     }
 
     public JForth (PrintStream out)
     {
-        this();
+        compiling = false;
+        base = 10;
+        random = new Random();
+        history = new History(HISTORY_LENGTH);
         _out = out;
+        new PredefinedWords(this, dictionary);
     }
 
     public static void main (String[] args) throws IOException, ClassNotFoundException
@@ -62,6 +68,10 @@ public class JForth
         _out = printStream;
     }
 
+    /**
+     * Execute one line and generate output
+     * @param input String containung forth commands
+     */
     public void singleShot (String input)
     {
         history.add(input);
@@ -428,43 +438,12 @@ public class JForth
 
     public int fileLoad (String fileName)
     {
-        File f = new File(fileName);
-        if (!f.exists())
+        ArrayList<String> as = Utilities.fileLoad(fileName);
+        for (String s : as)
         {
-            return 0;
+            if (interpretLine(s))
+                return 0;
         }
-        BufferedReader file = null;
-        try
-        {
-            FileReader fr = new FileReader(fileName);
-            file = new BufferedReader(fr);
-            String text = file.readLine();
-            while (text != null)
-            {
-                //_out.println(text);
-                if (interpretLine(text))
-                {
-                    return 0;
-                }
-                text = file.readLine();
-            }
-            return 1;
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            return 0;
-        }
-        finally
-        {
-            try
-            {
-                assert file != null;
-                file.close();
-            }
-            catch (Exception ignored)
-            {
-            }
-        }
+        return 1;
     }
 }
