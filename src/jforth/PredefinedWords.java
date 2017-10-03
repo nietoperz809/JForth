@@ -1,7 +1,5 @@
 package jforth;
 
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import jforth.scalacode.MyMath;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -22,33 +20,22 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 final class PredefinedWords
 {
-    public static final String IMMEDIATE = "__immediate";
+    private static final String IMMEDIATE = "__immediate";
     private final JForth _jforth;
     private final WordsList _wl;
-    private static Voice voice = null;
-    private LineEdit _lineEditor;
 
+    public static final String SAVEHIST = "saveHist";
+    public static final String PLAYHIST = "playHist";
 
     PredefinedWords (JForth jf, WordsList wl)
     {
         this._wl = wl;
         this._jforth = jf;
-        _lineEditor = new LineEdit(System.in, jf._out);
         fill(wl);
-    }
-
-    private static void loadVoice()
-    {
-        if (voice == null)
-        {
-            KevinVoiceDirectory dir = new KevinVoiceDirectory();
-            //AlanVoiceDirectory dir = new AlanVoiceDirectory();
-            voice = dir.getVoices()[0];
-            voice.allocate();
-        }
     }
 
     private void fill (WordsList _fw)
@@ -132,8 +119,7 @@ final class PredefinedWords
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                loadVoice();
-                                voice.speak(ss);
+                                JForth.speak(ss);
                                 return 1;
                             }
                             catch (Exception ex)
@@ -954,7 +940,7 @@ final class PredefinedWords
                             try
                             {
                                 Long i1 = Utilities.readLong(dStack);
-                                dStack.push((i1 == JForth.FALSE) ? JForth.TRUE : JForth.FALSE);
+                                dStack.push((Objects.equals(i1, JForth.FALSE)) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             }
                             catch (Exception e)
@@ -1476,7 +1462,7 @@ final class PredefinedWords
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            String outstr = _jforth.stackElementToString(o, _jforth.base);
+                            String outstr = _jforth.ObjectToString(o);
                             if (outstr == null)
                             {
                                 return 0;
@@ -1516,7 +1502,7 @@ final class PredefinedWords
                         {
                             for (Object o : dStack)
                             {
-                                _jforth._out.print(_jforth.stackElementToString(o, _jforth.base) + " ");
+                                _jforth._out.print(_jforth.ObjectToString(o) + " ");
                             }
                             return 1;
                         }
@@ -2227,8 +2213,8 @@ final class PredefinedWords
                         "mix", false, "Mix two Lists",
                         (dStack, vStack) ->
                         {
-                            DoubleSequence o1 = null;
-                            DoubleSequence o2 = null;
+                            DoubleSequence o1;
+                            DoubleSequence o2;
                             try
                             {
                                 o1 = Utilities.readDoubleSequence(dStack);
@@ -2879,18 +2865,13 @@ final class PredefinedWords
                         "fact", false, "Factorial",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                Long ol = (Long) o1;
+                                Long ol = Utilities.readLong(dStack);
                                 dStack.push(MyMath.factorial(ol));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -2902,17 +2883,13 @@ final class PredefinedWords
                         "log10", false, "Logarithm to base 10",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
-                                dStack.push(Math.log10((Double) o1));
+                                Double d = Utilities.readDouble(dStack);
+                                dStack.push(Math.log10(d));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3138,7 +3115,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "saveHist", false, "Save history",
+                        SAVEHIST, false, "Save history",
                         (dStack, vStack) ->
                         {
                             try
@@ -3172,7 +3149,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "playHist", false, "Execute History",
+                        PLAYHIST, false, "Execute History",
                         (dStack, vStack) ->
                         {
                             _jforth.play();
@@ -3195,10 +3172,8 @@ final class PredefinedWords
                         "editor", false, "Enter line editor",
                         (dStack, vStack) ->
                         {
-                            _lineEditor.run();
-                            String s = _lineEditor.toString();
-                            if (!s.isEmpty())
-                                dStack.push(_lineEditor.toString());
+                            _jforth._out.println("Type #h for help ...");
+                            _jforth.mode = MODE.EDIT;
                             return 1;
                         }
                 ));
@@ -3208,7 +3183,7 @@ final class PredefinedWords
                         "run", false, "Runs program in editor",
                         (dStack, vStack) ->
                         {
-                            String s = _lineEditor.toString();
+                            String s = _jforth._lineEditor.toString();
                             _jforth.interpretLine(s);
                             return 1;
                         }
@@ -3216,10 +3191,10 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "list", false, "Show program in editor",
+                        "list", false, "Put program in editor on stack",
                         (dStack, vStack) ->
                         {
-                            dStack.push(_lineEditor.toString());
+                            dStack.push(_jforth._lineEditor.toString());
                             return 1;
                         }
                 ));
@@ -3229,28 +3204,17 @@ final class PredefinedWords
                         "gaussian", false, "Gaussian random number",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o = dStack.pop();
-                            if (o instanceof Long)
-                            {
-                                long mult = (Long) o;
-                                double number = _jforth.random.nextGaussian() * mult;
-                                dStack.push((long) number);
-                            }
-                            else if (o instanceof Double)
-                            {
-                                double mult = (Double) o;
-                                double number = _jforth.random.nextGaussian() * mult;
+                                Long lo = Utilities.readLong(dStack);
+                                double number = _jforth.random.nextGaussian() * lo;
                                 dStack.push(number);
+                                return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            return 1;
                         }
                 ));
 
@@ -3259,28 +3223,17 @@ final class PredefinedWords
                         "random", false, "Pseudo random number",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o = dStack.pop();
-                            if (o instanceof Long)
-                            {
-                                long mult = (Long) o;
-                                double number = _jforth.random.nextDouble() * mult;
-                                dStack.push((long) number);
-                            }
-                            else if (o instanceof Double)
-                            {
-                                double mult = (Double) o;
-                                double number = _jforth.random.nextDouble() * mult;
+                                Long lo = Utilities.readLong(dStack);
+                                double number = _jforth.random.nextDouble() * lo;
                                 dStack.push(number);
+                                return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            return 1;
                         }
                 ));
 
@@ -3289,26 +3242,14 @@ final class PredefinedWords
                         "openByteReader", false, "Open file for reading",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
-                                try
-                                {
-                                    File f = new File((String) o1);
-                                    dStack.push(new FileInputStream(f));
-                                }
-                                catch (IOException ioe)
-                                {
-                                    ioe.printStackTrace();
-                                    return 0;
-                                }
+                                String str = Utilities.readString(dStack);
+                                File f = new File(str);
+                                dStack.push(new FileInputStream(f));
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3557,7 +3498,7 @@ final class PredefinedWords
                             try
                             {
                                 String o1 = Utilities.readString(dStack);
-                                File f = new File((String) o1);
+                                File f = new File(o1);
                                 dStack.push(new BufferedReader(new FileReader(f)));
                                 return 1;
                             }
@@ -3663,7 +3604,7 @@ final class PredefinedWords
                             {
                                 String o2 = Utilities.readString(dStack);
                                 Object o1 = dStack.peek();
-                                ((PrintStream) o1).print((String) o2);
+                                ((PrintStream) o1).print(o2);
                                 return 1;
                             }
                             catch (Exception e)
@@ -4040,7 +3981,7 @@ final class PredefinedWords
         }
         else if ((o1 instanceof String) && (o2 instanceof String))
         {
-            String s = (String) o2 + (String) o1;
+            String s = (String)o2 + (String)o1;
             dStack.push(s);
         }
         else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
