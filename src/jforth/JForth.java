@@ -1,15 +1,25 @@
 package jforth;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
 import scala.math.BigInt;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.StreamTokenizer;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import static jforth.MODE.DIRECT;
+
+enum MODE {EDIT, DIRECT}
+
 
 public class JForth
 {
@@ -21,29 +31,28 @@ public class JForth
     private static final String ANSI_NORMAL = "\u001b[0m";
     // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
     private static final String ANSI_ERROR = "\u001b[93;41m";
-    private static final String PROMPT = "\nJFORTH> ";
+    private static final String FORTHPROMPT = "\nJFORTH> ";
+    private static final String EDITORPROMPT = "\nEdit> ";
     private static final String OK = " OK";
     private static final int HISTORY_LENGTH = 1000;
+    private static Voice voice = null;
     public final Random random;
     public final History history;
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
+    public MODE mode = DIRECT;
     public transient PrintStream _out; // output channel
     public boolean compiling;
     public int base;
     public NonPrimitiveWord wordBeingDefined = null;
-    private StreamTokenizer st = null;
     public BaseWord currentWord;
+    public LineEdit _lineEditor;
+    private StreamTokenizer st = null;
 
     public JForth ()
     {
-        compiling = false;
-        base = 10;
-        random = new Random();
-        history = new History(HISTORY_LENGTH);
-        _out = System.out;
-        new PredefinedWords(this, dictionary);
+        this (System.out);
     }
 
     public JForth (PrintStream out)
@@ -54,47 +63,84 @@ public class JForth
         history = new History(HISTORY_LENGTH);
         _out = out;
         new PredefinedWords(this, dictionary);
+        _lineEditor = new LineEdit(System.in, out);
     }
 
-    public static void main (String[] args) throws IOException, ClassNotFoundException
+    /**
+     * Call speech output
+     * @param txt Text to speak
+     */
+    public static void speak(String txt)
+    {
+        if (voice == null)
+        {
+            KevinVoiceDirectory dir = new KevinVoiceDirectory();
+            //AlanVoiceDirectory dir = new AlanVoiceDirectory();
+            voice = dir.getVoices()[0];
+            voice.allocate();
+        }
+        voice.speak(txt);
+    }
+
+    /**
+     * Starting point
+     * @param args not used
+     * @throws Exception not used
+     */
+    public static void main (String[] args) throws Exception
     {
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
-        forth.outerInterpreter();
-    }
-
-    public void setPrintStream (PrintStream printStream)
-    {
-        _out = printStream;
+        forth.mainLoop();
     }
 
     /**
      * Execute one line and generate output
-     * @param input String containung forth commands
+     * @param input String containing forth commands
      */
     public void singleShot (String input)
     {
-        history.add(input);
-        if (interpretLine(input))
+        if (mode == DIRECT)
         {
-            if (_out == AnsiConsole.out)
-                _out.print(input + " - " + ANSI_ERROR +
-                        " word execution or stack error " +
-                        ANSI_NORMAL);
+            if (!interpretLine(input))
+            {
+                if (_out == AnsiConsole.out)
+                    _out.print(input + " - " + ANSI_ERROR +
+                            " word execution or stack error " +
+                            ANSI_NORMAL);
+                else
+                    _out.print(input +
+                            " word execution or stack error");
+                dStack.removeAllElements();
+            }
             else
-                _out.print(input +
-                        " word execution or stack error");
-            dStack.removeAllElements();
+            {
+                history.add(input);
+                _out.print(OK);
+            }
+        }
+        else // mode == EDIT
+        {
+            if (!_lineEditor.handleLine(input))
+            {
+                mode = DIRECT;
+            }
+        }
+        if (mode == DIRECT)
+        {
+            _out.print (FORTHPROMPT);
         }
         else
         {
-            _out.print(OK);
+            _out.print (EDITORPROMPT);
         }
-        _out.print(PROMPT);
         _out.flush();
     }
 
-    private void outerInterpreter ()
+    /**
+     * Main loop
+     */
+    private void mainLoop ()
     {
         dStack.removeAllElements();
         Scanner scanner = new Scanner(System.in);
@@ -106,7 +152,7 @@ public class JForth
         }
         catch (Exception unused)
         {
-            // execution error
+            // execution error, file not found
         }
         while (true)
         {
@@ -114,6 +160,82 @@ public class JForth
         }
     }
 
+    /**
+     * Make human-readable String from object
+     * @param o
+     * @return
+     */
+    public String ObjectToString (Object o)
+    {
+        String outstr;
+        if (o == null)
+            return null;
+        if (o instanceof Long)
+        {
+            outstr = Long.toString((Long) o, base).toUpperCase();
+        }
+//        else if (o instanceof DoubleMatrix)
+//        {
+//            outstr = o.toString();
+//        }
+//        else if (o instanceof DoubleSequence)
+//        {
+//            outstr = o.toString();
+//        }
+        else if (o instanceof Double)
+        {
+            outstr = Double.toString((Double) o);
+        }
+        else if (o instanceof Complex)
+        {
+            outstr = Utilities.formatComplex((Complex) o);
+        }
+        else if (o instanceof Fraction)
+        {
+            outstr = Utilities.formatFraction((Fraction) o);
+        }
+        else if (o instanceof String)
+        {
+            outstr = (String) o;
+        }
+        else if (o instanceof PolynomialFunction)
+        {
+            outstr = PolySupport.formatPoly((PolynomialFunction) o);
+        }
+        else if (o instanceof BigInt)
+        {
+            outstr = o.toString();
+        }
+        else
+        {
+            outstr = o.toString();
+        }
+        if (_out == AnsiConsole.out)
+            return ANSI_YELLOW + ANSI_BOLD + outstr + ANSI_NORMAL;
+        return outstr;
+    }
+
+    /**
+     * Run the history
+     */
+    public void play ()
+    {
+        for (String s : history.history)
+        {
+            if (!interpretLine(s))
+            {
+                dStack.removeAllElements();
+            }
+            _out.print (FORTHPROMPT);
+            _out.flush();
+        }
+    }
+
+    /**
+     * Run a single line of FORTH statements
+     * @param text The line
+     * @return false if an error occured
+     */
     public boolean interpretLine (String text)
     {
         try
@@ -130,7 +252,7 @@ public class JForth
                 String word = st.sval;
                 if (word.equals("\\"))   // Comment until line end
                 {
-                    return false;
+                    return true;
                 }
                 if (word.equals("(")) // filter out comments
                 {
@@ -150,24 +272,24 @@ public class JForth
                 {
                     if (!doInterpret(word, st))
                     {
-                        return true;
+                        return false;
                     }
                 }
                 else
                 {
                     if (!doCompile(word, st))
                     {
-                        return true;
+                        return false;
                     }
                 }
                 ttype = st.nextToken();
             }
-            return false;
+            return true;
         }
         catch (Exception e)
         {
             //e.printStackTrace();
-            return true;
+            return false;
         }
     }
 
@@ -199,7 +321,6 @@ public class JForth
             }
             if (bw.execute(dStack, vStack) == 0)
             {
-                history.removeLast();
                 return false;
             }
             return true;
@@ -259,7 +380,6 @@ public class JForth
             return true;
         }
         _out.print(word + " ?");
-        history.removeLast();
         return false;
     }
 
@@ -354,73 +474,6 @@ public class JForth
         _out.print(word + " ?");
         compiling = false;
         return false;
-    }
-
-    public String stackElementToString (Object o, int base)
-    {
-        String outstr;
-        if (o == null)
-            return null;
-        if (o instanceof Long)
-        {
-            outstr = Long.toString((Long) o, base).toUpperCase();
-        }
-//        else if (o instanceof DoubleMatrix)
-//        {
-//            outstr = o.toString();
-//        }
-//        else if (o instanceof DoubleSequence)
-//        {
-//            outstr = o.toString();
-//        }
-        else if (o instanceof Double)
-        {
-            outstr = Double.toString((Double) o);
-        }
-        else if (o instanceof Complex)
-        {
-            outstr = Utilities.formatComplex((Complex) o);
-        }
-        else if (o instanceof Fraction)
-        {
-            outstr = Utilities.formatFraction((Fraction) o);
-        }
-        else if (o instanceof String)
-        {
-            outstr = (String) o;
-        }
-        else if (o instanceof PolynomialFunction)
-        {
-            outstr = PolySupport.formatPoly((PolynomialFunction) o);
-        }
-        else if (o instanceof BigInt)
-        {
-            outstr = o.toString();
-        }
-        else
-        {
-            outstr = o.toString();
-        }
-        if (_out != AnsiConsole.out)
-            return outstr;
-        return ANSI_YELLOW + ANSI_BOLD + outstr + ANSI_NORMAL;
-    }
-
-    public void play ()
-    {
-        for (String s : history.history)
-        {
-            if (s.equals("playHist"))
-            {
-                continue;
-            }
-            _out.println(s);
-            if (interpretLine(s))
-            {
-                dStack.removeAllElements();
-            }
-            _out.flush();
-        }
     }
 
     public String getNextToken ()
