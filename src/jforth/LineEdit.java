@@ -3,7 +3,6 @@ package jforth;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Line Editor: -->
@@ -32,54 +31,34 @@ public class LineEdit
                     " #l         -- List (with line numbers)\n" +
                     " #t         -- print list as String\n" +
                     " #c         -- clear all\n" +
-                    " #x         -- leave line editor. Content is pushed on forth stack\n" +
+                    " #h         -- this help text\n" +
+                    " #dir       -- List directory\n" +
+                    " #x         -- leave line editor\n" +
                     " #r text    -- read file where text is the file name\n" +
                     " #s test    -- save file where text is the file name\n" +
                     " #innn text -- Insert before, where nnn is the line number and text is the content\n" +
                     " #nnn      -- Delete line nnn\n" +
-                    "\n" +
-                    " ... any other input is appended.\n" +
-                    " Type \"editor\" to enter the line editor\n";
+                    " ... any other input is appended to the buffer.";
 
     public LineEdit (InputStream i, PrintStream p)
     {
         _in = i;
         _out = p;
-
-        p.println(helpText);
     }
 
     private void printErr()
     {
-        _out.println("ERROR");
+        _out.print("ERROR");
+        _out.flush();
     }
 
-    /**
-     * Tester
-     *
-     * @param args
-     */
-    public static void main (String[] args)
+    private void printOk()
     {
-        LineEdit le = new LineEdit(System.in, System.out);
-        le.run();
+        _out.print("OK");
+        _out.flush();
     }
 
-    public void run ()
-    {
-        Scanner scanner = new Scanner(_in);
-        while (true)
-        {
-            _out.print("Edit: ");
-            _out.flush();
-            if (!handleLine(scanner.nextLine().trim()))
-            {
-                break;
-            }
-        }
-    }
-
-    private boolean handleLine (String in)
+    public boolean handleLine (String in)
     {
         if (in.startsWith("#"))
         {
@@ -122,6 +101,7 @@ public class LineEdit
             }
             try
             {
+                boolean retval = true;
                 if (cmd.equals("l")) // List with line numbers
                 {
                     for (int s = 0; s < list.size(); s++)
@@ -153,20 +133,31 @@ public class LineEdit
                 {
                     save(args);
                 }
+                else if (cmd.equals("h"))   // save program
+                {
+                    _out.println(helpText);
+                }
                 else if (cmd.equals("dir")) // show directory
                 {
                     String s = Utilities.dir(".");
-                    _out.println(s);
+                    _out.println(s.trim());
                 }
                 else if (cmd.equals("x"))   // leave editor
                 {
-                    return false;
+                    retval = false;
                 }
                 else if (cmd.startsWith("i"))
                 {
                     int pos = Integer.parseInt(cmd.substring(1));
                     list.add(pos, args);
                 }
+                else
+                {
+                    printErr();
+                    return true;
+                }
+                printOk();
+                return retval;
             }
             catch (Exception e)
             {
@@ -178,6 +169,7 @@ public class LineEdit
             if (in.length() > 0)
             {
                 list.add(in);
+                printOk();
             }
         }
         return true;

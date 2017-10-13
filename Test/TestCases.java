@@ -15,8 +15,8 @@ public class TestCases
     private String check (String prg, String call)
     {
         StringStream _ss = new StringStream();
-        JForth _forth = new JForth();
-        _forth.setPrintStream(_ss.getPrintStream());
+        JForth _forth = new JForth(_ss.getPrintStream());
+//        _forth.setPrintStream(_ss.getPrintStream());
         _forth.singleShot(prg);
         _ss.clear();
         _forth.singleShot (call);

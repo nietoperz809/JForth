@@ -1,16 +1,15 @@
 package jforth;
 
-import com.cedarsoftware.util.io.JsonReader;
-import com.cedarsoftware.util.io.JsonWriter;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import scala.math.BigInt;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    public static final String BUILD_NUMBER = "870";
-    public static final String BUILD_DATE = "10/01/2017 06:38:36 PM";
+    private static final String BUILD_NUMBER = "896";
+    private static final String BUILD_DATE = "10/13/2017 06:14:58 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -143,23 +142,25 @@ public class Utilities
         return sb.toString();
     }
 
-    public static Object deepCopy (Object o)
-    {
-        try
-        {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            new ObjectOutputStream(baos).writeObject(o);
-
-            ByteArrayInputStream bais =
-                    new ByteArrayInputStream(baos.toByteArray());
-
-            return new ObjectInputStream(bais).readObject();
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
-    }
+// --Commented out by Inspection START (10/3/2017 10:45 AM):
+//    public static Object deepCopy (Object o)
+//    {
+//        try
+//        {
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            new ObjectOutputStream(baos).writeObject(o);
+//
+//            ByteArrayInputStream bais =
+//                    new ByteArrayInputStream(baos.toByteArray());
+//
+//            return new ObjectInputStream(bais).readObject();
+//        }
+//        catch (Exception ex)
+//        {
+//            return null;
+//        }
+//    }
+// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
 
     public static String removeTrailingZero (double v)
     {
@@ -226,20 +227,24 @@ public class Utilities
         }
     }
 
-    public static void saveObject (String name, Object obj) throws IOException
-    {
-        String j1 = JsonWriter.objectToJson(obj);
-        PrintWriter p = new PrintWriter(name + ".json");
-        p.println(JsonWriter.formatJson(j1));
-        p.close();
-    }
+// --Commented out by Inspection START (10/3/2017 10:45 AM):
+//    public static void saveObject (String name, Object obj) throws IOException
+//    {
+//        String j1 = JsonWriter.objectToJson(obj);
+//        PrintWriter p = new PrintWriter(name + ".json");
+//        p.println(JsonWriter.formatJson(j1));
+//        p.close();
+//    }
+// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
 
-    public static Object loadObject (String name) throws IOException
-    {
-        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
-        String s = new String(b);
-        return JsonReader.jsonToJava(s);
-    }
+// --Commented out by Inspection START (10/3/2017 10:45 AM):
+//    public static Object loadObject (String name) throws IOException
+//    {
+//        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
+//        String s = new String(b);
+//        return JsonReader.jsonToJava(s);
+//    }
+// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
 
     public static List<String> splitEqually (String text, int size)
     {
@@ -379,7 +384,7 @@ public class Utilities
         return getBig(o);
     }
 
-    static public BigInt getBig (Object o1) throws Exception
+    private static BigInt getBig (Object o1) throws Exception
     {
         if (o1 instanceof BigInt)
         {
@@ -454,7 +459,7 @@ public class Utilities
         return getComplex(dStack.pop());
     }
 
-    static public Complex getComplex (Object o1) throws Exception
+    private static Complex getComplex (Object o1) throws Exception
     {
         if (o1 instanceof Complex)
         {

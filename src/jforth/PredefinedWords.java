@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.LongStream;
 
 final class PredefinedWords
 {
@@ -2730,6 +2731,25 @@ final class PredefinedWords
                                 Long o1 = Utilities.readLong(dStack);
                                 Long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.lcm(o1, o2));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "isPrime", false, "Primality test",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Long num = Utilities.readLong(dStack);
+                                boolean t = LongStream.rangeClosed(2, (long)Math.sqrt(num)).noneMatch(div-> num % div== 0);
+                                dStack.push(t ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             }
                             catch (Exception e)

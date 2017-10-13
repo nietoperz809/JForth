@@ -1,6 +1,6 @@
 package jforth;
 
-public final class PrimitiveWord extends BaseWord
+public class PrimitiveWord extends BaseWord
 {
   public PrimitiveWord(String name, boolean isImmediate, ExecuteIF eif)
   {
@@ -18,5 +18,5 @@ public final class PrimitiveWord extends BaseWord
     return eif.execute(dStack, vStack);
   }
 
-  private final ExecuteIF eif;
+  final ExecuteIF eif;
 }
