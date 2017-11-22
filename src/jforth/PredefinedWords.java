@@ -1555,7 +1555,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "binary", false, "Set number base to 2",
+                        "bin", false, "Set number base to 2",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 2;
@@ -1565,7 +1565,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "decimal", false, "Set number base to 10",
+                        "dec", false, "Set number base to 10",
                         (dStack, vStack) ->
                         {
                             _jforth.base = 10;

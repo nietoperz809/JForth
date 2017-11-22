@@ -24,6 +24,23 @@ public class TestCases
     }
 
     @Test
+    public void TestConversion()
+    {
+        String s = check ("hex a0 dec", ".");
+        System.out.println(s);
+        Assert.assertEquals("160 OK\nJFORTH> ", s);
+        s = check ("dec 65535 hex", ".");
+        System.out.println(s);
+        Assert.assertEquals("FFFF OK\nJFORTH> ", s);
+        s = check ("bin 10101010 hex", ".");
+        System.out.println(s);
+        Assert.assertEquals("AA OK\nJFORTH> ", s);
+        s = check ("hex 73 bin", ".");
+        System.out.println(s);
+        Assert.assertEquals("1110011 OK\nJFORTH> ", s);
+    }
+
+    @Test
     public void TestImmediate()
     {
         String s = check ("10 0 do i .", "loop");
