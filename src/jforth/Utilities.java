@@ -2,6 +2,7 @@ package jforth;
 
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import scala.math.BigInt;
@@ -20,8 +21,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "896";
-    private static final String BUILD_DATE = "10/13/2017 06:14:58 PM";
+    private static final String BUILD_NUMBER = "906";
+    private static final String BUILD_DATE = "12/24/2017 08:31:33 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -489,6 +490,20 @@ public class Utilities
             out[s] = Double.parseDouble(vals[s]);
         }
         return out;
+    }
+
+    public static Vector3D readVector3D (OStack dStack) throws Exception
+    {
+        DoubleSequence ds = readDoubleSequence(dStack);
+        double i2;
+        if (ds.length() > 3 || ds.length() < 2)
+            throw new Exception("wrong size");
+        if (ds.length() == 2)
+            i2 = 0;
+        else
+            i2 = ds.pick(2);
+        Vector3D v3 = new Vector3D(ds.pick(0), ds.pick(1), i2);
+        return v3;
     }
 
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception

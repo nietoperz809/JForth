@@ -6,15 +6,13 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 import scala.math.BigInt;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.DoubleStream;
 
 
@@ -28,6 +26,15 @@ public class DoubleSequence
     public DoubleSequence()
     {
 
+    }
+
+    public DoubleSequence (Vector3D v)
+    {
+        mem.add (v.getX());
+        mem.add (v.getY());
+        double z = v.getZ();
+        if (z != 0.0)
+            mem.add (z);
     }
 
     public DoubleSequence (String s)

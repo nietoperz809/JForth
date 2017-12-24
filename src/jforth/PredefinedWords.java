@@ -5,6 +5,7 @@ import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -1588,13 +1589,15 @@ final class PredefinedWords
                         "setbase", false, "Set a new number base",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
+                            try
                             {
-                                _jforth.base = (int) ((Long) o1).longValue();
+                                Long l = Utilities.readLong(dStack);
+                                if (l > 36 || l < 2)
+                                    return 0;
+                                _jforth.base = l.intValue();
                                 return 1;
                             }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -1753,7 +1756,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "r>", false, "Put variable on data stack",
+                        "r>", false, "Move variable to data stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.pop();
@@ -1764,7 +1767,7 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
-                        "r@", false, "Put variable on data stack",
+                        "r@", false, "Copy variable to data stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.peek();
@@ -2206,6 +2209,50 @@ final class PredefinedWords
                                 return 1;
                             }
                             return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "crossP", false, "Cross product of 3D vectors",
+                        (dStack, vStack) ->
+                        {
+                            Vector3D o1;
+                            Vector3D o2;
+                            try
+                            {
+                                o1 = Utilities.readVector3D(dStack);
+                                o2 = Utilities.readVector3D(dStack);
+                                Vector3D cp = o2.crossProduct(o1);
+                                dStack.push (new DoubleSequence(cp));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "dotP", false, "Dot product of 3D vectors",
+                        (dStack, vStack) ->
+                        {
+                            Vector3D o1;
+                            Vector3D o2;
+                            try
+                            {
+                                o1 = Utilities.readVector3D(dStack);
+                                o2 = Utilities.readVector3D(dStack);
+                                double dp = o2.dotProduct(o1);
+                                dStack.push (dp);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
