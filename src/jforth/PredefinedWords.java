@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.LongStream;
 
+import static org.apache.commons.math3.special.Gamma.gamma;
+import static org.mathIT.numbers.Riemann.zeta;
+
 final class PredefinedWords
 {
     private static final String IMMEDIATE = "__immediate";
@@ -2197,18 +2200,16 @@ final class PredefinedWords
                         "toFraction", false, "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
+                            try
                             {
-                                dStack.push(new Fraction((double) (Long) o1));
+                                double o1 = Utilities.readDouble(dStack);
+                                dStack.push(new Fraction(o1));
                                 return 1;
                             }
-                            else if (o1 instanceof Double)
+                            catch (Exception e)
                             {
-                                dStack.push(new Fraction((Double) o1));
-                                return 1;
+                                return 0;
                             }
-                            return 0;
                         }
                 ));
 
@@ -2990,6 +2991,44 @@ final class PredefinedWords
                             {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sin());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gamma", false, "Gamma funcction",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                double o1 = Utilities.readDouble(dStack);
+                                dStack.push(gamma(o1));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "zeta", false, "Riemann Zeta function",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Complex o1 = Utilities.readComplex(dStack);
+                                double[] s = {o1.getReal(), o1.getImaginary()};
+                                double[] z = zeta(s);
+                                dStack.push(new Complex (z[0], z[1]));
                                 return 1;
                             }
                             catch (Exception e)
@@ -4048,7 +4087,7 @@ final class PredefinedWords
         }
         else if ((o1 instanceof String) && (o2 instanceof String))
         {
-            String s = (String)o2 + (String)o1;
+            String s = (String)o2 + o1;
             dStack.push(s);
         }
         else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))

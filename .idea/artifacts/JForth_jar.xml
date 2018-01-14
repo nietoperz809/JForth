@@ -21,6 +21,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/cmu_us_kal-1.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/cmu_time_awb-1.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/cmutimelex.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mathIT.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

@@ -21,8 +21,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "906";
-    private static final String BUILD_DATE = "12/24/2017 08:31:33 AM";
+    private static final String BUILD_NUMBER = "912";
+    private static final String BUILD_DATE = "01/14/2018 02:00:08 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -344,6 +344,12 @@ public class Utilities
             double denom = ((Fraction) o1).getDenominator();
             double nume = ((Fraction) o1).getNumerator();
             return nume / denom;
+        }
+        if (o1 instanceof Complex)
+        {
+            Complex c = (Complex)o1;
+            if (c.getImaginary() == 0.0)
+                return c.getReal();
         }
         throw new Exception("Wrong args");
     }

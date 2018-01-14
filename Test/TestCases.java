@@ -38,6 +38,25 @@ public class TestCases
         s = check ("hex 73 bin", ".");
         System.out.println(s);
         Assert.assertEquals("1110011 OK\nJFORTH> ", s);
+        s = check ("3 setbase 10 10 20 + +", ".");
+        System.out.println(s);
+        Assert.assertEquals("110 OK\nJFORTH> ", s);
+    }
+
+    @Test
+    public void TestCrossProduct()
+    {
+        String s = check ("{1,2,3} {4,5,6} crossP", ".");
+        System.out.println(s);
+        Assert.assertEquals("{-3,6,-3} OK\nJFORTH> ", s);
+    }
+
+    @Test
+    public void TestDotProduct()
+    {
+        String s = check ("{1,2,3} {4,5,6} dotP", ".");
+        System.out.println(s);
+        Assert.assertEquals("32.0 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -504,6 +523,14 @@ public class TestCases
         String s = check ("\"lala\" openReader readLine swap readLine rot +",
                 ".");
         Assert.assertEquals("*EOF*hallo_doof OK\nJFORTH> ", s);
+    }
+
+    @Test
+    public void TestZeta()
+    {
+        String s = check ("-1 zeta toFraction",
+                ".");
+        Assert.assertEquals("-1/12 OK\nJFORTH> ", s);
     }
 
 }
