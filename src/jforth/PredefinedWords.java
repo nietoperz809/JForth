@@ -27,6 +27,7 @@ import java.util.stream.LongStream;
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
+
 final class PredefinedWords
 {
     private static final String IMMEDIATE = "__immediate";
@@ -2192,6 +2193,24 @@ final class PredefinedWords
                             Object o1 = dStack.peek();
                             dStack.push(o1.getClass().getSimpleName());
                             return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "big", false, "BigPrint",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String o1 = Utilities.readString(dStack);
+                                dStack.push (BigPrint.toBigString(o1));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 
