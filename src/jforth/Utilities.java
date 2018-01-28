@@ -7,10 +7,7 @@ import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import scala.math.BigInt;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "919";
-    private static final String BUILD_DATE = "01/18/2018 05:40:07 PM";
+    private static final String BUILD_NUMBER = "931";
+    private static final String BUILD_DATE = "01/28/2018 01:25:56 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
@@ -661,4 +658,28 @@ public class Utilities
         }
         throw new Exception("Wrong args");
     }
+
+    static public String extractResource (String name) throws IOException
+    {
+        String tempName = System.getProperty("java.io.tmpdir")+name;
+        if (!new File (tempName).exists())
+        {
+            InputStream inStream = ClassLoader.getSystemResourceAsStream(name);
+            OutputStream os = new FileOutputStream(tempName);
+            byte[] buff = new byte[1024];
+            for (; ; )
+            {
+                int r = inStream.read(buff);
+                if (r == -1)
+                {
+                    break;
+                }
+                os.write(buff, 0, r);
+            }
+            inStream.close();
+            os.close();
+        }
+        return tempName;
+    }
+
 }

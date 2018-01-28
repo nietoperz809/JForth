@@ -2216,6 +2216,65 @@ final class PredefinedWords
 
         _fw.add(new PrimitiveWord
                 (
+                        "sam", false, "Make SAM data",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String words = Utilities.readString(dStack);
+                                String wave = WavePlayer.toWaveString(words);
+                                dStack.push(wave);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "playStr", false, "Play Wave String",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String o1 = Utilities.readString(dStack);
+                                WavePlayer ae = new WavePlayer();
+                                ae.loadString(o1);
+                                ae.start();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "playFile", false, "Play Wave audio file",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String o1 = Utilities.readString(dStack);
+                                WavePlayer ae = new WavePlayer();
+                                ae.loadFile(o1);
+                                ae.start();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "toFraction", false, "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {

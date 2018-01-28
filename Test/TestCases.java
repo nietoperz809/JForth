@@ -1,8 +1,13 @@
 import jforth.JForth;
+import jforth.Utilities;
 import org.junit.Assert;
 import org.junit.Test;
 import tools.StringStream;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import static jforth.PolynomialParser.parsePolynomial;
@@ -533,4 +538,27 @@ public class TestCases
         Assert.assertEquals("-1/12 OK\nJFORTH> ", s);
     }
 
+    @Test
+    public void TestCopySamExe()
+    {
+        try
+        {
+            String res = Utilities.extractResource("sam.exe");
+            System.out.println(res);
+            Process process = new ProcessBuilder(res).start();
+            InputStream is = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+
+            while ((line = br.readLine()) != null)
+            {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e)
+        {
+            Assert.fail();
+        }
+    }
 }
