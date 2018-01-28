@@ -13,7 +13,8 @@ public class WavePlayer extends Thread
     private SourceDataLine auline = null;
     private FloatControl pan;
     private BufferedInputStream istream;
-    public static final Charset thisCharset = Charset.forName("ISO-8859-1");
+    private static final Object syncObject = new Object();
+    private static final Charset thisCharset = Charset.forName("ISO-8859-1");
 
     public static String toWaveString (String words) throws Exception
     {
@@ -54,6 +55,14 @@ public class WavePlayer extends Thread
     }
 
     public void run ()
+    {
+        synchronized (syncObject)
+        {
+            internalRun();
+        }
+    }
+
+    public void internalRun ()
     {
         AudioInputStream audioInputStream = null;
         try
