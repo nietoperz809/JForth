@@ -10,14 +10,19 @@ import java.nio.charset.Charset;
 
 public class WavePlayer extends Thread
 {
-    private SourceDataLine auline = null;
-    private FloatControl pan;
     private BufferedInputStream istream;
     private static final Object syncObject = new Object();
     private static final Charset thisCharset = Charset.forName("ISO-8859-1");
 
+    /**
+     * Run the SAM module and convert a text to speech data
+     * @param words Text to be spoken
+     * @return String containing wave file
+     * @throws Exception if smth gone wrong
+     */
     public static String toWaveString (String words) throws Exception
     {
+        words = words.replace('-','_');
         String res = Utilities.extractResource("sam.exe");
         Process process = new ProcessBuilder(
                 res, "-stdout", "dummy", words)
@@ -28,7 +33,7 @@ public class WavePlayer extends Thread
         try (Reader reader = new BufferedReader(new InputStreamReader
                 (is, thisCharset)))
         {
-            int c = 0;
+            int c;
             while ((c = reader.read()) != -1)
             {
                 textBuilder.append((char) c);
@@ -38,22 +43,36 @@ public class WavePlayer extends Thread
         return textBuilder.toString();
     }
 
+    /**
+     * LOad a file to be spoken
+     * @param wavfile file path
+     * @throws Exception if smth gone wrong
+     */
     public void loadFile (String wavfile) throws Exception
     {
         File soundFile = new File(wavfile);
         istream = new BufferedInputStream(new FileInputStream(soundFile));
     }
 
-    public void loadString (String data) throws Exception
+    /**
+     * load a string to be spoken
+     * @param data the string containing a wave file
+     */
+    public void loadString (String data)
     {
         istream = new BufferedInputStream(new ByteArrayInputStream (data.getBytes(thisCharset)));
     }
 
-    public void setVolume (float value)
-    {
-        pan.setValue(value);
-    }
+// --Commented out by Inspection START (1/28/2018 7:46 PM):
+//    public void setVolume (float value)
+//    {
+//        pan.setValue(value);
+//    }
+// --Commented out by Inspection STOP (1/28/2018 7:46 PM)
 
+    /**
+     * Thread starting point
+     */
     public void run ()
     {
         synchronized (syncObject)
@@ -62,9 +81,12 @@ public class WavePlayer extends Thread
         }
     }
 
-    public void internalRun ()
+    /**
+     * Player code executed inside thread
+     */
+    private void internalRun ()
     {
-        AudioInputStream audioInputStream = null;
+        AudioInputStream audioInputStream;
         try
         {
             audioInputStream = AudioSystem.getAudioInputStream(istream);
@@ -78,6 +100,7 @@ public class WavePlayer extends Thread
         AudioFormat format = audioInputStream.getFormat();
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
 
+        SourceDataLine auline;
         try
         {
             auline = (SourceDataLine) AudioSystem.getLine(info);
@@ -91,7 +114,7 @@ public class WavePlayer extends Thread
 
         if (auline.isControlSupported(FloatControl.Type.SAMPLE_RATE))
         {
-            pan = (FloatControl) auline
+            FloatControl pan = (FloatControl) auline
                     .getControl(FloatControl.Type.SAMPLE_RATE);
             pan.setValue(44000.0f);
         }

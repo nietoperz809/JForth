@@ -3471,21 +3471,16 @@ final class PredefinedWords
                         "dir", false, "Get directory",
                         (dStack, vStack) ->
                         {
-                            String path = ".";
-                            if (!dStack.empty())
+                            String path;
+                            try
                             {
-                                Object o = dStack.pop();
-                                if (o instanceof String)
-                                {
-                                    path = (String) o;
-                                }
-                                else
-                                {
-                                    dStack.push(o);
-                                }
+                                path = Utilities.readString(dStack);
                             }
-                            String s = Utilities.dir(path);
-                            dStack.push(s);
+                            catch (Exception e)
+                            {
+                                path = ".";
+                            }
+                            dStack.push(Utilities.dir(path));
                             return 1;
                         }
                 ));
@@ -3872,7 +3867,7 @@ final class PredefinedWords
                         {
                             _jforth._out.println("JForth will close now!");
                             _jforth._out.flush();
-                            Utilities.terminate(1000);
+                            Utilities.terminateSoon(1000);
                             return 1;
                         }
                 ));

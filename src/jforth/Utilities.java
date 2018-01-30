@@ -18,12 +18,12 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "933";
-    private static final String BUILD_DATE = "01/28/2018 06:58:59 PM";
+    private static final String BUILD_NUMBER = "940";
+    private static final String BUILD_DATE = "01/30/2018 10:01:24 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
 
-    static void terminate (int delay)
+    static void terminateSoon (int delay)
     {
         new Thread(() ->
         {
@@ -111,6 +111,7 @@ public class Utilities
     static String dir (String path)
     {
         StringBuilder sb = new StringBuilder();
+        path = path.replace('/','\\');
         File[] filesInFolder = new File(path).listFiles();
         if (filesInFolder == null)
         {
@@ -505,8 +506,7 @@ public class Utilities
             i2 = 0;
         else
             i2 = ds.pick(2);
-        Vector3D v3 = new Vector3D(ds.pick(0), ds.pick(1), i2);
-        return v3;
+        return new Vector3D(ds.pick(0), ds.pick(1), i2);
     }
 
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
@@ -659,6 +659,12 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
+    /**
+     * Copy resource from jar to temp polder
+     * @param name name of resource
+     * @return Full path to extracted file
+     * @throws IOException if smth gone wrong
+     */
     static public String extractResource (String name) throws IOException
     {
         String tempName = System.getProperty("java.io.tmpdir")+name;
