@@ -2,7 +2,7 @@ package jforth;
 
 import java.util.Stack;
 
-class OStack extends Stack<Object>
+public class OStack extends Stack<Object>
 {
     private final SizedStack<Object> saveStack = new SizedStack<>(1000);
 

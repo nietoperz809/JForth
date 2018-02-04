@@ -2,6 +2,7 @@ package jforth;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
+import jforth.forthwords.PredefinedWords;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -17,8 +18,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import static jforth.MODE.DIRECT;
-
-enum MODE {EDIT, DIRECT}
 
 
 public class JForth

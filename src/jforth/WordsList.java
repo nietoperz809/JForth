@@ -13,7 +13,7 @@ public class WordsList
         saveList = new TreeMap<>();
     }
 
-    void add (BaseWord bw)
+    public void add (BaseWord bw)
     {
         BaseWord old = wordsList.get(bw.name);
         if (old != null)
@@ -24,7 +24,7 @@ public class WordsList
         wordsList.put(bw.name, bw);
     }
 
-    String toString (boolean showDetail)
+    public String toString (boolean showDetail)
     {
         if (isEmpty())
         {
@@ -81,7 +81,7 @@ public class WordsList
 //    }
 //  }
 
-    BaseWord search (String wordName) throws Exception
+    public BaseWord search (String wordName) throws Exception
     {
         if (isEmpty())
         {
@@ -100,7 +100,7 @@ public class WordsList
 //        return null;
     }
 
-    void remove (BaseWord bw)
+    public void remove (BaseWord bw)
     {
         BaseWord old = saveList.get (bw.name);
         wordsList.remove(bw.name);

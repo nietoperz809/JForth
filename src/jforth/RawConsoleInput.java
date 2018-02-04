@@ -30,7 +30,7 @@ import java.util.List;
  * <p>This class is used for console mode programs.
  * It supports non-blocking reads of single key strokes without echo.
  */
-class RawConsoleInput {
+public class RawConsoleInput {
 
     private static final boolean           isWindows     = System.getProperty("os.name").startsWith("Windows");
     private static final int               invalidKey    = 0xFFFE;

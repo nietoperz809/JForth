@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
 /**
  * Created by Administrator on 4/23/2017.
  */
-class PolySupport
+public class PolySupport
 {
     /**
      * Make antiderivate of polynomial
@@ -96,7 +96,7 @@ class PolySupport
      * @return Result of applied function
      * @throws Exception If it is not possible to call the function
      */
-    static PolynomialFunction execute (Object o1, Object o2, BiFunction<PolynomialFunction, PolynomialFunction, PolynomialFunction> func) throws Exception
+    public static PolynomialFunction execute (Object o1, Object o2, BiFunction<PolynomialFunction, PolynomialFunction, PolynomialFunction> func) throws Exception
     {
         PolynomialFunction b1;
         PolynomialFunction b2;

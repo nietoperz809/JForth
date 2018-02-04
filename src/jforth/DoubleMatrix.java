@@ -64,7 +64,7 @@ public class DoubleMatrix extends BlockRealMatrix
         return new DoubleMatrix(r);
     }
 
-    static DoubleMatrix fromSequenceArray (ArrayList<DoubleSequence> arr)
+    public static DoubleMatrix fromSequenceArray (ArrayList<DoubleSequence> arr)
     {
         int max = 0;
         for (DoubleSequence d : arr)

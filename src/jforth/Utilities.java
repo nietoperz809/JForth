@@ -18,13 +18,13 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "944";
-    private static final String BUILD_DATE = "02/04/2018 09:09:39 AM";
+    private static final String BUILD_NUMBER = "952";
+    private static final String BUILD_DATE = "02/04/2018 06:51:55 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
 
-    static void terminateSoon (int delay)
+    public static void terminateSoon (int delay)
     {
         new Thread(() ->
         {
@@ -40,7 +40,7 @@ public class Utilities
         }).start();
     }
 
-    static String formatComplex (Complex c)
+    public static String formatComplex (Complex c)
     {
         double re = c.getReal();
         double im = c.getImaginary();
@@ -98,18 +98,18 @@ public class Utilities
         return new Fraction(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
     }
 
-    static String formatFraction (Fraction f)
+    public static String formatFraction (Fraction f)
     {
         return f.getNumerator() + "/" + f.getDenominator();
     }
 
-    static boolean del (String path)
+    public static boolean del (String path)
     {
         File f = new File(path);
         return f.delete();
     }
 
-    static String dir (String path)
+    public static String dir (String path)
     {
         StringBuilder sb = new StringBuilder();
         path = path.replace('/','\\');
@@ -529,63 +529,63 @@ public class Utilities
         throw new Exception("Wrong or no Type on Stack");
     }
 
-    static Fraction pow (Fraction f, Long n)
+    public static Fraction pow (Fraction f, Long n)
     {
         int denom = (int) Math.pow(f.getDenominator(), n);
         int num = (int) Math.pow(f.getNumerator(), n);
         return Fraction.getReducedFraction(num, denom);
     }
 
-    static BigInt pow (BigInt a, BigInt b)
+    public static BigInt pow (BigInt a, BigInt b)
     {
         return a.pow(b.intValue());
     }
 
-    static Double add (Double a, Double b)
+    public static Double add (Double a, Double b)
     {
         return a + b;
     }
 
-    static DoubleMatrix add (DoubleMatrix a, DoubleMatrix b)
+    public static DoubleMatrix add (DoubleMatrix a, DoubleMatrix b)
     {
         BlockRealMatrix res = a.add(b);
         return new DoubleMatrix(res);
     }
 
-    static DoubleMatrix sub (DoubleMatrix a, DoubleMatrix b)
+    public static DoubleMatrix sub (DoubleMatrix a, DoubleMatrix b)
     {
         BlockRealMatrix res = a.subtract(b);
         return new DoubleMatrix(res);
     }
 
-    static DoubleMatrix mult (DoubleMatrix a, DoubleMatrix b)
+    public static DoubleMatrix mult (DoubleMatrix a, DoubleMatrix b)
     {
         BlockRealMatrix res = a.multiply(b);
         return new DoubleMatrix(res);
     }
 
-    static DoubleMatrix div (DoubleMatrix a, DoubleMatrix b)
+    public static DoubleMatrix div (DoubleMatrix a, DoubleMatrix b)
     {
         BlockRealMatrix res = a.multiply(MatrixUtils.inverse(b));
         return new DoubleMatrix(res);
     }
 
-    static Double sub (Double a, Double b)
+    public static Double sub (Double a, Double b)
     {
         return a - b;
     }
 
-    static Double mult (Double a, Double b)
+    public static Double mult (Double a, Double b)
     {
         return a * b;
     }
 
-    static Double div (Double a, Double b)
+    public static Double div (Double a, Double b)
     {
         return a / b;
     }
 
-    static Double doCalcDouble (Object o1, Object o2, BiFunction<Double, Double, Double> func) throws Exception
+    public static Double doCalcDouble (Object o1, Object o2, BiFunction<Double, Double, Double> func) throws Exception
     {
         if (o1 instanceof Double || o2 instanceof Double)
         {
@@ -594,7 +594,7 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
+    public static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, Complex.class))
         {
@@ -608,7 +608,7 @@ public class Utilities
         return (c.isInstance(o1) || c.isInstance(o2));
     }
 
-    static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
+    public static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, Fraction.class))
         {
@@ -638,7 +638,7 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
+    public static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, BigInt.class))
         {
@@ -647,7 +647,7 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    static DoubleMatrix doCalcMatrix (Object o1, Object o2, BiFunction<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
+    public static DoubleMatrix doCalcMatrix (Object o1, Object o2, BiFunction<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, DoubleMatrix.class))
         {

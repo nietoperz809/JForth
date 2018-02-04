@@ -1,5 +1,7 @@
 package jforth;
 
+import jforth.forthwords.PredefinedWords;
+
 import java.util.ArrayList;
 
 public class History
