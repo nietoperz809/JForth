@@ -18,10 +18,11 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "940";
-    private static final String BUILD_DATE = "01/30/2018 10:01:24 AM";
+    private static final String BUILD_NUMBER = "944";
+    private static final String BUILD_DATE = "02/04/2018 09:09:39 AM";
 
-    public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE;
+    public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
+            + " -- " + System.getProperty("java.version");
 
     static void terminateSoon (int delay)
     {
@@ -379,6 +380,11 @@ public class Utilities
             {
                 return nume / denom;
             }
+        }
+        if (o instanceof Complex)
+        {
+            Complex c = (Complex)o;
+            return ((Double)c.getReal()).longValue();
         }
         throw new Exception("Wrong or no Type on Stack");
     }

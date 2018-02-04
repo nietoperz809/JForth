@@ -561,4 +561,12 @@ public class TestCases
             Assert.fail();
         }
     }
+
+    @Test
+    public void Test888to6()
+    {
+        String s = check ("8 8 + sqrt fact 8 / fact",
+                ".");
+        Assert.assertEquals("6 OK\nJFORTH> ", s);
+    }
 }

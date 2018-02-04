@@ -34,5 +34,6 @@
     <orderEntry type="library" name="cmutimelex" level="project" />
     <orderEntry type="library" name="mathIT" level="project" />
     <orderEntry type="library" name="asciiart-core-1.0.0" level="project" />
+    <orderEntry type="library" name="scala-sdk-2.12.1" level="application" />
   </component>
 </module>
