@@ -12,6 +12,7 @@ import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 import scala.math.BigInt;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.DoubleStream;
 
@@ -35,6 +36,14 @@ public class DoubleSequence
         double z = v.getZ();
         if (z != 0.0)
             mem.add (z);
+    }
+
+    public DoubleSequence (byte[] b)
+    {
+        for(byte bb : b)
+        {
+            mem.add ((double)(((int)bb)&0x00ff));
+        }
     }
 
     public DoubleSequence (String s)
@@ -325,6 +334,18 @@ public class DoubleSequence
             sb.append((char)d.intValue());
         }
         return sb.toString();
+    }
+
+    public byte[] asBytes()
+    {
+        try
+        {
+            return asString().getBytes("ISO-8859-1");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            return null;
+        }
     }
 
     /**

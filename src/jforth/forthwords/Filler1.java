@@ -2341,7 +2341,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toString", false, "Make string of what is on the stack",
+                        "toStr", false, "Make string of what is on the stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();

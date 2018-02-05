@@ -5,12 +5,52 @@ import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.security.MessageDigest;
 import java.util.Base64;
 
 class Filler2
 {
     void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
+        _fw.add(new PrimitiveWord
+                (
+                        "hexStr", false, "Make hex string",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            byte[] b = null;
+                            if (o1 instanceof String)
+                            {
+                                b = ((String)o1).getBytes();
+                            }
+                            else if (o1 instanceof DoubleSequence)
+                            {
+                                b = ((DoubleSequence)o1).asBytes();
+                            }
+                            dStack.push(javax.xml.bind.DatatypeConverter.printHexBinary(b));
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "unhexStr", false, "Make Hexstr to Bytes",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                byte[] b = javax.xml.bind.DatatypeConverter.parseHexBinary(ss);
+                                dStack.push (new DoubleSequence(b));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
         _fw.add(new PrimitiveWord
                 (
                         "seq", false, "generate sequence",
@@ -23,6 +63,26 @@ class Filler2
                                 double d1 = Utilities.readDouble(dStack);
                                 DoubleSequence ds = DoubleSequence.makeCounted(d1, l2, d3);
                                 dStack.push(ds);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "hash", false, "generate hash string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String hash = Utilities.readString(dStack);
+                                String input = Utilities.readString(dStack);
+                                MessageDigest md = MessageDigest.getInstance(hash);
+                                dStack.push(new DoubleSequence(md.digest(input.getBytes())));
                                 return 1;
                             }
                             catch (Exception ex)

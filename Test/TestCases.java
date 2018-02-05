@@ -172,7 +172,7 @@ public class TestCases
     @Test
     public void TestStringRev()
     {
-        String s = check ("\"hello\" rev toString",
+        String s = check ("\"hello\" rev toStr",
                 ".");
         System.out.println(s);
         Assert.assertEquals("olleh OK\nJFORTH> ", s);
@@ -181,7 +181,7 @@ public class TestCases
     @Test
     public void TestSortString  ()
     {
-        String s = check ("\"thequickbrownfoxjumpsoverthelazydog\" sort unique toString",
+        String s = check ("\"thequickbrownfoxjumpsoverthelazydog\" sort unique toStr",
                 ".");
         System.out.println(s);
         Assert.assertEquals("abcdefghijklmnopqrstuvwxyz OK\nJFORTH> ", s);
@@ -486,7 +486,7 @@ public class TestCases
     @Test
     public void TestMix()
     {
-        String s = check ("\"peter\" \"doof\" mix toString",
+        String s = check ("\"peter\" \"doof\" mix toStr",
                 ".");
         System.out.println(s);
         Assert.assertEquals("pdeotoefr OK\nJFORTH> ", s);
@@ -576,5 +576,21 @@ public class TestCases
         String s = check ("8 8 + sqrt fact 8 / fact",
                 ".");
         Assert.assertEquals("6 OK\nJFORTH> ", s);
+    }
+
+    @Test
+    public void TestHexStr()
+    {
+        String s = check ("{1,2,3,100,200,255} hexStr",
+                ".");
+        Assert.assertEquals("01020364C8FF OK\nJFORTH> ", s);
+    }
+
+    @Test
+    public void TestUnhexStr()
+    {
+        String s = check ("\"01020364C8FF\" unhexStr",
+                ".");
+        Assert.assertEquals("{1,2,3,100,200,255} OK\nJFORTH> ", s);
     }
 }
