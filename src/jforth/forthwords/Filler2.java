@@ -5,6 +5,7 @@ import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Base64;
 
@@ -21,7 +22,14 @@ class Filler2
                             byte[] b = null;
                             if (o1 instanceof String)
                             {
-                                b = ((String)o1).getBytes();
+                                try
+                                {
+                                    b = ((String)o1).getBytes("ISO-8859-1");
+                                }
+                                catch (UnsupportedEncodingException e)
+                                {
+                                    return 0;
+                                }
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
@@ -82,7 +90,7 @@ class Filler2
                                 String hash = Utilities.readString(dStack);
                                 String input = Utilities.readString(dStack);
                                 MessageDigest md = MessageDigest.getInstance(hash);
-                                dStack.push(new DoubleSequence(md.digest(input.getBytes())));
+                                dStack.push(new DoubleSequence(md.digest(input.getBytes("ISO-8859-1"))));
                                 return 1;
                             }
                             catch (Exception ex)
@@ -100,7 +108,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                byte[] bytes = ss.getBytes("UTF-8");
+                                byte[] bytes = ss.getBytes("ISO-8859-1");
                                 String encoded = Base64.getEncoder().encodeToString(bytes);
                                 dStack.push(encoded);
                                 return 1;

@@ -593,4 +593,12 @@ public class TestCases
                 ".");
         Assert.assertEquals("{1,2,3,100,200,255} OK\nJFORTH> ", s);
     }
+
+    @Test
+    public void TestHash()
+    {
+        String s = check ("\"Hallo\" \"SHA-1\" hash hexStr",
+                ".");
+        Assert.assertEquals("59D9A6DF06B9F610F7DB8E036896ED03662D168F OK\nJFORTH> ", s);
+    }
 }
