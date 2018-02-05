@@ -7,7 +7,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.Base64;
 
-public class Filler2
+class Filler2
 {
     void fill (WordsList _fw, PredefinedWords predefinedWords)
     {

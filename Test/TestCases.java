@@ -57,6 +57,14 @@ public class TestCases
     }
 
     @Test
+    public void TestRoll()
+    {
+        String s = check ("1 2 3 4 2 roll", ". . . .");
+        System.out.println(s);
+        Assert.assertEquals("2431 OK\nJFORTH> ", s);
+    }
+
+    @Test
     public void TestDotProduct()
     {
         String s = check ("{1,2,3} {4,5,6} dotP", ".");

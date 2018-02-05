@@ -11,24 +11,20 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
-import org.fusesource.jansi.AnsiConsole;
 import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.stream.LongStream;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
-public class Filler1
+class Filler1
 {
         void fill (WordsList _fw, PredefinedWords predefinedWords)
         {
@@ -3183,22 +3179,21 @@ public class Filler1
                         "pick", true, "Get value from arbitrary Positon and place it on TOS",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
+                            {
+                                long o = Utilities.readLong(dStack);
+                                Object n = dStack.get(dStack.size() - ((Long) o).intValue() - 1);
+                                if (n == null)
+                                {
+                                    return 0;
+                                }
+                                dStack.push(n);
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o = dStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            Object n = dStack.get(dStack.size() - ((Long) o).intValue() - 1);
-                            if (n == null)
-                            {
-                                return 0;
-                            }
-                            dStack.push(n);
-                            return 1;
                         }
                 ));
 
@@ -3207,22 +3202,21 @@ public class Filler1
                         "roll", true,
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
+                            {
+                                long o = Utilities.readLong(dStack);
+                                Object n = dStack.remove(dStack.size() - ((Long) o).intValue() - 1);
+                                if (n == null)
+                                {
+                                    return 0;
+                                }
+                                dStack.push(n);
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            Object o = dStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            Object n = dStack.remove(dStack.size() - ((Long) o).intValue() - 1);
-                            if (n == null)
-                            {
-                                return 0;
-                            }
-                            dStack.push(n);
-                            return 1;
                         }
                 ));
 
