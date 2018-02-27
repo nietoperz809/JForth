@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "963";
-    private static final String BUILD_DATE = "02/05/2018 12:57:32 PM";
+    private static final String BUILD_NUMBER = "969";
+    private static final String BUILD_DATE = "02/27/2018 07:05:13 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -443,6 +443,18 @@ public class Utilities
         return ret;
     }
 
+    public static String readStringOrNull (OStack dstack)
+    {
+        try
+        {
+            return readString (dstack);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
     public static String readString (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
@@ -663,6 +675,13 @@ public class Utilities
             return (DoubleMatrix) o1;
         }
         throw new Exception("Wrong args");
+    }
+
+    static public boolean containsIgnoreCase (String original, String pattern)
+    {
+        if (original == null || pattern == null)
+            return true;
+        return original.toLowerCase().contains(pattern.toLowerCase());
     }
 
     /**

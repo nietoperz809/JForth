@@ -796,6 +796,11 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
+                            {
+                                dStack.push (DoubleSequence.getStats((DoubleSequence)o1).getMax());
+                                return 1;
+                            }
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
@@ -803,19 +808,17 @@ class Filler1
                                 long i2 = (Long) o2;
                                 i2 = Math.max(i1, i2);
                                 dStack.push(i2);
+                                return 1;
                             }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
+                            if ((o1 instanceof String) && (o2 instanceof String))
                             {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 s2 = (s1.compareTo(s2) > 0) ? s1 : s2;
                                 dStack.push(s2);
+                                return 1;
                             }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
+                            return 0;
                         }
                 ));
 
@@ -825,6 +828,11 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
+                            {
+                                dStack.push (DoubleSequence.getStats((DoubleSequence)o1).getMin());
+                                return 1;
+                            }
                             Object o2 = dStack.pop();
                             if ((o1 instanceof Long) && (o2 instanceof Long))
                             {
@@ -832,21 +840,99 @@ class Filler1
                                 long i2 = (Long) o2;
                                 i2 = Math.min(i1, i2);
                                 dStack.push(i2);
+                                return 1;
                             }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
+                            if ((o1 instanceof String) && (o2 instanceof String))
                             {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 s2 = (s1.compareTo(s2) < 0) ? s1 : s2;
                                 dStack.push(s2);
+                                return 1;
                             }
-                            else
-                            {
-                                return 0;
-                            }
-                            return 1;
+                            return 0;
                         }
                 ));
+
+            _fw.add(new PrimitiveWord
+                    (
+                            "gMean", false, "Geometric mean",
+                            (dStack, vStack) ->
+                            {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    dStack.push
+                                            (DoubleSequence.getStats((DoubleSequence)o1).getGeometricMean());
+                                    return 1;
+                                }
+                                return 0;
+                            }
+                    ));
+
+            _fw.add(new PrimitiveWord
+                    (
+                            "mean", false, "Mean value of sequence",
+                            (dStack, vStack) ->
+                            {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    dStack.push
+                                            (DoubleSequence.getStats((DoubleSequence)o1).getMean());
+                                    return 1;
+                                }
+                                return 0;
+                            }
+                    ));
+
+            _fw.add(new PrimitiveWord
+                    (
+                            "qMean", false, "Quadratic Mean of sequence",
+                            (dStack, vStack) ->
+                            {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    dStack.push
+                                            (DoubleSequence.getStats((DoubleSequence)o1).getQuadraticMean());
+                                    return 1;
+                                }
+                                return 0;
+                            }
+                    ));
+
+            _fw.add(new PrimitiveWord
+                    (
+                            "stdDev", false, "Standard Deviation of sequence",
+                            (dStack, vStack) ->
+                            {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    dStack.push
+                                            (DoubleSequence.getStats((DoubleSequence)o1).getStandardDeviation());
+                                    return 1;
+                                }
+                                return 0;
+                            }
+                    ));
+
+            _fw.add(new PrimitiveWord
+                    (
+                            "var", false, "Variance of sequence",
+                            (dStack, vStack) ->
+                            {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof DoubleSequence)
+                                {
+                                    dStack.push
+                                            (DoubleSequence.getStats((DoubleSequence)o1).getVariance());
+                                    return 1;
+                                }
+                                return 0;
+                            }
+                    ));
 
         _fw.add(new PrimitiveWord
                 (
@@ -1298,7 +1384,8 @@ class Filler1
                         "words", false, "Show all words",
                         (dStack, vStack) ->
                         {
-                            dStack.push(predefinedWords._jforth.dictionary.toString(false));
+                            String c = Utilities.readStringOrNull(dStack);
+                            dStack.push(predefinedWords._jforth.dictionary.toString(false,c));
                             return 1;
                         }
                 ));
@@ -1308,7 +1395,8 @@ class Filler1
                         "wordsd", false, "Show words and description",
                         (dStack, vStack) ->
                         {
-                            dStack.push(predefinedWords._jforth.dictionary.toString(true));
+                            String c = Utilities.readStringOrNull(dStack);
+                            dStack.push(predefinedWords._jforth.dictionary.toString(true,c));
                             return 1;
                         }
                 ));

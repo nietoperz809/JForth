@@ -7,6 +7,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeF
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
@@ -104,6 +105,14 @@ public class DoubleSequence
     {
         mem.addAll(src1.mem);
         mem.addAll(src2.mem);
+    }
+
+    public static SummaryStatistics getStats(DoubleSequence in)
+    {
+        SummaryStatistics stat = new SummaryStatistics();
+        for (double d : in.mem)
+            stat.addValue(d);
+        return stat;
     }
 
     public static DoubleSequence mixin (DoubleSequence d1, DoubleSequence d2)

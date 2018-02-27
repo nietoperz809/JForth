@@ -21,11 +21,11 @@ import java.util.ArrayList;
  */
 public class LineEdit
 {
-    ArrayList<String> list = new ArrayList<>();
-    InputStream _in;
-    PrintStream _out;
+    private ArrayList<String> list = new ArrayList<>();
+    private final InputStream _in;
+    private final PrintStream _out;
 
-    static public String helpText =
+    private static final String helpText =
             " * Line Editor: -->\n" +
                     " Commands are:\n" +
                     " #l         -- List (with line numbers)\n" +
@@ -95,7 +95,7 @@ public class LineEdit
                 }
                 return true;
             }
-            catch (Exception unused)
+            catch (Exception ignored)
             {
 
             }
@@ -185,23 +185,23 @@ public class LineEdit
         return sb.toString().trim();
     }
 
-    public void clear ()
+    private void clear ()
     {
         list.clear();
     }
 
-    public void load (String name) throws Exception
+    private void load (String name) throws Exception
     {
         list = Utilities.fileLoad(name);
     }
 
-    public void append (String name) throws Exception
+    private void append (String name) throws Exception
     {
         ArrayList<String> l2 = Utilities.fileLoad(name);
         list.addAll(l2);
     }
 
-    public void save (String name) throws Exception
+    private void save (String name) throws Exception
     {
         Utilities.fileSave(list, name);
     }

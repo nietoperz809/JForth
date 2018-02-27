@@ -24,7 +24,7 @@ public class WordsList
         wordsList.put(bw.name, bw);
     }
 
-    public String toString (boolean showDetail)
+    public String toString (boolean showDetail, String containing)
     {
         if (isEmpty())
         {
@@ -35,10 +35,13 @@ public class WordsList
         for (Map.Entry<String, BaseWord> stringBaseWordEntry : wordsList.entrySet())
         {
             BaseWord bw = stringBaseWordEntry.getValue();
-            sb.append(bw.toString(showDetail));
-            if (showDetail)
+            if (Utilities.containsIgnoreCase(bw.toString(false), containing))
             {
-                sb.append("\n");
+                sb.append(bw.toString(showDetail));
+                if (showDetail)
+                {
+                    sb.append("\n");
+                }
             }
         }
         return sb.toString();
