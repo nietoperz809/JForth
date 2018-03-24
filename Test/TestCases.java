@@ -601,4 +601,12 @@ public class TestCases
                 ".");
         Assert.assertEquals("59D9A6DF06B9F610F7DB8E036896ED03662D168F OK\nJFORTH> ", s);
     }
+
+    @Test
+    public void TestUrlEncSpace()
+    {
+        String s = check ("\"lala\" {32} toStr \"dumm\" + + urlEnc",
+                ".");
+        Assert.assertEquals("lala+dumm OK\nJFORTH> ", s);
+    }
 }

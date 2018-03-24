@@ -26,14 +26,14 @@ import static org.mathIT.numbers.Riemann.zeta;
 
 class Filler1
 {
-        void fill (WordsList _fw, PredefinedWords predefinedWords)
-        {
-            // do nothing. comments handled by tokenizer
-            _fw.add(new PrimitiveWord   // dummy
-                    (
-                            "(", true, "Begin comment",
-                            (dStack, vStack) -> 1
-                    ));
+    void fill (WordsList _fw, PredefinedWords predefinedWords)
+    {
+        // do nothing. comments handled by tokenizer
+        _fw.add(new PrimitiveWord   // dummy
+                (
+                        "(", true, "Begin comment",
+                        (dStack, vStack) -> 1
+                ));
 
         // do nothing. this handled by tokenizer
         _fw.add(new PrimitiveWord  // dummy
@@ -798,7 +798,7 @@ class Filler1
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleSequence)
                             {
-                                dStack.push (DoubleSequence.getStats((DoubleSequence)o1).getMax());
+                                dStack.push(DoubleSequence.getStats((DoubleSequence) o1).getMax());
                                 return 1;
                             }
                             Object o2 = dStack.pop();
@@ -830,7 +830,7 @@ class Filler1
                             Object o1 = dStack.pop();
                             if (o1 instanceof DoubleSequence)
                             {
-                                dStack.push (DoubleSequence.getStats((DoubleSequence)o1).getMin());
+                                dStack.push(DoubleSequence.getStats((DoubleSequence) o1).getMin());
                                 return 1;
                             }
                             Object o2 = dStack.pop();
@@ -854,85 +854,85 @@ class Filler1
                         }
                 ));
 
-            _fw.add(new PrimitiveWord
-                    (
-                            "gMean", false, "Geometric mean",
-                            (dStack, vStack) ->
+        _fw.add(new PrimitiveWord
+                (
+                        "gMean", false, "Geometric mean",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
                             {
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
-                                    dStack.push
-                                            (DoubleSequence.getStats((DoubleSequence)o1).getGeometricMean());
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push
+                                        (DoubleSequence.getStats((DoubleSequence) o1).getGeometricMean());
+                                return 1;
                             }
-                    ));
+                            return 0;
+                        }
+                ));
 
-            _fw.add(new PrimitiveWord
-                    (
-                            "mean", false, "Mean value of sequence",
-                            (dStack, vStack) ->
+        _fw.add(new PrimitiveWord
+                (
+                        "mean", false, "Mean value of sequence",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
                             {
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
-                                    dStack.push
-                                            (DoubleSequence.getStats((DoubleSequence)o1).getMean());
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push
+                                        (DoubleSequence.getStats((DoubleSequence) o1).getMean());
+                                return 1;
                             }
-                    ));
+                            return 0;
+                        }
+                ));
 
-            _fw.add(new PrimitiveWord
-                    (
-                            "qMean", false, "Quadratic Mean of sequence",
-                            (dStack, vStack) ->
+        _fw.add(new PrimitiveWord
+                (
+                        "qMean", false, "Quadratic Mean of sequence",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
                             {
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
-                                    dStack.push
-                                            (DoubleSequence.getStats((DoubleSequence)o1).getQuadraticMean());
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push
+                                        (DoubleSequence.getStats((DoubleSequence) o1).getQuadraticMean());
+                                return 1;
                             }
-                    ));
+                            return 0;
+                        }
+                ));
 
-            _fw.add(new PrimitiveWord
-                    (
-                            "stdDev", false, "Standard Deviation of sequence",
-                            (dStack, vStack) ->
+        _fw.add(new PrimitiveWord
+                (
+                        "stdDev", false, "Standard Deviation of sequence",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
                             {
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
-                                    dStack.push
-                                            (DoubleSequence.getStats((DoubleSequence)o1).getStandardDeviation());
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push
+                                        (DoubleSequence.getStats((DoubleSequence) o1).getStandardDeviation());
+                                return 1;
                             }
-                    ));
+                            return 0;
+                        }
+                ));
 
-            _fw.add(new PrimitiveWord
-                    (
-                            "var", false, "Variance of sequence",
-                            (dStack, vStack) ->
+        _fw.add(new PrimitiveWord
+                (
+                        "var", false, "Variance of sequence",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            if (o1 instanceof DoubleSequence)
                             {
-                                Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
-                                    dStack.push
-                                            (DoubleSequence.getStats((DoubleSequence)o1).getVariance());
-                                    return 1;
-                                }
-                                return 0;
+                                dStack.push
+                                        (DoubleSequence.getStats((DoubleSequence) o1).getVariance());
+                                return 1;
                             }
-                    ));
+                            return 0;
+                        }
+                ));
 
         _fw.add(new PrimitiveWord
                 (
@@ -1324,7 +1324,9 @@ class Filler1
                             {
                                 Long l = Utilities.readLong(dStack);
                                 if (l > 36 || l < 2)
+                                {
                                     return 0;
+                                }
                                 predefinedWords._jforth.base = l.intValue();
                                 return 1;
                             }
@@ -1385,7 +1387,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String c = Utilities.readStringOrNull(dStack);
-                            dStack.push(predefinedWords._jforth.dictionary.toString(false,c));
+                            dStack.push(predefinedWords._jforth.dictionary.toString(false, c));
                             return 1;
                         }
                 ));
@@ -1396,7 +1398,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String c = Utilities.readStringOrNull(dStack);
-                            dStack.push(predefinedWords._jforth.dictionary.toString(true,c));
+                            dStack.push(predefinedWords._jforth.dictionary.toString(true, c));
                             return 1;
                         }
                 ));
@@ -1933,7 +1935,7 @@ class Filler1
                             try
                             {
                                 String o1 = Utilities.readString(dStack);
-                                dStack.push (BigPrint.toBigString(o1));
+                                dStack.push(BigPrint.toBigString(o1));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2032,7 +2034,7 @@ class Filler1
                                 o1 = Utilities.readVector3D(dStack);
                                 o2 = Utilities.readVector3D(dStack);
                                 Vector3D cp = o2.crossProduct(o1);
-                                dStack.push (new DoubleSequence(cp));
+                                dStack.push(new DoubleSequence(cp));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2054,7 +2056,7 @@ class Filler1
                                 o1 = Utilities.readVector3D(dStack);
                                 o2 = Utilities.readVector3D(dStack);
                                 double dp = o2.dotProduct(o1);
-                                dStack.push (dp);
+                                dStack.push(dp);
                                 return 1;
                             }
                             catch (Exception e)
@@ -2603,7 +2605,7 @@ class Filler1
                             try
                             {
                                 Long num = Utilities.readLong(dStack);
-                                boolean t = LongStream.rangeClosed(2, (long)Math.sqrt(num)).noneMatch(div-> num % div== 0);
+                                boolean t = LongStream.rangeClosed(2, (long) Math.sqrt(num)).noneMatch(div -> num % div == 0);
                                 dStack.push(t ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             }
@@ -2835,7 +2837,7 @@ class Filler1
                                 Complex o1 = Utilities.readComplex(dStack);
                                 double[] s = {o1.getReal(), o1.getImaginary()};
                                 double[] z = zeta(s);
-                                dStack.push(new Complex (z[0], z[1]));
+                                dStack.push(new Complex(z[0], z[1]));
                                 return 1;
                             }
                             catch (Exception e)

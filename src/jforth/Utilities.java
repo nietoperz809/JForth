@@ -18,11 +18,31 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "969";
-    private static final String BUILD_DATE = "02/27/2018 07:05:13 PM";
+    private static final String BUILD_NUMBER = "980";
+    private static final String BUILD_DATE = "03/24/2018 04:58:11 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
+
+    public static byte[] toRawByteArray (String in)
+    {
+        char[] chars = in.toCharArray();
+        byte[] bytes = new byte[chars.length*2];
+        for(int i=0;i<chars.length;i++)
+        {
+            bytes[i*2] = (byte) (chars[i] >> 8);
+            bytes[i*2+1] = (byte) chars[i];
+        }
+        return bytes;
+    }
+
+    public static char[] fromRawByteArray (byte[] bytes)
+    {
+        char[] chars2 = new char[bytes.length/2];
+        for(int i=0;i<chars2.length;i++)
+            chars2[i] = (char) ((bytes[i*2] << 8) + (bytes[i*2+1] & 0xFF));
+        return chars2;
+    }
 
     public static void terminateSoon (int delay)
     {

@@ -6,6 +6,7 @@ import org.fusesource.jansi.AnsiConsole;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.Base64;
 
@@ -24,7 +25,7 @@ class Filler2
                             {
                                 try
                                 {
-                                    b = ((String)o1).getBytes("ISO-8859-1");
+                                    b = ((String) o1).getBytes("ISO-8859-1");
                                 }
                                 catch (UnsupportedEncodingException e)
                                 {
@@ -33,7 +34,7 @@ class Filler2
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
-                                b = ((DoubleSequence)o1).asBytes();
+                                b = ((DoubleSequence) o1).asBytes();
                             }
                             dStack.push(javax.xml.bind.DatatypeConverter.printHexBinary(b));
                             return 1;
@@ -49,7 +50,7 @@ class Filler2
                             {
                                 String ss = Utilities.readString(dStack);
                                 byte[] b = javax.xml.bind.DatatypeConverter.parseHexBinary(ss);
-                                dStack.push (new DoubleSequence(b));
+                                dStack.push(new DoubleSequence(b));
                                 return 1;
                             }
                             catch (Exception e)
@@ -129,8 +130,44 @@ class Filler2
                             {
                                 String ss = Utilities.readString(dStack);
                                 byte[] decoded = Base64.getDecoder().decode(ss);
-                                String b2 = new String(decoded, "UTF-8");
+                                String b2 = new String(decoded, JForth.ENCODING);
                                 dStack.push(b2);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "urlEnc", false, "URL encoded string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                String encoded = URLEncoder.encode(ss,JForth.ENCODING);
+                                dStack.push(encoded);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "psp", false, "Push space on stack",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                dStack.push(" ");
                                 return 1;
                             }
                             catch (Exception ex)
