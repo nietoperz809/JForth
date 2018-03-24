@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "980";
-    private static final String BUILD_DATE = "03/24/2018 04:58:11 PM";
+    private static final String BUILD_NUMBER = "985";
+    private static final String BUILD_DATE = "03/24/2018 05:59:52 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -115,7 +115,14 @@ public class Utilities
         {
             return null;
         }
-        return new Fraction(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+        try
+        {
+            return new Fraction(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+        }
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
     }
 
     public static String formatFraction (Fraction f)

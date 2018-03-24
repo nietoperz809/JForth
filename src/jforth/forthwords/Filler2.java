@@ -6,6 +6,7 @@ import org.fusesource.jansi.AnsiConsole;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.Base64;
@@ -143,13 +144,32 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "urlEnc", false, "URL encoded string",
+                        "urlEnc", false, "URL encode a string",
                         (dStack, vStack) ->
                         {
                             try
                             {
                                 String ss = Utilities.readString(dStack);
                                 String encoded = URLEncoder.encode(ss,JForth.ENCODING);
+                                dStack.push(encoded);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "urlDec", false, "Decode URL encoded string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                String encoded = URLDecoder.decode(ss,JForth.ENCODING);
                                 dStack.push(encoded);
                                 return 1;
                             }
