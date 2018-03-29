@@ -59,6 +59,6 @@ public final class StorageWord extends BaseWord
   }
 
   private final int size;
-  private Object [] array = null;
+  private Object [] array;
   private final boolean isArray;
 }

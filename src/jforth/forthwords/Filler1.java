@@ -2246,7 +2246,7 @@ class Filler1
                             }
                             dStack.push(o1);
                             DoubleSequence seq = new DoubleSequence();
-                            for (; ; )
+                            do
                             {
                                 Object o2 = dStack.pop();
                                 if (o2 instanceof Double)
@@ -2261,11 +2261,7 @@ class Filler1
                                 {
                                     seq = seq.add((DoubleSequence) o2);
                                 }
-                                if (dStack.empty())
-                                {
-                                    break;
-                                }
-                            }
+                            } while (!dStack.empty());
                             dStack.push(seq);
                             return 1;
                         }
@@ -3432,14 +3428,7 @@ class Filler1
                                 try
                                 {
                                     String s = ((BufferedReader) o1).readLine();
-                                    if (s != null)
-                                    {
-                                        dStack.push(s);
-                                    }
-                                    else
-                                    {
-                                        dStack.push("*EOF*");
-                                    }
+                                    dStack.push(Objects.requireNonNullElse(s, "*EOF*"));
                                     return 1;
                                 }
                                 catch (IOException ioe)

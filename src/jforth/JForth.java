@@ -42,7 +42,7 @@ public class JForth
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
     public MODE mode = DIRECT;
-    public transient PrintStream _out; // output channel
+    public final transient PrintStream _out; // output channel
     public boolean compiling;
     public int base;
     public NonPrimitiveWord wordBeingDefined = null;
@@ -87,7 +87,7 @@ public class JForth
      * @param args not used
      * @throws Exception not used
      */
-    public static void main (String[] args) throws Exception
+    public static void main (String[] args)
     {
         AnsiConsole.systemInstall();
         JForth forth = new JForth(AnsiConsole.out);
@@ -304,7 +304,7 @@ public class JForth
                 String word2 = st.sval;
                 if (word2.endsWith("\""))
                 {
-                    sb.append(word2.substring(0, word2.length() - 1));
+                    sb.append(word2, 0, word2.length() - 1);
                     break;
                 }
                 sb.append(word2).append(' ');
@@ -319,11 +319,7 @@ public class JForth
             {
                 currentWord = bw;  // Save for recursion
             }
-            if (bw.execute(dStack, vStack) == 0)
-            {
-                return false;
-            }
-            return true;
+            return bw.execute(dStack, vStack) != 0;
         }
         Long num = Utilities.parseLong(word, base);
         if (num != null)

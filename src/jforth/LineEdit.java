@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class LineEdit
 {
     private ArrayList<String> list = new ArrayList<>();
-    private final InputStream _in;
     private final PrintStream _out;
 
     private static final String helpText =
@@ -42,7 +41,7 @@ public class LineEdit
 
     public LineEdit (InputStream i, PrintStream p)
     {
-        _in = i;
+        InputStream _in = i;
         _out = p;
     }
 

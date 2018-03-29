@@ -18,5 +18,5 @@ public class PrimitiveWord extends BaseWord
     return eif.execute(dStack, vStack);
   }
 
-  final ExecuteIF eif;
+  private final ExecuteIF eif;
 }
