@@ -401,20 +401,16 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "loop", true,
+                        "loop", true,  "repeat loop",
                         (dStack, vStack) ->
-                        {
-                            return WordHelpers.loop(vStack, predefinedWords, LoopControlWord.class);
-                        }
+                                WordHelpers.addLoopWord(vStack, predefinedWords, LoopControlWord.class)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "+loop", true, "",
+                        "+loop", true, "adds value to loop counter i",
                         (dStack, vStack) ->
-                        {
-                            return WordHelpers.loop(vStack, predefinedWords, PlusLoopControlWord.class);
-                        }
+                                WordHelpers.addLoopWord(vStack, predefinedWords, PlusLoopControlWord.class)
                 ));
 
         _fw.add(new PrimitiveWord
@@ -433,20 +429,7 @@ class Filler2
                 (
                         "until", true,
                         (dStack, vStack) ->
-                        {
-                            Object o = vStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            int beginIndex = ((Long) o).intValue();
-                            int endIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
-                            int increment = beginIndex - endIndex;
-                            EndLoopControlWord ecw = new EndLoopControlWord(increment);
-                            predefinedWords._jforth.wordBeingDefined.addWord(ecw);
-                            predefinedWords.executeTemporaryImmediateWord();
-                            return 1;
-                        }
+                                WordHelpers.addLoopWord(vStack, predefinedWords, EndLoopControlWord.class)
                 ));
 
         _fw.add(new PrimitiveWord
@@ -462,18 +445,7 @@ class Filler2
                             {
                                 return 0;
                             }
-                            Object o = vStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            int beginIndex = ((Long) o).intValue();
-                            int endIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
-                            int increment = beginIndex - endIndex;
-                            EndLoopControlWord ecw = new EndLoopControlWord(increment);
-                            predefinedWords._jforth.wordBeingDefined.addWord(ecw);
-                            predefinedWords.executeTemporaryImmediateWord();
-                            return 1;
+                            return WordHelpers.addLoopWord(vStack, predefinedWords, EndLoopControlWord.class);
                         }
                 ));
 

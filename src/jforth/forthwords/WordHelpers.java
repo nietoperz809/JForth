@@ -6,20 +6,18 @@ import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import scala.math.BigInt;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 class WordHelpers
 {
-    static int loop (OStack vStack, PredefinedWords predefs, Class<? extends LoopControlWord> clazz)
+    static int addLoopWord (OStack vStack, PredefinedWords predefs, Class<? extends LoopControlWord> clazz)
     {
         try
         {
             int beginIndex = (int) Utilities.readLong(vStack);
             int endIndex = predefs._jforth.wordBeingDefined.getNextWordIndex();
             int increment = beginIndex - endIndex;
-            Constructor<? extends LoopControlWord> con1 = clazz.getConstructor(Integer.class);
-            LoopControlWord lcw = con1.newInstance (increment); //new LoopControlWord(increment);
+            LoopControlWord lcw = clazz.getConstructor(Integer.class).newInstance (increment);
             predefs._jforth.wordBeingDefined.addWord(lcw);
             predefs.executeTemporaryImmediateWord();
             return 1;

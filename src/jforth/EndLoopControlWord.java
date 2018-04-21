@@ -2,12 +2,11 @@ package jforth;
 
 import java.util.Objects;
 
-public final class EndLoopControlWord extends BaseWord
+public final class EndLoopControlWord extends LoopControlWord
 {
-  public EndLoopControlWord(int indexIncrement)
+  public EndLoopControlWord (Integer increment)
   {
-    super("", false, false, null);
-    this.indexIncrement = indexIncrement;
+    super(increment);
   }
 
   public int execute(OStack dStack, OStack vStack)
@@ -22,6 +21,4 @@ public final class EndLoopControlWord extends BaseWord
     else
       return indexIncrement;
   }
-
-  private final int indexIncrement;
 }
