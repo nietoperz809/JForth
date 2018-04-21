@@ -404,20 +404,7 @@ class Filler2
                         "loop", true,
                         (dStack, vStack) ->
                         {
-                            Object o = vStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            int beginIndex = ((Long) o).intValue();
-                            int endIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
-                            int increment = beginIndex - endIndex;
-                            LoopControlWord lcw = new LoopControlWord(increment);
-                            predefinedWords._jforth.wordBeingDefined.addWord(lcw);
-
-                            predefinedWords.executeTemporaryImmediateWord();
-
-                            return 1;
+                            return WordHelpers.loop(vStack, predefinedWords, LoopControlWord.class);
                         }
                 ));
 
@@ -426,18 +413,7 @@ class Filler2
                         "+loop", true, "",
                         (dStack, vStack) ->
                         {
-                            Object o = vStack.pop();
-                            if (!(o instanceof Long))
-                            {
-                                return 0;
-                            }
-                            int beginIndex = ((Long) o).intValue();
-                            int endIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
-                            int increment = beginIndex - endIndex;
-                            PlusLoopControlWord plcw = new PlusLoopControlWord(increment);
-                            predefinedWords._jforth.wordBeingDefined.addWord(plcw);
-                            predefinedWords.executeTemporaryImmediateWord();
-                            return 1;
+                            return WordHelpers.loop(vStack, predefinedWords, PlusLoopControlWord.class);
                         }
                 ));
 

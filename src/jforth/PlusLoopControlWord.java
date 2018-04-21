@@ -1,11 +1,10 @@
 package jforth;
 
-public final class PlusLoopControlWord extends BaseWord
+public final class PlusLoopControlWord extends LoopControlWord
 {
-  public PlusLoopControlWord(int indexIncrement)
+  public PlusLoopControlWord(Integer indexIncrement)
   {
-    super("", false, false, null);
-    this.indexIncrement = indexIncrement;
+    super(indexIncrement);
   }
 
   public int execute(OStack dStack, OStack vStack)
@@ -40,6 +39,4 @@ public final class PlusLoopControlWord extends BaseWord
     else
       return 0;
   }
-
-  private final int indexIncrement;
 }

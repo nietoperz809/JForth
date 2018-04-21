@@ -8,7 +8,7 @@ public class PredefinedWords
     private static final String IMMEDIATE = "__immediate";
     public final JForth _jforth;
     public final WordsList _wl;
-    public final WordHelpers _help = new WordHelpers();
+    //public final WordHelpers _help = new WordHelpers();
 
     public static final String SAVEHIST = "saveHist";
     public static final String PLAYHIST = "playHist";

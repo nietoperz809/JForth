@@ -81,6 +81,15 @@ public class TestCases
     }
 
     @Test
+    public void TestPlusLoop()
+    {
+        String s = check (": test 10 0 do i . 2 +loop 10 0 do i . 3 +loop ;", "test");
+        System.out.println(s);
+        Assert.assertEquals("024680369 OK\nJFORTH> ", s);
+    }
+
+
+    @Test
     public void TestPrg2()
     {
         String s = check (": test 10 0 do i . loop ;", "test");

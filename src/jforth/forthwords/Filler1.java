@@ -83,7 +83,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.peek();
-                            predefinedWords._help.dup(o, dStack);
+                            WordHelpers.dup(o, dStack);
                             return 1;
                         }
                 ));
@@ -95,10 +95,10 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            predefinedWords._help.dup(o2, dStack);
-                            predefinedWords._help.dup(o1, dStack);
-                            predefinedWords._help.dup(o2, dStack);
-                            predefinedWords._help.dup(o1, dStack);
+                            WordHelpers.dup(o2, dStack);
+                            WordHelpers.dup(o1, dStack);
+                            WordHelpers.dup(o2, dStack);
+                            WordHelpers.dup(o1, dStack);
                             return 1;
                         }
                 ));
@@ -624,7 +624,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.add(dStack, o1, o2);
+                            return WordHelpers.add(dStack, o1, o2);
                         }
                 ));
 
@@ -635,7 +635,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.sub(dStack, o1, o2);
+                            return WordHelpers.sub(dStack, o1, o2);
                         }
                 ));
 
@@ -645,7 +645,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.add(dStack, 1L, o2);
+                            return WordHelpers.add(dStack, 1L, o2);
                         }
                 ));
 
@@ -655,7 +655,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.sub(dStack, 1L, o2);
+                            return WordHelpers.sub(dStack, 1L, o2);
                         }
                 ));
 
@@ -665,7 +665,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.add(dStack, 2L, o2);
+                            return WordHelpers.add(dStack, 2L, o2);
                         }
                 ));
 
@@ -675,7 +675,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.sub(dStack, 2L, o2);
+                            return WordHelpers.sub(dStack, 2L, o2);
                         }
                 ));
 
@@ -686,7 +686,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.mult(dStack, o1, o2);
+                            return WordHelpers.mult(dStack, o1, o2);
                         }
                 ));
 
@@ -696,7 +696,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            return predefinedWords._help.mult(dStack, o1, 2L);
+                            return WordHelpers.mult(dStack, o1, 2L);
                         }
                 ));
 
@@ -707,7 +707,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.div(dStack, o1, o2);
+                            return WordHelpers.div(dStack, o1, o2);
                         }
                 ));
 
@@ -717,7 +717,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return predefinedWords._help.div(dStack, 2L, o2);
+                            return WordHelpers.div(dStack, 2L, o2);
                         }
                 ));
 
@@ -1452,7 +1452,7 @@ class Filler1
                             NonPrimitiveWord constant = new NonPrimitiveWord(name);
                             predefinedWords._jforth.dictionary.add(constant);
                             Object o1 = dStack.pop();
-                            BaseWord bw = predefinedWords._help.toLiteral(o1);
+                            BaseWord bw = WordHelpers.toLiteral(o1);
                             if (bw == null)
                             {
                                 return 0;

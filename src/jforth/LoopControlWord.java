@@ -1,10 +1,10 @@
 package jforth;
 
-public final class LoopControlWord extends BaseWord
+public class LoopControlWord extends BaseWord
 {
-    private final int indexIncrement;
+    final int indexIncrement;
 
-    public LoopControlWord (int indexIncrement)
+    public LoopControlWord (Integer indexIncrement)
     {
         super("", false, false, null);
         this.indexIncrement = indexIncrement;

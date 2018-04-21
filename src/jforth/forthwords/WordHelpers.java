@@ -6,11 +6,31 @@ import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import scala.math.BigInt;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
-public class WordHelpers
+class WordHelpers
 {
-    int add (OStack dStack, Object o1, Object o2)
+    static int loop (OStack vStack, PredefinedWords predefs, Class<? extends LoopControlWord> clazz)
+    {
+        try
+        {
+            int beginIndex = (int) Utilities.readLong(vStack);
+            int endIndex = predefs._jforth.wordBeingDefined.getNextWordIndex();
+            int increment = beginIndex - endIndex;
+            Constructor<? extends LoopControlWord> con1 = clazz.getConstructor(Integer.class);
+            LoopControlWord lcw = con1.newInstance (increment); //new LoopControlWord(increment);
+            predefs._jforth.wordBeingDefined.addWord(lcw);
+            predefs.executeTemporaryImmediateWord();
+            return 1;
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+
+    static int add (OStack dStack, Object o1, Object o2)
     {
         try
         {
@@ -96,7 +116,7 @@ public class WordHelpers
         return 1;
     }
 
-    int div (OStack dStack, Object o1, Object o2)
+    static int div (OStack dStack, Object o1, Object o2)
     {
         try
         {
@@ -188,7 +208,7 @@ public class WordHelpers
         return 1;
     }
 
-    void dup (Object o, OStack dStack)
+    static void dup (Object o, OStack dStack)
     {
         if (o instanceof DoubleSequence)
         {
@@ -200,7 +220,7 @@ public class WordHelpers
         }
     }
 
-    int mult (OStack dStack, Object o1, Object o2)
+    static int mult (OStack dStack, Object o1, Object o2)
     {
         try
         {
@@ -285,7 +305,7 @@ public class WordHelpers
         return 0;
     }
 
-    int sub (OStack dStack, Object o1, Object o2)
+    static int sub (OStack dStack, Object o1, Object o2)
     {
         try
         {
@@ -361,7 +381,7 @@ public class WordHelpers
         return 1;
     }
 
-    BaseWord toLiteral (Object o1)
+    static BaseWord toLiteral (Object o1)
     {
         if (o1 instanceof String)
         {
