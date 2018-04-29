@@ -183,9 +183,7 @@ public class JForth
 //        }
         else if (o instanceof Double)
         {
-            outstr = Double.toString((Double) o);
-            if (outstr.endsWith(".0"))
-                outstr = outstr.substring(0, outstr.length() - 2);
+            outstr = Utilities.formatDouble((Double) o);
         }
         else if (o instanceof Complex)
         {
@@ -396,7 +394,7 @@ public class JForth
                 }
                 sb.append(word2).append(' ');
             }
-            wordBeingDefined.addWord(new StringLiteral(sb.toString()));
+            wordBeingDefined.addWord(new Literal(sb.toString()));
             word = ".";
         }
         BaseWord bw = dictionary.search(word);
@@ -415,56 +413,56 @@ public class JForth
         Long num = Utilities.parseLong(word, base);
         if (num != null)
         {
-            wordBeingDefined.addWord(new LongLiteral(num));
+            wordBeingDefined.addWord(new Literal(num));
             return true;
         }
         BigInt big = Utilities.parseBigInt(word, base);
         if (big != null)
         {
-            wordBeingDefined.addWord(new BigIntLiteral(big));
+            wordBeingDefined.addWord(new Literal(big));
             return true;
         }
         Double dnum = Utilities.parseDouble(word, base);
         if (dnum != null)
         {
-            wordBeingDefined.addWord(new DoubleLiteral(dnum));
+            wordBeingDefined.addWord(new Literal(dnum));
             return true;
         }
         DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
         if (ma != null)
         {
-            wordBeingDefined.addWord(new DMatrixLiteral(ma));
+            wordBeingDefined.addWord(new Literal(ma));
             return true;
         }
         DoubleSequence ds = DoubleSequence.parseSequence(word, base);
         if (ds != null)
         {
-            wordBeingDefined.addWord(new DListLiteral(ds));
+            wordBeingDefined.addWord(new Literal(ds));
             return true;
         }
         Fraction fr = Utilities.parseFraction(word, base);
         if (fr != null)
         {
-            wordBeingDefined.addWord(new FractionLiteral(fr));
+            wordBeingDefined.addWord(new Literal(fr));
             return true;
         }
         Complex cpl = Utilities.parseComplex(word, base);
         if (cpl != null)
         {
-            wordBeingDefined.addWord(new ComplexLiteral(cpl));
+            wordBeingDefined.addWord(new Literal(cpl));
             return true;
         }
         String ws = Utilities.parseString(word);
         if (ws != null)
         {
-            wordBeingDefined.addWord(new StringLiteral(ws));
+            wordBeingDefined.addWord(new Literal(ws));
             return true;
         }
         double[] pd = PolynomialParser.parsePolynomial(word, base);
         if (pd != null)
         {
             wordBeingDefined.addWord(
-                    new PolynomLiteral(
+                    new Literal(
                             new PolynomialFunction(pd)));
             return true;
         }

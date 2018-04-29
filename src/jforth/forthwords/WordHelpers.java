@@ -381,41 +381,43 @@ class WordHelpers
 
     static BaseWord toLiteral (Object o1)
     {
-        if (o1 instanceof String)
-        {
-            String stringConstant = (String) o1;
-            return new StringLiteral(stringConstant);
-        }
-        else if (o1 instanceof Long)
-        {
-            Long numericConstant = (Long) o1;
-            return new LongLiteral(numericConstant);
-        }
-        else if (o1 instanceof Double)
-        {
-            Double floatingPointConstant = (Double) o1;
-            return new DoubleLiteral(floatingPointConstant);
-        }
-        else if (o1 instanceof DoubleSequence)
-        {
-            DoubleSequence seq = (DoubleSequence) o1;
-            return new DListLiteral(seq);
-        }
-        else if (o1 instanceof PolynomialFunction)
-        {
-            PolynomialFunction seq = (PolynomialFunction) o1;
-            return new PolynomLiteral(seq);
-        }
-        else if (o1 instanceof Fraction)
-        {
-            Fraction seq = (Fraction) o1;
-            return new FractionLiteral(seq);
-        }
-        else if (o1 instanceof Complex)
-        {
-            Complex seq = (Complex) o1;
-            return new ComplexLiteral(seq);
-        }
-        return null;
+        return new Literal (o1);
+
+//        if (o1 instanceof String)
+//        {
+//            String stringConstant = (String) o1;
+//            return new Literal(stringConstant);
+//        }
+//        else if (o1 instanceof Long)
+//        {
+//            Long numericConstant = (Long) o1;
+//            return new Literal(numericConstant);
+//        }
+//        else if (o1 instanceof Double)
+//        {
+//            Double floatingPointConstant = (Double) o1;
+//            return new Literal(floatingPointConstant);
+//        }
+//        else if (o1 instanceof DoubleSequence)
+//        {
+//            DoubleSequence seq = (DoubleSequence) o1;
+//            return new Literal(seq);
+//        }
+//        else if (o1 instanceof PolynomialFunction)
+//        {
+//            PolynomialFunction seq = (PolynomialFunction) o1;
+//            return new Literal(seq);
+//        }
+//        else if (o1 instanceof Fraction)
+//        {
+//            Fraction seq = (Fraction) o1;
+//            return new Literal(seq);
+//        }
+//        else if (o1 instanceof Complex)
+//        {
+//            Complex seq = (Complex) o1;
+//            return new Literal(seq);
+//        }
+//        return null;
     }
 }

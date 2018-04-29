@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "998";
-    private static final String BUILD_DATE = "04/27/2018 03:33:33 PM";
+    private static final String BUILD_NUMBER = "999";
+    private static final String BUILD_DATE = "04/29/2018 08:05:19 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -58,6 +58,14 @@ public class Utilities
             }
             System.exit(0);
         }).start();
+    }
+
+    public static String formatDouble (Double d)
+    {
+        String outstr = Double.toString(d);
+        if (outstr.endsWith(".0"))
+            outstr = outstr.substring(0, outstr.length() - 2);
+        return outstr;
     }
 
     public static String formatComplex (Complex c)
