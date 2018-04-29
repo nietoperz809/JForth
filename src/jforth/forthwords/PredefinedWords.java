@@ -6,9 +6,8 @@ import jforth.*;
 public class PredefinedWords
 {
     private static final String IMMEDIATE = "__immediate";
-    public final JForth _jforth;
-    public final WordsList _wl;
-    //public final WordHelpers _help = new WordHelpers();
+    final JForth _jforth;
+    final WordsList _wl;
 
     public static final String SAVEHIST = "saveHist";
     public static final String PLAYHIST = "playHist";
@@ -17,10 +16,8 @@ public class PredefinedWords
     {
         this._wl = wl;
         this._jforth = jf;
-        Filler1 _f1 = new Filler1();
-        _f1.fill(wl, this);
-        Filler2 _f2 = new Filler2();
-        _f2.fill(wl, this);
+        Filler1.fill(wl, this);
+        Filler2.fill(wl, this);
     }
 
     /**

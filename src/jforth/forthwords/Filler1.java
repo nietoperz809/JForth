@@ -26,7 +26,7 @@ import static org.mathIT.numbers.Riemann.zeta;
 
 class Filler1
 {
-    void fill (WordsList _fw, PredefinedWords predefinedWords)
+    static void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
         // do nothing. comments handled by tokenizer
         _fw.add(new PrimitiveWord   // dummy

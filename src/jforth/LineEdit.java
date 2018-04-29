@@ -1,6 +1,5 @@
 package jforth;
 
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -39,9 +38,8 @@ public class LineEdit
                     " #nnn      -- Delete line nnn\n" +
                     " ... any other input is appended to the buffer.";
 
-    public LineEdit (InputStream i, PrintStream p)
+    LineEdit (PrintStream p)
     {
-        InputStream _in = i;
         _out = p;
     }
 
@@ -57,7 +55,7 @@ public class LineEdit
         _out.flush();
     }
 
-    public boolean handleLine (String in)
+    boolean handleLine (String in)
     {
         if (in.startsWith("#"))
         {

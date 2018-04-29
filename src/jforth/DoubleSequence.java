@@ -70,9 +70,9 @@ public class DoubleSequence
         }
     }
 
-    private DoubleSequence (List<Double> list)
+    public DoubleSequence (List<Double> list)
     {
-        mem = new ArrayList<>(list);
+        mem = new ArrayList<Double>(list);
     }
 
     public DoubleSequence (double ... vals)

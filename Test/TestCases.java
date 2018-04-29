@@ -69,7 +69,7 @@ public class TestCases
     {
         String s = check ("{1,2,3} {4,5,6} dotP", ".");
         System.out.println(s);
-        Assert.assertEquals("32.0 OK\nJFORTH> ", s);
+        Assert.assertEquals("32 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -211,7 +211,7 @@ public class TestCases
         String s = check ("12 11 - 12L 11 - 12L 11.0 - 12.0 11 -",
                 ". . . .");
         System.out.println(s);
-        Assert.assertEquals("1.0111 OK\nJFORTH> ", s);
+        Assert.assertEquals("1111 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -462,7 +462,7 @@ public class TestCases
         String s = check ("{{1,2,3}{4,5,6}{7,8,1}} detM 3 round",
                 ".");
         System.out.println(s);
-        Assert.assertEquals("24.0 OK\nJFORTH> ", s);
+        Assert.assertEquals("24 OK\nJFORTH> ", s);
     }
 
     @Test
@@ -618,4 +618,12 @@ public class TestCases
                 ".");
         Assert.assertEquals("lala+dumm OK\nJFORTH> ", s);
     }
+
+    @Test
+    public void TestCollatz()
+    {
+        String s = check ("11 clltz dup length swap sum",". .");
+        Assert.assertEquals("25915 OK\nJFORTH> ", s);
+    }
+
 }

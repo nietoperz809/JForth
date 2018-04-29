@@ -21,10 +21,7 @@ public final class PlusLoopControlWord extends LoopControlWord
       long inc   = (Long) o3;
       index += inc;
       boolean condition;
-      if (inc >= 0)
-        condition = index >= limit;
-      else
-        condition = index <= limit;
+      condition = (inc >= 0) ? (index >= limit) : (index <= limit);
       if (condition)
       {
         vStack.pop();
@@ -36,7 +33,6 @@ public final class PlusLoopControlWord extends LoopControlWord
         return indexIncrement;
       }
     }
-    else
-      return 0;
+    return 0;
   }
 }

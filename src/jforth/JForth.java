@@ -63,7 +63,7 @@ public class JForth
         history = new History(HISTORY_LENGTH);
         _out = out;
         new PredefinedWords(this, dictionary);
-        _lineEditor = new LineEdit(System.in, out);
+        _lineEditor = new LineEdit(out);
     }
 
     /**
@@ -85,7 +85,6 @@ public class JForth
     /**
      * Starting point
      * @param args not used
-     * @throws Exception not used
      */
     public static void main (String[] args)
     {
@@ -185,6 +184,8 @@ public class JForth
         else if (o instanceof Double)
         {
             outstr = Double.toString((Double) o);
+            if (outstr.endsWith(".0"))
+                outstr = outstr.substring(0, outstr.length() - 2);
         }
         else if (o instanceof Complex)
         {

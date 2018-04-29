@@ -9,11 +9,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Base64;
 
 class Filler2
 {
-    void fill (WordsList _fw, PredefinedWords predefinedWords)
+    static void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
         _fw.add(new PrimitiveWord
                 (
@@ -451,7 +452,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "break", true, "Breaks out of the word",
+                        "break", true, "Breaks out of the forth word",
                         (dStack, vStack) ->
                         {
                             if (!predefinedWords._jforth.compiling)
@@ -463,5 +464,34 @@ class Filler2
                             return 1;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "clltz", true, "Get collatz sequence",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long n = Utilities.readLong(dStack);
+                                ArrayList<Double> ar = new ArrayList<>();
+                                ar.add((double)n);
+                                for (;n!=1;)
+                                {
+                                    if (n%2 == 0)
+                                        n=n/2;
+                                    else
+                                        n=3*n+1;
+                                    ar.add((double)n);
+                                }
+                                dStack.push (new DoubleSequence(ar));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }
