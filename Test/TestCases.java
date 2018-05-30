@@ -626,4 +626,28 @@ public class TestCases
         Assert.assertEquals("25915 OK\nJFORTH> ", s);
     }
 
+    @Test
+    public void TestUDP()
+    {
+        
+        (new Thread(() ->
+        {
+
+            try
+            {
+                Thread.sleep(2000);
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+            String s = check ("1000 \"hello\" udpput","");
+            Assert.assertEquals(" OK\nJFORTH> ", s);
+        })).start();
+
+        String s = check ("1000 udpget",".");
+        Assert.assertEquals("hello OK\nJFORTH> ", s);
+    }
+
+
 }
