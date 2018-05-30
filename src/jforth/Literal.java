@@ -1,7 +1,5 @@
 package jforth;
 
-import jforth.BaseWord;
-import jforth.OStack;
 
 public class Literal extends BaseWord
 {

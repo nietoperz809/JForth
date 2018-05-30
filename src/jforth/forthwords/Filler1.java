@@ -15,6 +15,9 @@ import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
 import java.io.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1453,10 +1456,10 @@ class Filler1
                             predefinedWords._jforth.dictionary.add(constant);
                             Object o1 = dStack.pop();
                             BaseWord bw = WordHelpers.toLiteral(o1);
-                            if (bw == null)
-                            {
-                                return 0;
-                            }
+//                            if (bw == null)
+//                            {
+//                                return 0;
+//                            }
                             constant.addWord(bw);
                             return 1;
                         }
@@ -3369,25 +3372,13 @@ class Filler1
                         "closeByteReader", false, "Close file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
+                            try
                             {
-                                return 0;
+                                FileInputStream fi = Utilities.readFileInputStream(dStack);
+                                fi.close();
+                                return 1;
                             }
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof FileInputStream)
-                            {
-                                try
-                                {
-                                    ((FileInputStream) o1).close();
-                                    return 1;
-                                }
-                                catch (IOException ioe)
-                                {
-                                    ioe.printStackTrace();
-                                    return 0;
-                                }
-                            }
-                            else
+                            catch (Exception e)
                             {
                                 return 0;
                             }
@@ -3401,9 +3392,56 @@ class Filler1
                         {
                             try
                             {
-                                String o1 = Utilities.readString(dStack);
+                                String o1 = Utilities.readString(dStack);   // file name
                                 File f = new File(o1);
                                 dStack.push(new BufferedReader(new FileReader(f)));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "udpput", false, "Send udp packet",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String data = Utilities.readString(dStack);
+                                byte[] bt = data.getBytes();
+                                int port = (int) Utilities.readLong(dStack);
+                                DatagramPacket pkt = new DatagramPacket(bt, bt.length,
+                                        InetAddress.getByName("255.255.255.255"), port);
+                                new DatagramSocket().send (pkt);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "udpget", false, "Receive udp packet",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                int port = (int) Utilities.readLong(dStack);
+                                DatagramPacket packet = new DatagramPacket (new byte[1500], 1500);
+                                DatagramSocket sock = new DatagramSocket(port);
+                                sock.receive(packet);
+                                byte[] dat = new byte[packet.getLength()];
+                                System.arraycopy(packet.getData(), 0, dat, 0, packet.getLength());
+                                String s = new String(dat);
+                                sock.close();
+                                dStack.push(s);
                                 return 1;
                             }
                             catch (Exception e)

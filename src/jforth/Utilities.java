@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "999";
-    private static final String BUILD_DATE = "04/29/2018 08:05:19 AM";
+    private static final String BUILD_NUMBER = "1004";
+    private static final String BUILD_DATE = "05/30/2018 12:51:53 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -392,6 +392,12 @@ public class Utilities
     {
         return getLong(dStack.pop());
     }
+
+    public static FileInputStream readFileInputStream (OStack dStack) throws Exception
+    {
+        return (FileInputStream)dStack.pop();
+    }
+
 
     public static long getLong (Object o) throws Exception
     {
