@@ -2223,6 +2223,24 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
+                        "toDList", false, "Create List of digits",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Utilities.readString(dStack);
+                                dStack.push (DoubleSequence.fromNumberString(s));
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "toList", false, "Make list of what is on the stack",
                         (dStack, vStack) ->
                         {
@@ -3414,9 +3432,16 @@ class Filler1
                                 String data = Utilities.readString(dStack);
                                 byte[] bt = data.getBytes();
                                 int port = (int) Utilities.readLong(dStack);
+                                String ip;
+                                if (dStack.empty())
+                                    ip = "255.255.255.255";
+                                else
+                                    ip = Utilities.readString(dStack);
                                 DatagramPacket pkt = new DatagramPacket(bt, bt.length,
-                                        InetAddress.getByName("255.255.255.255"), port);
-                                new DatagramSocket().send (pkt);
+                                        InetAddress.getByName(ip), port);
+                                DatagramSocket sock = new DatagramSocket();
+                                sock.setBroadcast(true);
+                                sock.send (pkt);
                                 return 1;
                             }
                             catch (Exception e)
@@ -3436,6 +3461,7 @@ class Filler1
                                 int port = (int) Utilities.readLong(dStack);
                                 DatagramPacket packet = new DatagramPacket (new byte[1500], 1500);
                                 DatagramSocket sock = new DatagramSocket(port);
+                                sock.setBroadcast(true);
                                 sock.receive(packet);
                                 byte[] dat = new byte[packet.getLength()];
                                 System.arraycopy(packet.getData(), 0, dat, 0, packet.getLength());
@@ -3466,7 +3492,10 @@ class Filler1
                                 try
                                 {
                                     String s = ((BufferedReader) o1).readLine();
-                                    dStack.push(Objects.requireNonNullElse(s, "*EOF*"));
+                                    if (s == null)
+                                        dStack.push ("*EOF*");
+                                    else
+                                        dStack.push(s);
                                     return 1;
                                 }
                                 catch (IOException ioe)
@@ -3690,7 +3719,33 @@ class Filler1
                             try
                             {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.sum());
+                                Double sum = o.sum();
+                                if (sum.longValue() == sum)
+                                    dStack.push(sum.longValue());
+                                else
+                                    dStack.push (sum);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "altsum", false, "Add all elements together but alternates sign",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                Double sum = o.altsum();
+                                if (sum.longValue() == sum)
+                                    dStack.push(sum.longValue());
+                                else
+                                    dStack.push (sum);
                                 return 1;
                             }
                             catch (Exception e)

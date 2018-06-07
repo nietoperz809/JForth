@@ -107,6 +107,19 @@ public class DoubleSequence
         mem.addAll(src2.mem);
     }
 
+    public static DoubleSequence fromNumberString (String str)
+    {
+        DoubleSequence ds = new DoubleSequence();
+        for(char c : str.toCharArray())
+        {
+            int c1 = c-'0';
+            if (c1 < 0 || c1 > 9)
+                c1 = 0;
+            ds.mem.add ((double) c1);
+        }
+        return ds;
+    }
+
     public static SummaryStatistics getStats(DoubleSequence in)
     {
         SummaryStatistics stat = new SummaryStatistics();
@@ -188,6 +201,19 @@ public class DoubleSequence
     public double sum()
     {
         return new Sum().evaluate (this.asPrimitiveArray());
+    }
+
+    public double altsum()
+    {
+        DoubleSequence rev = reverse();
+        int sign = 1;
+        double sum = 0.0;
+        for (Double aMem : rev.mem)
+        {
+            sum += (aMem*sign);
+            sign = -sign;
+        }
+        return sum;
     }
 
     public double[] asPrimitiveArray ()
@@ -330,9 +356,9 @@ public class DoubleSequence
 
     public DoubleSequence add (double d)
     {
-        DoubleSequence ds = new DoubleSequence(this);
-        ds.mem.add(d);
-        return ds;
+        //DoubleSequence ds = new DoubleSequence(this);
+        mem.add(d);
+        return this;
     }
 
     public String asString ()
