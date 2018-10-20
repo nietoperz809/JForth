@@ -5,7 +5,9 @@ import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
@@ -38,8 +40,17 @@ class Filler2
                             {
                                 b = ((DoubleSequence) o1).asBytes();
                             }
-                            dStack.push(javax.xml.bind.DatatypeConverter.printHexBinary(b));
-                            return 1;
+                            if (b != null)
+                            {
+                                dStack.push(javax.xml.bind.DatatypeConverter.printHexBinary(b));
+                                return 1;
+                            }
+                            if (o1 instanceof Long)
+                            {
+                                dStack.push(Long.toHexString((Long)o1));
+                                return 1;
+                            }
+                            return 0;
                         }
                 ));
 
@@ -484,6 +495,35 @@ class Filler2
                                     ar.add((double)n);
                                 }
                                 dStack.push (new DoubleSequence(ar));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "ping", true, "Check a host",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String host  = Utilities.readString (dStack);
+                                try
+                                {
+                                    InetAddress inet = InetAddress.getByName(host);
+                                    if (inet.isReachable(5000))
+                                        dStack.push(JForth.TRUE);
+                                    else
+                                        dStack.push(JForth.FALSE);
+                                }
+                                catch (IOException e)
+                                {
+                                    dStack.push(JForth.FALSE);
+                                }
                                 return 1;
                             }
                             catch (Exception e)
