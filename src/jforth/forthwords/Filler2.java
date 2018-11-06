@@ -7,6 +7,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -238,6 +239,28 @@ class Filler2
                                 ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
                                 Object o = engine.eval(ss);
                                 dStack.push(o);
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "java", false, "compile and run java class",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String source = Utilities.readString(dStack).replace ('_',' ');
+                                Object arg = dStack.pop();
+                                JavaExecutor compiler = new JavaExecutor();
+                                final Method greeting = compiler.compileStaticMethod("main", "Solution", source);
+                                final Object result = greeting.invoke(null, arg);
+                                dStack.push(result);
                                 return 1;
                             }
                             catch (Exception ex)

@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1047";
-    private static final String BUILD_DATE = "10/20/2018 07:20:41 PM";
+    private static final String BUILD_NUMBER = "1068";
+    private static final String BUILD_DATE = "11/06/2018 06:22:42 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");

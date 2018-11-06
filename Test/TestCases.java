@@ -665,4 +665,14 @@ public class TestCases
         Assert.assertEquals("33"+EP, s);
     }
 
+    @Test
+    public void TestJava()
+    {
+        final String source = "\"public_class_Solution_{"
+                + "public_static_double_main(double_arg)_{"
+                + "return_Math.sqrt(arg);}}\"";
+
+        String s = check ("56.25 "+source + " java",".");
+        Assert.assertEquals("7.5"+EP, s);
+    }
 }
