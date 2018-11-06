@@ -256,9 +256,11 @@ class Filler2
                             try
                             {
                                 String source = Utilities.readString(dStack).replace ('_',' ');
+                                String classname = "Solution";
+                                source = "public class " + classname + " {" + source + "}";
                                 Object arg = dStack.pop();
                                 JavaExecutor compiler = new JavaExecutor();
-                                final Method greeting = compiler.compileStaticMethod("main", "Solution", source);
+                                final Method greeting = compiler.compileStaticMethod("main", classname, source);
                                 final Object result = greeting.invoke(null, arg);
                                 dStack.push(result);
                                 return 1;
