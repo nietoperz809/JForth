@@ -255,7 +255,7 @@ class Filler2
                         {
                             try
                             {
-                                String source = Utilities.readString(dStack).replace ('_',' ');
+                                String source = Utilities.readString(dStack);
                                 String classname = "Solution";
                                 source = "public class " + classname + " {" + source + "}";
                                 Object arg = dStack.pop();
@@ -274,12 +274,12 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "forth", false, "execute csv separated forth line asynchronously",
+                        "forth", false, "execute forth line asynchronously",
                         (dStack, vStack) ->
                         {
                             try
                             {
-                                final String ss = Utilities.readString(dStack).replace(',', ' ');
+                                final String ss = Utilities.readString(dStack);
                                 new Thread(() ->
                                 {
                                     JForth f = new JForth(AnsiConsole.out);

@@ -669,7 +669,9 @@ public class TestCases
     public void TestJava()
     {
         final String source =
-                "\"public_static_double_main(double_arg)_{return_Math.sqrt(arg);}\"";
+                "\"public static double main(double arg) {return func(arg);}" +
+                        "public static double func(double arg) {return Math.sqrt(arg);}"+
+                        "\"";
         String s = check ("56.25 "+source + " java",".");
         Assert.assertEquals("7.5"+EP, s);
     }

@@ -294,23 +294,7 @@ public class JForth
 
     private boolean doInterpret (String word, StreamTokenizer st) throws Exception
     {
-        if (word.equals(".\""))
-        {
-            StringBuilder sb = new StringBuilder();
-            for (; ; )
-            {
-                st.nextToken();
-                String word2 = st.sval;
-                if (word2.endsWith("\""))
-                {
-                    sb.append(word2, 0, word2.length() - 1);
-                    break;
-                }
-                sb.append(word2).append(' ');
-            }
-            dStack.push(sb.toString());
-            word = ".";
-        }
+        word = parseStringLiteral(word, st, false);
         BaseWord bw = dictionary.search(word);
         if (bw != null)
         {
@@ -378,8 +362,24 @@ public class JForth
         return false;
     }
 
-    private boolean doCompile (String word, StreamTokenizer st) throws Exception
+    private String parseStringLiteral (String word, StreamTokenizer st, boolean compile) throws Exception
     {
+        if (word.startsWith("\""))
+        {
+            if (word.endsWith("\""))
+                return word;
+            StringBuilder sb = new StringBuilder(word);
+            for (; ; )
+            {
+                st.nextToken();
+                String word2 = st.sval;
+                sb.append(' ').append(word2);
+                if (word2.endsWith("\""))
+                {
+                    return sb.toString();
+                }
+            }
+        }
         if (word.equals(".\""))
         {
             StringBuilder sb = new StringBuilder();
@@ -389,14 +389,23 @@ public class JForth
                 String word2 = st.sval;
                 if (word2.endsWith("\""))
                 {
-                    sb.append(word2.substring(0, word2.length() - 1));
+                    sb.append(word2, 0, word2.length() - 1);
                     break;
                 }
                 sb.append(word2).append(' ');
             }
-            wordBeingDefined.addWord(new Literal(sb.toString()));
-            word = ".";
+            if (compile)
+                wordBeingDefined.addWord(new Literal(sb.toString()));
+            else
+                dStack.push(sb.toString());
+            return ".";
         }
+        return word;
+    }
+
+    private boolean doCompile (String word, StreamTokenizer st) throws Exception
+    {
+        word = parseStringLiteral(word, st, true);
         BaseWord bw = dictionary.search(word);
         if (bw != null)
         {
