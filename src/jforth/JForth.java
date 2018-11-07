@@ -99,6 +99,7 @@ public class JForth
      */
     public void singleShot (String input)
     {
+        input = StringEscape.escape (input);
         if (mode == DIRECT)
         {
             if (!interpretLine(input))
@@ -155,7 +156,7 @@ public class JForth
         }
         while (true)
         {
-            String s = StringEscape.escape (scanner.nextLine().trim());
+            String s = scanner.nextLine().trim();
             singleShot (s);
         }
     }

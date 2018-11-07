@@ -1,5 +1,4 @@
 import jforth.JForth;
-import jforth.StringEscape;
 import jforth.Utilities;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,9 +24,12 @@ public class TestCases
         StringStream _ss = new StringStream();
         JForth _forth = new JForth(_ss.getPrintStream());
 //        _forth.setPrintStream(_ss.getPrintStream());
-        _forth.singleShot(StringEscape.escape(prg));
-        _ss.clear();
-        _forth.singleShot (call);
+        _forth.singleShot(prg);
+        if (call != null)
+        {
+            _ss.clear();
+            _forth.singleShot(call);
+        }
         return _ss.toString();
     }
 
@@ -676,4 +678,12 @@ public class TestCases
         String s = check ("56.25 "+source + " java",".");
         Assert.assertEquals("7.5"+EP, s);
     }
+
+    @Test
+    public void TestDotQuote()
+    {
+        String s = check (".\" hello doof \"",null);
+        Assert.assertEquals("hello doof "+EP, s);
+    }
+
 }
