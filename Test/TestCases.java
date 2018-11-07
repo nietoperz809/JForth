@@ -1,4 +1,5 @@
 import jforth.JForth;
+import jforth.StringEscape;
 import jforth.Utilities;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class TestCases
         StringStream _ss = new StringStream();
         JForth _forth = new JForth(_ss.getPrintStream());
 //        _forth.setPrintStream(_ss.getPrintStream());
-        _forth.singleShot(prg);
+        _forth.singleShot(StringEscape.escape(prg));
         _ss.clear();
         _forth.singleShot (call);
         return _ss.toString();

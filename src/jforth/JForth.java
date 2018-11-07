@@ -47,7 +47,7 @@ public class JForth
     public int base;
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
-    public LineEdit _lineEditor;
+    public final LineEdit _lineEditor;
     private StreamTokenizer st = null;
 
     public JForth ()
@@ -155,10 +155,16 @@ public class JForth
         }
         while (true)
         {
-            singleShot (scanner.nextLine().trim());
+            String s = StringEscape.escape (scanner.nextLine().trim());
+            singleShot (s);
         }
     }
 
+    /**
+     * Make human-readable String from object
+     * @param o input object
+     * @return String
+     */
     public String makePrintable (Object o)
     {
         if (o == null)
@@ -181,7 +187,7 @@ public class JForth
         }
         else if (o instanceof String)
         {
-            return (String) o;
+            return StringEscape.unescape((String) o);
         }
         else if (o instanceof PolynomialFunction)
         {
@@ -198,11 +204,6 @@ public class JForth
     }
 
 
-    /**
-     * Make human-readable String from object
-     * @param o input object
-     * @return String
-     */
     public String ObjectToString (Object o)
     {
         String out = makePrintable(o);
@@ -361,22 +362,6 @@ public class JForth
 
     private String parseStringLiteral (String word, StreamTokenizer st, boolean compile) throws Exception
     {
-        if (word.startsWith("\""))
-        {
-            if (word.endsWith("\""))
-                return word;
-            StringBuilder sb = new StringBuilder(word);
-            for (; ; )
-            {
-                st.nextToken();
-                String word2 = st.sval;
-                sb.append(' ').append(word2);
-                if (word2.endsWith("\""))
-                {
-                    return sb.toString();
-                }
-            }
-        }
         if (word.equals(".\""))
         {
             StringBuilder sb = new StringBuilder();
