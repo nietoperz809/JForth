@@ -159,59 +159,56 @@ public class JForth
         }
     }
 
-    /**
-     * Make human-readable String from object
-     * @param o
-     * @return
-     */
-    public String ObjectToString (Object o)
+    public String makePrintable (Object o)
     {
-        String outstr;
         if (o == null)
             return null;
         if (o instanceof Long)
         {
-            outstr = Long.toString((Long) o, base).toUpperCase();
+            return Long.toString((Long) o, base).toUpperCase();
         }
-//        else if (o instanceof DoubleMatrix)
-//        {
-//            outstr = o.toString();
-//        }
-//        else if (o instanceof DoubleSequence)
-//        {
-//            outstr = o.toString();
-//        }
         else if (o instanceof Double)
         {
-            outstr = Utilities.formatDouble((Double) o);
+            return Utilities.formatDouble((Double) o);
         }
         else if (o instanceof Complex)
         {
-            outstr = Utilities.formatComplex((Complex) o);
+            return Utilities.formatComplex((Complex) o);
         }
         else if (o instanceof Fraction)
         {
-            outstr = Utilities.formatFraction((Fraction) o);
+            return Utilities.formatFraction((Fraction) o);
         }
         else if (o instanceof String)
         {
-            outstr = (String) o;
+            return (String) o;
         }
         else if (o instanceof PolynomialFunction)
         {
-            outstr = PolySupport.formatPoly((PolynomialFunction) o);
+            return PolySupport.formatPoly((PolynomialFunction) o);
         }
         else if (o instanceof BigInt)
         {
-            outstr = o.toString();
+            return o.toString();
         }
         else
         {
-            outstr = o.toString();
+            return o.toString();
         }
+    }
+
+
+    /**
+     * Make human-readable String from object
+     * @param o input object
+     * @return String
+     */
+    public String ObjectToString (Object o)
+    {
+        String out = makePrintable(o);
         if (_out == AnsiConsole.out)
-            return ANSI_YELLOW + ANSI_BOLD + outstr + ANSI_NORMAL;
-        return outstr;
+            return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
+        return out;
     }
 
     /**

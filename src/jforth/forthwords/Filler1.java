@@ -2497,14 +2497,17 @@ class Filler1
                             if (o1 instanceof String)
                             {
                                 dStack.push((long) ((String) o1).length());
-                                return 1;
                             }
-                            if (o1 instanceof DoubleSequence)
+                            else if (o1 instanceof DoubleSequence)
                             {
                                 dStack.push((long) ((DoubleSequence) o1).length());
-                                return 1;
                             }
-                            return 0;
+                            else
+                            {
+                                String s = predefinedWords._jforth.makePrintable(o1);
+                                dStack.push (s.length());
+                            }
+                            return 1;
                         }
                 ));
 
