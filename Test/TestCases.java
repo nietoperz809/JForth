@@ -686,4 +686,10 @@ public class TestCases
         Assert.assertEquals("hello doof "+EP, s);
     }
 
+    @Test
+    public void TestMultiDots()
+    {
+        String s = check ("1 2 3 4 5",".....");
+        Assert.assertEquals("54321"+EP, s);
+    }
 }

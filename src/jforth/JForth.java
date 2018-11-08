@@ -14,7 +14,6 @@ import java.io.PrintStream;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import static jforth.MODE.DIRECT;
@@ -36,7 +35,6 @@ public class JForth
     private static final String OK = " OK";
     private static final int HISTORY_LENGTH = 1000;
     private static Voice voice = null;
-    public final Random random;
     public final History history;
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
@@ -48,7 +46,7 @@ public class JForth
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
     public final LineEdit _lineEditor;
-    private StreamTokenizer st = null;
+    private MyStreamTokenizer st = null;
 
     public JForth ()
     {
@@ -59,7 +57,6 @@ public class JForth
     {
         compiling = false;
         base = 10;
-        random = new Random();
         history = new History(HISTORY_LENGTH);
         _out = out;
         new PredefinedWords(this, dictionary);
@@ -239,7 +236,7 @@ public class JForth
         try
         {
             StringReader sr = new StringReader(text);
-            st = new StreamTokenizer(sr);
+            st = new MyStreamTokenizer(sr);
             st.resetSyntax();
             st.wordChars('!', '~');
             //st.quoteChar('_');  // test
@@ -268,14 +265,14 @@ public class JForth
                 }
                 if (!compiling)
                 {
-                    if (!doInterpret(word, st))
+                    if (!doInterpret(word))
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    if (!doCompile(word, st))
+                    if (!doCompile(word))
                     {
                         return false;
                     }
@@ -291,9 +288,9 @@ public class JForth
         }
     }
 
-    private boolean doInterpret (String word, StreamTokenizer st) throws Exception
+    private boolean doInterpret (String word) throws Exception
     {
-        word = parseStringLiteral(word, st, false);
+        word = handleDirectStringOut(word, false);
         BaseWord bw = dictionary.search(word);
         if (bw != null)
         {
@@ -361,7 +358,7 @@ public class JForth
         return false;
     }
 
-    private String parseStringLiteral (String word, StreamTokenizer st, boolean compile) throws Exception
+    private String handleDirectStringOut (String word, boolean compile) throws Exception
     {
         if (word.equals(".\""))
         {
@@ -386,9 +383,9 @@ public class JForth
         return word;
     }
 
-    private boolean doCompile (String word, StreamTokenizer st) throws Exception
+    private boolean doCompile (String word) throws Exception
     {
-        word = parseStringLiteral(word, st, true);
+        word = handleDirectStringOut(word, true);
         BaseWord bw = dictionary.search(word);
         if (bw != null)
         {

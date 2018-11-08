@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.LongStream;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
@@ -29,6 +30,9 @@ import static org.mathIT.numbers.Riemann.zeta;
 
 class Filler1
 {
+    public static final Random random = new Random();
+
+
     static void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
         // do nothing. comments handled by tokenizer
@@ -3142,7 +3146,7 @@ class Filler1
                             try
                             {
                                 Long lo = Utilities.readLong(dStack);
-                                double number = predefinedWords._jforth.random.nextGaussian() * lo;
+                                double number = random.nextGaussian() * lo;
                                 dStack.push(number);
                                 return 1;
                             }
@@ -3161,7 +3165,7 @@ class Filler1
                             try
                             {
                                 Long lo = Utilities.readLong(dStack);
-                                double number = predefinedWords._jforth.random.nextDouble() * lo;
+                                double number = random.nextDouble() * lo;
                                 dStack.push(number);
                                 return 1;
                             }
@@ -3839,8 +3843,18 @@ class Filler1
                             try
                             {
                                 long l1 = Utilities.readLong(dStack);
-                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
-                                dStack.push(ds.pick((int) l1));
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence)
+                                {
+                                    dStack.push(((DoubleSequence)o).pick((int) l1));
+                                }
+                                else if (o instanceof String)
+                                {
+                                    char c = ((String)o).charAt((int)l1);
+                                    dStack.push (""+c);
+                                }
+                                else
+                                    return 0;
                                 return 1;
                             }
                             catch (Exception ex)
