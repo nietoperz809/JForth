@@ -46,7 +46,7 @@ public class JForth
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
     public final LineEdit _lineEditor;
-    private MyStreamTokenizer st = null;
+    private MultiDotStreamTokenizer st = null;
 
     public JForth ()
     {
@@ -236,7 +236,7 @@ public class JForth
         try
         {
             StringReader sr = new StringReader(text);
-            st = new MyStreamTokenizer(sr);
+            st = new MultiDotStreamTokenizer(sr);
             st.resetSyntax();
             st.wordChars('!', '~');
             //st.quoteChar('_');  // test

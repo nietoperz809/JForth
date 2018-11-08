@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StreamTokenizer;
 
-public class MyStreamTokenizer extends StreamTokenizer
+public class MultiDotStreamTokenizer extends StreamTokenizer
 {
-    public MyStreamTokenizer (Reader r)
+    public MultiDotStreamTokenizer (Reader r)
     {
         super(r);
     }
@@ -32,15 +32,14 @@ public class MyStreamTokenizer extends StreamTokenizer
         {
             dots--;
             sval = ".";
-            return (int)nval;
+            return 1;
         }
         int tt = super.nextToken();
         if (allDots(sval))
         {
-            dots = sval.length();
-            dots--;
+            dots = sval.length()-1;
             sval = ".";
-            return (int)nval;
+            return 1;
         }
         return tt;
     }
