@@ -16,11 +16,11 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static jforth.MODE.DIRECT;
-
 
 public class JForth
 {
+    public enum MODE {EDIT, DIRECT}
+
     public static final String ENCODING = "ISO_8859_1";
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
@@ -39,7 +39,7 @@ public class JForth
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
-    public MODE mode = DIRECT;
+    public MODE mode = MODE.DIRECT;
     public final transient PrintStream _out; // output channel
     public boolean compiling;
     public int base;
@@ -97,7 +97,7 @@ public class JForth
     public void singleShot (String input)
     {
         input = StringEscape.escape (input);
-        if (mode == DIRECT)
+        if (mode == MODE.DIRECT)
         {
             if (!interpretLine(input))
             {
@@ -120,10 +120,10 @@ public class JForth
         {
             if (!_lineEditor.handleLine(input))
             {
-                mode = DIRECT;
+                mode = MODE.DIRECT;
             }
         }
-        if (mode == DIRECT)
+        if (mode == MODE.DIRECT)
         {
             _out.print (FORTHPROMPT);
         }
@@ -468,16 +468,12 @@ public class JForth
             {
                 return st.sval;
             }
-            else
-            {
-                return null;
-            }
         }
         catch (IOException ioe)
         {
             ioe.printStackTrace();
-            return null;
         }
+        return null;
     }
 
     public void executeFile (String fileName) throws Exception

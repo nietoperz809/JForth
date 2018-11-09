@@ -5,7 +5,7 @@ import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.io.IOException;
+import javax.swing.*;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -397,7 +397,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "i", false,
+                        "i", false, "put loop variable i on stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.peek();
@@ -408,7 +408,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "j", false,
+                        "j", false, "put loop variable j on stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = vStack.pop();
@@ -537,18 +537,103 @@ class Filler2
                             try
                             {
                                 String host  = Utilities.readString (dStack);
-                                try
-                                {
-                                    InetAddress inet = InetAddress.getByName(host);
-                                    if (inet.isReachable(5000))
-                                        dStack.push(JForth.TRUE);
-                                    else
-                                        dStack.push(JForth.FALSE);
-                                }
-                                catch (IOException e)
-                                {
+                                InetAddress inet = InetAddress.getByName(host);
+                                if (inet.isReachable(5000))
+                                    dStack.push(JForth.TRUE);
+                                else
                                     dStack.push(JForth.FALSE);
-                                }
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "msg", true, "Show message box",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String txt = Utilities.readString (dStack);
+                                JOptionPane.showMessageDialog(null,
+                                        txt,
+                                        "JForth",
+                                        JOptionPane.PLAIN_MESSAGE);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "ask", true, "Show yes/no box",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String txt = Utilities.readString (dStack);
+                                int dialogResult = JOptionPane.showConfirmDialog(null,
+                                        txt+"?",
+                                        "Jforth", JOptionPane.YES_NO_OPTION);
+                                if (dialogResult == 0)
+                                    dStack.push(JForth.TRUE);
+                                else
+                                    dStack.push(JForth.FALSE);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
+                        "asyncmsg", true, "Show asynchronous message box",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String txt = Utilities.readString (dStack);
+                                new Thread(() ->
+                                {
+                                    JOptionPane.showMessageDialog(null,
+                                            txt,
+                                            "JForth",
+                                            JOptionPane.PLAIN_MESSAGE);
+                                }).start();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "what", true, "Show description about a word",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String wordname = Utilities.readString (dStack);
+                                BaseWord bw = _fw.search(wordname); //dictionary.search(word);
+                                if (bw == null)
+                                    return 0;
+                                String info = bw.getInfo();
+                                dStack.push(info);
                                 return 1;
                             }
                             catch (Exception e)

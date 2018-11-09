@@ -31,6 +31,13 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
         }
     }
 
+    public String getInfo() throws Exception
+    {
+        if (info == null)
+            throw new Exception ("Info no available");
+        return info;
+    }
+
     public boolean equals (Object o)
     {
         if (!(o instanceof BaseWord))

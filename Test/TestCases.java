@@ -258,7 +258,7 @@ public class TestCases
     @Test
     public void TestSimpleCalc()
     {
-        String s = check ("12.0 7 / 100L * type ",
+        String s = check ("12.0 7 / 100L * dup type ",
                 ". sp .\" - \" .");
         System.out.println(s);
         Assert.assertEquals("BigInt - 100"+EP, s);
@@ -438,9 +438,9 @@ public class TestCases
     public void TestDSCreate()
     {
         String s = check ("{1.2,2.3,3,4,4.5} type",
-                ". .");
+                ".s");
         System.out.println(s);
-        Assert.assertEquals("DoubleSequence{1.2,2.3,3,4,4.5}"+EP, s);
+        Assert.assertEquals("DoubleSequence "+EP, s);
     }
 
     @Test
@@ -691,5 +691,14 @@ public class TestCases
     {
         String s = check ("1 2 3 4 5",".....");
         Assert.assertEquals("54321"+EP, s);
+    }
+
+    @Test
+    public void TestShift()
+    {
+        String s = check ("\"peter\" >> >> >>",".");
+        Assert.assertEquals("terpe"+EP, s);
+        s = check ("\"peter\" << >> <<",".");
+        Assert.assertEquals("eterp"+EP, s);
     }
 }

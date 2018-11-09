@@ -1135,28 +1135,23 @@ class Filler1
                         "<<", false, "Rotate left",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
+                            if (o2 instanceof Long)
                             {
                                 long i2 = (Long) o2;
-                                int i1 = (int) ((Long) o1).longValue();
-                                i2 = Long.rotateLeft(i2, i1);
-                                dStack.push(i2);
+                                dStack.push(Long.rotateLeft(i2, 1));
                                 return 1;
                             }
-                            if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                            if (o2 instanceof DoubleSequence)
                             {
                                 DoubleSequence i2 = (DoubleSequence) o2;
-                                int i1 = (int) ((Long) o1).longValue();
-                                dStack.push(i2.rotateLeft(i1));
+                                dStack.push(i2.rotateLeft(1));
                                 return 1;
                             }
-                            if ((o1 instanceof Long) && (o2 instanceof String))
+                            if (o2 instanceof String)
                             {
                                 String i2 = (String) o2;
-                                int i1 = ((Long) o1).intValue();
-                                dStack.push(Utilities.rotLeft(i2, i1));
+                                dStack.push(Utilities.rotLeft(i2, 1));
                                 return 1;
                             }
                             return 0;
@@ -1168,28 +1163,23 @@ class Filler1
                         ">>", false, "Rotate right",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
+                            if (o2 instanceof Long)
                             {
                                 long i2 = (Long) o2;
-                                int i1 = (int) ((Long) o1).longValue();
-                                i2 = Long.rotateRight(i2, i1);
-                                dStack.push(i2);
+                                dStack.push(Long.rotateRight(i2, 1));
                                 return 1;
                             }
-                            if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
+                            if (o2 instanceof DoubleSequence)
                             {
                                 DoubleSequence i2 = (DoubleSequence) o2;
-                                int i1 = (int) ((Long) o1).longValue();
-                                dStack.push(i2.rotateRight(i1));
+                                dStack.push(i2.rotateRight(1));
                                 return 1;
                             }
-                            if ((o1 instanceof Long) && (o2 instanceof String))
+                            if (o2 instanceof String)
                             {
                                 String i2 = (String) o2;
-                                int i1 = ((Long) o1).intValue();
-                                dStack.push(Utilities.rotRight(i2, i1));
+                                dStack.push(Utilities.rotRight(i2, 1));
                                 return 1;
                             }
                             return 0;
@@ -1928,7 +1918,7 @@ class Filler1
                         "type", false, "Get type of TOS as string",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.peek();
+                            Object o1 = dStack.pop();
                             dStack.push(o1.getClass().getSimpleName());
                             return 1;
                         }
@@ -3112,7 +3102,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.println("Type #h for help ...");
-                            predefinedWords._jforth.mode = MODE.EDIT;
+                            predefinedWords._jforth.mode = JForth.MODE.EDIT;
                             return 1;
                         }
                 ));
