@@ -643,5 +643,48 @@ class Filler2
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "collect", true, "collects all numbers from stack into sequence",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence sq = new DoubleSequence();
+                                while (!dStack.isEmpty() && Utilities.canBeDouble(dStack.peek()))
+                                {
+                                    sq.add(Utilities.readDouble(dStack));
+                                }
+                                dStack.push (sq.reverse());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "scatter", true, "desintegrate sequence onto stack",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                for (Double d : ds.asPrimitiveArray())
+                                {
+                                    dStack.push(d);
+                                }
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }

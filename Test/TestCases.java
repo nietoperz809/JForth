@@ -701,4 +701,14 @@ public class TestCases
         s = check ("\"peter\" << >> <<",".");
         Assert.assertEquals("eterp"+EP, s);
     }
+
+    @Test
+    public void TestScatterColl()
+    {
+        String s = check ("{1,2,3,4,5,6} scatter",".s");
+        Assert.assertEquals("1 2 3 4 5 6 "+EP, s);
+        s = check ("1 2 3 4 5 6 collect",".");
+        Assert.assertEquals("{1,2,3,4,5,6}"+EP, s);
+    }
+
 }

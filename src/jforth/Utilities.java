@@ -18,8 +18,8 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1196";
-    private static final String BUILD_DATE = "11/09/2018 07:21:56 AM";
+    private static final String BUILD_NUMBER = "1221";
+    private static final String BUILD_DATE = "11/29/2018 08:50:05 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -357,6 +357,31 @@ public class Utilities
     {
         Object o = dStack.pop();
         return getDouble(o);
+    }
+
+    static public boolean canBeDouble (Object o1)
+    {
+        if (o1 instanceof BigInt)
+        {
+            return true;
+        }
+        if (o1 instanceof Double)
+        {
+            return true;
+        }
+        if (o1 instanceof Long)
+        {
+            return true;
+        }
+        if (o1 instanceof Fraction)
+        {
+            return true;
+        }
+        if (o1 instanceof Complex)
+        {
+            return true;
+        }
+        return false;
     }
 
     static public Double getDouble (Object o1) throws Exception
