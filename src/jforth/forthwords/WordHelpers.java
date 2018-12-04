@@ -4,8 +4,8 @@ import jforth.*;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import scala.math.BigInt;
 
+import java.math.BigInteger;
 import java.util.List;
 
 class WordHelpers
@@ -40,7 +40,7 @@ class WordHelpers
         }
         try
         {
-            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$plus));
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::add));
             return 1;
         }
         catch (Exception ignored)
@@ -126,7 +126,7 @@ class WordHelpers
         }
         try
         {
-            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$div));
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::divide));
             return 1;
         }
         catch (Exception ignored)
@@ -230,7 +230,7 @@ class WordHelpers
         }
         try
         {
-            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$times));
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::multiply));
             return 1;
         }
         catch (Exception ignored)
@@ -315,7 +315,7 @@ class WordHelpers
         }
         try
         {
-            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::$minus));
+            dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::subtract));
             return 1;
         }
         catch (Exception ignored)

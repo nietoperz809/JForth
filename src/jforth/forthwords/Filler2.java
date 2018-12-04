@@ -503,7 +503,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "clltz", true, "Get collatz sequence",
+                        "clltz", false, "Get collatz sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -531,7 +531,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "ping", true, "Check a host",
+                        "ping", false, "Check a host",
                         (dStack, vStack) ->
                         {
                             try
@@ -553,7 +553,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "msg", true, "Show message box",
+                        "msg", false, "Show message box",
                         (dStack, vStack) ->
                         {
                             try
@@ -574,7 +574,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "ask", true, "Show yes/no box",
+                        "ask", false, "Show yes/no box",
                         (dStack, vStack) ->
                         {
                             try
@@ -599,7 +599,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "asyncmsg", true, "Show asynchronous message box",
+                        "asyncmsg", false, "Show asynchronous message box",
                         (dStack, vStack) ->
                         {
                             try
@@ -623,7 +623,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "what", true, "Show description about a word",
+                        "what", false, "Show description about a word",
                         (dStack, vStack) ->
                         {
                             try
@@ -645,7 +645,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "collect", true, "collects all numbers from stack into sequence",
+                        "collect", false, "collects all numbers from stack into sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -667,7 +667,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "scatter", true, "desintegrate sequence onto stack",
+                        "scatter", false, "desintegrate sequence onto stack",
                         (dStack, vStack) ->
                         {
                             try

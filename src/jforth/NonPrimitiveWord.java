@@ -36,15 +36,19 @@ public final class NonPrimitiveWord extends BaseWord
     return 1;
   }
 
-  public void setImmediate()
-  {
-    immediate = true;
-  }
+// --Commented out by Inspection START (11/30/2018 1:21 AM):
+//  public void setImmediate()
+//  {
+//    immediate = true;
+//  }
+// --Commented out by Inspection STOP (11/30/2018 1:21 AM)
 
-  public ArrayList<ExecuteIF> getList()
-  {
-    return words;
-  }
+// --Commented out by Inspection START (11/30/2018 1:20 AM):
+//  public ArrayList<ExecuteIF> getList()
+//  {
+//    return words;
+//  }
+// --Commented out by Inspection STOP (11/30/2018 1:20 AM)
 
   private final ArrayList<ExecuteIF> words = new ArrayList<>();
 }

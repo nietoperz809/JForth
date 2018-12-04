@@ -1,10 +1,12 @@
 package jforth;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
-import scala.math.BigInt;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.function.BiFunction;
+
+//import scala.math.BigInt;
 
 /**
  * Created by Administrator on 4/23/2017.
@@ -111,9 +113,9 @@ public class PolySupport
             {
                 b2 = new PolynomialFunction(new double[]{(Double)o2});
             }
-            else if (o2 instanceof BigInt)
+            else if (o2 instanceof BigInteger)
             {
-                b2 = new PolynomialFunction (new double[]{((BigInt)o2).doubleValue()});
+                b2 = new PolynomialFunction (new double[]{((BigInteger)o2).doubleValue()});
             }
             else if (o2 instanceof PolynomialFunction)
             {
@@ -133,9 +135,9 @@ public class PolySupport
             {
                 b1 = new PolynomialFunction (new double[]{(Double)o1});
             }
-            else if (o1 instanceof BigInt)
+            else if (o1 instanceof BigInteger)
             {
-                b1 = new PolynomialFunction (new double[]{((BigInt)o1).doubleValue()});
+                b1 = new PolynomialFunction (new double[]{((BigInteger)o1).doubleValue()});
             }
             else
                 throw new Exception ("Wrong args");

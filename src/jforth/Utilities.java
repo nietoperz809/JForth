@@ -5,9 +5,9 @@ import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
-import scala.math.BigInt;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,11 +18,36 @@ import java.util.function.BiFunction;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1221";
-    private static final String BUILD_DATE = "11/29/2018 08:50:05 PM";
+    private static final String BUILD_NUMBER = "1259";
+    private static final String BUILD_DATE = "12/04/2018 10:22:56 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
+
+    public static BigInteger factorial (long n)
+    {
+        BigInteger fact = BigInteger.valueOf(1);
+        for (int i = 1; i <= n; i++)
+        {
+            fact = fact.multiply (BigInteger.valueOf(i));
+        }
+        return fact;
+    }
+
+    public static BigInteger fib(long n)
+    {
+        BigInteger a = BigInteger.valueOf(0);
+        BigInteger b = BigInteger.valueOf(1);
+        BigInteger c;
+        for (long j=2 ; j<=n ; j++)
+        {
+            c =  a.add(b);
+            a = b;
+            b = c;
+        }
+
+        return a;
+    }
 
     public static byte[] toRawByteArray (String in)
     {
@@ -217,14 +242,14 @@ public class Utilities
         return str;
     }
 
-    public static BigInt parseBigInt (String word, int base)
+    public static BigInteger parseBigInt (String word, int base)
     {
         try
         {
             if (word.endsWith("L"))
             {
                 word = word.substring(0, word.length() - 1);
-                return BigInt.apply(word, base);
+                return new BigInteger (word, base);
             }
             return null;
         }
@@ -361,7 +386,7 @@ public class Utilities
 
     static public boolean canBeDouble (Object o1)
     {
-        if (o1 instanceof BigInt)
+        if (o1 instanceof BigInteger)
         {
             return true;
         }
@@ -386,9 +411,9 @@ public class Utilities
 
     static public Double getDouble (Object o1) throws Exception
     {
-        if (o1 instanceof BigInt)
+        if (o1 instanceof BigInteger)
         {
-            return ((BigInt) o1).doubleValue();
+            return ((BigInteger) o1).doubleValue();
         }
         if (o1 instanceof Double)
         {
@@ -426,9 +451,9 @@ public class Utilities
 
     public static long getLong (Object o) throws Exception
     {
-        if (o instanceof BigInt)
+        if (o instanceof BigInteger)
         {
-            return ((BigInt) o).longValue();
+            return ((BigInteger) o).longValue();
         }
         if (o instanceof Double)
         {
@@ -455,25 +480,25 @@ public class Utilities
         throw new Exception("Wrong or no Type on Stack");
     }
 
-    public static BigInt readBig (OStack dStack) throws Exception
+    public static BigInteger readBig (OStack dStack) throws Exception
     {
         Object o = dStack.pop();
         return getBig(o);
     }
 
-    private static BigInt getBig (Object o1) throws Exception
+    private static BigInteger getBig (Object o1) throws Exception
     {
-        if (o1 instanceof BigInt)
+        if (o1 instanceof BigInteger)
         {
-            return (BigInt) o1;
+            return (BigInteger) o1;
         }
         if (o1 instanceof Long)
         {
-            return BigInt.apply((Long) o1);
+            return BigInteger.valueOf((Long) o1);
         }
         if (o1 instanceof Double)
         {
-            return BigInt.apply(((Double) o1).longValue());
+            return BigInteger.valueOf(((Double) o1).longValue());
         }
         throw new Exception("Wrong args");
     }
@@ -536,7 +561,7 @@ public class Utilities
         {
             return o.toString();
         }
-        if (o instanceof BigInt)
+        if (o instanceof BigInteger)
         {
             return o.toString();
         }
@@ -562,9 +587,9 @@ public class Utilities
         {
             return new Complex((Double) o1);
         }
-        else if (o1 instanceof BigInt)
+        else if (o1 instanceof BigInteger)
         {
-            return new Complex(((BigInt) o1).longValue());
+            return new Complex(((BigInteger) o1).longValue());
         }
         throw new Exception("Wrong args");
     }
@@ -614,7 +639,7 @@ public class Utilities
         return Fraction.getReducedFraction(num, denom);
     }
 
-    public static BigInt pow (BigInt a, BigInt b)
+    public static BigInteger pow (BigInteger a, BigInteger b)
     {
         return a.pow(b.intValue());
     }
@@ -709,16 +734,18 @@ public class Utilities
         {
             return new Fraction((Double) o1);
         }
-        if (o1 instanceof BigInt)
+        if (o1 instanceof BigInteger)
         {
-            return new Fraction(((BigInt) o1).longValue());
+            return new Fraction(((BigInteger) o1).longValue());
         }
         throw new Exception("Wrong args");
     }
 
-    public static BigInt doCalcBigInt (Object o1, Object o2, BiFunction<BigInt, BigInt, BigInt> func) throws Exception
+    public static BigInteger doCalcBigInt (Object o1,
+                                           Object o2,
+                                           BiFunction<BigInteger, BigInteger, BigInteger> func) throws Exception
     {
-        if (areBothObjectsOfType(o1, o2, BigInt.class))
+        if (areBothObjectsOfType(o1, o2, BigInteger.class))
         {
             return func.apply(getBig(o1), getBig(o2));
         }

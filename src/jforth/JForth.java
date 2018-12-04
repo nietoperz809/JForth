@@ -7,12 +7,13 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
-import scala.math.BigInt;
+//import scala.math.BigInt;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -191,7 +192,7 @@ public class JForth
         {
             return PolySupport.formatPoly((PolynomialFunction) o);
         }
-        else if (o instanceof BigInt)
+        else if (o instanceof BigInteger)
         {
             return o.toString();
         }
@@ -306,7 +307,7 @@ public class JForth
             dStack.push(num);
             return true;
         }
-        BigInt big = Utilities.parseBigInt(word, base);
+        BigInteger big = Utilities.parseBigInt(word, base);
         if (big != null)
         {
             dStack.push(big);
@@ -405,7 +406,7 @@ public class JForth
             wordBeingDefined.addWord(new Literal(num));
             return true;
         }
-        BigInt big = Utilities.parseBigInt(word, base);
+        BigInteger big = Utilities.parseBigInt(word, base);
         if (big != null)
         {
             wordBeingDefined.addWord(new Literal(big));

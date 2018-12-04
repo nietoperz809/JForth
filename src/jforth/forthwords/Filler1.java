@@ -1,7 +1,6 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.scalacode.MyMath;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -11,10 +10,10 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
-import scala.math.BigInt;
 import webserver.SimpleWebserver;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -27,6 +26,8 @@ import java.util.stream.LongStream;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
+
+//import scala.math.BigInt;
 
 class Filler1
 {
@@ -737,7 +738,7 @@ class Filler1
                             Object o2 = dStack.pop();
                             try
                             {
-                                dStack.push(Utilities.doCalcBigInt(o2, o1, BigInt::mod));
+                                dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::mod));
                                 return 1;
                             }
                             catch (Exception ignored)
@@ -1786,9 +1787,7 @@ class Filler1
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
-                                int[] arr = ((DoubleSequence) o1).asIntArray();
-                                long l = MyMath.fromBinaryListLong(arr);
-                                dStack.push(l);
+                                dStack.push(((DoubleSequence)o1).fromBitList().longValue());
                             }
                             else if (o1 instanceof String)
                             {
@@ -1805,9 +1804,9 @@ class Filler1
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((long) oc.getNumerator() / (long) oc.getDenominator());
                             }
-                            else if (o1 instanceof BigInt)
+                            else if (o1 instanceof BigInteger)
                             {
-                                BigInt oc = (BigInt) o1;
+                                BigInteger oc = (BigInteger) o1;
                                 dStack.push(oc.longValue());
                             }
                             else
@@ -1826,28 +1825,26 @@ class Filler1
                             Object o1 = dStack.pop();
                             if (o1 instanceof Double)
                             {
-                                dStack.push(BigInt.apply(((Double) o1).longValue()));
+                                dStack.push(BigInteger.valueOf(((Double) o1).longValue()));
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
-                                int[] arr = ((DoubleSequence) o1).asIntArray();
-                                BigInt l = MyMath.fromBinaryListBig(arr);
-                                dStack.push(l);
+                                dStack.push(((DoubleSequence) o1).fromBitList());
                             }
                             else if (o1 instanceof String)
                             {
-                                dStack.push(BigInt.apply(((String) o1)));
+                                dStack.push(new BigInteger((String)o1));
                             }
                             else if (o1 instanceof Complex)
                             {
                                 Complex oc = (Complex) o1;
-                                dStack.push(BigInt.apply((long) oc.getReal()));
-                                dStack.push(BigInt.apply((long) oc.getImaginary()));
+                                dStack.push (BigInteger.valueOf((long) oc.getReal()));
+                                dStack.push (BigInteger.valueOf((long) oc.getImaginary()));
                             }
                             else if (o1 instanceof Fraction)
                             {
                                 Fraction oc = (Fraction) o1;
-                                dStack.push(BigInt.apply((long) oc.getNumerator() / (long) oc.getDenominator()));
+                                dStack.push(BigInteger.valueOf((long) oc.getNumerator() / (long) oc.getDenominator()));
                             }
                             else
                             {
@@ -1864,7 +1861,7 @@ class Filler1
                         {
                             try
                             {
-                                BigInt l = Utilities.readBig(dStack);
+                                BigInteger l = Utilities.readBig(dStack);
                                 dStack.push(DoubleSequence.makeBits(l));
                                 return 1;
                             }
@@ -1900,9 +1897,9 @@ class Filler1
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((double) oc.getNumerator() / (double) oc.getDenominator());
                             }
-                            else if (o1 instanceof BigInt)
+                            else if (o1 instanceof BigInteger)
                             {
-                                BigInt oc = (BigInt) o1;
+                                BigInteger oc = (BigInteger) o1;
                                 dStack.push(oc.doubleValue());
                             }
                             else
@@ -2637,8 +2634,8 @@ class Filler1
                         {
                             try
                             {
-                                BigInt o1 = Utilities.readBig(dStack);
-                                dStack.push(DoubleSequence.primes(o1));
+                                Long o1 = Utilities.readLong(dStack);
+                                dStack.push(DoubleSequence.primeFactors(o1));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2684,7 +2681,7 @@ class Filler1
                                                 {
                                                     Long l1 = (Long) o1;
                                                     Long l2 = (Long) o2;
-                                                    dStack.push(MyMath.bigPow(l2, l1.intValue()));
+                                                    dStack.push(BigInteger.valueOf(l2).pow(l1.intValue()));
                                                     return 1;
                                                 }
                                                 else
@@ -2719,7 +2716,7 @@ class Filler1
                             try
                             {
                                 long l = Utilities.readLong(dStack);
-                                dStack.push(MyMath.fibonacci(l));
+                                dStack.push(Utilities.fib(l));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2759,7 +2756,7 @@ class Filler1
                             try
                             {
                                 Long ol = Utilities.readLong(dStack);
-                                dStack.push(MyMath.factorial(ol));
+                                dStack.push(Utilities.factorial(ol));
                                 return 1;
                             }
                             catch (Exception e)

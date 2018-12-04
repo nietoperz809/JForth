@@ -261,7 +261,7 @@ public class TestCases
         String s = check ("12.0 7 / 100L * dup type ",
                 ". sp .\" - \" .");
         System.out.println(s);
-        Assert.assertEquals("BigInt - 100"+EP, s);
+        Assert.assertEquals("BigInteger - 100"+EP, s);
     }
 
     @Test

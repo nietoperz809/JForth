@@ -1,7 +1,5 @@
 package jforth;
 
-import jforth.scalacode.MyMath;
-import jforth.scalacode.SieveOfEratosthenes;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
@@ -11,10 +9,13 @@ import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
-import scala.math.BigInt;
 
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.stream.DoubleStream;
 
 
@@ -148,11 +149,11 @@ public class DoubleSequence
         return new DoubleSequence (ds.toArray());
     }
 
-    public static DoubleSequence makeBits (BigInt in)
+    public static DoubleSequence makeBits (BigInteger in)
     {
         DoubleSequence out = new DoubleSequence();
-        BigInt two = BigInt.apply(2);
-        BigInt zero = BigInt.apply(0);
+        BigInteger two = BigInteger.valueOf(2);
+        BigInteger zero = BigInteger.valueOf(0);
         do
         {
             if (in.mod(two).equals(zero))
@@ -163,28 +164,33 @@ public class DoubleSequence
             {
                 out.mem.add(1.0);
             }
-            in = in.$div(two);
+            in = in.divide(two);
         } while (!in.equals(zero));
         return out.reverse();
     }
 
-    public static DoubleSequence primes (long in)
+    public static DoubleSequence primeFactors(long n)
     {
-        return primes (BigInt.apply(in));
-    }
-
-    public static DoubleSequence primes (BigInt in)
-    {
-        DoubleSequence out = new DoubleSequence();
-        List<BigInt> list = MyMath.toJList(SieveOfEratosthenes.factors(in));
-        for (BigInt i : list)
+        List<Double> factors = new ArrayList<Double>();
+        while (n % 2 == 0 && n > 0)
         {
-            out.mem.add (i.toDouble());
+            factors.add(2.0);
+            n /= 2;
         }
 
-        return out;
-    }
+        for (long i = 3; i * i <= n; i+=2)
+        {
+            while (n % i == 0)
+            {
+                factors.add((double) i);
+                n /= i;
+            }
+        }
+        if (n > 1)
+            factors.add((double) n);
 
+        return new DoubleSequence(factors);
+    }
 
     public static DoubleSequence parseSequence (String in, int base)
     {
@@ -201,6 +207,17 @@ public class DoubleSequence
     public double sum()
     {
         return new Sum().evaluate (this.asPrimitiveArray());
+    }
+
+    public BigInteger fromBitList ()
+    {
+        int[] arr = asIntArray();
+        BigInteger ret = BigInteger.valueOf(0);
+        for (int i : arr)
+        {
+            ret = ret.shiftLeft(1).add(BigInteger.valueOf(i));
+        }
+        return ret;
     }
 
     public double altsum()
