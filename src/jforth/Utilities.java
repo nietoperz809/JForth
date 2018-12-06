@@ -5,24 +5,74 @@ import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
+import tools.TwoFuncs;
 
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
+//import java.util.function.BiFunction;
 
 /**
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1259";
-    private static final String BUILD_DATE = "12/04/2018 10:22:56 AM";
+    private static final String BUILD_NUMBER = "1267";
+    private static final String BUILD_DATE = "12/06/2018 10:27:12 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
+
+
+    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+
+    public static String printHexBinary(byte[] data)
+    {
+        StringBuilder r = new StringBuilder(data.length * 2);
+        for (byte b : data) {
+            r.append(hexCode[(b >> 4) & 0xF]);
+            r.append(hexCode[(b & 0xF)]);
+        }
+        return r.toString();
+    }
+
+    public static int hexToBin(char ch) {
+        if ('0' <= ch && ch <= '9') {
+            return ch - '0';
+        }
+        if ('A' <= ch && ch <= 'F') {
+            return ch - 'A' + 10;
+        }
+        if ('a' <= ch && ch <= 'f') {
+            return ch - 'a' + 10;
+        }
+        return -1;
+    }
+
+    public static byte[] parseHexBinary(String s) {
+        final int len = s.length();
+
+        // "111" is not a valid hex encoding.
+        if (len % 2 != 0) {
+            throw new IllegalArgumentException("hexBinary needs to be even-length: " + s);
+        }
+
+        byte[] out = new byte[len / 2];
+
+        for (int i = 0; i < len; i += 2) {
+            int h = hexToBin(s.charAt(i));
+            int l = hexToBin(s.charAt(i + 1));
+            if (h == -1 || l == -1) {
+                throw new IllegalArgumentException("contains illegal character for hexBinary: " + s);
+            }
+
+            out[i / 2] = (byte) (h * 16 + l);
+        }
+
+        return out;
+    }
 
     public static BigInteger factorial (long n)
     {
@@ -688,7 +738,7 @@ public class Utilities
         return a / b;
     }
 
-    public static Double doCalcDouble (Object o1, Object o2, BiFunction<Double, Double, Double> func) throws Exception
+    public static Double doCalcDouble (Object o1, Object o2, TwoFuncs<Double, Double, Double> func) throws Exception
     {
         if (o1 instanceof Double || o2 instanceof Double)
         {
@@ -697,7 +747,7 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    public static Complex doCalcComplex (Object o1, Object o2, BiFunction<Complex, Complex, Complex> func) throws Exception
+    public static Complex doCalcComplex (Object o1, Object o2, TwoFuncs<Complex, Complex, Complex> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, Complex.class))
         {
@@ -711,7 +761,7 @@ public class Utilities
         return (c.isInstance(o1) || c.isInstance(o2));
     }
 
-    public static Fraction doCalcFraction (Object o1, Object o2, BiFunction<Fraction, Fraction, Fraction> func) throws Exception
+    public static Fraction doCalcFraction (Object o1, Object o2, TwoFuncs<Fraction, Fraction, Fraction> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, Fraction.class))
         {
@@ -743,7 +793,7 @@ public class Utilities
 
     public static BigInteger doCalcBigInt (Object o1,
                                            Object o2,
-                                           BiFunction<BigInteger, BigInteger, BigInteger> func) throws Exception
+                                           TwoFuncs<BigInteger, BigInteger, BigInteger> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, BigInteger.class))
         {
@@ -752,7 +802,7 @@ public class Utilities
         throw new Exception("Wrong args");
     }
 
-    public static DoubleMatrix doCalcMatrix (Object o1, Object o2, BiFunction<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
+    public static DoubleMatrix doCalcMatrix (Object o1, Object o2, TwoFuncs<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
     {
         if (areBothObjectsOfType(o1, o2, DoubleMatrix.class))
         {

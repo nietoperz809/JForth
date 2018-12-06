@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-import java.util.stream.LongStream;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
@@ -2616,8 +2615,9 @@ class Filler1
                             try
                             {
                                 Long num = Utilities.readLong(dStack);
-                                boolean t = LongStream.rangeClosed(2, (long) Math.sqrt(num)).noneMatch(div -> num % div == 0);
-                                dStack.push(t ? JForth.TRUE : JForth.FALSE);
+//                                boolean t = LongStream.rangeClosed(2, (long) Math.sqrt(num)).noneMatch(div -> num % div == 0);
+                                DoubleSequence ds = DoubleSequence.primeFactors(num);
+                                dStack.push(ds.length() == 1 ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             }
                             catch (Exception e)

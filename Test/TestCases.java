@@ -711,4 +711,17 @@ public class TestCases
         Assert.assertEquals("{1,2,3,4,5,6}"+EP, s);
     }
 
+    @Test
+    public void TestSeqGen()
+    {
+        String s = check ("3 6 9 seq",".");
+        Assert.assertEquals("{3,12,21,30,39,48}"+EP, s);
+    }
+
+    @Test
+    public void TestIsPrime()
+    {
+        String s = check ("7919 isPrime 12 isPrime swap","..");
+        Assert.assertEquals("10"+EP, s);
+    }
 }

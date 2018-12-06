@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.DoubleStream;
 
 
 /**
@@ -143,10 +142,15 @@ public class DoubleSequence
         return new DoubleSequence(ar);
     }
 
-    public static DoubleSequence makeCounted (double start, long howmuch, double step)
+    public static DoubleSequence makeCounted (double start, int howmuch, double step)
     {
-        DoubleStream ds = DoubleStream.iterate(start, n -> n + step).limit(howmuch);
-        return new DoubleSequence (ds.toArray());
+        double[] arr = new double[howmuch];
+        for (int s=0; s<howmuch; s++)
+        {
+            arr[s] = start;
+            start += step;
+        }
+        return new DoubleSequence (arr);
     }
 
     public static DoubleSequence makeBits (BigInteger in)

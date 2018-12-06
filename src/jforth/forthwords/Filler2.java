@@ -43,7 +43,7 @@ class Filler2
                             }
                             if (b != null)
                             {
-                                dStack.push(javax.xml.bind.DatatypeConverter.printHexBinary(b));
+                                dStack.push(Utilities.printHexBinary(b));
                                 return 1;
                             }
                             if (o1 instanceof Long)
@@ -63,7 +63,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                byte[] b = javax.xml.bind.DatatypeConverter.parseHexBinary(ss);
+                                byte[] b = Utilities.parseHexBinary(ss);
                                 dStack.push(new DoubleSequence(b));
                                 return 1;
                             }
@@ -82,7 +82,7 @@ class Filler2
                             try
                             {
                                 double d3 = Utilities.readDouble(dStack);
-                                long l2 = Utilities.readLong(dStack);
+                                int l2 = (int)Utilities.readLong(dStack);
                                 double d1 = Utilities.readDouble(dStack);
                                 DoubleSequence ds = DoubleSequence.makeCounted(d1, l2, d3);
                                 dStack.push(ds);

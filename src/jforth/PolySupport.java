@@ -1,10 +1,11 @@
 package jforth;
 
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+import tools.TwoFuncs;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.function.BiFunction;
+//import java.util.function.BiFunction;
 
 //import scala.math.BigInt;
 
@@ -98,7 +99,7 @@ public class PolySupport
      * @return Result of applied function
      * @throws Exception If it is not possible to call the function
      */
-    public static PolynomialFunction execute (Object o1, Object o2, BiFunction<PolynomialFunction, PolynomialFunction, PolynomialFunction> func) throws Exception
+    public static PolynomialFunction execute (Object o1, Object o2, TwoFuncs<PolynomialFunction, PolynomialFunction, PolynomialFunction> func) throws Exception
     {
         PolynomialFunction b1;
         PolynomialFunction b2;
