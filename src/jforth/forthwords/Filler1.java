@@ -1679,16 +1679,25 @@ class Filler1
                         "time", false, "Get a time string",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            if (!(o1 instanceof String))
+                            try
+                            {
+                                String o1 = Utilities.readString(dStack);
+                                if (o1.equals("raw"))
+                                {
+                                    dStack.push(System.currentTimeMillis());
+                                }
+                                else
+                                {
+                                    SimpleDateFormat sdf = new SimpleDateFormat((String) o1);
+                                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                    dStack.push(sdf.format(timestamp));
+                                }
+                                return 1;
+                            }
+                            catch (Exception e)
                             {
                                 return 0;
                             }
-                            SimpleDateFormat sdf = new SimpleDateFormat((String) o1);
-                            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                            dStack.push(System.currentTimeMillis());
-                            dStack.push(sdf.format(timestamp));
-                            return 1;
                         }
                 ));
 

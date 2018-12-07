@@ -123,7 +123,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                byte[] bytes = ss.getBytes("ISO-8859-1");
+                                byte[] bytes = ss.getBytes(JForth.ENCODING);
                                 String encoded = Base64.getEncoder().encodeToString(bytes);
                                 dStack.push(encoded);
                                 return 1;
@@ -686,5 +686,22 @@ class Filler2
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "toTime", false, "make time string from TOS",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Long v = Utilities.readLong(dStack);
+                                dStack.push(Utilities.toTimeView(v));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }

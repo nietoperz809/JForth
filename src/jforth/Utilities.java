@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1267";
-    private static final String BUILD_DATE = "12/06/2018 10:27:12 AM";
+    private static final String BUILD_NUMBER = "1289";
+    private static final String BUILD_DATE = "12/07/2018 06:01:57 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -97,6 +97,44 @@ public class Utilities
         }
 
         return a;
+    }
+
+    /**
+     * Makes seconds from hh:mm:ss format
+     * @param in input string
+     * @return value in seconds
+     */
+    public static Long parseTimer (String in)
+    {
+        String[] parts = in.split(":");
+        if (parts.length != 3)
+            return null;
+        try
+        {
+            int h = Integer.parseInt(parts[0]);
+            if (h<0)
+                return null;
+            int m = Integer.parseInt(parts[1]);
+            if (m<0 || m>59)
+                return null;
+            int s = Integer.parseInt(parts[2]);
+            if (s<0 || s>59)
+                return null;
+            return (long)(3600*h + 60*m + s);
+        }
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
+    }
+
+    public static String toTimeView (Long in)
+    {
+        int h = (int)(in/3600);
+        int s = (int)(in%3600);
+        int m = (int)(s/60);
+        s %= 60;
+        return String.format("%d:%02d:%02d", h,m,s);
     }
 
     public static byte[] toRawByteArray (String in)
@@ -317,7 +355,7 @@ public class Utilities
         }
         catch (Exception ignored)
         {
-            return null;
+            return parseTimer (word);
         }
     }
 
