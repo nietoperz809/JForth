@@ -389,7 +389,11 @@ public class JForth
     private boolean doCompile (String word) throws Exception
     {
         word = handleDirectStringOut(word, true);
-        BaseWord bw = dictionary.search(word);
+        BaseWord bw;
+        if (currentWord != null && word.equalsIgnoreCase(currentWord.name))
+            bw = dictionary.search("recurse");
+        else
+            bw = dictionary.search(word);
         if (bw != null)
         {
             if (bw.immediate)

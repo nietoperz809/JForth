@@ -747,4 +747,12 @@ public class TestCases
         s = check ("34:17:36",".");
         Assert.assertEquals("123456"+EP, s);
     }
+
+    @Test
+    public void TestNonStandardRecurse()
+    {
+        String s = check (": facky recursive dup 1 > if dup 1- facky * then ;","6 facky .");
+        Assert.assertEquals("720"+EP, s);
+    }
+
 }

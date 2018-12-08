@@ -38,7 +38,9 @@ public class History
         s = s.trim();
         if (s.isEmpty())
             return;
-        if (s.equals(PredefinedWords.PLAYHIST) || s.equals(PredefinedWords.SAVEHIST))
+        if (Utilities.containsIgnoreCase(s, PredefinedWords.PLAYHIST))
+            return;
+        if (Utilities.containsIgnoreCase(s, PredefinedWords.SAVEHIST))
             return;
         if (history.size() == length)
         {
