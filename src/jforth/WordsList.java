@@ -90,17 +90,7 @@ public class WordsList
         {
             throw new Exception("WordsList is empty");
         }
-        return wordsList.get(wordName);
-//        Iterator<BaseWord> i1 = wordsList.listIterator(0);
-//        while (i1.hasNext())
-//        {
-//            BaseWord bw = i1.next();
-//            if (bw.name.equals(wordName))
-//            {
-//                return bw;
-//            }
-//        }
-//        return null;
+        return wordsList.get(wordName.toUpperCase());
     }
 
     public void remove (BaseWord bw)
@@ -114,4 +104,3 @@ public class WordsList
         }
     }
 }
-  

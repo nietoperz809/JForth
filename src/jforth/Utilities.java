@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1289";
-    private static final String BUILD_DATE = "12/07/2018 06:01:57 PM";
+    private static final String BUILD_NUMBER = "1310";
+    private static final String BUILD_DATE = "12/08/2018 07:54:34 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -862,7 +862,7 @@ public class Utilities
     {
         if (original == null || pattern == null)
             return true;
-        return original.toLowerCase().contains(pattern.toLowerCase());
+        return original.toUpperCase().contains(pattern.toUpperCase());
     }
 
     /**

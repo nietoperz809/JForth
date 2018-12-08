@@ -12,7 +12,7 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
 
     public BaseWord (String name, boolean immediate, boolean isPrimitive, String inf)
     {
-        this.name = name;
+        this.name = name.toUpperCase();
         this.immediate = immediate;
         this.isPrimitive = isPrimitive;
         this.info = inf;

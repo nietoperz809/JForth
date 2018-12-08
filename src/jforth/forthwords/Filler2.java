@@ -14,6 +14,7 @@ import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.TimerTask;
 
 class Filler2
 {
@@ -703,5 +704,48 @@ class Filler2
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "soon", false, "run deferred word",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                final long delay = Utilities.readLong(dStack);
+                                final Object o = dStack.pop();
+                                if (o instanceof BaseWord)
+                                {
+                                    final BaseWord bw = (BaseWord) o;
+
+                                    new java.util.Timer().schedule(new TimerTask()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            bw.execute(dStack, vStack);
+                                        }
+                                    },delay);
+                                    return 1;
+                                }
+                            }
+                            catch (Exception unused)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "cls", false, "clear screen",
+                        (dStack, vStack) ->
+                        {
+                            //predefinedWords._jforth._out.print('\u000C');
+                            predefinedWords._jforth._out.print("\u001b[2J");
+                            return 1;
+                        }
+                ));
+
     }
 }

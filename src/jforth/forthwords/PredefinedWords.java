@@ -5,7 +5,7 @@ import jforth.*;
 
 public class PredefinedWords
 {
-    private static final String IMMEDIATE = "__immediate";
+    private static final String IMMEDIATE = "__IMMEDIATE"; // must be uppercase !!!
     final JForth _jforth;
     final WordsList _wl;
 
