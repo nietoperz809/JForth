@@ -12,6 +12,10 @@ public class SynchronousWavePlayer
 {
     private static final Charset thisCharset = Charset.forName("ISO-8859-1");
 
+    /**
+     * Play wave file from disk
+     * @param wavfile a disk file
+     */
     public static void playSound (String wavfile)
     {
         try
@@ -26,6 +30,10 @@ public class SynchronousWavePlayer
         }
     }
 
+    /**
+     * Play wave from an array
+     * @param data Array containing wav data+header
+     */
     public static void playSound (byte[] data)
     {
         try
@@ -39,6 +47,10 @@ public class SynchronousWavePlayer
         }
     }
 
+    /**
+     * Play wave from Stream
+     * @param inp Stream containing wave data + header
+     */
     public static void playSound (InputStream inp)
     {
         try

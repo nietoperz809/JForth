@@ -1,10 +1,7 @@
 package jforth.waves;
 
-import java.util.Arrays;
-
 public class Wave16
 {
-
     /**
      * Upper level constant
      */
@@ -46,58 +43,6 @@ public class Wave16
         data = new double[size];
         samplingRate = rate;
     }
-
-//    public static Wave16 extractSamples(Wave16 source, int from, int to)
-//    {
-//        int len = to - from;
-//        Wave16 res = new Wave16(len, source.samplingRate);
-//        System.arraycopy(source.data, from, res.data, 0, len);
-//        return res;
-//    }
-
-//    /**
-//     * Save data as mono WAV file
-//     */
-//    public static void saveWave16 (byte[] rawdata,
-//                                   int samplingRate,
-//                                   OutputStream dest) throws Exception
-//    {
-//        AudioFormat frmt = new AudioFormat(samplingRate, 16, 1, true, true);
-//        AudioInputStream ais = new AudioInputStream(
-//                new ByteArrayInputStream(rawdata), frmt,
-//                rawdata.length / frmt.getFrameSize()
-//        );
-//
-//        AudioSystem.write(ais, AudioFileFormat.Type.WAVE, dest);
-//    }
-
-//    /**
-//     * Returns whole array as 'short' values
-//     *
-//     * @return The new 'short' array
-//     */
-//    public short[] toShortArray()
-//    {
-//        short[] res = new short[data.length];
-//        for (int s = 0; s < data.length; s++)
-//        {
-//            res[s] = (short) data[s];
-//        }
-//        return res;
-//    }
-//
-//    public short[] toRevShortArray()
-//    {
-//        short[] res = new short[data.length];
-//        for (int s = 0; s < data.length; s++)
-//        {
-//            short tmp = (short) data[s];
-//            int b1 = tmp & 0xff;
-//            int b2 = (tmp >> 8) & 0xff;
-//            res[s] = (short) (b1 << 8 | b2);
-//        }
-//        return res;
-//    }
 
     @Override
     public String toString()
@@ -169,14 +114,25 @@ public class Wave16
         return out;
     }
 
-    private static void intToByteArray(int i, byte[] dest, int offs)
+    /**
+     * Write int as 4 bytes into array in reverse order
+     * @param i the Int
+     * @param dest destination array
+     * @param offs offset that are written to
+     */
+    private static void intToBytes (int i, byte[] dest, int offs)
     {
         dest[offs] = (byte) (i & 0x00FF);
         dest[1+offs] = (byte) ((i >> 8) & 0x000000FF);
         dest[2+offs] = (byte) ((i >> 16) & 0x000000FF);
         dest[3+offs] = (byte) ((i >> 24) & 0x000000FF);
     }
-    
+
+    /**
+     * Create Wav header for PCM signed, 16 bits, mono, 11025 samples/sec
+     * @param raw raw sample data
+     * @return header+samples
+     */
     public static byte[] makeHeader11025 (byte[] raw)
     {
         byte[] headerdata =
@@ -188,8 +144,8 @@ public class Wave16
                         0x14, 0x00, 0x00, 0x00,
                 };
 
-        intToByteArray(raw.length+44-8, headerdata, 4);
-        intToByteArray(raw.length, headerdata, 40);
+        intToBytes(raw.length+44-8, headerdata, 4);
+        intToBytes(raw.length, headerdata, 40);
 
         byte[] ret = new byte[raw.length+headerdata.length];
         System.arraycopy(headerdata, 0,ret , 0, headerdata.length);
@@ -197,11 +153,11 @@ public class Wave16
         return ret;
     }
 
-    public static void main (String[] args)
-    {
-        byte[] blah = makeHeader11025("fick dich".getBytes());
-        System.out.println(Arrays.toString(blah));
-    }
+//    public static void main (String[] args)
+//    {
+//        byte[] blah = makeHeader11025("fick dich".getBytes());
+//        System.out.println(Arrays.toString(blah));
+//    }
 
     //////////////////////////////////////////////////////////////////
 

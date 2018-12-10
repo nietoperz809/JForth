@@ -1,6 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.waves.MorsePlayer;
 import jforth.waves.Wave16;
 import jforth.waves.WaveForms;
 import org.fusesource.jansi.AnsiConsole;
@@ -758,6 +759,44 @@ class Filler2
                             dStack.pop();
                             dStack.push(o1);
                             return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "morse", false, "Morse signal from string",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s1 = Utilities.readString(dStack);
+                                byte[] morse = MorsePlayer.text2Wave(s1);
+                                byte[] combined = Wave16.makeHeader11025(morse);
+                                dStack.push(Base64.getEncoder().encodeToString(combined));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "morseTxt", false, "translate to Morse alphabet",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s1 = Utilities.readString(dStack);
+                                dStack.push(MorsePlayer.text2Morse(s1));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
                         }
                 ));
 

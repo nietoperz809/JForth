@@ -1,6 +1,8 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.waves.MorsePlayer;
+import jforth.waves.Wave16;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -1996,11 +1998,25 @@ class Filler1
                                 String o1 = (String)dStack.pop();
                                 byte[] dec = Base64.getDecoder().decode(o1);
                                 SynchronousWavePlayer.playSound(dec);
-//                                SynchronousWavePlayer ae = new SynchronousWavePlayer();
-//                                ae.loadString(new String(dec));
-//                                //byte[] bytes = Base64.getDecoder().decode(o1);
-//                                //ae.loadByteArray(bytes);
-//                                ae.start();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "playMorse", false, "Play Morse String",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String o1 = (String)dStack.pop();
+                                byte[] mors = MorsePlayer.morse2Audio(o1);
+                                SynchronousWavePlayer.playSound(Wave16.makeHeader11025(mors));
                                 return 1;
                             }
                             catch (Exception e)
