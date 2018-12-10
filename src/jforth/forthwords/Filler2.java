@@ -1,6 +1,8 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.waves.Wave16;
+import jforth.waves.WaveForms;
 import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
@@ -747,5 +749,86 @@ class Filler2
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "nip", false, "same as swap+drop",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            dStack.pop();
+                            dStack.push(o1);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sinWav", false, "Make sinus wave",
+                        (dStack2, vStack2) -> executeSine(dStack2)
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "rectWav", false, "Make rectangle wave",
+                        (dStack2, vStack2) -> executeRect(dStack2)
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sawWav", false, "Make sawrooth wave",
+                        (dStack2, vStack2) -> executeSaw(dStack2)
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "triWav", false, "Make triangle wave",
+                        (dStack1, vStack1) -> executeTri(dStack1)
+                ));
+
     }
+
+    private static int executeSine (OStack dStack)
+    {
+        return genWave(dStack, WaveForms::curveSine);
+    }
+
+    private static int executeRect (OStack dStack)
+    {
+        return genWave(dStack, WaveForms::curveRect);
+    }
+
+    private static int executeSaw (OStack dStack)
+    {
+        return genWave(dStack, WaveForms::curveSawTooth);
+    }
+
+    private static int executeTri (OStack dStack)
+    {
+        return genWave(dStack, WaveForms::curveTriangle);
+    }
+
+    interface WaveGen
+    {
+        Wave16 gen (int rate, int len, double freq, int startval);
+    }
+
+    private static int genWave (OStack dStack, WaveGen wvg)
+    {
+        try
+        {
+            double freq = Utilities.readDouble(dStack); // Hz
+            int len = (int)Utilities.readLong(dStack);  // milliseconds
+            Wave16 wv = wvg.gen(11025,11*len,freq, 0);
+
+            byte[] combined = Wave16.makeHeader11025(wv.toByteArray());
+            dStack.push(Base64.getEncoder().encodeToString(combined));
+            return 1;
+        }
+        catch (Exception unused)
+        {
+            return 0;
+        }
+    }
+
+
 }

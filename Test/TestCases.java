@@ -749,6 +749,13 @@ public class TestCases
     }
 
     @Test
+    public void TestNip()
+    {
+        String s = check ("a b c nip",".s");
+        Assert.assertEquals("a c "+EP, s);
+    }
+
+    @Test
     public void TestNonStandardRecurse()
     {
         String s = check (": facky recursive dup 1 > if dup 1- facky * then ;","6 facky .");

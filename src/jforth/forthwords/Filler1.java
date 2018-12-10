@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Objects;
 import java.util.Random;
 
@@ -1973,8 +1974,9 @@ class Filler1
                             try
                             {
                                 String words = Utilities.readString(dStack);
-                                String wave = WavePlayer.toWaveString(words);
-                                dStack.push(wave);
+                                String wave = SynchronousWavePlayer.toWaveString(words);
+                                byte[] bstr = wave.getBytes();
+                                dStack.push(Base64.getEncoder().encodeToString(bstr));
                                 return 1;
                             }
                             catch (Exception e)
@@ -1991,10 +1993,14 @@ class Filler1
                         {
                             try
                             {
-                                String o1 = Utilities.readString(dStack);
-                                WavePlayer ae = new WavePlayer();
-                                ae.loadString(o1);
-                                ae.start();
+                                String o1 = (String)dStack.pop();
+                                byte[] dec = Base64.getDecoder().decode(o1);
+                                SynchronousWavePlayer.playSound(dec);
+//                                SynchronousWavePlayer ae = new SynchronousWavePlayer();
+//                                ae.loadString(new String(dec));
+//                                //byte[] bytes = Base64.getDecoder().decode(o1);
+//                                //ae.loadByteArray(bytes);
+//                                ae.start();
                                 return 1;
                             }
                             catch (Exception e)
@@ -2012,9 +2018,7 @@ class Filler1
                             try
                             {
                                 String o1 = Utilities.readString(dStack);
-                                WavePlayer ae = new WavePlayer();
-                                ae.loadFile(o1);
-                                ae.start();
+                                SynchronousWavePlayer.playSound(o1);
                                 return 1;
                             }
                             catch (Exception e)
