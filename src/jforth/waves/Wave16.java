@@ -128,12 +128,29 @@ public class Wave16
         dest[3+offs] = (byte) ((i >> 24) & 0x000000FF);
     }
 
+    static public Wave16 combineAppend (Wave16... in)
+    {
+        int total = 0;
+        for (Wave16 anIn : in)
+        {
+            total = total + anIn.data.length;
+        }
+        Wave16 out = new Wave16(total, in[0].samplingRate);
+        int pos = 0;
+        for (Wave16 anIn : in)
+        {
+            System.arraycopy(anIn.data, 0, out.data, pos, anIn.data.length);
+            pos += anIn.data.length;
+        }
+        return out;
+    }
+
     /**
      * Create Wav header for PCM signed, 16 bits, mono, 11025 samples/sec
      * @param raw raw sample data
      * @return header+samples
      */
-    public static byte[] makeHeader11025 (byte[] raw)
+    public static byte[] makeHeader (byte[] raw, int samplerate)
     {
         byte[] headerdata =
                 {
@@ -144,6 +161,7 @@ public class Wave16
                         0x14, 0x00, 0x00, 0x00,
                 };
 
+        intToBytes (samplerate, headerdata, 24);
         intToBytes(raw.length+44-8, headerdata, 4);
         intToBytes(raw.length, headerdata, 40);
 

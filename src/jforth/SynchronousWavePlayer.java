@@ -72,7 +72,7 @@ public class SynchronousWavePlayer
      * @return String containing wave file
      * @throws Exception if smth gone wrong
      */
-    public static String toWaveString (String words) throws Exception
+    public static String SAMtoWaveString (String words) throws Exception
     {
         words = words.replace('-','_');
         String res = Utilities.extractResource("sam.exe");

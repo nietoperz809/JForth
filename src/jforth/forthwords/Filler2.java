@@ -1,9 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.waves.MorsePlayer;
-import jforth.waves.Wave16;
-import jforth.waves.WaveForms;
+import jforth.waves.*;
 import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
@@ -764,14 +762,58 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
+                        "tune", false, "create music",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s1 = Utilities.readString(dStack);
+                                MusicTones mt = new MusicTones();
+                                Wave16 wv = mt.makeSong(44100, s1);
+                                byte[] bts = Wave16.makeHeader(wv.toByteArray(), 44100);
+                                dStack.push(Base64.getEncoder().encodeToString(bts));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "DTMF", false, "create DTMF sound",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s1 = Utilities.readString(dStack);
+                                DTMF dt = new DTMF(44100, 1500*4);
+                                byte[] bt = dt.dtmfFromString(s1).toByteArray();
+                                byte[] combined = Wave16.makeHeader(bt, 44100);
+                                dStack.push(Base64.getEncoder().encodeToString(combined));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
                         "morse", false, "Morse signal from string",
                         (dStack, vStack) ->
                         {
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                byte[] morse = MorsePlayer.text2Wave(s1);
-                                byte[] combined = Wave16.makeHeader11025(morse);
+                                Morse mors = new Morse (44100);
+                                byte[] morse = mors.text2Wave(s1);
+                                byte[] combined = Wave16.makeHeader(morse, 44100);
                                 dStack.push(Base64.getEncoder().encodeToString(combined));
                                 return 1;
                             }
@@ -790,7 +832,7 @@ class Filler2
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                dStack.push(MorsePlayer.text2Morse(s1));
+                                dStack.push(Morse.text2Morse(s1));
                                 return 1;
                             }
                             catch (Exception e)
@@ -859,7 +901,7 @@ class Filler2
             int len = (int)Utilities.readLong(dStack);  // milliseconds
             Wave16 wv = wvg.gen(11025,11*len,freq, 0);
 
-            byte[] combined = Wave16.makeHeader11025(wv.toByteArray());
+            byte[] combined = Wave16.makeHeader(wv.toByteArray(), 11025);
             dStack.push(Base64.getEncoder().encodeToString(combined));
             return 1;
         }
