@@ -146,7 +146,7 @@ public class Wave16
     }
 
     /**
-     * Create Wav header for PCM signed, 16 bits, mono, 11025 samples/sec
+     * Create Wav header for PCM signed, 16 bits, mono,
      * @param raw raw sample data
      * @return header+samples
      */
@@ -170,12 +170,6 @@ public class Wave16
         System.arraycopy(raw, 0, ret, headerdata.length, raw.length);
         return ret;
     }
-
-//    public static void main (String[] args)
-//    {
-//        byte[] blah = makeHeader11025("fick dich".getBytes());
-//        System.out.println(Arrays.toString(blah));
-//    }
 
     //////////////////////////////////////////////////////////////////
 

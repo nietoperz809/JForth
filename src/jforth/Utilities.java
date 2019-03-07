@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1509";
-    private static final String BUILD_DATE = "12/15/2018 06:22:09 PM";
+    private static final String BUILD_NUMBER = "1529";
+    private static final String BUILD_DATE = "03/07/2019 09:25:48 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -178,18 +178,29 @@ public class Utilities
         String outstr = Double.toString(d);
         if (outstr.endsWith(".0"))
             outstr = outstr.substring(0, outstr.length() - 2);
+        if (outstr.equals("-0"))
+            outstr = "0";
         return outstr;
     }
 
     public static String formatComplex (Complex c)
     {
-        double re = c.getReal();
-        double im = c.getImaginary();
-        if (im == 0.0)
+        String re = formatDouble(c.getReal());
+        String im = formatDouble(c.getImaginary());
+        if (im.equals("0"))
         {
-            return ("" + re);
+            return re;
         }
-        return ("" + re + "+" + im + "i");
+        if (im.charAt(0)=='-')
+            return re + im + "i";
+        return re + "+" + im + "i";
+//        double re = c.getReal();
+//        double im = c.getImaginary();
+//        if (im == 0.0)
+//        {
+//            return ("" + re);
+//        }
+//        return ("" + re + "+" + im + "i");
     }
 
     static Complex parseComplex (String in, int base)

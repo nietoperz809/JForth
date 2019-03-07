@@ -762,4 +762,20 @@ public class TestCases
         Assert.assertEquals("720"+EP, s);
     }
 
+    @Test
+    public void TestComplex2()
+    {
+        String s = check ("3+6i dup phi swap abs 3 round swap 3 round",
+                ". sp .");
+        Assert.assertEquals("1.107 6.708"+EP, s);
+    }
+
+    @Test
+    public void TestLn()
+    {
+        String s = check ("-1 ln",
+                ".");
+        Assert.assertEquals("0+3.141592653589793i"+EP, s);
+    }
+
 }
