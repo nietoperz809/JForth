@@ -778,4 +778,11 @@ public class TestCases
         Assert.assertEquals("0+3.141592653589793i"+EP, s);
     }
 
+    @Test
+    public void TestFracRedux()
+    {
+        String s = check ("2/4 4/8 +",
+                ".");
+        Assert.assertEquals("1"+EP, s);
+    }
 }

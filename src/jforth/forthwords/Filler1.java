@@ -2784,11 +2784,6 @@ class Filler1
                                 Complex oc = Utilities.readComplex(dStack);
                                 Complex erg = oc.log();
                                 dStack.push (erg);
-//                                double re = oc.getReal() * oc.getReal() + oc.getImaginary() * oc.getImaginary();
-//                                re = Math.log(re) / 2.0;
-//                                double im = oc.getImaginary() / oc.getReal();
-//                                im = Math.atan(im);
-//                                dStack.push(new Complex(re, im));
                                 return 1;
                             }
                             catch (Exception e)
@@ -2805,7 +2800,7 @@ class Filler1
                         {
                             try
                             {
-                                Long ol = Utilities.readLong(dStack);
+                                long ol = Utilities.readLong(dStack);
                                 dStack.push(Utilities.factorial(ol));
                                 return 1;
                             }
@@ -2823,7 +2818,7 @@ class Filler1
                         {
                             try
                             {
-                                Double d = Utilities.readDouble(dStack);
+                                double d = Utilities.readDouble(dStack);
                                 dStack.push(Math.log10(d));
                                 return 1;
                             }

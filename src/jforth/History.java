@@ -8,7 +8,7 @@ public class History
 {
     private static final String HISTORYFILENAME = "history";
     private final int length;
-    public ArrayList<String> history;
+    ArrayList<String> history;
     private int nextIndex;
 
     History (int length)

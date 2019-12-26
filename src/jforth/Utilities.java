@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1529";
-    private static final String BUILD_DATE = "03/07/2019 09:25:48 PM";
+    private static final String BUILD_NUMBER = "1540";
+    private static final String BUILD_DATE = "12/26/2019 11:13:30 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -194,13 +194,6 @@ public class Utilities
         if (im.charAt(0)=='-')
             return re + im + "i";
         return re + "+" + im + "i";
-//        double re = c.getReal();
-//        double im = c.getImaginary();
-//        if (im == 0.0)
-//        {
-//            return ("" + re);
-//        }
-//        return ("" + re + "+" + im + "i");
     }
 
     static Complex parseComplex (String in, int base)
@@ -259,6 +252,8 @@ public class Utilities
 
     public static String formatFraction (Fraction f)
     {
+        if (f.getDenominator() == 1)
+            return ""+f.getNumerator();
         return f.getNumerator() + "/" + f.getDenominator();
     }
 
