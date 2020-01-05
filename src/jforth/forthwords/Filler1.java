@@ -702,6 +702,50 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
+                        "gf*", false, "Galois multiplication of TOS and TOS-1",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            return WordHelpers.multGF(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gf/", false, "Galois division TOS-1 by TOS",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            return WordHelpers.divGF(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gf+", false, "Galois addition TOS-1 + TOS",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            return WordHelpers.addGF(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gf-", false, "Galois subtraction TOS-1 - TOS",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
+                            return WordHelpers.subGF(dStack, o1, o2);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "2*", false, "Multiply TOS by 2",
                         (dStack, vStack) ->
                         {

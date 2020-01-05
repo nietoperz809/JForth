@@ -114,6 +114,54 @@ class WordHelpers
         return 1;
     }
 
+    static int divGF (OStack dStack, Object o1, Object o2)
+    {
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            int i1 = ((Long) o1).intValue();
+            int i2 = ((Long) o2).intValue();
+            dStack.push (GaloisField256.Quotient(i2,i1)); // i2 / i1;
+            return 1;
+        }
+        return 0;
+    }
+
+    static int addGF (OStack dStack, Object o1, Object o2)
+    {
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            int i1 = ((Long) o1).intValue();
+            int i2 = ((Long) o2).intValue();
+            dStack.push (GaloisField256.Sum(i2,i1)); // i2 / i1;
+            return 1;
+        }
+        return 0;
+    }
+
+    static int subGF (OStack dStack, Object o1, Object o2)
+    {
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            int i1 = ((Long) o1).intValue();
+            int i2 = ((Long) o2).intValue();
+            dStack.push (GaloisField256.Difference(i2,i1)); // i2 / i1;
+            return 1;
+        }
+        return 0;
+    }
+
+    static int multGF (OStack dStack, Object o1, Object o2)
+    {
+        if ((o1 instanceof Long) && (o2 instanceof Long))
+        {
+            int i1 = ((Long) o1).intValue();
+            int i2 = ((Long) o2).intValue();
+            dStack.push (GaloisField256.Product(i2,i1)); // i2 / i1;
+            return 1;
+        }
+        return 0;
+    }
+
     static int div (OStack dStack, Object o1, Object o2)
     {
         try
