@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1549";
-    private static final String BUILD_DATE = "01/11/2020 03:18:38 PM";
+    private static final String BUILD_NUMBER = "1554";
+    private static final String BUILD_DATE = "01/11/2020 10:28:50 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -196,17 +196,40 @@ public class Utilities
         return re + "+" + im + "i";
     }
 
+    static Complex parseOnlyImaginary (String in)
+    {
+        int sign = in.charAt (0) == '-' ? -1: 1;
+        if (sign == -1)
+        {
+            in = in.substring (1);
+        }
+        String num = in.substring (0, in.length ()-1);
+        try
+        {
+            int inum = Integer.parseInt (num);
+            return new Complex (0, inum*sign);
+        }
+        catch (NumberFormatException e)
+        {
+            /* ignored */ 
+        }
+        return null;
+    }
+
     static Complex parseComplex (String in, int base)
     {
         if (base != 10)
         {
             return null;
         }
-        boolean negreal = false;
+        Complex cpl = parseOnlyImaginary (in);
+        if (cpl != null)
+            return cpl;
+        boolean negfirst = false;
         if (in.startsWith("-"))
         {
             in = in.substring(1);
-            negreal = true;
+            negfirst = true;
         }
         String[] parts = in.split("(-)|(\\+)");
         if (parts.length != 2)
@@ -218,7 +241,7 @@ public class Utilities
             return null;
         }
         parts[1] = parts[1].substring(0, parts[1].length() - 1);
-        if (negreal)
+        if (negfirst)
         {
             parts[0] = "-" + parts[0];
         }
