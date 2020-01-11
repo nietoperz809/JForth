@@ -418,6 +418,19 @@ class Filler1
                                     dStack.push(JForth.FALSE);
                                 }
                             }
+                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
+                            {
+                                Complex s1 = (Complex) o1;
+                                Complex s2 = (Complex) o2;
+                                if (s1.equals (s2))
+                                {
+                                    dStack.push(JForth.TRUE);
+                                }
+                                else
+                                {
+                                    dStack.push(JForth.FALSE);
+                                }
+                            }
                             else
                             {
                                 return 0;

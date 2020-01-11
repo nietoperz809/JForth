@@ -785,4 +785,19 @@ public class TestCases
                 ".");
         Assert.assertEquals("1"+EP, s);
     }
+
+    @Test
+    public void TestEulerIdentity()
+    {
+        String s = check ("0+1i pi * exp 3 round", ".");
+        Assert.assertEquals("-1"+EP, s);
+    }
+
+    @Test
+    public void Test4PowI()
+    {
+        String s = check ("2 ln 1i * 2 * exp 4 1i pow =", ".");
+        Assert.assertEquals("1"+EP, s);
+    }
+
 }
