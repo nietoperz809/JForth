@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1546";
-    private static final String BUILD_DATE = "01/05/2020 03:51:46 AM";
+    private static final String BUILD_NUMBER = "1549";
+    private static final String BUILD_DATE = "01/11/2020 03:18:38 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");

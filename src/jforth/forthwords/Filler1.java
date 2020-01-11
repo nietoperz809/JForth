@@ -1727,6 +1727,18 @@ class Filler1
                                     dStack.push(p);
                                     return 1;
                                 }
+                                if (o instanceof Complex)
+                                {
+                                    double dr = ((Complex)o).getReal ();
+                                    double di = ((Complex)o).getImaginary ();
+                                    Complex cx = new Complex
+                                                    (
+                                                    Math.round(r * dr) / r,
+                                                    Math.round(r * di) / r
+                                                    );
+                                    dStack.push (cx);
+                                    return 1;
+                                }
                                 Double d2 = Utilities.getDouble(o);
                                 double dd = Math.round(r * d2) / r;
                                 dStack.push(dd);
