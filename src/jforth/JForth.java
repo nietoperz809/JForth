@@ -61,7 +61,7 @@ public class JForth
         history = new History(HISTORY_LENGTH);
         _out = out;
         new PredefinedWords(this, dictionary);
-        _lineEditor = new LineEdit(out);
+        _lineEditor = new LineEdit(out, this);
     }
 
     /**
@@ -87,8 +87,7 @@ public class JForth
     public static void main (String[] args)
     {
         AnsiConsole.systemInstall();
-        JForth forth = new JForth(AnsiConsole.out);
-        forth.mainLoop();
+        new JForth(AnsiConsole.out).mainLoop ();
     }
 
     /**
@@ -483,12 +482,20 @@ public class JForth
         return null;
     }
 
-    public void executeFile (String fileName) throws Exception
+    public void executeFile (ArrayList<String> as, boolean crlf)
     {
-        ArrayList<String> as = Utilities.fileLoad(fileName);
         for (String s : as)
         {
             interpretLine(s);
+            if (crlf)
+            {
+                _out.println ();
+            }
         }
+    }
+
+    public void executeFile (String fileName) throws Exception
+    {
+        executeFile (Utilities.fileLoad(fileName), false);
     }
 }

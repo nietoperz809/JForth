@@ -13,14 +13,17 @@ import java.util.ArrayList;
  * #r text    -- read file where text is the file name
  * #s test    -- save file where text is the file name
  * #innn text -- Insert before, where nnn is the line number and text is the content
- * #nnn      -- Delete line nnn
+ * #nnn       -- Delete line nnn
+ * #u         -- undo last list change
  * <p>
  * ... any other input is appended.
  * Type "editor" to enter the line editor
  */
 public class LineEdit
 {
+    private final JForth _interpreter;
     private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<String> undolist = new ArrayList<>();
     private final PrintStream _out;
 
     private static final String helpText =
@@ -35,12 +38,30 @@ public class LineEdit
                     " #r text    -- read file where text is the file name\n" +
                     " #s test    -- save file where text is the file name\n" +
                     " #innn text -- Insert before, where nnn is the line number and text is the content\n" +
-                    " #nnn      -- Delete line nnn\n" +
+                    " #nnn       -- Delete line nnn\n" +
+                    " #u         -- undo last list change\n"+
+                    " #e         -- execute file in editor"+
                     " ... any other input is appended to the buffer.";
 
-    LineEdit (PrintStream p)
+    LineEdit (PrintStream p, JForth forth)
     {
         _out = p;
+        _interpreter = forth;
+    }
+
+    private void saveList()
+    {
+        undolist.clear ();
+        undolist.addAll (list);
+    }
+
+    private void undo()
+    {
+        ArrayList<String> tmp = new ArrayList<> (list);
+        list.clear ();
+        list.addAll (undolist);
+        undolist.clear ();
+        undolist.addAll (tmp);
     }
 
     private void printErr()
@@ -79,6 +100,7 @@ public class LineEdit
                 {
                     try
                     {
+                        saveList ();
                         list.remove(linenum);
                     }
                     catch (Exception e)
@@ -88,6 +110,7 @@ public class LineEdit
                 }
                 else
                 {
+                    saveList ();
                     list.set(linenum, args);
                 }
                 return true;
@@ -114,23 +137,34 @@ public class LineEdit
                         _out.println(s);
                     }
                 }
+                else if (cmd.equals("u"))
+                {
+                    undo();
+                }
+                else if(cmd.equals("e"))  // run prg
+                {
+                    _interpreter.interpretLine (toString());
+                }
                 else if (cmd.equals("c"))  // clear program
                 {
+                    saveList ();
                     clear();
                 }
                 else if (cmd.equals("r"))   // load new program
                 {
+                    saveList ();
                     load(args);
                 }
                 else if (cmd.equals("a"))   // append program from disk
                 {
+                    saveList ();
                     append(args);
                 }
                 else if (cmd.equals("s"))   // save program
                 {
                     save(args);
                 }
-                else if (cmd.equals("h"))   // save program
+                else if (cmd.equals("h"))   // print help
                 {
                     _out.println(helpText);
                 }
@@ -143,8 +177,9 @@ public class LineEdit
                 {
                     retval = false;
                 }
-                else if (cmd.startsWith("i"))
+                else if (cmd.startsWith("i")) // insert
                 {
+                    saveList ();
                     int pos = Integer.parseInt(cmd.substring(1));
                     list.add(pos, args);
                 }
@@ -165,6 +200,7 @@ public class LineEdit
         {
             if (in.length() > 0)
             {
+                saveList ();
                 list.add(in);
                 printOk();
             }
