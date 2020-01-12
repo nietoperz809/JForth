@@ -263,3 +263,25 @@ xor             -- Xors two values
 zeta            -- Riemann Zeta function
 </pre>
 
+Line Editor
+------------------------------
+The integrated line editor is invoked by _'editor'_
+It knows these commands:
+
+<pre>
+ #l         -- List (with line numbers)
+ #t         -- print list as String
+ #c         -- clear all
+ #h         -- this help text
+ #dir       -- List directory
+ #x         -- leave line editor
+ #r text    -- read file where text is the file name
+ #s test    -- save file where text is the file name
+ #innn text -- Insert before, where nnn is the line number and text is the content
+ #nnn       -- Delete line nnn
+ #u         -- undo last list change
+ #e         -- execute file in editor
+ any other  -- input is appended to the buffer.
+
+</pre>
+
