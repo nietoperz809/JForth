@@ -28,7 +28,7 @@ class WordHelpers
         }
     }
 
-    static int add (OStack dStack, Object o1, Object o2)
+    static int add (OStack dStack, Object o1, Object o2, PredefinedWords pred)
     {
         try
         {
@@ -85,11 +85,6 @@ class WordHelpers
             i2 += i1;
             dStack.push(i2);
         }
-        else if ((o1 instanceof String) && (o2 instanceof String))
-        {
-            String s = (String)o2 + o1;
-            dStack.push(s);
-        }
         else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
         {
             DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
@@ -106,6 +101,16 @@ class WordHelpers
             Long d1 = (Long) o1;
             DoubleSequence d2 = (DoubleSequence) o2;
             dStack.push(d2.add(d1.doubleValue()));
+        }
+        else if (o2 instanceof String)
+        {
+            String s = o2 + pred._jforth.makePrintable (o1);
+            dStack.push(s);
+        }
+        else if (o1 instanceof String)
+        {
+            String s = pred._jforth.makePrintable (o2) + o1;
+            dStack.push(s);
         }
         else
         {
@@ -315,6 +320,12 @@ class WordHelpers
         }
         catch (Exception ignored)
         {
+        }
+        if (o2 instanceof Long)
+        {
+            Object tmp = o2;
+            o2 = o1;
+            o1 = tmp;
         }
         if (o1 instanceof Long)
         {

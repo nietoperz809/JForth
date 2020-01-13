@@ -40,8 +40,8 @@ public class LineEdit
                     " #innn text -- Insert before, where nnn is the line number and text is the content\n" +
                     " #nnn       -- Delete line nnn\n" +
                     " #u         -- undo last list change\n"+
-                    " #e         -- execute file in editor"+
-                    " ... any other input is appended to the buffer.";
+                    " #e         -- execute file in editor\n"+
+                    " any other  -- input is appended to the buffer.";
 
     LineEdit (PrintStream p, JForth forth)
     {

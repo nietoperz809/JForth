@@ -201,7 +201,6 @@ public class JForth
         }
     }
 
-
     public String ObjectToString (Object o)
     {
         String out = makePrintable(o);

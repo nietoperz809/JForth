@@ -647,7 +647,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return WordHelpers.add(dStack, o1, o2);
+                            return WordHelpers.add (dStack, o1, o2, predefinedWords);
                         }
                 ));
 
@@ -668,7 +668,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return WordHelpers.add(dStack, 1L, o2);
+                            return WordHelpers.add(dStack, 1L, o2, predefinedWords);
                         }
                 ));
 
@@ -688,7 +688,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            return WordHelpers.add(dStack, 2L, o2);
+                            return WordHelpers.add(dStack, 2L, o2, predefinedWords);
                         }
                 ));
 

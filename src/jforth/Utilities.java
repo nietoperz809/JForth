@@ -19,8 +19,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1565";
-    private static final String BUILD_DATE = "01/12/2020 06:27:40 AM";
+    private static final String BUILD_NUMBER = "1572";
+    private static final String BUILD_DATE = "01/13/2020 01:26:50 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -703,6 +703,11 @@ public class Utilities
         else if (o1 instanceof Double)
         {
             return new Complex((Double) o1);
+        }
+        else if (o1 instanceof Fraction)
+        {
+            Fraction fr = (Fraction)o1;
+            return new Complex ((double)fr.getNumerator ()/(double)fr.getDenominator ());
         }
         else if (o1 instanceof BigInteger)
         {
