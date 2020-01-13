@@ -1769,16 +1769,16 @@ class Filler1
                         "time", false, "Get a time string",
                         (dStack, vStack) ->
                         {
+                            String o1 = Utilities.readStringOrNull (dStack);
                             try
                             {
-                                String o1 = Utilities.readString(dStack);
-                                if (o1.equals("raw"))
+                                if (o1 == null)
                                 {
                                     dStack.push(System.currentTimeMillis());
                                 }
                                 else
                                 {
-                                    SimpleDateFormat sdf = new SimpleDateFormat((String) o1);
+                                    SimpleDateFormat sdf = new SimpleDateFormat( o1);
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                                     dStack.push(sdf.format(timestamp));
                                 }
