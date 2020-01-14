@@ -15,7 +15,7 @@ public class DoubleMatrix extends BlockRealMatrix
         super(src.getData());
     }
 
-    private DoubleMatrix (int rows, int cols)
+    DoubleMatrix (int rows, int cols)
     {
         super(rows, cols);
     }
