@@ -10,16 +10,23 @@ public class CayleyTable
         {
             throw new Exception ("order must be >= 2");
         }
-        double[] arr = new double[order];
-        _m = new DoubleMatrix (order, order);
-        for (int row = 0; row < order; row++)
+        int dim = order-1;
+        _m = new DoubleMatrix (dim, dim);
+        for (int s=0; s<dim; s++)
         {
-            for (int s = 0; s < order; s++)
+            for (int t=0; t<dim; t++)
             {
-                arr[s] = 1 + (s + row) % order;
+                int val = ((s+1)*(t+1))%order;
+                if (val == 0)
+                    throw new Exception ("Zero generated!");
+                _m.setEntry (s, t, val);
             }
-            _m.setRow (row, arr);
         }
+    }
+
+    public DoubleMatrix getMatrix()
+    {
+        return _m;
     }
 
     // Test

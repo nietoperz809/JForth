@@ -11,6 +11,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 //import java.util.function.BiFunction;
 
@@ -19,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1583";
-    private static final String BUILD_DATE = "01/14/2020 01:44:06 PM";
+    private static final String BUILD_NUMBER = "1607";
+    private static final String BUILD_DATE = "01/15/2020 06:25:51 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -51,7 +52,8 @@ public class Utilities
         return -1;
     }
 
-    public static byte[] parseHexBinary(String s) {
+    public static byte[] parseHexBinary(String s)
+    {
         final int len = s.length();
 
         // "111" is not a valid hex encoding.
@@ -900,7 +902,7 @@ public class Utilities
     }
 
     /**
-     * Copy resource from jar to temp polder
+     * Copy resource from jar to temp folder
      * @param name name of resource
      * @return Full path to extracted file
      * @throws IOException if smth gone wrong
@@ -927,5 +929,50 @@ public class Utilities
         }
         return tempName;
     }
+
+    static public ArrayList<Integer> makeCyclicGroup (int generator, int mod) throws Exception
+    {
+        BigInteger gen = BigInteger.valueOf (generator);
+        ArrayList<Integer> list = new ArrayList<> ();
+        BigInteger p = BigInteger.valueOf (generator);
+        BigInteger first = p.mod (BigInteger.valueOf (mod));
+        list.add(first.intValue ());
+        for (;;)
+        {
+            p = p.multiply (gen);
+            BigInteger m2 = p.mod (BigInteger.valueOf (mod));
+            if (m2.compareTo (first) == 0)
+                break;
+            if (m2.compareTo (BigInteger.ZERO) == 0)
+                throw new Exception ("Got a ZERO");
+            list.add(m2.intValue ());
+        }
+        return list;
+    }
+
+    /**
+     * Multiplicative Inverses of group
+     * @param group The multiplicative group
+     * @param mod the modulus
+     * @return Arraylist of inverses in the same order as input
+     */
+    static public ArrayList<Integer> groupInverses (int[] group, int mod)
+    {
+        ArrayList<Integer> inv = new ArrayList<> ();
+        for (int i : group)
+        {
+            for (int v1 : group)
+            {
+                int v2 = i;
+                int res = (v1 * v2) % mod;
+                if (res == 1)
+                {
+                    inv.add (v1);
+                }
+            }
+        }
+        return inv;
+    }
+
 
 }

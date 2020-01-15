@@ -11,6 +11,7 @@ import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,6 +91,15 @@ public class DoubleSequence
             mem.add((double) val);
         }
     }
+
+    public DoubleSequence (ArrayList<Integer> vals)
+    {
+        for (int val : vals)
+        {
+            mem.add((double) val);
+        }
+    }
+
 
     public DoubleSequence (DoubleSequence src)
     {
@@ -323,6 +333,15 @@ public class DoubleSequence
         DoubleSequence ret = new DoubleSequence(this);
         ret.mem.removeAll(other.mem);
         return ret;
+    }
+
+    public boolean sameContents (DoubleSequence other)
+    {
+        if (this.mem.size () != other.mem.size ())
+            return false;
+        ArrayList<Double> test = (ArrayList<Double>) this.mem.clone ();
+        test.removeAll (other.mem);
+        return test.size() == 0;
     }
 
     public DoubleSequence rotateLeft (int n)

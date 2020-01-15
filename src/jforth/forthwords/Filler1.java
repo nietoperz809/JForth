@@ -418,6 +418,20 @@ class Filler1
                                     dStack.push(JForth.FALSE);
                                 }
                             }
+                            else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
+                            {
+                                DoubleSequence s1 = (DoubleSequence) o1;
+                                DoubleSequence s2 = (DoubleSequence) o2;
+                                boolean result = s1.sameContents (s2);
+                                if (result)
+                                {
+                                    dStack.push(JForth.TRUE);
+                                }
+                                else
+                                {
+                                    dStack.push(JForth.FALSE);
+                                }
+                            }
                             else if ((o1 instanceof Complex) && (o2 instanceof Complex))
                             {
                                 Complex s1 = (Complex) o1;

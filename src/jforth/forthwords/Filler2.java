@@ -866,6 +866,64 @@ class Filler2
                         (dStack1, vStack1) -> executeTri(dStack1)
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "cTab", false, "Makes multiplicative group Cayley table matrix of order n",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long l = Utilities.readLong(dStack);
+                                CayleyTable cl = new CayleyTable ((int)l);
+                                dStack.push (cl.getMatrix ());
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "cGroup", false, "Make cyclic group from generator and mod value",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long mod = Utilities.readLong(dStack);
+                                long gen = Utilities.readLong(dStack);
+                                ArrayList<Integer> list = Utilities.makeCyclicGroup ((int)gen, (int)mod);
+                                dStack.push (new DoubleSequence (list));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+        _fw.add(new PrimitiveWord
+                (
+                        "iGroup", false, "calculate inverses of a group",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long mod = Utilities.readLong(dStack);
+                                DoubleSequence ds = Utilities.readDoubleSequence (dStack);
+                                ArrayList<Integer> list = Utilities.groupInverses (ds.asIntArray (), (int)mod);
+                                dStack.push (new DoubleSequence (list));
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 
     private static int executeSine (OStack dStack)
