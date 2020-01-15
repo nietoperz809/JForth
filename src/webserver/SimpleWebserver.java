@@ -57,7 +57,7 @@ public class SimpleWebserver
         }
         else if (txt.equals("/jquery.js")) //send jquery
         {
-            SimpleWebserver.this.sendResource("jquery-3.2.1.min.js", os);
+            SimpleWebserver.this.sendResource("jquery-1.11.3.min.js", os);
         }
         else if (txt.equals("/favicon.ico")) //send icon
         {

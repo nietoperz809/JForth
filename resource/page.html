@@ -32,7 +32,7 @@
     <header>
         <p id="hline"></p>
         <img src="favicon.ico" alt="Tiger face" height="32" width="32">
-        <input type="text" id="txt"/>
+        <input type="text" size="100" id="txt"/>
     </header>
     <pre id="cod"></pre>
     <script type="text/javascript" src="jquery.js"></script>
@@ -45,13 +45,13 @@
             $('#hline').text(data);
         });
         var txt = $('#txt');
-        var savetxt ='';
+        var savetxt = [];
         txt.keydown(function (e)
         {
             if(e.keyCode === 13)
             {
                 var input = txt.val();
-                savetxt = txt.val();
+                savetxt.push (txt.val());
                 txt.val('');
                 $.get("forth", encodeURIComponent(input), function( data )
                 {
@@ -60,7 +60,8 @@
             }
             else if (e.keyCode === 38)
             {
-                txt.val(savetxt);
+                txt.val(savetxt.pop());
+                savetxt.unshift (txt.val());
             }
         });
     });
