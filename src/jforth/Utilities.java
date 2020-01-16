@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1631";
-    private static final String BUILD_DATE = "01/16/2020 05:41:40 AM";
+    private static final String BUILD_NUMBER = "1635";
+    private static final String BUILD_DATE = "01/16/2020 06:21:04 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -935,18 +935,19 @@ public class Utilities
         BigInteger gen = BigInteger.valueOf (generator);
         ArrayList<Integer> list = new ArrayList<> ();
         BigInteger p = BigInteger.valueOf (generator);
-        BigInteger first = p.mod (BigInteger.valueOf (mod));
-        list.add(first.intValue ());
         for (;;)
         {
-            p = p.multiply (gen);
             BigInteger m2 = p.mod (BigInteger.valueOf (mod));
-            if (m2.compareTo (first) == 0)
+            p = p.multiply (gen);
+            int m2i = m2.intValue ();
+            if (list.contains (m2i))
                 break;
-            if (m2.compareTo (BigInteger.ZERO) == 0)
+            if (m2i == 0)
                 throw new Exception ("Got a ZERO");
-            list.add(m2.intValue ());
+            list.add(m2i);
         }
+        if (!list.contains (1))
+            throw new Exception ("Missing 1-element");
         return list;
     }
 
