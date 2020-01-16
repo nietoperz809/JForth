@@ -816,4 +816,25 @@ public class TestCases
         shoudBeOK ("lalakukuku" ,s);
     }
 
+    @Test
+    public void TestCGroup()
+    {
+        String s = check ("7 11 cgroup", ".");
+        shoudBeOK ("{7,5,2,3,10,4,6,9,8,1}" ,s);
+    }
+
+    @Test
+    public void TestCGroupInverseAndEquality()
+    {
+        String s = check ("7 11 cgroup dup 11 igroup dup rot dup rot swap =", ". . .");
+        shoudBeOK ("1{7,5,2,3,10,4,6,9,8,1}{8,9,6,4,10,3,2,5,7,1}" ,s);
+    }
+
+    @Test
+    public void TestCTab()
+    {
+        String s = check ("5 ctab", ".");
+        shoudBeOK ("{{1,2,3,4}{2,4,1,3}{3,1,4,2}{4,3,2,1}}" ,s);
+    }
+
 }

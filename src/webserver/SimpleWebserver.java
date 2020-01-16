@@ -15,6 +15,17 @@ import java.util.concurrent.Executors;
 
 public class SimpleWebserver
 {
+    private static HttpServer server;
+
+    public static void stop()
+    {
+        if (server != null)
+        {
+            server.stop (1);
+            server = null;
+        }
+    }
+
     public static void start (int port)
     {
         try
@@ -70,7 +81,7 @@ public class SimpleWebserver
 
     private void startServer (int port) throws IOException
     {
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 10);
+        server = HttpServer.create(new InetSocketAddress(port), 10);
         server.setExecutor(Executors.newCachedThreadPool()); // multiple Threads
         server.createContext("/", httpHandler);
         server.start();

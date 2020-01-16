@@ -3997,6 +3997,21 @@ class Filler1
                         }
                 ));
 
-
+        _fw.add(new PrimitiveWord
+                (
+                        "unhttp", false, "stop web server",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                SimpleWebserver.stop();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }
