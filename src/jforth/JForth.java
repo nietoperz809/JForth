@@ -20,6 +20,8 @@ import java.util.Scanner;
 
 public class JForth
 {
+    public final RuntimeEnvironment CurrentEnvironment;
+
     public enum MODE {EDIT, DIRECT}
 
     public static final String ENCODING = "ISO_8859_1";
@@ -49,13 +51,14 @@ public class JForth
     public final LineEdit _lineEditor;
     private MultiDotStreamTokenizer st = null;
 
-    public JForth ()
+    public JForth (RuntimeEnvironment ri)
     {
-        this (System.out);
+        this (System.out, ri);
     }
 
-    public JForth (PrintStream out)
+    public JForth (PrintStream out, RuntimeEnvironment ri)
     {
+        CurrentEnvironment = ri;
         compiling = false;
         base = 10;
         history = new History(HISTORY_LENGTH);
@@ -87,7 +90,7 @@ public class JForth
     public static void main (String[] args)
     {
         AnsiConsole.systemInstall();
-        new JForth(AnsiConsole.out).mainLoop ();
+        new JForth(AnsiConsole.out, RuntimeEnvironment.CONSOLE).mainLoop ();
     }
 
     /**

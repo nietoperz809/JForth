@@ -3,6 +3,7 @@ package webserver;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import jforth.JForth;
+import jforth.RuntimeEnvironment;
 import jforth.Utilities;
 import tools.StringStream;
 
@@ -39,7 +40,7 @@ public class SimpleWebserver
     }
 
     private StringStream _ss = new StringStream();
-    private JForth forth = new JForth(_ss.getPrintStream());
+    private JForth forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.WEBSERVER);
 
     private HttpHandler httpHandler = e ->
     {
@@ -57,10 +58,10 @@ public class SimpleWebserver
             String cmd = URLDecoder.decode(split[1], "UTF-8");
             forth.singleShot(cmd);
             String erg = _ss.toString();
-            os.write(cmd.getBytes());
-            os.write("\n".getBytes());
+            //os.write(cmd.getBytes());
+            //os.write("\n".getBytes());
             os.write(erg.getBytes(), 0, erg.length() - 2);
-            _ss.clear();
+            _ss.clear ();
         }
         else if (split[0].equals("/headline"))
         {

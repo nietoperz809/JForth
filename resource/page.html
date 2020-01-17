@@ -40,7 +40,7 @@
 
     $(document).ready(function()
     {
-        $.get("headline", function(data)
+        $.get("headline", function(data) // ask for headline
         {
             $('#hline').text(data);
         });
@@ -55,7 +55,25 @@
                 txt.val('');
                 $.get("forth", encodeURIComponent(input), function( data )
                 {
-                    $('#cod').text(data);
+                    var res = data.split ('~')
+                    if (res[0] == 'alertbox%%')
+                    {
+                        var cret = confirm (res[1].split(' ')[0]);
+                        if (cret == true)
+                        {
+                            $.get("forth", "TRUE", function( data )
+                            {
+                            });
+                        }
+                        else
+                        {
+                            $.get("forth", "FALSE", function( data )
+                            {
+                            });
+                        }
+                    }
+                    else
+                       $('#cod').text(data);
                 });
             }
             else if (e.keyCode === 38)

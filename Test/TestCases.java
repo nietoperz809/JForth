@@ -1,4 +1,5 @@
 import jforth.JForth;
+import jforth.RuntimeEnvironment;
 import jforth.Utilities;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +21,7 @@ public class TestCases
     private String check (String prg, String call)
     {
         StringStream _ss = new StringStream();
-        JForth _forth = new JForth(_ss.getPrintStream());
+        JForth _forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.TEST);
 //        _forth.setPrintStream(_ss.getPrintStream());
         _forth.singleShot(prg);
         if (call != null)

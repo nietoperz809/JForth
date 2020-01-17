@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1635";
-    private static final String BUILD_DATE = "01/16/2020 06:21:04 AM";
+    private static final String BUILD_NUMBER = "1656";
+    private static final String BUILD_DATE = "01/17/2020 12:46:57 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -957,6 +957,7 @@ public class Utilities
      * @param mod the modulus
      * @return Arraylist of inverses in the same order as input
      */
+/*
     static public ArrayList<Integer> groupInverses (int[] group, int mod)
     {
         ArrayList<Integer> inv = new ArrayList<> ();
@@ -964,9 +965,7 @@ public class Utilities
         {
             for (int v1 : group)
             {
-                int v2 = i;
-                int res = (v1 * v2) % mod;
-                if (res == 1)
+                if ((v1 * i) % mod == 1)
                 {
                     inv.add (v1);
                 }
@@ -974,6 +973,51 @@ public class Utilities
         }
         return inv;
     }
+*/
 
+    static public ArrayList<Integer> groupInverses (int[] group, int mod)
+    {
+        ArrayList<Integer> inv = new ArrayList<> ();
+        for (int a: group)
+        {
+            long[] retvals = ExtendedGCD (mod,a);
+            if (retvals[2] < 0)
+                retvals[2] = mod+retvals[2];
+            inv.add ((int)retvals[2]);
+        }
+        return inv;
+    }
+
+
+    /**
+     * Euclidian ext GCD
+     * @param a test candidate 1
+     * @param b test canditate 2
+     * @return three integers:  i[0] = a*i[1] + b*i[2]
+     */
+    public static long[] ExtendedGCD(long a, long b)
+    {
+        long[] retvals={0,0,0};
+        long[] aa ={1, 0};
+        long[] bb ={0, 1};
+        long q=0;
+        while(true)
+        {
+            q = a / b; a = a % b;
+            aa[0] = aa[0] - q*aa[1];  bb[0] = bb[0] - q*bb[1];
+            if (a == 0)
+            {
+                retvals[0] = b; retvals[1] = aa[1]; retvals[2] = bb[1];
+                return retvals;
+            }
+            q = b / a; b = b % a;
+            aa[1] = aa[1] - q*aa[0];  bb[1] = bb[1] - q*bb[0];
+            if (b == 0)
+            {
+                retvals[0] = a; retvals[1] = aa[0]; retvals[2] = bb[0];
+                return retvals;
+            }
+        }
+    }
 
 }

@@ -284,7 +284,8 @@ class Filler2
                                 final String ss = Utilities.readString(dStack);
                                 new Thread(() ->
                                 {
-                                    JForth f = new JForth(AnsiConsole.out);
+                                    JForth f = new JForth (AnsiConsole.out,
+                                            RuntimeEnvironment.CONSOLE);
                                     f.interpretLine(ss);
                                     AnsiConsole.out.flush();
                                 }).start();
@@ -582,6 +583,12 @@ class Filler2
                             try
                             {
                                 String txt = Utilities.readString (dStack);
+                                JForth f = predefinedWords._jforth;
+                                if (f.CurrentEnvironment == RuntimeEnvironment.WEBSERVER)
+                                {
+                                    f._out.print ("alertbox%%~"+txt);
+                                    return 1;
+                                }
                                 int dialogResult = JOptionPane.showConfirmDialog(null,
                                         txt+"?",
                                         "Jforth", JOptionPane.YES_NO_OPTION);
