@@ -2195,20 +2195,31 @@ class Filler1
                         "mix", false, "Mix two Lists",
                         (dStack, vStack) ->
                         {
-                            DoubleSequence o1;
-                            DoubleSequence o2;
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
                             try
                             {
-                                o1 = Utilities.readDoubleSequence(dStack);
-                                o2 = Utilities.readDoubleSequence(dStack);
+                                DoubleSequence d1 = Utilities.getDoubleSequence(o1);
+                                DoubleSequence d2 = Utilities.getDoubleSequence(o2);
+                                DoubleSequence ds = DoubleSequence.mixin(d2, d1);
+                                dStack.push(ds);
+                                return 1;
                             }
                             catch (Exception e)
                             {
-                                return 0;
                             }
-                            DoubleSequence ds = DoubleSequence.mixin(o2, o1);
-                            dStack.push(ds);
-                            return 1;
+                            try
+                            {
+                                StringSequence d1 = Utilities.getStringSequence(o1);
+                                StringSequence d2 = Utilities.getStringSequence(o2);
+                                StringSequence ds = StringSequence.mixin(d2, d1);
+                                dStack.push(ds);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                            }
+                            return 0;
                         }
                 ));
 

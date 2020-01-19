@@ -783,9 +783,9 @@ public class TestCases
     @Test
     public void TestLn()
     {
-        String s = check ("-1 ln",
+        String s = check ("-1 ln 99 +",
                 ".");
-        shoudBeOK ("0+3.141592653589793i" ,s);
+        shoudBeOK ("99+3.141592653589793i" ,s);
     }
 
     @Test

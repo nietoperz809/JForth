@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1683";
-    private static final String BUILD_DATE = "01/19/2020 04:28:36 PM";
+    private static final String BUILD_NUMBER = "1689";
+    private static final String BUILD_DATE = "01/19/2020 09:05:28 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -193,6 +193,10 @@ public class Utilities
         {
             return re;
         }
+        if (re.equals ("0"))
+        {
+            return im + "i";
+        }
         if (im.charAt(0)=='-')
             return re + im + "i";
         return re + "+" + im + "i";
@@ -205,6 +209,8 @@ public class Utilities
         {
             in = in.substring (1);
         }
+        if (in.charAt(in.length()-1) !='i')
+            return null;
         String num = in.substring (0, in.length ()-1);
         try
         {

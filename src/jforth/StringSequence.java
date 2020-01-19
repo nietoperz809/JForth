@@ -20,7 +20,6 @@ public class StringSequence
         _list = new ArrayList<> (list);
     }
 
-
     public StringSequence (String csv)
     {
         this (csv.split(","));
@@ -50,6 +49,26 @@ public class StringSequence
         ret._list.retainAll(other._list);
         return ret;
     }
+
+    public static StringSequence mixin (StringSequence d1, StringSequence d2)
+    {
+        int len = Math.max (d1.length(),d2.length());
+        ArrayList<String> ar = new ArrayList<>();
+        for (int s=0; s<len; s++)
+        {
+            if (s < d1.length())
+                ar.add (d1.pick(s));
+            if (s < d2.length())
+                ar.add (d2.pick(s));
+        }
+        return new StringSequence(ar);
+    }
+
+    private int length ()
+    {
+        return _list.size ();
+    }
+
 
     public void put (int x, String s)
     {
