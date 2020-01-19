@@ -103,6 +103,19 @@ public class StringSequence
         return new StringSequence (seq);
     }
 
+    public StringSequence rotateLeft (int n)
+    {
+        StringSequence ret = new StringSequence(this);
+        ret._list = Utilities.rotateLeft (ret._list, n);
+        return ret;
+    }
+
+    public StringSequence rotateRight (int n)
+    {
+        StringSequence ret = new StringSequence(this);
+        ret._list = Utilities.rotateRight (ret._list, n);
+        return ret;
+    }
 
     public static void main (String[] args)
     {

@@ -865,4 +865,18 @@ public class TestCases
         String s = check ("{a,s,a,s,d,a,s} unique", ".");
         shoudBeOK ("{a,s,d}" ,s);
     }
+
+    @Test
+    public void TestRotateNumSeq()
+    {
+        String s = check ("{1,2,3} << {1,2,3} >>", "..");
+        shoudBeOK ("{3,1,2}{2,3,1}" ,s);
+    }
+
+    @Test
+    public void TestRotateStrSeq()
+    {
+        String s = check ("{a,f,g,j} << {j,o,7,laal} >>", "..");
+        shoudBeOK ("{laal,j,o,7}{f,g,j,a}" ,s);
+    }
 }

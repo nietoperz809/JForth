@@ -1222,6 +1222,12 @@ class Filler1
                                 dStack.push(i2.rotateLeft(1));
                                 return 1;
                             }
+                            if (o2 instanceof StringSequence)
+                            {
+                                StringSequence i2 = (StringSequence) o2;
+                                dStack.push(i2.rotateLeft(1));
+                                return 1;
+                            }
                             if (o2 instanceof String)
                             {
                                 String i2 = (String) o2;
@@ -1247,6 +1253,12 @@ class Filler1
                             if (o2 instanceof DoubleSequence)
                             {
                                 DoubleSequence i2 = (DoubleSequence) o2;
+                                dStack.push(i2.rotateRight(1));
+                                return 1;
+                            }
+                            if (o2 instanceof StringSequence)
+                            {
+                                StringSequence i2 = (StringSequence) o2;
                                 dStack.push(i2.rotateRight(1));
                                 return 1;
                             }

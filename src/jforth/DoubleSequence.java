@@ -358,24 +358,14 @@ public class DoubleSequence
     public DoubleSequence rotateLeft (int n)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        while (n != 0)
-        {
-            ret.mem.add(ret.mem.size(), 0.0);
-            ret.mem.remove(0);
-            n--;
-        }
+        ret.mem = Utilities.rotateLeft (ret.mem, n);
         return ret;
     }
 
     public DoubleSequence rotateRight (int n)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        while (n != 0)
-        {
-            ret.mem.add(0, 0.0);
-            ret.mem.remove(ret.mem.size()-1);
-            n--;
-        }
+        ret.mem = Utilities.rotateRight (ret.mem, n);
         return ret;
     }
 

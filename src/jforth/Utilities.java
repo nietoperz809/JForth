@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1689";
-    private static final String BUILD_DATE = "01/19/2020 09:05:28 PM";
+    private static final String BUILD_NUMBER = "1692";
+    private static final String BUILD_DATE = "01/19/2020 10:02:44 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1057,5 +1057,31 @@ public class Utilities
             }
         }
     }
+
+    public static <E> ArrayList<E> rotateLeft (ArrayList<E> list,int n)
+    {
+        ArrayList<E> ret = new ArrayList<> (list);
+        while (n != 0)
+        {
+            ret.add(ret.size(), ret.get (0));
+            ret.remove(0);
+            n--;
+        }
+        return ret;
+    }
+
+
+    public static <E> ArrayList<E> rotateRight (ArrayList<E> list,int n)
+    {
+        ArrayList<E> ret = new ArrayList<> (list);
+        while (n != 0)
+        {
+            ret.add (0, ret.get (ret.size ()-1));
+            ret.remove(ret.size ()-1);
+            n--;
+        }
+        return ret;
+    }
+
 
 }
