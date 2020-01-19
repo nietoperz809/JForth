@@ -4,14 +4,22 @@
 package jforth;
 
 
+import java.util.*;
+
 public class StringSequence
 {
-    private final String[] _list;
+    private ArrayList<String> _list = new ArrayList<> ();
 
-    public StringSequence (int size)
+    public StringSequence (StringSequence src)
     {
-        _list = new String[size];
+        _list.addAll(src._list);
     }
+
+    public StringSequence (List<String> list)
+    {
+        _list = new ArrayList<> (list);
+    }
+
 
     public StringSequence (String csv)
     {
@@ -20,17 +28,37 @@ public class StringSequence
 
     public StringSequence (String[] in)
     {
-        _list = in;
+        _list.addAll (Arrays.asList (in));
+    }
+
+    public StringSequence shuffle()
+    {
+        StringSequence ret = new StringSequence(this);
+        Collections.shuffle(ret._list);
+        return ret;
+    }
+
+    public StringSequence unique ()
+    {
+        ArrayList<String> nodupe = new ArrayList<>(new LinkedHashSet<> (_list));
+        return new StringSequence(nodupe);
+    }
+
+    public StringSequence intersect (StringSequence other)
+    {
+        StringSequence ret = new StringSequence(this);
+        ret._list.retainAll(other._list);
+        return ret;
     }
 
     public void put (int x, String s)
     {
-        _list[x] = s;
+        _list.add (x, s);
     }
 
-    public String get (int x)
+    public String pick (int x)
     {
-        return _list[x];
+        return _list.get(x);
     }
 
     @Override
@@ -38,10 +66,10 @@ public class StringSequence
     {
         StringBuilder sb = new StringBuilder ();
             sb.append ('{');
-            for (int x = 0; x <_list.length; x++)
+            for (int x = 0; x <_list.size(); x++)
             {
-                sb.append (_list[x]);
-                if (x != _list.length-1)
+                sb.append (_list.get(x));
+                if (x != _list.size()-1)
                     sb.append (",");
             }
             sb.append ('}');

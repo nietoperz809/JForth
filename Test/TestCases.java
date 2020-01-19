@@ -838,4 +838,31 @@ public class TestCases
         shoudBeOK ("{{1,2,3,4}{2,4,1,3}{3,1,4,2}{4,3,2,1}}" ,s);
     }
 
+    @Test
+    public void TestIntersectNlist()
+    {
+        String s = check ("{1,2,3,4} {1,2,4} intersect", ".");
+        shoudBeOK ("{1,2,4}" ,s);
+    }
+
+    @Test
+    public void TestIntersectSlist()
+    {
+        String s = check ("{a,b,c} {d,e,a} intersect", ".");
+        shoudBeOK ("{a}" ,s);
+    }
+
+    @Test
+    public void TestPick()
+    {
+        String s = check ("{peter,ist,lieb,oder,doof} 2 lpick", ".");
+        shoudBeOK ("lieb" ,s);
+    }
+
+    @Test
+    public void UniqTest()
+    {
+        String s = check ("{a,s,a,s,d,a,s} unique", ".");
+        shoudBeOK ("{a,s,d}" ,s);
+    }
 }

@@ -72,7 +72,7 @@ public class DoubleSequence
 
     public DoubleSequence (List<Double> list)
     {
-        mem = new ArrayList<Double>(list);
+        mem = new ArrayList<> (list);
     }
 
     public DoubleSequence (double ... vals)

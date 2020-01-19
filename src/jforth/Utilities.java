@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1675";
-    private static final String BUILD_DATE = "01/19/2020 02:46:38 PM";
+    private static final String BUILD_NUMBER = "1683";
+    private static final String BUILD_DATE = "01/19/2020 04:28:36 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -756,9 +756,27 @@ public class Utilities
         return new Vector3D(ds.pick(0), ds.pick(1), i2);
     }
 
+    public static StringSequence readStringSequence (OStack dStack) throws Exception
+    {
+        return getStringSequence (dStack.pop());
+    }
+
+    public static StringSequence getStringSequence (Object o)
+    {
+        if (o instanceof StringSequence)
+        {
+            return (StringSequence) o;
+        }
+        return null;
+    }
+
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
     {
-        Object o = dStack.pop();
+        return getDoubleSequence (dStack.pop());
+    }
+
+    public static DoubleSequence getDoubleSequence (Object o)
+    {
         if (o instanceof DoubleSequence)
         {
             return (DoubleSequence) o;
@@ -767,7 +785,7 @@ public class Utilities
         {
             return new DoubleSequence((String) o);
         }
-        throw new Exception("Wrong or no Type on Stack");
+        return null;
     }
 
     public static Fraction pow (Fraction f, Long n)

@@ -3820,16 +3820,26 @@ class Filler1
                         "shuffle", false, "Random shuffles a sequence",
                         (dStack, vStack) ->
                         {
+                            Object o = dStack.pop();
                             try
                             {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.shuffle());
+                                DoubleSequence o2 = Utilities.getDoubleSequence(o);
+                                dStack.push(o2.shuffle());
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception ignored)
                             {
-                                return 0;
                             }
+                            try
+                            {
+                                StringSequence o2 = Utilities.getStringSequence(o);
+                                dStack.push(o2.shuffle());
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
                         }
                 ));
 
@@ -3918,17 +3928,25 @@ class Filler1
                         "intersect", false, "Make intersection of 2 sequences",
                         (dStack, vStack) ->
                         {
+                            Object o1 = dStack.pop();
+                            Object o2 = dStack.pop();
                             try
                             {
-                                DoubleSequence o1 = Utilities.readDoubleSequence(dStack);
-                                DoubleSequence o2 = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o1.intersect(o2));
+                                dStack.push (((DoubleSequence)o1).intersect((DoubleSequence)o2));
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception ignored)
                             {
-                                return 0;
                             }
+                            try
+                            {
+                                dStack.push (((StringSequence)o1).intersect((StringSequence)o2));
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
                         }
                 ));
 
@@ -3937,16 +3955,26 @@ class Filler1
                         "unique", false, "Only keep unique elements of sequence",
                         (dStack, vStack) ->
                         {
+                            Object o = dStack.pop();
                             try
                             {
-                                DoubleSequence o1 = Utilities.readDoubleSequence(dStack);
+                                DoubleSequence o1 = Utilities.getDoubleSequence(o);
                                 dStack.push(o1.unique());
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception ignored)
                             {
-                                return 0;
                             }
+                            try
+                            {
+                                StringSequence o1 = Utilities.getStringSequence(o);
+                                dStack.push(o1.unique());
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
                         }
                 ));
 
@@ -3962,6 +3990,10 @@ class Filler1
                                 if (o instanceof DoubleSequence)
                                 {
                                     dStack.push(((DoubleSequence)o).pick((int) l1));
+                                }
+                                if (o instanceof StringSequence)
+                                {
+                                    dStack.push(((StringSequence)o).pick((int) l1));
                                 }
                                 else if (o instanceof String)
                                 {
