@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1656";
-    private static final String BUILD_DATE = "01/17/2020 12:46:57 PM";
+    private static final String BUILD_NUMBER = "1675";
+    private static final String BUILD_DATE = "01/19/2020 02:46:38 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -720,13 +720,27 @@ public class Utilities
 
     public static double[] parseCSVtoDoubleArray (String in)
     {
-        String vals[] = in.split(",");
-        double[] out = new double[vals.length];
-        for (int s = 0; s < vals.length; s++)
+        try
         {
-            out[s] = Double.parseDouble(vals[s]);
+            String vals[] = in.split(",");
+            double[] out = new double[vals.length];
+            for (int s = 0; s < vals.length; s++)
+            {
+                out[s] = Double.parseDouble(vals[s]);
+            }
+            return out;
         }
-        return out;
+        catch (NumberFormatException e)
+        {
+            return null;
+        }
+    }
+
+    public static String extractSequence (String in)
+    {
+        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
+            return (in.substring(1, in.length()-1));
+        return null;
     }
 
     public static Vector3D readVector3D (OStack dStack) throws Exception

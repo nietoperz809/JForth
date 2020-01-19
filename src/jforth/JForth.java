@@ -344,6 +344,12 @@ public class JForth
             dStack.push(lo);
             return true;
         }
+        StringSequence ss = StringSequence.parseSequence (word);
+        if (ss != null)
+        {
+            dStack.push(ss);
+            return true;
+        }
         String ws = Utilities.parseString(word);
         if (ws != null)
         {
@@ -435,6 +441,12 @@ public class JForth
         if (ds != null)
         {
             wordBeingDefined.addWord(new Literal(ds));
+            return true;
+        }
+        StringSequence ss = StringSequence.parseSequence (word);
+        if (ss != null)
+        {
+            wordBeingDefined.addWord(new Literal(ss));
             return true;
         }
         Fraction fr = Utilities.parseFraction(word, base);

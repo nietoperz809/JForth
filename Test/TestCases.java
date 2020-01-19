@@ -454,9 +454,9 @@ public class TestCases
     }
 
     @Test
-    public void TestMToList()
+    public void TestMatrixToList()
     {
-        String s = check ("{{1,2,3}{4,5}{6,7,8,9}} toList",
+        String s = check ("{{1,2,3}{4,5}{6,7,8,9}} toNumList",
                 ". . .");
         System.out.println(s);
         shoudBeOK ("{6,7,8,9}{4,5,0,0}{1,2,3,0}" ,s);

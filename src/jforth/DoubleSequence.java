@@ -11,7 +11,6 @@ import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -206,16 +205,28 @@ public class DoubleSequence
         return new DoubleSequence(factors);
     }
 
+//    public static DoubleSequence parseSequence (String in, int base)
+//    {
+//        if (base != 10)
+//            return null;
+//        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
+//        {
+//            in = in.substring(1, in.length()-1);
+//            return new DoubleSequence(Utilities.parseCSVtoDoubleArray(in));
+//        }
+//        return null;
+//    }
     public static DoubleSequence parseSequence (String in, int base)
     {
         if (base != 10)
             return null;
-        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
-        {
-            in = in.substring(1, in.length()-1);
-            return new DoubleSequence(Utilities.parseCSVtoDoubleArray(in));
-        }
-        return null;
+        String seq = Utilities.extractSequence (in);
+        if (seq == null)
+            return null;
+        double[] arr = Utilities.parseCSVtoDoubleArray(seq);
+        if (arr == null)
+            return null;
+        return new DoubleSequence(arr);
     }
 
     public double sum()
