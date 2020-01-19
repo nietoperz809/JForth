@@ -12,9 +12,8 @@ Have fun.
 
 Currently supported data types
 ------------------------------
-`As of JForth, Build: 376, 04/16/2017 07:38:19 PM`
-
-`Numbers can be typed in the following notations:`
+`As of JForth, Build: 1689, 01/19/2020 09:05:28 PM`
+`Numbers can be typed using the following notations:`
 
 Long
 > Ex: 1234
@@ -28,6 +27,9 @@ BigInt
 DoubleSequence
 > Ex: {1,2,4.456,7}
 
+StringSequence
+> Ex: {a,b,hello,666}
+
 PolynomialFunction
 > Ex: 2x^3-x^2+7x-9 
 
@@ -38,7 +40,7 @@ Fraction
 > 3/4
 
 
-Predifined Words
+Predefined Words
 ------------------------------
 
 <pre>
