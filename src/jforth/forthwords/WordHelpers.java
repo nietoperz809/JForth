@@ -102,6 +102,18 @@ class WordHelpers
             DoubleSequence d2 = (DoubleSequence) o2;
             dStack.push(d2.add(d1.doubleValue()));
         }
+        else if (o2 instanceof StringSequence)
+        {
+            StringSequence ss = (StringSequence)o2;
+            ss.add (pred._jforth.makePrintable (o1));
+            dStack.push(ss);
+        }
+        else if (o1 instanceof StringSequence)
+        {
+            StringSequence ss = (StringSequence)o1;
+            ss.put (0, (pred._jforth.makePrintable (o2)));
+            dStack.push(ss);
+        }
         else if (o2 instanceof String)
         {
             String s = o2 + pred._jforth.makePrintable (o1);
@@ -427,10 +439,22 @@ class WordHelpers
             DoubleSequence d2 = (DoubleSequence) o2;
             dStack.push(d2.difference(d1));
         }
+        else if ((o1 instanceof StringSequence) && (o2 instanceof StringSequence))
+        {
+            StringSequence d1 = (StringSequence) o1;
+            StringSequence d2 = (StringSequence) o2;
+            dStack.push(d2.difference(d1));
+        }
         else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
         {
             Long d1 = (Long) o1;
             DoubleSequence d2 = (DoubleSequence) o2;
+            dStack.push(d2.subList(0, d2.length() - d1.intValue()));
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof StringSequence))
+        {
+            Long d1 = (Long) o1;
+            StringSequence d2 = (StringSequence) o2;
             dStack.push(d2.subList(0, d2.length() - d1.intValue()));
         }
         else

@@ -893,4 +893,20 @@ public class TestCases
         String s = check ("\"peter       ist    lieb\" factor", ".");
         shoudBeOK ("{peter,ist,lieb}" ,s);
     }
+
+    @Test
+    public void TestStrSeqPlus()
+    {
+        String s = check ("{a,b,c,d} peter +", ".");
+        shoudBeOK ("{a,b,c,d,peter}" ,s);
+        s = check ("peter {a,b,c,f} +", ".");
+        shoudBeOK ("{peter,a,b,c,f}" ,s);
+    }
+
+    @Test
+    public void TestStrSeqSubX()
+    {
+        String s = check ("peter 1 / {e,t} - toStr", ".");
+        shoudBeOK ("pr" ,s);
+    }
 }

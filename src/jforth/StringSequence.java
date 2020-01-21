@@ -84,6 +84,11 @@ public class StringSequence
         _list.add (x, s);
     }
 
+    public void add (String s)
+    {
+        _list.add (s);
+    }
+
     public String pick (int x)
     {
         return _list.get(x);
@@ -125,6 +130,20 @@ public class StringSequence
         ret._list = Utilities.rotateRight (ret._list, n);
         return ret;
     }
+
+    public StringSequence difference (StringSequence other)
+    {
+        StringSequence ret = new StringSequence(this);
+        ret._list.removeAll(other._list);
+        return ret;
+    }
+
+    public StringSequence subList (int from, int to)
+    {
+        return new StringSequence(this._list.subList(from, to));
+    }
+    
+//////////////////////////////////////////////////////////////////////
 
     public static void main (String[] args)
     {

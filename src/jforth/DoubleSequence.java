@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class DoubleSequence
 {
-    private ArrayList<Double> mem = new ArrayList<>();
+    private ArrayList<Double> _list = new ArrayList<>();
 
     public DoubleSequence()
     {
@@ -32,18 +32,18 @@ public class DoubleSequence
 
     public DoubleSequence (Vector3D v)
     {
-        mem.add (v.getX());
-        mem.add (v.getY());
+        _list.add (v.getX());
+        _list.add (v.getY());
         double z = v.getZ();
         if (z != 0.0)
-            mem.add (z);
+            _list.add (z);
     }
 
     public DoubleSequence (byte[] b)
     {
         for(byte bb : b)
         {
-            mem.add ((double)(((int)bb)&0x00ff));
+            _list.add ((double)(((int)bb)&0x00ff));
         }
     }
 
@@ -51,7 +51,7 @@ public class DoubleSequence
     {
         for(char c : s.toCharArray())
         {
-            mem.add ((double)c);
+            _list.add ((double)c);
         }
     }
 
@@ -61,7 +61,7 @@ public class DoubleSequence
         {
             try
             {
-                mem.add(Double.parseDouble(value));
+                _list.add(Double.parseDouble(value));
             }
             catch (Exception ignored)
             {
@@ -72,14 +72,14 @@ public class DoubleSequence
 
     public DoubleSequence (List<Double> list)
     {
-        mem = new ArrayList<> (list);
+        _list = new ArrayList<> (list);
     }
 
     public DoubleSequence (double ... vals)
     {
         for (double val : vals)
         {
-            mem.add(val);
+            _list.add(val);
         }
     }
 
@@ -87,7 +87,7 @@ public class DoubleSequence
     {
         for (int val : vals)
         {
-            mem.add((double) val);
+            _list.add((double) val);
         }
     }
 
@@ -95,14 +95,14 @@ public class DoubleSequence
     {
         for (int val : vals)
         {
-            mem.add((double) val);
+            _list.add((double) val);
         }
     }
 
 
     public DoubleSequence (DoubleSequence src)
     {
-        mem.addAll(src.mem);
+        _list.addAll(src._list);
     }
 
     /**
@@ -112,8 +112,8 @@ public class DoubleSequence
      */
     public DoubleSequence (DoubleSequence src1, DoubleSequence src2)
     {
-        mem.addAll(src1.mem);
-        mem.addAll(src2.mem);
+        _list.addAll(src1._list);
+        _list.addAll(src2._list);
     }
 
     public static DoubleSequence fromNumberString (String str)
@@ -124,7 +124,7 @@ public class DoubleSequence
             int c1 = c-'0';
             if (c1 < 0 || c1 > 9)
                 c1 = 0;
-            ds.mem.add ((double) c1);
+            ds._list.add ((double) c1);
         }
         return ds;
     }
@@ -132,7 +132,7 @@ public class DoubleSequence
     public static SummaryStatistics getStats(DoubleSequence in)
     {
         SummaryStatistics stat = new SummaryStatistics();
-        for (double d : in.mem)
+        for (double d : in._list)
             stat.addValue(d);
         return stat;
     }
@@ -144,9 +144,9 @@ public class DoubleSequence
         for (int s=0; s<len; s++)
         {
             if (s < d1.length())
-                ar.add(d1.mem.get(s));
+                ar.add(d1._list.get(s));
             if (s < d2.length())
-                ar.add (d2.mem.get(s));
+                ar.add (d2._list.get(s));
         }
         return new DoubleSequence(ar);
     }
@@ -171,11 +171,11 @@ public class DoubleSequence
         {
             if (in.mod(two).equals(zero))
             {
-                out.mem.add(0.0);
+                out._list.add(0.0);
             }
             else
             {
-                out.mem.add(1.0);
+                out._list.add(1.0);
             }
             in = in.divide(two);
         } while (!in.equals(zero));
@@ -250,7 +250,7 @@ public class DoubleSequence
         DoubleSequence rev = reverse();
         int sign = 1;
         double sum = 0.0;
-        for (Double aMem : rev.mem)
+        for (Double aMem : rev._list)
         {
             sum += (aMem*sign);
             sign = -sign;
@@ -260,17 +260,17 @@ public class DoubleSequence
 
     public double[] asPrimitiveArray ()
     {
-        double[] out = new double[mem.size()];
-        for (int s=0; s<mem.size(); s++)
-            out[s] = mem.get(s);
+        double[] out = new double[_list.size()];
+        for (int s = 0; s< _list.size(); s++)
+            out[s] = _list.get(s);
         return out;
     }
 
     public int[] asIntArray ()
     {
-        int[] out = new int[mem.size()];
-        for (int s=0; s<mem.size(); s++)
-            out[s] = mem.get(s).intValue();
+        int[] out = new int[_list.size()];
+        for (int s = 0; s< _list.size(); s++)
+            out[s] = _list.get(s).intValue();
         return out;
     }
 
@@ -287,9 +287,9 @@ public class DoubleSequence
     public DoubleSequence apply (PolynomialFunction p)
     {
         DoubleSequence ret = new DoubleSequence();
-        for (double d : mem)
+        for (double d : _list)
         {
-            ret.mem.add(p.value(d));
+            ret._list.add(p.value(d));
         }
         return ret;
     }
@@ -297,92 +297,92 @@ public class DoubleSequence
     public DoubleSequence add (DoubleSequence other)
     {
         DoubleSequence ds = new DoubleSequence(this);
-        ds.mem.addAll(other.mem);
+        ds._list.addAll(other._list);
         return ds;
     }
 
     public boolean isEmpty()
     {
-        return mem.isEmpty();
+        return _list.isEmpty();
     }
 
     public DoubleSequence reverse()
     {
         DoubleSequence ret = new DoubleSequence(this);
-        Collections.reverse(ret.mem);
+        Collections.reverse(ret._list);
         return ret;
     }
 
     public Double pick (int i)
     {
-        return mem.get(i);
+        return _list.get(i);
     }
 
     public DoubleSequence shuffle()
     {
         DoubleSequence ret = new DoubleSequence(this);
-        Collections.shuffle(ret.mem);
+        Collections.shuffle(ret._list);
         return ret;
     }
 
     public DoubleSequence sort()
     {
         DoubleSequence ret = new DoubleSequence(this);
-        Collections.sort (ret.mem);
+        Collections.sort (ret._list);
         return ret;
     }
 
     public DoubleSequence intersect (DoubleSequence other)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        ret.mem.retainAll(other.mem);
+        ret._list.retainAll(other._list);
         return ret;
     }
 
     public DoubleSequence difference (DoubleSequence other)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        ret.mem.removeAll(other.mem);
+        ret._list.removeAll(other._list);
         return ret;
     }
 
     public boolean sameContents (DoubleSequence other)
     {
-        if (this.mem.size () != other.mem.size ())
+        if (this._list.size () != other._list.size ())
             return false;
-        ArrayList<Double> test = (ArrayList<Double>) this.mem.clone ();
-        test.removeAll (other.mem);
+        ArrayList<Double> test = (ArrayList<Double>) this._list.clone ();
+        test.removeAll (other._list);
         return test.size() == 0;
     }
 
     public DoubleSequence rotateLeft (int n)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        ret.mem = Utilities.rotateLeft (ret.mem, n);
+        ret._list = Utilities.rotateLeft (ret._list, n);
         return ret;
     }
 
     public DoubleSequence rotateRight (int n)
     {
         DoubleSequence ret = new DoubleSequence(this);
-        ret.mem = Utilities.rotateRight (ret.mem, n);
+        ret._list = Utilities.rotateRight (ret._list, n);
         return ret;
     }
 
     public int length()
     {
-        return mem.size();
+        return _list.size();
     }
 
     public DoubleSequence unique ()
     {
-        ArrayList<Double> nodupe = new ArrayList<>(new LinkedHashSet<>(mem));
+        ArrayList<Double> nodupe = new ArrayList<>(new LinkedHashSet<>(_list));
         return new DoubleSequence(nodupe);
     }
 
     public DoubleSequence subList (int from, int to)
     {
-        return new DoubleSequence(this.mem.subList(from, to));
+        return new DoubleSequence(this._list.subList(from, to));
     }
 
     public DoubleSequence rearrange (int pos[])
@@ -390,7 +390,7 @@ public class DoubleSequence
         DoubleSequence out = new DoubleSequence();
         for (int p : pos)
         {
-            out = out.add(this.mem.get(p));
+            out = out.add(this._list.get(p));
         }
         return out;
     }
@@ -398,14 +398,14 @@ public class DoubleSequence
     public DoubleSequence add (double d)
     {
         //DoubleSequence ds = new DoubleSequence(this);
-        mem.add(d);
+        _list.add(d);
         return this;
     }
 
     public String asString ()
     {
         StringBuilder sb = new StringBuilder();
-        for (Double d : this.mem)
+        for (Double d : this._list)
         {
             sb.append((char)d.intValue());
         }
@@ -439,7 +439,7 @@ public class DoubleSequence
         List<WeightedObservedPoint> points = new ArrayList<>();
         for (int s=0; s<this.length(); s+=2)
         {
-            WeightedObservedPoint p = new WeightedObservedPoint(1, mem.get(s), mem.get(s+1));
+            WeightedObservedPoint p = new WeightedObservedPoint(1, _list.get(s), _list.get(s+1));
             points.add(p);
         }
         return new PolynomialFunction(fitter.fit(points));
@@ -454,8 +454,8 @@ public class DoubleSequence
         double[] yp = new double[len];
         for (int s=0; s<len; s++)
         {
-            xp[s] = mem.get(s*2);
-            yp[s] = mem.get(s*2+1);
+            xp[s] = _list.get(s*2);
+            yp[s] = _list.get(s*2+1);
         }
         PolynomialFunctionLagrangeForm pfl = new PolynomialFunctionLagrangeForm(xp, yp);
         return new PolynomialFunction(pfl.getCoefficients());
@@ -466,14 +466,14 @@ public class DoubleSequence
         StringBuilder sb = new StringBuilder();
         String str;
         sb.append('{');
-        if (mem.size() > 0)
+        if (_list.size() > 0)
         {
-            for (int s = 0; s < mem.size() - 1; s++)
+            for (int s = 0; s < _list.size() - 1; s++)
             {
-                str = Utilities.removeTrailingZero(mem.get(s));
+                str = Utilities.removeTrailingZero(_list.get(s));
                 sb.append(str).append(',');
             }
-            str = Utilities.removeTrailingZero(mem.get(mem.size() - 1));
+            str = Utilities.removeTrailingZero(_list.get(_list.size() - 1));
             sb.append(str);
         }
         sb.append('}');
