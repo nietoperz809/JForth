@@ -30,6 +30,16 @@ public class StringSequence
         _list.addAll (Arrays.asList (in));
     }
 
+    public String asString ()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (String d : this._list)
+        {
+            sb.append(d);
+        }
+        return sb.toString();
+    }
+
     public StringSequence shuffle()
     {
         StringSequence ret = new StringSequence(this);
@@ -64,11 +74,10 @@ public class StringSequence
         return new StringSequence(ar);
     }
 
-    private int length ()
+    public int length ()
     {
         return _list.size ();
     }
-
 
     public void put (int x, String s)
     {

@@ -233,10 +233,12 @@ class WordHelpers
             {
                 return 0;
             }
-            for (String s : ll)
-            {
-                dStack.push(s);
-            }
+            StringSequence sl = new StringSequence (ll);
+            dStack.push(sl);
+//            for (String s : ll)
+//            {
+//                dStack.push(s);
+//            }
         }
         else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence))
         {

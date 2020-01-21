@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1692";
-    private static final String BUILD_DATE = "01/19/2020 10:02:44 PM";
+    private static final String BUILD_NUMBER = "1698";
+    private static final String BUILD_DATE = "01/21/2020 09:16:47 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -39,7 +39,8 @@ public class Utilities
         return r.toString();
     }
 
-    public static int hexToBin(char ch) {
+    public static int hexToBin(char ch)
+    {
         if ('0' <= ch && ch <= '9') {
             return ch - '0';
         }
@@ -97,7 +98,6 @@ public class Utilities
             a = b;
             b = c;
         }
-
         return a;
     }
 

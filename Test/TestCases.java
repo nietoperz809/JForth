@@ -879,4 +879,18 @@ public class TestCases
         String s = check ("{a,f,g,j} << {j,o,7,laal} >>", "..");
         shoudBeOK ("{laal,j,o,7}{f,g,j,a}" ,s);
     }
+
+    @Test
+    public void TestDivToStrSeq()
+    {
+        String s = check ("laladumm 2 /", ".");
+        shoudBeOK ("{la,la,du,mm}" ,s);
+    }
+
+    @Test
+    public void TestStrSeqFact()
+    {
+        String s = check ("\"peter       ist    lieb\" factor", ".");
+        shoudBeOK ("{peter,ist,lieb}" ,s);
+    }
 }

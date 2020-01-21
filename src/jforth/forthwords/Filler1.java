@@ -2213,7 +2213,7 @@ class Filler1
                             {
                                 DoubleSequence d1 = Utilities.getDoubleSequence(o1);
                                 DoubleSequence d2 = Utilities.getDoubleSequence(o2);
-                                DoubleSequence ds = DoubleSequence.mixin(d2, d1);
+                                DoubleSequence ds = new DoubleSequence().mixin(d2, d1);
                                 dStack.push(ds);
                                 return 1;
                             }
@@ -2592,7 +2592,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toStr", false, "Make string of what is on the stack",
+                        "toStr", false, "Make string of TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2620,6 +2620,10 @@ class Filler1
                             {
                                 dStack.push(PolySupport.formatPoly((PolynomialFunction) o1));
                             }
+                            else if (o1 instanceof StringSequence)
+                            {
+                                dStack.push(((StringSequence) o1).asString());
+                            }
                             else
                             {
                                 return 0;
@@ -2645,6 +2649,10 @@ class Filler1
                             else if (o1 instanceof DoubleSequence)
                             {
                                 dStack.push((long) ((DoubleSequence) o1).length());
+                            }
+                            else if (o1 instanceof StringSequence)
+                            {
+                                dStack.push((long) ((StringSequence) o1).length());
                             }
                             else
                             {
@@ -2786,16 +2794,27 @@ class Filler1
                         "factor", false, "Prime factorisation",
                         (dStack, vStack) ->
                         {
+                            Object o = dStack.pop();
                             try
                             {
-                                Long o1 = Utilities.readLong(dStack);
+                                Long o1 = Utilities.getLong(o);
                                 dStack.push(DoubleSequence.primeFactors(o1));
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception unused)
                             {
-                                return 0;
                             }
+                            try
+                            {
+                                String ss = StringEscape.unescape ((String)o);
+                                String[] split = ss.split("\\s+");
+                                dStack.push(new StringSequence(split));
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                            }
+                            return 0;
                         }
                 ));
 
