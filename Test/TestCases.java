@@ -923,4 +923,18 @@ public class TestCases
         String s = check ("peter 1 / 12 permute toStr", ".");
         shoudBeOK ("trpee" ,s);
     }
+
+    @Test
+    public void TestSListSpc()
+    {
+        String s = check ("\"fick dich\" toslist", ".");
+        shoudBeOK ("{f,i,c,k, ,d,i,c,h}" ,s);
+    }
+
+    @Test
+    public void TestStringSplit()
+    {
+        String s = check ("\"move back mo'fucker the onyx is here\" toslist", ".");
+        shoudBeOK ("{move,back,mo'fucker,the,onyx,is,here}" ,s);
+    }
 }

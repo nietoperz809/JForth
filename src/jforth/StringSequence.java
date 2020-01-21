@@ -23,12 +23,13 @@ public class StringSequence
         }
     }
 
-    public StringSequence rearrange (int pos[])
+    public StringSequence (char[] chars)
     {
-        ArrayList<String> ret = Utilities.rearrange (pos, _list);
-        return new StringSequence (ret);
+        for (char c : chars)
+        {
+            _list.add (""+c);
+        }
     }
-
 
     public StringSequence (List<String> list)
     {
@@ -43,6 +44,12 @@ public class StringSequence
     public StringSequence (String[] in)
     {
         _list.addAll (Arrays.asList (in));
+    }
+
+    public StringSequence rearrange (int pos[])
+    {
+        ArrayList<String> ret = Utilities.rearrange (pos, _list);
+        return new StringSequence (ret);
     }
 
     public String asString ()

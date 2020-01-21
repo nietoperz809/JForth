@@ -2400,16 +2400,26 @@ class Filler1
                         "toSList", false, "Create String List from Double List",
                         (dStack, vStack) ->
                         {
-                            try
+                            Object o = dStack.pop();
+                            if (o instanceof DoubleSequence)
                             {
-                                DoubleSequence ds = Utilities.readDoubleSequence (dStack);
+                                DoubleSequence ds = (DoubleSequence) o;
                                 dStack.push (new StringSequence (ds));
                                 return 1;
                             }
-                            catch (Exception ex)
+                            else if (o instanceof String)
                             {
-                                return 0;
+                                String s = StringEscape.unescape ((String) o);
+                                if (s.contains (" "))
+                                {
+                                    String[] sp = s.split (" ");
+                                    dStack.push (new StringSequence (sp));
+                                    return 1;
+                                }
+                                dStack.push (new StringSequence (s.toCharArray ()));
+                                return 1;
                             }
+                            return 0;
                         }
                 ));
 
