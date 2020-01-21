@@ -909,4 +909,18 @@ public class TestCases
         String s = check ("peter 1 / {e,t} - toStr", ".");
         shoudBeOK ("pr" ,s);
     }
+
+    @Test
+    public void TestListConv()
+    {
+        String s = check ("{1,3,3,4.5,6} dup toSList type swap type", ". sp .");
+        shoudBeOK ("DoubleSequence StringSequence" ,s);
+    }
+
+    @Test
+    public void TestSListPermute()
+    {
+        String s = check ("peter 1 / 12 permute toStr", ".");
+        shoudBeOK ("trpee" ,s);
+    }
 }

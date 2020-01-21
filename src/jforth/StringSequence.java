@@ -15,6 +15,21 @@ public class StringSequence
         _list.addAll(src._list);
     }
 
+    public StringSequence (DoubleSequence in)
+    {
+        for (Double d : in.get_list ())
+        {
+            _list.add (Utilities.formatDouble (d));
+        }
+    }
+
+    public StringSequence rearrange (int pos[])
+    {
+        ArrayList<String> ret = Utilities.rearrange (pos, _list);
+        return new StringSequence (ret);
+    }
+
+
     public StringSequence (List<String> list)
     {
         _list = new ArrayList<> (list);

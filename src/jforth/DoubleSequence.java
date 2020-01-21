@@ -25,6 +25,11 @@ public class DoubleSequence
 {
     private ArrayList<Double> _list = new ArrayList<>();
 
+    public ArrayList<Double> get_list ()
+    {
+        return _list;
+    }
+
     public DoubleSequence()
     {
 
@@ -385,14 +390,20 @@ public class DoubleSequence
         return new DoubleSequence(this._list.subList(from, to));
     }
 
+//    public DoubleSequence rearrange (int pos[])
+//    {
+//        DoubleSequence out = new DoubleSequence();
+//        for (int p : pos)
+//        {
+//            out = out.add(this._list.get(p));
+//        }
+//        return out;
+//    }
+
     public DoubleSequence rearrange (int pos[])
     {
-        DoubleSequence out = new DoubleSequence();
-        for (int p : pos)
-        {
-            out = out.add(this._list.get(p));
-        }
-        return out;
+        ArrayList<Double> ret = Utilities.rearrange (pos, _list);
+        return new DoubleSequence (ret);
     }
 
     public DoubleSequence add (double d)

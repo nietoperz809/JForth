@@ -1,5 +1,6 @@
 package jforth.forthwords;
 
+import javafx.beans.binding.DoubleExpression;
 import jforth.*;
 import jforth.waves.Morse;
 import jforth.waves.Wave16;
@@ -167,10 +168,21 @@ class Filler1
                             try
                             {
                                 long l2 = Utilities.readLong(dStack);
-                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
-                                int[] arr = LehmerCode.perm(ds.length(), (int) l2);
-                                DoubleSequence out = ds.rearrange(arr);
-                                dStack.push(out);
+                                Object o = dStack.pop ();
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence ds = (DoubleSequence) o;
+                                    int[] arr = LehmerCode.perm (ds.length (), (int) l2);
+                                    DoubleSequence out = ds.rearrange (arr);
+                                    dStack.push (out);
+                                }
+                                else if (o instanceof StringSequence)
+                                {
+                                    StringSequence ds = (StringSequence) o;
+                                    int[] arr = LehmerCode.perm (ds.length (), (int) l2);
+                                    StringSequence out = ds.rearrange (arr);
+                                    dStack.push (out);
+                                }
                                 return 1;
                             }
                             catch (Exception e)
@@ -2374,6 +2386,24 @@ class Filler1
                             {
                                 String s = Utilities.readString(dStack);
                                 dStack.push (DoubleSequence.fromNumberString(s));
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toSList", false, "Create String List from Double List",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                DoubleSequence ds = Utilities.readDoubleSequence (dStack);
+                                dStack.push (new StringSequence (ds));
                                 return 1;
                             }
                             catch (Exception ex)

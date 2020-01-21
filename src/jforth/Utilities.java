@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1702";
-    private static final String BUILD_DATE = "01/21/2020 10:43:08 AM";
+    private static final String BUILD_NUMBER = "1705";
+    private static final String BUILD_DATE = "01/21/2020 12:42:09 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1082,6 +1082,17 @@ public class Utilities
         }
         return ret;
     }
+
+    public static <E> ArrayList<E> rearrange (int pos[], ArrayList<E> in)
+    {
+        ArrayList<E> out = new ArrayList<> ();
+        for (int p : pos)
+        {
+            out.add(in.get(p));
+        }
+        return out;
+    }
+
 
 
 }
