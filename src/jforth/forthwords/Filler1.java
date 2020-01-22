@@ -3886,14 +3886,31 @@ class Filler1
                         {
                             try
                             {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.reverse());
-                                return 1;
+                                Object o = dStack.pop();
+                                if (o instanceof String)
+                                {
+                                    String s = (String)o;
+                                    s = new StringBuilder(s).reverse().toString();
+                                    dStack.push (s);
+                                    return 1;
+                                }
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence od = (DoubleSequence) o;
+                                    dStack.push (od.reverse ());
+                                    return 1;
+                                }
+                                if (o instanceof StringSequence)
+                                {
+                                    StringSequence od = (StringSequence) o;
+                                    dStack.push (od.reverse ());
+                                    return 1;
+                                }
                             }
-                            catch (Exception e)
+                            catch (Exception unused)
                             {
-                                return 0;
                             }
+                            return 0;
                         }
                 ));
 

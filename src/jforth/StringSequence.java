@@ -170,6 +170,13 @@ public class StringSequence
         ArrayList<?> al = Utilities.swap (_list, a, b);
         return new StringSequence ((List<String>) al);
     }
+
+    public StringSequence reverse()
+    {
+        StringSequence ret = new StringSequence(this);
+        Collections.reverse(ret._list);
+        return ret;
+    }
     
 //////////////////////////////////////////////////////////////////////
 

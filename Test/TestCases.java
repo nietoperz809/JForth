@@ -947,4 +947,14 @@ public class TestCases
         shoudBeOK ("DoubleSequence{1,3,2,4,5}" ,s);
     }
 
+    @Test
+    public void TestRev()
+    {
+        String s = check ("\"hello world\" rev", ".");
+        shoudBeOK ("dlrow olleh" ,s);
+        s = check ("{1,2,3,4,5} rev", ".");
+        shoudBeOK ("{5,4,3,2,1}" ,s);
+        s = check ("{gone,wild,man} rev", ".");
+        shoudBeOK ("{man,wild,gone}" ,s);
+    }
 }
