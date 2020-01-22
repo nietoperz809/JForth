@@ -164,6 +164,12 @@ public class StringSequence
     {
         return new StringSequence(this._list.subList(from, to));
     }
+
+    public StringSequence swap (int a, int b)
+    {
+        ArrayList<?> al = Utilities.swap (_list, a, b);
+        return new StringSequence ((List<String>) al);
+    }
     
 //////////////////////////////////////////////////////////////////////
 

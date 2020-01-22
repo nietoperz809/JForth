@@ -937,4 +937,14 @@ public class TestCases
         String s = check ("\"move back mo'fucker the onyx is here\" toslist", ".");
         shoudBeOK ("{move,back,mo'fucker,the,onyx,is,here}" ,s);
     }
+
+    @Test
+    public void TestLswap()
+    {
+        String s = check ("{a,b,c,d,r} 1 2 lswap dup type", "..");
+        shoudBeOK ("StringSequence{a,c,b,d,r}" ,s);
+        s = check ("{1,2,3,4,5} 1 2 lswap dup type", "..");
+        shoudBeOK ("DoubleSequence{1,3,2,4,5}" ,s);
+    }
+
 }

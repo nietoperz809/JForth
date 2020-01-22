@@ -490,4 +490,11 @@ public class DoubleSequence
         sb.append('}');
         return sb.toString();
     }
+
+    public DoubleSequence swap (int a, int b)
+    {
+        ArrayList<?> al = Utilities.swap (_list, a, b);
+        return new DoubleSequence ((ArrayList<Double>) al);
+    }
+
 }

@@ -911,6 +911,7 @@ class Filler2
                             }
                         }
                 ));
+
         _fw.add(new PrimitiveWord
                 (
                         "iGroup", false, "calculate inverses of a group",
@@ -931,6 +932,35 @@ class Filler2
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "lswap", false, "swap 2 list members",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                int o1 = (int)Utilities.readLong (dStack);
+                                int o2 = (int)Utilities.readLong (dStack);
+                                Object o3 = dStack.pop ();
+                                if (o3 instanceof StringSequence)
+                                {
+                                    StringSequence ss = ((StringSequence)o3).swap (o1, o2);
+                                    dStack.push(ss);
+                                    return 1;
+                                }
+                                if (o3 instanceof DoubleSequence)
+                                {
+                                    DoubleSequence ss = ((DoubleSequence)o3).swap (o1, o2);
+                                    dStack.push(ss);
+                                    return 1;
+                                }
+                            }
+                            catch (Exception unused)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
     }
 
     private static int executeSine (OStack dStack)
