@@ -23,6 +23,78 @@ class Filler2
     {
         _fw.add(new PrimitiveWord
                 (
+                        "LsGet", false, "get LSystem result",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = predefinedWords._jforth._lsys.doIt ();
+                                dStack.push(ss);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsPut", false, "Set Matrial for LSystem",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                predefinedWords._jforth._lsys.setMaterial (ss);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsRule", false, "Set Rule for LSystem",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = Utilities.readString(dStack);
+                                predefinedWords._jforth._lsys.putRule (ss);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsClr", false, "Remove all rules",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                predefinedWords._jforth._lsys.clrRules();
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
                         "hexStr", false, "Make hex string",
                         (dStack, vStack) ->
                         {
@@ -659,10 +731,10 @@ class Filler2
                         {
                             try
                             {
-                                DoubleSequence sq = new DoubleSequence();
-                                while (!dStack.isEmpty() && Utilities.canBeDouble(dStack.peek()))
+                                StringSequence sq = new StringSequence();
+                                while (!dStack.isEmpty())
                                 {
-                                    sq.add(Utilities.readDouble(dStack));
+                                    sq.add (Utilities.makePrintable (dStack.pop (), 10));
                                 }
                                 dStack.push (sq.reverse());
                                 return 1;

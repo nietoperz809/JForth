@@ -1,5 +1,6 @@
 package jforth;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -11,7 +12,6 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 //import java.util.function.BiFunction;
 
@@ -20,8 +20,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1718";
-    private static final String BUILD_DATE = "01/22/2020 07:17:42 PM";
+    private static final String BUILD_NUMBER = "1726";
+    private static final String BUILD_DATE = "02/09/2020 07:02:48 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1101,4 +1101,45 @@ public class Utilities
         out.set (b, x);
         return out;
     }
+
+    public static String makePrintable (Object o, int base)
+    {
+        if (o == null)
+            return null;
+        if (base == -1)
+            base = 10;
+        if (o instanceof Long)
+        {
+            return Long.toString((Long) o, base).toUpperCase();
+        }
+        else if (o instanceof Double)
+        {
+            return Utilities.formatDouble((Double) o);
+        }
+        else if (o instanceof Complex)
+        {
+            return Utilities.formatComplex((Complex) o);
+        }
+        else if (o instanceof Fraction)
+        {
+            return Utilities.formatFraction((Fraction) o);
+        }
+        else if (o instanceof String)
+        {
+            return StringEscape.unescape((String) o);
+        }
+        else if (o instanceof PolynomialFunction)
+        {
+            return PolySupport.formatPoly((PolynomialFunction) o);
+        }
+        else if (o instanceof BigInteger)
+        {
+            return o.toString();
+        }
+        else
+        {
+            return o.toString();
+        }
+    }
+
 }

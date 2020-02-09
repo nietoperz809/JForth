@@ -10,6 +10,11 @@ public class StringSequence
 {
     private ArrayList<String> _list = new ArrayList<> ();
 
+    public StringSequence()
+    {
+
+    }
+
     public StringSequence (StringSequence src)
     {
         _list.addAll(src._list);

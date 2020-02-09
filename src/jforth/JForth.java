@@ -49,6 +49,7 @@ public class JForth
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
     public final LineEdit _lineEditor;
+    public final LSystem _lsys = new LSystem();
     private MultiDotStreamTokenizer st = null;
 
     public JForth (RuntimeEnvironment ri)
@@ -168,40 +169,7 @@ public class JForth
      */
     public String makePrintable (Object o)
     {
-        if (o == null)
-            return null;
-        if (o instanceof Long)
-        {
-            return Long.toString((Long) o, base).toUpperCase();
-        }
-        else if (o instanceof Double)
-        {
-            return Utilities.formatDouble((Double) o);
-        }
-        else if (o instanceof Complex)
-        {
-            return Utilities.formatComplex((Complex) o);
-        }
-        else if (o instanceof Fraction)
-        {
-            return Utilities.formatFraction((Fraction) o);
-        }
-        else if (o instanceof String)
-        {
-            return StringEscape.unescape((String) o);
-        }
-        else if (o instanceof PolynomialFunction)
-        {
-            return PolySupport.formatPoly((PolynomialFunction) o);
-        }
-        else if (o instanceof BigInteger)
-        {
-            return o.toString();
-        }
-        else
-        {
-            return o.toString();
-        }
+        return Utilities.makePrintable (o, base);
     }
 
     public String ObjectToString (Object o)
