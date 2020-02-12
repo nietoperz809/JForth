@@ -196,7 +196,7 @@ public class TestCases
     @Test
     public void TestStringRev()
     {
-        String s = check ("\"hello\" rev toStr",
+        String s = check ("\"hello\" rev",
                 ".");
         System.out.println(s);
         shoudBeOK ("olleh" ,s);
@@ -928,7 +928,11 @@ public class TestCases
     public void TestSListSpc()
     {
         String s = check ("\"fick dich\" toslist", ".");
-        shoudBeOK ("{f,i,c,k, ,d,i,c,h}" ,s);
+        shoudBeOK ("{fick,dich}" ,s);
+        s = check ("\"fickdich\" toslist", ".");
+        shoudBeOK ("{f,i,c,k,d,i,c,h}" ,s);
+        s = check ("fickdich toslist", ".");
+        shoudBeOK ("{f,i,c,k,d,i,c,h}" ,s);
     }
 
     @Test
@@ -957,4 +961,14 @@ public class TestCases
         s = check ("{gone,wild,man} rev", ".");
         shoudBeOK ("{man,wild,gone}" ,s);
     }
+
+    @Test
+    public void TestLSystem()
+    {
+        String s = check ("ABA lsput A->AB lsrule B->A lsrule lsget", ".");
+        shoudBeOK ("ABAAB" ,s);
+        s = check ("ABA lsput A->AB lsrule B->A lsrule lsclr lsget", ".");
+        shoudBeOK ("ABA" ,s);
+    }
+
 }

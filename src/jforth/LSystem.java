@@ -8,21 +8,21 @@ public class LSystem
     String m_str;
     String save;
     String lastResult;
-    TreeMap <String, String> m_map = new TreeMap<>
+    final TreeMap <String, String> m_map = new TreeMap<>
             (
                     // largest key comes first, greedy parser
                     Comparator.comparingInt(String::length).reversed()
                             .thenComparing(Function.identity())
             );
 
-    public LSystem (String in)
-    {
-        setMaterial (in);
-    }
-
-    public LSystem ()
-    {
-    }
+//    public LSystem (String in)
+//    {
+//        setMaterial (in);
+//    }
+//
+//    public LSystem ()
+//    {
+//    }
 
     public void setMaterial (String in)
     {
@@ -52,29 +52,43 @@ public class LSystem
         putRule (sp[0], sp[1]);
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder ();
+        sb.append (m_str).append ('\n');
+        for (Map.Entry<String, String> mapElement : m_map.entrySet ())
+        {
+            sb.append (mapElement.getKey ()).append("->");
+            sb.append (mapElement.getValue ()).append ('\n');
+        }
+        return sb.toString ();
+    }
+
     public String doIt()
     {
         StringBuilder bui = new StringBuilder();
 
-//        for (Map.Entry<String, String> mapElement : m_map.entrySet ())
-//        {
-//            System.out.println (mapElement.getKey ());
-//        }
-
         while (!m_str.isEmpty ())
         {
-            int changes = 0;
-            for (Map.Entry<String, String> mapElement : m_map.entrySet ())
+            boolean found;
+            do
             {
-                String k = mapElement.getKey ();
-                if (m_str.startsWith (k))
+                found = false;
+                for (Map.Entry<String, String> mapElement : m_map.entrySet ())
                 {
-                    bui.append (mapElement.getValue ());
-                    m_str = m_str.substring (k.length ());
-                    changes++;
+                    String k = mapElement.getKey ();
+                    if (m_str.startsWith (k))
+                    {
+                        bui.append (mapElement.getValue ());
+                        m_str = m_str.substring (k.length ());
+                        found = true;
+                        break;
+                    }
                 }
-            }
-            if (changes == 0)
+            } while (found);
+
+            if (!m_str.isEmpty ())
             {
                 bui.append (m_str.charAt (0));
                 m_str = m_str.substring (1);

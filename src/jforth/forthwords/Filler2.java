@@ -21,6 +21,8 @@ class Filler2
 {
     static void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
+        LSystem lSys = predefinedWords._jforth._lsys;
+
         _fw.add(new PrimitiveWord
                 (
                         "LsGet", false, "get LSystem result",
@@ -28,7 +30,25 @@ class Filler2
                         {
                             try
                             {
-                                String ss = predefinedWords._jforth._lsys.doIt ();
+                                String ss = lSys.doIt ();
+                                dStack.push(ss);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsRep", false, "run LSystem on previous result ",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String ss = lSys.doNext ();
                                 dStack.push(ss);
                                 return 1;
                             }
@@ -47,7 +67,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                predefinedWords._jforth._lsys.setMaterial (ss);
+                                lSys.setMaterial (ss);
                                 return 1;
                             }
                             catch (Exception e)
@@ -65,7 +85,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                predefinedWords._jforth._lsys.putRule (ss);
+                                lSys.putRule (ss);
                                 return 1;
                             }
                             catch (Exception e)
@@ -82,7 +102,7 @@ class Filler2
                         {
                             try
                             {
-                                predefinedWords._jforth._lsys.clrRules();
+                                lSys.clrRules();
                                 return 1;
                             }
                             catch (Exception e)
@@ -92,6 +112,24 @@ class Filler2
                         }
                 ));
 
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsInfo", false, "Get complete LSystem as String",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = lSys.toString ();
+                                dStack.push (s);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
 
         _fw.add(new PrimitiveWord
                 (
