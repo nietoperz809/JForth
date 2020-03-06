@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1739";
-    private static final String BUILD_DATE = "03/06/2020 08:36:54 PM";
+    private static final String BUILD_NUMBER = "1742";
+    private static final String BUILD_DATE = "03/06/2020 10:43:40 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1150,6 +1150,16 @@ public class Utilities
         List<Character> list = string.chars().mapToObj(c -> (char) c)
                 .collect(Collectors.toList());
         Collections.shuffle(list);
+        StringBuilder sb = new StringBuilder();
+        list.forEach(sb::append);
+        return sb.toString();
+    }
+
+    public static String unique(String string)
+    {
+        List<Character> list = string.chars().mapToObj(c -> (char) c)
+                .distinct()
+                .collect(Collectors.toList());
         StringBuilder sb = new StringBuilder();
         list.forEach(sb::append);
         return sb.toString();

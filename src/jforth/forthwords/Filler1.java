@@ -4075,23 +4075,30 @@ class Filler1
                         "unique", false, "Only keep unique elements of sequence",
                         (dStack, vStack) ->
                         {
-                            Object o = dStack.pop();
                             try
                             {
-                                DoubleSequence o1 = Utilities.getDoubleSequence(o);
-                                dStack.push(o1.unique());
-                                return 1;
+                                Object o = dStack.pop();
+                                if (o instanceof String)
+                                {
+                                    String s = (String)o;
+                                    s = Utilities.unique (s);
+                                    dStack.push (s);
+                                    return 1;
+                                }
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence od = (DoubleSequence) o;
+                                    dStack.push (od.unique ());
+                                    return 1;
+                                }
+                                if (o instanceof StringSequence)
+                                {
+                                    StringSequence od = (StringSequence) o;
+                                    dStack.push (od.unique ());
+                                    return 1;
+                                }
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
-                                StringSequence o1 = Utilities.getStringSequence(o);
-                                dStack.push(o1.unique());
-                                return 1;
-                            }
-                            catch (Exception ignored)
+                            catch (Exception unused)
                             {
                             }
                             return 0;
