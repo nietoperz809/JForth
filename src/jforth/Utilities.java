@@ -12,7 +12,9 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 //import java.util.function.BiFunction;
 
 /**
@@ -20,8 +22,8 @@ import java.util.List;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1732";
-    private static final String BUILD_DATE = "02/12/2020 05:50:04 AM";
+    private static final String BUILD_NUMBER = "1739";
+    private static final String BUILD_DATE = "03/06/2020 08:36:54 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1140,6 +1142,27 @@ public class Utilities
         {
             return o.toString();
         }
+    }
+
+    public static String shuffle(String string)
+    {
+
+        List<Character> list = string.chars().mapToObj(c -> (char) c)
+                .collect(Collectors.toList());
+        Collections.shuffle(list);
+        StringBuilder sb = new StringBuilder();
+        list.forEach(sb::append);
+        return sb.toString();
+    }
+
+    public static String sort(String string)
+    {
+
+        List<Character> list = string.chars ().mapToObj (c -> (char) c).sorted ()
+                .collect (Collectors.toList ());
+        StringBuilder sb = new StringBuilder();
+        list.forEach(sb::append);
+        return sb.toString();
     }
 
 }

@@ -74,6 +74,13 @@ public class StringSequence
         return ret;
     }
 
+    public StringSequence sort()
+    {
+        StringSequence ret = new StringSequence(this);
+        Collections.sort (ret._list);
+        return ret;
+    }
+
     public StringSequence unique ()
     {
         ArrayList<String> nodupe = new ArrayList<>(new LinkedHashSet<> (_list));

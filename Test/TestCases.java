@@ -971,4 +971,11 @@ public class TestCases
         shoudBeOK ("ABA" ,s);
     }
 
+    @Test
+    public void StrSortRev()
+    {
+        String s = check ("move_back_motherfucker sort rev", ".");
+        shoudBeOK ("vutrroommkkhfeeeccba__" ,s);
+    }
+
 }

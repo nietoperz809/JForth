@@ -1,6 +1,5 @@
 package jforth.forthwords;
 
-import javafx.beans.binding.DoubleExpression;
 import jforth.*;
 import jforth.waves.Morse;
 import jforth.waves.Wave16;
@@ -3868,14 +3867,30 @@ class Filler1
                         {
                             try
                             {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.sort());
-                                return 1;
+                                Object o = dStack.pop();
+                                if (o instanceof String)
+                                {
+                                    String s = (String)o;
+                                    dStack.push (Utilities.sort (s));
+                                    return 1;
+                                }
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence od = (DoubleSequence) o;
+                                    dStack.push (od.sort ());
+                                    return 1;
+                                }
+                                if (o instanceof StringSequence)
+                                {
+                                    StringSequence od = (StringSequence) o;
+                                    dStack.push (od.sort ());
+                                    return 1;
+                                }
                             }
-                            catch (Exception e)
+                            catch (Exception unused)
                             {
-                                return 0;
                             }
+                            return 0;
                         }
                 ));
 
@@ -3916,26 +3931,32 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "shuffle", false, "Random shuffles a sequence",
+                        "shuffle", false, "Random shuffle a sequence",
                         (dStack, vStack) ->
                         {
-                            Object o = dStack.pop();
                             try
                             {
-                                DoubleSequence o2 = Utilities.getDoubleSequence(o);
-                                dStack.push(o2.shuffle());
-                                return 1;
+                                Object o = dStack.pop();
+                                if (o instanceof String)
+                                {
+                                    String s = (String)o;
+                                    dStack.push (Utilities.shuffle (s));
+                                    return 1;
+                                }
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence o2 = (DoubleSequence)o;
+                                    dStack.push(o2.shuffle());
+                                    return 1;
+                                }
+                                if (o instanceof StringSequence)
+                                {
+                                    StringSequence od = (StringSequence) o;
+                                    dStack.push (od.shuffle ());
+                                    return 1;
+                                }
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
-                                StringSequence o2 = Utilities.getStringSequence(o);
-                                dStack.push(o2.shuffle());
-                                return 1;
-                            }
-                            catch (Exception ignored)
+                            catch (Exception unused)
                             {
                             }
                             return 0;
