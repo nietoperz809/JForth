@@ -985,4 +985,11 @@ public class TestCases
         shoudBeOK ("25" ,s);
     }
 
+    @Test
+    public void typeTest()
+    {
+        String s = check ("33 type 33L type 33/1 type 33.0 type 33+0i type {33} type {{33}} type",
+                ".......");
+        shoudBeOK ("DoubleMatrixDoubleSequenceComplexDoubleFractionBigIntegerLong" ,s);
+    }
 }
