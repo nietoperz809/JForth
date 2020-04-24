@@ -9,7 +9,13 @@ public class PrimitiveWord extends BaseWord
 
   public PrimitiveWord(String name, boolean isImmediate, String info, ExecuteIF eif)
   {
-    super(name, isImmediate, true, info);
+    super(name, isImmediate, info);
+    this.eif = eif;
+  }
+
+  public PrimitiveWord(String name, String info, ExecuteIF eif)
+  {
+    super(name, false, info);
     this.eif = eif;
   }
 

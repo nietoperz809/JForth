@@ -115,7 +115,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "?dup", false, "Duplicate TOS if not zero",
+                        "?dup", "Duplicate TOS if not zero",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -161,7 +161,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "permute", false, "Generate permutation",
+                        "permute", "Generate permutation",
                         (dStack, vStack) ->
                         {
                             try
@@ -554,7 +554,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "0<", false, "Gives 1 of TOS smaller than 0",
+                        "0<", "Gives 1 of TOS smaller than 0",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -579,7 +579,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "0=", false, "Gives 1 if TOS is zero",
+                        "0=", "Gives 1 if TOS is zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -604,7 +604,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "0>", false, "Gives 1 if TOS greater than zero",
+                        "0>", "Gives 1 if TOS greater than zero",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -629,7 +629,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "not", false, "Gives 0 if TOS is not 0, otherwise 1",
+                        "not", "Gives 0 if TOS is not 0, otherwise 1",
                         (dStack, vStack) ->
                         {
                             try
@@ -647,7 +647,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "true", false, "Gives 1",
+                        "true", "Gives 1",
                         (dStack, vStack) ->
                         {
                             dStack.push(JForth.TRUE);
@@ -657,7 +657,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "false", false, "Gives 0",
+                        "false", "Gives 0",
                         (dStack, vStack) ->
                         {
                             dStack.push(JForth.FALSE);
@@ -667,7 +667,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "+", false, "Add 2 values on stack",
+                        "+", "Add 2 values on stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -678,7 +678,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "-", false, "Substract values",
+                        "-", "Substract values",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -689,7 +689,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "1+", false, "Add 1 to TOS",
+                        "1+", "Add 1 to TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -699,7 +699,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "1-", false, "Substract 1 from TOS",
+                        "1-", "Substract 1 from TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -709,7 +709,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2+", false, "Add 2 to TOS",
+                        "2+", "Add 2 to TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -719,7 +719,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2-", false, "Substract 2 from TOS",
+                        "2-", "Substract 2 from TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -729,7 +729,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "*", false, "Multiply TOS and TOS-1",
+                        "*", "Multiply TOS and TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -740,7 +740,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gf*", false, "Galois multiplication of TOS and TOS-1",
+                        "gf*", "Galois multiplication of TOS and TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -751,7 +751,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gf/", false, "Galois division TOS-1 by TOS",
+                        "gf/", "Galois division TOS-1 by TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -762,7 +762,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gf+", false, "Galois addition TOS-1 + TOS",
+                        "gf+", "Galois addition TOS-1 + TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -773,7 +773,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gf-", false, "Galois subtraction TOS-1 - TOS",
+                        "gf-", "Galois subtraction TOS-1 - TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -784,7 +784,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2*", false, "Multiply TOS by 2",
+                        "2*", "Multiply TOS by 2",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -794,7 +794,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "/", false, "Divide TOS-1 by TOS",
+                        "/", "Divide TOS-1 by TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -805,7 +805,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2/", false, "Divide TOS by 2",
+                        "2/", "Divide TOS by 2",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -815,7 +815,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "mod", false, "Division remainder",
+                        "mod", "Division remainder",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -853,7 +853,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "/mod", false, "Dividend and Remainder",
+                        "/mod", "Dividend and Remainder",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -884,7 +884,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "max", false, "Biggest value",
+                        "max", "Biggest value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -916,7 +916,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "min", false, "Smallest value",
+                        "min", "Smallest value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -948,7 +948,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gMean", false, "Geometric mean",
+                        "gMean", "Geometric mean",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -964,7 +964,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "mean", false, "Mean value of sequence",
+                        "mean", "Mean value of sequence",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -980,7 +980,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "qMean", false, "Quadratic Mean of sequence",
+                        "qMean", "Quadratic Mean of sequence",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -996,7 +996,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "stdDev", false, "Standard Deviation of sequence",
+                        "stdDev", "Standard Deviation of sequence",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1012,7 +1012,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "var", false, "Variance of sequence",
+                        "var", "Variance of sequence",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1028,7 +1028,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "abs", false, "Absolute value",
+                        "abs", "Absolute value",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1058,7 +1058,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "phi", false, "Phi of complex number",
+                        "phi", "Phi of complex number",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1077,7 +1077,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "conj", false, "Conjugate of complex or fraction",
+                        "conj", "Conjugate of complex or fraction",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1101,7 +1101,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "split", false, "Split object into partitions",
+                        "split", "Split object into partitions",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1151,7 +1151,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "and", false, "Binary and of 2 values",
+                        "and", "Binary and of 2 values",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1173,7 +1173,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "or", false, "Binary or of 2 values",
+                        "or", "Binary or of 2 values",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1195,7 +1195,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "xor", false, "Xors two values",
+                        "xor", "Xors two values",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1217,7 +1217,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "<<", false, "Rotate left",
+                        "<<", "Rotate left",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -1251,7 +1251,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ">>", false, "Rotate right",
+                        ">>", "Rotate right",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -1285,7 +1285,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ".", false, "Pop TOS and print it",
+                        ".", "Pop TOS and print it",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1301,7 +1301,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "<.", false, "Restore last stack object",
+                        "<.", "Restore last stack object",
                         (dStack, vStack) ->
                         {
                             if (!dStack.unpop())
@@ -1314,7 +1314,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ".v", false, "Show whole variable stack",
+                        ".v", "Show whole variable stack",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.print(predefinedWords._jforth.dictionary.variableList());
@@ -1324,7 +1324,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ".s", false, "Show whole data stack",
+                        ".s", "Show whole data stack",
                         (dStack, vStack) ->
                         {
                             for (Object o : dStack)
@@ -1337,7 +1337,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "cr", false, "Emit carriage return",
+                        "cr", "Emit carriage return",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.println();
@@ -1347,7 +1347,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sp", false, "Emit single space",
+                        "sp", "Emit single space",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.print(' ');
@@ -1357,7 +1357,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "spaces", false, "Emit multiple spaces",
+                        "spaces", "Emit multiple spaces",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1381,7 +1381,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "bin", false, "Set number base to 2",
+                        "bin", "Set number base to 2",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth.base = 2;
@@ -1391,7 +1391,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "dec", false, "Set number base to 10",
+                        "dec", "Set number base to 10",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth.base = 10;
@@ -1401,7 +1401,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "hex", false, "Set number base to 16",
+                        "hex", "Set number base to 16",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth.base = 16;
@@ -1411,7 +1411,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "setbase", false, "Set a new number base",
+                        "setbase", "Set a new number base",
                         (dStack, vStack) ->
                         {
                             try
@@ -1433,7 +1433,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "recurse", false, "Re-run current word",
+                        "recurse", "Re-run current word",
                         (dStack, vStack) ->
                         {
                             try
@@ -1467,7 +1467,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ":", false, "Begin word definition",
+                        ":", "Begin word definition",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth.compiling = true;
@@ -1495,7 +1495,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "words", false, "Show all words",
+                        "words", "Show all words",
                         (dStack, vStack) ->
                         {
                             String c = Utilities.readStringOrNull(dStack);
@@ -1506,7 +1506,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "wordsd", false, "Show words and description",
+                        "wordsd", "Show words and description",
                         (dStack, vStack) ->
                         {
                             String c = Utilities.readStringOrNull(dStack);
@@ -1536,12 +1536,8 @@ class Filler1
                             }
                             if (bw != null)
                             {
-                                if (!bw.isPrimitive)
-                                {
-                                    //dictionary.truncateList(bw);
                                     predefinedWords._jforth.dictionary.remove(bw);
                                     return 1;
-                                }
                             }
                             return 0;
                         }
@@ -1549,7 +1545,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "constant", false, "create new Constant",
+                        "constant", "create new Constant",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -1592,7 +1588,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ">r", false, "Put TOS to variable stack",
+                        ">r", "Put TOS to variable stack",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1603,7 +1599,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "r>", false, "Move variable to data stack",
+                        "r>", "Move variable to data stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.pop();
@@ -1614,7 +1610,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "r@", false, "Copy variable to data stack",
+                        "r@", "Copy variable to data stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.peek();
@@ -1625,7 +1621,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "!", false, "Store value into variable or array",
+                        "!", "Store value into variable or array",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1661,7 +1657,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "+!", false, "Add value to variable",
+                        "+!", "Add value to variable",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1697,7 +1693,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "@", false, "Put variable value on stack",
+                        "@", "Put variable value on stack",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1740,7 +1736,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "array", false, "Create array",
+                        "array", "Create array",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -1762,7 +1758,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "round", false, "Round double value",
+                        "round", "Round double value",
                         (dStack, vStack) ->
                         {
                             try
@@ -1803,7 +1799,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "time", false, "Get a time string",
+                        "time", "Get a time string",
                         (dStack, vStack) ->
                         {
                             String o1 = Utilities.readStringOrNull (dStack);
@@ -1830,7 +1826,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sleep", false, "Sleep some milliseconds",
+                        "sleep", "Sleep some milliseconds",
                         (dStack, vStack) ->
                         {
                             try
@@ -1848,7 +1844,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "emit", false, "Emit single char to console",
+                        "emit", "Emit single char to console",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1874,7 +1870,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "fraction", false, "Create a fraction from 2 Numbers",
+                        "fraction", "Create a fraction from 2 Numbers",
                         (dStack, vStack) ->
                         {
                             try
@@ -1893,7 +1889,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "complex", false, "Create a complex from 2 numbers",
+                        "complex", "Create a complex from 2 numbers",
                         (dStack, vStack) ->
                         {
                             try
@@ -1912,7 +1908,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toLong", false, "Make long values of what is on the stack",
+                        "toLong", "Make long values of what is on the stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1954,11 +1950,15 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toBig", false, "Make BigInt values of what is on the stack",
+                        "toBig", "Make BigInt values of what is on the stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
+                            if (o1 instanceof Long)
+                            {
+                                dStack.push (BigInteger.valueOf((Long) o1));
+                            }
+                            else if (o1 instanceof Double)
                             {
                                 dStack.push(BigInteger.valueOf(((Double) o1).longValue()));
                             }
@@ -1991,7 +1991,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toBits", false, "Make bit sequence from number",
+                        "toBits", "Make bit sequence from number",
                         (dStack, vStack) ->
                         {
                             try
@@ -2009,7 +2009,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toDouble", false, "Make double value of what is on the stack",
+                        "toDouble", "Make double value of what is on the stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2047,7 +2047,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "type", false, "Get type of TOS as string",
+                        "type", "Get type of TOS as string",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2058,7 +2058,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "big", false, "BigPrint",
+                        "big", "BigPrint",
                         (dStack, vStack) ->
                         {
                             try
@@ -2076,7 +2076,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sam", false, "Make SAM data",
+                        "sam", "Make SAM data",
                         (dStack, vStack) ->
                         {
                             try
@@ -2096,7 +2096,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "playStr", false, "Play Wave String",
+                        "playStr", "Play Wave String",
                         (dStack, vStack) ->
                         {
                             try
@@ -2115,7 +2115,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "playMorse", false, "Play Morse String",
+                        "playMorse", "Play Morse String",
                         (dStack, vStack) ->
                         {
                             try
@@ -2135,7 +2135,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "playFile", false, "Play Wave audio file",
+                        "playFile", "Play Wave audio file",
                         (dStack, vStack) ->
                         {
                             try
@@ -2153,7 +2153,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toFraction", false, "Make fraction from value on the stack",
+                        "toFraction", "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {
                             try
@@ -2171,7 +2171,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "crossP", false, "Cross product of 3D vectors",
+                        "crossP", "Cross product of 3D vectors",
                         (dStack, vStack) ->
                         {
                             Vector3D o1;
@@ -2193,7 +2193,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "dotP", false, "Dot product of 3D vectors",
+                        "dotP", "Dot product of 3D vectors",
                         (dStack, vStack) ->
                         {
                             Vector3D o1;
@@ -2215,7 +2215,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "mix", false, "Mix two Lists",
+                        "mix", "Mix two Lists",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2248,7 +2248,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toM", false, "Make Matrix from Sequences",
+                        "toM", "Make Matrix from Sequences",
                         (dStack, vStack) ->
                         {
                             ArrayList<DoubleSequence> arr = new ArrayList<>();
@@ -2275,7 +2275,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "detM", false, "Determinant of a Matrix",
+                        "detM", "Determinant of a Matrix",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2291,7 +2291,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "lupM", false, "Determinant of a Matrix",
+                        "lupM", "Determinant of a Matrix",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2310,7 +2310,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "transM", false, "Transpose a Matrix",
+                        "transM", "Transpose a Matrix",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2326,7 +2326,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "invM", false, "Inverse of a Matrix",
+                        "invM", "Inverse of a Matrix",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2342,7 +2342,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "idM", false, "Create Identity Matrix",
+                        "idM", "Create Identity Matrix",
                         (dStack, vStack) ->
                         {
                             try
@@ -2360,7 +2360,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "diagM", false, "Create diagonal Matrix from List",
+                        "diagM", "Create diagonal Matrix from List",
                         (dStack, vStack) ->
                         {
                             try
@@ -2378,7 +2378,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toDList", false, "Create List of digits",
+                        "toDList", "Create List of digits",
                         (dStack, vStack) ->
                         {
                             try
@@ -2396,7 +2396,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toSList", false, "Create String List from Double List",
+                        "toSList", "Create String List from Double List",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2424,7 +2424,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toNumList", false, "Make number list of what is on the stack",
+                        "toNumList", "Make number list of what is on the stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2473,7 +2473,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toPoly", false, "Make polynomial from doubleSequence",
+                        "toPoly", "Make polynomial from doubleSequence",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2490,7 +2490,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "fitPoly", false, "Make polynomial sequence of Points",
+                        "fitPoly", "Make polynomial sequence of Points",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2513,7 +2513,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "lagPoly", false, "Make lagrange polynomial sequence of Points",
+                        "lagPoly", "Make lagrange polynomial sequence of Points",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2536,7 +2536,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "f'=", false, "Derive a polynomial",
+                        "f'=", "Derive a polynomial",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2552,7 +2552,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "Sf=", false, "Antiderive of a polynomial",
+                        "Sf=", "Antiderive of a polynomial",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2593,7 +2593,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "x=", false, "Solve a polynomial",
+                        "x=", "Solve a polynomial",
                         (dStack, vStack) ->
                         {
                             try
@@ -2612,7 +2612,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "apply", false, "Apply polynomial to sequence",
+                        "apply", "Apply polynomial to sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -2631,7 +2631,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "toStr", false, "Make string of TOS",
+                        "toStr", "Make string of TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2677,7 +2677,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "length", false, "Get length of what is on the stack",
+                        "length", "Get length of what is on the stack",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -2708,7 +2708,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "subSeq", false, "Subsequence of string or list",
+                        "subSeq", "Subsequence of string or list",
                         (dStack, vStack) ->
                         {
                             if (dStack.size() < 3)
@@ -2738,7 +2738,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "E", false, "Natural logarithm base",
+                        "E", "Natural logarithm base",
                         (dStack, vStack) ->
                         {
                             dStack.push(Math.E);
@@ -2748,7 +2748,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "PI", false, "Circle constant PI",
+                        "PI", "Circle constant PI",
                         (dStack, vStack) ->
                         {
                             dStack.push(Math.PI);
@@ -2758,7 +2758,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sqrt", false, "Square root",
+                        "sqrt", "Square root",
                         (dStack, vStack) ->
                         {
                             try
@@ -2776,7 +2776,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gcd", false, "Greates common divisor",
+                        "gcd", "Greates common divisor",
                         (dStack, vStack) ->
                         {
                             try
@@ -2795,7 +2795,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "lcm", false, "Least common multiple",
+                        "lcm", "Least common multiple",
                         (dStack, vStack) ->
                         {
                             try
@@ -2814,7 +2814,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "isPrime", false, "Primality test",
+                        "isPrime", "Primality test",
                         (dStack, vStack) ->
                         {
                             try
@@ -2834,7 +2834,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "factor", false, "Prime factorisation",
+                        "factor", "Prime factorisation",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -2863,7 +2863,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "pow", false, "Exponentation",
+                        "pow", "Exponentation",
                         (dStack, vStack) ->
                         {
                             try
@@ -2926,7 +2926,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "fib", false, "Fibonacci number",
+                        "fib", "Fibonacci number",
                         (dStack, vStack) ->
                         {
                             try
@@ -2944,7 +2944,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "ln", false, "Natural logarithm",
+                        "ln", "Natural logarithm",
                         (dStack, vStack) ->
                         {
                             try
@@ -2963,7 +2963,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "fact", false, "Factorial",
+                        "fact", "Factorial",
                         (dStack, vStack) ->
                         {
                             try
@@ -2981,7 +2981,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "log10", false, "Logarithm to base 10",
+                        "log10", "Logarithm to base 10",
                         (dStack, vStack) ->
                         {
                             try
@@ -2999,7 +2999,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "exp", false, "E^x",
+                        "exp", "E^x",
                         (dStack, vStack) ->
                         {
                             try
@@ -3017,7 +3017,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sin", false, "Sine",
+                        "sin", "Sine",
                         (dStack, vStack) ->
                         {
                             try
@@ -3035,7 +3035,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gamma", false, "Gamma funcction",
+                        "gamma", "Gamma funcction",
                         (dStack, vStack) ->
                         {
                             try
@@ -3053,7 +3053,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "zeta", false, "Riemann Zeta function",
+                        "zeta", "Riemann Zeta function",
                         (dStack, vStack) ->
                         {
                             try
@@ -3073,7 +3073,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "cos", false, "Cosine",
+                        "cos", "Cosine",
                         (dStack, vStack) ->
                         {
                             try
@@ -3091,7 +3091,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "tan", false, "Tangent",
+                        "tan", "Tangent",
                         (dStack, vStack) ->
                         {
                             try
@@ -3109,7 +3109,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "asin", false, "Inverse sine",
+                        "asin", "Inverse sine",
                         (dStack, vStack) ->
                         {
                             try
@@ -3127,7 +3127,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "acos", false, "Inverse cosine",
+                        "acos", "Inverse cosine",
                         (dStack, vStack) ->
                         {
                             try
@@ -3145,7 +3145,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "atan", false, "Inverse tangent",
+                        "atan", "Inverse tangent",
                         (dStack, vStack) ->
                         {
                             try
@@ -3163,7 +3163,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "atan2", false, "Second arctan, see: https://de.wikipedia.org/wiki/Arctan2",
+                        "atan2", "Second arctan, see: https://de.wikipedia.org/wiki/Arctan2",
                         (dStack, vStack) ->
                         {
                             try
@@ -3182,7 +3182,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sinh", false, "Sinus hyperbolicus",
+                        "sinh", "Sinus hyperbolicus",
                         (dStack, vStack) ->
                         {
                             try
@@ -3200,7 +3200,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "cosh", false, "Cosinus hyperbolicus",
+                        "cosh", "Cosinus hyperbolicus",
                         (dStack, vStack) ->
                         {
                             try
@@ -3218,7 +3218,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "tanh", false, "Tangent hyperbolicus",
+                        "tanh", "Tangent hyperbolicus",
                         (dStack, vStack) ->
                         {
                             try
@@ -3236,7 +3236,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "runFile", false, "run program file",
+                        "runFile", "run program file",
                         (dStack, vStack) ->
                         {
                             try
@@ -3271,7 +3271,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "loadHist", false, "Load history",
+                        "loadHist", "Load history",
                         (dStack, vStack) ->
                         {
                             try
@@ -3298,7 +3298,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "clearHist", false, "Clear History",
+                        "clearHist", "Clear History",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth.history.clear();
@@ -3308,7 +3308,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "editor", false, "Enter line editor",
+                        "editor", "Enter line editor",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.println("Type #h for help ...");
@@ -3319,7 +3319,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "run", false, "Runs program in editor",
+                        "run", "Runs program in editor",
                         (dStack, vStack) ->
                         {
                             String s = predefinedWords._jforth._lineEditor.toString();
@@ -3330,7 +3330,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "list", false, "Put program in editor on stack",
+                        "list", "Put program in editor on stack",
                         (dStack, vStack) ->
                         {
                             dStack.push(predefinedWords._jforth._lineEditor.toString());
@@ -3340,7 +3340,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "gaussian", false, "Gaussian random number",
+                        "gaussian", "Gaussian random number",
                         (dStack, vStack) ->
                         {
                             try
@@ -3359,7 +3359,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "random", false, "Pseudo random number",
+                        "random", "Pseudo random number",
                         (dStack, vStack) ->
                         {
                             try
@@ -3378,7 +3378,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "openByteReader", false, "Open file for reading",
+                        "openByteReader", "Open file for reading",
                         (dStack, vStack) ->
                         {
                             try
@@ -3397,7 +3397,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "readByte", false, "Read byte from file",
+                        "readByte", "Read byte from file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3423,7 +3423,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "dir", false, "Get directory",
+                        "dir", "Get directory",
                         (dStack, vStack) ->
                         {
                             String path;
@@ -3442,7 +3442,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "unlink", false, "Delete file",
+                        "unlink", "Delete file",
                         (dStack, vStack) ->
                         {
                             String o;
@@ -3583,7 +3583,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "tick", false, "Get clock value",
+                        "tick", "Get clock value",
                         (dStack, vStack) ->
                         {
                             long n = System.currentTimeMillis();
@@ -3594,7 +3594,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeByteReader", false, "Close file",
+                        "closeByteReader", "Close file",
                         (dStack, vStack) ->
                         {
                             try
@@ -3612,7 +3612,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "openReader", false, "Open file",
+                        "openReader", "Open file",
                         (dStack, vStack) ->
                         {
                             try
@@ -3631,7 +3631,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "udpput", false, "Send udp packet",
+                        "udpput", "Send udp packet",
                         (dStack, vStack) ->
                         {
                             try
@@ -3660,7 +3660,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "udpget", false, "Receive udp packet",
+                        "udpget", "Receive udp packet",
                         (dStack, vStack) ->
                         {
                             try
@@ -3686,7 +3686,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "readLine", false, "Read line from file",
+                        "readLine", "Read line from file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3720,7 +3720,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeReader", false, "Close file",
+                        "closeReader", "Close file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3750,7 +3750,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "openWriter", false, "Open file for Writing",
+                        "openWriter", "Open file for Writing",
                         (dStack, vStack) ->
                         {
                             try
@@ -3768,7 +3768,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeString", false, "Write string to file",
+                        "writeString", "Write string to file",
                         (dStack, vStack) ->
                         {
                             try
@@ -3787,7 +3787,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeEol", false, "Write string end into file",
+                        "writeEol", "Write string end into file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3809,7 +3809,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "writeByte", false, "Write byte into file",
+                        "writeByte", "Write byte into file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3832,7 +3832,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "closeWriter", false, "Close file",
+                        "closeWriter", "Close file",
                         (dStack, vStack) ->
                         {
                             if (dStack.empty())
@@ -3854,7 +3854,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "bye", false, "End the Forth interpreter",
+                        "bye", "End the Forth interpreter",
                         (dStack, vStack) ->
                         {
                             predefinedWords._jforth._out.println("JForth will close now!");
@@ -3866,7 +3866,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sort", false, "Sort a Sequence",
+                        "sort", "Sort a Sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -3900,7 +3900,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "rev", false, "Reverse a sequence",
+                        "rev", "Reverse a sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -3935,7 +3935,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "shuffle", false, "Random shuffle a sequence",
+                        "shuffle", "Random shuffle a sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -3969,7 +3969,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sum", false, "Add all elements together",
+                        "sum", "Add all elements together",
                         (dStack, vStack) ->
                         {
                             try
@@ -3991,7 +3991,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "altsum", false, "Add all elements together but alternates sign",
+                        "altsum", "Add all elements together but alternates sign",
                         (dStack, vStack) ->
                         {
                             try
@@ -4013,7 +4013,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sumq", false, "Make sum of squares",
+                        "sumq", "Make sum of squares",
                         (dStack, vStack) ->
                         {
                             try
@@ -4031,7 +4031,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "prod", false, "Product of all values",
+                        "prod", "Product of all values",
                         (dStack, vStack) ->
                         {
                             try
@@ -4049,7 +4049,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "intersect", false, "Make intersection of 2 sequences",
+                        "intersect", "Make intersection of 2 sequences",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -4076,7 +4076,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "unique", false, "Only keep unique elements of sequence",
+                        "unique", "Only keep unique elements of sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -4111,7 +4111,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "lpick", false, "Get one Element from sequence",
+                        "lpick", "Get one Element from sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -4144,7 +4144,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "http", false, "run web server",
+                        "http", "run web server",
                         (dStack, vStack) ->
                         {
                             try
@@ -4162,7 +4162,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "unhttp", false, "stop web server",
+                        "unhttp", "stop web server",
                         (dStack, vStack) ->
                         {
                             try

@@ -4,7 +4,7 @@ public final class DoLoopControlWord extends BaseWord
 {
     public DoLoopControlWord ()
     {
-        super("", false, false, null);
+        super("", false, null);
     }
 
     public int execute (OStack dStack, OStack vStack)

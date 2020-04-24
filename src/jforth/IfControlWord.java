@@ -6,7 +6,7 @@ public final class IfControlWord extends BaseWord
 {
   public IfControlWord(int currentIndex)
   {
-    super("", false, false, null);
+    super("", false, null);
     this.currentIndex = currentIndex;
     thenIndexIncrement = 0;
     elseIndexIncrement = 0;

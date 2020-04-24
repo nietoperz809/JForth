@@ -4,7 +4,7 @@ public final class StorageWord extends BaseWord
 {
   public StorageWord(String name, int size, boolean isArray)
   {
-    super(name, false, false, null);
+    super(name, false, null);
     this.size = size;
     array = new Object [size];
     this.isArray = isArray;

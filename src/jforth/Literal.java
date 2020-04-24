@@ -5,7 +5,7 @@ public class Literal extends BaseWord
 {
     public Literal(Object o)
     {
-        super("", false, false, null);
+        super("", false, null);
         this.obj = o;
     }
 

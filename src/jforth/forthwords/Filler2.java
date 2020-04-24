@@ -25,7 +25,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsGet", false, "get LSystem result",
+                        "LsGet", "get LSystem result",
                         (dStack, vStack) ->
                         {
                             try
@@ -43,7 +43,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsRep", false, "run LSystem on previous result ",
+                        "LsRep", "run LSystem on previous result ",
                         (dStack, vStack) ->
                         {
                             try
@@ -61,7 +61,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsPut", false, "Set Matrial for LSystem",
+                        "LsPut", "Set Matrial for LSystem",
                         (dStack, vStack) ->
                         {
                             try
@@ -79,7 +79,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsRule", false, "Set Rule for LSystem",
+                        "LsRule", "Set Rule for LSystem",
                         (dStack, vStack) ->
                         {
                             try
@@ -97,7 +97,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsClr", false, "Remove all rules",
+                        "LsClr", "Remove all rules",
                         (dStack, vStack) ->
                         {
                             try
@@ -115,7 +115,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsInfo", false, "Get complete LSystem as String",
+                        "LsInfo", "Get complete LSystem as String",
                         (dStack, vStack) ->
                         {
                             try
@@ -133,7 +133,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "hexStr", false, "Make hex string",
+                        "hexStr", "Make hex string",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -169,7 +169,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "unhexStr", false, "Make Hexstr to Bytes",
+                        "unhexStr", "Make Hexstr to Bytes",
                         (dStack, vStack) ->
                         {
                             try
@@ -188,7 +188,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "seq", false, "generate sequence",
+                        "seq", "generate sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -209,7 +209,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "hash", false, "generate hash string",
+                        "hash", "generate hash string",
                         (dStack, vStack) ->
                         {
                             try
@@ -229,7 +229,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "b64", false, "make Base64 from String",
+                        "b64", "make Base64 from String",
                         (dStack, vStack) ->
                         {
                             try
@@ -249,7 +249,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "unb64", false, "make String from Base64",
+                        "unb64", "make String from Base64",
                         (dStack, vStack) ->
                         {
                             try
@@ -269,7 +269,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "urlEnc", false, "URL encode a string",
+                        "urlEnc", "URL encode a string",
                         (dStack, vStack) ->
                         {
                             try
@@ -288,7 +288,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "urlDec", false, "Decode URL encoded string",
+                        "urlDec", "Decode URL encoded string",
                         (dStack, vStack) ->
                         {
                             try
@@ -307,7 +307,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "psp", false, "Push space on stack",
+                        "psp", "Push space on stack",
                         (dStack, vStack) ->
                         {
                             try
@@ -324,7 +324,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "say", false, "speak a string",
+                        "say", "speak a string",
                         (dStack, vStack) ->
                         {
                             try
@@ -342,7 +342,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "js", false, "evaluate js expression string",
+                        "js", "evaluate js expression string",
                         (dStack, vStack) ->
                         {
                             try
@@ -362,7 +362,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "java", false, "compile and run java class",
+                        "java", "compile and run java class",
                         (dStack, vStack) ->
                         {
                             try
@@ -386,7 +386,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "forth", false, "execute forth line asynchronously",
+                        "forth", "execute forth line asynchronously",
                         (dStack, vStack) ->
                         {
                             try
@@ -410,7 +410,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "execute", false, "executes word from stack",
+                        "execute", "executes word from stack",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
@@ -510,7 +510,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "i", false, "put loop variable i on stack",
+                        "i", "put loop variable i on stack",
                         (dStack, vStack) ->
                         {
                             Object o = vStack.peek();
@@ -521,7 +521,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "j", false, "put loop variable j on stack",
+                        "j", "put loop variable j on stack",
                         (dStack, vStack) ->
                         {
                             Object o1 = vStack.pop();
@@ -616,7 +616,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "clltz", false, "Get collatz sequence",
+                        "clltz", "Get collatz sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -644,7 +644,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "ping", false, "Check a host",
+                        "ping", "Check a host",
                         (dStack, vStack) ->
                         {
                             try
@@ -666,7 +666,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "msg", false, "Show message box",
+                        "msg", "Show message box",
                         (dStack, vStack) ->
                         {
                             try
@@ -687,7 +687,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "ask", false, "Show yes/no box",
+                        "ask", "Show yes/no box",
                         (dStack, vStack) ->
                         {
                             try
@@ -718,7 +718,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "asyncmsg", false, "Show asynchronous message box",
+                        "asyncmsg", "Show asynchronous message box",
                         (dStack, vStack) ->
                         {
                             try
@@ -742,7 +742,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "what", false, "Show description about a word",
+                        "what", "Show description about a word",
                         (dStack, vStack) ->
                         {
                             try
@@ -764,7 +764,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "collect", false, "collects all numbers from stack into sequence",
+                        "collect", "collects all numbers from stack into sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -786,7 +786,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "scatter", false, "desintegrate sequence onto stack",
+                        "scatter", "desintegrate sequence onto stack",
                         (dStack, vStack) ->
                         {
                             try
@@ -807,7 +807,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "toTime", false, "make time string from TOS",
+                        "toTime", "make time string from TOS",
                         (dStack, vStack) ->
                         {
                             try
@@ -825,7 +825,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "soon", false, "run deferred word",
+                        "soon", "run deferred word",
                         (dStack, vStack) ->
                         {
                             try
@@ -856,7 +856,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "cls", false, "clear screen",
+                        "cls", "clear screen",
                         (dStack, vStack) ->
                         {
                             //predefinedWords._jforth._out.print('\u000C');
@@ -867,7 +867,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "nip", false, "same as swap+drop",
+                        "nip", "same as swap+drop",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -879,7 +879,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "tune", false, "create music",
+                        "tune", "create music",
                         (dStack, vStack) ->
                         {
                             try
@@ -900,7 +900,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "DTMF", false, "create DTMF sound",
+                        "DTMF", "create DTMF sound",
                         (dStack, vStack) ->
                         {
                             try
@@ -922,7 +922,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "morse", false, "Morse signal from string",
+                        "morse", "Morse signal from string",
                         (dStack, vStack) ->
                         {
                             try
@@ -943,7 +943,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "morseTxt", false, "translate to Morse alphabet",
+                        "morseTxt", "translate to Morse alphabet",
                         (dStack, vStack) ->
                         {
                             try
@@ -961,31 +961,31 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "sinWav", false, "Make sinus wave",
+                        "sinWav", "Make sinus wave",
                         (dStack2, vStack2) -> executeSine(dStack2)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "rectWav", false, "Make rectangle wave",
+                        "rectWav", "Make rectangle wave",
                         (dStack2, vStack2) -> executeRect(dStack2)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "sawWav", false, "Make sawrooth wave",
+                        "sawWav", "Make sawrooth wave",
                         (dStack2, vStack2) -> executeSaw(dStack2)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "triWav", false, "Make triangle wave",
+                        "triWav", "Make triangle wave",
                         (dStack1, vStack1) -> executeTri(dStack1)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "cTab", false, "Makes multiplicative group Cayley table matrix of order n",
+                        "cTab", "Makes multiplicative group Cayley table matrix of order n",
                         (dStack, vStack) ->
                         {
                             try
@@ -1004,7 +1004,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "cGroup", false, "Make cyclic group from generator and mod value",
+                        "cGroup", "Make cyclic group from generator and mod value",
                         (dStack, vStack) ->
                         {
                             try
@@ -1024,7 +1024,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "iGroup", false, "calculate inverses of a group",
+                        "iGroup", "calculate inverses of a group",
                         (dStack, vStack) ->
                         {
                             try
@@ -1044,7 +1044,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "lswap", false, "swap 2 list members",
+                        "lswap", "swap 2 list members",
                         (dStack, vStack) ->
                         {
                             try
@@ -1074,7 +1074,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "percent", false, "calculate x percent of y",
+                        "percent", "calculate x percent of y",
                         (dStack, vStack) ->
                         {
                             try
@@ -1094,7 +1094,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "whatperc", false, "calculate x is what percent of y",
+                        "whatperc", "calculate x is what percent of y",
                         (dStack, vStack) ->
                         {
                             try

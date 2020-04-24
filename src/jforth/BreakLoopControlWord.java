@@ -7,7 +7,7 @@ public class BreakLoopControlWord extends BaseWord
 {
     public BreakLoopControlWord ()
     {
-        super("", false, false, null);
+        super("", false, null);
     }
 
     @Override

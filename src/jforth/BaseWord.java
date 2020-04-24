@@ -6,22 +6,19 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
 {
     private static final long serialVersionUID = 7526471155622776148L;
     public final String name;
-    public final boolean isPrimitive;
     private final String info;
     boolean immediate;
 
-    public BaseWord (String name, boolean immediate, boolean isPrimitive, String inf)
+    public BaseWord (String name, boolean immediate, String inf)
     {
         this.name = name.toUpperCase();
         this.immediate = immediate;
-        this.isPrimitive = isPrimitive;
         this.info = inf;
     }
 
     public String toString (boolean showDetail)
     {
         if (showDetail)
-        //return "Name: \"" + name + "\", Primitive: " + isPrimitive + ", Immediate: " + immediate;
         {
             return String.format("%-15s -- %s", name, info);
         }
@@ -45,7 +42,7 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
             return false;
         }
         BaseWord bw = (BaseWord) o;
-        return (name.equals(bw.name) && (isPrimitive == bw.isPrimitive));
+        return (name.equals(bw.name));
     }
 
     @Override
