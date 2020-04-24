@@ -1071,6 +1071,46 @@ class Filler2
                             return 0;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "percent", false, "calculate x percent of y",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                double o1 = Utilities.readDouble (dStack);
+                                double o2 = Utilities.readDouble (dStack);
+                                double res = o1/100.0 * o2;
+                                dStack.push (res);
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "whatperc", false, "calculate x is what percent of y",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                double o1 = Utilities.readDouble (dStack);
+                                double o2 = Utilities.readDouble (dStack);
+                                double res = o1/o2 * 100.0;
+                                dStack.push (res);
+                                return 1;
+                            }
+                            catch (Exception unused)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
     }
 
     private static int executeSine (OStack dStack)

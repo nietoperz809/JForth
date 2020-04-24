@@ -205,7 +205,7 @@ public class TestCases
     @Test
     public void TestSortString  ()
     {
-        String s = check ("\"thequickbrownfoxjumpsoverthelazydog\" sort unique toStr",
+        String s = check ("\"laladummthequickbrownfoxjumpsoverthelazydog\" sort unique toStr",
                 ".");
         System.out.println(s);
         shoudBeOK ("abcdefghijklmnopqrstuvwxyz" ,s);
@@ -976,6 +976,13 @@ public class TestCases
     {
         String s = check ("move_back_motherfucker sort rev", ".");
         shoudBeOK ("vutrroommkkhfeeeccba__" ,s);
+    }
+
+    @Test
+    public void percTest()
+    {
+        String s = check ("12345 25 percent 12345 swap whatperc", ".");
+        shoudBeOK ("25" ,s);
     }
 
 }

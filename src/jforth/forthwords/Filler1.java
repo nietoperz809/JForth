@@ -2659,6 +2659,10 @@ class Filler1
                             {
                                 dStack.push(PolySupport.formatPoly((PolynomialFunction) o1));
                             }
+                            else if (o1 instanceof String)
+                            {
+                                dStack.push (o1);
+                            }
                             else if (o1 instanceof StringSequence)
                             {
                                 dStack.push(((StringSequence) o1).asString());
