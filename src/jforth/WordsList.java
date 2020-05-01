@@ -28,16 +28,17 @@ public class WordsList
     {
         if (isEmpty())
         {
-            return "WordsList is empty\n";
+            return "WordList is empty\n";
         }
         //Collections.sort(wordsList, Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, BaseWord> stringBaseWordEntry : wordsList.entrySet())
         {
             BaseWord bw = stringBaseWordEntry.getValue();
-            if (Utilities.containsIgnoreCase(bw.toString(false), containing))
+            String str = bw.toString(showDetail);
+            if (Utilities.containsIgnoreCase (str, containing))
             {
-                sb.append(bw.toString(showDetail));
+                sb.append (str);
                 if (showDetail)
                 {
                     sb.append("\n");

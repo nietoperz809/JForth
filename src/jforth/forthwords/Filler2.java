@@ -7,11 +7,11 @@ import org.fusesource.jansi.AnsiConsole;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -140,14 +140,7 @@ class Filler2
                             byte[] b = null;
                             if (o1 instanceof String)
                             {
-                                try
-                                {
-                                    b = ((String) o1).getBytes("ISO-8859-1");
-                                }
-                                catch (UnsupportedEncodingException e)
-                                {
-                                    return 0;
-                                }
+                                b = ((String) o1).getBytes(StandardCharsets.ISO_8859_1);
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
@@ -217,7 +210,7 @@ class Filler2
                                 String hash = Utilities.readString(dStack);
                                 String input = Utilities.readString(dStack);
                                 MessageDigest md = MessageDigest.getInstance(hash);
-                                dStack.push(new DoubleSequence(md.digest(input.getBytes("ISO-8859-1"))));
+                                dStack.push(new DoubleSequence(md.digest(input.getBytes(StandardCharsets.ISO_8859_1))));
                                 return 1;
                             }
                             catch (Exception ex)

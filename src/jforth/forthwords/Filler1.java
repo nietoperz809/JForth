@@ -89,7 +89,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "dup", false,
+                        "dup", "Duplicat TOS",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.peek();
@@ -100,7 +100,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2dup", false,
+                        "2dup", "Duplicate upper 2 elements",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -217,7 +217,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2swap", false,
+                        "2swap", "Swaps first 2 pairs of elements",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -249,7 +249,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "over", false,
+                        "over", "Copy TOS-1 to TOS",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -263,7 +263,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2over", false,
+                        "2over", "Copy TOS-2 & TOS-3 to TOS & TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -282,7 +282,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "rot", false,
+                        "rot", "Rotate first 3 elements on stack",
                         (dStack, vStack) ->
                         {
                             Object o3 = dStack.pop();
@@ -297,7 +297,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "2rot", false,
+                        "2rot", "Rotates first 3 pairs of elements",
                         (dStack, vStack) ->
                         {
                             Object o6 = dStack.pop();
@@ -3513,7 +3513,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "roll", true,
+                        "roll", "Remove nth element and put it on TOS",
                         (dStack, vStack) ->
                         {
                             try

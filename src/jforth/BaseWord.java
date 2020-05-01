@@ -18,7 +18,7 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
 
     public String toString (boolean showDetail)
     {
-        if (showDetail)
+        if (showDetail && info != null)
         {
             return String.format("%-15s -- %s", name, info);
         }
