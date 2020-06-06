@@ -258,84 +258,6 @@ public class JForth
         }
     }
 
-    private boolean doInterpret (String word) throws Exception
-    {
-        word = handleDirectStringOut(word, false);
-        BaseWord bw = dictionary.search(word);
-        if (bw != null)
-        {
-            if (bw instanceof NonPrimitiveWord)
-            {
-                currentWord = bw;  // Save for recursion
-            }
-            return bw.execute(dStack, vStack) != 0;
-        }
-        Long num = Utilities.parseLong(word, base);
-        if (num != null)
-        {
-            dStack.push(num);
-            return true;
-        }
-        BigInteger big = Utilities.parseBigInt(word, base);
-        if (big != null)
-        {
-            dStack.push(big);
-            return true;
-        }
-        Double dnum = Utilities.parseDouble(word, base);
-        if (dnum != null)
-        {
-            dStack.push(dnum);
-            return true;
-        }
-        Complex co = Utilities.parseComplex(word, base);
-        if (co != null)
-        {
-            dStack.push(co);
-            return true;
-        }
-        Fraction fr = Utilities.parseFraction(word, base);
-        if (fr != null)
-        {
-            dStack.push(fr);
-            return true;
-        }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
-        if (ma != null)
-        {
-            dStack.push(ma);
-            return true;
-        }
-        DoubleSequence lo = DoubleSequence.parseSequence(word, base);
-        if (lo != null)
-        {
-            dStack.push(lo);
-            return true;
-        }
-        StringSequence ss = StringSequence.parseSequence (word);
-        if (ss != null)
-        {
-            dStack.push(ss);
-            return true;
-        }
-        String ws = Utilities.parseString(word);
-        if (ws != null)
-        {
-            dStack.push(ws);
-            return true;
-        }
-        double[] pd = PolynomialParser.parsePolynomial(word, base);
-        if (pd != null)
-        {
-            dStack.push(new PolynomialFunction(pd));
-            return true;
-        }
-        dStack.push (word); // as String
-        return true;
-        //_out.print(word + " ?");
-        //return false;
-    }
-
     private String handleDirectStringOut (String word, boolean compile) throws Exception
     {
         if (word.equals(".\""))
@@ -361,6 +283,122 @@ public class JForth
         return word;
     }
 
+    private boolean doForKnownWords (String word, boolean interpret)
+    {
+        Long num = Utilities.parseLong(word, base);
+        if (num != null)
+        {
+            if (interpret)
+                dStack.push(num);
+            else
+                wordBeingDefined.addWord(new Literal(num));
+            return true;
+        }
+        BigInteger big = Utilities.parseBigInt(word, base);
+        if (big != null)
+        {
+            if (interpret)
+                dStack.push(big);
+            else
+                wordBeingDefined.addWord(new Literal(big));
+            return true;
+        }
+        Double dnum = Utilities.parseDouble(word, base);
+        if (dnum != null)
+        {
+            if (interpret)
+                dStack.push(dnum);
+            else
+                wordBeingDefined.addWord(new Literal(dnum));
+            return true;
+        }
+        Complex co = Utilities.parseComplex(word, base);
+        if (co != null)
+        {
+            if (interpret)
+                dStack.push(co);
+            else
+                wordBeingDefined.addWord(new Literal(co));
+            return true;
+        }
+        Fraction fr = Utilities.parseFraction(word, base);
+        if (fr != null)
+        {
+            if (interpret)
+                dStack.push(fr);
+            else
+                wordBeingDefined.addWord(new Literal(fr));
+            return true;
+        }
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
+        if (ma != null)
+        {
+            if (interpret)
+                dStack.push(ma);
+            else
+                wordBeingDefined.addWord(new Literal(ma));
+            return true;
+        }
+        DoubleSequence lo = DoubleSequence.parseSequence(word, base);
+        if (lo != null)
+        {
+            if (interpret)
+                dStack.push(lo);
+            else
+                wordBeingDefined.addWord(new Literal(lo));
+            return true;
+        }
+        StringSequence ss = StringSequence.parseSequence (word);
+        if (ss != null)
+        {
+            if (interpret)
+                dStack.push(ss);
+            else
+                wordBeingDefined.addWord(new Literal(ss));
+            return true;
+        }
+        String ws = Utilities.parseString(word);
+        if (ws != null)
+        {
+            if (interpret)
+                dStack.push(ws);
+            else
+                wordBeingDefined.addWord(new Literal(ws));
+            return true;
+        }
+        double[] pd = PolynomialParser.parsePolynomial(word, base);
+        if (pd != null)
+        {
+            if (interpret)
+                dStack.push(new PolynomialFunction(pd));
+            else
+                wordBeingDefined.addWord(
+                        new Literal(
+                                new PolynomialFunction(pd)));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean doInterpret (String word) throws Exception
+    {
+        word = handleDirectStringOut(word, false);
+        BaseWord bw = dictionary.search(word);
+        if (bw != null)
+        {
+            if (bw instanceof NonPrimitiveWord)
+            {
+                currentWord = bw;  // Save for recursion
+            }
+            return bw.execute(dStack, vStack) != 0;
+        }
+        boolean ret = doForKnownWords (word, true);
+        if (ret)
+            return true;
+        dStack.push (word); // as String
+        return true;
+    }
+
     private boolean doCompile (String word) throws Exception
     {
         word = handleDirectStringOut(word, true);
@@ -381,68 +419,9 @@ public class JForth
             }
             return true;
         }
-        Long num = Utilities.parseLong(word, base);
-        if (num != null)
-        {
-            wordBeingDefined.addWord(new Literal(num));
+        boolean ret = doForKnownWords (word, false);
+        if (ret)
             return true;
-        }
-        BigInteger big = Utilities.parseBigInt(word, base);
-        if (big != null)
-        {
-            wordBeingDefined.addWord(new Literal(big));
-            return true;
-        }
-        Double dnum = Utilities.parseDouble(word, base);
-        if (dnum != null)
-        {
-            wordBeingDefined.addWord(new Literal(dnum));
-            return true;
-        }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
-        if (ma != null)
-        {
-            wordBeingDefined.addWord(new Literal(ma));
-            return true;
-        }
-        DoubleSequence ds = DoubleSequence.parseSequence(word, base);
-        if (ds != null)
-        {
-            wordBeingDefined.addWord(new Literal(ds));
-            return true;
-        }
-        StringSequence ss = StringSequence.parseSequence (word);
-        if (ss != null)
-        {
-            wordBeingDefined.addWord(new Literal(ss));
-            return true;
-        }
-        Fraction fr = Utilities.parseFraction(word, base);
-        if (fr != null)
-        {
-            wordBeingDefined.addWord(new Literal(fr));
-            return true;
-        }
-        Complex cpl = Utilities.parseComplex(word, base);
-        if (cpl != null)
-        {
-            wordBeingDefined.addWord(new Literal(cpl));
-            return true;
-        }
-        String ws = Utilities.parseString(word);
-        if (ws != null)
-        {
-            wordBeingDefined.addWord(new Literal(ws));
-            return true;
-        }
-        double[] pd = PolynomialParser.parsePolynomial(word, base);
-        if (pd != null)
-        {
-            wordBeingDefined.addWord(
-                    new Literal(
-                            new PolynomialFunction(pd)));
-            return true;
-        }
         _out.print(word + " ?");
         compiling = false;
         return false;
