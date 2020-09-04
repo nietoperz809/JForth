@@ -992,4 +992,21 @@ public class TestCases
                 ".......");
         shoudBeOK ("DoubleMatrixDoubleSequenceComplexDoubleFractionBigIntegerLong" ,s);
     }
+
+    @Test
+    public void strSubNumTest()
+    {
+        String s = check ("laladumm 4 -",
+                ".");
+        shoudBeOK ("lala" ,s);
+    }
+
+    @Test
+    public void strSubStrTest()
+    {
+        String s = check ("peter lieb -",
+                ".");
+        shoudBeOK ("ptr" ,s);
+    }
+
 }

@@ -17,7 +17,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class JForth
 {
     public final RuntimeEnvironment CurrentEnvironment;
@@ -283,6 +282,12 @@ public class JForth
         return word;
     }
 
+    /**
+     * Interpret or compile known words
+     * @param word the word
+     * @param interpret true if direct mode, false if compile mode
+     * @return true if word is known
+     */
     private boolean doForKnownWords (String word, boolean interpret)
     {
         Long num = Utilities.parseLong(word, base);
@@ -395,7 +400,7 @@ public class JForth
         boolean ret = doForKnownWords (word, true);
         if (ret)
             return true;
-        dStack.push (word); // as String
+        dStack.push (word); // as String if word isn't known
         return true;
     }
 
