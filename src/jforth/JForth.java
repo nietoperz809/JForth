@@ -21,7 +21,8 @@ public class JForth
 {
     public final RuntimeEnvironment CurrentEnvironment;
 
-    public enum MODE {EDIT, DIRECT}
+    public enum MODE
+    {EDIT, DIRECT}
 
     public static final String ENCODING = "ISO_8859_1";
     public static final Long TRUE = 1L;
@@ -38,9 +39,9 @@ public class JForth
     private static final int HISTORY_LENGTH = 1000;
     private static Voice voice = null;
     public final History history;
-    public final WordsList dictionary = new WordsList();
-    private final OStack dStack = new OStack();
-    private final OStack vStack = new OStack();
+    public final WordsList dictionary = new WordsList ();
+    private final OStack dStack = new OStack ();
+    private final OStack vStack = new OStack ();
     public MODE mode = MODE.DIRECT;
     public final transient PrintStream _out; // output channel
     public boolean compiling;
@@ -48,7 +49,7 @@ public class JForth
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
     public final LineEdit _lineEditor;
-    public final LSystem _lsys = new LSystem();
+    public final LSystem _lsys = new LSystem ();
     private MultiDotStreamTokenizer st = null;
 
     public JForth (RuntimeEnvironment ri)
@@ -61,40 +62,57 @@ public class JForth
         CurrentEnvironment = ri;
         compiling = false;
         base = 10;
-        history = new History(HISTORY_LENGTH);
+        history = new History (HISTORY_LENGTH);
         _out = out;
-        new PredefinedWords(this, dictionary);
-        _lineEditor = new LineEdit(out, this);
+        new PredefinedWords (this, dictionary);
+        _lineEditor = new LineEdit (out, this);
     }
 
     /**
      * Call speech output
+     *
      * @param txt Text to speak
      */
-    public static void speak(String txt)
+    public static void speak (String txt)
     {
         if (voice == null)
         {
-            KevinVoiceDirectory dir = new KevinVoiceDirectory();
+            KevinVoiceDirectory dir = new KevinVoiceDirectory ();
             //AlanVoiceDirectory dir = new AlanVoiceDirectory();
-            voice = dir.getVoices()[0];
-            voice.allocate();
+            voice = dir.getVoices ()[0];
+            voice.allocate ();
         }
-        voice.speak(txt);
+        voice.speak (txt);
     }
 
     /**
      * Starting point
+     *
      * @param args not used
      */
     public static void main (String[] args)
     {
-        AnsiConsole.systemInstall();
-        new JForth(AnsiConsole.out, RuntimeEnvironment.CONSOLE).mainLoop ();
+        AnsiConsole.systemInstall ();
+        JForth jf;
+        while (true)
+        {
+            jf = new JForth (AnsiConsole.out, RuntimeEnvironment.CONSOLE);
+            try
+            {
+                jf.mainLoop ();
+                break;
+            }
+            catch (OutOfMemoryError ex)
+            {
+                jf._out.println (ANSI_ERROR + "Memory Error: " + ex.getMessage ());
+                jf._out.println (ANSI_ERROR + "RESET!");
+            }
+        }
     }
 
     /**
      * Execute one line and generate output
+     *
      * @param input String containing forth commands
      */
     public void singleShot (String input)
@@ -102,26 +120,30 @@ public class JForth
         input = StringEscape.escape (input);
         if (mode == MODE.DIRECT)
         {
-            if (!interpretLine(input))
+            if (!interpretLine (input))
             {
                 if (_out == AnsiConsole.out)
-                    _out.print(input + " - " + ANSI_ERROR +
+                {
+                    _out.print (input + " - " + ANSI_ERROR +
                             " word execution or stack error " +
                             ANSI_NORMAL);
+                }
                 else
-                    _out.print(input +
+                {
+                    _out.print (input +
                             " word execution or stack error");
-                dStack.removeAllElements();
+                }
+                dStack.removeAllElements ();
             }
             else
             {
-                history.add(input);
-                _out.print(OK);
+                history.add (input);
+                _out.print (OK);
             }
         }
         else // mode == EDIT
         {
-            if (!_lineEditor.handleLine(input))
+            if (!_lineEditor.handleLine (input))
             {
                 mode = MODE.DIRECT;
             }
@@ -134,7 +156,7 @@ public class JForth
         {
             _out.print (EDITORPROMPT);
         }
-        _out.flush();
+        _out.flush ();
     }
 
     /**
@@ -142,27 +164,27 @@ public class JForth
      */
     private void mainLoop ()
     {
-        dStack.removeAllElements();
-        Scanner scanner = new Scanner(System.in);
-        _out.println(Utilities.buildInfo);
+        dStack.removeAllElements ();
+        Scanner scanner = new Scanner (System.in);
+        _out.println (Utilities.buildInfo);
         singleShot ("\n"); // to show prompt immediately
         try
         {
-            executeFile("autoexec.4th");
-        }
-        catch (Exception unused)
+            executeFile ("autoexec.4th");
+        } catch (Exception unused)
         {
             // execution error, file not found
         }
         while (true)
         {
-            String s = scanner.nextLine().trim();
+            String s = scanner.nextLine ().trim ();
             singleShot (s);
         }
     }
 
     /**
      * Make human-readable String from object
+     *
      * @param o input object
      * @return String
      */
@@ -173,9 +195,11 @@ public class JForth
 
     public String ObjectToString (Object o)
     {
-        String out = makePrintable(o);
+        String out = makePrintable (o);
         if (_out == AnsiConsole.out)
+        {
             return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
+        }
         return out;
     }
 
@@ -186,17 +210,18 @@ public class JForth
     {
         for (String s : history.history)
         {
-            if (!interpretLine(s))
+            if (!interpretLine (s))
             {
-                dStack.removeAllElements();
+                dStack.removeAllElements ();
             }
             _out.print (FORTHPROMPT);
-            _out.flush();
+            _out.flush ();
         }
     }
 
     /**
      * Run a single line of FORTH statements
+     *
      * @param text The line
      * @return false if an error occured
      */
@@ -204,53 +229,52 @@ public class JForth
     {
         try
         {
-            StringReader sr = new StringReader(text);
-            st = new MultiDotStreamTokenizer(sr);
-            st.resetSyntax();
-            st.wordChars('!', '~');
+            StringReader sr = new StringReader (text);
+            st = new MultiDotStreamTokenizer (sr);
+            st.resetSyntax ();
+            st.wordChars ('!', '~');
             //st.quoteChar('_');  // test
-            st.whitespaceChars('\u0000', '\u0020');
-            int ttype = st.nextToken();
+            st.whitespaceChars ('\u0000', '\u0020');
+            int ttype = st.nextToken ();
             while (ttype != StreamTokenizer.TT_EOF)
             {
                 String word = st.sval;
-                if (word.equals("\\"))   // Comment until line end
+                if (word.equals ("\\"))   // Comment until line end
                 {
                     return true;
                 }
-                if (word.equals("(")) // filter out comments
+                if (word.equals ("(")) // filter out comments
                 {
                     for (; ; )
                     {
-                        st.nextToken();
+                        st.nextToken ();
                         String word2 = st.sval;
-                        if (word2.endsWith(")"))
+                        if (word2.endsWith (")"))
                         {
                             break;
                         }
                     }
-                    st.nextToken();
+                    st.nextToken ();
                     continue;
                 }
                 if (!compiling)
                 {
-                    if (!doInterpret(word))
+                    if (!doInterpret (word))
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    if (!doCompile(word))
+                    if (!doCompile (word))
                     {
                         return false;
                     }
                 }
-                ttype = st.nextToken();
+                ttype = st.nextToken ();
             }
             return true;
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             //e.printStackTrace();
             return false;
@@ -259,24 +283,28 @@ public class JForth
 
     private String handleDirectStringOut (String word, boolean compile) throws Exception
     {
-        if (word.equals(".\""))
+        if (word.equals (".\""))
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder ();
             for (; ; )
             {
-                st.nextToken();
+                st.nextToken ();
                 String word2 = st.sval;
-                if (word2.endsWith("\""))
+                if (word2.endsWith ("\""))
                 {
-                    sb.append(word2, 0, word2.length() - 1);
+                    sb.append (word2, 0, word2.length () - 1);
                     break;
                 }
-                sb.append(word2).append(' ');
+                sb.append (word2).append (' ');
             }
             if (compile)
-                wordBeingDefined.addWord(new Literal(sb.toString()));
+            {
+                wordBeingDefined.addWord (new Literal (sb.toString ()));
+            }
             else
-                dStack.push(sb.toString());
+            {
+                dStack.push (sb.toString ());
+            }
             return ".";
         }
         return word;
@@ -284,102 +312,143 @@ public class JForth
 
     /**
      * Interpret or compile known words
-     * @param word the word
+     *
+     * @param word      the word
      * @param interpret true if direct mode, false if compile mode
      * @return true if word is known
      */
     private boolean doForKnownWords (String word, boolean interpret)
     {
-        Long num = Utilities.parseLong(word, base);
+        Long num = Utilities.parseLong (word, base);
         if (num != null)
         {
             if (interpret)
-                dStack.push(num);
+            {
+                dStack.push (num);
+            }
             else
-                wordBeingDefined.addWord(new Literal(num));
+            {
+                wordBeingDefined.addWord (new Literal (num));
+            }
             return true;
         }
-        BigInteger big = Utilities.parseBigInt(word, base);
+        BigInteger big = Utilities.parseBigInt (word, base);
         if (big != null)
         {
             if (interpret)
-                dStack.push(big);
+            {
+                dStack.push (big);
+            }
             else
-                wordBeingDefined.addWord(new Literal(big));
+            {
+                wordBeingDefined.addWord (new Literal (big));
+            }
             return true;
         }
-        Double dnum = Utilities.parseDouble(word, base);
+        Double dnum = Utilities.parseDouble (word, base);
         if (dnum != null)
         {
             if (interpret)
-                dStack.push(dnum);
+            {
+                dStack.push (dnum);
+            }
             else
-                wordBeingDefined.addWord(new Literal(dnum));
+            {
+                wordBeingDefined.addWord (new Literal (dnum));
+            }
             return true;
         }
-        Complex co = Utilities.parseComplex(word, base);
+        Complex co = Utilities.parseComplex (word, base);
         if (co != null)
         {
             if (interpret)
-                dStack.push(co);
+            {
+                dStack.push (co);
+            }
             else
-                wordBeingDefined.addWord(new Literal(co));
+            {
+                wordBeingDefined.addWord (new Literal (co));
+            }
             return true;
         }
-        Fraction fr = Utilities.parseFraction(word, base);
+        Fraction fr = Utilities.parseFraction (word, base);
         if (fr != null)
         {
             if (interpret)
-                dStack.push(fr);
+            {
+                dStack.push (fr);
+            }
             else
-                wordBeingDefined.addWord(new Literal(fr));
+            {
+                wordBeingDefined.addWord (new Literal (fr));
+            }
             return true;
         }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
+        DoubleMatrix ma = DoubleMatrix.parseMatrix (word, base);
         if (ma != null)
         {
             if (interpret)
-                dStack.push(ma);
+            {
+                dStack.push (ma);
+            }
             else
-                wordBeingDefined.addWord(new Literal(ma));
+            {
+                wordBeingDefined.addWord (new Literal (ma));
+            }
             return true;
         }
-        DoubleSequence lo = DoubleSequence.parseSequence(word, base);
+        DoubleSequence lo = DoubleSequence.parseSequence (word, base);
         if (lo != null)
         {
             if (interpret)
-                dStack.push(lo);
+            {
+                dStack.push (lo);
+            }
             else
-                wordBeingDefined.addWord(new Literal(lo));
+            {
+                wordBeingDefined.addWord (new Literal (lo));
+            }
             return true;
         }
         StringSequence ss = StringSequence.parseSequence (word);
         if (ss != null)
         {
             if (interpret)
-                dStack.push(ss);
+            {
+                dStack.push (ss);
+            }
             else
-                wordBeingDefined.addWord(new Literal(ss));
+            {
+                wordBeingDefined.addWord (new Literal (ss));
+            }
             return true;
         }
-        String ws = Utilities.parseString(word);
+        String ws = Utilities.parseString (word);
         if (ws != null)
         {
             if (interpret)
-                dStack.push(ws);
+            {
+                dStack.push (ws);
+            }
             else
-                wordBeingDefined.addWord(new Literal(ws));
+            {
+                wordBeingDefined.addWord (new Literal (ws));
+            }
             return true;
         }
-        double[] pd = PolynomialParser.parsePolynomial(word, base);
+        double[] pd = PolynomialParser.parsePolynomial (word, base);
         if (pd != null)
         {
             if (interpret)
-                dStack.push(new PolynomialFunction(pd));
+            {
+                dStack.push (new PolynomialFunction (pd));
+            }
             else
-                wordBeingDefined.addWord(
-                        new Literal(
-                                new PolynomialFunction(pd)));
+            {
+                wordBeingDefined.addWord (
+                        new Literal (
+                                new PolynomialFunction (pd)));
+            }
             return true;
         }
         return false;
@@ -387,47 +456,55 @@ public class JForth
 
     private boolean doInterpret (String word) throws Exception
     {
-        word = handleDirectStringOut(word, false);
-        BaseWord bw = dictionary.search(word);
+        word = handleDirectStringOut (word, false);
+        BaseWord bw = dictionary.search (word);
         if (bw != null)
         {
             if (bw instanceof NonPrimitiveWord)
             {
                 currentWord = bw;  // Save for recursion
             }
-            return bw.execute(dStack, vStack) != 0;
+            return bw.execute (dStack, vStack) != 0;
         }
         boolean ret = doForKnownWords (word, true);
         if (ret)
+        {
             return true;
+        }
         dStack.push (word); // as String if word isn't known
         return true;
     }
 
     private boolean doCompile (String word) throws Exception
     {
-        word = handleDirectStringOut(word, true);
+        word = handleDirectStringOut (word, true);
         BaseWord bw;
-        if (currentWord != null && word.equalsIgnoreCase(currentWord.name))
-            bw = dictionary.search("recurse");
+        if (currentWord != null && word.equalsIgnoreCase (currentWord.name))
+        {
+            bw = dictionary.search ("recurse");
+        }
         else
-            bw = dictionary.search(word);
+        {
+            bw = dictionary.search (word);
+        }
         if (bw != null)
         {
             if (bw.immediate)
             {
-                bw.execute(dStack, vStack);
+                bw.execute (dStack, vStack);
             }
             else
             {
-                wordBeingDefined.addWord(bw);
+                wordBeingDefined.addWord (bw);
             }
             return true;
         }
         boolean ret = doForKnownWords (word, false);
         if (ret)
+        {
             return true;
-        _out.print(word + " ?");
+        }
+        _out.print (word + " ?");
         compiling = false;
         return false;
     }
@@ -436,14 +513,13 @@ public class JForth
     {
         try
         {
-            if (st.nextToken() != StreamTokenizer.TT_EOF)
+            if (st.nextToken () != StreamTokenizer.TT_EOF)
             {
                 return st.sval;
             }
-        }
-        catch (IOException ioe)
+        } catch (IOException ioe)
         {
-            ioe.printStackTrace();
+            ioe.printStackTrace ();
         }
         return null;
     }
@@ -452,7 +528,7 @@ public class JForth
     {
         for (String s : as)
         {
-            interpretLine(s);
+            interpretLine (s);
             if (crlf)
             {
                 _out.println ();
@@ -462,6 +538,6 @@ public class JForth
 
     public void executeFile (String fileName) throws Exception
     {
-        executeFile (Utilities.fileLoad(fileName), false);
+        executeFile (Utilities.fileLoad (fileName), false);
     }
 }

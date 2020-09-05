@@ -8,50 +8,50 @@ public class Morse
 
     static
     {
-        dict.put('A', ".-");
-        dict.put('B', "-...");
-        dict.put('C', "-.-.");
-        dict.put('D', "-..");
-        dict.put('E', ".");
-        dict.put('F', "..-.");
-        dict.put('G', "--.");
-        dict.put('H', "....");
-        dict.put('I', "..");
-        dict.put('J', ".---");
-        dict.put('K', "-.-");
-        dict.put('L', ".-..");
+        dict.put('A', "\u00b7-");
+        dict.put('B', "-\u00b7\u00b7\u00b7");
+        dict.put('C', "-\u00b7-\u00b7");
+        dict.put('D', "-\u00b7\u00b7");
+        dict.put('E', "\u00b7");
+        dict.put('F', "\u00b7\u00b7-\u00b7");
+        dict.put('G', "--\u00b7");
+        dict.put('H', "\u00b7\u00b7\u00b7\u00b7");
+        dict.put('I', "\u00b7\u00b7");
+        dict.put('J', "\u00b7---");
+        dict.put('K', "-\u00b7-");
+        dict.put('L', "\u00b7-\u00b7\u00b7");
         dict.put('M', "--");
-        dict.put('N', "-.");
+        dict.put('N', "-\u00b7");
         dict.put('O', "---");
-        dict.put('P', ".--.");
-        dict.put('Q', "--.-");
-        dict.put('R', ".-.");
-        dict.put('S', "...");
+        dict.put('P', "\u00b7--\u00b7");
+        dict.put('Q', "--\u00b7-");
+        dict.put('R', "\u00b7-\u00b7");
+        dict.put('S', "\u00b7\u00b7\u00b7");
         dict.put('T', "-");
-        dict.put('U', "..-");
-        dict.put('V', "...-");
-        dict.put('W', ".--");
-        dict.put('X', "-..-");
-        dict.put('Y', "-.--");
-        dict.put('Z', "--..");
+        dict.put('U', "\u00b7\u00b7-");
+        dict.put('V', "\u00b7\u00b7\u00b7-");
+        dict.put('W', "\u00b7--");
+        dict.put('X', "-\u00b7\u00b7-");
+        dict.put('Y', "-\u00b7--");
+        dict.put('Z', "--\u00b7\u00b7");
 
         dict.put('0', "-----");
-        dict.put('1', ".----");
-        dict.put('2', "..---");
-        dict.put('3', "...--");
-        dict.put('4', "....-");
-        dict.put('5', ".....");
-        dict.put('6', "-....");
-        dict.put('7', "--...");
-        dict.put('8', "---..");
-        dict.put('9', "----.");
+        dict.put('1', "\u00b7----");
+        dict.put('2', "\u00b7\u00b7---");
+        dict.put('3', "\u00b7\u00b7\u00b7--");
+        dict.put('4', "\u00b7\u00b7\u00b7\u00b7-");
+        dict.put('5', "\u00b7\u00b7\u00b7\u00b7\u00b7");
+        dict.put('6', "-\u00b7\u00b7\u00b7\u00b7");
+        dict.put('7', "--\u00b7\u00b7\u00b7");
+        dict.put('8', "---\u00b7\u00b7");
+        dict.put('9', "----\u00b7");
 
-        dict.put('.', ".-.-.-");
-        dict.put(',', "--..--");
-        dict.put('?', "..--..");
-        dict.put(':', "---...");
-        dict.put('-', "-....-");
-        dict.put('@', ".--.-.");
+        dict.put('\u00b7', "\u00b7-\u00b7-\u00b7-");
+        dict.put(',', "--\u00b7\u00b7--");
+        dict.put('?', "\u00b7\u00b7--\u00b7\u00b7");
+        dict.put(':', "---\u00b7\u00b7\u00b7");
+        dict.put('-', "-\u00b7\u00b7\u00b7\u00b7-");
+        dict.put('@', "\u00b7--\u00b7-\u00b7");
         //dict.put((char)0xffff, "........");    // Error
     }
 
