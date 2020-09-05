@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class Morse
 {
-    static private final HashMap<Character, String> dict = new HashMap<>();
+    static private final HashMap<Character, CharSequence> dict = new HashMap<>();
 
     static
     {
@@ -80,9 +80,11 @@ public class Morse
         in = in.toUpperCase();
         for (int s=0; s<in.length(); s++)
         {
-            String s1 = dict.get(in.charAt(s));
+            CharSequence s1 = dict.get(in.charAt(s));
             if (s1 != null)
-                out.append(s1).append(' ');
+                out.append(s1);
+            if (s < in.length ()-1)
+                out.append(' ');
         }
         return out.toString();
     }

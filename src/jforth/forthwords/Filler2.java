@@ -923,16 +923,13 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "morse", "Morse signal from string",
+                        "morse", "play Morse code",
                         (dStack, vStack) ->
                         {
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                Morse mors = new Morse (44100);
-                                byte[] morse = mors.text2Wave(s1);
-                                byte[] combined = Wave16.makeHeader(morse, 44100);
-                                dStack.push(Base64.getEncoder().encodeToString(combined));
+                                SynthTone.playMorseString (Morse.text2Morse(s1));
                                 return 1;
                             }
                             catch (Exception e)

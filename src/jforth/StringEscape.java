@@ -3,7 +3,7 @@ package jforth;
 public class StringEscape
 {
     enum State {IN, OUT, DOT, DOTQUOTE};
-    private static char repl = 9999;
+    private static final char repl = 9999;
 
     public static String unescape (String in)
     {

@@ -2,11 +2,14 @@ package jforth;
 
 import java.util.HashMap;
 
+/**
+ * Implements a vector of Doubles
+ */
 class AddMap
 {
     private final HashMap<Integer, Double> ar = new HashMap<>();
 
-    void add (double val, int pos)
+    public void add (double val, int pos)
     {
         Double d = ar.get(pos);
         if (d == null)
@@ -15,7 +18,7 @@ class AddMap
         ar.put (pos, d);
     }
 
-    double[] toArray()
+    public double[] toArray()
     {
         int max = 0;
         for (Integer n : ar.keySet())

@@ -94,7 +94,7 @@ public class JForth
     {
         AnsiConsole.systemInstall ();
         JForth jf;
-        while (true)
+        while (true) // Restart the interpreter on memory errors
         {
             jf = new JForth (AnsiConsole.out, RuntimeEnvironment.CONSOLE);
             try
