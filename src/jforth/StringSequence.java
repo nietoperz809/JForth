@@ -10,14 +10,14 @@ public class StringSequence
 {
     private ArrayList<String> _list = new ArrayList<> ();
 
-    public StringSequence()
+    public StringSequence ()
     {
 
     }
 
     public StringSequence (StringSequence src)
     {
-        _list.addAll(src._list);
+        _list.addAll (src._list);
     }
 
     public StringSequence (DoubleSequence in)
@@ -32,7 +32,7 @@ public class StringSequence
     {
         for (char c : chars)
         {
-            _list.add (""+c);
+            _list.add ("" + c);
         }
     }
 
@@ -43,12 +43,15 @@ public class StringSequence
 
     public StringSequence (String csv)
     {
-        this (csv.split(","));
+        this (csv.split (","));
     }
 
     public StringSequence (String[] in)
     {
-        _list.addAll (Arrays.asList (in));
+        String[] out = new String[in.length];
+        for (int s=0; s<in.length; s++)
+            out[s] = Utilities.extractStringBody (in[s]);
+        _list.addAll (Arrays.asList (out));
     }
 
     public StringSequence rearrange (int pos[])
@@ -59,53 +62,57 @@ public class StringSequence
 
     public String asString ()
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder ();
         for (String d : this._list)
         {
-            sb.append(d);
+            sb.append (d);
         }
-        return sb.toString();
+        return sb.toString ();
     }
 
-    public StringSequence shuffle()
+    public StringSequence shuffle ()
     {
-        StringSequence ret = new StringSequence(this);
-        Collections.shuffle(ret._list);
+        StringSequence ret = new StringSequence (this);
+        Collections.shuffle (ret._list);
         return ret;
     }
 
-    public StringSequence sort()
+    public StringSequence sort ()
     {
-        StringSequence ret = new StringSequence(this);
+        StringSequence ret = new StringSequence (this);
         Collections.sort (ret._list);
         return ret;
     }
 
     public StringSequence unique ()
     {
-        ArrayList<String> nodupe = new ArrayList<>(new LinkedHashSet<> (_list));
-        return new StringSequence(nodupe);
+        ArrayList<String> nodupe = new ArrayList<> (new LinkedHashSet<> (_list));
+        return new StringSequence (nodupe);
     }
 
     public StringSequence intersect (StringSequence other)
     {
-        StringSequence ret = new StringSequence(this);
-        ret._list.retainAll(other._list);
+        StringSequence ret = new StringSequence (this);
+        ret._list.retainAll (other._list);
         return ret;
     }
 
     public static StringSequence mixin (StringSequence d1, StringSequence d2)
     {
-        int len = Math.max (d1.length(),d2.length());
-        ArrayList<String> ar = new ArrayList<>();
-        for (int s=0; s<len; s++)
+        int len = Math.max (d1.length (), d2.length ());
+        ArrayList<String> ar = new ArrayList<> ();
+        for (int s = 0; s < len; s++)
         {
-            if (s < d1.length())
-                ar.add (d1.pick(s));
-            if (s < d2.length())
-                ar.add (d2.pick(s));
+            if (s < d1.length ())
+            {
+                ar.add (d1.pick (s));
+            }
+            if (s < d2.length ())
+            {
+                ar.add (d2.pick (s));
+            }
         }
-        return new StringSequence(ar);
+        return new StringSequence (ar);
     }
 
     public int length ()
@@ -125,21 +132,24 @@ public class StringSequence
 
     public String pick (int x)
     {
-        return _list.get(x);
+        return _list.get (x);
     }
 
     @Override
     public String toString ()
     {
         StringBuilder sb = new StringBuilder ();
-            sb.append ('{');
-            for (int x = 0; x <_list.size(); x++)
+        sb.append ('{');
+        for (int x = 0; x < _list.size (); x++)
+        {
+            String s1 = '\"' + StringEscape.unescape (_list.get(x)) + '\"';
+            sb.append (s1);
+            if (x != _list.size () - 1)
             {
-                sb.append (_list.get(x));
-                if (x != _list.size()-1)
-                    sb.append (",");
+                sb.append (",");
             }
-            sb.append ('}');
+        }
+        sb.append ('}');
         return sb.toString ();
     }
 
@@ -147,34 +157,36 @@ public class StringSequence
     {
         String seq = Utilities.extractSequence (in);
         if (seq == null)
+        {
             return null;
+        }
         return new StringSequence (seq);
     }
 
     public StringSequence rotateLeft (int n)
     {
-        StringSequence ret = new StringSequence(this);
+        StringSequence ret = new StringSequence (this);
         ret._list = Utilities.rotateLeft (ret._list, n);
         return ret;
     }
 
     public StringSequence rotateRight (int n)
     {
-        StringSequence ret = new StringSequence(this);
+        StringSequence ret = new StringSequence (this);
         ret._list = Utilities.rotateRight (ret._list, n);
         return ret;
     }
 
     public StringSequence difference (StringSequence other)
     {
-        StringSequence ret = new StringSequence(this);
-        ret._list.removeAll(other._list);
+        StringSequence ret = new StringSequence (this);
+        ret._list.removeAll (other._list);
         return ret;
     }
 
     public StringSequence subList (int from, int to)
     {
-        return new StringSequence(this._list.subList(from, to));
+        return new StringSequence (this._list.subList (from, to));
     }
 
     public StringSequence swap (int a, int b)
@@ -183,13 +195,13 @@ public class StringSequence
         return new StringSequence ((List<String>) al);
     }
 
-    public StringSequence reverse()
+    public StringSequence reverse ()
     {
-        StringSequence ret = new StringSequence(this);
-        Collections.reverse(ret._list);
+        StringSequence ret = new StringSequence (this);
+        Collections.reverse (ret._list);
         return ret;
     }
-    
+
 //////////////////////////////////////////////////////////////////////
 
     public static void main (String[] args)

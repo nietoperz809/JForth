@@ -35,6 +35,12 @@ public class DoubleSequence
 
     }
 
+    public DoubleSequence (StringSequence in) throws NumberFormatException
+    {
+        for (int s=0; s<in.length (); s++)
+            _list.add (Double.parseDouble (in.pick(s)));
+    }
+
     public DoubleSequence (Vector3D v)
     {
         _list.add (v.getX());
@@ -210,17 +216,6 @@ public class DoubleSequence
         return new DoubleSequence(factors);
     }
 
-//    public static DoubleSequence parseSequence (String in, int base)
-//    {
-//        if (base != 10)
-//            return null;
-//        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
-//        {
-//            in = in.substring(1, in.length()-1);
-//            return new DoubleSequence(Utilities.parseCSVtoDoubleArray(in));
-//        }
-//        return null;
-//    }
     public static DoubleSequence parseSequence (String in, int base)
     {
         if (base != 10)

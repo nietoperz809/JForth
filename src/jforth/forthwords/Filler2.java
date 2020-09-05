@@ -757,7 +757,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "collect", "collects all numbers from stack into sequence",
+                        "collect", "collects all numbers or strings from stack into sequence",
                         (dStack, vStack) ->
                         {
                             try
@@ -767,7 +767,15 @@ class Filler2
                                 {
                                     sq.add (Utilities.makePrintable (dStack.pop (), 10));
                                 }
-                                dStack.push (sq.reverse());
+                                try
+                                {
+                                    DoubleSequence ds = new DoubleSequence (sq);
+                                    dStack.push (ds.reverse());
+                                }
+                                catch (NumberFormatException e)
+                                {
+                                    dStack.push (sq.reverse());
+                                }
                                 return 1;
                             }
                             catch (Exception e)

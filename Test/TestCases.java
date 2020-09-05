@@ -849,7 +849,7 @@ public class TestCases
     public void TestIntersectSlist()
     {
         String s = check ("{a,b,c} {d,e,a} intersect", ".");
-        shoudBeOK ("{a}" ,s);
+        shoudBeOK ("{\"a\"}" ,s);
     }
 
     @Test
@@ -863,7 +863,7 @@ public class TestCases
     public void UniqTest()
     {
         String s = check ("{a,s,a,s,d,a,s} unique", ".");
-        shoudBeOK ("{a,s,d}" ,s);
+        shoudBeOK ("{\"a\",\"s\",\"d\"}" ,s);
     }
 
     @Test
@@ -877,30 +877,30 @@ public class TestCases
     public void TestRotateStrSeq()
     {
         String s = check ("{a,f,g,j} << {j,o,7,laal} >>", "..");
-        shoudBeOK ("{laal,j,o,7}{f,g,j,a}" ,s);
+        shoudBeOK ("{\"laal\",\"j\",\"o\",\"7\"}{\"f\",\"g\",\"j\",\"a\"}" ,s);
     }
 
     @Test
     public void TestDivToStrSeq()
     {
         String s = check ("laladumm 2 /", ".");
-        shoudBeOK ("{la,la,du,mm}" ,s);
+        shoudBeOK ("{\"la\",\"la\",\"du\",\"mm\"}" ,s);
     }
 
     @Test
     public void TestStrSeqFact()
     {
         String s = check ("\"peter       ist    lieb\" factor", ".");
-        shoudBeOK ("{peter,ist,lieb}" ,s);
+        shoudBeOK ("{\"peter\",\"ist\",\"lieb\"}" ,s);
     }
 
     @Test
     public void TestStrSeqPlus()
     {
         String s = check ("{a,b,c,d} peter +", ".");
-        shoudBeOK ("{a,b,c,d,peter}" ,s);
+        shoudBeOK ("{\"a\",\"b\",\"c\",\"d\",\"peter\"}" ,s);
         s = check ("peter {a,b,c,f} +", ".");
-        shoudBeOK ("{peter,a,b,c,f}" ,s);
+        shoudBeOK ("{\"peter\",\"a\",\"b\",\"c\",\"f\"}" ,s);
     }
 
     @Test
@@ -928,25 +928,25 @@ public class TestCases
     public void TestSListSpc()
     {
         String s = check ("\"fick dich\" toslist", ".");
-        shoudBeOK ("{fick,dich}" ,s);
+        shoudBeOK ("{\"fick\",\"dich\"}" ,s);
         s = check ("\"fickdich\" toslist", ".");
-        shoudBeOK ("{f,i,c,k,d,i,c,h}" ,s);
+        shoudBeOK ("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
         s = check ("fickdich toslist", ".");
-        shoudBeOK ("{f,i,c,k,d,i,c,h}" ,s);
+        shoudBeOK ("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
     }
 
     @Test
     public void TestStringSplit()
     {
         String s = check ("\"move back mo'fucker the onyx is here\" toslist", ".");
-        shoudBeOK ("{move,back,mo'fucker,the,onyx,is,here}" ,s);
+        shoudBeOK ("{\"move\",\"back\",\"mo'fucker\",\"the\",\"onyx\",\"is\",\"here\"}" ,s);
     }
 
     @Test
     public void TestLswap()
     {
         String s = check ("{a,b,c,d,r} 1 2 lswap dup type", "..");
-        shoudBeOK ("StringSequence{a,c,b,d,r}" ,s);
+        shoudBeOK ("StringSequence{\"a\",\"c\",\"b\",\"d\",\"r\"}" ,s);
         s = check ("{1,2,3,4,5} 1 2 lswap dup type", "..");
         shoudBeOK ("DoubleSequence{1,3,2,4,5}" ,s);
     }
@@ -959,7 +959,7 @@ public class TestCases
         s = check ("{1,2,3,4,5} rev", ".");
         shoudBeOK ("{5,4,3,2,1}" ,s);
         s = check ("{gone,wild,man} rev", ".");
-        shoudBeOK ("{man,wild,gone}" ,s);
+        shoudBeOK ("{\"man\",\"wild\",\"gone\"}" ,s);
     }
 
     @Test

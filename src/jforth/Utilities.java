@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1770";
-    private static final String BUILD_DATE = "09/04/2020 07:41:39 PM";
+    private static final String BUILD_NUMBER = "1778";
+    private static final String BUILD_DATE = "09/05/2020 04:38:38 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -744,11 +744,23 @@ public class Utilities
         }
     }
 
+    private static String removeBeginEnd (String in, char[] be, boolean mustHave)
+    {
+        if (in.charAt(0) == be[0] && in.charAt(in.length()-1) == be[1])
+            return (in.substring(1, in.length()-1));
+        if (mustHave)
+            return null;
+        return in;
+    }
+
     public static String extractSequence (String in)
     {
-        if (in.charAt(0) == '{' && in.charAt(in.length()-1) == '}')
-            return (in.substring(1, in.length()-1));
-        return null;
+        return removeBeginEnd (in, new char[]{'{', '}'}, true);
+    }
+
+    public static String extractStringBody (String in)
+    {
+        return removeBeginEnd (in, new char[]{'\"', '\"'}, false);
     }
 
     public static Vector3D readVector3D (OStack dStack) throws Exception
