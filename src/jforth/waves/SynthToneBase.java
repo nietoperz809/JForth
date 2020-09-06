@@ -12,7 +12,7 @@ public class SynthToneBase
         void doForChar (char c, SourceDataLine line);
     }
 
-    public static final int SAMPLE_RATE = 11000;
+    public static final int SAMPLE_RATE = 22050;  // Todo: too small
     public static final float SECONDS = 0.5f;
     protected static final int SLEN = (int) (SECONDS * SAMPLE_RATE);
     protected static final byte[] pause = new byte[SLEN];
@@ -22,9 +22,9 @@ public class SynthToneBase
 
     protected static void makeSingleWave (double f, byte[] out)
     {
+        double period = (double) SAMPLE_RATE / f;
         for (int i = 0; i < out.length; i++)
         {
-            double period = (double) SAMPLE_RATE / f;
             double angle = 2d * Math.PI * i / period;
             out[i] = (byte) (Math.sin (angle) * 127f);
         }
@@ -32,8 +32,7 @@ public class SynthToneBase
 
     protected static void play (SourceDataLine line, byte[] tone, int ms)
     {
-        int length = SAMPLE_RATE * ms / 1000;
-        length = Math.min (length, tone.length);
+        int length = Math.min (SAMPLE_RATE * ms / 1000, tone.length);
         line.write (tone, 0, length);
     }
 

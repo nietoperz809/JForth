@@ -30,9 +30,9 @@ public class MusicTones extends SynthToneBase
     /**
      * Tone length
      */
-    private int multiplier;  // Tone length
+    private static int multiplier;  // Tone length
 
-    private float getFrequency (String note, int octave) throws ArrayIndexOutOfBoundsException
+    private static float getFrequency (String note, int octave) throws ArrayIndexOutOfBoundsException
     {
         int x = -1;
         for (int s=0; s<=notes.length; s++)
@@ -46,7 +46,7 @@ public class MusicTones extends SynthToneBase
         return frequencies[octave][x];
     }
 
-    private void makeTone (SourceDataLine line, String code)
+    private static void makeTone (SourceDataLine line, String code)
     {
         float freq;
         if (code.charAt(0) == 'L')
@@ -62,41 +62,10 @@ public class MusicTones extends SynthToneBase
         {
             freq = getFrequency(code.substring(0, 2), code.charAt(2)-'0');
         }
-        byte[] out = new byte[10000];  // Todo: calculate length
+        int ms = 100*multiplier;
+        byte[] out = new byte[SAMPLE_RATE * ms / 1000];
         makeSingleWave (freq, out);
-        play (line, out, 100*multiplier);
-    }
-
-    /**
-     * Make song from string
-     * @param input Input String  (eg. c4d4l3c4d4 means play c4,d4 length=3, then c4d4 again)
-     */
-    public void makeSong (String input)
-    {
-        multiplier = 1;
-        ArrayList<String> list = parseTones (input);
-        if (list == null)
-            return;
-
-        try
-        {
-            SourceDataLine line = AudioSystem.getSourceDataLine (af);
-            line.open (af, SAMPLE_RATE);
-            line.start ();
-            play (line, pause, 500);
-
-            for (int s=0; s<list.size(); s++)
-            {
-                makeTone (line, list.get(s));
-            }
-
-            line.drain ();
-            line.close ();
-        }
-        catch (Exception ignored)
-        {
-            System.out.println (ignored);
-        }
+        play (line, out, ms);
     }
 
     /**
@@ -104,7 +73,7 @@ public class MusicTones extends SynthToneBase
      * @param in input string
      * @return List of found notes
      */
-    private ArrayList<String> parseTones (String in)
+    private static ArrayList<String> parseTones (String in)
     {
         in = in.toUpperCase();
         ArrayList<String> toks = new ArrayList<>();
@@ -161,5 +130,65 @@ public class MusicTones extends SynthToneBase
         return toks;
     }
 
+    /**
+     * Make song from string
+     * @param input Input String  (eg. c4d4l3c4d4 means play c4,d4 length=3, then c4d4 again)
+     */
+    public static void playSong (String input)
+    {
+        multiplier = 1;
+        ArrayList<String> list = parseTones (input);
+
+        try
+        {
+            SourceDataLine line = AudioSystem.getSourceDataLine (af);
+            line.open (af, SAMPLE_RATE);
+            line.start ();
+            play (line, pause, 500);
+
+            for (String value : list)
+            {
+                makeTone (line, value);
+            }
+
+            line.drain ();
+            line.close ();
+        }
+        catch (Exception ignored)
+        {
+            //System.out.println (ignored);
+        }
+    }
+
+    public static void playSingleTone (int freq, int ms)
+    {
+        if (ms < 1 || freq < 1)
+            return;
+        try
+        {
+            SourceDataLine line = AudioSystem.getSourceDataLine (af);
+            line.open (af, SAMPLE_RATE);
+            line.start ();
+            // play (line, pause, 500);
+
+            byte[] out = new byte[SAMPLE_RATE * ms / 1000];
+            makeSingleWave (freq, out);
+            play (line, out, ms);
+
+            line.drain ();
+            line.close ();
+        }
+        catch (Exception ignored)
+        {
+            //System.out.println (ignored);
+        }
+    }
+
 } // End class
 
+/*
+        int ms = 100*multiplier;
+        byte[] out = new byte[SAMPLE_RATE * ms / 1000];
+        makeSingleWave (freq, out);
+        play (line, out, ms);
+ */

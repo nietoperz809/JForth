@@ -886,8 +886,7 @@ class Filler2
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                MusicTones mt = new MusicTones();
-                                mt.makeSong (s1);
+                                MusicTones.playSong (s1);
                                 return 1;
                             }
                             catch (Exception e)
@@ -950,30 +949,6 @@ class Filler2
                                 return 0;
                             }
                         }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "sinWav", "Make sinus wave",
-                        (dStack2, vStack2) -> executeSine(dStack2)
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "rectWav", "Make rectangle wave",
-                        (dStack2, vStack2) -> executeRect(dStack2)
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "sawWav", "Make sawrooth wave",
-                        (dStack2, vStack2) -> executeSaw(dStack2)
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "triWav", "Make triangle wave",
-                        (dStack1, vStack1) -> executeTri(dStack1)
                 ));
 
         _fw.add(new PrimitiveWord
@@ -1104,49 +1079,26 @@ class Filler2
                             return 0;
                         }
                 ));
-    }
 
-    private static int executeSine (OStack dStack)
-    {
-        return genWave(dStack, WaveForms::curveSine);
-    }
+        _fw.add(new PrimitiveWord
+                (
+                        "beep", "play single tone",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long l1 = Utilities.readLong (dStack);
+                                long l2 = Utilities.readLong (dStack);
+                                MusicTones.playSingleTone ((int)l1, (int)l2);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
 
-    private static int executeRect (OStack dStack)
-    {
-        return genWave(dStack, WaveForms::curveRect);
-    }
-
-    private static int executeSaw (OStack dStack)
-    {
-        return genWave(dStack, WaveForms::curveSawTooth);
-    }
-
-    private static int executeTri (OStack dStack)
-    {
-        return genWave(dStack, WaveForms::curveTriangle);
-    }
-
-    interface WaveGen
-    {
-        Wave16 gen (int rate, int len, double freq, int startval);
-    }
-
-    private static int genWave (OStack dStack, WaveGen wvg)
-    {
-        try
-        {
-            double freq = Utilities.readDouble(dStack); // Hz
-            int len = (int)Utilities.readLong(dStack);  // milliseconds
-            Wave16 wv = wvg.gen(11025,11*len,freq, 0);
-
-            byte[] combined = Wave16.makeHeader(wv.toByteArray(), 11025);
-            dStack.push(Base64.getEncoder().encodeToString(combined));
-            return 1;
-        }
-        catch (Exception unused)
-        {
-            return 0;
-        }
     }
 
 }
