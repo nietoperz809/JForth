@@ -3,6 +3,7 @@ package jforth;
 import javax.sound.sampled.*;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * from here: ftp://sccn.ucsd.edu/pub/virtualmedia/AePlayWave.java
@@ -10,7 +11,7 @@ import java.nio.charset.Charset;
 
 public class SynchronousWavePlayer
 {
-    private static final Charset thisCharset = Charset.forName("ISO-8859-1");
+    private static final Charset thisCharset = StandardCharsets.ISO_8859_1;
 
     /**
      * Play wave file from disk

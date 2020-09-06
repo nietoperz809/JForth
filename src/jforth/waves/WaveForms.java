@@ -99,7 +99,7 @@ public class WaveForms
     {
         Wave16 out = new Wave16(samples, samplingrate, WaveFormType.SweepSIN);
         double step = (((double) fend - (double) fstart) / samples / Wave16.PI);
-        double fact = fstart < fend ? fstart : fend;
+        double fact = Math.min (fstart, fend);
         for (int x = 0; x < samples; x++)
         {
             out.data[x] =
@@ -119,7 +119,7 @@ public class WaveForms
     {
         Wave16 out = new Wave16(samples, samplingrate, WaveFormType.SweepTRI);
         double step = ((double) fend - (double) fstart) / samples / Wave16.PI;
-        double fact = fstart < fend ? fstart : fend;
+        double fact = Math.min (fstart, fend);
         for (int x = 0; x < samples; x++)
         {
             double c1 = Math.sin(2 * Wave16.PI * fact * ((double) x / samplingrate));
@@ -139,7 +139,7 @@ public class WaveForms
     {
         Wave16 out = new Wave16(samples, samplingrate, WaveFormType.SweepSQR);
         double step = (((double) fend - (double) fstart) / samples / Wave16.PI);
-        double fact = fstart < fend ? fstart : fend;
+        double fact = Math.min (fstart, fend);
         for (int x = 0; x < samples; x++)
         {
             out.data[x] = Wave16.MAX_VALUE * Math.signum(

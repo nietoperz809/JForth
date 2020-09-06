@@ -907,10 +907,7 @@ class Filler2
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                DTMF dt = new DTMF(44100, 1500*4);
-                                byte[] bt = dt.dtmfFromString(s1).toByteArray();
-                                byte[] combined = Wave16.makeHeader(bt, 44100);
-                                dStack.push(Base64.getEncoder().encodeToString(combined));
+                                SynthTone.playDtmfString (s1);
                                 return 1;
                             }
                             catch (Exception e)
