@@ -1,8 +1,6 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.waves.Morse;
-import jforth.waves.Wave16;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -2113,25 +2111,25 @@ class Filler1
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "playMorse", "Play Morse String",
-                        (dStack, vStack) ->
-                        {
-                            try
-                            {
-                                String o1 = (String)dStack.pop();
-                                Morse mors = new Morse (44100);
-                                byte[] m = mors.morse2Audio(o1);
-                                SynchronousWavePlayer.playSound(Wave16.makeHeader(m, 44100));
-                                return 1;
-                            }
-                            catch (Exception e)
-                            {
-                                return 0;
-                            }
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "playMorse", "Play Morse String",
+//                        (dStack, vStack) ->
+//                        {
+//                            try
+//                            {
+//                                String o1 = (String)dStack.pop();
+//                                Morse mors = new Morse (44100);
+//                                byte[] m = mors.morse2Audio(o1);
+//                                SynchronousWavePlayer.playSound(Wave16.makeHeader(m, 44100));
+//                                return 1;
+//                            }
+//                            catch (Exception e)
+//                            {
+//                                return 0;
+//                            }
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

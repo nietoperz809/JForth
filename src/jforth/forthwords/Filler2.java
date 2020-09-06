@@ -887,9 +887,7 @@ class Filler2
                             {
                                 String s1 = Utilities.readString(dStack);
                                 MusicTones mt = new MusicTones();
-                                Wave16 wv = mt.makeSong(44100, s1);
-                                byte[] bts = Wave16.makeHeader(wv.toByteArray(), 44100);
-                                dStack.push(Base64.getEncoder().encodeToString(bts));
+                                mt.makeSong (s1);
                                 return 1;
                             }
                             catch (Exception e)

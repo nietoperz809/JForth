@@ -1,8 +1,10 @@
 package jforth.waves;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.SourceDataLine;
 import java.util.ArrayList;
 
-public class MusicTones
+public class MusicTones extends SynthToneBase
 {
     /**
      * Array of frequencies
@@ -44,13 +46,13 @@ public class MusicTones
         return frequencies[octave][x];
     }
 
-    private Wave16 makeTone (int samplerate, String code)
+    private void makeTone (SourceDataLine line, String code)
     {
         float freq;
         if (code.charAt(0) == 'L')
         {
             multiplier = code.charAt(1)-'0';
-            return null;
+            return;
         }
         if (code.length()==2)
         {
@@ -60,40 +62,41 @@ public class MusicTones
         {
             freq = getFrequency(code.substring(0, 2), code.charAt(2)-'0');
         }
-        return WaveForms.curveSine(samplerate,
-                samplerate*multiplier/2, freq, 0);
+        byte[] out = new byte[10000];  // Todo: calculate length
+        makeSingleWave (freq, out);
+        play (line, out, 100*multiplier);
     }
 
     /**
      * Make song from string
-     * @param samplerate sample rate
      * @param input Input String  (eg. c4d4l3c4d4 means play c4,d4 length=3, then c4d4 again)
-     * @return complete wave sound
      */
-    public Wave16 makeSong (int samplerate, String input)
+    public void makeSong (String input)
     {
         multiplier = 1;
         ArrayList<String> list = parseTones (input);
-        Wave16[] wv = new Wave16[sizeWithoutLs(list)];
-        int counter=0;
-        for (int s=0; s<list.size(); s++)
-        {
-            Wave16 w2 = makeTone(samplerate, list.get(s));
-            if (w2 != null)
-                wv[counter++] = w2;
-        }
-        return Wave16.combineAppend(wv);
-    }
+        if (list == null)
+            return;
 
-    private int sizeWithoutLs (ArrayList<String> in)
-    {
-        int ret=0;
-        for (String s : in)
+        try
         {
-            if (s.charAt(0) != 'L')
-                ret++;
+            SourceDataLine line = AudioSystem.getSourceDataLine (af);
+            line.open (af, SAMPLE_RATE);
+            line.start ();
+            play (line, pause, 500);
+
+            for (int s=0; s<list.size(); s++)
+            {
+                makeTone (line, list.get(s));
+            }
+
+            line.drain ();
+            line.close ();
         }
-        return ret;
+        catch (Exception ignored)
+        {
+            System.out.println (ignored);
+        }
     }
 
     /**
