@@ -1,17 +1,19 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.waves.*;
+import jforth.waves.DtmfMorsePlayer;
+import jforth.waves.Morse;
+import jforth.waves.MusicTones;
 import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -140,7 +142,13 @@ class Filler2
                             byte[] b = null;
                             if (o1 instanceof String)
                             {
-                                b = ((String) o1).getBytes(StandardCharsets.ISO_8859_1);
+                                try
+                                {
+                                    b = ((String) o1).getBytes(JForth.ENCODING);
+                                } catch (UnsupportedEncodingException e)
+                                {
+                                    return 0;
+                                }
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
@@ -210,7 +218,7 @@ class Filler2
                                 String hash = Utilities.readString(dStack);
                                 String input = Utilities.readString(dStack);
                                 MessageDigest md = MessageDigest.getInstance(hash);
-                                dStack.push(new DoubleSequence(md.digest(input.getBytes(StandardCharsets.ISO_8859_1))));
+                                dStack.push(new DoubleSequence(md.digest(input.getBytes(JForth.ENCODING))));
                                 return 1;
                             }
                             catch (Exception ex)
@@ -904,7 +912,7 @@ class Filler2
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                SynthTone.playDtmfString (s1);
+                                DtmfMorsePlayer.playDtmfString (s1);
                                 return 1;
                             }
                             catch (Exception e)
@@ -923,7 +931,7 @@ class Filler2
                             try
                             {
                                 String s1 = Utilities.readString(dStack);
-                                SynthTone.playMorseString (Morse.text2Morse(s1));
+                                DtmfMorsePlayer.playMorseString (Morse.text2Morse(s1));
                                 return 1;
                             }
                             catch (Exception e)

@@ -54,6 +54,16 @@ public class Morse
         dict.put('@', "\u00b7--\u00b7-\u00b7");
     }
 
+    private static boolean isAlreadyMorse (String in)
+    {
+        for (char c : in.toCharArray ())
+        {
+            if (c != '-' && c != '\u00b7' && c != ' ')
+                return false;
+        }
+        return true;
+    }
+
     /**
      * Converts text into morse representation
      * @param in Clear Text
@@ -61,6 +71,8 @@ public class Morse
      */
     public static String text2Morse (String in)
     {
+        if (isAlreadyMorse (in))
+            return in;
         StringBuilder out = new StringBuilder();
         in = in.toUpperCase();
         for (int s=0; s<in.length(); s++)

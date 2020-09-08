@@ -1009,4 +1009,24 @@ public class TestCases
         shoudBeOK ("ptr" ,s);
     }
 
+    @Test
+    public void morseTest()
+    {
+        String s = check ("\"hello world\" morsetxt",
+                ".");
+        shoudBeOK ("···· · ·-·· ·-·· ---  ·-- --- ·-· ·-·· -··" ,s);
+    }
+
+    @Test
+    public void soundTest()
+    {
+        check ("1234 dtmf abcd dtmf sos morse c4c5c6c7 tune 1000 300 beep 1000 200 beep", ".");
+    }
+
+    @Test
+    public void binHexInputTest()
+    {
+        String s = check ("0xc000 _ 0b1001","...");
+        shoudBeOK ("9_49152" ,s);
+    }
 }

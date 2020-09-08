@@ -141,18 +141,13 @@ public class MusicTones extends SynthToneBase
 
         try
         {
-            SourceDataLine line = AudioSystem.getSourceDataLine (af);
-            line.open (af, SAMPLE_RATE);
-            line.start ();
-            play (line, pause, 500);
+            SourceDataLine line = openLine();
 
             for (String value : list)
             {
                 makeTone (line, value);
             }
-
-            line.drain ();
-            line.close ();
+            closeLine (line);
         }
         catch (Exception ignored)
         {

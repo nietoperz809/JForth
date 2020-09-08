@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 
 public class SimpleWebserver
@@ -58,9 +59,9 @@ public class SimpleWebserver
             String cmd = URLDecoder.decode(split[1], "UTF-8");
             forth.singleShot(cmd);
             String erg = _ss.toString();
-            //os.write(cmd.getBytes());
-            //os.write("\n".getBytes());
-            os.write(erg.getBytes(), 0, erg.length() - 2);
+            erg.replace ("·","&#xb7;"); // replace morse dots
+            byte[] arr = erg.getBytes (StandardCharsets.UTF_8);
+            os.write(arr, 0, arr.length - 8);
             _ss.clear ();
         }
         else if (split[0].equals("/headline"))

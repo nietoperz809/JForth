@@ -422,7 +422,7 @@ public class DoubleSequence
     {
         try
         {
-            return asString().getBytes("ISO-8859-1");
+            return asString().getBytes(JForth.ENCODING);
         }
         catch (UnsupportedEncodingException e)
         {
