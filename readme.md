@@ -16,10 +16,13 @@ Currently supported data types
 `Numbers can be typed using the following notations:`
 
 Long
-> Ex: 1234
+> Ex: 1234  
+0xffd2 ( hex input)  
+0b1100101 ( binary input)   
+01:00:00 ( equals 3600, timer value hh:mm:ss)
 
 Double
-> Ex: 123.456
+> Ex: 123.456 
 
 BigInt
 > Ex: 123456789012345678901234567890L
