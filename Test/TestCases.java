@@ -1029,4 +1029,11 @@ public class TestCases
         String s = check ("0xc000 _ 0b1001","...");
         shoudBeOK ("9_49152" ,s);
     }
+
+    @Test
+    public void binStrTest()
+    {
+        String s = check ("1234 dup binstr swap \"-\" swap hexstr","...");
+        shoudBeOK ("4d2-10011010010" ,s);
+    }
 }

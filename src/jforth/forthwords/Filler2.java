@@ -170,6 +170,25 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
+                        "binStr", "Make binary String",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                long ll = Utilities.readLong (dStack);
+                                String ss = Long.toBinaryString (ll);
+                                dStack.push (ss);
+                                return 1;
+                            }
+                            catch (Exception e)
+                            {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "unhexStr", "Make Hexstr to Bytes",
                         (dStack, vStack) ->
                         {
