@@ -12,8 +12,8 @@ Have fun.
 
 Currently supported data types
 ------------------------------
-`As of JForth, Build: 1689, 01/19/2020 09:05:28 PM`
-`Numbers can be typed using the following notations:`
+`As of JForth, 1892, 09/09/2020`
+`Input can be typed using the following notations:`
 
 Long
 > Ex: 1234  
@@ -41,6 +41,15 @@ Complex
 
 Fraction
 > 3/4
+
+String
+> "hello"   
+>hello ( without quotes if not defined as forthword)
+
+Comment
+> ( a comment: open bracket, space, text, close bracket)   
+>( another comment: open bracket, space, text, space, close bracket )   
+>\\ comment all until line end
 
 
 Predefined Words
