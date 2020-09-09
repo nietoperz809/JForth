@@ -239,6 +239,8 @@ public class JForth
             while (ttype != StreamTokenizer.TT_EOF)
             {
                 String word = st.sval;
+                if (word == null)
+                    return true;
                 if (word.equals ("\\"))   // Comment until line end
                 {
                     return true;
