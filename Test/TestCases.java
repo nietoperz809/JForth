@@ -1036,4 +1036,14 @@ public class TestCases
         String s = check ("1234 dup binstr swap \"-\" swap hexstr","...");
         shoudBeOK ("4d2-10011010010" ,s);
     }
+
+    @Test
+    public void commentTest()
+    {
+        String s = check ("1234 ( a comment ) dup ( next comm.) +",".");
+        shoudBeOK ("2468" ,s);
+        s = check ("1234 \\ some other bullshitt",".");
+        shoudBeOK ("1234" ,s);
+    }
+
 }
