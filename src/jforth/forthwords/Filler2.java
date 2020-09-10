@@ -1126,6 +1126,24 @@ class Filler2
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "bf", "execute brainfuck code",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Utilities.readString (dStack);
+                                String ret = new Brainfuck().interpret (s);
+                                dStack.push (ret);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
     }
 
 }

@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1890";
-    private static final String BUILD_DATE = "09/09/2020 05:38:12 AM";
+    private static final String BUILD_NUMBER = "1897";
+    private static final String BUILD_DATE = "09/10/2020 01:44:46 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -388,12 +388,18 @@ public class Utilities
 
     public static Long parseBinary (String in)
     {
+        int sign = 1;
+        if (in.charAt (0) == '-')
+        {
+            sign = -1;
+            in = in.substring (1);
+        }
         if (in.startsWith ("0b"))
         {
             in = in.substring (2);
             try
             {
-                return Long.parseLong (in, 2);
+                return Long.parseLong (in, 2) * sign;
             }
             catch (NumberFormatException e)
             {
