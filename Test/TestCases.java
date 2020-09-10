@@ -1046,4 +1046,11 @@ public class TestCases
         shoudBeOK ("1234" ,s);
     }
 
+    @Test
+    public void brainFuckTest()
+    {
+        String code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+        String s = check ("\""+code+"\""+" bf",".");
+        shoudBeOK ("Hello World!\n" ,s);
+    }
 }
