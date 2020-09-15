@@ -540,6 +540,6 @@ public class JForth
 
     public void executeFile (String fileName) throws Exception
     {
-        executeFile (Utilities.fileLoad (fileName), false);
+        executeFile (FileUtils.loadStrings (fileName), false);
     }
 }

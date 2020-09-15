@@ -2289,7 +2289,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "lupM", "Determinant of a Matrix",
+                        "lupM", "l/u decomposition of a Matrix",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -2665,6 +2665,10 @@ class Filler1
                             {
                                 dStack.push(((StringSequence) o1).asString());
                             }
+                            else if (o1 instanceof FileBlob)
+                            {
+                                dStack.push(((FileBlob) o1).asString());
+                            }
                             else
                             {
                                 return 0;
@@ -2694,6 +2698,10 @@ class Filler1
                             else if (o1 instanceof StringSequence)
                             {
                                 dStack.push((long) ((StringSequence) o1).length());
+                            }
+                            else if (o1 instanceof FileBlob)
+                            {
+                                dStack.push((long) ((FileBlob) o1).getSize());
                             }
                             else
                             {
@@ -3433,7 +3441,7 @@ class Filler1
                             {
                                 path = ".";
                             }
-                            dStack.push(Utilities.dir(path));
+                            dStack.push(FileUtils.dir(path));
                             return 1;
                         }
                 ));
@@ -3452,7 +3460,7 @@ class Filler1
                             {
                                 return 0;
                             }
-                            return Utilities.del(o) ? 1 : 0;
+                            return FileUtils.del(o) ? 1 : 0;
                         }
                 ));
 

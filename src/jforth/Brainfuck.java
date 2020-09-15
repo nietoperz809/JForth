@@ -37,7 +37,9 @@ public class Brainfuck
             {
                 try
                 {
-                    mem[dptr] = (byte) RawConsoleInput.read (true);
+                    int x = RawConsoleInput.read (true);
+                    if (x != 0x0a)
+                        mem[dptr] = (byte)x;
                 }
                 catch (IOException e)
                 {
@@ -84,12 +86,15 @@ public class Brainfuck
                 }
             }
         }
+        if (sb.length () == 0)
+            return null;
         return sb.toString ();
     }
 
     public static void main (String[] args)
     {
-        String test = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
+        String test = "hallodoof";
+        //String test = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
         String out = new Brainfuck ().interpret (test);
         System.out.println (out);
     }

@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -1135,7 +1136,83 @@ class Filler2
                             {
                                 String s = Utilities.readString (dStack);
                                 String ret = new Brainfuck().interpret (s);
+                                if (ret == null)
+                                    return 0;
                                 dStack.push (ret);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "pwd", "get working directory",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Paths.get("").toAbsolutePath().toString();
+                                dStack.push (s);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "getblob", "read file into memory",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Utilities.readString (dStack);
+                                FileBlob bl = new FileBlob(s);
+                                dStack.push (bl);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "putblob", "read file into memory",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String newpath = Utilities.readString (dStack);
+                                FileBlob bl = Utilities.readBlob (dStack);
+                                bl.put (newpath);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "blobname", "give blob's path",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                FileBlob bl = Utilities.readBlob (dStack);
+                                dStack.push (bl.getPath ());
                                 return 1;
                             }
                             catch (Exception ignored)

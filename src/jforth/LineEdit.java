@@ -170,7 +170,7 @@ public class LineEdit
                 }
                 else if (cmd.equals("dir")) // show directory
                 {
-                    String s = Utilities.dir(".");
+                    String s = FileUtils.dir(".");
                     _out.println(s.trim());
                 }
                 else if (cmd.equals("x"))   // leave editor
@@ -225,17 +225,17 @@ public class LineEdit
 
     private void load (String name) throws Exception
     {
-        list = Utilities.fileLoad(name);
+        list = FileUtils.loadStrings (name);
     }
 
     private void append (String name) throws Exception
     {
-        ArrayList<String> l2 = Utilities.fileLoad(name);
+        ArrayList<String> l2 = FileUtils.loadStrings (name);
         list.addAll(l2);
     }
 
     private void save (String name) throws Exception
     {
-        Utilities.fileSave(list, name);
+        FileUtils.saveStrings (list, name);
     }
 }

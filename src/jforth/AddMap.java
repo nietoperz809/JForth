@@ -31,6 +31,8 @@ class AddMap
         {
             da[n] = ar.get(n);
         }
+//        Double[] vals = ar.values().toArray(new Double[0]);
+//        double[] valsd = Arrays.stream(vals).mapToDouble (Double::doubleValue).toArray();
         return da;
     }
 }

@@ -11,7 +11,6 @@ import tools.TwoFuncs;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +21,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1897";
-    private static final String BUILD_DATE = "09/10/2020 01:44:46 PM";
+    private static final String BUILD_NUMBER = "1923";
+    private static final String BUILD_DATE = "09/15/2020 03:31:22 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -290,46 +289,7 @@ public class Utilities
         return f.getNumerator() + "/" + f.getDenominator();
     }
 
-    public static boolean del (String path)
-    {
-        File f = new File(path);
-        return f.delete();
-    }
-
-    public static String dir (String path)
-    {
-        StringBuilder sb = new StringBuilder();
-        path = path.replace('/','\\');
-        File[] filesInFolder = new File(path).listFiles();
-        if (filesInFolder == null)
-        {
-            return "";
-        }
-        Arrays.sort(filesInFolder, (f1, f2) ->
-        {
-            if (f2.isDirectory())
-            {
-                return 1;
-            }
-            return -1;
-        });
-        for (final File fileEntry : filesInFolder)
-        {
-            String formatted;
-            if (fileEntry.isDirectory())
-            {
-                formatted = String.format("<%s>\n", fileEntry.getName());
-            }
-            else
-            {
-                formatted = String.format("%-15s = %d\n", fileEntry.getName(), fileEntry.length());
-            }
-            sb.append(formatted);
-        }
-        return sb.toString();
-    }
-
-// --Commented out by Inspection START (10/3/2017 10:45 AM):
+    // --Commented out by Inspection START (10/3/2017 10:45 AM):
 //    public static Object deepCopy (Object o)
 //    {
 //        try
@@ -447,24 +407,6 @@ public class Utilities
         }
     }
 
-// --Commented out by Inspection START (10/3/2017 10:45 AM):
-//    public static void saveObject (String name, Object obj) throws IOException
-//    {
-//        String j1 = JsonWriter.objectToJson(obj);
-//        PrintWriter p = new PrintWriter(name + ".json");
-//        p.println(JsonWriter.formatJson(j1));
-//        p.close();
-//    }
-// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
-
-// --Commented out by Inspection START (10/3/2017 10:45 AM):
-//    public static Object loadObject (String name) throws IOException
-//    {
-//        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
-//        String s = new String(b);
-//        return JsonReader.jsonToJava(s);
-//    }
-// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
 
     public static List<String> splitEqually (String text, int size)
     {
@@ -646,6 +588,20 @@ public class Utilities
         return getBig(o);
     }
 
+    public static FileBlob readBlob (OStack stack) throws Exception
+    {
+        return getBlob (stack.pop());
+
+    }
+
+    public static FileBlob getBlob (Object o) throws Exception
+    {
+        if (o instanceof FileBlob)
+            return (FileBlob)o;
+        throw new Exception ("no blob");
+    }
+
+
     private static BigInteger getBig (Object o1) throws Exception
     {
         if (o1 instanceof BigInteger)
@@ -661,37 +617,6 @@ public class Utilities
             return BigInteger.valueOf(((Double) o1).longValue());
         }
         throw new Exception("Wrong args");
-    }
-
-    public static void fileSave (ArrayList<String> as, String filename) throws Exception
-    {
-            FileWriter fw = new FileWriter(filename);
-            for (String str : as)
-            {
-                fw.write(str + "\n");
-            }
-            fw.close();
-    }
-
-    public static ArrayList<String> fileLoad (String fileName) throws Exception
-    {
-        ArrayList<String> ret = new ArrayList<>();
-        BufferedReader file = new BufferedReader(new FileReader(fileName));
-        while (file.ready())
-        {
-            String s = file.readLine();
-            if (s == null)
-            {
-                break;
-            }
-            s = s.trim();
-            if (!s.isEmpty())
-            {
-                ret.add(s);
-            }
-        }
-        file.close();
-        return ret;
     }
 
     public static String readStringOrNull (OStack dstack)

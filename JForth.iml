@@ -19,7 +19,6 @@
     <orderEntry type="library" name="com.cedarsoftware:json-io:4.9.10" level="project" />
     <orderEntry type="library" name="net.java.dev.jna:jna:4.4.0" level="project" />
     <orderEntry type="library" name="org.fusesource.jansi:jansi:1.15" level="project" />
-    <orderEntry type="library" name="scala-sdk-2.12.1" level="application" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -36,7 +35,6 @@
     <orderEntry type="library" name="cmutimelex" level="project" />
     <orderEntry type="library" name="mathIT" level="project" />
     <orderEntry type="library" name="asciiart-core-1.0.0" level="project" />
-    <orderEntry type="library" name="scala-sdk-2.12.1" level="application" />
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.0" level="project" />
   </component>
 </module>

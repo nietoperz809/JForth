@@ -25,12 +25,12 @@ public class History
 
     public void save () throws Exception
     {
-        Utilities.fileSave(history, HISTORYFILENAME);
+        FileUtils.saveStrings (history, HISTORYFILENAME);
     }
 
     public void load () throws Exception
     {
-        history = Utilities.fileLoad(HISTORYFILENAME);
+        history = FileUtils.loadStrings (HISTORYFILENAME);
     }
 
     public void add (String s)
