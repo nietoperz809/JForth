@@ -10,7 +10,6 @@ import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -420,14 +419,7 @@ public class DoubleSequence
 
     public byte[] asBytes()
     {
-        try
-        {
-            return asString().getBytes(JForth.ENCODING);
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            return null;
-        }
+        return asString().getBytes(JForth.ENCODING);
     }
 
     /**

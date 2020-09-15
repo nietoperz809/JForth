@@ -1,15 +1,15 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.waves.DtmfMorsePlayer;
-import jforth.waves.Morse;
-import jforth.waves.MusicTones;
+import jforth.audio.DtmfMorsePlayer;
+import jforth.audio.Morse;
+import jforth.audio.MusicTones;
 import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.swing.*;
-import java.io.UnsupportedEncodingException;
+import java.io.File;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.URLDecoder;
@@ -143,13 +143,7 @@ class Filler2
                             byte[] b = null;
                             if (o1 instanceof String)
                             {
-                                try
-                                {
-                                    b = ((String) o1).getBytes(JForth.ENCODING);
-                                } catch (UnsupportedEncodingException e)
-                                {
-                                    return 0;
-                                }
+                                b = ((String) o1).getBytes(JForth.ENCODING);
                             }
                             else if (o1 instanceof DoubleSequence)
                             {
@@ -296,7 +290,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                String encoded = URLEncoder.encode(ss,JForth.ENCODING);
+                                String encoded = URLEncoder.encode (ss, JForth.ENCODING.name ());
                                 dStack.push(encoded);
                                 return 1;
                             }
@@ -315,7 +309,7 @@ class Filler2
                             try
                             {
                                 String ss = Utilities.readString(dStack);
-                                String encoded = URLDecoder.decode(ss,JForth.ENCODING);
+                                String encoded = URLDecoder.decode(ss,JForth.ENCODING.name ());
                                 dStack.push(encoded);
                                 return 1;
                             }
@@ -1221,6 +1215,24 @@ class Filler2
                             return 0;
                         }
                 ));
-    }
 
+        _fw.add(new PrimitiveWord
+                (
+                        "playWav", "play Wave file",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Utilities.readString (dStack);
+                                File f = new File(s);
+                                Utilities.playWave (f);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+    }
 }

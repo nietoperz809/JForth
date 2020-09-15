@@ -1,6 +1,7 @@
 package jforth;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -21,6 +22,17 @@ public class FileBlob
         _path = dest;
     }
 
+    public void xor (String key)
+    {
+        byte[] k2 = key.getBytes (StandardCharsets.ISO_8859_1);
+        int idx = 0;
+        for (int i=0; i<content.length; i++)
+        {
+            content[i] = (byte) (content[i]^k2[idx]);
+            idx = (idx+1)%k2.length;
+        }
+    }
+
     public String getPath()
     {
         return _path;
@@ -33,6 +45,6 @@ public class FileBlob
 
     public String asString()
     {
-        return new String (content);
+        return new String (content, StandardCharsets.ISO_8859_1);
     }
 }

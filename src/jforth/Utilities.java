@@ -8,6 +8,7 @@ import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import tools.TwoFuncs;
 
+import javax.sound.sampled.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1923";
-    private static final String BUILD_DATE = "09/15/2020 03:31:22 PM";
+    private static final String BUILD_NUMBER = "1929";
+    private static final String BUILD_DATE = "09/15/2020 07:27:54 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -1145,4 +1146,23 @@ public class Utilities
         return sb.toString();
     }
 
-}
+    public static void playWave(File file)
+    {
+        try
+        {
+            final Clip clip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+
+            clip.addLineListener(event ->
+            {
+                if (event.getType() == LineEvent.Type.STOP)
+                    clip.close();
+            });
+
+            clip.open(AudioSystem.getAudioInputStream(file));
+            clip.start();
+        }
+        catch (Exception exc)
+        {
+            exc.printStackTrace(System.out);
+        }
+    }}

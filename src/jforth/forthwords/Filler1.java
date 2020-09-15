@@ -1205,6 +1205,13 @@ class Filler1
                                 i2 ^= i1;
                                 dStack.push(i2);
                             }
+                            else if ((o1 instanceof String) && (o2 instanceof FileBlob))
+                            {
+                                String s = (String) o1;
+                                FileBlob fb = (FileBlob) o2;
+                                fb.xor (s);
+                                dStack.push(fb);
+                            }
                             else
                             {
                                 return 0;
@@ -1761,7 +1768,7 @@ class Filler1
                         {
                             try
                             {
-                                Double d1 = Utilities.readDouble(dStack);
+                                double d1 = Utilities.readDouble(dStack);
                                 double r = Math.pow(10, d1);
                                 Object o = dStack.pop();
                                 if (o instanceof PolynomialFunction)
@@ -2222,11 +2229,11 @@ class Filler1
                             {
                                 DoubleSequence d1 = Utilities.getDoubleSequence(o1);
                                 DoubleSequence d2 = Utilities.getDoubleSequence(o2);
-                                DoubleSequence ds = new DoubleSequence().mixin(d2, d1);
+                                DoubleSequence ds = DoubleSequence.mixin(d2, d1);
                                 dStack.push(ds);
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception ignored)
                             {
                             }
                             try
@@ -2237,7 +2244,7 @@ class Filler1
                                 dStack.push(ds);
                                 return 1;
                             }
-                            catch (Exception e)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -2345,8 +2352,8 @@ class Filler1
                         {
                             try
                             {
-                                Long d = Utilities.readLong(dStack);
-                                dStack.push(DoubleMatrix.identity(d.intValue()));
+                                long d = Utilities.readLong(dStack);
+                                dStack.push(DoubleMatrix.identity((int) d));
                                 return 1;
                             }
                             catch (Exception ex)
@@ -2825,7 +2832,7 @@ class Filler1
                         {
                             try
                             {
-                                Long num = Utilities.readLong(dStack);
+                                long num = Utilities.readLong(dStack);
 //                                boolean t = LongStream.rangeClosed(2, (long) Math.sqrt(num)).noneMatch(div -> num % div == 0);
                                 DoubleSequence ds = DoubleSequence.primeFactors(num);
                                 dStack.push(ds.length() == 1 ? JForth.TRUE : JForth.FALSE);
@@ -2850,7 +2857,7 @@ class Filler1
                                 dStack.push(DoubleSequence.primeFactors(o1));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             try
@@ -2860,7 +2867,7 @@ class Filler1
                                 dStack.push(new StringSequence(split));
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -3174,8 +3181,8 @@ class Filler1
                         {
                             try
                             {
-                                Double o1 = Utilities.readDouble(dStack);
-                                Double o2 = Utilities.readDouble(dStack);
+                                double o1 = Utilities.readDouble(dStack);
+                                double o2 = Utilities.readDouble(dStack);
                                 dStack.push(Math.atan2(o2, o1));
                                 return 1;
                             }
@@ -3370,7 +3377,7 @@ class Filler1
                         {
                             try
                             {
-                                Long lo = Utilities.readLong(dStack);
+                                long lo = Utilities.readLong(dStack);
                                 double number = random.nextDouble() * lo;
                                 dStack.push(number);
                                 return 1;
@@ -3897,7 +3904,7 @@ class Filler1
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -3932,7 +3939,7 @@ class Filler1
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -3966,7 +3973,7 @@ class Filler1
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -4108,7 +4115,7 @@ class Filler1
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;

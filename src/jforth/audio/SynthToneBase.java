@@ -1,4 +1,4 @@
-package jforth.waves;
+package jforth.audio;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;

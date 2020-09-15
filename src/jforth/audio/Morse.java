@@ -1,4 +1,4 @@
-package jforth.waves;
+package jforth.audio;
 
 import java.util.HashMap;
 
