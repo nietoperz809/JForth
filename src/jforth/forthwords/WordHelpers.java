@@ -78,7 +78,24 @@ class WordHelpers
         catch (Exception ignored)
         {
         }
-        if ((o1 instanceof Long) && (o2 instanceof Long))
+        if (o2 instanceof FileBlob) // Fileblob handling
+        {
+            if (o1 instanceof FileBlob)
+            {
+                ((FileBlob) o2).append ((FileBlob)o1);
+            }
+            else if (o1 instanceof String)
+            {
+                ((FileBlob) o2).append ((String)o1);
+            }
+            else
+            {
+                return 0;
+            }
+            dStack.push (o2);
+            return 1;
+        }
+        else if ((o1 instanceof Long) && (o2 instanceof Long))
         {
             long i1 = (Long) o1;
             long i2 = (Long) o2;

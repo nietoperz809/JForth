@@ -7,12 +7,14 @@ import jforth.RuntimeEnvironment;
 import jforth.Utilities;
 import tools.StringStream;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 
 public class SimpleWebserver
@@ -91,11 +93,12 @@ public class SimpleWebserver
 
     private void sendResource (String name, OutputStream os) throws IOException
     {
-        InputStream jqStream = ClassLoader.getSystemResourceAsStream(name);
+        InputStream is = ClassLoader.getSystemResourceAsStream(name);
+        BufferedInputStream bis = new BufferedInputStream (Objects.requireNonNull (is));
         byte[] buff = new byte[1024];
         for (; ; )
         {
-            int r = jqStream.read(buff);
+            int r = bis.read(buff);
             if (r == -1)
             {
                 break;

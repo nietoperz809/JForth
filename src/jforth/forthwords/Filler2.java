@@ -8,6 +8,7 @@ import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.io.File;
 import java.lang.reflect.Method;
@@ -1181,7 +1182,26 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "putblob", "read file into memory",
+                        "mkblob", "make file from String",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String s = Utilities.readString (dStack);
+                                FileBlob bl = FileBlob.fromStringData (s);
+                                dStack.push (bl);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "putblob", "write blob to disk",
                         (dStack, vStack) ->
                         {
                             try
@@ -1200,7 +1220,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "blobname", "give blob's path",
+                        "blobname", "puts blob's path name on stack",
                         (dStack, vStack) ->
                         {
                             try
@@ -1225,7 +1245,8 @@ class Filler2
                             {
                                 String s = Utilities.readString (dStack);
                                 File f = new File(s);
-                                Utilities.playWave (f);
+                                Clip cl = Utilities.playWave (f);
+                                dStack.push(cl);
                                 return 1;
                             }
                             catch (Exception ignored)
@@ -1234,5 +1255,24 @@ class Filler2
                             return 0;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "stopWav", "stop playing wave clip",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                Clip s = (Clip)dStack.pop();
+                                Utilities.stopWave (s);
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
     }
 }

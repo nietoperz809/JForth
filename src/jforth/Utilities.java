@@ -8,12 +8,15 @@ import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import tools.TwoFuncs;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 //import java.util.function.BiFunction;
 
@@ -22,55 +25,62 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1929";
-    private static final String BUILD_DATE = "09/15/2020 07:27:54 PM";
+    private static final String BUILD_NUMBER = "1938";
+    private static final String BUILD_DATE = "09/22/2020 02:55:05 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
-            + " -- " + System.getProperty("java.version");
+            + " -- " + System.getProperty ("java.version");
 
 
-    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+    private static final char[] hexCode = "0123456789ABCDEF".toCharArray ();
 
-    public static String printHexBinary(byte[] data)
+    public static String printHexBinary (byte[] data)
     {
-        StringBuilder r = new StringBuilder(data.length * 2);
-        for (byte b : data) {
-            r.append(hexCode[(b >> 4) & 0xF]);
-            r.append(hexCode[(b & 0xF)]);
+        StringBuilder r = new StringBuilder (data.length * 2);
+        for (byte b : data)
+        {
+            r.append (hexCode[(b >> 4) & 0xF]);
+            r.append (hexCode[(b & 0xF)]);
         }
-        return r.toString();
+        return r.toString ();
     }
 
-    public static int hexToBin(char ch)
+    public static int hexToBin (char ch)
     {
-        if ('0' <= ch && ch <= '9') {
+        if ('0' <= ch && ch <= '9')
+        {
             return ch - '0';
         }
-        if ('A' <= ch && ch <= 'F') {
+        if ('A' <= ch && ch <= 'F')
+        {
             return ch - 'A' + 10;
         }
-        if ('a' <= ch && ch <= 'f') {
+        if ('a' <= ch && ch <= 'f')
+        {
             return ch - 'a' + 10;
         }
         return -1;
     }
 
-    public static byte[] parseHexBinary(String s)
+    public static byte[] parseHexBinary (String s)
     {
-        final int len = s.length();
+        final int len = s.length ();
 
         // "111" is not a valid hex encoding.
-        if (len % 2 != 0) {
-            throw new IllegalArgumentException("hexBinary needs to be even-length: " + s);
+        if (len % 2 != 0)
+        {
+            throw new IllegalArgumentException ("hexBinary needs to be even-length: " + s);
         }
 
         byte[] out = new byte[len / 2];
 
-        for (int i = 0; i < len; i += 2) {
-            int h = hexToBin(s.charAt(i));
-            int l = hexToBin(s.charAt(i + 1));
-            if (h == -1 || l == -1) {
-                throw new IllegalArgumentException("contains illegal character for hexBinary: " + s);
+        for (int i = 0; i < len; i += 2)
+        {
+            int h = hexToBin (s.charAt (i));
+            int l = hexToBin (s.charAt (i + 1));
+            if (h == -1 || l == -1)
+            {
+                throw new IllegalArgumentException ("contains illegal character for hexBinary: " + s);
             }
 
             out[i / 2] = (byte) (h * 16 + l);
@@ -81,22 +91,22 @@ public class Utilities
 
     public static BigInteger factorial (long n)
     {
-        BigInteger fact = BigInteger.valueOf(1);
+        BigInteger fact = BigInteger.valueOf (1);
         for (int i = 1; i <= n; i++)
         {
-            fact = fact.multiply (BigInteger.valueOf(i));
+            fact = fact.multiply (BigInteger.valueOf (i));
         }
         return fact;
     }
 
-    public static BigInteger fib(long n)
+    public static BigInteger fib (long n)
     {
-        BigInteger a = BigInteger.valueOf(0);
-        BigInteger b = BigInteger.valueOf(1);
+        BigInteger a = BigInteger.valueOf (0);
+        BigInteger b = BigInteger.valueOf (1);
         BigInteger c;
-        for (long j=2 ; j<=n ; j++)
+        for (long j = 2; j <= n; j++)
         {
-            c =  a.add(b);
+            c = a.add (b);
             a = b;
             b = c;
         }
@@ -105,28 +115,36 @@ public class Utilities
 
     /**
      * Makes seconds from hh:mm:ss format
+     *
      * @param in input string
      * @return value in seconds
      */
     public static Long parseTimer (String in)
     {
-        String[] parts = in.split(":");
+        String[] parts = in.split (":");
         if (parts.length != 3)
+        {
             return null;
+        }
         try
         {
-            int h = Integer.parseInt(parts[0]);
-            if (h<0)
+            int h = Integer.parseInt (parts[0]);
+            if (h < 0)
+            {
                 return null;
-            int m = Integer.parseInt(parts[1]);
-            if (m<0 || m>59)
+            }
+            int m = Integer.parseInt (parts[1]);
+            if (m < 0 || m > 59)
+            {
                 return null;
-            int s = Integer.parseInt(parts[2]);
-            if (s<0 || s>59)
+            }
+            int s = Integer.parseInt (parts[2]);
+            if (s < 0 || s > 59)
+            {
                 return null;
-            return (long)(3600*h + 60*m + s);
-        }
-        catch (NumberFormatException e)
+            }
+            return (long) (3600 * h + 60 * m + s);
+        } catch (NumberFormatException e)
         {
             return null;
         }
@@ -134,64 +152,69 @@ public class Utilities
 
     public static String toTimeView (Long in)
     {
-        int h = (int)(in/3600);
-        int s = (int)(in%3600);
-        int m = (int)(s/60);
+        int h = (int) (in / 3600);
+        int s = (int) (in % 3600);
+        int m = (int) (s / 60);
         s %= 60;
-        return String.format("%d:%02d:%02d", h,m,s);
+        return String.format ("%d:%02d:%02d", h, m, s);
     }
 
     public static byte[] toRawByteArray (String in)
     {
-        char[] chars = in.toCharArray();
-        byte[] bytes = new byte[chars.length*2];
-        for(int i=0;i<chars.length;i++)
+        char[] chars = in.toCharArray ();
+        byte[] bytes = new byte[chars.length * 2];
+        for (int i = 0; i < chars.length; i++)
         {
-            bytes[i*2] = (byte) (chars[i] >> 8);
-            bytes[i*2+1] = (byte) chars[i];
+            bytes[i * 2] = (byte) (chars[i] >> 8);
+            bytes[i * 2 + 1] = (byte) chars[i];
         }
         return bytes;
     }
 
     public static char[] fromRawByteArray (byte[] bytes)
     {
-        char[] chars2 = new char[bytes.length/2];
-        for(int i=0;i<chars2.length;i++)
-            chars2[i] = (char) ((bytes[i*2] << 8) + (bytes[i*2+1] & 0xFF));
+        char[] chars2 = new char[bytes.length / 2];
+        for (int i = 0; i < chars2.length; i++)
+        {
+            chars2[i] = (char) ((bytes[i * 2] << 8) + (bytes[i * 2 + 1] & 0xFF));
+        }
         return chars2;
     }
 
     public static void terminateSoon (int delay)
     {
-        new Thread(() ->
+        new Thread (() ->
         {
             try
             {
-                Thread.sleep(delay);
-            }
-            catch (InterruptedException e)
+                Thread.sleep (delay);
+            } catch (InterruptedException e)
             {
-                e.printStackTrace();
+                e.printStackTrace ();
             }
-            System.exit(0);
-        }).start();
+            System.exit (0);
+        }).start ();
     }
 
     public static String formatDouble (Double d)
     {
-        String outstr = Double.toString(d);
-        if (outstr.endsWith(".0"))
-            outstr = outstr.substring(0, outstr.length() - 2);
-        if (outstr.equals("-0"))
+        String outstr = Double.toString (d);
+        if (outstr.endsWith (".0"))
+        {
+            outstr = outstr.substring (0, outstr.length () - 2);
+        }
+        if (outstr.equals ("-0"))
+        {
             outstr = "0";
+        }
         return outstr;
     }
 
     public static String formatComplex (Complex c)
     {
-        String re = formatDouble(c.getReal());
-        String im = formatDouble(c.getImaginary());
-        if (im.equals("0"))
+        String re = formatDouble (c.getReal ());
+        String im = formatDouble (c.getImaginary ());
+        if (im.equals ("0"))
         {
             return re;
         }
@@ -199,29 +222,32 @@ public class Utilities
         {
             return im + "i";
         }
-        if (im.charAt(0)=='-')
+        if (im.charAt (0) == '-')
+        {
             return re + im + "i";
+        }
         return re + "+" + im + "i";
     }
 
     static Complex parseOnlyImaginary (String in)
     {
-        int sign = in.charAt (0) == '-' ? -1: 1;
+        int sign = in.charAt (0) == '-' ? -1 : 1;
         if (sign == -1)
         {
             in = in.substring (1);
         }
-        if (in.charAt(in.length()-1) !='i')
+        if (in.charAt (in.length () - 1) != 'i')
+        {
             return null;
-        String num = in.substring (0, in.length ()-1);
+        }
+        String num = in.substring (0, in.length () - 1);
         try
         {
             int inum = Integer.parseInt (num);
-            return new Complex (0, inum*sign);
-        }
-        catch (NumberFormatException e)
+            return new Complex (0, inum * sign);
+        } catch (NumberFormatException e)
         {
-            /* ignored */ 
+            /* ignored */
         }
         return null;
     }
@@ -234,32 +260,34 @@ public class Utilities
         }
         Complex cpl = parseOnlyImaginary (in);
         if (cpl != null)
-            return cpl;
-        boolean negfirst = false;
-        if (in.startsWith("-"))
         {
-            in = in.substring(1);
+            return cpl;
+        }
+        boolean negfirst = false;
+        if (in.startsWith ("-"))
+        {
+            in = in.substring (1);
             negfirst = true;
         }
-        String[] parts = in.split("(-)|(\\+)");
+        String[] parts = in.split ("(-)|(\\+)");
         if (parts.length != 2)
         {
             return null;
         }
-        if (!parts[1].endsWith("i"))
+        if (!parts[1].endsWith ("i"))
         {
             return null;
         }
-        parts[1] = parts[1].substring(0, parts[1].length() - 1);
+        parts[1] = parts[1].substring (0, parts[1].length () - 1);
         if (negfirst)
         {
             parts[0] = "-" + parts[0];
         }
-        if (in.substring(1).contains("-"))
+        if (in.substring (1).contains ("-"))
         {
             parts[1] = "-" + parts[1];
         }
-        return new Complex(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
+        return new Complex (Double.parseDouble (parts[0]), Double.parseDouble (parts[1]));
     }
 
     static Fraction parseFraction (String in, int base)
@@ -268,16 +296,15 @@ public class Utilities
         {
             return null;
         }
-        String[] parts = in.split("/");
+        String[] parts = in.split ("/");
         if (parts.length != 2)
         {
             return null;
         }
         try
         {
-            return new Fraction(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-        }
-        catch (NumberFormatException e)
+            return new Fraction (Integer.parseInt (parts[0]), Integer.parseInt (parts[1]));
+        } catch (NumberFormatException e)
         {
             return null;
         }
@@ -285,9 +312,11 @@ public class Utilities
 
     public static String formatFraction (Fraction f)
     {
-        if (f.getDenominator() == 1)
-            return ""+f.getNumerator();
-        return f.getNumerator() + "/" + f.getDenominator();
+        if (f.getDenominator () == 1)
+        {
+            return "" + f.getNumerator ();
+        }
+        return f.getNumerator () + "/" + f.getDenominator ();
     }
 
     // --Commented out by Inspection START (10/3/2017 10:45 AM):
@@ -312,7 +341,7 @@ public class Utilities
 
     public static String removeTrailingZero (double v)
     {
-        return removeTrailingZero(v, false);
+        return removeTrailingZero (v, false);
     }
 
     public static String removeTrailingZero (double v, boolean round)
@@ -320,12 +349,12 @@ public class Utilities
         String str;
         if (round)
         {
-            v = Math.round(10000.0 * v) / 10000.0;
+            v = Math.round (10000.0 * v) / 10000.0;
         }
         str = "" + v;
-        if (str.endsWith(".0"))
+        if (str.endsWith (".0"))
         {
-            return str.substring(0, str.length() - 2);
+            return str.substring (0, str.length () - 2);
         }
         return str;
     }
@@ -334,14 +363,13 @@ public class Utilities
     {
         try
         {
-            if (word.endsWith("L"))
+            if (word.endsWith ("L"))
             {
-                word = word.substring(0, word.length() - 1);
+                word = word.substring (0, word.length () - 1);
                 return new BigInteger (word, base);
             }
             return null;
-        }
-        catch (Exception ignored)
+        } catch (Exception ignored)
         {
             return null;
         }
@@ -361,8 +389,7 @@ public class Utilities
             try
             {
                 return Long.parseLong (in, 2) * sign;
-            }
-            catch (NumberFormatException e)
+            } catch (NumberFormatException e)
             {
                 return null;
             }
@@ -374,19 +401,19 @@ public class Utilities
     {
         try
         {
-            return Long.parseLong(word, base);
-        }
-        catch (NumberFormatException ignored)
+            return Long.parseLong (word, base);
+        } catch (NumberFormatException ignored)
         {
             try
             {
-                return  Long.decode (word);
-            }
-            catch (NumberFormatException e)
+                return Long.decode (word);
+            } catch (NumberFormatException e)
             {
                 Long ll = parseBinary (word);
                 if (ll == null)
+                {
                     return parseTimer (word);
+                }
                 return ll;
             }
         }
@@ -400,9 +427,8 @@ public class Utilities
         }
         try
         {
-            return Double.parseDouble(word);
-        }
-        catch (Exception ignored)
+            return Double.parseDouble (word);
+        } catch (Exception ignored)
         {
             return null;
         }
@@ -413,14 +439,13 @@ public class Utilities
     {
         try
         {
-            List<String> ret = new ArrayList<>((text.length() + size - 1) / size);
-            for (int start = 0; start < text.length(); start += size)
+            List<String> ret = new ArrayList<> ((text.length () + size - 1) / size);
+            for (int start = 0; start < text.length (); start += size)
             {
-                ret.add(text.substring(start, Math.min(text.length(), start + size)));
+                ret.add (text.substring (start, Math.min (text.length (), start + size)));
             }
             return ret;
-        }
-        catch (Exception unused)
+        } catch (Exception unused)
         {
             return null;
         }
@@ -430,14 +455,13 @@ public class Utilities
     {
         try
         {
-            List<DoubleSequence> ret = new ArrayList<>((text.length() + size - 1) / size);
-            for (int start = 0; start < text.length(); start += size)
+            List<DoubleSequence> ret = new ArrayList<> ((text.length () + size - 1) / size);
+            for (int start = 0; start < text.length (); start += size)
             {
-                ret.add(text.subList(start, Math.min(text.length(), start + size)));
+                ret.add (text.subList (start, Math.min (text.length (), start + size)));
             }
             return ret;
-        }
-        catch (Exception unused)
+        } catch (Exception unused)
         {
             return null;
         }
@@ -445,19 +469,19 @@ public class Utilities
 
     public static String parseString (String in)
     {
-        if (in.length() < 2)
+        if (in.length () < 2)
         {
             return null;
         }
-        if (!in.startsWith("\""))
+        if (!in.startsWith ("\""))
         {
             return null;
         }
-        if (!in.endsWith("\""))
+        if (!in.endsWith ("\""))
         {
             return null;
         }
-        return in.substring(1, in.length() - 1);
+        return in.substring (1, in.length () - 1);
     }
 
 
@@ -465,8 +489,8 @@ public class Utilities
     {
         while (num-- != 0)
         {
-            char last = in.charAt(in.length() - 1);
-            in = "" + last + in.substring(0, in.length() - 1);
+            char last = in.charAt (in.length () - 1);
+            in = "" + last + in.substring (0, in.length () - 1);
         }
         return in;
     }
@@ -475,16 +499,16 @@ public class Utilities
     {
         while (num-- != 0)
         {
-            char last = in.charAt(0);
-            in = in.substring(1) + last;
+            char last = in.charAt (0);
+            in = in.substring (1) + last;
         }
         return in;
     }
 
     public static double readDouble (OStack dStack) throws Exception
     {
-        Object o = dStack.pop();
-        return getDouble(o);
+        Object o = dStack.pop ();
+        return getDouble (o);
     }
 
     static public boolean canBeDouble (Object o1)
@@ -505,18 +529,14 @@ public class Utilities
         {
             return true;
         }
-        if (o1 instanceof Complex)
-        {
-            return true;
-        }
-        return false;
+        return o1 instanceof Complex;
     }
 
     static public Double getDouble (Object o1) throws Exception
     {
         if (o1 instanceof BigInteger)
         {
-            return ((BigInteger) o1).doubleValue();
+            return ((BigInteger) o1).doubleValue ();
         }
         if (o1 instanceof Double)
         {
@@ -524,31 +544,33 @@ public class Utilities
         }
         if (o1 instanceof Long)
         {
-            return ((Long) o1).doubleValue();
+            return ((Long) o1).doubleValue ();
         }
         if (o1 instanceof Fraction)
         {
-            double denom = ((Fraction) o1).getDenominator();
-            double nume = ((Fraction) o1).getNumerator();
+            double denom = ((Fraction) o1).getDenominator ();
+            double nume = ((Fraction) o1).getNumerator ();
             return nume / denom;
         }
         if (o1 instanceof Complex)
         {
-            Complex c = (Complex)o1;
-            if (c.getImaginary() == 0.0)
-                return c.getReal();
+            Complex c = (Complex) o1;
+            if (c.getImaginary () == 0.0)
+            {
+                return c.getReal ();
+            }
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static long readLong (OStack dStack) throws Exception
     {
-        return getLong(dStack.pop());
+        return getLong (dStack.pop ());
     }
 
     public static FileInputStream readFileInputStream (OStack dStack)
     {
-        return (FileInputStream)dStack.pop();
+        return (FileInputStream) dStack.pop ();
     }
 
 
@@ -556,11 +578,11 @@ public class Utilities
     {
         if (o instanceof BigInteger)
         {
-            return ((BigInteger) o).longValue();
+            return ((BigInteger) o).longValue ();
         }
         if (o instanceof Double)
         {
-            return ((Double) o).longValue();
+            return ((Double) o).longValue ();
         }
         if (o instanceof Long)
         {
@@ -568,8 +590,8 @@ public class Utilities
         }
         if (o instanceof Fraction)
         {
-            int denom = ((Fraction) o).getDenominator();
-            int nume = ((Fraction) o).getNumerator();
+            int denom = ((Fraction) o).getDenominator ();
+            int nume = ((Fraction) o).getNumerator ();
             if (nume % denom == 0)
             {
                 return nume / denom;
@@ -577,28 +599,30 @@ public class Utilities
         }
         if (o instanceof Complex)
         {
-            Complex c = (Complex)o;
-            return ((Double)c.getReal()).longValue();
+            Complex c = (Complex) o;
+            return ((Double) c.getReal ()).longValue ();
         }
-        throw new Exception("Wrong or no Type on Stack");
+        throw new Exception ("Wrong or no Type on Stack");
     }
 
     public static BigInteger readBig (OStack dStack) throws Exception
     {
-        Object o = dStack.pop();
-        return getBig(o);
+        Object o = dStack.pop ();
+        return getBig (o);
     }
 
     public static FileBlob readBlob (OStack stack) throws Exception
     {
-        return getBlob (stack.pop());
+        return getBlob (stack.pop ());
 
     }
 
     public static FileBlob getBlob (Object o) throws Exception
     {
         if (o instanceof FileBlob)
-            return (FileBlob)o;
+        {
+            return (FileBlob) o;
+        }
         throw new Exception ("no blob");
     }
 
@@ -611,13 +635,13 @@ public class Utilities
         }
         if (o1 instanceof Long)
         {
-            return BigInteger.valueOf((Long) o1);
+            return BigInteger.valueOf ((Long) o1);
         }
         if (o1 instanceof Double)
         {
-            return BigInteger.valueOf(((Double) o1).longValue());
+            return BigInteger.valueOf (((Double) o1).longValue ());
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static String readStringOrNull (OStack dstack)
@@ -625,8 +649,7 @@ public class Utilities
         try
         {
             return readString (dstack);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             return null;
         }
@@ -634,29 +657,33 @@ public class Utilities
 
     public static String readString (OStack dStack) throws Exception
     {
-        Object o = dStack.pop();
+        Object o = dStack.pop ();
         if (o instanceof String)
         {
-            return StringEscape.unescape((String) o);
+            return StringEscape.unescape ((String) o);
         }
         if (o instanceof Long)
         {
-            return o.toString();
+            return o.toString ();
         }
         if (o instanceof Double)
         {
-            return o.toString();
+            return o.toString ();
         }
         if (o instanceof BigInteger)
         {
-            return o.toString();
+            return o.toString ();
         }
-        throw new Exception("Wrong or no Type on Stack");
+        if (o instanceof FileBlob)
+        {
+            return ((FileBlob) o).asString ();
+        }
+        throw new Exception ("Wrong or no Type on Stack");
     }
 
     public static Complex readComplex (OStack dStack) throws Exception
     {
-        return getComplex(dStack.pop());
+        return getComplex (dStack.pop ());
     }
 
     private static Complex getComplex (Object o1) throws Exception
@@ -667,37 +694,36 @@ public class Utilities
         }
         if (o1 instanceof Long)
         {
-            return new Complex((Long) o1);
+            return new Complex ((Long) o1);
         }
         else if (o1 instanceof Double)
         {
-            return new Complex((Double) o1);
+            return new Complex ((Double) o1);
         }
         else if (o1 instanceof Fraction)
         {
-            Fraction fr = (Fraction)o1;
-            return new Complex ((double)fr.getNumerator ()/(double)fr.getDenominator ());
+            Fraction fr = (Fraction) o1;
+            return new Complex ((double) fr.getNumerator () / (double) fr.getDenominator ());
         }
         else if (o1 instanceof BigInteger)
         {
-            return new Complex(((BigInteger) o1).longValue());
+            return new Complex (((BigInteger) o1).longValue ());
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static double[] parseCSVtoDoubleArray (String in)
     {
         try
         {
-            String vals[] = in.split(",");
+            String[] vals = in.split (",");
             double[] out = new double[vals.length];
             for (int s = 0; s < vals.length; s++)
             {
-                out[s] = Double.parseDouble(vals[s]);
+                out[s] = Double.parseDouble (vals[s]);
             }
             return out;
-        }
-        catch (NumberFormatException e)
+        } catch (NumberFormatException e)
         {
             return null;
         }
@@ -705,10 +731,14 @@ public class Utilities
 
     private static String removeBeginEnd (String in, char[] be, boolean mustHave)
     {
-        if (in.charAt(0) == be[0] && in.charAt(in.length()-1) == be[1])
-            return (in.substring(1, in.length()-1));
+        if (in.charAt (0) == be[0] && in.charAt (in.length () - 1) == be[1])
+        {
+            return (in.substring (1, in.length () - 1));
+        }
         if (mustHave)
+        {
             return null;
+        }
         return in;
     }
 
@@ -724,20 +754,26 @@ public class Utilities
 
     public static Vector3D readVector3D (OStack dStack) throws Exception
     {
-        DoubleSequence ds = readDoubleSequence(dStack);
+        DoubleSequence ds = readDoubleSequence (dStack);
         double i2;
-        if (ds.length() > 3 || ds.length() < 2)
-            throw new Exception("wrong size");
-        if (ds.length() == 2)
+        if (ds.length () > 3 || ds.length () < 2)
+        {
+            throw new Exception ("wrong size");
+        }
+        if (ds.length () == 2)
+        {
             i2 = 0;
+        }
         else
-            i2 = ds.pick(2);
-        return new Vector3D(ds.pick(0), ds.pick(1), i2);
+        {
+            i2 = ds.pick (2);
+        }
+        return new Vector3D (ds.pick (0), ds.pick (1), i2);
     }
 
     public static StringSequence readStringSequence (OStack dStack) throws Exception
     {
-        return getStringSequence (dStack.pop());
+        return getStringSequence (dStack.pop ());
     }
 
     public static StringSequence getStringSequence (Object o)
@@ -751,7 +787,7 @@ public class Utilities
 
     public static DoubleSequence readDoubleSequence (OStack dStack) throws Exception
     {
-        return getDoubleSequence (dStack.pop());
+        return getDoubleSequence (dStack.pop ());
     }
 
     public static DoubleSequence getDoubleSequence (Object o)
@@ -762,21 +798,21 @@ public class Utilities
         }
         if (o instanceof String)
         {
-            return new DoubleSequence((String) o);
+            return new DoubleSequence ((String) o);
         }
         return null;
     }
 
     public static Fraction pow (Fraction f, Long n)
     {
-        int denom = (int) Math.pow(f.getDenominator(), n);
-        int num = (int) Math.pow(f.getNumerator(), n);
-        return Fraction.getReducedFraction(num, denom);
+        int denom = (int) Math.pow (f.getDenominator (), n);
+        int num = (int) Math.pow (f.getNumerator (), n);
+        return Fraction.getReducedFraction (num, denom);
     }
 
     public static BigInteger pow (BigInteger a, BigInteger b)
     {
-        return a.pow(b.intValue());
+        return a.pow (b.intValue ());
     }
 
     public static Double add (Double a, Double b)
@@ -786,26 +822,26 @@ public class Utilities
 
     public static DoubleMatrix add (DoubleMatrix a, DoubleMatrix b)
     {
-        BlockRealMatrix res = a.add(b);
-        return new DoubleMatrix(res);
+        BlockRealMatrix res = a.add (b);
+        return new DoubleMatrix (res);
     }
 
     public static DoubleMatrix sub (DoubleMatrix a, DoubleMatrix b)
     {
-        BlockRealMatrix res = a.subtract(b);
-        return new DoubleMatrix(res);
+        BlockRealMatrix res = a.subtract (b);
+        return new DoubleMatrix (res);
     }
 
     public static DoubleMatrix mult (DoubleMatrix a, DoubleMatrix b)
     {
-        BlockRealMatrix res = a.multiply(b);
-        return new DoubleMatrix(res);
+        BlockRealMatrix res = a.multiply (b);
+        return new DoubleMatrix (res);
     }
 
     public static DoubleMatrix div (DoubleMatrix a, DoubleMatrix b)
     {
-        BlockRealMatrix res = a.multiply(MatrixUtils.inverse(b));
-        return new DoubleMatrix(res);
+        BlockRealMatrix res = a.multiply (MatrixUtils.inverse (b));
+        return new DoubleMatrix (res);
     }
 
     public static Double sub (Double a, Double b)
@@ -827,32 +863,32 @@ public class Utilities
     {
         if (o1 instanceof Double || o2 instanceof Double)
         {
-            return func.apply(getDouble(o1), getDouble(o2));
+            return func.apply (getDouble (o1), getDouble (o2));
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static Complex doCalcComplex (Object o1, Object o2, TwoFuncs<Complex, Complex, Complex> func) throws Exception
     {
-        if (areBothObjectsOfType(o1, o2, Complex.class))
+        if (areBothObjectsOfType (o1, o2, Complex.class))
         {
-            return func.apply(getComplex(o1), getComplex(o2));
+            return func.apply (getComplex (o1), getComplex (o2));
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     private static boolean areBothObjectsOfType (Object o1, Object o2, Class c)
     {
-        return (c.isInstance(o1) || c.isInstance(o2));
+        return (c.isInstance (o1) || c.isInstance (o2));
     }
 
     public static Fraction doCalcFraction (Object o1, Object o2, TwoFuncs<Fraction, Fraction, Fraction> func) throws Exception
     {
-        if (areBothObjectsOfType(o1, o2, Fraction.class))
+        if (areBothObjectsOfType (o1, o2, Fraction.class))
         {
-            return func.apply(getFrac(o1), getFrac(o2));
+            return func.apply (getFrac (o1), getFrac (o2));
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     static private Fraction getFrac (Object o1) throws Exception
@@ -863,37 +899,37 @@ public class Utilities
         }
         if (o1 instanceof Long)
         {
-            return new Fraction((Long) o1);
+            return new Fraction ((Long) o1);
         }
         if (o1 instanceof Double)
         {
-            return new Fraction((Double) o1);
+            return new Fraction ((Double) o1);
         }
         if (o1 instanceof BigInteger)
         {
-            return new Fraction(((BigInteger) o1).longValue());
+            return new Fraction (((BigInteger) o1).longValue ());
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static BigInteger doCalcBigInt (Object o1,
                                            Object o2,
                                            TwoFuncs<BigInteger, BigInteger, BigInteger> func) throws Exception
     {
-        if (areBothObjectsOfType(o1, o2, BigInteger.class))
+        if (areBothObjectsOfType (o1, o2, BigInteger.class))
         {
-            return func.apply(getBig(o1), getBig(o2));
+            return func.apply (getBig (o1), getBig (o2));
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     public static DoubleMatrix doCalcMatrix (Object o1, Object o2, TwoFuncs<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception
     {
-        if (areBothObjectsOfType(o1, o2, DoubleMatrix.class))
+        if (areBothObjectsOfType (o1, o2, DoubleMatrix.class))
         {
-            return func.apply(getMatrix(o1), getMatrix(o2));
+            return func.apply (getMatrix (o1), getMatrix (o2));
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     static private DoubleMatrix getMatrix (Object o1) throws Exception
@@ -902,41 +938,45 @@ public class Utilities
         {
             return (DoubleMatrix) o1;
         }
-        throw new Exception("Wrong args");
+        throw new Exception ("Wrong args");
     }
 
     static public boolean containsIgnoreCase (String original, String pattern)
     {
         if (original == null || pattern == null)
+        {
             return true;
-        return original.toUpperCase().contains(pattern.toUpperCase());
+        }
+        return original.toUpperCase ().contains (pattern.toUpperCase ());
     }
 
     /**
      * Copy resource from jar to temp folder
+     *
      * @param name name of resource
      * @return Full path to extracted file
      * @throws IOException if smth gone wrong
      */
     static public String extractResource (String name) throws IOException
     {
-        String tempName = System.getProperty("java.io.tmpdir")+name;
-        if (!new File (tempName).exists())
+        String tempName = System.getProperty ("java.io.tmpdir") + name;
+        if (!new File (tempName).exists ())
         {
-            InputStream inStream = ClassLoader.getSystemResourceAsStream(name);
-            OutputStream os = new FileOutputStream(tempName);
+            InputStream is = ClassLoader.getSystemResourceAsStream(name);
+            BufferedInputStream bis = new BufferedInputStream (Objects.requireNonNull (is));
+            OutputStream os = new FileOutputStream (tempName);
             byte[] buff = new byte[1024];
             for (; ; )
             {
-                int r = inStream.read(buff);
+                int r = bis.read (buff);
                 if (r == -1)
                 {
                     break;
                 }
-                os.write(buff, 0, r);
+                os.write (buff, 0, r);
             }
-            inStream.close();
-            os.close();
+            bis.close ();
+            os.close ();
         }
         return tempName;
     }
@@ -946,26 +986,33 @@ public class Utilities
         BigInteger gen = BigInteger.valueOf (generator);
         ArrayList<Integer> list = new ArrayList<> ();
         BigInteger p = BigInteger.valueOf (generator);
-        for (;;)
+        for (; ; )
         {
             BigInteger m2 = p.mod (BigInteger.valueOf (mod));
             p = p.multiply (gen);
             int m2i = m2.intValue ();
             if (list.contains (m2i))
+            {
                 break;
+            }
             if (m2i == 0)
+            {
                 throw new Exception ("Got a ZERO");
-            list.add(m2i);
+            }
+            list.add (m2i);
         }
         if (!list.contains (1))
+        {
             throw new Exception ("Missing 1-element");
+        }
         return list;
     }
 
     /**
      * Multiplicative Inverses of group
+     *
      * @param group The multiplicative group
-     * @param mod the modulus
+     * @param mod   the modulus
      * @return Arraylist of inverses in the same order as input
      */
 /*
@@ -985,16 +1032,17 @@ public class Utilities
         return inv;
     }
 */
-
     static public ArrayList<Integer> groupInverses (int[] group, int mod)
     {
         ArrayList<Integer> inv = new ArrayList<> ();
-        for (int a: group)
+        for (int a : group)
         {
-            long[] retvals = ExtendedGCD (mod,a);
+            long[] retvals = ExtendedGCD (mod, a);
             if (retvals[2] < 0)
-                retvals[2] = mod+retvals[2];
-            inv.add ((int)retvals[2]);
+            {
+                retvals[2] = mod + retvals[2];
+            }
+            inv.add ((int) retvals[2]);
         }
         return inv;
     }
@@ -1002,66 +1050,75 @@ public class Utilities
 
     /**
      * Euclidian ext GCD
+     *
      * @param a test candidate 1
      * @param b test canditate 2
      * @return three integers:  i[0] = a*i[1] + b*i[2]
      */
-    public static long[] ExtendedGCD(long a, long b)
+    public static long[] ExtendedGCD (long a, long b)
     {
-        long[] retvals={0,0,0};
-        long[] aa ={1, 0};
-        long[] bb ={0, 1};
-        long q=0;
-        while(true)
+        long[] retvals = {0, 0, 0};
+        long[] aa = {1, 0};
+        long[] bb = {0, 1};
+        long q = 0;
+        while (true)
         {
-            q = a / b; a = a % b;
-            aa[0] = aa[0] - q*aa[1];  bb[0] = bb[0] - q*bb[1];
+            q = a / b;
+            a = a % b;
+            aa[0] = aa[0] - q * aa[1];
+            bb[0] = bb[0] - q * bb[1];
             if (a == 0)
             {
-                retvals[0] = b; retvals[1] = aa[1]; retvals[2] = bb[1];
+                retvals[0] = b;
+                retvals[1] = aa[1];
+                retvals[2] = bb[1];
                 return retvals;
             }
-            q = b / a; b = b % a;
-            aa[1] = aa[1] - q*aa[0];  bb[1] = bb[1] - q*bb[0];
+            q = b / a;
+            b = b % a;
+            aa[1] = aa[1] - q * aa[0];
+            bb[1] = bb[1] - q * bb[0];
             if (b == 0)
             {
-                retvals[0] = a; retvals[1] = aa[0]; retvals[2] = bb[0];
+                retvals[0] = a;
+                retvals[1] = aa[0];
+                retvals[2] = bb[0];
                 return retvals;
             }
         }
     }
 
-    public static <E> ArrayList<E> rotateLeft (ArrayList<E> list,int n)
+    public static <E> ArrayList<E> rotateLeft (ArrayList<E> list, int n)
     {
         ArrayList<E> ret = new ArrayList<> (list);
         while (n != 0)
         {
-            ret.add(ret.size(), ret.get (0));
-            ret.remove(0);
+            ret.add (ret.size (), ret.get (0));
+            ret.remove (0);
             n--;
         }
         return ret;
     }
 
 
-    public static <E> ArrayList<E> rotateRight (ArrayList<E> list,int n)
+    public static <E> ArrayList<E> rotateRight (ArrayList<E> list, int n)
     {
         ArrayList<E> ret = new ArrayList<> (list);
         while (n != 0)
         {
-            ret.add (0, ret.get (ret.size ()-1));
-            ret.remove(ret.size ()-1);
+            ret.add (0, ret.get (ret.size () - 1));
+            ret.remove (ret.size () - 1);
             n--;
         }
         return ret;
     }
 
-    public static <E> ArrayList<E> rearrange (int pos[], ArrayList<E> in)
+    public static <E> ArrayList<E> rearrange (int[] pos, ArrayList<E> in)
     {
         ArrayList<E> out = new ArrayList<> ();
         for (int p : pos)
         {
-            out.add(in.get(p));
+            out.add (in.get (p));
         }
         return out;
     }
@@ -1070,7 +1127,7 @@ public class Utilities
     {
         ArrayList<E> out = new ArrayList<> (in);
         E x = out.get (a);
-        out.set (a, out.get(b));
+        out.set (a, out.get (b));
         out.set (b, x);
         return out;
     }
@@ -1078,91 +1135,101 @@ public class Utilities
     public static String makePrintable (Object o, int base)
     {
         if (o == null)
+        {
             return null;
+        }
         if (base == -1)
+        {
             base = 10;
+        }
         if (o instanceof Long)
         {
-            return Long.toString((Long) o, base).toUpperCase();
+            return Long.toString ((Long) o, base).toUpperCase ();
         }
         else if (o instanceof Double)
         {
-            return Utilities.formatDouble((Double) o);
+            return Utilities.formatDouble ((Double) o);
         }
         else if (o instanceof Complex)
         {
-            return Utilities.formatComplex((Complex) o);
+            return Utilities.formatComplex ((Complex) o);
         }
         else if (o instanceof Fraction)
         {
-            return Utilities.formatFraction((Fraction) o);
+            return Utilities.formatFraction ((Fraction) o);
         }
         else if (o instanceof String)
         {
-            return StringEscape.unescape((String) o);
+            return StringEscape.unescape ((String) o);
         }
         else if (o instanceof PolynomialFunction)
         {
-            return PolySupport.formatPoly((PolynomialFunction) o);
+            return PolySupport.formatPoly ((PolynomialFunction) o);
         }
         else if (o instanceof BigInteger)
         {
-            return o.toString();
+            return o.toString ();
         }
         else
         {
-            return o.toString();
+            return o.toString ();
         }
     }
 
-    public static String shuffle(String string)
+    public static String shuffle (String string)
     {
 
-        List<Character> list = string.chars().mapToObj(c -> (char) c)
-                .collect(Collectors.toList());
-        Collections.shuffle(list);
-        StringBuilder sb = new StringBuilder();
-        list.forEach(sb::append);
-        return sb.toString();
+        List<Character> list = string.chars ().mapToObj (c -> (char) c)
+                .collect (Collectors.toList ());
+        Collections.shuffle (list);
+        StringBuilder sb = new StringBuilder ();
+        list.forEach (sb::append);
+        return sb.toString ();
     }
 
-    public static String unique(String string)
+    public static String unique (String string)
     {
-        List<Character> list = string.chars().mapToObj(c -> (char) c)
-                .distinct()
-                .collect(Collectors.toList());
-        StringBuilder sb = new StringBuilder();
-        list.forEach(sb::append);
-        return sb.toString();
+        List<Character> list = string.chars ().mapToObj (c -> (char) c)
+                .distinct ()
+                .collect (Collectors.toList ());
+        StringBuilder sb = new StringBuilder ();
+        list.forEach (sb::append);
+        return sb.toString ();
     }
 
-    public static String sort(String string)
+    public static String sort (String string)
     {
 
         List<Character> list = string.chars ().mapToObj (c -> (char) c).sorted ()
                 .collect (Collectors.toList ());
-        StringBuilder sb = new StringBuilder();
-        list.forEach(sb::append);
-        return sb.toString();
+        StringBuilder sb = new StringBuilder ();
+        list.forEach (sb::append);
+        return sb.toString ();
     }
 
-    public static void playWave(File file)
+    /*
+    C:\Users\Administrator\Desktop\police\Code3HiLo.wav
+     */
+
+    public static Clip playWave (File file) throws Exception
     {
-        try
-        {
-            final Clip clip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+        final Clip clip = (Clip) AudioSystem.getLine (new Line.Info (Clip.class));
 
-            clip.addLineListener(event ->
-            {
-                if (event.getType() == LineEvent.Type.STOP)
-                    clip.close();
-            });
+//            clip.addLineListener(event ->
+//            {
+//                if (event.getType() == LineEvent.Type.STOP)
+//                    clip.start(); //close();
+//            });
 
-            clip.open(AudioSystem.getAudioInputStream(file));
-            clip.start();
-        }
-        catch (Exception exc)
-        {
-            exc.printStackTrace(System.out);
-        }
-    }}
+        clip.open (AudioSystem.getAudioInputStream (file));
+        clip.loop (Clip.LOOP_CONTINUOUSLY);
+        clip.start ();
+        return clip;
+    }
+
+    public static void stopWave (Clip clip)
+    {
+        clip.stop ();
+        clip.close ();
+    }
+}
