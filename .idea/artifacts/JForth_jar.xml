@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="JForth:jar">
-    <output-path>$PROJECT_DIR$/JForth_jar</output-path>
+    <output-path>$PROJECT_DIR$/jarfile</output-path>
     <properties id="ant-preprocessing">
       <options enabled="true">
         <file>file://$PROJECT_DIR$/src/jforth/buildnum.xml</file>
