@@ -1,6 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.audio.SynchronousWavePlayer;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -2097,7 +2098,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "sam", "Make SAM data",
+                        "sam", "speak with SAM voice",
                         (dStack, vStack) ->
                         {
                             try
@@ -2105,7 +2106,7 @@ class Filler1
                                 String words = Utilities.readString(dStack);
                                 String wave = SynchronousWavePlayer.SAMtoWaveString(words);
                                 byte[] bstr = wave.getBytes();
-                                dStack.push(Base64.getEncoder().encodeToString(bstr));
+                                SynchronousWavePlayer.playSound(bstr);
                                 return 1;
                             }
                             catch (Exception e)
