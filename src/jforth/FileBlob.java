@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileBlob
+public class FileBlob implements java.io.Serializable
 {
     String _path;
     byte[] _content;
@@ -15,6 +15,12 @@ public class FileBlob
     private FileBlob()
     {
 
+    }
+
+    public FileBlob (byte[] c, String n)
+    {
+        _content = c;
+        _path = n;
     }
 
     /**
@@ -48,8 +54,6 @@ public class FileBlob
         System.arraycopy (other._content, 0, bx, _content.length, other._content.length);
         _content = bx;
     }
-
-
 
     /**
      * Create from String
@@ -94,5 +98,15 @@ public class FileBlob
     public String asString()
     {
         return new String (_content, _cs);
+    }
+
+    public byte[] get_content ()
+    {
+        return _content;
+    }
+
+    public void set_content (byte[] _content)
+    {
+        this._content = _content;
     }
 }
