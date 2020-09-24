@@ -427,6 +427,16 @@ public class TestCases
     }
 
     @Test
+    public void TestNested()
+    {
+        String s = check (": NESTED cr 0 do dup  0 do cr j . i . loop loop drop ;",
+                "3 4 NESTED");
+        System.out.println(s);
+        shoudBeOK ("\r\n\r\n00\r\n01\r\n02\r\n10\r\n11\r\n12\r\n20\r\n21\r\n22\r\n30\r\n31\r\n32" ,s);
+    }
+
+
+    @Test
     public void TestAddFractions()
     {
         String s = check ("1/2 1/8 1/32 1/128",
@@ -627,6 +637,14 @@ public class TestCases
     }
 
     @Test
+    public void TestCRC()
+    {
+        String s = check ("hallo dup crc16 hash swap crc32 hash _ swap",
+                "...");
+        shoudBeOK ("3111268817_1235" ,s);
+    }
+
+    @Test
     public void TestUrlEncSpace()
     {
         String s = check ("\"lala\" {32} toStr \"dumm\" + + urlEnc",
@@ -644,7 +662,7 @@ public class TestCases
     @Test
     public void TestUDP()
     {
-        
+
         (new Thread(() ->
         {
 
