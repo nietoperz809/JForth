@@ -4,6 +4,7 @@ import jforth.*;
 import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.Morse;
 import jforth.audio.MusicTones;
+import jforth.audio.WaveTools;
 import org.fusesource.jansi.AnsiConsole;
 
 import javax.script.ScriptEngine;
@@ -1260,10 +1261,21 @@ class Filler2
                         {
                             try
                             {
-                                String s = Utilities.readString (dStack);
-                                File f = new File(s);
-                                Clip cl = Utilities.playWave (f);
-                                dStack.push(cl);
+                                Object o = dStack.pop ();
+                                Clip cl = null;
+                                if (o instanceof String)
+                                {
+                                    File f = new File((String)o);
+                                    cl = WaveTools.playWave (f, true);
+                                }
+                                else if (o instanceof FileBlob)
+                                {
+                                    byte[] dat = ((FileBlob)o).get_content ();
+                                    cl = WaveTools.playWave (dat, true);
+                                }
+                                if (cl == null)
+                                   return 0;
+                                dStack.push (cl);
                                 return 1;
                             }
                             catch (Exception ignored)
@@ -1281,7 +1293,7 @@ class Filler2
                             try
                             {
                                 Clip s = (Clip)dStack.pop();
-                                Utilities.stopWave (s);
+                                WaveTools.stopWave (s);
                                 return 1;
                             }
                             catch (Exception ignored)

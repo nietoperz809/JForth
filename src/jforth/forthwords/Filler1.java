@@ -1,7 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.audio.SynchronousWavePlayer;
+import jforth.audio.WaveTools;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -21,7 +21,6 @@ import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Objects;
 import java.util.Random;
 
@@ -2104,9 +2103,9 @@ class Filler1
                             try
                             {
                                 String words = Utilities.readString(dStack);
-                                String wave = SynchronousWavePlayer.SAMtoWaveString(words);
+                                String wave = WaveTools.SAMtoWaveString(words);
                                 byte[] bstr = wave.getBytes();
-                                SynchronousWavePlayer.playSound(bstr);
+                                WaveTools.playWave (bstr, false);
                                 return 1;
                             }
                             catch (Exception e)
@@ -2116,24 +2115,24 @@ class Filler1
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "playStr", "Play Wave String",
-                        (dStack, vStack) ->
-                        {
-                            try
-                            {
-                                String o1 = (String)dStack.pop();
-                                byte[] dec = Base64.getDecoder().decode(o1);
-                                SynchronousWavePlayer.playSound(dec);
-                                return 1;
-                            }
-                            catch (Exception e)
-                            {
-                                return 0;
-                            }
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "playStr", "Play Wave String",
+//                        (dStack, vStack) ->
+//                        {
+//                            try
+//                            {
+//                                String o1 = (String)dStack.pop();
+//                                byte[] dec = Base64.getDecoder().decode(o1);
+//                                SynchronousWavePlayer.playSound(dec);
+//                                return 1;
+//                            }
+//                            catch (Exception e)
+//                            {
+//                                return 0;
+//                            }
+//                        }
+//                ));
 
 //        _fw.add(new PrimitiveWord
 //                (
@@ -2155,23 +2154,23 @@ class Filler1
 //                        }
 //                ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "playFile", "Play Wave audio file",
-                        (dStack, vStack) ->
-                        {
-                            try
-                            {
-                                String o1 = Utilities.readString(dStack);
-                                SynchronousWavePlayer.playSound(o1);
-                                return 1;
-                            }
-                            catch (Exception e)
-                            {
-                                return 0;
-                            }
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "playFile", "Play Wave audio file",
+//                        (dStack, vStack) ->
+//                        {
+//                            try
+//                            {
+//                                String o1 = Utilities.readString(dStack);
+//                                SynchronousWavePlayer.playSound(o1);
+//                                return 1;
+//                            }
+//                            catch (Exception e)
+//                            {
+//                                return 0;
+//                            }
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

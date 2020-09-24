@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1977";
-    private static final String BUILD_DATE = "09/24/2020 07:06:32 AM";
+    private static final String BUILD_NUMBER = "1979";
+    private static final String BUILD_DATE = "09/24/2020 09:40:59 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -1266,31 +1266,6 @@ public class Utilities
         StringBuilder sb = new StringBuilder ();
         list.forEach (sb::append);
         return sb.toString ();
-    }
-
-    /**
-     * Load wave file and start playing
-     * @param file the file object
-     * @return tha running clip
-     * @throws Exception if smth gone wrong
-     */
-    public static Clip playWave (File file) throws Exception
-    {
-        final Clip clip = (Clip) AudioSystem.getLine (new Line.Info (Clip.class));
-        clip.open (AudioSystem.getAudioInputStream (file));
-        clip.loop (Clip.LOOP_CONTINUOUSLY);
-        clip.start ();
-        return clip;
-    }
-
-    /**
-     * Stop and close an audio clip
-     * @param clip the playing clip
-     */
-    public static void stopWave (Clip clip)
-    {
-        clip.stop ();
-        clip.close ();
     }
 
     /**
