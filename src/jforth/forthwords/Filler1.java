@@ -202,7 +202,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "swap", false,
+                        "swap", false, "Swap TOS and TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -232,7 +232,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "tuck", false,
+                        "tuck", false, "Copy TOS to TOS-2",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -316,7 +316,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "depth", false,
+                        "depth", false, "number of elements currently on the stack",
                         (dStack, vStack) ->
                         {
                             Long i = (long) dStack.size();
@@ -327,7 +327,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "<", false,
+                        "<", false, "gives 1 of TOS-1 smaller than TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -382,7 +382,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "=", false,
+                        "=", false, "1 if TOS is equal to TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -464,7 +464,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "<>", false,
+                        "<>", false, "1 if TOS is not equal to TOS-1",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -497,7 +497,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        ">", false,
+                        ">", false, "1 if TOS-1 is bigger than TOS",
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
@@ -552,7 +552,7 @@ class Filler1
 
         _fw.add(new PrimitiveWord
                 (
-                        "0<", "Gives 1 of TOS smaller than 0",
+                        "0<", false, "Gives 1 if TOS smaller than 0",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1119,7 +1119,7 @@ class Filler1
                             }
                             if (o1 instanceof Double)
                             {
-                                Double d1 = (Double) o1;
+                                double d1 = (Double) o1;
                                 dStack.push(Math.floor(d1));
                                 dStack.push(d1 - Math.floor(d1));
                                 return 1;
@@ -1250,6 +1250,14 @@ class Filler1
                                 dStack.push(Utilities.rotLeft(i2, 1));
                                 return 1;
                             }
+                            if (o2 instanceof FileBlob)
+                            {
+                                FileBlob fb = (FileBlob) o2;
+                                byte[] cnt = Utilities.rotLeft (fb.get_content (),1);
+                                FileBlob n = new FileBlob (cnt, fb.getPath ());
+                                dStack.push (n);
+                                return 1;
+                            }
                             return 0;
                         }
                 ));
@@ -1282,6 +1290,14 @@ class Filler1
                             {
                                 String i2 = (String) o2;
                                 dStack.push(Utilities.rotRight(i2, 1));
+                                return 1;
+                            }
+                            if (o2 instanceof FileBlob)
+                            {
+                                FileBlob fb = (FileBlob) o2;
+                                byte[] cnt = Utilities.rotRight (fb.get_content (),1);
+                                FileBlob n = new FileBlob (cnt, fb.getPath ());
+                                dStack.push (n);
                                 return 1;
                             }
                             return 0;
@@ -2814,7 +2830,7 @@ class Filler1
                             try
                             {
                                 Long o1 = Utilities.readLong(dStack);
-                                Long o2 = Utilities.readLong(dStack);
+                                long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.lcm(o1, o2));
                                 return 1;
                             }
@@ -2853,7 +2869,7 @@ class Filler1
                             Object o = dStack.pop();
                             try
                             {
-                                Long o1 = Utilities.getLong(o);
+                                long o1 = Utilities.getLong(o);
                                 dStack.push(DoubleSequence.primeFactors(o1));
                                 return 1;
                             }
@@ -3358,7 +3374,7 @@ class Filler1
                         {
                             try
                             {
-                                Long lo = Utilities.readLong(dStack);
+                                long lo = Utilities.readLong(dStack);
                                 double number = random.nextGaussian() * lo;
                                 dStack.push(number);
                                 return 1;
@@ -3936,6 +3952,13 @@ class Filler1
                                 {
                                     StringSequence od = (StringSequence) o;
                                     dStack.push (od.reverse ());
+                                    return 1;
+                                }
+                                if (o instanceof FileBlob)
+                                {
+                                    FileBlob fb = new FileBlob (Utilities.reverse (((FileBlob) o).get_content ()),
+                                            ((FileBlob) o).getPath ());
+                                    dStack.push (fb);
                                     return 1;
                                 }
                             }

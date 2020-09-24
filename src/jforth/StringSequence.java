@@ -6,7 +6,7 @@ package jforth;
 
 import java.util.*;
 
-public class StringSequence
+public class StringSequence implements java.io.Serializable
 {
     private ArrayList<String> _list = new ArrayList<> ();
 

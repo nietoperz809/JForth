@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import static jforth.Utilities.parseCSVtoDoubleArray;
 
-public class DoubleMatrix extends BlockRealMatrix
+public class DoubleMatrix extends BlockRealMatrix implements java.io.Serializable
 {
     public DoubleMatrix (RealMatrix src)
     {

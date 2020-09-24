@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1938";
-    private static final String BUILD_DATE = "09/22/2020 02:55:05 AM";
+    private static final String BUILD_NUMBER = "1965";
+    private static final String BUILD_DATE = "09/23/2020 08:06:10 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -154,7 +154,7 @@ public class Utilities
     {
         int h = (int) (in / 3600);
         int s = (int) (in % 3600);
-        int m = (int) (s / 60);
+        int m = s / 60;
         s %= 60;
         return String.format ("%d:%02d:%02d", h, m, s);
     }
@@ -319,25 +319,23 @@ public class Utilities
         return f.getNumerator () + "/" + f.getDenominator ();
     }
 
-    // --Commented out by Inspection START (10/3/2017 10:45 AM):
-//    public static Object deepCopy (Object o)
-//    {
-//        try
-//        {
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            new ObjectOutputStream(baos).writeObject(o);
-//
-//            ByteArrayInputStream bais =
-//                    new ByteArrayInputStream(baos.toByteArray());
-//
-//            return new ObjectInputStream(bais).readObject();
-//        }
-//        catch (Exception ex)
-//        {
-//            return null;
-//        }
-//    }
-// --Commented out by Inspection STOP (10/3/2017 10:45 AM)
+    public static Object deepCopy (Object o)
+    {
+        try
+        {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            new ObjectOutputStream(baos).writeObject(o);
+
+            ByteArrayInputStream bais =
+                    new ByteArrayInputStream(baos.toByteArray());
+
+            return new ObjectInputStream(bais).readObject();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
 
     public static String removeTrailingZero (double v)
     {
@@ -485,24 +483,46 @@ public class Utilities
     }
 
 
-    public static String rotRight (String in, int num)
+    public static String rotRight (String s, int a)
     {
-        while (num-- != 0)
+        char[] array = s.toCharArray ();
+        try
         {
-            char last = in.charAt (in.length () - 1);
-            in = "" + last + in.substring (0, in.length () - 1);
+            char[] tmp = new char[a];
+            System.arraycopy (array, array.length - a, tmp, 0, a);
+            System.arraycopy (array, 0, array, a, array.length - a);
+            System.arraycopy (tmp, 0, array, 0, a);
+            return new String (array);
         }
-        return in;
+        catch (Exception e)
+        {
+            return s;
+        }
     }
 
-    public static String rotLeft (String in, int num)
+    public static String rotLeft (String s, int a)
     {
-        while (num-- != 0)
+        return rotRight (s, s.length () - a);
+    }
+
+    public static byte[] rotRight (byte[] array, int a)
+    {
+        try
         {
-            char last = in.charAt (0);
-            in = in.substring (1) + last;
+            byte[] ret = new byte[array.length];
+            System.arraycopy (array, 0, ret, a, array.length - a);
+            System.arraycopy (array, array.length-a, ret, 0, a);
+            return ret;
         }
-        return in;
+        catch (Exception e)
+        {
+            return array;
+        }
+    }
+
+    public static byte[] rotLeft (byte[] array, int a)
+    {
+        return rotRight (array, array.length - a);
     }
 
     public static double readDouble (OStack dStack) throws Exception
@@ -962,7 +982,7 @@ public class Utilities
         String tempName = System.getProperty ("java.io.tmpdir") + name;
         if (!new File (tempName).exists ())
         {
-            InputStream is = ClassLoader.getSystemResourceAsStream(name);
+            InputStream is = ClassLoader.getSystemResourceAsStream (name);
             BufferedInputStream bis = new BufferedInputStream (Objects.requireNonNull (is));
             OutputStream os = new FileOutputStream (tempName);
             byte[] buff = new byte[1024];
@@ -1032,6 +1052,13 @@ public class Utilities
         return inv;
     }
 */
+    /**
+     * Multiplicative Inverses of group
+     *
+     * @param group The multiplicative group
+     * @param mod   the modulus
+     * @return Arraylist of inverses in the same order as input
+     */
     static public ArrayList<Integer> groupInverses (int[] group, int mod)
     {
         ArrayList<Integer> inv = new ArrayList<> ();
@@ -1047,7 +1074,6 @@ public class Utilities
         return inv;
     }
 
-
     /**
      * Euclidian ext GCD
      *
@@ -1060,7 +1086,7 @@ public class Utilities
         long[] retvals = {0, 0, 0};
         long[] aa = {1, 0};
         long[] bb = {0, 1};
-        long q = 0;
+        long q;
         while (true)
         {
             q = a / b;
@@ -1088,31 +1114,39 @@ public class Utilities
         }
     }
 
+    /**
+     * rotate an arraylist left
+     * @param list the array list
+     * @param n number of rotations
+     * @param <E> type of objects in that list
+     * @return rotated list
+     */
     public static <E> ArrayList<E> rotateLeft (ArrayList<E> list, int n)
     {
-        ArrayList<E> ret = new ArrayList<> (list);
-        while (n != 0)
-        {
-            ret.add (ret.size (), ret.get (0));
-            ret.remove (0);
-            n--;
-        }
-        return ret;
+        return rotateRight (list, list.size ()-n);
     }
 
-
+    /**
+     * rotate an arraylist right
+     * @param list the array list
+     * @param n number of rotations
+     * @param <E> type of objects in that list
+     * @return rotated list
+     */
     public static <E> ArrayList<E> rotateRight (ArrayList<E> list, int n)
     {
         ArrayList<E> ret = new ArrayList<> (list);
-        while (n != 0)
-        {
-            ret.add (0, ret.get (ret.size () - 1));
-            ret.remove (ret.size () - 1);
-            n--;
-        }
+        Collections.rotate (ret, n);
         return ret;
     }
 
+    /**
+     * rearrange members of an arraylist
+     * @param pos array with new positions
+     * @param in the arraylist
+     * @param <E> type of objects in that list
+     * @return a new rearranged arraylist
+     */
     public static <E> ArrayList<E> rearrange (int[] pos, ArrayList<E> in)
     {
         ArrayList<E> out = new ArrayList<> ();
@@ -1123,6 +1157,14 @@ public class Utilities
         return out;
     }
 
+    /**
+     * swap 2 members of an arraylist
+     * @param in the list
+     * @param a position a
+     * @param b position b
+     * @param <E> type of objects in the list
+     * @return an arraylist with 2 members swapped
+     */
     public static <E> ArrayList<E> swap (ArrayList<E> in, int a, int b)
     {
         ArrayList<E> out = new ArrayList<> (in);
@@ -1132,6 +1174,12 @@ public class Utilities
         return out;
     }
 
+    /**
+     * generate textual representation of object
+     * @param o the object
+     * @param base current number base
+     * @return the object as string
+     */
     public static String makePrintable (Object o, int base)
     {
         if (o == null)
@@ -1176,9 +1224,13 @@ public class Utilities
         }
     }
 
+    /**
+     * shuffle a string
+     * @param string input
+     * @return the shuffled string
+     */
     public static String shuffle (String string)
     {
-
         List<Character> list = string.chars ().mapToObj (c -> (char) c)
                 .collect (Collectors.toList ());
         Collections.shuffle (list);
@@ -1187,6 +1239,11 @@ public class Utilities
         return sb.toString ();
     }
 
+    /**
+     * keep only unique chars in string
+     * @param string input
+     * @return the new string
+     */
     public static String unique (String string)
     {
         List<Character> list = string.chars ().mapToObj (c -> (char) c)
@@ -1197,39 +1254,55 @@ public class Utilities
         return sb.toString ();
     }
 
+    /**
+     * Sort a string
+     * @param string input
+     * @return a new sorted string
+     */
     public static String sort (String string)
     {
-
-        List<Character> list = string.chars ().mapToObj (c -> (char) c).sorted ()
+       List<Character> list = string.chars ().mapToObj (c -> (char) c).sorted ()
                 .collect (Collectors.toList ());
         StringBuilder sb = new StringBuilder ();
         list.forEach (sb::append);
         return sb.toString ();
     }
 
-    /*
-    C:\Users\Administrator\Desktop\police\Code3HiLo.wav
+    /**
+     * Load wave file and start playing
+     * @param file the file object
+     * @return tha running clip
+     * @throws Exception if smth gone wrong
      */
-
     public static Clip playWave (File file) throws Exception
     {
         final Clip clip = (Clip) AudioSystem.getLine (new Line.Info (Clip.class));
-
-//            clip.addLineListener(event ->
-//            {
-//                if (event.getType() == LineEvent.Type.STOP)
-//                    clip.start(); //close();
-//            });
-
         clip.open (AudioSystem.getAudioInputStream (file));
         clip.loop (Clip.LOOP_CONTINUOUSLY);
         clip.start ();
         return clip;
     }
 
+    /**
+     * Stop and close an audio clip
+     * @param clip the playing clip
+     */
     public static void stopWave (Clip clip)
     {
         clip.stop ();
         clip.close ();
+    }
+
+    /**
+     * Reverse a byte array
+     * @param arr input array
+     * @return a new reveresed array
+     */
+    public static byte[] reverse (byte[] arr)
+    {
+        byte[] res = new byte[arr.length];
+        for (int s=0; s<arr.length; s++)
+            res[arr.length - 1 - s] = arr[s];
+        return res;
     }
 }

@@ -20,6 +20,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.TimerTask;
+import java.util.zip.CRC32;
 
 class Filler2
 {
@@ -230,10 +231,26 @@ class Filler2
                         {
                             try
                             {
-                                String hash = Utilities.readString(dStack);
+                                String hash = Utilities.readString(dStack).toLowerCase ();
                                 String input = Utilities.readString(dStack);
-                                MessageDigest md = MessageDigest.getInstance(hash);
-                                dStack.push(new DoubleSequence(md.digest(input.getBytes(JForth.ENCODING))));
+                                byte[] inbytes = input.getBytes (JForth.ENCODING);
+                                if (hash.equals ("crc32"))
+                                {
+                                    CRC32 crc = new CRC32 ();
+                                    crc.update (inbytes, 0, inbytes.length);
+                                    dStack.push (crc.getValue ());
+                                }
+                                else if (hash.equals ("crc16"))
+                                {
+                                    CRC16 crc = new CRC16();
+                                    crc.calc (inbytes);
+                                    dStack.push ((long)crc.getCRC());
+                                }
+                                else
+                                {
+                                    MessageDigest md = MessageDigest.getInstance (hash);
+                                    dStack.push (new DoubleSequence (md.digest (inbytes)));
+                                }
                                 return 1;
                             }
                             catch (Exception ex)
@@ -512,7 +529,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "do", true,
+                        "do", true, "Sets up a finite loop, given index and limit.",
                         (dStack, vStack) ->
                         {
                             predefinedWords.createTemporaryImmediateWord();
@@ -552,7 +569,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "leave", true,
+                        "leave", true, "Terminate the loop immediately",
                         (dStack, vStack) ->
                         {
                             if (!predefinedWords._jforth.compiling)
@@ -581,7 +598,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "begin", true,
+                        "begin", true, "Marks the start of an indefinite loop.",
                         (dStack, vStack) ->
                         {
                             predefinedWords.createTemporaryImmediateWord();
@@ -593,14 +610,14 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "until", true,
+                        "until", true, "If false, go back to BEGIN. If true, terminate the loop",
                         (dStack, vStack) ->
                                 WordHelpers.addLoopWord(vStack, predefinedWords, EndLoopControlWord.class)
                 ));
 
         _fw.add(new PrimitiveWord
                 (
-                        "again", true,
+                        "again", true, "Go back to BEGIN (infinite loop)",
                         (dStack, vStack) ->
                         {
                             try
@@ -1163,7 +1180,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "getblob", "read file into memory",
+                        "getblob", "read blob into memory",
                         (dStack, vStack) ->
                         {
                             try
@@ -1182,7 +1199,7 @@ class Filler2
 
         _fw.add(new PrimitiveWord
                 (
-                        "mkblob", "make file from String",
+                        "mkblob", "make blob from String",
                         (dStack, vStack) ->
                         {
                             try
