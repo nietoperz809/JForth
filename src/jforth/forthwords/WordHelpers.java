@@ -492,6 +492,15 @@ class WordHelpers
             int l = ((Long)o1).intValue ();
             dStack.push (s.substring (0, s.length ()-l));
         }
+        else if (o2 instanceof FileBlob && o1 instanceof Long)
+        {
+            FileBlob s = (FileBlob)o2;
+            int len = s.getSize()- ((Long)o1).intValue ();
+            byte[] nc = new byte[len];
+            System.arraycopy (s.get_content (), 0, nc, 0, len);
+            FileBlob ncb = new FileBlob (nc, s.getPath ());
+            dStack.push (ncb);
+        }
         else
         {
             return 0;

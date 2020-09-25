@@ -658,7 +658,7 @@ class Filler2
                                 long n = Utilities.readLong(dStack);
                                 ArrayList<Double> ar = new ArrayList<>();
                                 ar.add((double)n);
-                                for (;n!=1;)
+                                while (n!=1)
                                 {
                                     if (n%2 == 0)
                                         n=n/2;
@@ -759,12 +759,10 @@ class Filler2
                             {
                                 String txt = Utilities.readString (dStack);
                                 new Thread(() ->
-                                {
-                                    JOptionPane.showMessageDialog(null,
-                                            txt,
-                                            "JForth",
-                                            JOptionPane.PLAIN_MESSAGE);
-                                }).start();
+                                        JOptionPane.showMessageDialog(null,
+                                                txt,
+                                                "JForth",
+                                                JOptionPane.PLAIN_MESSAGE)).start();
                                 return 1;
                             }
                             catch (Exception e)
@@ -889,7 +887,7 @@ class Filler2
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -1074,7 +1072,7 @@ class Filler2
                                     return 1;
                                 }
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -1094,7 +1092,7 @@ class Filler2
                                 dStack.push (res);
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -1114,7 +1112,7 @@ class Filler2
                                 dStack.push (res);
                                 return 1;
                             }
-                            catch (Exception unused)
+                            catch (Exception ignored)
                             {
                             }
                             return 0;
@@ -1245,6 +1243,26 @@ class Filler2
                             {
                                 FileBlob bl = Utilities.readBlob (dStack);
                                 dStack.push (bl.getPath ());
+                                return 1;
+                            }
+                            catch (Exception ignored)
+                            {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "nameblob", "rename existing blob",
+                        (dStack, vStack) ->
+                        {
+                            try
+                            {
+                                String newpath = Utilities.readString (dStack);
+                                FileBlob bl = Utilities.readBlob (dStack);
+                                FileBlob nbl = new FileBlob (bl.get_content (), newpath);
+                                dStack.push (nbl);
                                 return 1;
                             }
                             catch (Exception ignored)
