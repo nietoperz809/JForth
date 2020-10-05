@@ -6,8 +6,6 @@ import org.junit.Test;
 import tools.StringStream;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
@@ -585,20 +583,19 @@ public class TestCases
     {
         try
         {
-            String res = Utilities.extractResource("sam.exe");
-            System.out.println(res);
-            Process process = new ProcessBuilder(res).start();
-            InputStream is = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line;
+            String res = Utilities.extractResource("sam.exe", true);
+            ProcessBuilder pb = new ProcessBuilder(res);
+            Process p = pb.start();
 
-            while ((line = br.readLine()) != null)
-            {
-                System.out.println(line);
-            }
+            Thread.sleep (3000);
+
+            BufferedReader lineReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            lineReader.lines().forEach(System.out::println);
+
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            errorReader.lines().forEach(System.out::println);
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             Assert.fail();
         }
