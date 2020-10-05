@@ -8,9 +8,6 @@ import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import tools.TwoFuncs;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.Line;
 import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -25,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "1988";
-    private static final String BUILD_DATE = "09/25/2020 02:29:02 AM";
+    private static final String BUILD_NUMBER = "2011";
+    private static final String BUILD_DATE = "10/05/2020 08:02:41 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -977,10 +974,10 @@ public class Utilities
      * @return Full path to extracted file
      * @throws IOException if smth gone wrong
      */
-    static public String extractResource (String name) throws IOException
+    static public String extractResource (String name, boolean overwrite) throws IOException
     {
         String tempName = System.getProperty ("java.io.tmpdir") + name;
-        if (!new File (tempName).exists ())
+        if (!new File (tempName).exists () || overwrite)
         {
             InputStream is = ClassLoader.getSystemResourceAsStream (name);
             BufferedInputStream bis = new BufferedInputStream (Objects.requireNonNull (is));

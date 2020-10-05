@@ -2103,8 +2103,7 @@ class Filler1
                             try
                             {
                                 String words = Utilities.readString(dStack);
-                                String wave = WaveTools.SAMtoWaveString(words);
-                                byte[] bstr = wave.getBytes();
+                                byte[] bstr = WaveTools.SAMtoWaveBytes (words);
                                 WaveTools.playWave (bstr, false);
                                 return 1;
                             }
@@ -2114,63 +2113,6 @@ class Filler1
                             }
                         }
                 ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "playStr", "Play Wave String",
-//                        (dStack, vStack) ->
-//                        {
-//                            try
-//                            {
-//                                String o1 = (String)dStack.pop();
-//                                byte[] dec = Base64.getDecoder().decode(o1);
-//                                SynchronousWavePlayer.playSound(dec);
-//                                return 1;
-//                            }
-//                            catch (Exception e)
-//                            {
-//                                return 0;
-//                            }
-//                        }
-//                ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "playMorse", "Play Morse String",
-//                        (dStack, vStack) ->
-//                        {
-//                            try
-//                            {
-//                                String o1 = (String)dStack.pop();
-//                                Morse mors = new Morse (44100);
-//                                byte[] m = mors.morse2Audio(o1);
-//                                SynchronousWavePlayer.playSound(Wave16.makeHeader(m, 44100));
-//                                return 1;
-//                            }
-//                            catch (Exception e)
-//                            {
-//                                return 0;
-//                            }
-//                        }
-//                ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "playFile", "Play Wave audio file",
-//                        (dStack, vStack) ->
-//                        {
-//                            try
-//                            {
-//                                String o1 = Utilities.readString(dStack);
-//                                SynchronousWavePlayer.playSound(o1);
-//                                return 1;
-//                            }
-//                            catch (Exception e)
-//                            {
-//                                return 0;
-//                            }
-//                        }
-//                ));
 
         _fw.add(new PrimitiveWord
                 (

@@ -2,7 +2,9 @@ package jforth.audio;
 
 import jforth.Utilities;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.Line;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -76,27 +78,26 @@ public class WaveTools
      * @return String containing wave file
      * @throws Exception if smth gone wrong
      */
-    public static String SAMtoWaveString (String words) throws Exception
+    public static byte[] SAMtoWaveBytes (String words) throws Exception
     {
         words = words.replace('-','_');
-        String res = Utilities.extractResource("sam.exe");
-        Process process = new ProcessBuilder(
-                res, "-stdout", "dummy", words)
-                .start();
-        InputStream is = process.getInputStream();
+        String res = Utilities.extractResource("sam.exe", false);
+        ProcessBuilder pb = new ProcessBuilder(
+                res, "-stdout", "dummy", words);
+        Process p = pb.start();
 
-        StringBuilder textBuilder = new StringBuilder();
-        try (Reader reader = new BufferedReader(new InputStreamReader
-                (is, thisCharset)))
+        InputStream is = p.getInputStream();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        while (true)
         {
-            int c;
-            while ((c = reader.read()) != -1)
-            {
-                textBuilder.append((char) c);
-            }
+            int r = is.read(buffer);
+            if (r == -1) break;
+            out.write(buffer, 0, r);
         }
-        is.close();
-        return textBuilder.toString();
+
+        return out.toByteArray();
     }
 
     /////////////////////////////////////////////////////////////////////////////////
