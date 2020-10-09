@@ -1,13 +1,12 @@
 package jforth.audio;
 
-import jforth.Utilities;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.Line;
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * from here: ftp://sccn.ucsd.edu/pub/virtualmedia/AePlayWave.java
@@ -15,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 public class WaveTools
 {
-    private static final Charset thisCharset = StandardCharsets.ISO_8859_1;
+   // private static final Charset thisCharset = StandardCharsets.ISO_8859_1;
 
 //    /**
 //     * Play wave file from disk
@@ -72,33 +71,33 @@ public class WaveTools
 //        }
 //    }
 
-    /**
-     * Run the SAM module and convert a text to speech data
-     * @param words Text to be spoken
-     * @return String containing wave file
-     * @throws Exception if smth gone wrong
-     */
-    public static byte[] SAMtoWaveBytes (String words) throws Exception
-    {
-        words = words.replace('-','_');
-        String res = Utilities.extractResource("sam.exe", false);
-        ProcessBuilder pb = new ProcessBuilder(
-                res, "-stdout", "dummy", words);
-        Process p = pb.start();
-
-        InputStream is = p.getInputStream();
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        while (true)
-        {
-            int r = is.read(buffer);
-            if (r == -1) break;
-            out.write(buffer, 0, r);
-        }
-
-        return out.toByteArray();
-    }
+//    /**
+//     * Run the SAM module and convert a text to speech data
+//     * @param words Text to be spoken
+//     * @return String containing wave file
+//     * @throws Exception if smth gone wrong
+//     */
+//    public static byte[] SAMtoWaveBytes (String words) throws Exception
+//    {
+//        words = words.replace('-','_');
+//        String res = Utilities.extractResource("sam.exe", false);
+//        ProcessBuilder pb = new ProcessBuilder(
+//                res, "-stdout", "dummy", words);
+//        Process p = pb.start();
+//
+//        InputStream is = p.getInputStream();
+//
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        byte[] buffer = new byte[1024];
+//        while (true)
+//        {
+//            int r = is.read(buffer);
+//            if (r == -1) break;
+//            out.write(buffer, 0, r);
+//        }
+//
+//        return out.toByteArray();
+//    }
 
     /////////////////////////////////////////////////////////////////////////////////
 

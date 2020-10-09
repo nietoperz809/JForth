@@ -1,6 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.audio.SAMSpeech;
 import jforth.audio.WaveTools;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -2103,7 +2104,7 @@ class Filler1
                             try
                             {
                                 String words = Utilities.readString(dStack);
-                                byte[] bstr = WaveTools.SAMtoWaveBytes (words);
+                                byte[] bstr = SAMSpeech.doSam (words);
                                 WaveTools.playWave (bstr, false);
                                 return 1;
                             }

@@ -1,0 +1,4 @@
+A lsput
+A->AB lsrule
+B->A lsrule
+lsget .

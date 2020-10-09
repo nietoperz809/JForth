@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2012";
-    private static final String BUILD_DATE = "10/05/2020 08:05:24 AM";
+    private static final String BUILD_NUMBER = "2015";
+    private static final String BUILD_DATE = "10/09/2020 04:43:33 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -997,6 +997,32 @@ public class Utilities
         }
         return tempName;
     }
+
+    /**
+     * Get byte array from resource bundle
+     * @param name what resource
+     * @return the resource as byte array
+     * @throws Exception if smth. went wrong
+     */
+    static public byte[] extractResource (String name) throws Exception
+    {
+        InputStream is = ClassLoader.getSystemResourceAsStream (name);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream ();
+        byte[] buffer = new byte[1024];
+        while (true)
+        {
+            int r = is.read (buffer);
+            if (r == -1)
+            {
+                break;
+            }
+            out.write (buffer, 0, r);
+        }
+
+        return out.toByteArray ();
+    }
+
 
     static public ArrayList<Integer> makeCyclicGroup (int generator, int mod) throws Exception
     {

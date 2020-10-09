@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="JForth:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM_[Default]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM__Default_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/laladumm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/run.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/linde" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/sam.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/samclass.class" beforeDir="false" afterPath="$PROJECT_DIR$/resource/samclass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/Runtime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/Runtime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Platform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Seekable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Seekable.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="DevPartner.ProjectWorkspace">
+    <option name="runtimeAnalysisType" value="-1" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Package Object" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="master" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/nietoperz809/JForth" />
+      </set>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="gbpu2alf" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectId" id="1T7COVnQfLr98KQLTtt1dpZQnu6" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>AOP</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Correctness</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Internationalization</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Performance</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Security</id>
+          </State>
+          <State>
+            <id>Android &gt; Lint &gt; Usability &gt; Icons</id>
+          </State>
+          <State>
+            <id>Android Lint for Kotlin</id>
+          </State>
+          <State>
+            <id>Ant inspections</id>
+          </State>
+          <State>
+            <id>Application Server Specific Inspections</id>
+          </State>
+          <State>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>Code maturity issuesJava</id>
+          </State>
+          <State>
+            <id>Code style issuesCSS</id>
+          </State>
+          <State>
+            <id>Code style issuesJava</id>
+          </State>
+          <State>
+            <id>CollectionsScala</id>
+          </State>
+          <State>
+            <id>Control FlowGroovy</id>
+          </State>
+          <State>
+            <id>Control flow issuesJava</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Data flow issuesJava</id>
+          </State>
+          <State>
+            <id>Data flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Declaration redundancyGroovy</id>
+          </State>
+          <State>
+            <id>Declaration redundancyJava</id>
+          </State>
+          <State>
+            <id>Django</id>
+          </State>
+          <State>
+            <id>Faces Model</id>
+          </State>
+          <State>
+            <id>Finalization issuesJava</id>
+          </State>
+          <State>
+            <id>FlexUnit inspections</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJava</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>GeneralScala</id>
+          </State>
+          <State>
+            <id>Google Web Toolkit issues</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Guice Inspections</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Hibernate Issues</id>
+          </State>
+          <State>
+            <id>Ignore</id>
+          </State>
+          <State>
+            <id>Inheritance issuesJava</id>
+          </State>
+          <State>
+            <id>Initialization issuesJava</id>
+          </State>
+          <State>
+            <id>Internationalization issuesJava</id>
+          </State>
+          <State>
+            <id>JBoss Seam issues</id>
+          </State>
+          <State>
+            <id>JPA issues</id>
+          </State>
+          <State>
+            <id>JSON</id>
+          </State>
+          <State>
+            <id>JUnit issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>Java EE issues</id>
+          </State>
+          <State>
+            <id>JavaFX</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Kotlin</id>
+          </State>
+          <State>
+            <id>Mako</id>
+          </State>
+          <State>
+            <id>MapsCollectionsScala</id>
+          </State>
+          <State>
+            <id>Maven</id>
+          </State>
+          <State>
+            <id>Method signatureScala</id>
+          </State>
+          <State>
+            <id>Modularization issuesJava</id>
+          </State>
+          <State>
+            <id>Naming conventionsJava</id>
+          </State>
+          <State>
+            <id>Numeric issuesJava</id>
+          </State>
+          <State>
+            <id>OptionsCollectionsScala</id>
+          </State>
+          <State>
+            <id>OtherCollectionsScala</id>
+          </State>
+          <State>
+            <id>Packaging issuesJava</id>
+          </State>
+          <State>
+            <id>Performance issuesJava</id>
+          </State>
+          <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsGroovy</id>
+          </State>
+          <State>
+            <id>Probable bugsJava</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>RegExp</id>
+          </State>
+          <State>
+            <id>SQL</id>
+          </State>
+          <State>
+            <id>Scala</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+          <State>
+            <id>Simplifications: otherCollectionsScala</id>
+          </State>
+          <State>
+            <id>Spring</id>
+          </State>
+          <State>
+            <id>Spring CoreSpring</id>
+          </State>
+          <State>
+            <id>Struts</id>
+          </State>
+          <State>
+            <id>Struts 1Struts</id>
+          </State>
+          <State>
+            <id>Syntactic SimplificationScala</id>
+          </State>
+          <State>
+            <id>TestNGJava</id>
+          </State>
+          <State>
+            <id>Threading issuesJava</id>
+          </State>
+          <State>
+            <id>UI Form Problems</id>
+          </State>
+          <State>
+            <id>Validity issuesGroovy</id>
+          </State>
+          <State>
+            <id>Verbose or redundant code constructsJava</id>
+          </State>
+          <State>
+            <id>Visibility issuesJava</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+          <State>
+            <id>XMLSpring CoreSpring</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+          <State>
+            <id>XSLT</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Duplicates</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="jforth" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551991492424" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resource" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.31444243" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="Docker" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="jforth.waves" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\jarfile" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
+    </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="jforth.audio.WaveTools" />
+      <recent name="jforth.FileUtils" />
+      <recent name="jforth.Utilities" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="jforth.audio" />
+      <recent name="jforth" />
+      <recent name="jforth.waves" />
+      <recent name="jforth.forthwords" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="tools" />
+      <recent name="jforth.waves" />
+      <recent name="jforth" />
+      <recent name="jforth.Math" />
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.JForth">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration default="true" type="GlassfishConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file id="GlassFish" enabled="true" />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+    </configuration>
+    <configuration default="true" type="JBossConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="serverGroup" value="" />
+          <option name="transportHostId" value="" />
+          <server-group />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file id="JBoss" enabled="true" />
+    </configuration>
+    <configuration default="true" type="JettyConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file id="Jetty" enabled="true" />
+    </configuration>
+    <configuration default="true" type="K2JSConfigurationType" factoryName="Kotlin (JavaScript)">
+      <K2JSConfigurationSettings>
+        <option name="browserFamily" value="Chrome" />
+        <option name="generatedFilePath" value="$PROJECT_DIR$" />
+        <option name="pageToOpenFilePath" value="" />
+        <option name="shouldOpenInBrowserAfterTranslation" value="false" />
+      </K2JSConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="SbtRunConfiguration" factoryName="SBT Task">
+      <setting name="tasks" value="" />
+      <setting name="vmparams" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled" />
+      <setting name="workingDir" value="$PROJECT_DIR$" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+    </configuration>
+    <configuration name="JForth" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jforth.JForth" />
+      <module name="JForth" />
+      <method v="2">
+        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="jforth.JForth" />
+      <method v="2">
+        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+      </method>
+    </configuration>
+    <configuration name="TestCases" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="JForth" />
+      <useClassPathOnly />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCases.TestCRC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="TestCRC" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCases.TestCopySamExe" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="TestCopySamExe" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCases.TestNested" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="TestNested" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCases.TestPlusLoop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="TestPlusLoop" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCases.TestPolyParser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestCases" />
+      <option name="METHOD_NAME" value="TestPolyParser" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Docker" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="jforth" />
+          <option name="command" value="" />
+          <option name="containerName" value="jforth" />
+          <option name="entrypoint" value="" />
+          <option name="commandLineOptions" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.JForth" />
+      <item itemvalue="Docker.Docker" />
+      <item itemvalue="JUnit.TestCases" />
+      <item itemvalue="JUnit.TestCases.TestCRC" />
+      <item itemvalue="JUnit.TestCases.TestCopySamExe" />
+      <item itemvalue="JUnit.TestCases.TestNested" />
+      <item itemvalue="JUnit.TestCases.TestPlusLoop" />
+      <item itemvalue="JUnit.TestCases.TestPolyParser" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestCases.TestPolyParser" />
+        <item itemvalue="JUnit.TestCases.TestPlusLoop" />
+        <item itemvalue="JUnit.TestCases.TestNested" />
+        <item itemvalue="JUnit.TestCases.TestCopySamExe" />
+        <item itemvalue="JUnit.TestCases.TestCRC" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="" />
+      <created>1489997344281</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1489997344281</updated>
+      <workItem from="1489997361534" duration="396000" />
+      <workItem from="1489997792050" duration="53158000" />
+      <workItem from="1490155211372" duration="2311000" />
+      <workItem from="1490158018746" duration="126336000" />
+      <workItem from="1490564028576" duration="524000" />
+      <workItem from="1490564781254" duration="18210000" />
+      <workItem from="1491073767049" duration="561000" />
+      <workItem from="1491314244972" duration="1052000" />
+      <workItem from="1491574816729" duration="6911000" />
+      <workItem from="1491648900691" duration="9529000" />
+      <workItem from="1491820781700" duration="5940000" />
+      <workItem from="1492065456503" duration="568000" />
+      <workItem from="1492069595062" duration="50619000" />
+      <workItem from="1492383198734" duration="3990000" />
+      <workItem from="1492503372995" duration="3934000" />
+      <workItem from="1492517202013" duration="5219000" />
+      <workItem from="1492586399383" duration="100733000" />
+      <workItem from="1493380736662" duration="2167000" />
+      <workItem from="1493583361651" duration="1503000" />
+      <workItem from="1494162706202" duration="2089000" />
+      <workItem from="1497809550805" duration="6763000" />
+      <workItem from="1498111380818" duration="1791000" />
+      <workItem from="1498160643328" duration="823000" />
+      <workItem from="1498192050625" duration="18292000" />
+      <workItem from="1498360741294" duration="22954000" />
+      <workItem from="1498639347240" duration="32584000" />
+      <workItem from="1498798733870" duration="790000" />
+      <workItem from="1498803229167" duration="211000" />
+      <workItem from="1498988077533" duration="2859000" />
+      <workItem from="1499047740080" duration="1295000" />
+      <workItem from="1499924394227" duration="624000" />
+      <workItem from="1499925776484" duration="7806000" />
+      <workItem from="1500123415374" duration="1279000" />
+      <workItem from="1502975231964" duration="9403000" />
+      <workItem from="1503026586433" duration="1780000" />
+      <workItem from="1504423709942" duration="823000" />
+      <workItem from="1505638178168" duration="1865000" />
+      <workItem from="1505993318864" duration="17732000" />
+      <workItem from="1506277792687" duration="22183000" />
+      <workItem from="1506363083674" duration="4773000" />
+      <workItem from="1506428914568" duration="7393000" />
+      <workItem from="1506524607187" duration="2320000" />
+      <workItem from="1506611816667" duration="6499000" />
+      <workItem from="1506646925755" duration="7215000" />
+      <workItem from="1506794798794" duration="2729000" />
+      <workItem from="1506829785451" duration="46811000" />
+      <workItem from="1507907508851" duration="170000" />
+      <workItem from="1507908239923" duration="2491000" />
+      <workItem from="1511369717771" duration="2273000" />
+      <workItem from="1511378460071" duration="940000" />
+      <workItem from="1512319631535" duration="4967000" />
+      <workItem from="1514082500244" duration="1187000" />
+      <workItem from="1514098071750" duration="6525000" />
+      <workItem from="1515928113630" duration="3065000" />
+      <workItem from="1515932600519" duration="5145000" />
+      <workItem from="1516289851604" duration="3817000" />
+      <workItem from="1517127262488" duration="14268000" />
+      <workItem from="1517288429544" duration="8395000" />
+      <workItem from="1517330886416" duration="710000" />
+      <workItem from="1517410200440" duration="2210000" />
+      <workItem from="1517729508934" duration="2628000" />
+      <workItem from="1517735555420" duration="507000" />
+      <workItem from="1517736269807" duration="952000" />
+      <workItem from="1517738401877" duration="2383000" />
+      <workItem from="1517761843247" duration="11844000" />
+      <workItem from="1517819811181" duration="10726000" />
+      <workItem from="1518502174352" duration="4046000" />
+      <workItem from="1519750490025" duration="6238000" />
+      <workItem from="1520739498800" duration="1562000" />
+      <workItem from="1521766701610" duration="7420000" />
+      <workItem from="1521901254306" duration="9070000" />
+      <workItem from="1521917293325" duration="1144000" />
+      <workItem from="1521944318869" duration="2709000" />
+      <workItem from="1522204626087" duration="367000" />
+      <workItem from="1522231223493" duration="127000" />
+      <workItem from="1522231630700" duration="395000" />
+      <workItem from="1522237028241" duration="363000" />
+      <workItem from="1522237815683" duration="1024000" />
+      <workItem from="1522282807596" duration="1585000" />
+      <workItem from="1523015856816" duration="5094000" />
+      <workItem from="1524310687406" duration="12268000" />
+      <workItem from="1524832191639" duration="5725000" />
+      <workItem from="1524979805570" duration="7396000" />
+      <workItem from="1527545361895" duration="795000" />
+      <workItem from="1527647489589" duration="8440000" />
+      <workItem from="1527956716215" duration="7135000" />
+      <workItem from="1528043766951" duration="2883000" />
+      <workItem from="1528289229690" duration="13447000" />
+      <workItem from="1529646331170" duration="822000" />
+    </task>
+    <task id="LOCAL-00173" summary="updated gitignore">
+      <created>1581484702273</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1581484702273</updated>
+    </task>
+    <task id="LOCAL-00174" summary="better sort and rev instructions">
+      <created>1583523715724</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1583523715740</updated>
+    </task>
+    <task id="LOCAL-00175" summary="refined 'unique' command">
+      <created>1583531186136</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1583531186136</updated>
+    </task>
+    <task id="LOCAL-00176" summary="added percentage words&#10;fixed toStr bug&#10;added percentage words test">
+      <created>1587710910770</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1587710910786</updated>
+    </task>
+    <task id="LOCAL-00177" summary="added typeTest">
+      <created>1587738623908</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1587738623908</updated>
+    </task>
+    <task id="LOCAL-00178" summary="removed some unnecessary bools">
+      <created>1587758015731</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1587758015747</updated>
+    </task>
+    <task id="LOCAL-00179" summary="minor changes">
+      <created>1588295813754</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1588295813754</updated>
+    </task>
+    <task id="LOCAL-00180" summary="removed duplicate code">
+      <created>1591441600804</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1591441600820</updated>
+    </task>
+    <task id="LOCAL-00181" summary="added: string - number and string - string&#10;plus test functions">
+      <created>1599241802556</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1599241802559</updated>
+    </task>
+    <task id="LOCAL-00182" summary="better quoting in StringSequence">
+      <created>1599273758831</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1599273758832</updated>
+    </task>
+    <task id="LOCAL-00183" summary="some minor enhancements">
+      <created>1599319764274</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1599319764274</updated>
+    </task>
+    <task id="LOCAL-00184" summary="added new morse player">
+      <created>1599331320535</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1599331320535</updated>
+    </task>
+    <task id="LOCAL-00185" summary="new dtmf player">
+      <created>1599354314625</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1599354314644</updated>
+    </task>
+    <task id="LOCAL-00186" summary="some enhancements">
+      <created>1599361215519</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1599361215519</updated>
+    </task>
+    <task id="LOCAL-00187" summary="improved tune command (experimental)">
+      <created>1599394726948</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1599394726949</updated>
+    </task>
+    <task id="LOCAL-00188" summary="enhancements regarding sound generation">
+      <created>1599420106961</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1599420106961</updated>
+    </task>
+    <task id="LOCAL-00189" summary="addad binary and hex input for long values">
+      <created>1599547645900</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1599547645900</updated>
+    </task>
+    <task id="LOCAL-00190" summary="added 'binstr' word">
+      <created>1599619943341</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1599619943341</updated>
+    </task>
+    <task id="LOCAL-00191" summary="updated gitignore">
+      <created>1599623255691</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1599623255691</updated>
+    </task>
+    <task id="LOCAL-00192" summary="comments ( and \ work again&#10;(including test case)">
+      <created>1599623347841</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1599623347844</updated>
+    </task>
+    <task id="LOCAL-00193" summary="updated readme">
+      <created>1599624775377</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1599624775377</updated>
+    </task>
+    <task id="LOCAL-00194" summary="updated readme.md">
+      <created>1599625849874</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1599625849874</updated>
+    </task>
+    <task id="LOCAL-00195" summary="added bf interpreter">
+      <created>1599738733043</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1599738733045</updated>
+    </task>
+    <task id="LOCAL-00196" summary="testcase for brainfuck">
+      <created>1599747719198</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1599747719199</updated>
+    </task>
+    <task id="LOCAL-00197" summary="added blob commands and pwd command">
+      <created>1600177212697</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1600177212699</updated>
+    </task>
+    <task id="LOCAL-00198" summary="added waveplay command">
+      <created>1600191252320</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1600191252320</updated>
+    </task>
+    <task id="LOCAL-00199" summary="added blob append and blob make functionality">
+      <created>1600736420059</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1600736420060</updated>
+    </task>
+    <task id="LOCAL-00200" summary="some improvements + fresh jar file">
+      <created>1600750453026</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1600750453026</updated>
+    </task>
+    <task id="LOCAL-00201" summary="repaired fillers, before version is broken">
+      <created>1600842537547</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1600842537547</updated>
+    </task>
+    <task id="LOCAL-00202" summary="new jar, jar before is broken">
+      <created>1600843352488</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1600843352488</updated>
+    </task>
+    <task id="LOCAL-00203" summary="+ test case 'nested'">
+      <created>1600844811227</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1600844811227</updated>
+    </task>
+    <task id="LOCAL-00204" summary="backup ...">
+      <created>1600865953362</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1600865953362</updated>
+    </task>
+    <task id="LOCAL-00205" summary="dup is now real object copy">
+      <created>1600867978324</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1600867978325</updated>
+    </task>
+    <task id="LOCAL-00206" summary="backup">
+      <created>1600879634308</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
+      <option name="project" value="LOCAL" />
+      <updated>1600879634309</updated>
+    </task>
+    <task id="LOCAL-00207" summary="added crc">
+      <created>1600884914507</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1600884914509</updated>
+    </task>
+    <task id="LOCAL-00208" summary="updated gitignore">
+      <created>1600913685711</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1600913685711</updated>
+    </task>
+    <task id="LOCAL-00209" summary="Revert &quot;some improvements + fresh jar file&quot;&#10;&#10;This reverts commit 6cb502d9">
+      <created>1600916441868</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1600916441868</updated>
+    </task>
+    <task id="LOCAL-00210" summary="restored">
+      <created>1600916830647</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1600916830647</updated>
+    </task>
+    <task id="LOCAL-00211" summary="updated">
+      <created>1600916916491</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1600916916491</updated>
+    </task>
+    <task id="LOCAL-00212" summary="before rebase">
+      <created>1600917324659</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1600917324661</updated>
+    </task>
+    <task id="LOCAL-00213" summary="restored">
+      <created>1600918314135</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1600918314135</updated>
+    </task>
+    <task id="LOCAL-00214" summary="moved around">
+      <created>1600918707645</created>
+      <option name="number" value="00214" />
+      <option name="presentableId" value="LOCAL-00214" />
+      <option name="project" value="LOCAL" />
+      <updated>1600918707645</updated>
+    </task>
+    <task id="LOCAL-00215" summary="sam voice speaks immediately">
+      <created>1600924335767</created>
+      <option name="number" value="00215" />
+      <option name="presentableId" value="LOCAL-00215" />
+      <option name="project" value="LOCAL" />
+      <updated>1600924335772</updated>
+    </task>
+    <task id="LOCAL-00216" summary="improved wave player">
+      <created>1600933725773</created>
+      <option name="number" value="00216" />
+      <option name="presentableId" value="LOCAL-00216" />
+      <option name="project" value="LOCAL" />
+      <updated>1600933725775</updated>
+    </task>
+    <task id="LOCAL-00217" summary="improved wave player">
+      <created>1600993840132</created>
+      <option name="number" value="00217" />
+      <option name="presentableId" value="LOCAL-00217" />
+      <option name="project" value="LOCAL" />
+      <updated>1600993840132</updated>
+    </task>
+    <task id="LOCAL-00218" summary="update">
+      <created>1601859058406</created>
+      <option name="number" value="00218" />
+      <option name="presentableId" value="LOCAL-00218" />
+      <option name="project" value="LOCAL" />
+      <updated>1601859058408</updated>
+    </task>
+    <task id="LOCAL-00219" summary="some improvements">
+      <created>1601877894683</created>
+      <option name="number" value="00219" />
+      <option name="presentableId" value="LOCAL-00219" />
+      <option name="project" value="LOCAL" />
+      <updated>1601877894683</updated>
+    </task>
+    <task id="LOCAL-00220" summary="improved wave player">
+      <created>1602087781735</created>
+      <option name="number" value="00220" />
+      <option name="presentableId" value="LOCAL-00220" />
+      <option name="project" value="LOCAL" />
+      <updated>1602087781737</updated>
+    </task>
+    <task id="LOCAL-00221" summary="sam as java-file">
+      <created>1602088114399</created>
+      <option name="number" value="00221" />
+      <option name="presentableId" value="LOCAL-00221" />
+      <option name="project" value="LOCAL" />
+      <updated>1602088114400</updated>
+    </task>
+    <option name="localTasksCounter" value="222" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="810605000" />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="updated readme.md" />
+    <MESSAGE value="added bf interpreter" />
+    <MESSAGE value="testcase for brainfuck" />
+    <MESSAGE value="added blob commands and pwd command" />
+    <MESSAGE value="added waveplay command" />
+    <MESSAGE value="added blob append and blob make functionality" />
+    <MESSAGE value="some improvements + fresh jar file" />
+    <MESSAGE value="repaired fillers, before version is broken" />
+    <MESSAGE value="new jar, jar before is broken" />
+    <MESSAGE value="+ test case 'nested'" />
+    <MESSAGE value="backup ..." />
+    <MESSAGE value="dup is now real object copy" />
+    <MESSAGE value="backup" />
+    <MESSAGE value="added crc" />
+    <MESSAGE value="updated gitignore" />
+    <MESSAGE value="Revert &quot;some improvements + fresh jar file&quot;&#10;&#10;This reverts commit 6cb502d9" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="before rebase" />
+    <MESSAGE value="restored" />
+    <MESSAGE value="moved around" />
+    <MESSAGE value="sam voice speaks immediately" />
+    <MESSAGE value="update" />
+    <MESSAGE value="some improvements" />
+    <MESSAGE value="improved wave player" />
+    <MESSAGE value="sam as java-file" />
+    <option name="LAST_COMMIT_MESSAGE" value="sam as java-file" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="446" y="83" key="#Docker" timestamp="1602076787137">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="446" y="83" key="#Docker/0.0.1366.768@0.0.1366.768" timestamp="1602076787137" />
+    <state x="163" y="0" key="#Project_Structure" timestamp="1601818808363">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="163" y="0" key="#Project_Structure/0.0.1366.768@0.0.1366.768" timestamp="1601818808363" />
+    <state x="513" y="237" key="#com.intellij.debugger.actions.ViewTextAction" timestamp="1600921583322">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="513" y="237" key="#com.intellij.debugger.actions.ViewTextAction/0.0.1366.768@0.0.1366.768" timestamp="1600921583322" />
+    <state x="136" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600919320208">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="136" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1596031048554" />
+    <state x="136" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1600919320208" />
+    <state x="180" y="130" width="1046" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1600866842867">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="180" y="130" width="1046" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.768@0.0.1366.768" timestamp="1600866842867" />
+    <state x="488" y="83" key="#com.intellij.ide.util.MemberChooser" timestamp="1600861542357">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="488" y="83" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1600861542357" />
+    <state x="413" y="157" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1600920819998">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="413" y="157" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1600920819998" />
+    <state x="412" y="171" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1600927017820">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="412" y="171" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1600927017820" />
+    <state x="362" y="103" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596005727072">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="362" y="103" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1596005727072" />
+    <state x="357" y="301" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1602087497992">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="357" y="301" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.768@0.0.1366.768" timestamp="1602087497992" />
+    <state x="461" y="239" width="444" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1600920830847">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="461" y="239" width="444" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.768@0.0.1366.768" timestamp="1600920830846" />
+    <state x="461" y="258" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1599331611967">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="461" y="258" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.768@0.0.1366.768" timestamp="1599331611967" />
+    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1600927025366">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1600927025366" />
+    <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600888564477">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1600888564477" />
+    <state x="277" y="0" key="CommitChangelistDialog2" timestamp="1602088108663">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="277" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1602088108663" />
+    <state width="418" height="466" key="DebuggerActiveHint" timestamp="1599792698534">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="418" height="466" key="DebuggerActiveHint/0.0.1366.768@0.0.1366.768" timestamp="1599792698534" />
+    <state x="129" y="49" key="DiffContextDialog" timestamp="1600915652588">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="129" y="49" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1600915652588" />
+    <state x="463" y="112" key="FileChooserDialogImpl" timestamp="1602076523954">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="463" y="112" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1602076523954" />
+    <state width="1317" height="190" key="GridCell.Tab.0.bottom" timestamp="1602096278072">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1321" height="262" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1596031359062" />
+    <state width="1317" height="190" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1602096278072" />
+    <state width="1317" height="190" key="GridCell.Tab.0.center" timestamp="1602096278071">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1321" height="262" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
+    <state width="1317" height="190" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1602096278071" />
+    <state width="1317" height="190" key="GridCell.Tab.0.left" timestamp="1602096278070">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1321" height="262" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
+    <state width="1317" height="190" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1602096278070" />
+    <state width="1317" height="190" key="GridCell.Tab.0.right" timestamp="1602096278071">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1321" height="262" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
+    <state width="1317" height="190" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1602096278071" />
+    <state width="1317" height="215" key="GridCell.Tab.1.bottom" timestamp="1600994589929">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1317" height="215" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1600994589929" />
+    <state width="1317" height="215" key="GridCell.Tab.1.center" timestamp="1600994589928">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1317" height="215" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
+    <state width="1317" height="215" key="GridCell.Tab.1.left" timestamp="1600994589928">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1317" height="215" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
+    <state width="1317" height="215" key="GridCell.Tab.1.right" timestamp="1600994589928">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1317" height="215" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
+    <state x="129" y="59" key="MergeDialog" timestamp="1600916363248">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="129" y="59" key="MergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1600916363248" />
+    <state x="317" y="140" key="MultipleFileMergeDialog" timestamp="1600917420031">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="317" y="140" key="MultipleFileMergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1600917420031" />
+    <state x="313" y="235" key="Performance.Activity.Monitor" timestamp="1600994923927">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="313" y="235" key="Performance.Activity.Monitor/0.0.1366.768@0.0.1366.768" timestamp="1600994923927" />
+    <state x="389" y="33" width="587" height="691" key="RefactorJ.ExtractClass" timestamp="1599376830276">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="389" y="33" width="587" height="691" key="RefactorJ.ExtractClass/0.0.1366.768@0.0.1366.768" timestamp="1599376830276" />
+    <state x="440" y="81" width="707" height="566" key="RollbackChangesDialog" timestamp="1600916199627">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="440" y="81" width="707" height="566" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1600916199627" />
+    <state x="184" y="0" key="SettingsEditor" timestamp="1602076582631">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1602076582631" />
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1600156004732">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1366.768@0.0.1366.768" timestamp="1600156004732" />
+    <state x="275" y="106" key="Vcs.Push.Dialog.v2" timestamp="1600993846057">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="275" y="106" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1600993846057" />
+    <state width="691" height="392" key="XDebugger.FullValuePopup" timestamp="1599448162131">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="691" height="392" key="XDebugger.FullValuePopup/0.0.1366.768@0.0.1366.768" timestamp="1599448162131" />
+    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601819563422">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1601819563422" />
+    <state x="435" y="49" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599450241933">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="435" y="49" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768@0.0.1366.768" timestamp="1599450241933" />
+    <state x="489" y="292" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600917336221">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="489" y="292" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1600917336221" />
+    <state x="243" y="111" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1599391939311">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="243" y="111" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.768@0.0.1366.768" timestamp="1599391939310" />
+    <state x="391" y="96" width="584" height="672" key="find.popup" timestamp="1601878300706">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="391" y="96" width="584" height="672" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1601878300706" />
+    <state x="453" y="274" key="git4idea.ui.GitResetDialog" timestamp="1601859393550">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="453" y="274" key="git4idea.ui.GitResetDialog/0.0.1366.768@0.0.1366.768" timestamp="1601859393550" />
+    <state x="273" y="64" key="new project wizard" timestamp="1599325693033">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="273" y="64" key="new project wizard/0.0.1366.768@0.0.1366.768" timestamp="1599325693033" />
+    <state x="376" y="134" key="refactoring.ChangeSignatureDialog" timestamp="1599618600990">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="376" y="134" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1599618600990" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1600156004723">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1600156004723" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/audio/Morse.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/audio/Morse.java</url>
+          <line>63</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JForth$TestCases_soundTest.ic" NAME="TestCases.soundTest Coverage Results" MODIFIED="1599426467472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

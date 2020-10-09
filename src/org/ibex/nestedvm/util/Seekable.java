@@ -4,8 +4,7 @@
 
 package org.ibex.nestedvm.util;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 public abstract class Seekable { 
     public abstract int read(byte[] buf, int offset, int length) throws IOException;

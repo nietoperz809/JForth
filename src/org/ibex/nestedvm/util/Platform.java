@@ -5,17 +5,11 @@
 package org.ibex.nestedvm.util;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
+import java.nio.channels.*;
+import java.net.*;
+import java.util.*;
+
 import java.text.DateFormatSymbols;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /*
  GCCLASS_HINT: org.ibex.nestedvm.util.Platform.<clinit> org.ibex.nestedvm.util.Platform$Jdk11.<init>

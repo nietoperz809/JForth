@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM_[Default]" date="1600917147652" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM_[Default]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 9/24/2020 5:12 AM [Default]" />
+  <binary>
+    <option name="BEFORE_PATH" value="JForth_jar/autoexec.4th" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="JForth_jar/JForth.jar" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

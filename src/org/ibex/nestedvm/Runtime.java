@@ -9,7 +9,6 @@
 package org.ibex.nestedvm;
 
 import org.ibex.nestedvm.util.*;
-
 import java.io.*;
 
 public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
@@ -135,9 +134,12 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         return r;
     }
     
-    protected Runtime(int pageSize, int totalPages) { this(pageSize, totalPages,false); }
+    protected Runtime (PrintStream pw, int pageSize, int totalPages)
+    {
+        this (pw, pageSize, totalPages,false);
+    }
 
-    protected Runtime(int pageSize, int totalPages, boolean exec)
+    protected Runtime (PrintStream pw, int pageSize, int totalPages, boolean exec)
     {
         if(pageSize <= 0) throw new IllegalArgumentException("pageSize <= 0");
         if(totalPages <= 0) throw new IllegalArgumentException("totalPages <= 0");
@@ -183,8 +185,8 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         
             InputStream stdin = win32Hacks ? new Win32ConsoleIS(System.in) : System.in;
             addFD(new TerminalFD(stdin));
-            addFD(new TerminalFD(System.out));
-            addFD(new TerminalFD(System.err));
+            addFD(new TerminalFD(pw));
+            addFD(new TerminalFD(pw));
         }
     }
     
