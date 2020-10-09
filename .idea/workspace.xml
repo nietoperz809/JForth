@@ -18,27 +18,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM_[Default]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM__Default_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/laladumm" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/run.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/linde" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/sam.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/samclass.class" beforeDir="false" afterPath="$PROJECT_DIR$/resource/samclass.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/ResourceLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/TestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/TestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/Runtime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/Runtime.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Platform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Platform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Seekable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ibex/nestedvm/util/Seekable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/ByteArrayClassLoader.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -434,6 +424,7 @@
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="tools.ResourceLoader" />
       <recent name="jforth.audio.WaveTools" />
       <recent name="jforth.FileUtils" />
       <recent name="jforth.Utilities" />
@@ -862,13 +853,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00173" summary="updated gitignore">
-      <created>1581484702273</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1581484702273</updated>
-    </task>
     <task id="LOCAL-00174" summary="better sort and rev instructions">
       <created>1583523715724</created>
       <option name="number" value="00174" />
@@ -1205,7 +1189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602088114400</updated>
     </task>
-    <option name="localTasksCounter" value="222" />
+    <task id="LOCAL-00222" summary="improved wave player">
+      <created>1602211749820</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1602211749871</updated>
+    </task>
+    <option name="localTasksCounter" value="223" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1304,9 +1295,9 @@
     <MESSAGE value="sam voice speaks immediately" />
     <MESSAGE value="update" />
     <MESSAGE value="some improvements" />
-    <MESSAGE value="improved wave player" />
     <MESSAGE value="sam as java-file" />
-    <option name="LAST_COMMIT_MESSAGE" value="sam as java-file" />
+    <MESSAGE value="improved wave player" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved wave player" />
   </component>
   <component name="WindowStateProjectService">
     <state x="446" y="83" key="#Docker" timestamp="1602076787137">
@@ -1358,18 +1349,18 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="461" y="258" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.768@0.0.1366.768" timestamp="1599331611967" />
-    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1600927025366">
+    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1602229241207">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1600927025366" />
+    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1602229241207" />
     <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600888564477">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1600888564477" />
-    <state x="277" y="0" key="CommitChangelistDialog2" timestamp="1602088108663">
+    <state x="277" y="0" key="CommitChangelistDialog2" timestamp="1602211741299">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="277" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1602088108663" />
+    <state x="277" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1602211741299" />
     <state width="418" height="466" key="DebuggerActiveHint" timestamp="1599792698534">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -1382,26 +1373,26 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="463" y="112" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1602076523954" />
-    <state width="1317" height="190" key="GridCell.Tab.0.bottom" timestamp="1602096278072">
+    <state width="1317" height="190" key="GridCell.Tab.0.bottom" timestamp="1602229670073">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1321" height="262" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1596031359062" />
-    <state width="1317" height="190" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1602096278072" />
-    <state width="1317" height="190" key="GridCell.Tab.0.center" timestamp="1602096278071">
+    <state width="1317" height="190" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1602229670073" />
+    <state width="1317" height="190" key="GridCell.Tab.0.center" timestamp="1602229670072">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1321" height="262" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1602096278071" />
-    <state width="1317" height="190" key="GridCell.Tab.0.left" timestamp="1602096278070">
+    <state width="1317" height="190" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1602229670072" />
+    <state width="1317" height="190" key="GridCell.Tab.0.left" timestamp="1602229670072">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1321" height="262" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1602096278070" />
-    <state width="1317" height="190" key="GridCell.Tab.0.right" timestamp="1602096278071">
+    <state width="1317" height="190" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1602229670072" />
+    <state width="1317" height="190" key="GridCell.Tab.0.right" timestamp="1602229670073">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1321" height="262" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1602096278071" />
+    <state width="1317" height="190" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1602229670073" />
     <state width="1317" height="215" key="GridCell.Tab.1.bottom" timestamp="1600994589929">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -1446,10 +1437,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1366.768@0.0.1366.768" timestamp="1600156004732" />
-    <state x="275" y="106" key="Vcs.Push.Dialog.v2" timestamp="1600993846057">
+    <state x="275" y="106" key="Vcs.Push.Dialog.v2" timestamp="1602211777728">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="106" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1600993846057" />
+    <state x="275" y="106" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1602211777728" />
     <state width="691" height="392" key="XDebugger.FullValuePopup" timestamp="1599448162131">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

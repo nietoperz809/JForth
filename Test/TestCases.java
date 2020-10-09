@@ -1,8 +1,8 @@
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import jforth.Utilities;
 import org.junit.Assert;
 import org.junit.Test;
+import tools.ResourceLoader;
 import tools.StringStream;
 
 import java.io.BufferedReader;
@@ -583,7 +583,7 @@ public class TestCases
     {
         try
         {
-            String res = Utilities.extractResource("sam.exe", true);
+            String res = ResourceLoader.extractResource("sam.exe", true);
             ProcessBuilder pb = new ProcessBuilder(res);
             Process p = pb.start();
 

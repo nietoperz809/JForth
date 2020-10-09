@@ -1,7 +1,6 @@
 package jforth.audio;
 
-import jforth.Utilities;
-import tools.ByteArrayClassLoader;
+import tools.ResourceLoader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -18,9 +17,8 @@ public class SAMSpeech
     {
         try
         {
-            byte[] clbytes = Utilities.extractResource ("samclass.class");
-            ByteArrayClassLoader bac = new ByteArrayClassLoader (clbytes);
-            Class<?> cl = bac.loadClass ("samclass");
+            byte[] clbytes = ResourceLoader.extractResource ("samclass.class");
+            Class<?> cl = ResourceLoader.loadClassfromArray (clbytes, "samclass");
             meth = cl.getMethod("xmain", PrintStream.class, String[].class);
         }
         catch (Exception e)
@@ -57,7 +55,7 @@ public class SAMSpeech
         String[] arg = {"-stdout","dummy",txt};
         ByteArrayOutputStream ba = new ByteArrayOutputStream();
         PrintStream p = new PrintStream (ba);
-        meth.invoke(null, p, (Object) arg);
+        meth.invoke(null, p, arg);
         byte[] result = ba.toByteArray ();
         swap4 (result, 4);
         swap4 (result, 16);

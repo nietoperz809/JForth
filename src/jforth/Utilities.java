@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2015";
-    private static final String BUILD_DATE = "10/09/2020 04:43:33 AM";
+    private static final String BUILD_NUMBER = "2017";
+    private static final String BUILD_DATE = "10/09/2020 09:52:36 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -965,62 +965,6 @@ public class Utilities
             return true;
         }
         return original.toUpperCase ().contains (pattern.toUpperCase ());
-    }
-
-    /**
-     * Copy resource from jar to temp folder
-     *
-     * @param name name of resource
-     * @return Full path to extracted file
-     * @throws IOException if smth gone wrong
-     */
-    static public String extractResource (String name, boolean overwrite) throws IOException
-    {
-        String tempName = System.getProperty ("java.io.tmpdir") + name;
-        if (!new File (tempName).exists () || overwrite)
-        {
-            InputStream is = ClassLoader.getSystemResourceAsStream (name);
-            BufferedInputStream bis = new BufferedInputStream (Objects.requireNonNull (is));
-            OutputStream os = new FileOutputStream (tempName);
-            byte[] buff = new byte[1024];
-            for (; ; )
-            {
-                int r = bis.read (buff);
-                if (r == -1)
-                {
-                    break;
-                }
-                os.write (buff, 0, r);
-            }
-            bis.close ();
-            os.close ();
-        }
-        return tempName;
-    }
-
-    /**
-     * Get byte array from resource bundle
-     * @param name what resource
-     * @return the resource as byte array
-     * @throws Exception if smth. went wrong
-     */
-    static public byte[] extractResource (String name) throws Exception
-    {
-        InputStream is = ClassLoader.getSystemResourceAsStream (name);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream ();
-        byte[] buffer = new byte[1024];
-        while (true)
-        {
-            int r = is.read (buffer);
-            if (r == -1)
-            {
-                break;
-            }
-            out.write (buffer, 0, r);
-        }
-
-        return out.toByteArray ();
     }
 
 
