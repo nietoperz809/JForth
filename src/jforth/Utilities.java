@@ -13,7 +13,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 //import java.util.function.BiFunction;
 
@@ -22,8 +21,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2019";
-    private static final String BUILD_DATE = "10/10/2020 12:08:05 AM";
+    private static final String BUILD_NUMBER = "2021";
+    private static final String BUILD_DATE = "10/10/2020 08:05:01 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");

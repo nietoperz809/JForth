@@ -3,7 +3,7 @@
         increment build variable
     </description>
     <!-- set global properties for this build -->
-    <property name="src" location="../src"/>
+    <property name="src" location="../src/jforth"/>
 
     <tstamp>
         <format property="current.time" pattern="MM/dd/yyyy hh:mm:ss aa" />
