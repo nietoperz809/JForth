@@ -644,6 +644,12 @@ class Filler2
                             }
                             BreakLoopControlWord ecw = new BreakLoopControlWord();
                             predefinedWords._jforth.wordBeingDefined.addWord(ecw);
+//                            predefinedWords._jforth.wordBeingDefined.addWord(new BaseWord() {
+//                                @Override
+//                                public int execute(OStack dataStack, OStack variableStack) {
+//                                    return 1;
+//                                }
+//                            });
                             return 1;
                         }
                 ));

@@ -16,6 +16,13 @@ public abstract class BaseWord implements ExecuteIF, Comparable<BaseWord>, Seria
         this.info = inf;
     }
 
+    public BaseWord ()
+    {
+        this.name = "";
+        this.immediate = false;
+        this.info = null;
+    }
+
     public String toString (boolean showDetail)
     {
         if (showDetail && info != null)

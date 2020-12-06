@@ -30,13 +30,11 @@ import static org.mathIT.numbers.Riemann.zeta;
 
 //import scala.math.BigInt;
 
-class Filler1
-{
+class Filler1 {
     public static final Random random = new Random();
 
 
-    static void fill (WordsList _fw, PredefinedWords predefinedWords)
-    {
+    static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         // do nothing. comments handled by tokenizer
         _fw.add(new PrimitiveWord   // dummy
                 (
@@ -56,30 +54,22 @@ class Filler1
                         "'", true, "Push word from dictionary onto stack",
                         (dStack, vStack) ->
                         {
-                            if (predefinedWords._jforth.compiling)
-                            {
+                            if (predefinedWords._jforth.compiling) {
                                 return 1;
                             }
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             BaseWord bw = null;
-                            try
-                            {
+                            try {
                                 bw = predefinedWords._jforth.dictionary.search(name);
+                            } catch (Exception ignore) {
                             }
-                            catch (Exception ignore)
-                            {
-                            }
-                            if (bw != null)
-                            {
+                            if (bw != null) {
                                 dStack.push(bw);
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -117,41 +107,27 @@ class Filler1
                         "?dup", "Duplicate TOS if not zero",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o = dStack.peek();
-                            if (o instanceof Long)
-                            {
-                                if (((Long) o) != 0)
-                                {
+                            if (o instanceof Long) {
+                                if (((Long) o) != 0) {
                                     dStack.push(o);
                                 }
-                            }
-                            else if (o instanceof Double)
-                            {
-                                if (((Double) o) != 0.0)
-                                {
+                            } else if (o instanceof Double) {
+                                if (((Double) o) != 0.0) {
                                     dStack.push(o);
                                 }
-                            }
-                            else if (o instanceof DoubleSequence)
-                            {
-                                if (!((DoubleSequence) o).isEmpty())
-                                {
+                            } else if (o instanceof DoubleSequence) {
+                                if (!((DoubleSequence) o).isEmpty()) {
                                     dStack.push(new DoubleSequence((DoubleSequence) o));
                                 }
-                            }
-                            else if (o instanceof String)
-                            {
-                                if (!((String) o).isEmpty())
-                                {
+                            } else if (o instanceof String) {
+                                if (!((String) o).isEmpty()) {
                                     dStack.push(o);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -163,28 +139,22 @@ class Filler1
                         "permute", "Generate permutation",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long l2 = Utilities.readLong(dStack);
-                                Object o = dStack.pop ();
-                                if (o instanceof DoubleSequence)
-                                {
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
                                     DoubleSequence ds = (DoubleSequence) o;
-                                    int[] arr = LehmerCode.perm (ds.length (), (int) l2);
-                                    DoubleSequence out = ds.rearrange (arr);
-                                    dStack.push (out);
-                                }
-                                else if (o instanceof StringSequence)
-                                {
+                                    int[] arr = LehmerCode.perm(ds.length(), (int) l2);
+                                    DoubleSequence out = ds.rearrange(arr);
+                                    dStack.push(out);
+                                } else if (o instanceof StringSequence) {
                                     StringSequence ds = (StringSequence) o;
-                                    int[] arr = LehmerCode.perm (ds.length (), (int) l2);
-                                    StringSequence out = ds.rearrange (arr);
-                                    dStack.push (out);
+                                    int[] arr = LehmerCode.perm(ds.length(), (int) l2);
+                                    StringSequence out = ds.rearrange(arr);
+                                    dStack.push(out);
                                 }
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -333,48 +303,32 @@ class Filler1
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
-                                if (i1 < i2)
-                                {
+                                if (i1 < i2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
+                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
                                 double d1 = (Double) o1;
                                 double d2 = (Double) o2;
-                                if (d1 < d2)
-                                {
+                                if (d1 < d2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 int result = s1.compareTo(s2);
-                                if (result < 0)
-                                {
+                                if (result < 0) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -388,75 +342,49 @@ class Filler1
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
-                                if (i1 == i2)
-                                {
+                                if (i1 == i2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
+                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
                                 double d1 = (Double) o1;
                                 double d2 = (Double) o2;
-                                if (d1 == d2)
-                                {
+                                if (d1 == d2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 int result = s1.compareTo(s2);
-                                if (result == 0)
-                                {
+                                if (result == 0) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence))
-                            {
+                            } else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence)) {
                                 DoubleSequence s1 = (DoubleSequence) o1;
                                 DoubleSequence s2 = (DoubleSequence) o2;
-                                boolean result = s1.sameContents (s2);
-                                if (result)
-                                {
+                                boolean result = s1.sameContents(s2);
+                                if (result) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof Complex) && (o2 instanceof Complex))
-                            {
+                            } else if ((o1 instanceof Complex) && (o2 instanceof Complex)) {
                                 Complex s1 = (Complex) o1;
                                 Complex s2 = (Complex) o2;
-                                if (s1.equals (s2))
-                                {
+                                if (s1.equals(s2)) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -470,26 +398,19 @@ class Filler1
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 dStack.push(i1 != i2 ? JForth.TRUE : JForth.FALSE);
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
+                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
                                 double d1 = (Double) o1;
                                 double d2 = (Double) o2;
                                 dStack.push(d1 != d2 ? JForth.TRUE : JForth.FALSE);
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 dStack.push(s1.compareTo(s2) != 0 ? JForth.TRUE : JForth.FALSE);
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -503,48 +424,32 @@ class Filler1
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
-                                if (i1 > i2)
-                                {
+                                if (i1 > i2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof Double) && (o2 instanceof Double))
-                            {
+                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
                                 double d1 = (Double) o1;
                                 double d2 = (Double) o2;
-                                if (d1 > d2)
-                                {
+                                if (d1 > d2) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 int result = s1.compareTo(s2);
-                                if (result > 0)
-                                {
+                                if (result > 0) {
                                     dStack.push(JForth.TRUE);
-                                }
-                                else
-                                {
+                                } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -557,20 +462,15 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 long i1 = (Long) o1;
                                 dStack.push((i1 < 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else if (o1 instanceof Double)
-                            {
+                            } else if (o1 instanceof Double) {
                                 double d1 = (Double) o1;
                                 dStack.push((d1 < 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -582,20 +482,15 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 long i1 = (Long) o1;
                                 dStack.push((i1 == 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else if (o1 instanceof Double)
-                            {
+                            } else if (o1 instanceof Double) {
                                 double d1 = (Double) o1;
                                 dStack.push((d1 == 0.0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -607,20 +502,15 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 long i1 = (Long) o1;
                                 dStack.push((i1 > 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else if (o1 instanceof Double)
-                            {
+                            } else if (o1 instanceof Double) {
                                 double d1 = (Double) o1;
                                 dStack.push((d1 > 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -631,14 +521,11 @@ class Filler1
                         "not", "Gives 0 if TOS is not 0, otherwise 1",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Long i1 = Utilities.readLong(dStack);
                                 dStack.push((Objects.equals(i1, JForth.FALSE)) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -671,7 +558,7 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            return WordHelpers.add (dStack, o1, o2, predefinedWords);
+                            return WordHelpers.add(dStack, o1, o2, predefinedWords);
                         }
                 ));
 
@@ -819,31 +706,22 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
+                            try {
                                 dStack.push(Utilities.doCalcBigInt(o2, o1, BigInteger::mod));
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
+                            try {
                                 dStack.push(PolySupport.execute(o2, o1, PolySupport::polyMod));
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 %= i1;
                                 dStack.push(i2);
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -857,25 +735,19 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
+                            try {
                                 dStack.push(PolySupport.execute(o2, o1, PolySupport::polyMod));
                                 dStack.push(PolySupport.execute(o2, o1, PolySupport::polyDiv));
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
+                            try {
                                 long l1 = Utilities.getLong(o1);
                                 long l2 = Utilities.getLong(o2);
                                 dStack.push(l2 % l1);
                                 dStack.push(l2 / l1);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -887,22 +759,19 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push(DoubleSequence.getStats((DoubleSequence) o1).getMax());
                                 return 1;
                             }
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 = Math.max(i1, i2);
                                 dStack.push(i2);
                                 return 1;
                             }
-                            if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 s2 = (s1.compareTo(s2) > 0) ? s1 : s2;
@@ -919,22 +788,19 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push(DoubleSequence.getStats((DoubleSequence) o1).getMin());
                                 return 1;
                             }
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 = Math.min(i1, i2);
                                 dStack.push(i2);
                                 return 1;
                             }
-                            if ((o1 instanceof String) && (o2 instanceof String))
-                            {
+                            if ((o1 instanceof String) && (o2 instanceof String)) {
                                 String s1 = (String) o1;
                                 String s2 = (String) o2;
                                 s2 = (s1.compareTo(s2) < 0) ? s1 : s2;
@@ -951,8 +817,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push
                                         (DoubleSequence.getStats((DoubleSequence) o1).getGeometricMean());
                                 return 1;
@@ -967,8 +832,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push
                                         (DoubleSequence.getStats((DoubleSequence) o1).getMean());
                                 return 1;
@@ -983,8 +847,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push
                                         (DoubleSequence.getStats((DoubleSequence) o1).getQuadraticMean());
                                 return 1;
@@ -999,8 +862,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push
                                         (DoubleSequence.getStats((DoubleSequence) o1).getStandardDeviation());
                                 return 1;
@@ -1015,8 +877,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence)
-                            {
+                            if (o1 instanceof DoubleSequence) {
                                 dStack.push
                                         (DoubleSequence.getStats((DoubleSequence) o1).getVariance());
                                 return 1;
@@ -1031,24 +892,17 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 long i1 = (Long) o1;
                                 i1 = Math.abs(i1);
                                 dStack.push(i1);
-                            }
-                            else if (o1 instanceof Complex)
-                            {
+                            } else if (o1 instanceof Complex) {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(d1.abs());
-                            }
-                            else if (o1 instanceof Fraction)
-                            {
+                            } else if (o1 instanceof Fraction) {
                                 Fraction d1 = (Fraction) o1;
                                 dStack.push(d1.abs());
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1061,13 +915,10 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Complex)
-                            {
+                            if (o1 instanceof Complex) {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(Math.atan(d1.getImaginary() / d1.getReal()));
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1080,18 +931,14 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Complex)
-                            {
+                            if (o1 instanceof Complex) {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(d1.conjugate());
                             }
-                            if (o1 instanceof Fraction)
-                            {
+                            if (o1 instanceof Fraction) {
                                 Fraction d1 = (Fraction) o1;
                                 dStack.push(d1.reciprocal());
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1104,42 +951,35 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Complex)
-                            {
+                            if (o1 instanceof Complex) {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(d1.getReal());
                                 dStack.push(d1.getImaginary());
                                 return 1;
                             }
-                            if (o1 instanceof Fraction)
-                            {
+                            if (o1 instanceof Fraction) {
                                 Fraction d1 = (Fraction) o1;
                                 dStack.push((double) d1.getNumerator());
                                 dStack.push((double) d1.getDenominator());
                                 return 1;
                             }
-                            if (o1 instanceof Double)
-                            {
+                            if (o1 instanceof Double) {
                                 double d1 = (Double) o1;
                                 dStack.push(Math.floor(d1));
                                 dStack.push(d1 - Math.floor(d1));
                                 return 1;
                             }
-                            if (o1 instanceof String)
-                            {
+                            if (o1 instanceof String) {
                                 String s = (String) o1;
-                                if (dStack.empty())
-                                {
+                                if (dStack.empty()) {
                                     return 0;
                                 }
                                 Object o2 = dStack.pop();
-                                if (!(o2 instanceof String))
-                                {
+                                if (!(o2 instanceof String)) {
                                     return 0;
                                 }
                                 String[] sp = s.split((String) o2);
-                                for (String x : sp)
-                                {
+                                for (String x : sp) {
                                     dStack.push(x);
                                 }
                                 return 1;
@@ -1155,15 +995,12 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 &= i1;
                                 dStack.push(i2);
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1177,15 +1014,12 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 |= i1;
                                 dStack.push(i2);
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1199,22 +1033,17 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
                                 long i1 = (Long) o1;
                                 long i2 = (Long) o2;
                                 i2 ^= i1;
                                 dStack.push(i2);
-                            }
-                            else if ((o1 instanceof String) && (o2 instanceof FileBlob))
-                            {
+                            } else if ((o1 instanceof String) && (o2 instanceof FileBlob)) {
                                 String s = (String) o1;
                                 FileBlob fb = (FileBlob) o2;
-                                fb.xor (s);
+                                fb.xor(s);
                                 dStack.push(fb);
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1227,36 +1056,31 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            if (o2 instanceof Long)
-                            {
+                            if (o2 instanceof Long) {
                                 long i2 = (Long) o2;
                                 dStack.push(Long.rotateLeft(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof DoubleSequence)
-                            {
+                            if (o2 instanceof DoubleSequence) {
                                 DoubleSequence i2 = (DoubleSequence) o2;
                                 dStack.push(i2.rotateLeft(1));
                                 return 1;
                             }
-                            if (o2 instanceof StringSequence)
-                            {
+                            if (o2 instanceof StringSequence) {
                                 StringSequence i2 = (StringSequence) o2;
                                 dStack.push(i2.rotateLeft(1));
                                 return 1;
                             }
-                            if (o2 instanceof String)
-                            {
+                            if (o2 instanceof String) {
                                 String i2 = (String) o2;
                                 dStack.push(Utilities.rotLeft(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof FileBlob)
-                            {
+                            if (o2 instanceof FileBlob) {
                                 FileBlob fb = (FileBlob) o2;
-                                byte[] cnt = Utilities.rotLeft (fb.get_content (),1);
-                                FileBlob n = new FileBlob (cnt, fb.getPath ());
-                                dStack.push (n);
+                                byte[] cnt = Utilities.rotLeft(fb.get_content(), 1);
+                                FileBlob n = new FileBlob(cnt, fb.getPath());
+                                dStack.push(n);
                                 return 1;
                             }
                             return 0;
@@ -1269,36 +1093,31 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o2 = dStack.pop();
-                            if (o2 instanceof Long)
-                            {
+                            if (o2 instanceof Long) {
                                 long i2 = (Long) o2;
                                 dStack.push(Long.rotateRight(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof DoubleSequence)
-                            {
+                            if (o2 instanceof DoubleSequence) {
                                 DoubleSequence i2 = (DoubleSequence) o2;
                                 dStack.push(i2.rotateRight(1));
                                 return 1;
                             }
-                            if (o2 instanceof StringSequence)
-                            {
+                            if (o2 instanceof StringSequence) {
                                 StringSequence i2 = (StringSequence) o2;
                                 dStack.push(i2.rotateRight(1));
                                 return 1;
                             }
-                            if (o2 instanceof String)
-                            {
+                            if (o2 instanceof String) {
                                 String i2 = (String) o2;
                                 dStack.push(Utilities.rotRight(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof FileBlob)
-                            {
+                            if (o2 instanceof FileBlob) {
                                 FileBlob fb = (FileBlob) o2;
-                                byte[] cnt = Utilities.rotRight (fb.get_content (),1);
-                                FileBlob n = new FileBlob (cnt, fb.getPath ());
-                                dStack.push (n);
+                                byte[] cnt = Utilities.rotRight(fb.get_content(), 1);
+                                FileBlob n = new FileBlob(cnt, fb.getPath());
+                                dStack.push(n);
                                 return 1;
                             }
                             return 0;
@@ -1312,8 +1131,7 @@ class Filler1
                         {
                             Object o = dStack.pop();
                             String outstr = predefinedWords._jforth.ObjectToString(o);
-                            if (outstr == null)
-                            {
+                            if (outstr == null) {
                                 return 0;
                             }
                             predefinedWords._jforth._out.print(outstr);
@@ -1326,8 +1144,7 @@ class Filler1
                         "<.", "Restore last stack object",
                         (dStack, vStack) ->
                         {
-                            if (!dStack.unpop())
-                            {
+                            if (!dStack.unpop()) {
                                 predefinedWords._jforth._out.print("Nothing to do ...");
                             }
                             return 1;
@@ -1349,8 +1166,7 @@ class Filler1
                         ".s", "Show whole data stack",
                         (dStack, vStack) ->
                         {
-                            for (Object o : dStack)
-                            {
+                            for (Object o : dStack) {
                                 predefinedWords._jforth._out.print(predefinedWords._jforth.ObjectToString(o) + " ");
                             }
                             return 1;
@@ -1383,19 +1199,15 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 long i1 = (Long) o1;
                                 StringBuilder sb = new StringBuilder();
-                                for (int i = 0; i < i1; i++)
-                                {
+                                for (int i = 0; i < i1; i++) {
                                     sb.append(" ");
                                 }
                                 predefinedWords._jforth._out.print(sb.toString());
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -1436,18 +1248,14 @@ class Filler1
                         "setbase", "Set a new number base",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Long l = Utilities.readLong(dStack);
-                                if (l > 36 || l < 2)
-                                {
+                                if (l > 36 || l < 2) {
                                     return 0;
                                 }
                                 predefinedWords._jforth.base = l.intValue();
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1458,12 +1266,9 @@ class Filler1
                         "recurse", "Re-run current word",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 return predefinedWords._jforth.currentWord.execute(dStack, vStack);
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1474,14 +1279,11 @@ class Filler1
                         "recursive", true, "Re-run current word",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 //return predefinedWords._jforth.currentWord.execute(dStack, vStack);
                                 predefinedWords._jforth.currentWord = predefinedWords._jforth.wordBeingDefined;
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1494,8 +1296,7 @@ class Filler1
                         {
                             predefinedWords._jforth.compiling = true;
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             predefinedWords._jforth.wordBeingDefined = new NonPrimitiveWord(name);
@@ -1543,23 +1344,18 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             BaseWord bw;
-                            try
-                            {
+                            try {
                                 bw = predefinedWords._jforth.dictionary.search(name);
-                            }
-                            catch (Exception ignore)
-                            {
+                            } catch (Exception ignore) {
                                 return 0;
                             }
-                            if (bw != null)
-                            {
-                                    predefinedWords._jforth.dictionary.remove(bw);
-                                    return 1;
+                            if (bw != null) {
+                                predefinedWords._jforth.dictionary.remove(bw);
+                                return 1;
                             }
                             return 0;
                         }
@@ -1570,13 +1366,11 @@ class Filler1
                         "constant", "create new Constant",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             NonPrimitiveWord constant = new NonPrimitiveWord(name);
@@ -1598,8 +1392,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             StorageWord sw = new StorageWord(name, 1, false);
@@ -1647,28 +1440,21 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof StorageWord))
-                            {
+                            if (!(o instanceof StorageWord)) {
                                 return 0;
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (sw.isArray())
-                            {
-                                if (dStack.empty())
-                                {
+                            if (sw.isArray()) {
+                                if (dStack.empty()) {
                                     return 0;
                                 }
-                            }
-                            else
-                            {
-                                if (dStack.size() < 2)
-                                {
+                            } else {
+                                if (dStack.size() < 2) {
                                     return 0;
                                 }
                                 Object off = dStack.pop();
-                                if (!(off instanceof Long))
-                                {
+                                if (!(off instanceof Long)) {
                                     return 0;
                                 }
                                 offset = (int) ((Long) off).longValue();
@@ -1683,28 +1469,21 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof StorageWord))
-                            {
+                            if (!(o instanceof StorageWord)) {
                                 return 0;
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (sw.isArray())
-                            {
-                                if (dStack.empty())
-                                {
+                            if (sw.isArray()) {
+                                if (dStack.empty()) {
                                     return 0;
                                 }
-                            }
-                            else
-                            {
-                                if (dStack.size() < 2)
-                                {
+                            } else {
+                                if (dStack.size() < 2) {
                                     return 0;
                                 }
                                 Object off = dStack.pop();
-                                if (!(off instanceof Long))
-                                {
+                                if (!(off instanceof Long)) {
                                     return 0;
                                 }
                                 offset = (int) ((Long) off).longValue();
@@ -1719,35 +1498,27 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof StorageWord))
-                            {
+                            if (!(o instanceof StorageWord)) {
                                 return 0;
                             }
                             StorageWord sw = (StorageWord) o;
                             Object data;
-                            if (sw.isArray())
-                            {
+                            if (sw.isArray()) {
                                 data = sw.fetch(0);
-                                if (data == null)
-                                {
+                                if (data == null) {
                                     return 0;
                                 }
-                            }
-                            else
-                            {
-                                if (dStack.empty())
-                                {
+                            } else {
+                                if (dStack.empty()) {
                                     return 0;
                                 }
                                 Object off = dStack.pop();
-                                if (!(off instanceof Long))
-                                {
+                                if (!(off instanceof Long)) {
                                     return 0;
                                 }
                                 int offset = (int) ((Long) off).longValue();
                                 data = sw.fetch(offset);
-                                if (data == null)
-                                {
+                                if (data == null) {
                                     return 0;
                                 }
                             }
@@ -1762,14 +1533,12 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof Long))
-                            {
+                            if (!(o instanceof Long)) {
                                 return 0;
                             }
                             int size = (int) ((Long) o).longValue();
                             String name = predefinedWords._jforth.getNextToken();
-                            if (name == null)
-                            {
+                            if (name == null) {
                                 return 0;
                             }
                             StorageWord sw = new StorageWord(name, size, true);
@@ -1783,37 +1552,32 @@ class Filler1
                         "round", "Round double value",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double d1 = Utilities.readDouble(dStack);
                                 double r = Math.pow(10, d1);
                                 Object o = dStack.pop();
-                                if (o instanceof PolynomialFunction)
-                                {
+                                if (o instanceof PolynomialFunction) {
                                     PolynomialFunction p = PolySupport.roundPoly(
                                             (PolynomialFunction) o, r);
                                     dStack.push(p);
                                     return 1;
                                 }
-                                if (o instanceof Complex)
-                                {
-                                    double dr = ((Complex)o).getReal ();
-                                    double di = ((Complex)o).getImaginary ();
+                                if (o instanceof Complex) {
+                                    double dr = ((Complex) o).getReal();
+                                    double di = ((Complex) o).getImaginary();
                                     Complex cx = new Complex
-                                                    (
+                                            (
                                                     Math.round(r * dr) / r,
                                                     Math.round(r * di) / r
-                                                    );
-                                    dStack.push (cx);
+                                            );
+                                    dStack.push(cx);
                                     return 1;
                                 }
                                 Double d2 = Utilities.getDouble(o);
                                 double dd = Math.round(r * d2) / r;
                                 dStack.push(dd);
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                         }
@@ -1824,23 +1588,17 @@ class Filler1
                         "time", "Get a time string",
                         (dStack, vStack) ->
                         {
-                            String o1 = Utilities.readStringOrNull (dStack);
-                            try
-                            {
-                                if (o1 == null)
-                                {
+                            String o1 = Utilities.readStringOrNull(dStack);
+                            try {
+                                if (o1 == null) {
                                     dStack.push(System.currentTimeMillis());
-                                }
-                                else
-                                {
-                                    SimpleDateFormat sdf = new SimpleDateFormat( o1);
+                                } else {
+                                    SimpleDateFormat sdf = new SimpleDateFormat(o1);
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                                     dStack.push(sdf.format(timestamp));
                                 }
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1851,14 +1609,11 @@ class Filler1
                         "sleep", "Sleep some milliseconds",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long l1 = Utilities.readLong(dStack);
                                 Thread.sleep(l1);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1870,18 +1625,15 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 Long l = (Long) o1;
                                 predefinedWords._jforth._out.print((char) (long) l);
                                 predefinedWords._jforth._out.flush();
                                 return 1;
                             }
-                            if (o1 instanceof String)
-                            {
+                            if (o1 instanceof String) {
                                 String str = (String) o1;
-                                for (int s = 0; s < str.length(); s++)
-                                {
+                                for (int s = 0; s < str.length(); s++) {
                                     predefinedWords._jforth._out.print(str.charAt(s));
                                 }
                                 return 1;
@@ -1895,15 +1647,12 @@ class Filler1
                         "fraction", "Create a fraction from 2 Numbers",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 int o1 = (int) Utilities.readLong(dStack);
                                 int o2 = (int) Utilities.readLong(dStack);
                                 dStack.push(new Fraction(o1, o2));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1914,15 +1663,12 @@ class Filler1
                         "complex", "Create a complex from 2 numbers",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double o1 = Utilities.readDouble(dStack);
                                 double o2 = Utilities.readDouble(dStack);
                                 dStack.push(new Complex(o1, o2));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -1934,36 +1680,23 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Double)
-                            {
+                            if (o1 instanceof Double) {
                                 dStack.push(((Double) o1).longValue());
-                            }
-                            else if (o1 instanceof DoubleSequence)
-                            {
-                                dStack.push(((DoubleSequence)o1).fromBitList().longValue());
-                            }
-                            else if (o1 instanceof String)
-                            {
+                            } else if (o1 instanceof DoubleSequence) {
+                                dStack.push(((DoubleSequence) o1).fromBitList().longValue());
+                            } else if (o1 instanceof String) {
                                 dStack.push(Long.parseLong((String) o1));
-                            }
-                            else if (o1 instanceof Complex)
-                            {
+                            } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push((long) oc.getReal());
                                 dStack.push((long) oc.getImaginary());
-                            }
-                            else if (o1 instanceof Fraction)
-                            {
+                            } else if (o1 instanceof Fraction) {
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((long) oc.getNumerator() / (long) oc.getDenominator());
-                            }
-                            else if (o1 instanceof BigInteger)
-                            {
+                            } else if (o1 instanceof BigInteger) {
                                 BigInteger oc = (BigInteger) o1;
                                 dStack.push(oc.longValue());
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -1976,35 +1709,22 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
-                                dStack.push (BigInteger.valueOf((Long) o1));
-                            }
-                            else if (o1 instanceof Double)
-                            {
+                            if (o1 instanceof Long) {
+                                dStack.push(BigInteger.valueOf((Long) o1));
+                            } else if (o1 instanceof Double) {
                                 dStack.push(BigInteger.valueOf(((Double) o1).longValue()));
-                            }
-                            else if (o1 instanceof DoubleSequence)
-                            {
+                            } else if (o1 instanceof DoubleSequence) {
                                 dStack.push(((DoubleSequence) o1).fromBitList());
-                            }
-                            else if (o1 instanceof String)
-                            {
-                                dStack.push(new BigInteger((String)o1));
-                            }
-                            else if (o1 instanceof Complex)
-                            {
+                            } else if (o1 instanceof String) {
+                                dStack.push(new BigInteger((String) o1));
+                            } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
-                                dStack.push (BigInteger.valueOf((long) oc.getReal()));
-                                dStack.push (BigInteger.valueOf((long) oc.getImaginary()));
-                            }
-                            else if (o1 instanceof Fraction)
-                            {
+                                dStack.push(BigInteger.valueOf((long) oc.getReal()));
+                                dStack.push(BigInteger.valueOf((long) oc.getImaginary()));
+                            } else if (o1 instanceof Fraction) {
                                 Fraction oc = (Fraction) o1;
                                 dStack.push(BigInteger.valueOf((long) oc.getNumerator() / (long) oc.getDenominator()));
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -2016,14 +1736,11 @@ class Filler1
                         "toBits", "Make bit sequence from number",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 BigInteger l = Utilities.readBig(dStack);
                                 dStack.push(DoubleSequence.makeBits(l));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2035,32 +1752,21 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 dStack.push((double) (Long) o1);
-                            }
-                            else if (o1 instanceof String)
-                            {
+                            } else if (o1 instanceof String) {
                                 dStack.push(Double.parseDouble((String) o1));
-                            }
-                            else if (o1 instanceof Complex)
-                            {
+                            } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push(oc.getReal());
                                 dStack.push(oc.getImaginary());
-                            }
-                            else if (o1 instanceof Fraction)
-                            {
+                            } else if (o1 instanceof Fraction) {
                                 Fraction oc = (Fraction) o1;
                                 dStack.push((double) oc.getNumerator() / (double) oc.getDenominator());
-                            }
-                            else if (o1 instanceof BigInteger)
-                            {
+                            } else if (o1 instanceof BigInteger) {
                                 BigInteger oc = (BigInteger) o1;
                                 dStack.push(oc.doubleValue());
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -2083,14 +1789,11 @@ class Filler1
                         "big", "BigPrint",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String o1 = Utilities.readString(dStack);
                                 dStack.push(BigPrint.toBigString(o1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2101,15 +1804,12 @@ class Filler1
                         "sam", "speak with SAM voice",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String words = Utilities.readString(dStack);
-                                byte[] bstr = SAMSpeech.doSam (words);
-                                WaveTools.playWave (bstr, false);
+                                byte[] bstr = SAMSpeech.doSam(words);
+                                WaveTools.playWave(bstr, false);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2120,14 +1820,11 @@ class Filler1
                         "toFraction", "Make fraction from value on the stack",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double o1 = Utilities.readDouble(dStack);
                                 dStack.push(new Fraction(o1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2140,16 +1837,13 @@ class Filler1
                         {
                             Vector3D o1;
                             Vector3D o2;
-                            try
-                            {
+                            try {
                                 o1 = Utilities.readVector3D(dStack);
                                 o2 = Utilities.readVector3D(dStack);
                                 Vector3D cp = o2.crossProduct(o1);
                                 dStack.push(new DoubleSequence(cp));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2162,16 +1856,13 @@ class Filler1
                         {
                             Vector3D o1;
                             Vector3D o2;
-                            try
-                            {
+                            try {
                                 o1 = Utilities.readVector3D(dStack);
                                 o2 = Utilities.readVector3D(dStack);
                                 double dp = o2.dotProduct(o1);
                                 dStack.push(dp);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2184,27 +1875,21 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
+                            try {
                                 DoubleSequence d1 = Utilities.getDoubleSequence(o1);
                                 DoubleSequence d2 = Utilities.getDoubleSequence(o2);
                                 DoubleSequence ds = DoubleSequence.mixin(d2, d1);
                                 dStack.push(ds);
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
+                            try {
                                 StringSequence d1 = Utilities.getStringSequence(o1);
                                 StringSequence d2 = Utilities.getStringSequence(o2);
                                 StringSequence ds = StringSequence.mixin(d2, d1);
                                 dStack.push(ds);
                                 return 1;
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -2216,19 +1901,14 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             ArrayList<DoubleSequence> arr = new ArrayList<>();
-                            for (; ; )
-                            {
-                                if (dStack.isEmpty())
-                                {
+                            for (; ; ) {
+                                if (dStack.isEmpty()) {
                                     break;
                                 }
                                 Object o1 = dStack.pop();
-                                if (o1 instanceof DoubleSequence)
-                                {
+                                if (o1 instanceof DoubleSequence) {
                                     arr.add((DoubleSequence) o1);
-                                }
-                                else
-                                {
+                                } else {
                                     break;
                                 }
                             }
@@ -2243,8 +1923,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleMatrix)
-                            {
+                            if (o1 instanceof DoubleMatrix) {
                                 RealMatrix bm = ((DoubleMatrix) o1);
                                 dStack.push(new LUDecomposition(bm).getDeterminant());
                                 return 1;
@@ -2259,8 +1938,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleMatrix)
-                            {
+                            if (o1 instanceof DoubleMatrix) {
                                 RealMatrix bm = ((DoubleMatrix) o1);
                                 LUDecomposition lud = new LUDecomposition(bm);
                                 dStack.push(new DoubleMatrix(lud.getL()));
@@ -2278,8 +1956,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleMatrix)
-                            {
+                            if (o1 instanceof DoubleMatrix) {
                                 RealMatrix bm = ((DoubleMatrix) o1).transpose();
                                 dStack.push(new DoubleMatrix(bm));
                                 return 1;
@@ -2294,8 +1971,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleMatrix)
-                            {
+                            if (o1 instanceof DoubleMatrix) {
                                 RealMatrix inv = MatrixUtils.inverse((DoubleMatrix) o1);
                                 dStack.push(new DoubleMatrix(inv));
                                 return 1;
@@ -2309,14 +1985,11 @@ class Filler1
                         "idM", "Create Identity Matrix",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long d = Utilities.readLong(dStack);
                                 dStack.push(DoubleMatrix.identity((int) d));
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                         }
@@ -2327,14 +2000,11 @@ class Filler1
                         "diagM", "Create diagonal Matrix from List",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence d = Utilities.readDoubleSequence(dStack);
                                 dStack.push(DoubleMatrix.diagonal(d));
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                         }
@@ -2345,14 +2015,11 @@ class Filler1
                         "toDList", "Create List of digits",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String s = Utilities.readString(dStack);
-                                dStack.push (DoubleSequence.fromNumberString(s));
+                                dStack.push(DoubleSequence.fromNumberString(s));
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                         }
@@ -2364,22 +2031,18 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (o instanceof DoubleSequence)
-                            {
+                            if (o instanceof DoubleSequence) {
                                 DoubleSequence ds = (DoubleSequence) o;
-                                dStack.push (new StringSequence (ds));
+                                dStack.push(new StringSequence(ds));
                                 return 1;
-                            }
-                            else if (o instanceof String)
-                            {
-                                String s = StringEscape.unescape ((String) o);
-                                if (s.contains (" "))
-                                {
-                                    String[] sp = s.split (" ");
-                                    dStack.push (new StringSequence (sp));
+                            } else if (o instanceof String) {
+                                String s = StringEscape.unescape((String) o);
+                                if (s.contains(" ")) {
+                                    String[] sp = s.split(" ");
+                                    dStack.push(new StringSequence(sp));
                                     return 1;
                                 }
-                                dStack.push (new StringSequence (s.toCharArray ()));
+                                dStack.push(new StringSequence(s.toCharArray()));
                                 return 1;
                             }
                             return 0;
@@ -2392,41 +2055,31 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
+                            if (o1 instanceof String) {
                                 String str = (String) o1;
                                 DoubleSequence ds = new DoubleSequence();
-                                for (int s = 0; s < str.length(); s++)
-                                {
+                                for (int s = 0; s < str.length(); s++) {
                                     ds = ds.add(str.charAt(s));
                                 }
                                 dStack.push(ds);
                                 return 1;
                             }
-                            if (o1 instanceof DoubleMatrix)
-                            {
+                            if (o1 instanceof DoubleMatrix) {
                                 DoubleSequence[] seq = ((DoubleMatrix) o1).toSequence();
-                                for (DoubleSequence d : seq)
-                                {
+                                for (DoubleSequence d : seq) {
                                     dStack.push(d);
                                 }
                                 return 1;
                             }
                             dStack.push(o1);
                             DoubleSequence seq = new DoubleSequence();
-                            do
-                            {
+                            do {
                                 Object o2 = dStack.pop();
-                                if (o2 instanceof Double)
-                                {
+                                if (o2 instanceof Double) {
                                     seq = seq.add((Double) o2);
-                                }
-                                else if (o2 instanceof Long)
-                                {
+                                } else if (o2 instanceof Long) {
                                     seq = seq.add((Long) o2);
-                                }
-                                else if (o2 instanceof DoubleSequence)
-                                {
+                                } else if (o2 instanceof DoubleSequence) {
                                     seq = seq.add((DoubleSequence) o2);
                                 }
                             } while (!dStack.empty());
@@ -2441,8 +2094,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof DoubleSequence))
-                            {
+                            if (!(o instanceof DoubleSequence)) {
                                 return 0;
                             }
                             PolynomialFunction p =
@@ -2458,18 +2110,14 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof DoubleSequence))
-                            {
+                            if (!(o instanceof DoubleSequence)) {
                                 return 0;
                             }
-                            try
-                            {
+                            try {
                                 PolynomialFunction p = ((DoubleSequence) o).polyFit();
                                 dStack.push(p);
                                 return 1;
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                                 return 0;
                             }
                         }
@@ -2481,18 +2129,14 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof DoubleSequence))
-                            {
+                            if (!(o instanceof DoubleSequence)) {
                                 return 0;
                             }
-                            try
-                            {
+                            try {
                                 PolynomialFunction p = ((DoubleSequence) o).lagFit();
                                 dStack.push(p);
                                 return 1;
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                                 return 0;
                             }
                         }
@@ -2504,8 +2148,7 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (!(o instanceof PolynomialFunction))
-                            {
+                            if (!(o instanceof PolynomialFunction)) {
                                 return 0;
                             }
                             PolynomialFunction p = (PolynomialFunction) o;
@@ -2523,28 +2166,22 @@ class Filler1
                             Object o2;
                             Object o3;
                             PolynomialFunction p;
-                            if (!dStack.isEmpty())
-                            {
+                            if (!dStack.isEmpty()) {
                                 o2 = dStack.pop();
                                 o3 = dStack.pop();
                                 p = (PolynomialFunction) o3;
-                            }
-                            else
-                            {
+                            } else {
                                 p = (PolynomialFunction) o;
                                 dStack.push(PolySupport.antiDerive(p));
                                 return 1;
                             }
-                            if (o2 instanceof Long)
-                            {
+                            if (o2 instanceof Long) {
                                 o2 = ((Long) o2).doubleValue();
                             }
-                            if (o instanceof Long)
-                            {
+                            if (o instanceof Long) {
                                 o = ((Long) o).doubleValue();
                             }
-                            if (!(o2 instanceof Double && o instanceof Double))
-                            {
+                            if (!(o2 instanceof Double && o instanceof Double)) {
                                 return 0;
                             }
                             SimpsonIntegrator si = new SimpsonIntegrator();
@@ -2560,15 +2197,12 @@ class Filler1
                         "x=", "Solve a polynomial",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double d1 = Utilities.readDouble(dStack);
                                 PolynomialFunction p1 = PolySupport.readPoly(dStack);
                                 dStack.push(p1.value(d1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2579,15 +2213,12 @@ class Filler1
                         "apply", "Apply polynomial to sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 PolynomialFunction p1 = PolySupport.readPoly(dStack);
                                 dStack.push(s1.apply(p1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2599,44 +2230,25 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
-                            if (o1 instanceof Long)
-                            {
+                            if (o1 instanceof Long) {
                                 dStack.push(Long.toString((Long) o1, predefinedWords._jforth.base).toUpperCase());
-                            }
-                            else if (o1 instanceof Double)
-                            {
+                            } else if (o1 instanceof Double) {
                                 dStack.push(Double.toString((Double) o1));
-                            }
-                            else if (o1 instanceof Fraction)
-                            {
+                            } else if (o1 instanceof Fraction) {
                                 dStack.push(Utilities.formatFraction((Fraction) o1));
-                            }
-                            else if (o1 instanceof Complex)
-                            {
+                            } else if (o1 instanceof Complex) {
                                 dStack.push(Utilities.formatComplex((Complex) o1));
-                            }
-                            else if (o1 instanceof DoubleSequence)
-                            {
+                            } else if (o1 instanceof DoubleSequence) {
                                 dStack.push(((DoubleSequence) o1).asString());
-                            }
-                            else if (o1 instanceof PolynomialFunction)
-                            {
+                            } else if (o1 instanceof PolynomialFunction) {
                                 dStack.push(PolySupport.formatPoly((PolynomialFunction) o1));
-                            }
-                            else if (o1 instanceof String)
-                            {
-                                dStack.push (o1);
-                            }
-                            else if (o1 instanceof StringSequence)
-                            {
+                            } else if (o1 instanceof String) {
+                                dStack.push(o1);
+                            } else if (o1 instanceof StringSequence) {
                                 dStack.push(((StringSequence) o1).asString());
-                            }
-                            else if (o1 instanceof FileBlob)
-                            {
+                            } else if (o1 instanceof FileBlob) {
                                 dStack.push(((FileBlob) o1).asString());
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                             return 1;
@@ -2648,31 +2260,21 @@ class Filler1
                         "length", "Get length of what is on the stack",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
-                            if (o1 instanceof String)
-                            {
+                            if (o1 instanceof String) {
                                 dStack.push((long) ((String) o1).length());
-                            }
-                            else if (o1 instanceof DoubleSequence)
-                            {
+                            } else if (o1 instanceof DoubleSequence) {
                                 dStack.push((long) ((DoubleSequence) o1).length());
-                            }
-                            else if (o1 instanceof StringSequence)
-                            {
+                            } else if (o1 instanceof StringSequence) {
                                 dStack.push((long) ((StringSequence) o1).length());
-                            }
-                            else if (o1 instanceof FileBlob)
-                            {
+                            } else if (o1 instanceof FileBlob) {
                                 dStack.push((long) ((FileBlob) o1).getSize());
-                            }
-                            else
-                            {
+                            } else {
                                 String s = predefinedWords._jforth.makePrintable(o1);
-                                dStack.push (s.length());
+                                dStack.push(s.length());
                             }
                             return 1;
                         }
@@ -2683,22 +2285,19 @@ class Filler1
                         "subSeq", "Subsequence of string or list",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 3)
-                            {
+                            if (dStack.size() < 3) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             Object o3 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof String))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof String)) {
                                 int i1 = (int) ((Long) o1).longValue();
                                 int i2 = (int) ((Long) o2).longValue();
                                 dStack.push(((String) o3).substring(i2, i1));
                                 return 1;
                             }
-                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence))
-                            {
+                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence)) {
                                 int i1 = (int) ((Long) o1).longValue();
                                 int i2 = (int) ((Long) o2).longValue();
                                 dStack.push(((DoubleSequence) o3).subList(i2, i1));
@@ -2733,14 +2332,11 @@ class Filler1
                         "sqrt", "Square root",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sqrt());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2751,15 +2347,12 @@ class Filler1
                         "gcd", "Greates common divisor",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Long o1 = Utilities.readLong(dStack);
                                 Long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.gcd(o1, o2));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2770,15 +2363,12 @@ class Filler1
                         "lcm", "Least common multiple",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Long o1 = Utilities.readLong(dStack);
                                 long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.lcm(o1, o2));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2789,16 +2379,13 @@ class Filler1
                         "isPrime", "Primality test",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long num = Utilities.readLong(dStack);
 //                                boolean t = LongStream.rangeClosed(2, (long) Math.sqrt(num)).noneMatch(div -> num % div == 0);
                                 DoubleSequence ds = DoubleSequence.primeFactors(num);
                                 dStack.push(ds.length() == 1 ? JForth.TRUE : JForth.FALSE);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2810,24 +2397,18 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            try
-                            {
+                            try {
                                 long o1 = Utilities.getLong(o);
                                 dStack.push(DoubleSequence.primeFactors(o1));
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
-                                String ss = StringEscape.unescape ((String)o);
+                            try {
+                                String ss = StringEscape.unescape((String) o);
                                 String[] split = ss.split("\\s+");
                                 dStack.push(new StringSequence(split));
                                 return 1;
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -2838,58 +2419,40 @@ class Filler1
                         "pow", "Exponentation",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Object o1 = dStack.pop();
                                 Object o2 = dStack.pop();
-                                try
-                                {
+                                try {
                                     dStack.push(Utilities.doCalcBigInt(o2, o1, Utilities::pow));
                                     return 1;
-                                }
-                                catch (Exception u)
-                                {
-                                    try
-                                    {
+                                } catch (Exception u) {
+                                    try {
                                         dStack.push(Utilities.doCalcComplex(o2, o1, Complex::pow));
                                         return 1;
-                                    }
-                                    catch (Exception u2)
-                                    {
-                                        try
-                                        {
+                                    } catch (Exception u2) {
+                                        try {
                                             dStack.push(Utilities.pow((Fraction) o2, Utilities.getLong(o1)));
                                             return 1;
-                                        }
-                                        catch (Exception u3)
-                                        {
-                                            try
-                                            {
-                                                if (o1 instanceof Long && o2 instanceof Long)
-                                                {
+                                        } catch (Exception u3) {
+                                            try {
+                                                if (o1 instanceof Long && o2 instanceof Long) {
                                                     Long l1 = (Long) o1;
                                                     Long l2 = (Long) o2;
                                                     dStack.push(BigInteger.valueOf(l2).pow(l1.intValue()));
                                                     return 1;
-                                                }
-                                                else
-                                                {
+                                                } else {
                                                     Double d1 = Utilities.getDouble(o1);
                                                     Double d2 = Utilities.getDouble(o2);
                                                     dStack.push(Math.pow(d2, d1));
                                                     return 1;
                                                 }
-                                            }
-                                            catch (Exception e)
-                                            {
+                                            } catch (Exception e) {
                                                 return 0;
                                             }
                                         }
                                     }
                                 }
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 //
                             }
                             return 0;
@@ -2901,14 +2464,11 @@ class Filler1
                         "fib", "Fibonacci number",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long l = Utilities.readLong(dStack);
                                 dStack.push(Utilities.fib(l));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2919,15 +2479,12 @@ class Filler1
                         "ln", "Natural logarithm",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex oc = Utilities.readComplex(dStack);
                                 Complex erg = oc.log();
-                                dStack.push (erg);
+                                dStack.push(erg);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2938,14 +2495,11 @@ class Filler1
                         "fact", "Factorial",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long ol = Utilities.readLong(dStack);
                                 dStack.push(Utilities.factorial(ol));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2956,14 +2510,11 @@ class Filler1
                         "log10", "Logarithm to base 10",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double d = Utilities.readDouble(dStack);
                                 dStack.push(Math.log10(d));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2974,14 +2525,11 @@ class Filler1
                         "exp", "E^x",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.exp());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -2992,14 +2540,11 @@ class Filler1
                         "sin", "Sine",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sin());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3010,14 +2555,11 @@ class Filler1
                         "gamma", "Gamma funcction",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double o1 = Utilities.readDouble(dStack);
                                 dStack.push(gamma(o1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3028,16 +2570,13 @@ class Filler1
                         "zeta", "Riemann Zeta function",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 double[] s = {o1.getReal(), o1.getImaginary()};
                                 double[] z = zeta(s);
                                 dStack.push(new Complex(z[0], z[1]));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3048,14 +2587,11 @@ class Filler1
                         "cos", "Cosine",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.cos());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3066,14 +2602,11 @@ class Filler1
                         "tan", "Tangent",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.tan());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3084,14 +2617,11 @@ class Filler1
                         "asin", "Inverse sine",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.asin());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3102,14 +2632,11 @@ class Filler1
                         "acos", "Inverse cosine",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.acos());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3120,14 +2647,11 @@ class Filler1
                         "atan", "Inverse tangent",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.atan());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3138,15 +2662,12 @@ class Filler1
                         "atan2", "Second arctan, see: https://de.wikipedia.org/wiki/Arctan2",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 double o1 = Utilities.readDouble(dStack);
                                 double o2 = Utilities.readDouble(dStack);
                                 dStack.push(Math.atan2(o2, o1));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3157,14 +2678,11 @@ class Filler1
                         "sinh", "Sinus hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sinh());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3175,14 +2693,11 @@ class Filler1
                         "cosh", "Cosinus hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.cosh());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3193,14 +2708,11 @@ class Filler1
                         "tanh", "Tangent hyperbolicus",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.tanh());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3211,14 +2723,11 @@ class Filler1
                         "runFile", "run program file",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String fileName = Utilities.readString(dStack);
                                 predefinedWords._jforth.executeFile(fileName);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3229,12 +2738,9 @@ class Filler1
                         PredefinedWords.SAVEHIST, false, "Save history",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 predefinedWords._jforth.history.save();
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                             return 1;
@@ -3246,12 +2752,9 @@ class Filler1
                         "loadHist", "Load history",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 predefinedWords._jforth.history.load();
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                             return 1;
@@ -3315,15 +2818,12 @@ class Filler1
                         "gaussian", "Gaussian random number",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long lo = Utilities.readLong(dStack);
                                 double number = random.nextGaussian() * lo;
                                 dStack.push(number);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3334,15 +2834,12 @@ class Filler1
                         "random", "Pseudo random number",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long lo = Utilities.readLong(dStack);
                                 double number = random.nextDouble() * lo;
                                 dStack.push(number);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3353,15 +2850,12 @@ class Filler1
                         "openByteReader", "Open file for reading",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String str = Utilities.readString(dStack);
                                 File f = new File(str);
                                 dStack.push(new FileInputStream(f));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3372,20 +2866,15 @@ class Filler1
                         "readByte", "Read byte from file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
-                            if (o1 instanceof FileInputStream)
-                            {
-                                try
-                                {
+                            if (o1 instanceof FileInputStream) {
+                                try {
                                     dStack.push((long) (((FileInputStream) o1).read()));
                                     return 1;
-                                }
-                                catch (IOException ioe)
-                                {
+                                } catch (IOException ioe) {
                                     ioe.printStackTrace();
                                 }
                             }
@@ -3399,12 +2888,9 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String path;
-                            try
-                            {
+                            try {
                                 path = Utilities.readString(dStack);
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 path = ".";
                             }
                             dStack.push(FileUtils.dir(path));
@@ -3418,12 +2904,9 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             String o;
-                            try
-                            {
+                            try {
                                 o = Utilities.readString(dStack);
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                             return FileUtils.del(o) ? 1 : 0;
@@ -3435,15 +2918,12 @@ class Filler1
                         "key", true, "Get key from keyboard",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 int c = RawConsoleInput.read(true);
                                 RawConsoleInput.resetConsoleMode();
                                 dStack.push((long) c);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                                 return 0;
                             }
@@ -3465,19 +2945,15 @@ class Filler1
                         "pick", true, "Get value from arbitrary Positon and place it on TOS",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long o = Utilities.readLong(dStack);
                                 Object n = dStack.get(dStack.size() - ((Long) o).intValue() - 1);
-                                if (n == null)
-                                {
+                                if (n == null) {
                                     return 0;
                                 }
                                 dStack.push(n);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3488,19 +2964,15 @@ class Filler1
                         "roll", "Remove nth element and put it on TOS",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long o = Utilities.readLong(dStack);
                                 Object n = dStack.remove(dStack.size() - ((Long) o).intValue() - 1);
-                                if (n == null)
-                                {
+                                if (n == null) {
                                     return 0;
                                 }
                                 dStack.push(n);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3512,31 +2984,23 @@ class Filler1
                         (dStack, vStack) ->
                         {
                             long l;
-                            try
-                            {
+                            try {
                                 l = Utilities.readLong(dStack);
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 l = -1;
                             }
                             StringBuilder s = new StringBuilder();
-                            try
-                            {
-                                while (true)
-                                {
+                            try {
+                                while (true) {
                                     char c = (char) RawConsoleInput.read(true);
-                                    if (l > 0)
-                                    {
+                                    if (l > 0) {
                                         l--;
                                     }
-                                    if (c == '\r')
-                                    {
+                                    if (c == '\r') {
                                         break;
                                     }
                                     s.append(c);
-                                    if (l == 0)
-                                    {
+                                    if (l == 0) {
                                         break;
                                     }
                                     predefinedWords._jforth._out.print('-');
@@ -3545,9 +3009,7 @@ class Filler1
                                 RawConsoleInput.resetConsoleMode();
                                 dStack.push(s.toString());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3569,14 +3031,11 @@ class Filler1
                         "closeByteReader", "Close file",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 FileInputStream fi = Utilities.readFileInputStream(dStack);
                                 fi.close();
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3587,15 +3046,12 @@ class Filler1
                         "openReader", "Open file",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String o1 = Utilities.readString(dStack);   // file name
                                 File f = new File(o1);
                                 dStack.push(new BufferedReader(new FileReader(f)));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3606,8 +3062,7 @@ class Filler1
                         "udpput", "Send udp packet",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String data = Utilities.readString(dStack);
                                 byte[] bt = data.getBytes();
                                 int port = (int) Utilities.readLong(dStack);
@@ -3620,11 +3075,9 @@ class Filler1
                                         InetAddress.getByName(ip), port);
                                 DatagramSocket sock = new DatagramSocket();
                                 sock.setBroadcast(true);
-                                sock.send (pkt);
+                                sock.send(pkt);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3635,10 +3088,9 @@ class Filler1
                         "udpget", "Receive udp packet",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 int port = (int) Utilities.readLong(dStack);
-                                DatagramPacket packet = new DatagramPacket (new byte[1500], 1500);
+                                DatagramPacket packet = new DatagramPacket(new byte[1500], 1500);
                                 DatagramSocket sock = new DatagramSocket(port);
                                 sock.setBroadcast(true);
                                 sock.receive(packet);
@@ -3648,9 +3100,7 @@ class Filler1
                                 sock.close();
                                 dStack.push(s);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3661,30 +3111,23 @@ class Filler1
                         "readLine", "Read line from file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.peek();
-                            if (o1 instanceof BufferedReader)
-                            {
-                                try
-                                {
+                            if (o1 instanceof BufferedReader) {
+                                try {
                                     String s = ((BufferedReader) o1).readLine();
                                     if (s == null)
-                                        dStack.push ("*EOF*");
+                                        dStack.push("*EOF*");
                                     else
                                         dStack.push(s);
                                     return 1;
-                                }
-                                catch (IOException ioe)
-                                {
+                                } catch (IOException ioe) {
                                     //ioe.printStackTrace();
                                     return 0;
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -3695,26 +3138,19 @@ class Filler1
                         "closeReader", "Close file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
-                            if (o1 instanceof BufferedReader)
-                            {
-                                try
-                                {
+                            if (o1 instanceof BufferedReader) {
+                                try {
                                     ((BufferedReader) o1).close();
                                     return 1;
-                                }
-                                catch (IOException ioe)
-                                {
+                                } catch (IOException ioe) {
                                     ioe.printStackTrace();
                                     return 0;
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -3725,14 +3161,11 @@ class Filler1
                         "openWriter", "Open file for Writing",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String fname = Utilities.readString(dStack);
                                 dStack.push(new PrintStream(new File(fname)));
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3743,15 +3176,12 @@ class Filler1
                         "writeString", "Write string to file",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 String o2 = Utilities.readString(dStack);
                                 Object o1 = dStack.peek();
                                 ((PrintStream) o1).print(o2);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3762,18 +3192,14 @@ class Filler1
                         "writeEol", "Write string end into file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
-                            if (o1 instanceof PrintStream)
-                            {
+                            if (o1 instanceof PrintStream) {
                                 ((PrintStream) o1).println();
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -3784,19 +3210,15 @@ class Filler1
                         "writeByte", "Write byte into file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            if ((o1 instanceof PrintStream) && (o2 instanceof Long))
-                            {
+                            if ((o1 instanceof PrintStream) && (o2 instanceof Long)) {
                                 ((PrintStream) o1).write((byte) (((Long) o2).longValue()));
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -3807,18 +3229,14 @@ class Filler1
                         "closeWriter", "Close file",
                         (dStack, vStack) ->
                         {
-                            if (dStack.empty())
-                            {
+                            if (dStack.empty()) {
                                 return 0;
                             }
                             Object o1 = dStack.pop();
-                            if (o1 instanceof PrintStream)
-                            {
+                            if (o1 instanceof PrintStream) {
                                 ((PrintStream) o1).close();
                                 return 1;
-                            }
-                            else
-                            {
+                            } else {
                                 return 0;
                             }
                         }
@@ -3841,30 +3259,24 @@ class Filler1
                         "sort", "Sort a Sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Object o = dStack.pop();
-                                if (o instanceof String)
-                                {
-                                    String s = (String)o;
-                                    dStack.push (Utilities.sort (s));
+                                if (o instanceof String) {
+                                    String s = (String) o;
+                                    dStack.push(Utilities.sort(s));
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence)
-                                {
+                                if (o instanceof DoubleSequence) {
                                     DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push (od.sort ());
+                                    dStack.push(od.sort());
                                     return 1;
                                 }
-                                if (o instanceof StringSequence)
-                                {
+                                if (o instanceof StringSequence) {
                                     StringSequence od = (StringSequence) o;
-                                    dStack.push (od.sort ());
+                                    dStack.push(od.sort());
                                     return 1;
                                 }
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -3875,38 +3287,31 @@ class Filler1
                         "rev", "Reverse a sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Object o = dStack.pop();
-                                if (o instanceof String)
-                                {
-                                    String s = (String)o;
+                                if (o instanceof String) {
+                                    String s = (String) o;
                                     s = new StringBuilder(s).reverse().toString();
-                                    dStack.push (s);
+                                    dStack.push(s);
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence)
-                                {
+                                if (o instanceof DoubleSequence) {
                                     DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push (od.reverse ());
+                                    dStack.push(od.reverse());
                                     return 1;
                                 }
-                                if (o instanceof StringSequence)
-                                {
+                                if (o instanceof StringSequence) {
                                     StringSequence od = (StringSequence) o;
-                                    dStack.push (od.reverse ());
+                                    dStack.push(od.reverse());
                                     return 1;
                                 }
-                                if (o instanceof FileBlob)
-                                {
-                                    FileBlob fb = new FileBlob (Utilities.reverse (((FileBlob) o).get_content ()),
-                                            ((FileBlob) o).getPath ());
-                                    dStack.push (fb);
+                                if (o instanceof FileBlob) {
+                                    FileBlob fb = new FileBlob(Utilities.reverse(((FileBlob) o).get_content()),
+                                            ((FileBlob) o).getPath());
+                                    dStack.push(fb);
                                     return 1;
                                 }
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -3917,30 +3322,24 @@ class Filler1
                         "shuffle", "Random shuffle a sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Object o = dStack.pop();
-                                if (o instanceof String)
-                                {
-                                    String s = (String)o;
-                                    dStack.push (Utilities.shuffle (s));
+                                if (o instanceof String) {
+                                    String s = (String) o;
+                                    dStack.push(Utilities.shuffle(s));
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence)
-                                {
-                                    DoubleSequence o2 = (DoubleSequence)o;
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence o2 = (DoubleSequence) o;
                                     dStack.push(o2.shuffle());
                                     return 1;
                                 }
-                                if (o instanceof StringSequence)
-                                {
+                                if (o instanceof StringSequence) {
                                     StringSequence od = (StringSequence) o;
-                                    dStack.push (od.shuffle ());
+                                    dStack.push(od.shuffle());
                                     return 1;
                                 }
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -3951,18 +3350,15 @@ class Filler1
                         "sum", "Add all elements together",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 Double sum = o.sum();
                                 if (sum.longValue() == sum)
                                     dStack.push(sum.longValue());
                                 else
-                                    dStack.push (sum);
+                                    dStack.push(sum);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3973,18 +3369,15 @@ class Filler1
                         "altsum", "Add all elements together but alternates sign",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 Double sum = o.altsum();
                                 if (sum.longValue() == sum)
                                     dStack.push(sum.longValue());
                                 else
-                                    dStack.push (sum);
+                                    dStack.push(sum);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -3995,14 +3388,11 @@ class Filler1
                         "sumq", "Make sum of squares",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 dStack.push(o.sumQ());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -4013,14 +3403,11 @@ class Filler1
                         "prod", "Product of all values",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 dStack.push(o.prod());
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -4033,21 +3420,15 @@ class Filler1
                         {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
-                            try
-                            {
-                                dStack.push (((DoubleSequence)o1).intersect((DoubleSequence)o2));
+                            try {
+                                dStack.push(((DoubleSequence) o1).intersect((DoubleSequence) o2));
                                 return 1;
+                            } catch (Exception ignored) {
                             }
-                            catch (Exception ignored)
-                            {
-                            }
-                            try
-                            {
-                                dStack.push (((StringSequence)o1).intersect((StringSequence)o2));
+                            try {
+                                dStack.push(((StringSequence) o1).intersect((StringSequence) o2));
                                 return 1;
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -4058,31 +3439,25 @@ class Filler1
                         "unique", "Only keep unique elements of sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 Object o = dStack.pop();
-                                if (o instanceof String)
-                                {
-                                    String s = (String)o;
-                                    s = Utilities.unique (s);
-                                    dStack.push (s);
+                                if (o instanceof String) {
+                                    String s = (String) o;
+                                    s = Utilities.unique(s);
+                                    dStack.push(s);
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence)
-                                {
+                                if (o instanceof DoubleSequence) {
                                     DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push (od.unique ());
+                                    dStack.push(od.unique());
                                     return 1;
                                 }
-                                if (o instanceof StringSequence)
-                                {
+                                if (o instanceof StringSequence) {
                                     StringSequence od = (StringSequence) o;
-                                    dStack.push (od.unique ());
+                                    dStack.push(od.unique());
                                     return 1;
                                 }
-                            }
-                            catch (Exception ignored)
-                            {
+                            } catch (Exception ignored) {
                             }
                             return 0;
                         }
@@ -4093,29 +3468,21 @@ class Filler1
                         "lpick", "Get one Element from sequence",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long l1 = Utilities.readLong(dStack);
                                 Object o = dStack.pop();
-                                if (o instanceof DoubleSequence)
-                                {
-                                    dStack.push(((DoubleSequence)o).pick((int) l1));
+                                if (o instanceof DoubleSequence) {
+                                    dStack.push(((DoubleSequence) o).pick((int) l1));
                                 }
-                                if (o instanceof StringSequence)
-                                {
-                                    dStack.push(((StringSequence)o).pick((int) l1));
-                                }
-                                else if (o instanceof String)
-                                {
-                                    char c = ((String)o).charAt((int)l1);
-                                    dStack.push (""+c);
-                                }
-                                else
+                                if (o instanceof StringSequence) {
+                                    dStack.push(((StringSequence) o).pick((int) l1));
+                                } else if (o instanceof String) {
+                                    char c = ((String) o).charAt((int) l1);
+                                    dStack.push("" + c);
+                                } else
                                     return 0;
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 return 0;
                             }
                         }
@@ -4126,14 +3493,11 @@ class Filler1
                         "http", "run web server",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 long o = Utilities.readLong(dStack);
                                 SimpleWebserver.start((int) o);
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
@@ -4144,13 +3508,10 @@ class Filler1
                         "unhttp", "stop web server",
                         (dStack, vStack) ->
                         {
-                            try
-                            {
+                            try {
                                 SimpleWebserver.stop();
                                 return 1;
-                            }
-                            catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 return 0;
                             }
                         }
