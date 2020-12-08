@@ -1,5 +1,10 @@
 package jforth;
 
+import com.indvd00m.ascii.render.Render;
+import com.indvd00m.ascii.render.api.ICanvas;
+import com.indvd00m.ascii.render.api.IContextBuilder;
+import com.indvd00m.ascii.render.api.IRender;
+import com.indvd00m.ascii.render.elements.PseudoText;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -21,14 +26,24 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2023";
-    private static final String BUILD_DATE = "12/06/2020 10:55:11 PM";
+    private static final String BUILD_NUMBER = "2029";
+    private static final String BUILD_DATE = "12/08/2020 10:09:09 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
 
-
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray ();
+
+    public static String bigPrint (String txt, int width)
+    {
+        IRender render = new Render();
+        //render.setPseudoCanvas(true);
+        IContextBuilder builder = render.newBuilder();
+        builder.width(txt.length()*width).height(width);
+        builder.element(new PseudoText(txt, false));
+        ICanvas canvas = render.render(builder.build());
+        return canvas.getText();
+    }
 
     public static String printHexBinary (byte[] data)
     {

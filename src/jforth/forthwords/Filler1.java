@@ -1791,7 +1791,7 @@ class Filler1 {
                         {
                             try {
                                 String o1 = Utilities.readString(dStack);
-                                dStack.push(BigPrint.toBigString(o1));
+                                dStack.push (Utilities.bigPrint(o1, 20));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

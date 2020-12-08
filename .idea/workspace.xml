@@ -18,17 +18,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_indvd00m_ascii_render_ascii_render_2_2_0.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/laladumm" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/jarfile/run.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/ResourceLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/asciiart_core_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/TestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/TestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/BigPrint.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/ByteArrayClassLoader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -386,7 +391,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
@@ -396,6 +401,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551991492424" />
@@ -404,7 +410,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resource" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -413,8 +419,12 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
   <component name="RecentsManager">
-    <key name="ExtractSuperBase.RECENT_KEYS">
-      <recent name="jforth.waves" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
+      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\java\JForth\jarfile" />
@@ -429,18 +439,14 @@
       <recent name="jforth.FileUtils" />
       <recent name="jforth.Utilities" />
     </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="jforth.waves" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="jforth.audio" />
       <recent name="jforth" />
       <recent name="jforth.waves" />
       <recent name="jforth.forthwords" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="tools" />
@@ -744,10 +750,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestCases.TestCopySamExe" />
         <item itemvalue="JUnit.TestCases.TestPolyParser" />
         <item itemvalue="JUnit.TestCases.TestPlusLoop" />
         <item itemvalue="JUnit.TestCases.TestNested" />
-        <item itemvalue="JUnit.TestCases.TestCopySamExe" />
         <item itemvalue="JUnit.TestCases.TestCRC" />
       </list>
     </recent_temporary>
@@ -852,34 +858,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00174" summary="better sort and rev instructions">
-      <created>1583523715724</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
-      <option name="project" value="LOCAL" />
-      <updated>1583523715740</updated>
-    </task>
-    <task id="LOCAL-00175" summary="refined 'unique' command">
-      <created>1583531186136</created>
-      <option name="number" value="00175" />
-      <option name="presentableId" value="LOCAL-00175" />
-      <option name="project" value="LOCAL" />
-      <updated>1583531186136</updated>
-    </task>
-    <task id="LOCAL-00176" summary="added percentage words&#10;fixed toStr bug&#10;added percentage words test">
-      <created>1587710910770</created>
-      <option name="number" value="00176" />
-      <option name="presentableId" value="LOCAL-00176" />
-      <option name="project" value="LOCAL" />
-      <updated>1587710910786</updated>
-    </task>
-    <task id="LOCAL-00177" summary="added typeTest">
-      <created>1587738623908</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1587738623908</updated>
     </task>
     <task id="LOCAL-00178" summary="removed some unnecessary bools">
       <created>1587758015731</created>
@@ -1196,7 +1174,35 @@
       <option name="project" value="LOCAL" />
       <updated>1602211749871</updated>
     </task>
-    <option name="localTasksCounter" value="223" />
+    <task id="LOCAL-00223" summary="moved things around">
+      <created>1602230426860</created>
+      <option name="number" value="00223" />
+      <option name="presentableId" value="LOCAL-00223" />
+      <option name="project" value="LOCAL" />
+      <updated>1602230426860</updated>
+    </task>
+    <task id="LOCAL-00224" summary="improved samspeech">
+      <created>1602281429584</created>
+      <option name="number" value="00224" />
+      <option name="presentableId" value="LOCAL-00224" />
+      <option name="project" value="LOCAL" />
+      <updated>1602281429584</updated>
+    </task>
+    <task id="LOCAL-00225" summary="ant task for buildnum works again">
+      <created>1602353235163</created>
+      <option name="number" value="00225" />
+      <option name="presentableId" value="LOCAL-00225" />
+      <option name="project" value="LOCAL" />
+      <updated>1602353235166</updated>
+    </task>
+    <task id="LOCAL-00226" summary="save">
+      <created>1607292563606</created>
+      <option name="number" value="00226" />
+      <option name="presentableId" value="LOCAL-00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1607292563608</updated>
+    </task>
+    <option name="localTasksCounter" value="227" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1272,10 +1278,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="updated readme.md" />
-    <MESSAGE value="added bf interpreter" />
-    <MESSAGE value="testcase for brainfuck" />
-    <MESSAGE value="added blob commands and pwd command" />
     <MESSAGE value="added waveplay command" />
     <MESSAGE value="added blob append and blob make functionality" />
     <MESSAGE value="some improvements + fresh jar file" />
@@ -1297,190 +1299,11 @@
     <MESSAGE value="some improvements" />
     <MESSAGE value="sam as java-file" />
     <MESSAGE value="improved wave player" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved wave player" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="446" y="83" key="#Docker" timestamp="1602076787137">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="446" y="83" key="#Docker/0.0.1366.768@0.0.1366.768" timestamp="1602076787137" />
-    <state x="163" y="0" key="#Project_Structure" timestamp="1601818808363">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="163" y="0" key="#Project_Structure/0.0.1366.768@0.0.1366.768" timestamp="1601818808363" />
-    <state x="513" y="237" key="#com.intellij.debugger.actions.ViewTextAction" timestamp="1600921583322">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="513" y="237" key="#com.intellij.debugger.actions.ViewTextAction/0.0.1366.768@0.0.1366.768" timestamp="1600921583322" />
-    <state x="136" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600919320208">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="136" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1596031048554" />
-    <state x="136" y="23" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1600919320208" />
-    <state x="180" y="130" width="1046" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1600866842867">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="180" y="130" width="1046" height="584" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1366.768@0.0.1366.768" timestamp="1600866842867" />
-    <state x="488" y="83" key="#com.intellij.ide.util.MemberChooser" timestamp="1600861542357">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="488" y="83" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1600861542357" />
-    <state x="413" y="157" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1600920819998">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="413" y="157" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1600920819998" />
-    <state x="412" y="171" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1600927017820">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="412" y="171" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1600927017820" />
-    <state x="362" y="103" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596005727072">
-      <screen x="0" y="0" width="1366" height="738" />
-    </state>
-    <state x="362" y="103" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1366.738@0.0.1366.738" timestamp="1596005727072" />
-    <state x="357" y="301" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1602087497992">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="357" y="301" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.768@0.0.1366.768" timestamp="1602087497992" />
-    <state x="461" y="239" width="444" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1600920830847">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="461" y="239" width="444" height="289" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.768@0.0.1366.768" timestamp="1600920830846" />
-    <state x="461" y="258" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1599331611967">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="461" y="258" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1366.768@0.0.1366.768" timestamp="1599331611967" />
-    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog" timestamp="1602229241207">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="391" y="60" key="#com.intellij.refactoring.move.moveMembers.MoveMembersDialog/0.0.1366.768@0.0.1366.768" timestamp="1602229241207" />
-    <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600888564477">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="427" y="215" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768@0.0.1366.768" timestamp="1600888564477" />
-    <state x="277" y="0" key="CommitChangelistDialog2" timestamp="1602211741299">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="277" y="0" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1602211741299" />
-    <state width="418" height="466" key="DebuggerActiveHint" timestamp="1599792698534">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="418" height="466" key="DebuggerActiveHint/0.0.1366.768@0.0.1366.768" timestamp="1599792698534" />
-    <state x="129" y="49" key="DiffContextDialog" timestamp="1600915652588">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="129" y="49" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1600915652588" />
-    <state x="463" y="112" key="FileChooserDialogImpl" timestamp="1602076523954">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="463" y="112" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1602076523954" />
-    <state width="1317" height="190" key="GridCell.Tab.0.bottom" timestamp="1602229670073">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1321" height="262" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1596031359062" />
-    <state width="1317" height="190" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1602229670073" />
-    <state width="1317" height="190" key="GridCell.Tab.0.center" timestamp="1602229670072">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1321" height="262" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1602229670072" />
-    <state width="1317" height="190" key="GridCell.Tab.0.left" timestamp="1602229670072">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1321" height="262" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1602229670072" />
-    <state width="1317" height="190" key="GridCell.Tab.0.right" timestamp="1602229670073">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1321" height="262" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1596031359061" />
-    <state width="1317" height="190" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1602229670073" />
-    <state width="1317" height="215" key="GridCell.Tab.1.bottom" timestamp="1600994589929">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1317" height="215" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1600994589929" />
-    <state width="1317" height="215" key="GridCell.Tab.1.center" timestamp="1600994589928">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1317" height="215" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
-    <state width="1317" height="215" key="GridCell.Tab.1.left" timestamp="1600994589928">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1317" height="215" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
-    <state width="1317" height="215" key="GridCell.Tab.1.right" timestamp="1600994589928">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="1317" height="215" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1600994589928" />
-    <state x="129" y="59" key="MergeDialog" timestamp="1600916363248">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="129" y="59" key="MergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1600916363248" />
-    <state x="317" y="140" key="MultipleFileMergeDialog" timestamp="1600917420031">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="317" y="140" key="MultipleFileMergeDialog/0.0.1366.768@0.0.1366.768" timestamp="1600917420031" />
-    <state x="313" y="235" key="Performance.Activity.Monitor" timestamp="1600994923927">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="313" y="235" key="Performance.Activity.Monitor/0.0.1366.768@0.0.1366.768" timestamp="1600994923927" />
-    <state x="389" y="33" width="587" height="691" key="RefactorJ.ExtractClass" timestamp="1599376830276">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="389" y="33" width="587" height="691" key="RefactorJ.ExtractClass/0.0.1366.768@0.0.1366.768" timestamp="1599376830276" />
-    <state x="440" y="81" width="707" height="566" key="RollbackChangesDialog" timestamp="1600916199627">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="440" y="81" width="707" height="566" key="RollbackChangesDialog/0.0.1366.768@0.0.1366.768" timestamp="1600916199627" />
-    <state x="184" y="0" key="SettingsEditor" timestamp="1602076582631">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="184" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1602076582631" />
-    <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1600156004732">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1366.768@0.0.1366.768" timestamp="1600156004732" />
-    <state x="275" y="106" key="Vcs.Push.Dialog.v2" timestamp="1602211777728">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="275" y="106" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1602211777728" />
-    <state width="691" height="392" key="XDebugger.FullValuePopup" timestamp="1599448162131">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state width="691" height="392" key="XDebugger.FullValuePopup/0.0.1366.768@0.0.1366.768" timestamp="1599448162131" />
-    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601819563422">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="92" y="92" width="1182" height="584" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1601819563422" />
-    <state x="435" y="49" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599450241933">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="435" y="49" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768@0.0.1366.768" timestamp="1599450241933" />
-    <state x="489" y="292" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1600917336221">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="489" y="292" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1600917336221" />
-    <state x="243" y="111" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1599391939311">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="243" y="111" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1366.768@0.0.1366.768" timestamp="1599391939310" />
-    <state x="391" y="96" width="584" height="672" key="find.popup" timestamp="1601878300706">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="391" y="96" width="584" height="672" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1601878300706" />
-    <state x="453" y="274" key="git4idea.ui.GitResetDialog" timestamp="1601859393550">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="453" y="274" key="git4idea.ui.GitResetDialog/0.0.1366.768@0.0.1366.768" timestamp="1601859393550" />
-    <state x="273" y="64" key="new project wizard" timestamp="1599325693033">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="273" y="64" key="new project wizard/0.0.1366.768@0.0.1366.768" timestamp="1599325693033" />
-    <state x="376" y="134" key="refactoring.ChangeSignatureDialog" timestamp="1599618600990">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="376" y="134" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1599618600990" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1600156004723">
-      <screen x="0" y="0" width="1366" height="768" />
-    </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1600156004723" />
+    <MESSAGE value="moved things around" />
+    <MESSAGE value="improved samspeech" />
+    <MESSAGE value="ant task for buildnum works again" />
+    <MESSAGE value="save" />
+    <option name="LAST_COMMIT_MESSAGE" value="save" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

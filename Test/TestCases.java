@@ -2,11 +2,8 @@ import jforth.JForth;
 import jforth.RuntimeEnvironment;
 import org.junit.Assert;
 import org.junit.Test;
-import tools.ResourceLoader;
 import tools.StringStream;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import static jforth.PolynomialParser.parsePolynomial;
@@ -576,29 +573,6 @@ public class TestCases
         String s = check ("-1 zeta toFraction",
                 ".");
         shoudBeOK ("-1/12" ,s);
-    }
-
-    @Test
-    public void TestCopySamExe()
-    {
-        try
-        {
-            String res = ResourceLoader.extractResource("sam.exe", true);
-            ProcessBuilder pb = new ProcessBuilder(res);
-            Process p = pb.start();
-
-            Thread.sleep (3000);
-
-            BufferedReader lineReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            lineReader.lines().forEach(System.out::println);
-
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            errorReader.lines().forEach(System.out::println);
-        }
-        catch (Exception e)
-        {
-            Assert.fail();
-        }
     }
 
     @Test
