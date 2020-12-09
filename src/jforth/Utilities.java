@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2029";
-    private static final String BUILD_DATE = "12/08/2020 10:09:09 PM";
+    private static final String BUILD_NUMBER = "2036";
+    private static final String BUILD_DATE = "12/09/2020 04:52:15 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -39,7 +39,9 @@ public class Utilities
         IRender render = new Render();
         //render.setPseudoCanvas(true);
         IContextBuilder builder = render.newBuilder();
-        builder.width(txt.length()*width).height(width);
+        //float w2 = (txt.length()*width)/1.9f;
+        double w2 = (txt.length()*width)*7.0/13.0;
+        builder.width((int)w2).height(width);
         builder.element(new PseudoText(txt, false));
         ICanvas canvas = render.render(builder.build());
         return canvas.getText();
