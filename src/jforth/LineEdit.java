@@ -19,8 +19,7 @@ import java.util.ArrayList;
  * ... any other input is appended.
  * Type "editor" to enter the line editor
  */
-public class LineEdit
-{
+public class LineEdit {
     private final JForth _interpreter;
     private ArrayList<String> list = new ArrayList<>();
     private ArrayList<String> undolist = new ArrayList<>();
@@ -39,47 +38,40 @@ public class LineEdit
                     " #s test    -- save file where text is the file name\n" +
                     " #innn text -- Insert before, where nnn is the line number and text is the content\n" +
                     " #nnn       -- Delete line nnn\n" +
-                    " #u         -- undo last list change\n"+
-                    " #e         -- execute file in editor\n"+
+                    " #u         -- undo last list change\n" +
+                    " #e         -- execute file in editor\n" +
                     " any other  -- input is appended to the buffer.";
 
-    LineEdit (PrintStream p, JForth forth)
-    {
+    LineEdit(PrintStream p, JForth forth) {
         _out = p;
         _interpreter = forth;
     }
 
-    private void saveList()
-    {
-        undolist.clear ();
-        undolist.addAll (list);
+    private void saveList() {
+        undolist.clear();
+        undolist.addAll(list);
     }
 
-    private void undo()
-    {
-        ArrayList<String> tmp = new ArrayList<> (list);
-        list.clear ();
-        list.addAll (undolist);
-        undolist.clear ();
-        undolist.addAll (tmp);
+    private void undo() {
+        ArrayList<String> tmp = new ArrayList<>(list);
+        list.clear();
+        list.addAll(undolist);
+        undolist.clear();
+        undolist.addAll(tmp);
     }
 
-    private void printErr()
-    {
+    private void printErr() {
         _out.print("ERROR");
         _out.flush();
     }
 
-    private void printOk()
-    {
+    private void printOk() {
         _out.print("OK");
         _out.flush();
     }
 
-    boolean handleLine (String in)
-    {
-        if (in.startsWith("#"))
-        {
+    boolean handleLine(String in) {
+        if (in.startsWith("#")) {
             int firstspc = in.indexOf(' ');
             String args;
             String cmd;
@@ -87,120 +79,87 @@ public class LineEdit
             {
                 cmd = in.substring(1, in.length());
                 args = null;
-            }
-            else
-            {
+            } else {
                 cmd = in.substring(1, firstspc);
                 args = in.substring(firstspc + 1, in.length());
             }
-            try
-            {
+            try {
                 int linenum = Integer.parseInt(cmd);
-                if (args == null)
-                {
-                    try
-                    {
-                        saveList ();
+                if (args == null) {
+                    try {
+                        saveList();
                         list.remove(linenum);
-                    }
-                    catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         printErr();
                     }
-                }
-                else
-                {
-                    saveList ();
+                } else {
+                    saveList();
                     list.set(linenum, args);
                 }
                 return true;
-            }
-            catch (Exception ignored)
-            {
+            } catch (Exception ignored) {
 
             }
-            try
-            {
+            try {
                 boolean retval = true;
                 if (cmd.equals("l")) // List with line numbers
                 {
-                    for (int s = 0; s < list.size(); s++)
-                    {
+                    for (int s = 0; s < list.size(); s++) {
                         _out.println(s + ": " + list.get(s));
                     }
-                }
-                else if (cmd.equals("t")) // List without line numbers
+                } else if (cmd.equals("t")) // List without line numbers
                 {
                     String s = toString();
-                    if (!s.isEmpty())
-                    {
+                    if (!s.isEmpty()) {
                         _out.println(s);
                     }
-                }
-                else if (cmd.equals("u"))
-                {
+                } else if (cmd.equals("u")) {
                     undo();
-                }
-                else if(cmd.equals("e"))  // run prg
+                } else if (cmd.equals("e"))  // run prg
                 {
-                    _interpreter.interpretLine (toString());
-                }
-                else if (cmd.equals("c"))  // clear program
+                    _interpreter.interpretLine(toString());
+                } else if (cmd.equals("c"))  // clear program
                 {
-                    saveList ();
+                    saveList();
                     clear();
-                }
-                else if (cmd.equals("r"))   // load new program
+                } else if (cmd.equals("r"))   // load new program
                 {
-                    saveList ();
+                    saveList();
                     load(args);
-                }
-                else if (cmd.equals("a"))   // append program from disk
+                } else if (cmd.equals("a"))   // append program from disk
                 {
-                    saveList ();
+                    saveList();
                     append(args);
-                }
-                else if (cmd.equals("s"))   // save program
+                } else if (cmd.equals("s"))   // save program
                 {
                     save(args);
-                }
-                else if (cmd.equals("h"))   // print help
+                } else if (cmd.equals("h"))   // print help
                 {
                     _out.println(helpText);
-                }
-                else if (cmd.equals("dir")) // show directory
+                } else if (cmd.equals("dir")) // show directory
                 {
                     String s = FileUtils.dir(".");
                     _out.println(s.trim());
-                }
-                else if (cmd.equals("x"))   // leave editor
+                } else if (cmd.equals("x"))   // leave editor
                 {
                     retval = false;
-                }
-                else if (cmd.startsWith("i")) // insert
+                } else if (cmd.startsWith("i")) // insert
                 {
-                    saveList ();
+                    saveList();
                     int pos = Integer.parseInt(cmd.substring(1));
                     list.add(pos, args);
-                }
-                else
-                {
+                } else {
                     printErr();
                     return true;
                 }
                 printOk();
                 return retval;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 printErr();
             }
-        }
-        else
-        {
-            if (in.length() > 0)
-            {
-                saveList ();
+        } else {
+            if (in.length() > 0) {
+                saveList();
                 list.add(in);
                 printOk();
             }
@@ -208,34 +167,28 @@ public class LineEdit
         return true;
     }
 
-    public String toString ()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (String s : list)
-        {
+        for (String s : list) {
             sb.append(s).append('\n');
         }
         return sb.toString().trim();
     }
 
-    private void clear ()
-    {
+    private void clear() {
         list.clear();
     }
 
-    private void load (String name) throws Exception
-    {
-        list = FileUtils.loadStrings (name);
+    private void load(String name) throws Exception {
+        list = FileUtils.loadStrings(name);
     }
 
-    private void append (String name) throws Exception
-    {
-        ArrayList<String> l2 = FileUtils.loadStrings (name);
+    private void append(String name) throws Exception {
+        ArrayList<String> l2 = FileUtils.loadStrings(name);
         list.addAll(l2);
     }
 
-    private void save (String name) throws Exception
-    {
-        FileUtils.saveStrings (list, name);
+    private void save(String name) throws Exception {
+        FileUtils.saveStrings(list, name);
     }
 }

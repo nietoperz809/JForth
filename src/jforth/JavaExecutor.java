@@ -38,7 +38,7 @@ public class JavaExecutor
     {
         final Map<String, byte[]> classBytes = compile(className + ".java", source);
         final MemoryClassLoader classLoader = new MemoryClassLoader(classBytes);
-        final Class clazz = classLoader.loadClass(className);
+        final Class<?> clazz = classLoader.loadClass(className);
         final Method[] methods = clazz.getDeclaredMethods();
         for (final Method method : methods)
         {

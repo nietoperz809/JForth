@@ -17,6 +17,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.stream.Collectors;
 //import java.util.function.BiFunction;
@@ -26,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2036";
-    private static final String BUILD_DATE = "12/09/2020 04:52:15 AM";
+    private static final String BUILD_NUMBER = "2047";
+    private static final String BUILD_DATE = "12/14/2020 04:32:40 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -172,27 +173,27 @@ public class Utilities
         return String.format ("%d:%02d:%02d", h, m, s);
     }
 
-    public static byte[] toRawByteArray (String in)
-    {
-        char[] chars = in.toCharArray ();
-        byte[] bytes = new byte[chars.length * 2];
-        for (int i = 0; i < chars.length; i++)
-        {
-            bytes[i * 2] = (byte) (chars[i] >> 8);
-            bytes[i * 2 + 1] = (byte) chars[i];
-        }
-        return bytes;
-    }
-
-    public static char[] fromRawByteArray (byte[] bytes)
-    {
-        char[] chars2 = new char[bytes.length / 2];
-        for (int i = 0; i < chars2.length; i++)
-        {
-            chars2[i] = (char) ((bytes[i * 2] << 8) + (bytes[i * 2 + 1] & 0xFF));
-        }
-        return chars2;
-    }
+//    public static byte[] toRawByteArray (String in)
+//    {
+//        char[] chars = in.toCharArray ();
+//        byte[] bytes = new byte[chars.length * 2];
+//        for (int i = 0; i < chars.length; i++)
+//        {
+//            bytes[i * 2] = (byte) (chars[i] >> 8);
+//            bytes[i * 2 + 1] = (byte) chars[i];
+//        }
+//        return bytes;
+//    }
+//
+//    public static char[] fromRawByteArray (byte[] bytes)
+//    {
+//        char[] chars2 = new char[bytes.length / 2];
+//        for (int i = 0; i < chars2.length; i++)
+//        {
+//            chars2[i] = (char) ((bytes[i * 2] << 8) + (bytes[i * 2 + 1] & 0xFF));
+//        }
+//        return chars2;
+//    }
 
     public static void terminateSoon (int delay)
     {
@@ -688,32 +689,6 @@ public class Utilities
         }
     }
 
-    public static String readString (OStack dStack) throws Exception
-    {
-        Object o = dStack.pop ();
-        if (o instanceof String)
-        {
-            return StringEscape.unescape ((String) o);
-        }
-        if (o instanceof Long)
-        {
-            return o.toString ();
-        }
-        if (o instanceof Double)
-        {
-            return o.toString ();
-        }
-        if (o instanceof BigInteger)
-        {
-            return o.toString ();
-        }
-        if (o instanceof FileBlob)
-        {
-            return ((FileBlob) o).asString ();
-        }
-        throw new Exception ("Wrong or no Type on Stack");
-    }
-
     public static Complex readComplex (OStack dStack) throws Exception
     {
         return getComplex (dStack.pop ());
@@ -1155,6 +1130,12 @@ public class Utilities
         out.set (a, out.get (b));
         out.set (b, x);
         return out;
+    }
+
+    public static String readString (OStack dStack) throws EmptyStackException
+    {
+        Object o = dStack.pop ();
+        return makePrintable(o, 10);
     }
 
     /**

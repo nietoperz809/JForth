@@ -1790,8 +1790,9 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String o1 = Utilities.readString(dStack);
-                                dStack.push (Utilities.bigPrint(o1, 20));
+                                Object o = dStack.pop();
+                                String outstr = predefinedWords._jforth.makePrintable(o);
+                                dStack.push (Utilities.bigPrint(outstr, 20));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2198,8 +2199,18 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                double d1 = Utilities.readDouble(dStack);
+                                Object o = dStack.pop();
                                 PolynomialFunction p1 = PolySupport.readPoly(dStack);
+                                if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence s1 = (DoubleSequence)o;
+                                    ArrayList<Double> list = new ArrayList<>();
+                                    for (double d1 : s1.asPrimitiveArray())
+                                        list.add (p1.value (d1));
+                                    dStack.push (new DoubleSequence(list));
+                                    return 1;
+                                }
+                                double d1 = Utilities.getDouble(o);
                                 dStack.push(p1.value(d1));
                                 return 1;
                             } catch (Exception e) {
@@ -2947,7 +2958,7 @@ class Filler1 {
                         {
                             try {
                                 long o = Utilities.readLong(dStack);
-                                Object n = dStack.get(dStack.size() - ((Long) o).intValue() - 1);
+                                Object n = dStack.get2(dStack.size() - ((Long) o).intValue() - 1);
                                 if (n == null) {
                                     return 0;
                                 }

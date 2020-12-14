@@ -1,5 +1,6 @@
 package jforth;
 
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class OStack extends Stack<Object>
@@ -17,20 +18,24 @@ public class OStack extends Stack<Object>
         super.removeAllElements();
     }
 
-    public Object get (int n)
+    public Object get2(int n)
     {
         if (isEmpty())
             return null;
         return super.get(n);
     }
 
-    public Object pop()
+    public Object pop() throws EmptyStackException
     {
         Object o = super.pop();
         saveStack.push (o);
         return o;
     }
 
+    /**
+     * Writes last popped object back on stack
+     * @return true if done
+     */
     public boolean unpop()
     {
         if (saveStack.isEmpty())

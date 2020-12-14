@@ -293,19 +293,6 @@ class WordHelpers
     static void dup (Object o, OStack dStack)
     {
         dStack.push (Utilities.deepCopy (o));
-//        if (o instanceof DoubleSequence)
-//        {
-//            dStack.push(new DoubleSequence((DoubleSequence) o));
-//        }
-//        else if (o instanceof FileBlob)
-//        {
-//            FileBlob fb = (FileBlob) o;
-//            dStack.push (new FileBlob (fb.get_content (), fb.getPath ()));
-//        }
-//        else
-//        {
-//            dStack.push(o);
-//        }
     }
 
     static int mult (OStack dStack, Object o1, Object o2)

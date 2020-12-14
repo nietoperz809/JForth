@@ -1042,4 +1042,13 @@ public class TestCases
         String s = check ("\""+code+"\""+" bf",".");
         shoudBeOK ("Hello World!\n" ,s);
     }
+
+    @Test
+    public void polyArrayTest()
+    {
+        String code = "{1,2,3,4} toPoly {1,2,3,4} x=";
+        String s = check (code,".");
+        shoudBeOK ("{10,49,142,313}" ,s);
+    }
+
 }
