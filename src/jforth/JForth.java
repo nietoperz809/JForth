@@ -307,6 +307,15 @@ public class JForth {
             }
             return true;
         }
+        Tuple tp = Tuple.parseTuple(word);
+        if (tp != null)  {
+            if (interpret) {
+                dStack.push(tp);
+            } else {
+                wordBeingDefined.addWord(new Literal(tp));
+            }
+            return true;
+        }
         Fraction fr = Utilities.parseFraction(word, base);
         if (fr != null) {
             if (interpret) {

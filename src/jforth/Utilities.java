@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2047";
-    private static final String BUILD_DATE = "12/14/2020 04:32:40 AM";
+    private static final String BUILD_NUMBER = "2074";
+    private static final String BUILD_DATE = "12/14/2020 06:12:07 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -659,7 +659,6 @@ public class Utilities
         }
         throw new Exception ("no blob");
     }
-
 
     private static BigInteger getBig (Object o1) throws Exception
     {

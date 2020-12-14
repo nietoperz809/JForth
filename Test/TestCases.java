@@ -1051,4 +1051,20 @@ public class TestCases
         shoudBeOK ("{10,49,142,313}" ,s);
     }
 
+    @Test
+    public void term1Test()
+    {
+        String code = "\"x/y\" 3|6 term";
+        String s = check (code,".");
+        shoudBeOK ("0.5" ,s);
+    }
+
+    @Test
+    public void term2Test()
+    {
+        String code = "sin(x) 12 term";
+        String s = check (code,".");
+        shoudBeOK ("-0.5365729180004349" ,s);
+    }
+
 }

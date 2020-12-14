@@ -1660,6 +1660,25 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "toComplex", "convert to Complex",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof Tuple)
+                                {
+                                    Tuple t = (Tuple)o1;
+                                    dStack.push (new Complex(t.a, t.b));
+                                }
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "complex", "Create a complex from 2 numbers",
                         (dStack, vStack) ->
                         {
@@ -1673,6 +1692,23 @@ class Filler1 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "tuple", "Create a complex from 2 numbers",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double o1 = Utilities.readDouble(dStack);
+                                double o2 = Utilities.readDouble(dStack);
+                                dStack.push(new Tuple(o2, o1));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (
@@ -1822,8 +1858,14 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                double o1 = Utilities.readDouble(dStack);
-                                dStack.push(new Fraction(o1));
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof Double)
+                                    dStack.push(new Fraction((Double)o1));
+                                else
+                                {
+                                    Tuple t = (Tuple)o1;
+                                    dStack.push (new Fraction((int)t.a, (int)t.b));
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

@@ -6,6 +6,7 @@ import jforth.audio.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
 import org.fusesource.jansi.AnsiConsole;
+import org.mathIT.util.FunctionParser;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -25,9 +26,46 @@ import java.util.zip.CRC32;
 
 class Filler2
 {
+    public static void main(String[] args) {
+        FunctionParser fp = new FunctionParser("sin(x)");
+        double d = fp.evaluate(0, 32);
+        System.out.println(d);
+    }
+
     static void fill (WordsList _fw, PredefinedWords predefinedWords)
     {
         LSystem lSys = predefinedWords._jforth._lsys;
+
+        _fw.add(new PrimitiveWord
+                (
+                        "term", "evaluate term",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            String f = Utilities.readString(dStack);
+                            FunctionParser fp = new FunctionParser(f);
+                            try {
+                                if (o instanceof Double)
+                                {
+                                    double d = (Double)o;
+                                    dStack.push (fp.evaluate(0, d));
+                                }
+                                else if (o instanceof Long)
+                                {
+                                    long d = (Long)o;
+                                    dStack.push (fp.evaluate(0, d));
+                                }
+                                else
+                                {
+                                    Tuple t = (Tuple)o;
+                                    dStack.push (fp.evaluate(0, t.a, t.b));
+                                }
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
         _fw.add(new PrimitiveWord
                 (
