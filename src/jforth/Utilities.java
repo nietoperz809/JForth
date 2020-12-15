@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2074";
-    private static final String BUILD_DATE = "12/14/2020 06:12:07 PM";
+    private static final String BUILD_NUMBER = "2078";
+    private static final String BUILD_DATE = "12/15/2020 07:41:23 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -898,7 +898,7 @@ public class Utilities
         throw new Exception ("Wrong args");
     }
 
-    static private Fraction getFrac (Object o1) throws Exception
+    static public Fraction getFrac (Object o1) throws Exception
     {
         if (o1 instanceof Fraction)
         {
@@ -915,6 +915,17 @@ public class Utilities
         if (o1 instanceof BigInteger)
         {
             return new Fraction (((BigInteger) o1).longValue ());
+        }
+        if (o1 instanceof Tuple)
+        {
+            Tuple t = (Tuple)o1;
+            return new Fraction ((int)t.a, (int)t.b);
+        }
+        if (o1 instanceof Complex)
+        {
+            Complex c = (Complex)o1;
+            if (c.getImaginary() == 0.0)
+                return new Fraction(c.getReal());
         }
         throw new Exception ("Wrong args");
     }

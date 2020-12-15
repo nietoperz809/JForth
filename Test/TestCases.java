@@ -1067,4 +1067,19 @@ public class TestCases
         shoudBeOK ("-0.5365729180004349" ,s);
     }
 
+    @Test
+    public void term3Test()
+    {
+        String code = "x/(x-2) {1,2,3,4} term";
+        String s = check (code,".");
+        shoudBeOK ("{-1,Infinity,3,2}" ,s);
+    }
+
+    @Test
+    public void testTPtoD()
+    {
+        String code = "-0.4|1000 toDouble";
+        String s = check (code,"..");
+        shoudBeOK ("1000-0.4" ,s);
+    }
 }

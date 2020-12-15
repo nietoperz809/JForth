@@ -55,6 +55,16 @@ class Filler2
                                     long d = (Long)o;
                                     dStack.push (fp.evaluate(0, d));
                                 }
+                                else if (o instanceof DoubleSequence)
+                                {
+                                    DoubleSequence ds = (DoubleSequence)o;
+                                    ArrayList<Double> list = new ArrayList<>();
+                                    for (double d : ds.asPrimitiveArray())
+                                    {
+                                        list.add (fp.evaluate(0, d));
+                                    }
+                                    dStack.push (new DoubleSequence(list));
+                                }
                                 else
                                 {
                                     Tuple t = (Tuple)o;
