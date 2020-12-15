@@ -2116,6 +2116,31 @@ class Filler1 {
                                 }
                                 return 1;
                             }
+                            if (o1 instanceof Tuple) {
+                                Tuple t = (Tuple)o1;
+                                DoubleSequence ds = new DoubleSequence();
+                                ds.add(t.a);
+                                ds.add(t.b);
+                                dStack.push (ds);
+                                return 1;
+                            }
+                            if (o1 instanceof Complex) {
+                                Complex t = (Complex)o1;
+                                DoubleSequence ds = new DoubleSequence();
+                                ds.add(t.getReal());
+                                ds.add(t.getImaginary());
+                                dStack.push (ds);
+                                return 1;
+                            }
+                            if (o1 instanceof Fraction) {
+                                Fraction t = (Fraction)o1;
+                                DoubleSequence ds = new DoubleSequence();
+                                ds.add(t.getNumerator());
+                                ds.add(t.getDenominator());
+                                dStack.push (ds);
+                                return 1;
+                            }
+
                             dStack.push(o1);
                             DoubleSequence seq = new DoubleSequence();
                             do {

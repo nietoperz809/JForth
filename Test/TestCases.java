@@ -1082,4 +1082,18 @@ public class TestCases
         String s = check (code,"..");
         shoudBeOK ("1000-0.4" ,s);
     }
+
+    @Test
+    public void testToNum()
+    {
+        String code = "-0.4|1000 toNumList";
+        String s = check (code,".");
+        shoudBeOK ("{-0.4,1000}" ,s);
+        code = "-0.5+1003i toNumList";
+        s = check (code,".");
+        shoudBeOK ("{-0.5,1003}" ,s);
+        code = "128/-10 toNumList";
+        s = check (code,".");
+        shoudBeOK ("{-64,5}" ,s);
+    }
 }
