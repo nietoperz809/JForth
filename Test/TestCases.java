@@ -1054,9 +1054,17 @@ public class TestCases
     @Test
     public void term1Test()
     {
-        String code = "\"x/y\" 3|6 term";
+        String code = "\"x/y\" {{3,6}} term";
         String s = check (code,".");
         shoudBeOK ("0.5" ,s);
+    }
+
+    @Test
+    public void term11Test()
+    {
+        String code = "\"x-y\" {{3,6}{19,7}{5,-3}{11,10}} term";
+        String s = check (code,".");
+        shoudBeOK ("{-3,12,8,1}" ,s);
     }
 
     @Test
@@ -1076,24 +1084,24 @@ public class TestCases
     }
 
     @Test
-    public void testTPtoD()
-    {
-        String code = "-0.4|1000 toDouble";
-        String s = check (code,"..");
-        shoudBeOK ("1000-0.4" ,s);
-    }
-
-    @Test
     public void testToNum()
     {
-        String code = "-0.4|1000 toNumList";
+        String code = "-0.5+1003i toNumList";
         String s = check (code,".");
-        shoudBeOK ("{-0.4,1000}" ,s);
-        code = "-0.5+1003i toNumList";
-        s = check (code,".");
         shoudBeOK ("{-0.5,1003}" ,s);
         code = "128/-10 toNumList";
         s = check (code,".");
         shoudBeOK ("{-64,5}" ,s);
+    }
+
+    @Test
+    public void testRev2()
+    {
+        String code = "6/11 rev";
+        String s = check (code,".");
+        shoudBeOK ("11/6" ,s);
+        code = "{0.128,-2.1} rev";
+        s = check (code,".");
+        shoudBeOK ("{-2.1,0.128}" ,s);
     }
 }

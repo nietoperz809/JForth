@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2078";
-    private static final String BUILD_DATE = "12/15/2020 07:41:23 AM";
+    private static final String BUILD_NUMBER = "2084";
+    private static final String BUILD_DATE = "12/21/2020 07:36:09 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -916,10 +916,10 @@ public class Utilities
         {
             return new Fraction (((BigInteger) o1).longValue ());
         }
-        if (o1 instanceof Tuple)
+        if (o1 instanceof DoubleSequence)
         {
-            Tuple t = (Tuple)o1;
-            return new Fraction ((int)t.a, (int)t.b);
+            DoubleSequence t = (DoubleSequence)o1;
+            return new Fraction (t.pick(0).intValue(), t.pick(1).intValue());
         }
         if (o1 instanceof Complex)
         {

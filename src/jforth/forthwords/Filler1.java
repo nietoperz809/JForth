@@ -1665,9 +1665,9 @@ class Filler1 {
                         {
                             try {
                                 Object o1 = dStack.pop();
-                                if (o1 instanceof Tuple) {
-                                    Tuple t = (Tuple)o1;
-                                    dStack.push (new Complex(t.a, t.b));
+                                if (o1 instanceof DoubleSequence) {
+                                    DoubleSequence t = (DoubleSequence)o1;
+                                    dStack.push (new Complex(t.pick(0), t.pick(1)));
                                 }
                                 else {
                                     Double d = Utilities.getDouble(o1);
@@ -1695,23 +1695,6 @@ class Filler1 {
                             }
                         }
                 ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "tuple", "Create a tuple from 2 numbers",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                double o1 = Utilities.readDouble(dStack);
-                                double o2 = Utilities.readDouble(dStack);
-                                dStack.push(new Tuple(o2, o1));
-                                return 1;
-                            } catch (Exception e) {
-                                return 0;
-                            }
-                        }
-                ));
-
 
         _fw.add(new PrimitiveWord
                 (
@@ -1793,10 +1776,6 @@ class Filler1 {
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long) {
                                 dStack.push((double) (Long) o1);
-                            } else if (o1 instanceof Tuple) {
-                                Tuple t = (Tuple)o1;
-                                dStack.push(t.a);
-                                dStack.push(t.b);
                             }
                             else if (o1 instanceof String) {
                                 dStack.push(Double.parseDouble((String) o1));
@@ -2114,14 +2093,6 @@ class Filler1 {
                                 for (DoubleSequence d : seq) {
                                     dStack.push(d);
                                 }
-                                return 1;
-                            }
-                            if (o1 instanceof Tuple) {
-                                Tuple t = (Tuple)o1;
-                                DoubleSequence ds = new DoubleSequence();
-                                ds.add(t.a);
-                                ds.add(t.b);
-                                dStack.push (ds);
                                 return 1;
                             }
                             if (o1 instanceof Complex) {
@@ -3389,6 +3360,12 @@ class Filler1 {
                                     FileBlob fb = new FileBlob(Utilities.reverse(((FileBlob) o).get_content()),
                                             ((FileBlob) o).getPath());
                                     dStack.push(fb);
+                                    return 1;
+                                }
+                                if (o instanceof Fraction) {
+                                    Fraction p = (Fraction)o;
+                                    Fraction p2 = p.reciprocal();
+                                    dStack.push(p2);
                                     return 1;
                                 }
                             } catch (Exception ignored) {
