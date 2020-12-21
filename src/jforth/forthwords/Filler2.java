@@ -14,6 +14,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.io.File;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -194,6 +195,11 @@ class Filler2 {
                                 dStack.push(Long.toHexString((Long) o1));
                                 return 1;
                             }
+                            if (o1 instanceof BigInteger) {
+                                BigInteger bi = (BigInteger)o1;
+                                dStack.push (bi.toString(16));
+                                return 1;
+                            }
                             return 0;
                         }
                 ));
@@ -254,20 +260,18 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (o instanceof String)
-                            {
-                                String input = (String)o;
+                            if (o instanceof String) {
+                                String input = (String) o;
                                 byte[] inbytes = input.getBytes(JForth.ENCODING);
-                                for (int s=0; s<inbytes.length; s++)
+                                for (int s = 0; s < inbytes.length; s++)
                                     inbytes[s] = Utilities.grayByte(inbytes[s]);
                                 dStack.push(new String(inbytes, JForth.ENCODING));
                                 return 1;
                             }
-                            if (o instanceof DoubleSequence)
-                            {
-                                DoubleSequence input = (DoubleSequence)o;
+                            if (o instanceof DoubleSequence) {
+                                DoubleSequence input = (DoubleSequence) o;
                                 byte[] inbytes = input.asBytes();
-                                for (int s=0; s<inbytes.length; s++)
+                                for (int s = 0; s < inbytes.length; s++)
                                     inbytes[s] = Utilities.grayByte(inbytes[s]);
                                 dStack.push(new DoubleSequence(inbytes));
                                 return 1;
@@ -282,20 +286,18 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (o instanceof String)
-                            {
-                                String input = (String)o;
+                            if (o instanceof String) {
+                                String input = (String) o;
                                 byte[] inbytes = input.getBytes(JForth.ENCODING);
-                                for (int s=0; s<inbytes.length; s++)
+                                for (int s = 0; s < inbytes.length; s++)
                                     inbytes[s] = Utilities.ungrayByte(inbytes[s]);
                                 dStack.push(new String(inbytes, JForth.ENCODING));
                                 return 1;
                             }
-                            if (o instanceof DoubleSequence)
-                            {
-                                DoubleSequence input = (DoubleSequence)o;
+                            if (o instanceof DoubleSequence) {
+                                DoubleSequence input = (DoubleSequence) o;
                                 byte[] inbytes = input.asBytes();
-                                for (int s=0; s<inbytes.length; s++)
+                                for (int s = 0; s < inbytes.length; s++)
                                     inbytes[s] = Utilities.ungrayByte(inbytes[s]);
                                 dStack.push(new DoubleSequence(inbytes));
                                 return 1;
@@ -673,12 +675,6 @@ class Filler2 {
                             }
                             BreakLoopControlWord ecw = new BreakLoopControlWord();
                             predefinedWords._jforth.wordBeingDefined.addWord(ecw);
-//                            predefinedWords._jforth.wordBeingDefined.addWord(new BaseWord() {
-//                                @Override
-//                                public int execute(OStack dataStack, OStack variableStack) {
-//                                    return 1;
-//                                }
-//                            });
                             return 1;
                         }
                 ));
@@ -1025,7 +1021,7 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "lswap", "swap 2 list members",
+                        "lswap", "swap 2 list or string members",
                         (dStack, vStack) ->
                         {
                             try {
@@ -1035,13 +1031,19 @@ class Filler2 {
                                 if (o3 instanceof StringSequence) {
                                     StringSequence ss = ((StringSequence) o3).swap(o1, o2);
                                     dStack.push(ss);
-                                    return 1;
                                 }
-                                if (o3 instanceof DoubleSequence) {
+                                else if (o3 instanceof DoubleSequence) {
                                     DoubleSequence ss = ((DoubleSequence) o3).swap(o1, o2);
                                     dStack.push(ss);
-                                    return 1;
                                 }
+                                else if (o3 instanceof String) {
+                                    char[] arr = ((String) o3).toCharArray();
+                                    char tmp = arr[o1];
+                                    arr[o1] = arr[o2];
+                                    arr[o2] = tmp;
+                                    dStack.push(new String(arr));
+                                }
+                                return 1;
                             } catch (Exception ignored) {
                             }
                             return 0;
