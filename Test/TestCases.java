@@ -1112,4 +1112,23 @@ public class TestCases
         String s = check (code,".");
         shoudBeOK ("512" ,s);
     }
+
+    @Test
+    public void testRoundSeq()
+    {
+        String code = "{3.667776,-6.87899,5.3,100,4.8888} 1 round";
+        String s = check (code,".");
+        shoudBeOK ("{3.7,-6.9,5.3,100,4.9}" ,s);
+    }
+
+    @Test
+    public void testGrayCode()
+    {
+        String code = "peter gray dup ungray swap";
+        String s = check (code,". sp .");
+        shoudBeOK ("HWNWK peter" ,s);
+        code = "{1,2,3,4,5,6,7,8,9} gray dup ungray";
+        s = check (code, "..");
+        shoudBeOK ("{1,2,3,4,5,6,7,8,9}{1,3,2,6,7,5,4,12,13}" ,s);
+    }
 }

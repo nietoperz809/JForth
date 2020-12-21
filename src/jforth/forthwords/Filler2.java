@@ -72,7 +72,7 @@ class Filler2 {
                                         list.add(fp.evaluate(0, c[0], c[1]));
                                     }
                                     if (list.size() == 1)
-                                        dStack.push (list.get(0));
+                                        dStack.push(list.get(0));
                                     else
                                         dStack.push(new DoubleSequence(list));
                                     return 1;
@@ -247,6 +247,63 @@ class Filler2 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gray", "make gray code",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            if (o instanceof String)
+                            {
+                                String input = (String)o;
+                                byte[] inbytes = input.getBytes(JForth.ENCODING);
+                                for (int s=0; s<inbytes.length; s++)
+                                    inbytes[s] = Utilities.grayByte(inbytes[s]);
+                                dStack.push(new String(inbytes, JForth.ENCODING));
+                                return 1;
+                            }
+                            if (o instanceof DoubleSequence)
+                            {
+                                DoubleSequence input = (DoubleSequence)o;
+                                byte[] inbytes = input.asBytes();
+                                for (int s=0; s<inbytes.length; s++)
+                                    inbytes[s] = Utilities.grayByte(inbytes[s]);
+                                dStack.push(new DoubleSequence(inbytes));
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "ungray", "reverse gray code",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            if (o instanceof String)
+                            {
+                                String input = (String)o;
+                                byte[] inbytes = input.getBytes(JForth.ENCODING);
+                                for (int s=0; s<inbytes.length; s++)
+                                    inbytes[s] = Utilities.ungrayByte(inbytes[s]);
+                                dStack.push(new String(inbytes, JForth.ENCODING));
+                                return 1;
+                            }
+                            if (o instanceof DoubleSequence)
+                            {
+                                DoubleSequence input = (DoubleSequence)o;
+                                byte[] inbytes = input.asBytes();
+                                for (int s=0; s<inbytes.length; s++)
+                                    inbytes[s] = Utilities.ungrayByte(inbytes[s]);
+                                dStack.push(new DoubleSequence(inbytes));
+                                return 1;
+                            }
+                            return 0;
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (

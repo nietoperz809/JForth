@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2084";
-    private static final String BUILD_DATE = "12/21/2020 07:36:09 AM";
+    private static final String BUILD_NUMBER = "2092";
+    private static final String BUILD_DATE = "12/21/2020 04:26:20 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -1254,4 +1254,20 @@ public class Utilities
             res[arr.length - 1 - s] = arr[s];
         return res;
     }
+
+    public static byte grayByte(byte in)
+    {
+        return (byte) (in ^ (in & 0xff) >>> 1);
+    }
+
+    public static byte ungrayByte(byte in)
+    {
+        int r = 8;
+        while (--r != 0)
+        {
+            in ^= (in & 0xff) >>> 1;
+        }
+        return in;
+    }
+
 }

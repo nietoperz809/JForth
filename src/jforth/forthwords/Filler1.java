@@ -163,7 +163,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "drop", false,
+                        "drop", false, "remove TOS",
                         (dStack, vStack) ->
                         {
                             dStack.pop();
@@ -1549,7 +1549,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "round", "Round double value",
+                        "round", "Rounding double value",
                         (dStack, vStack) ->
                         {
                             try {
@@ -1571,6 +1571,13 @@ class Filler1 {
                                                     Math.round(r * di) / r
                                             );
                                     dStack.push(cx);
+                                    return 1;
+                                }
+                                if (o instanceof DoubleSequence) {
+                                    double[] vals = ((DoubleSequence)o).asPrimitiveArray();
+                                    for (int s=0; s<vals.length; s++)
+                                        vals[s] = Math.round(vals[s] * r) / r;
+                                    dStack.push(new DoubleSequence(vals));
                                     return 1;
                                 }
                                 Double d2 = Utilities.getDouble(o);
