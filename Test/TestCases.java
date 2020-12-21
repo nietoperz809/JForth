@@ -1104,4 +1104,12 @@ public class TestCases
         s = check (code,".");
         shoudBeOK ("{-2.1,0.128}" ,s);
     }
+
+    @Test
+    public void testLagPolyRounding()
+    {
+        String code = "{2,4,8,16,32,64} lagpoly 1 round 256 x=";
+        String s = check (code,".");
+        shoudBeOK ("512" ,s);
+    }
 }
