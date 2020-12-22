@@ -932,6 +932,13 @@ public class TestCases
     }
 
     @Test
+    public void TestStringSplit2()
+    {
+        String s = check ("\"e\" peter split 1/2 split 3+4i split collect", ".");
+        shoudBeOK ("{\"p\",\"t\",\"r\",\"1\",\"2\",\"3\",\"4\"}" ,s);
+    }
+
+    @Test
     public void TestLswap()
     {
         String s = check ("{a,b,c,d,r} 1 2 lswap dup type", "..");
@@ -1010,6 +1017,7 @@ public class TestCases
     public void soundTest()
     {
         check ("1234 dtmf abcd dtmf sos morse c4c5c6c7 tune 1000 300 beep 1000 200 beep", ".");
+        check ("\"hello world how ya doing?\" sam", ".");
     }
 
     @Test

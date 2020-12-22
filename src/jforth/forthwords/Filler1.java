@@ -12,6 +12,7 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
+import org.mathIT.util.FunctionParser;
 import webserver.SimpleWebserver;
 
 import java.io.*;
@@ -1714,7 +1715,12 @@ class Filler1 {
                             } else if (o1 instanceof DoubleSequence) {
                                 dStack.push(((DoubleSequence) o1).fromBitList().longValue());
                             } else if (o1 instanceof String) {
-                                dStack.push(Long.parseLong((String) o1));
+                                try {
+                                    dStack.push(Long.parseLong((String) o1));
+                                } catch (NumberFormatException e) {
+                                    FunctionParser fp = new FunctionParser((String)o1);
+                                            dStack.push((long)fp.evaluate(0, 0));
+                                }
                             } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push((long) oc.getReal());
@@ -1785,7 +1791,12 @@ class Filler1 {
                                 dStack.push((double) (Long) o1);
                             }
                             else if (o1 instanceof String) {
-                                dStack.push(Double.parseDouble((String) o1));
+                                try {
+                                    dStack.push(Double.parseDouble((String) o1));
+                                } catch (NumberFormatException e) {
+                                    FunctionParser fp = new FunctionParser((String)o1);
+                                    dStack.push(fp.evaluate(0, 0));
+                                }
                             } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push(oc.getReal());
