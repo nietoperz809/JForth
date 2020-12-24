@@ -24,6 +24,8 @@ public class JForth {
 
     public enum MODE {EDIT, DIRECT}
 
+    public long LastETime;
+    public Exception LastError = null;
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
@@ -236,7 +238,7 @@ public class JForth {
             }
             return true;
         } catch (Exception e) {
-            //e.printStackTrace();
+            setLastError(e);
             return false;
         }
     }
@@ -363,7 +365,14 @@ public class JForth {
             }
             return true;
         }
+        setLastError (new Exception("Error executing: "+word));
         return false;
+    }
+
+    private void setLastError(Exception e)
+    {
+        LastError = e;
+        LastETime = System.currentTimeMillis();
     }
 
     private boolean doInterpret(String word) throws Exception {
@@ -373,7 +382,10 @@ public class JForth {
             if (bw instanceof NonPrimitiveWord) {
                 currentWord = bw;  // Save for recursion
             }
-            return bw.execute(dStack, vStack) != 0;
+            boolean ret = bw.execute(dStack, vStack) != 0;
+            if (!ret)
+                setLastError(new Exception("failed execution of '"+word+"'"));
+            return ret;
         }
         boolean ret = doForKnownWords(word, true);
         if (ret) {

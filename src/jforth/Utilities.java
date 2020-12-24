@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2101";
-    private static final String BUILD_DATE = "12/22/2020 02:58:00 AM";
+    private static final String BUILD_NUMBER = "2117";
+    private static final String BUILD_DATE = "12/24/2020 07:43:11 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");

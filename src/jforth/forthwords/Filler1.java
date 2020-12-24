@@ -1575,8 +1575,8 @@ class Filler1 {
                                     return 1;
                                 }
                                 if (o instanceof DoubleSequence) {
-                                    double[] vals = ((DoubleSequence)o).asPrimitiveArray();
-                                    for (int s=0; s<vals.length; s++)
+                                    double[] vals = ((DoubleSequence) o).asPrimitiveArray();
+                                    for (int s = 0; s < vals.length; s++)
                                         vals[s] = Math.round(vals[s] * r) / r;
                                     dStack.push(new DoubleSequence(vals));
                                     return 1;
@@ -1674,12 +1674,11 @@ class Filler1 {
                             try {
                                 Object o1 = dStack.pop();
                                 if (o1 instanceof DoubleSequence) {
-                                    DoubleSequence t = (DoubleSequence)o1;
-                                    dStack.push (new Complex(t.pick(0), t.pick(1)));
-                                }
-                                else {
+                                    DoubleSequence t = (DoubleSequence) o1;
+                                    dStack.push(new Complex(t.pick(0), t.pick(1)));
+                                } else {
                                     Double d = Utilities.getDouble(o1);
-                                    dStack.push (new Complex(d,0));
+                                    dStack.push(new Complex(d, 0));
                                 }
                                 return 1;
                             } catch (Exception e) {
@@ -1718,8 +1717,8 @@ class Filler1 {
                                 try {
                                     dStack.push(Long.parseLong((String) o1));
                                 } catch (NumberFormatException e) {
-                                    FunctionParser fp = new FunctionParser((String)o1);
-                                            dStack.push((long)fp.evaluate(0, 0));
+                                    FunctionParser fp = new FunctionParser((String) o1);
+                                    dStack.push((long) fp.evaluate(0, 0));
                                 }
                             } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
@@ -1789,12 +1788,11 @@ class Filler1 {
                             Object o1 = dStack.pop();
                             if (o1 instanceof Long) {
                                 dStack.push((double) (Long) o1);
-                            }
-                            else if (o1 instanceof String) {
+                            } else if (o1 instanceof String) {
                                 try {
                                     dStack.push(Double.parseDouble((String) o1));
                                 } catch (NumberFormatException e) {
-                                    FunctionParser fp = new FunctionParser((String)o1);
+                                    FunctionParser fp = new FunctionParser((String) o1);
                                     dStack.push(fp.evaluate(0, 0));
                                 }
                             } else if (o1 instanceof Complex) {
@@ -1833,7 +1831,7 @@ class Filler1 {
                             try {
                                 Object o = dStack.pop();
                                 String outstr = predefinedWords._jforth.makePrintable(o);
-                                dStack.push (Utilities.bigPrint(outstr, 20));
+                                dStack.push(Utilities.bigPrint(outstr, 20));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1864,7 +1862,7 @@ class Filler1 {
                         {
                             try {
                                 Object o1 = dStack.pop();
-                                dStack.push (Utilities.getFrac(o1));
+                                dStack.push(Utilities.getFrac(o1));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2114,19 +2112,19 @@ class Filler1 {
                                 return 1;
                             }
                             if (o1 instanceof Complex) {
-                                Complex t = (Complex)o1;
+                                Complex t = (Complex) o1;
                                 DoubleSequence ds = new DoubleSequence();
                                 ds.add(t.getReal());
                                 ds.add(t.getImaginary());
-                                dStack.push (ds);
+                                dStack.push(ds);
                                 return 1;
                             }
                             if (o1 instanceof Fraction) {
-                                Fraction t = (Fraction)o1;
+                                Fraction t = (Fraction) o1;
                                 DoubleSequence ds = new DoubleSequence();
                                 ds.add(t.getNumerator());
                                 ds.add(t.getDenominator());
-                                dStack.push (ds);
+                                dStack.push(ds);
                                 return 1;
                             }
 
@@ -2259,13 +2257,12 @@ class Filler1 {
                             try {
                                 Object o = dStack.pop();
                                 PolynomialFunction p1 = PolySupport.readPoly(dStack);
-                                if (o instanceof DoubleSequence)
-                                {
-                                    DoubleSequence s1 = (DoubleSequence)o;
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence s1 = (DoubleSequence) o;
                                     ArrayList<Double> list = new ArrayList<>();
                                     for (double d1 : s1.asPrimitiveArray())
-                                        list.add (p1.value (d1));
-                                    dStack.push (new DoubleSequence(list));
+                                        list.add(p1.value(d1));
+                                    dStack.push(new DoubleSequence(list));
                                     return 1;
                                 }
                                 double d1 = Utilities.getDouble(o);
@@ -3381,7 +3378,7 @@ class Filler1 {
                                     return 1;
                                 }
                                 if (o instanceof Fraction) {
-                                    Fraction p = (Fraction)o;
+                                    Fraction p = (Fraction) o;
                                     Fraction p2 = p.reciprocal();
                                     dStack.push(p2);
                                     return 1;
@@ -3548,8 +3545,7 @@ class Filler1 {
                                 Object o = dStack.pop();
                                 if (o instanceof DoubleSequence) {
                                     dStack.push(((DoubleSequence) o).pick((int) l1));
-                                }
-                                if (o instanceof StringSequence) {
+                                } else if (o instanceof StringSequence) {
                                     dStack.push(((StringSequence) o).pick((int) l1));
                                 } else if (o instanceof String) {
                                     char c = ((String) o).charAt((int) l1);

@@ -25,6 +25,8 @@ import java.util.Base64;
 import java.util.TimerTask;
 import java.util.zip.CRC32;
 
+import static java.lang.System.currentTimeMillis;
+
 class Filler2 {
     public static void main(String[] args) {
         FunctionParser fp = new FunctionParser("sin(x)");
@@ -1250,6 +1252,25 @@ class Filler2 {
                             } catch (Exception ignored) {
                             }
                             return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "err", "Put last error message onto stack",
+                        (dStack, vStack) ->
+                        {
+                            if (predefinedWords._jforth.LastError == null)
+                                dStack.push("Everything's fine ...");
+                            else {
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(predefinedWords._jforth.LastError.toString())
+                                        .append(", ")
+                                        .append((currentTimeMillis() - predefinedWords._jforth.LastETime)/1000)
+                                        .append(" secs ago\n");
+                                dStack.push(sb.toString());
+                            }
+                            return 1;
                         }
                 ));
 

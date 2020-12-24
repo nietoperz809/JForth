@@ -846,6 +846,10 @@ public class TestCases
     {
         String s = check ("{peter,ist,lieb,oder,doof} 2 lpick", ".");
         shoudBeOK ("lieb" ,s);
+        s = check ("{1,2,3,19,4,6} 3 lpick", ".");
+        shoudBeOK ("19" ,s);
+        s = check ("motherfucker 6 lpick", ".");
+        shoudBeOK ("f" ,s);
     }
 
     @Test
@@ -1138,5 +1142,13 @@ public class TestCases
         code = "{1,2,3,4,5,6,7,8,9} gray dup ungray";
         s = check (code, "..");
         shoudBeOK ("{1,2,3,4,5,6,7,8,9}{1,3,2,6,7,5,4,12,13}" ,s);
+    }
+
+    @Test
+    public void testSinWave()
+    {
+        String code = "3.2 32 0.1 seq sin(x) swap term 100*x swap term 1 round";
+        String s = check (code,".");
+        shoudBeOK ("{-5.8,-15.8,-25.6,-35.1,-44.3,-53,-61.2,-68.8,-75.7,-81.8,-87.2,-91.6,-95.2,-97.8,-99.4,-100,-99.6,-98.2,-95.9,-92.6,-88.3,-83.2,-77.3,-70.6,-63.1,-55.1,-46.5,-37.4,-27.9,-18.2,-8.3,1.7}" ,s);
     }
 }

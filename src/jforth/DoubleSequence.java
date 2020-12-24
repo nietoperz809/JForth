@@ -161,6 +161,13 @@ public class DoubleSequence implements java.io.Serializable
         return new DoubleSequence(ar);
     }
 
+    /**
+     * Generate Sequence
+     * @param start first value
+     * @param howmuch number of value
+     * @param step distance from one value to another
+     * @return
+     */
     public static DoubleSequence makeCounted (double start, int howmuch, double step)
     {
         double[] arr = new double[howmuch];
