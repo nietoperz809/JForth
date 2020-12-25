@@ -62,15 +62,15 @@ Predefined Words
 *               -- Multiply TOS and TOS-1
 +               -- Add 2 values on stack
 +!              -- Add value to variable
-+loop           -- adds value to loop counter i
++LOOP           -- adds value to loop counter i
 -               -- Substract values
 .               -- Pop TOS and print it
 ."              -- String output
-.s              -- Show whole data stack
-.v              -- Show whole variable stack
+.S              -- Show whole data stack
+.V              -- Show whole variable stack
 /               -- Divide TOS-1 by TOS
-/mod            -- Dividend and Remainder
-0<              -- Gives 1 of TOS smaller than 0
+/MOD            -- Dividend and Remainder
+0<              -- Gives 1 if TOS smaller than 0
 0=              -- Gives 1 if TOS is zero
 0>              -- Gives 1 if TOS greater than zero
 1+              -- Add 1 to TOS
@@ -79,203 +79,247 @@ Predefined Words
 2+              -- Add 2 to TOS
 2-              -- Substract 2 from TOS
 2/              -- Divide TOS by 2
-2dup            -- null
-2over           -- null
-2rot            -- null
-2swap           -- null
+2DUP            -- Duplicate upper 2 elements
+2OVER           -- Copy TOS-2 & TOS-3 to TOS & TOS-1
+2ROT            -- Rotates first 3 pairs of elements
+2SWAP           -- Swaps first 2 pairs of elements
 :               -- Begin word definition
 ;               -- End word definition
-<               -- null
+<               -- gives 1 of TOS-1 smaller than TOS
 <.              -- Restore last stack object
 <<              -- Rotate left
-<>              -- null
-=               -- null
->               -- null
+<>              -- 1 if TOS is not equal to TOS-1
+=               -- 1 if TOS is equal to TOS-1
+>               -- 1 if TOS-1 is bigger than TOS
 >>              -- Rotate right
->r              -- Put TOS to variable stack
-?dup            -- Duplicate TOS if not zero
+>R              -- Put TOS to variable stack
+?DUP            -- Duplicate TOS if not zero
 @               -- Put variable value on stack
+ABS             -- Absolute value
+ACCEPT          -- Read string from keyboard
+ACOS            -- Inverse cosine
+AGAIN           -- Go back to BEGIN (infinite loop)
+ALTSUM          -- Add all elements together but alternates sign
+AND             -- Binary and of 2 values
+APPLY           -- Apply polynomial to sequence
+ARRAY           -- Create array
+ASIN            -- Inverse sine
+ASK             -- Show yes/no box
+ASYNCMSG        -- Show asynchronous message box
+ATAN            -- Inverse tangent
+ATAN2           -- Second arctan, see: https://de.wikipedia.org/wiki/Arctan2
+B64             -- make Base64 from String
+BEEP            -- play single tone
+BEGIN           -- Marks the start of an indefinite loop.
+BF              -- execute brainfuck code
+BIG             -- BigPrint
+BIN             -- Set number base to 2
+BINSTR          -- Make binary String
+BLOBNAME        -- puts blob's path name on stack
+BREAK           -- Breaks out of the forth word
+BYE             -- End the Forth interpreter
+CGROUP          -- Make cyclic group from generator and mod value
+CLEAR           -- Clear the stack
+CLEARHIST       -- Clear History
+CLLTZ           -- Get collatz sequence
+CLOSEBYTEREADER -- Close file
+CLOSEREADER     -- Close file
+CLOSEWRITER     -- Close file
+CLS             -- clear screen
+COLLECT         -- collects all numbers or strings from stack into sequence
+COMPLEX         -- Create a complex from 2 numbers
+CONJ            -- Conjugate of complex or fraction
+CONSTANT        -- create new Constant
+COS             -- Cosine
+COSH            -- Cosinus hyperbolicus
+CR              -- Emit carriage return
+CROSSP          -- Cross product of 3D vectors
+CTAB            -- Makes multiplicative group Cayley table matrix of order n
+DEC             -- Set number base to 10
+DEPTH           -- number of elements currently on the stack
+DETM            -- Determinant of a Matrix
+DIAGM           -- Create diagonal Matrix from List
+DIR             -- Get directory
+DO              -- Sets up a finite loop, given index and limit.
+DOTP            -- Dot product of 3D vectors
+DROP            -- remove TOS
+DTMF            -- create DTMF sound
+DUP             -- Duplicat TOS
 E               -- Natural logarithm base
+EDITOR          -- Enter line editor
+ELSE
+EMIT            -- Emit single char to console
+ERR             -- Put last error message onto stack
+EXECUTE         -- executes word from stack
+EXP             -- E^x
+F'=             -- Derive a polynomial
+FACT            -- Factorial
+FACTOR          -- Prime factorisation
+FALSE           -- Gives 0
+FIB             -- Fibonacci number
+FITPOLY         -- Make polynomial sequence of Points
+FORGET          -- Delete word from dictionary
+FORTH           -- execute forth line asynchronously
+FRACTION        -- Create a fraction from 2 Numbers
+GAMMA           -- Gamma funcction
+GAUSSIAN        -- Gaussian random number
+GCD             -- Greates common divisor
+GETBLOB         -- read blob into memory
+GF*             -- Galois multiplication of TOS and TOS-1
+GF+             -- Galois addition TOS-1 + TOS
+GF-             -- Galois subtraction TOS-1 - TOS
+GF/             -- Galois division TOS-1 by TOS
+GMEAN           -- Geometric mean
+GRAY            -- make gray code
+HASH            -- generate hash string
+HEX             -- Set number base to 16
+HEXSTR          -- Make hex string
+HTTP            -- run web server
+I               -- put loop variable i on stack
+IDM             -- Create Identity Matrix
+IF
+IGROUP          -- calculate inverses of a group
+INTERSECT       -- Make intersection of 2 sequences
+INVM            -- Inverse of a Matrix
+ISPRIME         -- Primality test
+J               -- put loop variable j on stack
+JAVA            -- compile and run java class
+JS              -- evaluate js expression string
+KEY             -- Get key from keyboard
+LAGPOLY         -- Make lagrange polynomial sequence of Points
+LCM             -- Least common multiple
+LEAVE           -- Terminate the loop immediately
+LENGTH          -- Get length of what is on the stack
+LIST            -- Put program in editor on stack
+LN              -- Natural logarithm
+LOADHIST        -- Load history
+LOG10           -- Logarithm to base 10
+LOOP            -- repeat loop
+LPICK           -- Get one Element from sequence
+LSCLR           -- Remove all rules
+LSGET           -- get LSystem result
+LSINFO          -- Get complete LSystem as String
+LSPUT           -- Set Matrial for LSystem
+LSREP           -- run LSystem on previous result
+LSRULE          -- Set Rule for LSystem
+LSWAP           -- swap 2 list or string members
+LUPM            -- l/u decomposition of a Matrix
+MAX             -- Biggest value
+MEAN            -- Mean value of sequence
+MIN             -- Smallest value
+MIX             -- Mix two Lists
+MKBLOB          -- make blob from String
+MOD             -- Division remainder
+MORSE           -- play Morse code
+MORSETXT        -- translate to Morse alphabet
+MSG             -- Show message box
+NAMEBLOB        -- rename existing blob
+NIP             -- same as swap+drop
+NOT             -- Gives 0 if TOS is not 0, otherwise 1
+OPENBYTEREADER  -- Open file for reading
+OPENREADER      -- Open file
+OPENWRITER      -- Open file for Writing
+OR              -- Binary or of 2 values
+OVER            -- Copy TOS-1 to TOS
+PDIM            -- set plotter width/height
+PERCENT         -- calculate x percent of y
+PERMUTE         -- Generate permutation
+PHI             -- Phi of complex number
 PI              -- Circle constant PI
-Sf=             -- Antiderive of a polynomial
-abs             -- Absolute value
-accept          -- Read string from keyboard
-acos            -- Inverse cosine
-again           -- null
-altsum          -- Add all elements together but alternates sign
-and             -- Binary and of 2 values
-apply           -- Apply polynomial to sequence
-array           -- Create array
-asin            -- Inverse sine
-ask             -- Show yes/no box
-asyncmsg        -- Show asynchronous message box
-atan            -- Inverse tangent
-atan2           -- Second arctan, see: https://de.wikipedia.org/wiki/Arctan2
-b64             -- make Base64 from String
-begin           -- null
-big             -- BigPrint
-bin             -- Set number base to 2
-break           -- Breaks out of the forth word
-bye             -- End the Forth interpreter
-clear           -- Clear the stack
-clearHist       -- Clear History
-clltz           -- Get collatz sequence
-closeByteReader -- Close file
-closeReader     -- Close file
-closeWriter     -- Close file
-complex         -- Create a complex from 2 numbers
-conj            -- Conjugate of complex or fraction
-constant        -- create new Constant
-cos             -- Cosine
-cosh            -- Cosinus hyperbolicus
-cr              -- Emit carriage return
-crossP          -- Cross product of 3D vectors
-dec             -- Set number base to 10
-depth           -- null
-detM            -- Determinant of a Matrix
-diagM           -- Create diagonal Matrix from List
-dir             -- Get directory
-do              -- null
-dotP            -- Dot product of 3D vectors
-drop            -- null
-dup             -- null
-editor          -- Enter line editor
-else            -- null
-emit            -- Emit single char to console
-execute         -- executes word from stack
-exp             -- E^x
-f'=             -- Derive a polynomial
-fact            -- Factorial
-factor          -- Prime factorisation
-false           -- Gives 0
-fib             -- Fibonacci number
-fitPoly         -- Make polynomial sequence of Points
-forget          -- Delete word from dictionary
-forth           -- execute forth line asynchronously
-fraction        -- Create a fraction from 2 Numbers
-gMean           -- Geometric mean
-gamma           -- Gamma funcction
-gaussian        -- Gaussian random number
-gcd             -- Greates common divisor
-hash            -- generate hash string
-hex             -- Set number base to 16
-hexStr          -- Make hex string
-http            -- run web server
-i               -- put loop variable i on stack
-idM             -- Create Identity Matrix
-if              -- null
-intersect       -- Make intersection of 2 sequences
-invM            -- Inverse of a Matrix
-isPrime         -- Primality test
-j               -- put loop variable j on stack
-java            -- compile and run java class
-js              -- evaluate js expression string
-key             -- Get key from keyboard
-lagPoly         -- Make lagrange polynomial sequence of Points
-lcm             -- Least common multiple
-leave           -- null
-length          -- Get length of what is on the stack
-list            -- Put program in editor on stack
-ln              -- Natural logarithm
-loadHist        -- Load history
-log10           -- Logarithm to base 10
-loop            -- repeat loop
-lpick           -- Get one Element from sequence
-lupM            -- Determinant of a Matrix
-max             -- Biggest value
-mean            -- Mean value of sequence
-min             -- Smallest value
-mix             -- Mix two Lists
-mod             -- Division remainder
-msg             -- Show message box
-not             -- Gives 0 if TOS is not 0, otherwise 1
-openByteReader  -- Open file for reading
-openReader      -- Open file
-openWriter      -- Open file for Writing
-or              -- Binary or of 2 values
-over            -- null
-permute         -- Generate permutation
-phi             -- Phi of complex number
-pick            -- Get value from arbitrary Positon and place it on TOS
-ping            -- Check a host
-playFile        -- Play Wave audio file
-playHist        -- Execute History
-playStr         -- Play Wave String
-pow             -- Exponentation
-prod            -- Product of all values
-psp             -- Push space on stack
-qMean           -- Quadratic Mean of sequence
-r>              -- Move variable to data stack
-r@              -- Copy variable to data stack
-random          -- Pseudo random number
-readByte        -- Read byte from file
-readLine        -- Read line from file
-recurse         -- Re-run current word
-rev             -- Reverse a sequence
-roll            -- null
-rot             -- null
-round           -- Round double value
-run             -- Runs program in editor
-runFile         -- run program file
-sam             -- Make SAM data
-saveHist        -- Save history
-say             -- speak a string
-seq             -- generate sequence
-setbase         -- Set a new number base
-shuffle         -- Random shuffles a sequence
-sin             -- Sine
-sinh            -- Sinus hyperbolicus
-sleep           -- Sleep some milliseconds
-sort            -- Sort a Sequence
-sp              -- Emit single space
-spaces          -- Emit multiple spaces
-split           -- Split object into partitions
-sqrt            -- Square root
-stdDev          -- Standard Deviation of sequence
-subSeq          -- Subsequence of string or list
-sum             -- Add all elements together
-sumq            -- Make sum of squares
-swap            -- null
-tan             -- Tangent
-tanh            -- Tangent hyperbolicus
-then            -- null
-tick            -- Get clock value
-time            -- Get a time string
-toBig           -- Make BigInt values of what is on the stack
-toBits          -- Make bit sequence from number
-toDList         -- Create List of digits
-toDouble        -- Make double value of what is on the stack
-toFraction      -- Make fraction from value on the stack
-toList          -- Make list of what is on the stack
-toLong          -- Make long values of what is on the stack
-toM             -- Make Matrix from Sequences
-toPoly          -- Make polynomial from doubleSequence
-toStr           -- Make string of what is on the stack
-transM          -- Transpose a Matrix
-true            -- Gives 1
-tuck            -- null
-type            -- Get type of TOS as string
-udpget          -- Receive udp packet
-udpput          -- Send udp packet
-unb64           -- make String from Base64
-unhexStr        -- Make Hexstr to Bytes
-unique          -- Only keep unique elements of sequence
-unlink          -- Delete file
-until           -- null
-urlDec          -- Decode URL encoded string
-urlEnc          -- URL encode a string
-var             -- Variance of sequence
-variable        -- Create new variable
-what            -- Show description about a word
-words           -- Show all words
-wordsd          -- Show words and description
-writeByte       -- Write byte into file
-writeEol        -- Write string end into file
-writeString     -- Write string to file
-x=              -- Solve a polynomial
-xor             -- Xors two values
-zeta            -- Riemann Zeta function
-</pre>
+PICK            -- Get value from arbitrary Positon and place it on TOS
+PING            -- Check a host
+PLAYHIST        -- Execute History
+PLAYWAV         -- play Wave file
+PLOT            -- Plot x/y data
+POW             -- Exponentation
+PROD            -- Product of all values
+PSP             -- Push space on stack
+PUTBLOB         -- write blob to disk
+PWD             -- get working directory
+QMEAN           -- Quadratic Mean of sequence
+R>              -- Move variable to data stack
+R@              -- Copy variable to data stack
+RANDOM          -- Pseudo random number
+READBYTE        -- Read byte from file
+READLINE        -- Read line from file
+RECURSE         -- Re-run current word
+RECURSIVE       -- Re-run current word
+REV             -- Reverse a sequence
+ROLL            -- Remove nth element and put it on TOS
+ROT             -- Rotate first 3 elements on stack
+ROUND           -- Rounding double value
+RUN             -- Runs program in editor
+RUNFILE         -- run program file
+SAM             -- speak with SAM voice
+SAVEHIST        -- Save history
+SAY             -- speak a string
+SCATTER         -- desintegrate sequence onto stack
+SEQ             -- generate sequence
+SETBASE         -- Set a new number base
+SF=             -- Antiderive of a polynomial
+SHUFFLE         -- Random shuffle a sequence
+SIN             -- Sine
+SINH            -- Sinus hyperbolicus
+SLEEP           -- Sleep some milliseconds
+SOON            -- run deferred word
+SORT            -- Sort a Sequence
+SP              -- Emit single space
+SPACES          -- Emit multiple spaces
+SPLIT           -- Split object into partitions
+SQRT            -- Square root
+STDDEV          -- Standard Deviation of sequence
+STOPWAV         -- stop playing wave clip
+SUBSEQ          -- Subsequence of string or list
+SUM             -- Add all elements together
+SUMQ            -- Make sum of squares
+SWAP            -- Swap TOS and TOS-1
+TAN             -- Tangent
+TANH            -- Tangent hyperbolicus
+TERM            -- evaluate term
+THEN
+TICK            -- Get clock value
+TIME            -- Get a time string
+TOBIG           -- Make BigInt values of what is on the stack
+TOBITS          -- Make bit sequence from number
+TOCOMPLEX       -- convert to Complex
+TODLIST         -- Create List of digits
+TODOUBLE        -- Make double value of what is on the stack
+TOFRACTION      -- Make fraction from value on the stack
+TOLONG          -- Make long values of what is on the stack
+TOM             -- Make Matrix from Sequences
+TONUMLIST       -- Make number list of what is on the stack
+TOPOLY          -- Make polynomial from doubleSequence
+TOSLIST         -- Create String List from Double List
+TOSTR           -- Make string of TOS
+TOTIME          -- make time string from TOS
+TRANSM          -- Transpose a Matrix
+TRUE            -- Gives 1
+TUCK            -- Copy TOS to TOS-2
+TUNE            -- create music
+TYPE            -- Get type of TOS as string
+UDPGET          -- Receive udp packet
+UDPPUT          -- Send udp packet
+UNB64           -- make String from Base64
+UNGRAY          -- reverse gray code
+UNHEXSTR        -- Make Hexstr to Bytes
+UNHTTP          -- stop web server
+UNIQUE          -- Only keep unique elements of sequence
+UNLINK          -- Delete file
+UNTIL           -- If false, go back to BEGIN. If true, terminate the loop
+URLDEC          -- Decode URL encoded string
+URLENC          -- URL encode a string
+VAR             -- Variance of sequence
+VARIABLE        -- Create new variable
+WHAT            -- Show description about a word
+WHATPERC        -- calculate x is what percent of y
+WORDS           -- Show all words
+WORDSD          -- Show words and description
+WRITEBYTE       -- Write byte into file
+WRITEEOL        -- Write string end into file
+WRITESTRING     -- Write string to file
+X=              -- Solve a polynomial
+XOR             -- Xors two values
+ZETA            -- Riemann Zeta function</pre>
 
 Line Editor
 ------------------------------
@@ -299,3 +343,64 @@ It knows these commands:
 
 </pre>
 
+Text mode X/Y-Plotter
+-----------------------------------
+You need 2 sequences of same size on the stack. 
+One for the x and another for the y coordinates. 
+Both together give a list of points that can be plotted 
+using the _'plot'_ command.
+
+Here's an example:
+<pre>0 1024 0.01 seq dup cos(x)+sin(2*x) swap term swap plot .</pre>
+
+The first part _'0 1024 0.01 seq'_ generates a squence of 1024 values
+starting at 0 and growing with a step size of 0.01. These are the x-parts of the points to be plotted.
+
+the following _'dup'_ saves it for later use. Next we apply a function 
+to every value to complete our points. This is done by
+_'cos(x)+sin(2*x) swap term'_
+
+Now we have two sequences on the stack representing 1024 points.
+A _'swap'_ puts them into right order and '_plot_' creates the graphic.
+
+This is how it looks:
+<pre>┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1.76┼   *****                                                   *****                            │
+│     │  **   **                                                 **   **                           │
+│     │  *     *                                                 *     *                           │
+│     │ **     **                                               **     **                          │
+│     │ *       *                                               *       *                          │
+│     │**       **                                             **       **                         │
+│     │*         *                                             *         *                         │
+│     │*         *                                            **         *                         │
+│     │           *                                           *          **                        │
+│ 0.88┼           *                                          **           *                        │
+│     │           *                                          *            *                        │
+│     │            *                                        **            **                       │
+│     │            *                                        *              *                       │
+│     │            *                       **               *              *                       │
+│     │            **                    ** ***            **              **                    **│
+│     │             *                   **    **           *                *                   ** │
+│     │             *                  **      **         **                *                  **  │
+│     │             **                 *        **       **                 **                 *   │
+│-0.00┼              *                **         **      *                   *                **   │
+│     │              *                *           **    **                   *                *    │
+│     │              *               **            ** ***                    *               **    │
+│     │               *              *               **                      **              *     │
+│     │               *             **                                        *             **     │
+│     │               *             *                                         *             *      │
+│     │                *            *                                         **           **      │
+│     │                *           *                                           *           *       │
+│     │                *           *                                           *           *       │
+│-0.88┼                **         **                                           **         *        │
+│     │                 *         *                                             *         *        │
+│     │                 **       **                                             **       **        │
+│     │                  *       *                                               *       *         │
+│     │                  **     **                                               *      **         │
+│     │                   *     *                                                 *    **          │
+│     │                   **   *                                                  **   *           │
+│     │                    *****                                                   *****           │
+│     │                                                                              *             │
+│-1.76┼──────────────────────┼──────────────────────┼──────────────────────┼──────────────────────┼│
+│     0.00                 2.56                   5.11                   7.67                 10.23│
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘ OK</pre>
