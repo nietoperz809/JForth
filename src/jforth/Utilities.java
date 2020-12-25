@@ -36,8 +36,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2122";
-    private static final String BUILD_DATE = "12/25/2020 07:02:51 AM";
+    private static final String BUILD_NUMBER = "2126";
+    private static final String BUILD_DATE = "12/25/2020 08:07:49 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -1277,27 +1277,6 @@ public class Utilities
             in ^= (in & 0xff) >>> 1;
         }
         return in;
-    }
-
-    public static String plot (DoubleSequence xvals, DoubleSequence yvals) throws Exception
-    {
-        if (xvals.length() != yvals.length())
-            throw new Exception ("Sequences have different lengths");
-        List<IPlotPoint> points = new ArrayList<>();
-        for (int s = 0; s< xvals.length(); s++)
-        {
-            points.add (new PlotPoint(xvals.pick(s), yvals.pick(s)));
-        }
-        IRender render = new Render();
-        IContextBuilder builder = render.newBuilder();
-        builder.width(80).height(20);
-        builder.element(new Rectangle(0, 0, 80, 20));
-        builder.layer(new Region(1, 1, 78, 18));
-        builder.element(new Axis(points, new Region(0, 0, 78, 18)));
-        builder.element(new AxisLabels(points, new Region(0, 0, 78, 18)));
-        builder.element(new Plot(points, new Region(0, 0, 78, 18)));
-        ICanvas canvas = render.render(builder.build());
-        return canvas.getText();
     }
 
 //    public static void main(String[] args) {

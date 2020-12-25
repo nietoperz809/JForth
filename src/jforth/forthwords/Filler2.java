@@ -12,6 +12,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -28,11 +29,13 @@ import java.util.zip.CRC32;
 import static java.lang.System.currentTimeMillis;
 
 class Filler2 {
-    public static void main(String[] args) {
-        FunctionParser fp = new FunctionParser("sin(x)");
-        double d = fp.evaluate(0, 32);
-        System.out.println(d);
-    }
+    private static Point plotterDimension = new Point(100,20);
+
+//    public static void main(String[] args) {
+//        FunctionParser fp = new FunctionParser("sin(x)");
+//        double d = fp.evaluate(0, 32);
+//        System.out.println(d);
+//    }
 
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
@@ -1276,13 +1279,29 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "pDim", "set plotter width/height",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                plotterDimension.y = (int) Utilities.readLong(dStack);
+                                plotterDimension.x = (int) Utilities.readLong(dStack);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "plot", "Plot x/y data",
                         (dStack, vStack) ->
                         {
                             try {
+                                AsciiPlotter ap = new AsciiPlotter (plotterDimension);
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
-                                dStack.push (Utilities.plot(s1, s2));
+                                dStack.push (ap.plot(s1, s2));
                             } catch (Exception e) {
                                 return 0;
                             }
