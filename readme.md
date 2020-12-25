@@ -361,7 +361,7 @@ to every value to complete our points. This is done by
 _'cos(x)+sin(2*x) swap term'_
 
 Now we have two sequences on the stack representing 1024 points.
-A _'swap'_ puts them into right order and '_plot_' creates the graphic.
+A _'swap'_ puts them into right order and _'plot .'_ create and show the graphic.
 
 This is how it looks:
 <pre>┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
