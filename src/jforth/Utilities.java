@@ -1,10 +1,17 @@
 package jforth;
 
+import com.indvd00m.ascii.render.Region;
 import com.indvd00m.ascii.render.Render;
 import com.indvd00m.ascii.render.api.ICanvas;
 import com.indvd00m.ascii.render.api.IContextBuilder;
 import com.indvd00m.ascii.render.api.IRender;
 import com.indvd00m.ascii.render.elements.PseudoText;
+import com.indvd00m.ascii.render.elements.Rectangle;
+import com.indvd00m.ascii.render.elements.plot.Axis;
+import com.indvd00m.ascii.render.elements.plot.AxisLabels;
+import com.indvd00m.ascii.render.elements.plot.Plot;
+import com.indvd00m.ascii.render.elements.plot.api.IPlotPoint;
+import com.indvd00m.ascii.render.elements.plot.misc.PlotPoint;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -20,6 +27,8 @@ import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.mathIT.numbers.Numbers.euclid;
 //import java.util.function.BiFunction;
 
 /**
@@ -27,8 +36,8 @@ import java.util.stream.Collectors;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2117";
-    private static final String BUILD_DATE = "12/24/2020 07:43:11 PM";
+    private static final String BUILD_NUMBER = "2122";
+    private static final String BUILD_DATE = "12/25/2020 07:02:51 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -1032,7 +1041,7 @@ public class Utilities
         ArrayList<Integer> inv = new ArrayList<> ();
         for (int a : group)
         {
-            long[] retvals = ExtendedGCD (mod, a);
+            long[] retvals = euclid (mod, a); //ExtendedGCD (mod, a);
             if (retvals[2] < 0)
             {
                 retvals[2] = mod + retvals[2];
@@ -1049,38 +1058,38 @@ public class Utilities
      * @param b test canditate 2
      * @return three integers:  i[0] = a*i[1] + b*i[2]
      */
-    public static long[] ExtendedGCD (long a, long b)
-    {
-        long[] retvals = {0, 0, 0};
-        long[] aa = {1, 0};
-        long[] bb = {0, 1};
-        long q;
-        while (true)
-        {
-            q = a / b;
-            a = a % b;
-            aa[0] = aa[0] - q * aa[1];
-            bb[0] = bb[0] - q * bb[1];
-            if (a == 0)
-            {
-                retvals[0] = b;
-                retvals[1] = aa[1];
-                retvals[2] = bb[1];
-                return retvals;
-            }
-            q = b / a;
-            b = b % a;
-            aa[1] = aa[1] - q * aa[0];
-            bb[1] = bb[1] - q * bb[0];
-            if (b == 0)
-            {
-                retvals[0] = a;
-                retvals[1] = aa[0];
-                retvals[2] = bb[0];
-                return retvals;
-            }
-        }
-    }
+//    public static long[] ExtendedGCD (long a, long b)
+//    {
+//        long[] retvals = {0, 0, 0};
+//        long[] aa = {1, 0};
+//        long[] bb = {0, 1};
+//        long q;
+//        while (true)
+//        {
+//            q = a / b;
+//            a = a % b;
+//            aa[0] = aa[0] - q * aa[1];
+//            bb[0] = bb[0] - q * bb[1];
+//            if (a == 0)
+//            {
+//                retvals[0] = b;
+//                retvals[1] = aa[1];
+//                retvals[2] = bb[1];
+//                return retvals;
+//            }
+//            q = b / a;
+//            b = b % a;
+//            aa[1] = aa[1] - q * aa[0];
+//            bb[1] = bb[1] - q * bb[0];
+//            if (b == 0)
+//            {
+//                retvals[0] = a;
+//                retvals[1] = aa[0];
+//                retvals[2] = bb[0];
+//                return retvals;
+//            }
+//        }
+//    }
 
     /**
      * rotate an arraylist left
@@ -1269,5 +1278,53 @@ public class Utilities
         }
         return in;
     }
+
+    public static String plot (DoubleSequence xvals, DoubleSequence yvals) throws Exception
+    {
+        if (xvals.length() != yvals.length())
+            throw new Exception ("Sequences have different lengths");
+        List<IPlotPoint> points = new ArrayList<>();
+        for (int s = 0; s< xvals.length(); s++)
+        {
+            points.add (new PlotPoint(xvals.pick(s), yvals.pick(s)));
+        }
+        IRender render = new Render();
+        IContextBuilder builder = render.newBuilder();
+        builder.width(80).height(20);
+        builder.element(new Rectangle(0, 0, 80, 20));
+        builder.layer(new Region(1, 1, 78, 18));
+        builder.element(new Axis(points, new Region(0, 0, 78, 18)));
+        builder.element(new AxisLabels(points, new Region(0, 0, 78, 18)));
+        builder.element(new Plot(points, new Region(0, 0, 78, 18)));
+        ICanvas canvas = render.render(builder.build());
+        return canvas.getText();
+    }
+
+//    public static void main(String[] args) {
+//        List<IPlotPoint> points = new ArrayList<IPlotPoint>();
+//        for (int degree = 0; degree <= 360; degree++) {
+//            if (degree > 75 && degree < 105) {
+//                continue;
+//            }
+//            if (degree > 255 && degree < 285) {
+//                continue;
+//            }
+//            double val = Math.tan(Math.toRadians(degree));
+//            IPlotPoint plotPoint = new PlotPoint(degree, val);
+//            points.add(plotPoint);
+//        }
+//        IRender render = new Render();
+//        IContextBuilder builder = render.newBuilder();
+//        builder.width(80).height(20);
+//        builder.element(new Rectangle(0, 0, 80, 20));
+//        builder.layer(new Region(1, 1, 78, 18));
+//        builder.element(new Axis(points, new Region(0, 0, 78, 18)));
+//        builder.element(new AxisLabels(points, new Region(0, 0, 78, 18)));
+//        builder.element(new Plot(points, new Region(0, 0, 78, 18)));
+//        ICanvas canvas = render.render(builder.build());
+//        String s = canvas.getText();
+//        System.out.println(s);
+//
+//    }
 
 }

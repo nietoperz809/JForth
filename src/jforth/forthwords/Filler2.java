@@ -1274,5 +1274,20 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "plot", "Plot x/y data",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
+                                DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
+                                dStack.push (Utilities.plot(s1, s2));
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
     }
 }
