@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
+import static org.mathIT.numbers.Numbers.exactBinomial;
 
 class Filler2 {
     private static Point plotterDimension = new Point(100,20);
@@ -822,9 +823,9 @@ class Filler2 {
                                 }
                                 try {
                                     DoubleSequence ds = new DoubleSequence(sq);
-                                    dStack.push(ds.reverse());
+                                    dStack.push(new DoubleSequence(ds.reverse()));
                                 } catch (NumberFormatException e) {
-                                    dStack.push(sq.reverse());
+                                    dStack.push(new StringSequence(sq.reverse()));
                                 }
                                 return 1;
                             } catch (Exception e) {
@@ -1034,12 +1035,12 @@ class Filler2 {
                                 int o2 = (int) Utilities.readLong(dStack);
                                 Object o3 = dStack.pop();
                                 if (o3 instanceof StringSequence) {
-                                    StringSequence ss = ((StringSequence) o3).swap(o1, o2);
-                                    dStack.push(ss);
+                                    ArrayList<String> as = ((StringSequence) o3).swap(o1, o2);
+                                    dStack.push (new StringSequence(as));
                                 }
                                 else if (o3 instanceof DoubleSequence) {
-                                    DoubleSequence ss = ((DoubleSequence) o3).swap(o1, o2);
-                                    dStack.push(ss);
+                                    ArrayList<Double> ds = ((DoubleSequence) o3).swap(o1, o2);
+                                    dStack.push(new DoubleSequence(ds));
                                 }
                                 else if (o3 instanceof String) {
                                     char[] arr = ((String) o3).toCharArray();
@@ -1308,5 +1309,43 @@ class Filler2 {
                             return 1;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "binomial", "n choose k",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long s1 = Utilities.readLong(dStack);
+                                long s2 = Utilities.readLong(dStack);
+                                dStack.push (exactBinomial((int)s2, (int)s1));
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "mkwords", "???",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                long s1 = Utilities.readLong(dStack);
+//                                String s2 = Utilities.readString(dStack);
+//                                StringBuilder[] sba = words ((int)s1, s2.toCharArray());
+//                                StringSequence ss = new StringSequence();
+//                                for (StringBuilder stringBuilder : sba) {
+//                                    ss.add(stringBuilder.toString());
+//                                }
+//                                dStack.push(ss);
+//                            } catch (Exception e) {
+//                                return 0;
+//                            }
+//                            return 1;
+//                        }
+//                ));
+
     }
 }

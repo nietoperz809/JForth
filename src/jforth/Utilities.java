@@ -1,17 +1,10 @@
 package jforth;
 
-import com.indvd00m.ascii.render.Region;
 import com.indvd00m.ascii.render.Render;
 import com.indvd00m.ascii.render.api.ICanvas;
 import com.indvd00m.ascii.render.api.IContextBuilder;
 import com.indvd00m.ascii.render.api.IRender;
 import com.indvd00m.ascii.render.elements.PseudoText;
-import com.indvd00m.ascii.render.elements.Rectangle;
-import com.indvd00m.ascii.render.elements.plot.Axis;
-import com.indvd00m.ascii.render.elements.plot.AxisLabels;
-import com.indvd00m.ascii.render.elements.plot.Plot;
-import com.indvd00m.ascii.render.elements.plot.api.IPlotPoint;
-import com.indvd00m.ascii.render.elements.plot.misc.PlotPoint;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -36,8 +29,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2126";
-    private static final String BUILD_DATE = "12/25/2020 08:07:49 AM";
+    private static final String BUILD_NUMBER = "2135";
+    private static final String BUILD_DATE = "12/26/2020 07:50:50 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -1091,65 +1084,6 @@ public class Utilities
 //        }
 //    }
 
-    /**
-     * rotate an arraylist left
-     * @param list the array list
-     * @param n number of rotations
-     * @param <E> type of objects in that list
-     * @return rotated list
-     */
-    public static <E> ArrayList<E> rotateLeft (ArrayList<E> list, int n)
-    {
-        return rotateRight (list, list.size ()-n);
-    }
-
-    /**
-     * rotate an arraylist right
-     * @param list the array list
-     * @param n number of rotations
-     * @param <E> type of objects in that list
-     * @return rotated list
-     */
-    public static <E> ArrayList<E> rotateRight (ArrayList<E> list, int n)
-    {
-        ArrayList<E> ret = new ArrayList<> (list);
-        Collections.rotate (ret, n);
-        return ret;
-    }
-
-    /**
-     * rearrange members of an arraylist
-     * @param pos array with new positions
-     * @param in the arraylist
-     * @param <E> type of objects in that list
-     * @return a new rearranged arraylist
-     */
-    public static <E> ArrayList<E> rearrange (int[] pos, ArrayList<E> in)
-    {
-        ArrayList<E> out = new ArrayList<> ();
-        for (int p : pos)
-        {
-            out.add (in.get (p));
-        }
-        return out;
-    }
-
-    /**
-     * swap 2 members of an arraylist
-     * @param in the list
-     * @param a position a
-     * @param b position b
-     * @param <E> type of objects in the list
-     * @return an arraylist with 2 members swapped
-     */
-    public static <E> ArrayList<E> swap (ArrayList<E> in, int a, int b)
-    {
-        ArrayList<E> out = new ArrayList<> (in);
-        E x = out.get (a);
-        out.set (a, out.get (b));
-        out.set (b, x);
-        return out;
-    }
 
     public static String readString (OStack dStack) throws EmptyStackException
     {
@@ -1278,32 +1212,5 @@ public class Utilities
         }
         return in;
     }
-
-//    public static void main(String[] args) {
-//        List<IPlotPoint> points = new ArrayList<IPlotPoint>();
-//        for (int degree = 0; degree <= 360; degree++) {
-//            if (degree > 75 && degree < 105) {
-//                continue;
-//            }
-//            if (degree > 255 && degree < 285) {
-//                continue;
-//            }
-//            double val = Math.tan(Math.toRadians(degree));
-//            IPlotPoint plotPoint = new PlotPoint(degree, val);
-//            points.add(plotPoint);
-//        }
-//        IRender render = new Render();
-//        IContextBuilder builder = render.newBuilder();
-//        builder.width(80).height(20);
-//        builder.element(new Rectangle(0, 0, 80, 20));
-//        builder.layer(new Region(1, 1, 78, 18));
-//        builder.element(new Axis(points, new Region(0, 0, 78, 18)));
-//        builder.element(new AxisLabels(points, new Region(0, 0, 78, 18)));
-//        builder.element(new Plot(points, new Region(0, 0, 78, 18)));
-//        ICanvas canvas = render.render(builder.build());
-//        String s = canvas.getText();
-//        System.out.println(s);
-//
-//    }
 
 }

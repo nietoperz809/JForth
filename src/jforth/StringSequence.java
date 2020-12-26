@@ -6,13 +6,16 @@ package jforth;
 
 import java.util.*;
 
-public class StringSequence implements java.io.Serializable
+public class StringSequence extends SequenceBase<String> implements java.io.Serializable
 {
-    private ArrayList<String> _list = new ArrayList<> ();
-
     public StringSequence ()
     {
 
+    }
+
+    public StringSequence (SequenceBase<String> src)
+    {
+        _list.addAll (src._list);
     }
 
     public StringSequence (StringSequence src)
@@ -54,11 +57,11 @@ public class StringSequence implements java.io.Serializable
         _list.addAll (Arrays.asList (out));
     }
 
-    public StringSequence rearrange (int pos[])
-    {
-        ArrayList<String> ret = Utilities.rearrange (pos, _list);
-        return new StringSequence (ret);
-    }
+//    public StringSequence rearrange (int pos[])
+//    {
+//        ArrayList<String> ret = Utilities.rearrange (pos, _list);
+//        return new StringSequence (ret);
+//    }
 
     public String asString ()
     {
@@ -70,19 +73,6 @@ public class StringSequence implements java.io.Serializable
         return sb.toString ();
     }
 
-    public StringSequence shuffle ()
-    {
-        StringSequence ret = new StringSequence (this);
-        Collections.shuffle (ret._list);
-        return ret;
-    }
-
-    public StringSequence sort ()
-    {
-        StringSequence ret = new StringSequence (this);
-        Collections.sort (ret._list);
-        return ret;
-    }
 
     public StringSequence unique ()
     {
@@ -115,25 +105,20 @@ public class StringSequence implements java.io.Serializable
         return new StringSequence (ar);
     }
 
-    public int length ()
-    {
-        return _list.size ();
-    }
+//    public void put (int x, String s)
+//    {
+//        _list.add (x, s);
+//    }
 
-    public void put (int x, String s)
-    {
-        _list.add (x, s);
-    }
+//    public void add (String s)
+//    {
+//        _list.add (s);
+//    }
 
-    public void add (String s)
-    {
-        _list.add (s);
-    }
-
-    public String pick (int x)
-    {
-        return _list.get (x);
-    }
+//    public String pick (int x)
+//    {
+//        return _list.get (x);
+//    }
 
     @Override
     public String toString ()
@@ -163,19 +148,19 @@ public class StringSequence implements java.io.Serializable
         return new StringSequence (seq);
     }
 
-    public StringSequence rotateLeft (int n)
-    {
-        StringSequence ret = new StringSequence (this);
-        ret._list = Utilities.rotateLeft (ret._list, n);
-        return ret;
-    }
-
-    public StringSequence rotateRight (int n)
-    {
-        StringSequence ret = new StringSequence (this);
-        ret._list = Utilities.rotateRight (ret._list, n);
-        return ret;
-    }
+//    public StringSequence rotateLeft (int n)
+//    {
+//        StringSequence ret = new StringSequence (this);
+//        ret._list = Utilities.rotateLeft (ret._list, n);
+//        return ret;
+//    }
+//
+//    public StringSequence rotateRight (int n)
+//    {
+//        StringSequence ret = new StringSequence (this);
+//        ret._list = Utilities.rotateRight (ret._list, n);
+//        return ret;
+//    }
 
     public StringSequence difference (StringSequence other)
     {
@@ -189,18 +174,18 @@ public class StringSequence implements java.io.Serializable
         return new StringSequence (this._list.subList (from, to));
     }
 
-    public StringSequence swap (int a, int b)
-    {
-        ArrayList<?> al = Utilities.swap (_list, a, b);
-        return new StringSequence ((List<String>) al);
-    }
+//    public StringSequence swap (int a, int b)
+//    {
+//        ArrayList<?> al = Utilities.swap (_list, a, b);
+//        return new StringSequence ((List<String>) al);
+//    }
 
-    public StringSequence reverse ()
-    {
-        StringSequence ret = new StringSequence (this);
-        Collections.reverse (ret._list);
-        return ret;
-    }
+//    public StringSequence reverse ()
+//    {
+//        StringSequence ret = new StringSequence (this);
+//        Collections.reverse (ret._list);
+//        return ret;
+//    }
 
 //////////////////////////////////////////////////////////////////////
 

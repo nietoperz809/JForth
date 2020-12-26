@@ -12,7 +12,6 @@ import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -20,9 +19,8 @@ import java.util.List;
 /**
  * Created by Administrator on 3/23/2017.
  */
-public class DoubleSequence implements java.io.Serializable
+public class DoubleSequence extends SequenceBase<Double> implements java.io.Serializable
 {
-    private ArrayList<Double> _list = new ArrayList<>();
 
     public ArrayList<Double> get_list ()
     {
@@ -196,7 +194,7 @@ public class DoubleSequence implements java.io.Serializable
             }
             in = in.divide(two);
         } while (!in.equals(zero));
-        return out.reverse();
+        return new DoubleSequence(out.reverse());
     }
 
     public static DoubleSequence primeFactors(long n)
@@ -253,7 +251,7 @@ public class DoubleSequence implements java.io.Serializable
 
     public double altsum()
     {
-        DoubleSequence rev = reverse();
+        DoubleSequence rev = new DoubleSequence(reverse());
         int sign = 1;
         double sum = 0.0;
         for (Double aMem : rev._list)
@@ -307,36 +305,31 @@ public class DoubleSequence implements java.io.Serializable
         return ds;
     }
 
-    public boolean isEmpty()
-    {
-        return _list.isEmpty();
-    }
+//    public boolean isEmpty()
+//    {
+//        return _list.isEmpty();
+//    }
 
-    public DoubleSequence reverse()
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        Collections.reverse(ret._list);
-        return ret;
-    }
+//    public DoubleSequence reverse()
+//    {
+//        DoubleSequence ret = new DoubleSequence(this);
+//        Collections.reverse(ret._list);
+//        return ret;
+//    }
 
-    public Double pick (int i)
-    {
-        return _list.get(i);
-    }
-
-    public DoubleSequence shuffle()
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        Collections.shuffle(ret._list);
-        return ret;
-    }
-
-    public DoubleSequence sort()
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        Collections.sort (ret._list);
-        return ret;
-    }
+//    public DoubleSequence shuffle()
+//    {
+//        DoubleSequence ret = new DoubleSequence(this);
+//        Collections.shuffle(ret._list);
+//        return ret;
+//    }
+//
+//    public DoubleSequence sort()
+//    {
+//        DoubleSequence ret = new DoubleSequence(this);
+//        Collections.sort (ret._list);
+//        return ret;
+//    }
 
     public DoubleSequence intersect (DoubleSequence other)
     {
@@ -361,24 +354,20 @@ public class DoubleSequence implements java.io.Serializable
         return test.size() == 0;
     }
 
-    public DoubleSequence rotateLeft (int n)
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        ret._list = Utilities.rotateLeft (ret._list, n);
-        return ret;
-    }
+//    public DoubleSequence rotateLeft (int n)
+//    {
+//        DoubleSequence ret = new DoubleSequence(this);
+//        ret._list = Utilities.rotateLeft (ret._list, n);
+//        return ret;
+//    }
+//
+//    public DoubleSequence rotateRight (int n)
+//    {
+//        DoubleSequence ret = new DoubleSequence(this);
+//        ret._list = Utilities.rotateRight (ret._list, n);
+//        return ret;
+//    }
 
-    public DoubleSequence rotateRight (int n)
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        ret._list = Utilities.rotateRight (ret._list, n);
-        return ret;
-    }
-
-    public int length()
-    {
-        return _list.size();
-    }
 
     public DoubleSequence unique ()
     {
@@ -391,28 +380,12 @@ public class DoubleSequence implements java.io.Serializable
         return new DoubleSequence(this._list.subList(from, to));
     }
 
-//    public DoubleSequence rearrange (int pos[])
+//    public DoubleSequence add (double d)
 //    {
-//        DoubleSequence out = new DoubleSequence();
-//        for (int p : pos)
-//        {
-//            out = out.add(this._list.get(p));
-//        }
-//        return out;
+//        //DoubleSequence ds = new DoubleSequence(this);
+//        _list.add(d);
+//        return this;
 //    }
-
-    public DoubleSequence rearrange (int pos[])
-    {
-        ArrayList<Double> ret = Utilities.rearrange (pos, _list);
-        return new DoubleSequence (ret);
-    }
-
-    public DoubleSequence add (double d)
-    {
-        //DoubleSequence ds = new DoubleSequence(this);
-        _list.add(d);
-        return this;
-    }
 
     public String asString ()
     {
@@ -485,10 +458,10 @@ public class DoubleSequence implements java.io.Serializable
         return sb.toString();
     }
 
-    public DoubleSequence swap (int a, int b)
-    {
-        ArrayList<?> al = Utilities.swap (_list, a, b);
-        return new DoubleSequence ((ArrayList<Double>) al);
-    }
+//    public DoubleSequence swap (int a, int b)
+//    {
+//        ArrayList<?> al = Utilities.swap (_list, a, b);
+//        return new DoubleSequence ((ArrayList<Double>) al);
+//    }
 
 }

@@ -76,11 +76,13 @@ class WordHelpers {
         } else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence)) {
             Double d1 = (Double) o1;
             DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.add(d1));
+            d2.add(d1);
+            dStack.push(d2);
         } else if ((o1 instanceof Long) && (o2 instanceof DoubleSequence)) {
             Long d1 = (Long) o1;
             DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(d2.add(d1.doubleValue()));
+            d2.add(d1.doubleValue());
+            dStack.push(d2);
         } else if (o2 instanceof StringSequence) {
             StringSequence ss = (StringSequence) o2;
             ss.add(pred._jforth.makePrintable(o1));
