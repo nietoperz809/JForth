@@ -2,14 +2,15 @@ package jforth;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
-public class SequenceBase<E extends Comparable> implements Cloneable, java.io.Serializable {
+public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io.Serializable {
     protected ArrayList<E> _list = new ArrayList<> ();
 
-//    public SequenceBase (SequenceBase<E> in)
-//    {
-//        _list.addAll(in);
-//    }
+    public ArrayList<E> get_list ()
+    {
+        return _list;
+    }
 
     public SequenceBase ()
     {
@@ -81,7 +82,54 @@ public class SequenceBase<E extends Comparable> implements Cloneable, java.io.Se
         return list2;
     }
 
+    public ArrayList<E> intersect (SequenceBase<E> other)
+    {
+        ArrayList<E> ret = new ArrayList<>(_list);
+        ret.retainAll(other._list);
+        return ret;
+    }
+
+    public ArrayList<E> difference (SequenceBase<E> other)
+    {
+        ArrayList<E> ret = new ArrayList<>(_list);
+        ret.removeAll(other._list);
+        return ret;
+    }
+
+    public ArrayList<E> unique ()
+    {
+        return new ArrayList<>(new LinkedHashSet<>(_list));
+    }
+
+    public ArrayList<E> subList (int from, int to)
+    {
+        return (ArrayList<E>) _list.subList(from, to);
+    }
+
+    public boolean sameContents (SequenceBase<E> other)
+    {
+        if (this._list.size () != other._list.size ())
+            return false;
+        ArrayList<E> test = (ArrayList<E>) _list.clone ();
+        test.removeAll (other._list);
+        return test.size() == 0;
+    }
+
 //////////////////////////////////////////////////////////////////////////////////////
+
+    public static <E> ArrayList<E> mixin (SequenceBase<? extends E> d1, SequenceBase<? extends E> d2)
+    {
+        int len = Math.max (d1.length(),d2.length());
+        ArrayList<E> ar = new ArrayList<>();
+        for (int s=0; s<len; s++)
+        {
+            if (s < d1.length())
+                ar.add(d1._list.get(s));
+            if (s < d2.length())
+                ar.add (d2._list.get(s));
+        }
+        return ar;
+    }
 
     /**
      * rearrange members of an arraylist

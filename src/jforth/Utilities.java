@@ -472,7 +472,7 @@ public class Utilities
             List<DoubleSequence> ret = new ArrayList<> ((text.length () + size - 1) / size);
             for (int start = 0; start < text.length (); start += size)
             {
-                ret.add (text.subList (start, Math.min (text.length (), start + size)));
+                ret.add (new DoubleSequence(text.subList (start, Math.min (text.length (), start + size))));
             }
             return ret;
         } catch (Exception unused)

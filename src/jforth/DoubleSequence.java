@@ -12,7 +12,6 @@ import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 
@@ -21,12 +20,6 @@ import java.util.List;
  */
 public class DoubleSequence extends SequenceBase<Double> implements java.io.Serializable
 {
-
-    public ArrayList<Double> get_list ()
-    {
-        return _list;
-    }
-
     public DoubleSequence()
     {
 
@@ -143,20 +136,6 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         for (double d : in._list)
             stat.addValue(d);
         return stat;
-    }
-
-    public static DoubleSequence mixin (DoubleSequence d1, DoubleSequence d2)
-    {
-        int len = Math.max (d1.length(),d2.length());
-        ArrayList<Double> ar = new ArrayList<>();
-        for (int s=0; s<len; s++)
-        {
-            if (s < d1.length())
-                ar.add(d1._list.get(s));
-            if (s < d2.length())
-                ar.add (d2._list.get(s));
-        }
-        return new DoubleSequence(ar);
     }
 
     /**
@@ -305,88 +284,6 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return ds;
     }
 
-//    public boolean isEmpty()
-//    {
-//        return _list.isEmpty();
-//    }
-
-//    public DoubleSequence reverse()
-//    {
-//        DoubleSequence ret = new DoubleSequence(this);
-//        Collections.reverse(ret._list);
-//        return ret;
-//    }
-
-//    public DoubleSequence shuffle()
-//    {
-//        DoubleSequence ret = new DoubleSequence(this);
-//        Collections.shuffle(ret._list);
-//        return ret;
-//    }
-//
-//    public DoubleSequence sort()
-//    {
-//        DoubleSequence ret = new DoubleSequence(this);
-//        Collections.sort (ret._list);
-//        return ret;
-//    }
-
-    public DoubleSequence intersect (DoubleSequence other)
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        ret._list.retainAll(other._list);
-        return ret;
-    }
-
-    public DoubleSequence difference (DoubleSequence other)
-    {
-        DoubleSequence ret = new DoubleSequence(this);
-        ret._list.removeAll(other._list);
-        return ret;
-    }
-
-    public boolean sameContents (DoubleSequence other)
-    {
-        if (this._list.size () != other._list.size ())
-            return false;
-        ArrayList<Double> test = (ArrayList<Double>) this._list.clone ();
-        test.removeAll (other._list);
-        return test.size() == 0;
-    }
-
-//    public DoubleSequence rotateLeft (int n)
-//    {
-//        DoubleSequence ret = new DoubleSequence(this);
-//        ret._list = Utilities.rotateLeft (ret._list, n);
-//        return ret;
-//    }
-//
-//    public DoubleSequence rotateRight (int n)
-//    {
-//        DoubleSequence ret = new DoubleSequence(this);
-//        ret._list = Utilities.rotateRight (ret._list, n);
-//        return ret;
-//    }
-
-
-    public DoubleSequence unique ()
-    {
-        ArrayList<Double> nodupe = new ArrayList<>(new LinkedHashSet<>(_list));
-        return new DoubleSequence(nodupe);
-    }
-
-    public DoubleSequence subList (int from, int to)
-    {
-        return new DoubleSequence(this._list.subList(from, to));
-    }
-
-//    public DoubleSequence add (double d)
-//    {
-//        //DoubleSequence ds = new DoubleSequence(this);
-//        _list.add(d);
-//        return this;
-//    }
-
     public String asString ()
     {
         StringBuilder sb = new StringBuilder();
@@ -457,11 +354,4 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         sb.append('}');
         return sb.toString();
     }
-
-//    public DoubleSequence swap (int a, int b)
-//    {
-//        ArrayList<?> al = Utilities.swap (_list, a, b);
-//        return new DoubleSequence ((ArrayList<Double>) al);
-//    }
-
 }

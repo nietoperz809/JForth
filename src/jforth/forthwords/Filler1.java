@@ -1918,7 +1918,7 @@ class Filler1 {
                             try {
                                 DoubleSequence d1 = Utilities.getDoubleSequence(o1);
                                 DoubleSequence d2 = Utilities.getDoubleSequence(o2);
-                                DoubleSequence ds = DoubleSequence.mixin(d2, d1);
+                                DoubleSequence ds = new DoubleSequence(DoubleSequence.mixin(d2, d1));
                                 dStack.push(ds);
                                 return 1;
                             } catch (Exception ignored) {
@@ -1926,7 +1926,7 @@ class Filler1 {
                             try {
                                 StringSequence d1 = Utilities.getStringSequence(o1);
                                 StringSequence d2 = Utilities.getStringSequence(o2);
-                                StringSequence ds = StringSequence.mixin(d2, d1);
+                                StringSequence ds = new StringSequence(StringSequence.mixin(d2, d1));
                                 dStack.push(ds);
                                 return 1;
                             } catch (Exception ignored) {
@@ -2367,7 +2367,8 @@ class Filler1 {
                             if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence)) {
                                 int i1 = (int) ((Long) o1).longValue();
                                 int i2 = (int) ((Long) o2).longValue();
-                                dStack.push(((DoubleSequence) o3).subList(i2, i1));
+                                DoubleSequence ds = (DoubleSequence)o3;
+                                dStack.push (new DoubleSequence(ds.subList(i2, i1)));
                                 return 1;
                             }
                             return 0;
@@ -3494,12 +3495,16 @@ class Filler1 {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try {
-                                dStack.push(((DoubleSequence) o1).intersect((DoubleSequence) o2));
+                                DoubleSequence oo1 = (DoubleSequence)o1;
+                                DoubleSequence oo2 = (DoubleSequence)o2;
+                                dStack.push (new DoubleSequence(oo1.intersect(oo2)));
                                 return 1;
                             } catch (Exception ignored) {
                             }
                             try {
-                                dStack.push(((StringSequence) o1).intersect((StringSequence) o2));
+                                StringSequence os1 = (StringSequence)o1;
+                                StringSequence os2 = (StringSequence)o2;
+                                dStack.push (new StringSequence(os1.intersect(os2)));
                                 return 1;
                             } catch (Exception ignored) {
                             }
@@ -3522,12 +3527,12 @@ class Filler1 {
                                 }
                                 if (o instanceof DoubleSequence) {
                                     DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push(od.unique());
+                                    dStack.push(new DoubleSequence(od.unique()));
                                     return 1;
                                 }
                                 if (o instanceof StringSequence) {
                                     StringSequence od = (StringSequence) o;
-                                    dStack.push(od.unique());
+                                    dStack.push(new StringSequence(od.unique()));
                                     return 1;
                                 }
                             } catch (Exception ignored) {
