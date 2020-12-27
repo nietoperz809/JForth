@@ -173,7 +173,7 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
             }
             in = in.divide(two);
         } while (!in.equals(zero));
-        return new DoubleSequence(out.reverse());
+        return (DoubleSequence) out.reverse();
     }
 
     public static DoubleSequence primeFactors(long n)
@@ -230,7 +230,7 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
 
     public double altsum()
     {
-        DoubleSequence rev = new DoubleSequence(reverse());
+        DoubleSequence rev = (DoubleSequence) reverse();
         int sign = 1;
         double sum = 0.0;
         for (Double aMem : rev._list)

@@ -12,35 +12,87 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return _list;
     }
 
+    private SequenceBase makeInstance (ArrayList<E> list)
+    {
+        if (this instanceof StringSequence)
+        {
+            return new StringSequence((ArrayList<String>)list);
+        }
+        if (this instanceof DoubleSequence)
+        {
+            return new DoubleSequence((ArrayList<Double>)list);
+        }
+        return null;
+    }
+
     public SequenceBase ()
     {
     }
 
-    public ArrayList<E> rearrange (int pos[])
+    public SequenceBase rearrange (int pos[])
     {
-        return rearrange (pos, _list);
+        ArrayList<E> list = rearrange (pos, _list);
+        return makeInstance(list);
     }
 
-    public ArrayList<E> swap (int a, int b)
+    public SequenceBase swap (int a, int b)
     {
-        return swap (_list, a, b);
+        return makeInstance (swap (_list, a, b));
     }
 
-    public ArrayList<E> rotateLeft (int n)
+    public SequenceBase rotateLeft (int n)
     {
-        return rotateLeft (_list, n);
+        return makeInstance (rotateLeft (_list, n));
     }
 
-    public ArrayList<E> rotateRight (int n)
+    public SequenceBase rotateRight (int n)
     {
-        return rotateRight (_list, n);
+        return makeInstance(rotateRight (_list, n));
     }
 
-    public ArrayList<E> reverse()
+    public SequenceBase reverse()
     {
         ArrayList<E> list2 = new ArrayList<>(_list);
         Collections.reverse (list2);
-        return list2;
+        return makeInstance(list2);
+    }
+
+    public SequenceBase shuffle ()
+    {
+        ArrayList<E> list2 = new ArrayList<>(_list);
+        Collections.shuffle (list2);
+        return makeInstance(list2);
+    }
+
+    public SequenceBase sort ()
+    {
+        ArrayList<E> list2 = new ArrayList<>(_list);
+        Collections.sort (list2);
+        return makeInstance(list2);
+    }
+
+    public SequenceBase intersect (SequenceBase<E> other)
+    {
+        ArrayList<E> ret = new ArrayList<>(_list);
+        ret.retainAll(other._list);
+        return makeInstance(ret);
+    }
+
+    public SequenceBase difference (SequenceBase<E> other)
+    {
+        ArrayList<E> ret = new ArrayList<>(_list);
+        ret.removeAll(other._list);
+        return makeInstance(ret);
+    }
+
+    public SequenceBase unique ()
+    {
+        return makeInstance(new ArrayList<>(new LinkedHashSet<>(_list)));
+    }
+
+    public SequenceBase subList (int from, int to)
+    {
+        return makeInstance((ArrayList<E>) _list.subList(from, to));
     }
 
     public E pick (int i)
@@ -66,44 +118,6 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
     public boolean isEmpty()
     {
         return _list.isEmpty();
-    }
-
-    public ArrayList<E> shuffle ()
-    {
-        ArrayList<E> list2 = new ArrayList<>(_list);
-        Collections.shuffle (list2);
-        return list2;
-    }
-
-    public ArrayList<E> sort ()
-    {
-        ArrayList<E> list2 = new ArrayList<>(_list);
-        Collections.sort (list2);
-        return list2;
-    }
-
-    public ArrayList<E> intersect (SequenceBase<E> other)
-    {
-        ArrayList<E> ret = new ArrayList<>(_list);
-        ret.retainAll(other._list);
-        return ret;
-    }
-
-    public ArrayList<E> difference (SequenceBase<E> other)
-    {
-        ArrayList<E> ret = new ArrayList<>(_list);
-        ret.removeAll(other._list);
-        return ret;
-    }
-
-    public ArrayList<E> unique ()
-    {
-        return new ArrayList<>(new LinkedHashSet<>(_list));
-    }
-
-    public ArrayList<E> subList (int from, int to)
-    {
-        return (ArrayList<E>) _list.subList(from, to);
     }
 
     public boolean sameContents (SequenceBase<E> other)

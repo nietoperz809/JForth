@@ -142,18 +142,9 @@ class Filler1 {
                         {
                             try {
                                 long l2 = Utilities.readLong(dStack);
-                                Object o = dStack.pop();
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence ds = (DoubleSequence) o;
-                                    int[] arr = LehmerCode.perm(ds.length(), (int) l2);
-                                    ArrayList<Double> ad = ds.rearrange(arr);
-                                    dStack.push(new DoubleSequence(ad));
-                                } else if (o instanceof StringSequence) {
-                                    StringSequence ds = (StringSequence) o;
-                                    int[] arr = LehmerCode.perm(ds.length(), (int) l2);
-                                    ArrayList<String> as = ds.rearrange(arr);
-                                    dStack.push(new StringSequence(as));
-                                }
+                                SequenceBase ds = (SequenceBase) dStack.pop();
+                                int[] arr = LehmerCode.perm(ds.length(), (int) l2);
+                                dStack.push(ds.rearrange(arr));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1062,14 +1053,9 @@ class Filler1 {
                                 dStack.push(Long.rotateLeft(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof DoubleSequence) {
-                                DoubleSequence i2 = (DoubleSequence) o2;
-                                dStack.push (new DoubleSequence(i2.rotateLeft(1)));
-                                return 1;
-                            }
-                            if (o2 instanceof StringSequence) {
-                                StringSequence i2 = (StringSequence) o2;
-                                dStack.push (new StringSequence(i2.rotateLeft(1)));
+                            if (o2 instanceof SequenceBase) {
+                                SequenceBase i2 = (SequenceBase) o2;
+                                dStack.push(i2.rotateLeft(1));
                                 return 1;
                             }
                             if (o2 instanceof String) {
@@ -1099,14 +1085,9 @@ class Filler1 {
                                 dStack.push(Long.rotateRight(i2, 1));
                                 return 1;
                             }
-                            if (o2 instanceof DoubleSequence) {
-                                DoubleSequence i2 = (DoubleSequence) o2;
-                                dStack.push(new DoubleSequence(i2.rotateRight(1)));
-                                return 1;
-                            }
-                            if (o2 instanceof StringSequence) {
-                                StringSequence i2 = (StringSequence) o2;
-                                dStack.push(new StringSequence(i2.rotateRight(1)));
+                            if (o2 instanceof SequenceBase) {
+                                SequenceBase i2 = (SequenceBase) o2;
+                                dStack.push(i2.rotateRight(1));
                                 return 1;
                             }
                             if (o2 instanceof String) {
@@ -2099,7 +2080,7 @@ class Filler1 {
                                 String str = (String) o1;
                                 DoubleSequence ds = new DoubleSequence();
                                 for (int s = 0; s < str.length(); s++) {
-                                    ds.add ((double) str.charAt(s));
+                                    ds.add((double) str.charAt(s));
                                 }
                                 dStack.push(ds);
                                 return 1;
@@ -2122,8 +2103,8 @@ class Filler1 {
                             if (o1 instanceof Fraction) {
                                 Fraction t = (Fraction) o1;
                                 DoubleSequence ds = new DoubleSequence();
-                                ds.add ((double) t.getNumerator());
-                                ds.add ((double) t.getDenominator());
+                                ds.add((double) t.getNumerator());
+                                ds.add((double) t.getDenominator());
                                 dStack.push(ds);
                                 return 1;
                             }
@@ -2135,7 +2116,7 @@ class Filler1 {
                                 if (o2 instanceof Double) {
                                     seq.add((Double) o2);
                                 } else if (o2 instanceof Long) {
-                                    long ll = (Long)o2;
+                                    long ll = (Long) o2;
                                     seq.add((double) o2);
                                 } else if (o2 instanceof DoubleSequence) {
                                     seq = seq.add((DoubleSequence) o2);
@@ -2367,8 +2348,8 @@ class Filler1 {
                             if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence)) {
                                 int i1 = (int) ((Long) o1).longValue();
                                 int i2 = (int) ((Long) o2).longValue();
-                                DoubleSequence ds = (DoubleSequence)o3;
-                                dStack.push (new DoubleSequence(ds.subList(i2, i1)));
+                                DoubleSequence ds = (DoubleSequence) o3;
+                                dStack.push(ds.subList(i2, i1));
                                 return 1;
                             }
                             return 0;
@@ -3334,13 +3315,8 @@ class Filler1 {
                                     dStack.push(Utilities.sort(s));
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push(od.sort());
-                                    return 1;
-                                }
-                                if (o instanceof StringSequence) {
-                                    StringSequence od = (StringSequence) o;
+                                if (o instanceof SequenceBase) {
+                                    SequenceBase od = (SequenceBase) o;
                                     dStack.push(od.sort());
                                     return 1;
                                 }
@@ -3363,14 +3339,9 @@ class Filler1 {
                                     dStack.push(s);
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push(new DoubleSequence(od.reverse()));
-                                    return 1;
-                                }
-                                if (o instanceof StringSequence) {
-                                    StringSequence od = (StringSequence) o;
-                                    dStack.push(new StringSequence(od.reverse()));
+                                if (o instanceof SequenceBase) {
+                                    SequenceBase od = (SequenceBase) o;
+                                    dStack.push(od.reverse());
                                     return 1;
                                 }
                                 if (o instanceof FileBlob) {
@@ -3403,14 +3374,9 @@ class Filler1 {
                                     dStack.push(Utilities.shuffle(s));
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence o2 = (DoubleSequence) o;
-                                    dStack.push(new DoubleSequence(o2.shuffle()));
-                                    return 1;
-                                }
-                                if (o instanceof StringSequence) {
-                                    StringSequence od = (StringSequence) o;
-                                    dStack.push(new StringSequence(od.shuffle()));
+                                if (o instanceof SequenceBase) {
+                                    SequenceBase o2 = (SequenceBase) o;
+                                    dStack.push(o2.shuffle());
                                     return 1;
                                 }
                             } catch (Exception ignored) {
@@ -3495,16 +3461,9 @@ class Filler1 {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try {
-                                DoubleSequence oo1 = (DoubleSequence)o1;
-                                DoubleSequence oo2 = (DoubleSequence)o2;
-                                dStack.push (new DoubleSequence(oo1.intersect(oo2)));
-                                return 1;
-                            } catch (Exception ignored) {
-                            }
-                            try {
-                                StringSequence os1 = (StringSequence)o1;
-                                StringSequence os2 = (StringSequence)o2;
-                                dStack.push (new StringSequence(os1.intersect(os2)));
+                                SequenceBase oo1 = (SequenceBase) o1;
+                                SequenceBase oo2 = (SequenceBase) o2;
+                                dStack.push(oo1.intersect(oo2));
                                 return 1;
                             } catch (Exception ignored) {
                             }
@@ -3525,14 +3484,9 @@ class Filler1 {
                                     dStack.push(s);
                                     return 1;
                                 }
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence od = (DoubleSequence) o;
-                                    dStack.push(new DoubleSequence(od.unique()));
-                                    return 1;
-                                }
-                                if (o instanceof StringSequence) {
-                                    StringSequence od = (StringSequence) o;
-                                    dStack.push(new StringSequence(od.unique()));
+                                if (o instanceof SequenceBase) {
+                                    SequenceBase od = (SequenceBase) o;
+                                    dStack.push(od.unique());
                                     return 1;
                                 }
                             } catch (Exception ignored) {

@@ -311,26 +311,18 @@ class WordHelpers {
             long i2 = (Long) o2;
             i2 -= i1;
             dStack.push(i2);
-        } else if (o1 instanceof DoubleSequence && o2 instanceof DoubleSequence) {
-            DoubleSequence d1 = (DoubleSequence) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(new DoubleSequence(d2.difference(d1)));
-        } else if (o1 instanceof StringSequence && o2 instanceof StringSequence) {
-            StringSequence d1 = (StringSequence) o1;
-            StringSequence d2 = (StringSequence) o2;
-            dStack.push(new StringSequence(d2.difference(d1)));
-        } else if (o1 instanceof Long && o2 instanceof DoubleSequence) {
+        } else if (o1 instanceof SequenceBase && o2 instanceof SequenceBase) {
+            SequenceBase d1 = (SequenceBase) o1;
+            SequenceBase d2 = (SequenceBase) o2;
+            dStack.push(d2.difference(d1));
+        } else if (o1 instanceof Long && o2 instanceof SequenceBase) {
             Long d1 = (Long) o1;
-            DoubleSequence d2 = (DoubleSequence) o2;
-            dStack.push(new DoubleSequence(d2.subList(0, d2.length() - d1.intValue())));
-        } else if (o1 instanceof Long && o2 instanceof StringSequence) {
-            Long d1 = (Long) o1;
-            StringSequence d2 = (StringSequence) o2;
-            dStack.push(new StringSequence(d2.subList(0, d2.length() - d1.intValue())));
+            SequenceBase d2 = (SequenceBase) o2;
+            dStack.push(d2.subList(0, d2.length() - d1.intValue()));
         } else if (o2 instanceof String && o1 instanceof String) {
             StringSequence ss2 = new StringSequence(((String) o2).toCharArray());
             StringSequence ss1 = new StringSequence(((String) o1).toCharArray());
-            dStack.push(new StringSequence(ss2.difference(ss1)).asString());
+            dStack.push(((StringSequence)ss2.difference(ss1)).asString());
         } else if (o2 instanceof String && o1 instanceof Long) {
             String s = (String) o2;
             int l = ((Long) o1).intValue();

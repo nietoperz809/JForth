@@ -817,9 +817,9 @@ class Filler2 {
                                 }
                                 try {
                                     DoubleSequence ds = new DoubleSequence(sq);
-                                    dStack.push(new DoubleSequence(ds.reverse()));
+                                    dStack.push(ds.reverse());
                                 } catch (NumberFormatException e) {
-                                    dStack.push(new StringSequence(sq.reverse()));
+                                    dStack.push(sq.reverse());
                                 }
                                 return 1;
                             } catch (Exception e) {
@@ -1028,13 +1028,9 @@ class Filler2 {
                                 int o1 = (int) Utilities.readLong(dStack);
                                 int o2 = (int) Utilities.readLong(dStack);
                                 Object o3 = dStack.pop();
-                                if (o3 instanceof StringSequence) {
-                                    ArrayList<String> as = ((StringSequence) o3).swap(o1, o2);
-                                    dStack.push (new StringSequence(as));
-                                }
-                                else if (o3 instanceof DoubleSequence) {
-                                    ArrayList<Double> ds = ((DoubleSequence) o3).swap(o1, o2);
-                                    dStack.push(new DoubleSequence(ds));
+                                if (o3 instanceof SequenceBase) {
+                                    SequenceBase as = ((SequenceBase) o3).swap(o1, o2);
+                                    dStack.push (as);
                                 }
                                 else if (o3 instanceof String) {
                                     char[] arr = ((String) o3).toCharArray();

@@ -29,8 +29,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2141";
-    private static final String BUILD_DATE = "12/27/2020 05:53:12 AM";
+    private static final String BUILD_NUMBER = "2146";
+    private static final String BUILD_DATE = "12/27/2020 02:56:54 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");
@@ -472,7 +472,7 @@ public class Utilities
             List<DoubleSequence> ret = new ArrayList<> ((text.length () + size - 1) / size);
             for (int start = 0; start < text.length (); start += size)
             {
-                ret.add (new DoubleSequence(text.subList (start, Math.min (text.length (), start + size))));
+                ret.add ((DoubleSequence) text.subList (start, Math.min (text.length (), start + size)));
             }
             return ret;
         } catch (Exception unused)
