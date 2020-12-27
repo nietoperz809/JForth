@@ -1066,7 +1066,7 @@ public class TestCases
     @Test
     public void term1Test()
     {
-        String code = "\"x/y\" {{3,6}} term";
+        String code = "\"x/y\" {{3,6}} f=";
         String s = check (code,".");
         shoudBeOK ("0.5" ,s);
     }
@@ -1074,7 +1074,7 @@ public class TestCases
     @Test
     public void term11Test()
     {
-        String code = "\"x-y\" {{3,6}{19,7}{5,-3}{11,10}} term";
+        String code = "\"x-y\" {{3,6}{19,7}{5,-3}{11,10}} f=";
         String s = check (code,".");
         shoudBeOK ("{-3,12,8,1}" ,s);
     }
@@ -1082,7 +1082,7 @@ public class TestCases
     @Test
     public void term2Test()
     {
-        String code = "sin(x) 12 term";
+        String code = "sin(x) 12 f=";
         String s = check (code,".");
         shoudBeOK ("-0.5365729180004349" ,s);
     }
@@ -1090,7 +1090,7 @@ public class TestCases
     @Test
     public void term3Test()
     {
-        String code = "x/(x-2) {1,2,3,4} term";
+        String code = "x/(x-2) {1,2,3,4} f=";
         String s = check (code,".");
         shoudBeOK ("{-1,Infinity,3,2}" ,s);
     }
@@ -1098,7 +1098,7 @@ public class TestCases
     @Test
     public void term4Test()
     {
-        String code = "x+x 1/2 term";
+        String code = "x+x 1/2 f=";
         String s = check (code,".");
         shoudBeOK ("1" ,s);
     }
@@ -1156,7 +1156,7 @@ public class TestCases
     @Test
     public void testSinWave()
     {
-        String code = "3.2 32 0.1 seq sin(x) swap term 100*x swap term 1 round";
+        String code = "3.2 32 0.1 seq sin(x) swap f= 100*x swap f= 1 round";
         String s = check (code,".");
         shoudBeOK ("{-5.8,-15.8,-25.6,-35.1,-44.3,-53,-61.2,-68.8,-75.7,-81.8,-87.2,-91.6,-95.2,-97.8,-99.4,-100,-99.6,-98.2,-95.9,-92.6,-88.3,-83.2,-77.3,-70.6,-63.1,-55.1,-46.5,-37.4,-27.9,-18.2,-8.3,1.7}" ,s);
     }
@@ -1164,7 +1164,7 @@ public class TestCases
     @Test
     public void testPlotter()
     {
-        String code = "0 1024 0.01 seq dup cos(x)+sin(2*x) swap term swap plot";
+        String code = "0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot";
         String s = check (code,".");
         System.out.println(s);
     }

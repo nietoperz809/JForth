@@ -43,7 +43,7 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "term", "evaluate term",
+                        "f=", "evaluate term",
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();

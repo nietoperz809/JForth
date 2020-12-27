@@ -2250,30 +2250,30 @@ class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "f=", "Solve a polynomial",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                Object o = dStack.pop();
-                                PolynomialFunction p1 = PolySupport.readPoly(dStack);
-                                if (o instanceof DoubleSequence) {
-                                    DoubleSequence s1 = (DoubleSequence) o;
-                                    ArrayList<Double> list = new ArrayList<>();
-                                    for (double d1 : s1.asPrimitiveArray())
-                                        list.add(p1.value(d1));
-                                    dStack.push(new DoubleSequence(list));
-                                    return 1;
-                                }
-                                double d1 = Utilities.getDouble(o);
-                                dStack.push(p1.value(d1));
-                                return 1;
-                            } catch (Exception e) {
-                                return 0;
-                            }
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "f=", "Solve a polynomial",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                Object o = dStack.pop();
+//                                PolynomialFunction p1 = PolySupport.readPoly(dStack);
+//                                if (o instanceof DoubleSequence) {
+//                                    DoubleSequence s1 = (DoubleSequence) o;
+//                                    ArrayList<Double> list = new ArrayList<>();
+//                                    for (double d1 : s1.asPrimitiveArray())
+//                                        list.add(p1.value(d1));
+//                                    dStack.push(new DoubleSequence(list));
+//                                    return 1;
+//                                }
+//                                double d1 = Utilities.getDouble(o);
+//                                dStack.push(p1.value(d1));
+//                                return 1;
+//                            } catch (Exception e) {
+//                                return 0;
+//                            }
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

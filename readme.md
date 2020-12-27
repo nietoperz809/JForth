@@ -152,6 +152,7 @@ EMIT            -- Emit single char to console
 ERR             -- Put last error message onto stack
 EXECUTE         -- executes word from stack
 EXP             -- E^x
+F=              -- Solve polynomial or evaluate term
 F'=             -- Derive a polynomial
 FACT            -- Factorial
 FACTOR          -- Prime factorisation
@@ -275,7 +276,6 @@ SUMQ            -- Make sum of squares
 SWAP            -- Swap TOS and TOS-1
 TAN             -- Tangent
 TANH            -- Tangent hyperbolicus
-TERM            -- evaluate term
 THEN
 TICK            -- Get clock value
 TIME            -- Get a time string
@@ -317,7 +317,6 @@ WORDSD          -- Show words and description
 WRITEBYTE       -- Write byte into file
 WRITEEOL        -- Write string end into file
 WRITESTRING     -- Write string to file
-X=              -- Solve a polynomial
 XOR             -- Xors two values
 ZETA            -- Riemann Zeta function</pre>
 
@@ -351,14 +350,15 @@ Both together give a list of points that can be plotted
 using the _'plot'_ command.
 
 Here's an example:
-<pre>0 1024 0.01 seq dup cos(x)+sin(2*x) swap term swap plot .</pre>
+<pre>0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot .</pre>
 
 The first part _'0 1024 0.01 seq'_ generates a squence of 1024 values
-starting at 0 and growing with a step size of 0.01. These are the x-parts of the points to be plotted.
+starting at 0 and growing with a step size of 0.01. These are the 
+x-parts of the points to be plotted.
 
 the following _'dup'_ saves it for later use. Next we apply a function 
 to every value to complete our points. This is done by
-_'cos(x)+sin(2*x) swap term'_
+_'cos(x)+sin(2*x) swap f='_
 
 Now we have two sequences on the stack representing 1024 points.
 A _'swap'_ puts them into right order and _'plot .'_ create and show the graphic.
