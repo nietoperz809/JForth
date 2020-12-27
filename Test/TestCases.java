@@ -239,7 +239,7 @@ public class TestCases
         String s = check ("x^2+x x^2+x *",
                 ".");
         System.out.println(s);
-        shoudBeOK ("x^2+2x^3+x^4" ,s);
+        shoudBeOK ("x^2+2*x^3+x^4" ,s);
     }
 
     @Test
@@ -248,7 +248,7 @@ public class TestCases
         String s = check ("4x^5+3x^2 x^2-6 1 pick 1 pick / ",
                 ". .\" +(\" mod . .\" )\"");
         System.out.println(s);
-        shoudBeOK ("3+24x+4x^3+(18+144x)" ,s);
+        shoudBeOK ("3+24*x+4*x^3+(18+144*x)" ,s);
     }
 
     @Test
@@ -257,7 +257,7 @@ public class TestCases
         String s = check ("-13x^7+3x^5 x^2-6 /mod ",
                 ". sp .\" rest:\" .");
         System.out.println(s);
-        shoudBeOK ("-450x-75x^3-13x^5 rest:1-2700x" ,s);
+        shoudBeOK ("-450*x-75*x^3-13*x^5 rest:1-2700*x" ,s);
     }
 
     @Test
@@ -509,7 +509,7 @@ public class TestCases
         String s = check ("{1,2,2,4,3,9} lagPoly",
                 ".");
         System.out.println(s);
-        shoudBeOK ("3-2.5x+1.5x^2" ,s);
+        shoudBeOK ("3-2.5*x+1.5*x^2" ,s);
     }
 
     @Test
@@ -1058,7 +1058,7 @@ public class TestCases
     @Test
     public void polyArrayTest()
     {
-        String code = "{1,2,3,4} toPoly {1,2,3,4} x=";
+        String code = "{1,2,3,4} toPoly {1,2,3,4} f=";
         String s = check (code,".");
         shoudBeOK ("{10,49,142,313}" ,s);
     }
@@ -1094,6 +1094,15 @@ public class TestCases
         String s = check (code,".");
         shoudBeOK ("{-1,Infinity,3,2}" ,s);
     }
+
+    @Test
+    public void term4Test()
+    {
+        String code = "x+x 1/2 term";
+        String s = check (code,".");
+        shoudBeOK ("1" ,s);
+    }
+
 
     @Test
     public void testToNum()

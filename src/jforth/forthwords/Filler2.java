@@ -50,16 +50,12 @@ class Filler2 {
                             String f = Utilities.readString(dStack);
                             FunctionParser fp = new FunctionParser(f);
                             try {
-                                if (o instanceof Double) {
-                                    double d = (Double) o;
-                                    dStack.push(fp.evaluate(0, d));
-                                    return 1;
-                                }
-                                if (o instanceof Long) {
-                                    long d = (Long) o;
-                                    dStack.push(fp.evaluate(0, d));
-                                    return 1;
-                                }
+                                double d = Utilities.getDouble(o);
+                                dStack.push(fp.evaluate(0, d));
+                                return 1;
+                            }
+                            catch (Exception ex)
+                            {
                                 if (o instanceof DoubleSequence) {
                                     DoubleSequence ds = (DoubleSequence) o;
                                     ArrayList<Double> list = new ArrayList<>();
@@ -84,8 +80,6 @@ class Filler2 {
                                         dStack.push(new DoubleSequence(list));
                                     return 1;
                                 }
-                                return 0;
-                            } catch (Exception e) {
                                 return 0;
                             }
                         }

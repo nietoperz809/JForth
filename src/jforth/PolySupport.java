@@ -168,7 +168,20 @@ public class PolySupport
 
     public static String formatPoly (PolynomialFunction p)
     {
-        return p.toString().replaceAll("\\s", "");
+        String n = p.toString().replaceAll("\\s", "");
+        StringBuilder sb = new StringBuilder();
+        boolean isNum = false;
+        for (char c : n.toCharArray())
+        {
+            if (c == 'x' && isNum)
+                sb.append('*');
+            if (Character.isDigit(c))
+                isNum = true;
+            else
+                isNum = false;
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
     /**
