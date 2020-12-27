@@ -1120,7 +1120,7 @@ public class TestCases
     @Test
     public void testLagPolyRounding()
     {
-        String code = "{2,4,8,16,32,64} lagpoly 1 round 256 x=";
+        String code = "{2,4,8,16,32,64} lagpoly 1 round 256 f=";
         String s = check (code,".");
         shoudBeOK ("512" ,s);
     }
@@ -1159,4 +1159,13 @@ public class TestCases
         String s = check (code,".");
         System.out.println(s);
     }
+
+    @Test
+    public void testBinomial()
+    {
+        String code = "10 4 binomial sp 49 6 binomial";
+        String s = check (code,". sp .");
+        shoudBeOK ("13983816 210" ,s);
+    }
+
 }

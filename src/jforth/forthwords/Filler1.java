@@ -2252,7 +2252,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "x=", "Solve a polynomial",
+                        "f=", "Solve a polynomial",
                         (dStack, vStack) ->
                         {
                             try {
