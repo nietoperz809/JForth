@@ -1027,8 +1027,8 @@ public class TestCases
     @Test
     public void binHexInputTest()
     {
-        String s = check ("0xc000 _ 0b1001","...");
-        shoudBeOK ("9_49152" ,s);
+        String s = check ("-0xc000 _ 0b1001","...");
+        shoudBeOK ("9_-49152" ,s);
     }
 
     @Test

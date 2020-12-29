@@ -29,6 +29,9 @@ BigInt
 
 DoubleSequence
 > Ex: {1,2,4.456,7}
+ 
+DoubeMatrix
+> Ex: {{1,2,4}{5,8,9}} 
 
 StringSequence
 > Ex: {a,b,hello,666}
