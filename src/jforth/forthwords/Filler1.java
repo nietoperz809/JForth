@@ -334,51 +334,11 @@ class Filler1 {
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                if (i1 == i2) {
-                                    dStack.push(JForth.TRUE);
-                                } else {
-                                    dStack.push(JForth.FALSE);
-                                }
-                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                if (d1 == d2) {
-                                    dStack.push(JForth.TRUE);
-                                } else {
-                                    dStack.push(JForth.FALSE);
-                                }
-                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
-                                String s1 = (String) o1;
-                                String s2 = (String) o2;
-                                int result = s1.compareTo(s2);
-                                if (result == 0) {
-                                    dStack.push(JForth.TRUE);
-                                } else {
-                                    dStack.push(JForth.FALSE);
-                                }
-                            } else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence)) {
-                                DoubleSequence s1 = (DoubleSequence) o1;
-                                DoubleSequence s2 = (DoubleSequence) o2;
-                                boolean result = s1.sameContents(s2);
-                                if (result) {
-                                    dStack.push(JForth.TRUE);
-                                } else {
-                                    dStack.push(JForth.FALSE);
-                                }
-                            } else { //if ((o1 instanceof Complex) && (o2 instanceof Complex)) {
-                                //Complex s1 = (Complex) o1;
-                                //Complex s2 = (Complex) o2;
-                                if (o1.equals(o2)) {
-                                    dStack.push(JForth.TRUE);
-                                } else {
-                                    dStack.push(JForth.FALSE);
-                                }
-                            } //else {
-                            //    return 0;
-                            //}
+                            if (o1.equals(o2)) {
+                                dStack.push(JForth.TRUE);
+                            } else {
+                                dStack.push(JForth.FALSE);
+                            }
                             return 1;
                         }
                 ));
@@ -390,20 +350,10 @@ class Filler1 {
                         {
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                dStack.push(i1 != i2 ? JForth.TRUE : JForth.FALSE);
-                            } else if ((o1 instanceof Double) && (o2 instanceof Double)) {
-                                double d1 = (Double) o1;
-                                double d2 = (Double) o2;
-                                dStack.push(d1 != d2 ? JForth.TRUE : JForth.FALSE);
-                            } else if ((o1 instanceof String) && (o2 instanceof String)) {
-                                String s1 = (String) o1;
-                                String s2 = (String) o2;
-                                dStack.push(s1.compareTo(s2) != 0 ? JForth.TRUE : JForth.FALSE);
+                            if (!o1.equals(o2)) {
+                                dStack.push(JForth.TRUE);
                             } else {
-                                return 0;
+                                dStack.push(JForth.FALSE);
                             }
                             return 1;
                         }

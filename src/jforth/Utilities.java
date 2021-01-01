@@ -29,8 +29,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  */
 public class Utilities
 {
-    private static final String BUILD_NUMBER = "2175";
-    private static final String BUILD_DATE = "01/01/2021 06:33:11 PM";
+    private static final String BUILD_NUMBER = "2177";
+    private static final String BUILD_DATE = "01/01/2021 06:39:53 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty ("java.version");

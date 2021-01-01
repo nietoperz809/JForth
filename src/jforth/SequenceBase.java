@@ -133,12 +133,13 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return _list.isEmpty();
     }
 
-    public boolean sameContents (SequenceBase<E> other)
+    public boolean equals (Object other)
     {
-        if (this._list.size () != other._list.size ())
+        SequenceBase<E> o2 = (SequenceBase<E>) other;
+        if (this._list.size () != o2._list.size ())
             return false;
         ArrayList<?> test = (ArrayList<?>)_list.clone ();
-        test.removeAll (other._list);
+        test.removeAll (o2._list);
         return test.size() == 0;
     }
 
