@@ -27,6 +27,7 @@ public class PolynomialParser
     {
         if (base != 10)
             return null;
+        poly = poly.replaceAll("\\*", "");
         try
         {
             AddMap adm = new AddMap();

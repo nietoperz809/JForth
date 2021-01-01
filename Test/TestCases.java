@@ -252,6 +252,14 @@ public class TestCases
     }
 
     @Test
+    public void TestPolyDivOtherSyntax()
+    {
+        String s = check ("4*x^5+3*x^2 x^2-6 /",".");
+        System.out.println(s);
+        shoudBeOK ("3+24*x+4*x^3" ,s);
+    }
+
+    @Test
     public void TestPolyDiv2()
     {
         String s = check ("-13x^7+3x^5 x^2-6 /mod ",
