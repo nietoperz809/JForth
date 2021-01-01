@@ -25,6 +25,19 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return null;
     }
 
+    public String asStringX()
+    {
+        if (this instanceof StringSequence)
+        {
+            return ((StringSequence)this).asString();
+        }
+        if (this instanceof DoubleSequence)
+        {
+            return ((DoubleSequence)this).asString();
+        }
+        return null;
+    }
+
     public SequenceBase ()
     {
     }

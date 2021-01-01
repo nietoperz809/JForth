@@ -1,9 +1,6 @@
 package tools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -30,16 +27,13 @@ public class StringStream
     }
 
     @Override
-    public String toString ()
-    {
+    public String toString () {
         try
         {
             baos.flush();
-        }
-        catch (IOException e)
-        {
+            return baos.toString (StandardCharsets.UTF_8.name());
+        } catch (Exception e) {
             return e.toString();
         }
-        return new String (baos.toByteArray(), StandardCharsets.UTF_8);
     }
 }

@@ -368,17 +368,17 @@ class Filler1 {
                                 } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            } else if ((o1 instanceof Complex) && (o2 instanceof Complex)) {
-                                Complex s1 = (Complex) o1;
-                                Complex s2 = (Complex) o2;
-                                if (s1.equals(s2)) {
+                            } else { //if ((o1 instanceof Complex) && (o2 instanceof Complex)) {
+                                //Complex s1 = (Complex) o1;
+                                //Complex s2 = (Complex) o2;
+                                if (o1.equals(o2)) {
                                     dStack.push(JForth.TRUE);
                                 } else {
                                     dStack.push(JForth.FALSE);
                                 }
-                            } else {
-                                return 0;
-                            }
+                            } //else {
+                            //    return 0;
+                            //}
                             return 1;
                         }
                 ));
@@ -3458,12 +3458,22 @@ class Filler1 {
                         "intersect", "Make intersection of 2 sequences",
                         (dStack, vStack) ->
                         {
+                            boolean str = false;
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try {
+                                if (o1 instanceof String) {
+                                    o1 = new DoubleSequence((String) o1);
+                                    o2 = new DoubleSequence((String) o2);
+                                    str = true;
+                                }
                                 SequenceBase oo1 = (SequenceBase) o1;
                                 SequenceBase oo2 = (SequenceBase) o2;
-                                dStack.push(oo1.intersect(oo2));
+                                SequenceBase result = oo1.intersect(oo2);
+                                if (str)
+                                    dStack.push(result.asStringX());
+                                else
+                                    dStack.push(result);
                                 return 1;
                             } catch (Exception ignored) {
                             }

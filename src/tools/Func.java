@@ -1,5 +1,6 @@
 package tools;
 
+// This exists in case we use Java < 8
 public interface Func<T, R>
 {
 
