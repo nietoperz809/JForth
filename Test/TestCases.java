@@ -460,11 +460,21 @@ public class TestCases
     @Test
     public void TestDSCreate()
     {
-        String s = check ("{1.2,2.3,3,4,4.5} type",
+        String s = check ("{1.2,2.3,3,4,4.5} type swap drop",
                 ".s");
         System.out.println(s);
         shoudBeOK ("DoubleSequence " ,s);
     }
+
+    @Test
+    public void TestRevsFlush()
+    {
+        String s = check ("1 2 3 4 5 7 revs",
+                "flush");
+        System.out.println(s);
+        shoudBeOK ("123457" ,s);
+    }
+
 
     @Test
     public void TestMatrixToList()
@@ -850,6 +860,28 @@ public class TestCases
     }
 
     @Test
+    public void TestIntersectString()
+    {
+        String s = check ("peter dieter intersect", ".");
+        shoudBeOK ("eter" ,s);
+    }
+
+    @Test
+    public void TestMeans()
+    {
+        String s = check ("{1,2,3,4,5,6} gmean", ".");
+        shoudBeOK ("2.993795165523909" ,s);
+        s = check ("{1,2,3,4,5,6} mean", ".");
+        shoudBeOK ("3.5" ,s);
+        s = check ("{1,2,3,4,5,6} qmean", ".");
+        shoudBeOK ("3.8944404818493075" ,s);
+        s = check ("{1,2,3,4,5,6} stddev", ".");
+        shoudBeOK ("1.8708286933869707" ,s);
+        s = check ("{1,2,-3,4,5,6} var", ".");
+        shoudBeOK ("10.7" ,s);
+    }
+
+    @Test
     public void TestPick()
     {
         String s = check ("{peter,ist,lieb,oder,doof} 2 lpick", ".");
@@ -914,8 +946,8 @@ public class TestCases
     @Test
     public void TestListConv()
     {
-        String s = check ("{1,3,3,4.5,6} dup toSList type swap type", ". sp .");
-        shoudBeOK ("DoubleSequence StringSequence" ,s);
+        String s = check ("{1,2,3,4,5,6} type swap toslist type swap drop", ". sp .");
+        shoudBeOK ("StringSequence DoubleSequence" ,s);
     }
 
     @Test
@@ -996,9 +1028,9 @@ public class TestCases
     @Test
     public void typeTest()
     {
-        String s = check ("33 type 33L type 33/1 type 33.0 type 33+0i type {33} type {{33}} type",
-                ".......");
-        shoudBeOK ("DoubleMatrixDoubleSequenceComplexDoubleFractionBigIntegerLong" ,s);
+        String s = check ("33 type 33L type 33/99 type 33.0 type 33+2i type {33} type {{33}} type",
+                ". sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp .");
+        shoudBeOK ("DoubleMatrix {{33}} DoubleSequence {33} Complex 33+2i Double 33 Fraction 1/3 BigInteger 33 Long 33" ,s);
     }
 
     @Test

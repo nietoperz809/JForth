@@ -412,6 +412,12 @@ class Filler1 {
                                 double d1 = (Double) o1;
                                 dStack.push((d1 < 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
+                            } else if (o1 instanceof String) {
+                                Long l1 = Utilities.parseLong((String)o1,10);
+                                if (l1 == null)
+                                    return 0;
+                                dStack.push((l1 < 0) ? JForth.TRUE : JForth.FALSE);
+                                return 1;
                             } else {
                                 return 0;
                             }
@@ -431,6 +437,12 @@ class Filler1 {
                             } else if (o1 instanceof Double) {
                                 double d1 = (Double) o1;
                                 dStack.push((d1 == 0.0) ? JForth.TRUE : JForth.FALSE);
+                                return 1;
+                            } else if (o1 instanceof String) {
+                                Long l1 = Utilities.parseLong((String)o1,10);
+                                if (l1 == null)
+                                    return 0;
+                                dStack.push((l1 == 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             } else {
                                 return 0;
@@ -1107,6 +1119,37 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "flush", "pops and shows whole stack",
+                        (dStack, vStack) ->
+                        {
+                            while (!dStack.isEmpty())
+                            {
+                                Object o = dStack.pop();
+                                predefinedWords._jforth._out.print(predefinedWords._jforth.ObjectToString(o));
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "revs", "reverse whole stack",
+                        (dStack, vStack) ->
+                        {
+                            ArrayList<Object> al = new ArrayList<>();
+                            while (!dStack.isEmpty())
+                            {
+                                Object o = dStack.pop();
+                                al.add(o);
+                            }
+                            for (Object o : al)
+                                dStack.push(o);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "cr", "Emit carriage return",
                         (dStack, vStack) ->
                         {
@@ -1309,10 +1352,6 @@ class Filler1 {
                             predefinedWords._jforth.dictionary.add(constant);
                             Object o1 = dStack.pop();
                             BaseWord bw = WordHelpers.toLiteral(o1);
-//                            if (bw == null)
-//                            {
-//                                return 0;
-//                            }
                             constant.addWord(bw);
                             return 1;
                         }
@@ -1748,7 +1787,7 @@ class Filler1 {
                         "type", "Get type of TOS as string",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
+                            Object o1 = dStack.peek();
                             dStack.push(o1.getClass().getSimpleName());
                             return 1;
                         }
