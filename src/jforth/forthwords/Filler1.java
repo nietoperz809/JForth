@@ -23,6 +23,7 @@ import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 
@@ -3546,5 +3547,42 @@ class Filler1 {
                             }
                         }
                 ));
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+
+        _fw.add(new PrimitiveWord
+                (
+                        "put", "put any obj into global array",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object obj = dStack.pop();
+                                String name = Utilities.readString(dStack);
+                                hashMap.put(name, obj);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "get", "get obj from global array",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String name = Utilities.readString(dStack);
+                                Object x = hashMap.get(name);
+                                if (x == null)
+                                    return 1;
+                                dStack.push(x);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }
