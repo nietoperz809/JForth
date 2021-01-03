@@ -22,10 +22,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
@@ -33,9 +30,6 @@ import static org.mathIT.numbers.Riemann.zeta;
 //import scala.math.BigInt;
 
 class Filler1 {
-    public static final Random random = new Random();
-
-
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         // do nothing. comments handled by tokenizer
         _fw.add(new PrimitiveWord   // dummy
@@ -414,7 +408,7 @@ class Filler1 {
                                 dStack.push((d1 < 0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             } else if (o1 instanceof String) {
-                                Long l1 = Utilities.parseLong((String)o1,10);
+                                Long l1 = Utilities.parseLong((String) o1, 10);
                                 if (l1 == null)
                                     return 0;
                                 dStack.push((l1 < 0) ? JForth.TRUE : JForth.FALSE);
@@ -440,7 +434,7 @@ class Filler1 {
                                 dStack.push((d1 == 0.0) ? JForth.TRUE : JForth.FALSE);
                                 return 1;
                             } else if (o1 instanceof String) {
-                                Long l1 = Utilities.parseLong((String)o1,10);
+                                Long l1 = Utilities.parseLong((String) o1, 10);
                                 if (l1 == null)
                                     return 0;
                                 dStack.push((l1 == 0) ? JForth.TRUE : JForth.FALSE);
@@ -1123,8 +1117,7 @@ class Filler1 {
                         "flush", "pops and shows whole stack",
                         (dStack, vStack) ->
                         {
-                            while (!dStack.isEmpty())
-                            {
+                            while (!dStack.isEmpty()) {
                                 Object o = dStack.pop();
                                 predefinedWords._jforth._out.print(predefinedWords._jforth.ObjectToString(o));
                             }
@@ -1138,8 +1131,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             ArrayList<Object> al = new ArrayList<>();
-                            while (!dStack.isEmpty())
-                            {
+                            while (!dStack.isEmpty()) {
                                 Object o = dStack.pop();
                                 al.add(o);
                             }
@@ -2859,7 +2851,7 @@ class Filler1 {
                         {
                             try {
                                 long lo = Utilities.readLong(dStack);
-                                double number = random.nextGaussian() * lo;
+                                double number = predefinedWords._jforth.random.nextGaussian() * lo;
                                 dStack.push(number);
                                 return 1;
                             } catch (Exception e) {
@@ -2875,7 +2867,7 @@ class Filler1 {
                         {
                             try {
                                 long lo = Utilities.readLong(dStack);
-                                double number = random.nextDouble() * lo;
+                                double number = predefinedWords._jforth.random.nextDouble() * lo;
                                 dStack.push(number);
                                 return 1;
                             } catch (Exception e) {
@@ -3548,17 +3540,15 @@ class Filler1 {
                         }
                 ));
 
-        HashMap<String, Object> hashMap = new HashMap<>();
-
         _fw.add(new PrimitiveWord
                 (
-                        "put", "put any obj into global array",
+                        "m+", "put any obj into global array",
                         (dStack, vStack) ->
                         {
                             try {
                                 Object obj = dStack.pop();
                                 String name = Utilities.readString(dStack);
-                                hashMap.put(name, obj);
+                                predefinedWords._jforth.hashMap.put(name, obj);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -3568,19 +3558,41 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "get", "get obj from global array",
+                        "m-", "get obj from global array",
                         (dStack, vStack) ->
                         {
                             try {
                                 String name = Utilities.readString(dStack);
-                                Object x = hashMap.get(name);
+                                Object x = predefinedWords._jforth.hashMap.get(name);
                                 if (x == null)
-                                    return 1;
+                                    return 0;
+                                predefinedWords._jforth.hashMap.remove(name);
                                 dStack.push(x);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
                             }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "mlist", "list elements of global array",
+                        (dStack, vStack) ->
+                        {
+                            String list = predefinedWords._jforth.getMapContent();
+                            dStack.push(list);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "mclr", "empties the global array",
+                        (dStack, vStack) ->
+                        {
+                            predefinedWords._jforth.hashMap.clear();
+                            return 1;
                         }
                 ));
 

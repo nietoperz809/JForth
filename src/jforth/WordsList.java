@@ -72,19 +72,6 @@ public class WordsList
         return wordsList.size() == 0;
     }
 
-//  public void truncateList(BaseWord bw)
-//  {
-//    int size = wordsList.size();
-//    int index = wordsList.indexOf(bw);
-//    if (index != -1)
-//    {
-//      for (int i = 0; i <= index; i++)
-//      {
-//        wordsList.remove(0);
-//      }
-//    }
-//  }
-
     public BaseWord search (String wordName) throws Exception
     {
         if (isEmpty())

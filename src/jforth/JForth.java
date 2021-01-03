@@ -17,6 +17,8 @@ import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 public class JForth {
@@ -25,6 +27,8 @@ public class JForth {
     public enum MODE {EDIT, DIRECT}
 
     public long LastETime;
+    public final Random random = new Random();
+    public final HashMap<String, Object> hashMap = new HashMap<>();
     public Exception LastError = null;
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
@@ -66,6 +70,17 @@ public class JForth {
         _out = out;
         new PredefinedWords(this, dictionary);
         _lineEditor = new LineEdit(out, this);
+    }
+
+    public String getMapContent () {
+        StringBuilder sb = new StringBuilder();
+        hashMap.forEach((key, value) -> {
+            sb.append(key)
+                    .append(" --> ")
+                    .append(makePrintable(value))
+                    .append('\n');
+        });
+        return sb.toString();
     }
 
     /**

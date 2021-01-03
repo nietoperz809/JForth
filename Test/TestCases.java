@@ -1217,4 +1217,20 @@ public class TestCases
         shoudBeOK ("13983816 210" ,s);
     }
 
+    @Test
+    public void testMList()
+    {
+        String code = "10 0 do i dup tostr b64 m+ loop";
+        String s = check (code,"mlist .");
+        shoudBeOK ("0 --> MA==\n" +
+                "1 --> MQ==\n" +
+                "2 --> Mg==\n" +
+                "3 --> Mw==\n" +
+                "4 --> NA==\n" +
+                "5 --> NQ==\n" +
+                "6 --> Ng==\n" +
+                "7 --> Nw==\n" +
+                "8 --> OA==\n" +
+                "9 --> OQ==\n" ,s);
+    }
 }
