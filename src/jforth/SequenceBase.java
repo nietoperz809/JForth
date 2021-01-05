@@ -12,6 +12,7 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return _list;
     }
 
+    @SuppressWarnings("unchecked")
     private SequenceBase<? extends Comparable<?>> makeInstance (ArrayList<E> list)
     {
         if (this instanceof StringSequence)
@@ -42,7 +43,7 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
     {
     }
 
-    public SequenceBase<? extends Comparable<?>> rearrange (int pos[])
+    public SequenceBase<? extends Comparable<?>> rearrange (int[] pos)
     {
         ArrayList<E> list = rearrange (pos, _list);
         return makeInstance(list);
@@ -133,8 +134,11 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return _list.isEmpty();
     }
 
+    @SuppressWarnings("unchecked")
     public boolean equals (Object other)
     {
+        if (! (other instanceof SequenceBase))
+            return false;
         SequenceBase<E> o2 = (SequenceBase<E>) other;
         if (this._list.size () != o2._list.size ())
             return false;
@@ -145,6 +149,7 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
 
 //////////////////////////////////////////////////////////////////////////////////////
 
+    @SuppressWarnings("unchecked")
     public static <E> ArrayList<E> mixin (SequenceBase<? extends E> d1, SequenceBase<? extends E> d2)
     {
         int len = Math.max (d1.length(),d2.length());
@@ -152,9 +157,9 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         for (int s=0; s<len; s++)
         {
             if (s < d1.length())
-                ar.add((E)d1._list.get(s));
+                ar.add(d1._list.get(s));
             if (s < d2.length())
-                ar.add ((E)d2._list.get(s));
+                ar.add(d2._list.get(s));
         }
         return ar;
     }

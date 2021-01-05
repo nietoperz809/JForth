@@ -1,11 +1,7 @@
 package jforth;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
 public class FileUtils {
     public static boolean del(String path) {
@@ -37,6 +33,24 @@ public class FileUtils {
             sb.append(formatted);
         }
         return sb.toString();
+    }
+
+    public static void saveMap (HashMap<String, String> map, String filename) throws Exception {
+        Properties properties = new Properties();
+        for (Map.Entry<String,String> entry : map.entrySet()) {
+            properties.put(entry.getKey(), entry.getValue());
+        }
+        properties.store(new FileOutputStream(filename), null);
+    }
+
+    public static HashMap<String, String> loadMap (String filename) throws Exception {
+        HashMap<String, String> map = new HashMap<>();
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(filename));
+        for (String key : properties.stringPropertyNames()) {
+            map.put(key, properties.get(key).toString());
+        }
+        return map;
     }
 
     public static void saveStrings(ArrayList<String> as, String filename) throws Exception {

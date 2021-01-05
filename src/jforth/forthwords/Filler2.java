@@ -30,13 +30,7 @@ import static java.lang.System.currentTimeMillis;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 
 class Filler2 {
-    private static Point plotterDimension = new Point(100,20);
-
-//    public static void main(String[] args) {
-//        FunctionParser fp = new FunctionParser("sin(x)");
-//        double d = fp.evaluate(0, 32);
-//        System.out.println(d);
-//    }
+    private static final Point plotterDimension = new Point(100, 20);
 
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
@@ -53,9 +47,7 @@ class Filler2 {
                                 double d = Utilities.getDouble(o);
                                 dStack.push(fp.evaluate(0, d));
                                 return 1;
-                            }
-                            catch (Exception ex)
-                            {
+                            } catch (Exception ex) {
                                 if (o instanceof DoubleSequence) {
                                     DoubleSequence ds = (DoubleSequence) o;
                                     ArrayList<Double> list = new ArrayList<>();
@@ -196,8 +188,8 @@ class Filler2 {
                                 return 1;
                             }
                             if (o1 instanceof BigInteger) {
-                                BigInteger bi = (BigInteger)o1;
-                                dStack.push (bi.toString(16));
+                                BigInteger bi = (BigInteger) o1;
+                                dStack.push(bi.toString(16));
                                 return 1;
                             }
                             return 0;
@@ -260,6 +252,11 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
+                            if (o instanceof Long) {
+                                byte b = (byte) (long) (Long) o;
+                                dStack.push((long) Utilities.grayByte(b));
+                                return 1;
+                            }
                             if (o instanceof String) {
                                 String input = (String) o;
                                 byte[] inbytes = input.getBytes(JForth.ENCODING);
@@ -286,6 +283,11 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
+                            if (o instanceof Long) {
+                                byte b = (byte) (long) (Long) o;
+                                dStack.push((long) Utilities.ungrayByte(b));
+                                return 1;
+                            }
                             if (o instanceof String) {
                                 String input = (String) o;
                                 byte[] inbytes = input.getBytes(JForth.ENCODING);
@@ -619,7 +621,7 @@ class Filler2 {
                 ));
 
         _fw.add(new PrimitiveWord
-                (
+                ( //TODO: didn't work in direct mode!!! only as programmed word
                         "loop", true, "repeat loop",
                         (dStack, vStack) ->
                                 WordHelpers.addLoopWord(vStack, predefinedWords, LoopControlWord.class)
@@ -1029,10 +1031,9 @@ class Filler2 {
                                 int o2 = (int) Utilities.readLong(dStack);
                                 Object o3 = dStack.pop();
                                 if (o3 instanceof SequenceBase) {
-                                    SequenceBase as = ((SequenceBase) o3).swap(o1, o2);
-                                    dStack.push (as);
-                                }
-                                else if (o3 instanceof String) {
+                                    SequenceBase<?> as = ((SequenceBase<?>) o3).swap(o1, o2);
+                                    dStack.push(as);
+                                } else if (o3 instanceof String) {
                                     char[] arr = ((String) o3).toCharArray();
                                     char tmp = arr[o1];
                                     arr[o1] = arr[o2];
@@ -1257,12 +1258,11 @@ class Filler2 {
                             if (predefinedWords._jforth.LastError == null)
                                 dStack.push("Everything's fine ...");
                             else {
-                                StringBuilder sb = new StringBuilder();
-                                sb.append(predefinedWords._jforth.LastError.toString())
-                                        .append(", ")
-                                        .append((currentTimeMillis() - predefinedWords._jforth.LastETime)/1000)
-                                        .append(" secs ago\n");
-                                dStack.push(sb.toString());
+                                String sb = predefinedWords._jforth.LastError.toString() +
+                                        ", " +
+                                        (currentTimeMillis() - predefinedWords._jforth.LastETime) / 1000 +
+                                        " secs ago\n";
+                                dStack.push(sb);
                             }
                             return 1;
                         }
@@ -1289,10 +1289,10 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                AsciiPlotter ap = new AsciiPlotter (plotterDimension);
+                                AsciiPlotter ap = new AsciiPlotter(plotterDimension);
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
-                                dStack.push (ap.plot(s1, s2));
+                                dStack.push(ap.plot(s1, s2));
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1308,7 +1308,7 @@ class Filler2 {
                             try {
                                 long s1 = Utilities.readLong(dStack);
                                 long s2 = Utilities.readLong(dStack);
-                                dStack.push (exactBinomial((int)s2, (int)s1));
+                                dStack.push(exactBinomial((int) s2, (int) s1));
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1316,27 +1316,92 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "m+", "put any obj into global array",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object obj = dStack.pop();
+                                String name = Utilities.readString(dStack);
+                                predefinedWords._jforth.globalMap.put(name, predefinedWords._jforth.makePrintable(obj));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "mkwords", "???",
-//                        (dStack, vStack) ->
-//                        {
-//                            try {
-//                                long s1 = Utilities.readLong(dStack);
-//                                String s2 = Utilities.readString(dStack);
-//                                StringBuilder[] sba = words ((int)s1, s2.toCharArray());
-//                                StringSequence ss = new StringSequence();
-//                                for (StringBuilder stringBuilder : sba) {
-//                                    ss.add(stringBuilder.toString());
-//                                }
-//                                dStack.push(ss);
-//                            } catch (Exception e) {
-//                                return 0;
-//                            }
-//                            return 1;
-//                        }
-//                ));
+        _fw.add(new PrimitiveWord
+                (
+                        "m-", "get obj from global array",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String name = Utilities.readString(dStack);
+                                String x = predefinedWords._jforth.globalMap.get(name);
+                                if (x == null)
+                                    return 0;
+                                predefinedWords._jforth.globalMap.remove(name);
+                                dStack.push(x);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "mlist", "list elements of global array",
+                        (dStack, vStack) ->
+                        {
+                            String list = predefinedWords._jforth.getMapContent();
+                            dStack.push(list);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "mclr", "empties the global array",
+                        (dStack, vStack) ->
+                        {
+                            predefinedWords._jforth.globalMap.clear();
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "msave", "save global array to file",
+                        (dStack, vStack) ->
+                        {
+                            String name = Utilities.readString(dStack);
+                            try {
+                                FileUtils.saveMap(predefinedWords._jforth.globalMap, name);
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "mload", "load global array from file",
+                        (dStack, vStack) ->
+                        {
+                            String name = Utilities.readString(dStack);
+                            try {
+                                predefinedWords._jforth.globalMap = FileUtils.loadMap(name);
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
 
     }
 }

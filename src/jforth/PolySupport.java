@@ -5,9 +5,6 @@ import tools.TwoFuncs;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-//import java.util.function.BiFunction;
-
-//import scala.math.BigInt;
 
 /**
  * Created by Administrator on 4/23/2017.
@@ -175,10 +172,7 @@ public class PolySupport
         {
             if (c == 'x' && isNum)
                 sb.append('*');
-            if (Character.isDigit(c))
-                isNum = true;
-            else
-                isNum = false;
+            isNum = Character.isDigit(c);
             sb.append(c);
         }
         return sb.toString();

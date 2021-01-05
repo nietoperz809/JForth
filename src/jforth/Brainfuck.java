@@ -4,8 +4,13 @@ import java.io.IOException;
 
 public class Brainfuck
 {
-    private byte[] mem = new byte[30000];
+    private final byte[] mem;
     private int dptr;
+
+    public Brainfuck()
+    {
+        mem = new byte[30000];
+    }
 
     public String interpret (String code)
     {

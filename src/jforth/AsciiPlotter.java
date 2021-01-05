@@ -41,14 +41,16 @@ public class AsciiPlotter {
         {
             points.add (new PlotPoint(xvals.pick(s), yvals.pick(s)));
         }
+        int w2 = width-2;
+        int h2 = height-2;
         IRender render = new Render();
         IContextBuilder builder = render.newBuilder();
         builder.width(width).height(height);
         builder.element(new Rectangle(0, 0, width, height));
-        builder.layer(new Region(1, 1, width-2, height-2));
-        builder.element(new Axis(points, new Region(0, 0, width-2, height-2)));
-        builder.element(new AxisLabels(points, new Region(0, 0, width-2, height-2)));
-        builder.element(new Plot(points, new Region(0, 0, width-2, height-2)));
+        builder.layer(new Region(1, 1, w2, h2));
+        builder.element(new Axis(points, new Region(0, 0, w2, h2)));
+        builder.element(new AxisLabels(points, new Region(0, 0, w2, h2)));
+        builder.element(new Plot(points, new Region(0, 0, w2, h2)));
         ICanvas canvas = render.render(builder.build());
         return canvas.getText();
     }

@@ -28,7 +28,7 @@ public class JForth {
 
     public long LastETime;
     public final Random random = new Random();
-    public final HashMap<String, Object> hashMap = new HashMap<>();
+    public HashMap<String, String> globalMap = new HashMap<>();
     public Exception LastError = null;
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
@@ -74,12 +74,12 @@ public class JForth {
 
     public String getMapContent () {
         StringBuilder sb = new StringBuilder();
-        hashMap.forEach((key, value) -> {
-            sb.append(key)
-                    .append(" --> ")
-                    .append(makePrintable(value))
-                    .append('\n');
-        });
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> map = (HashMap<String, Object>) globalMap.clone();
+        map.forEach((key, value) -> sb.append(key)
+                .append(" --> ")
+                .append(makePrintable(value))
+                .append('\n'));
         return sb.toString();
     }
 

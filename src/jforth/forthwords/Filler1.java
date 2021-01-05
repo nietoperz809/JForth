@@ -2099,7 +2099,7 @@ class Filler1 {
                                     seq.add((Double) o2);
                                 } else if (o2 instanceof Long) {
                                     long ll = (Long) o2;
-                                    seq.add((double) o2);
+                                    seq.add((double) ll);
                                 } else if (o2 instanceof DoubleSequence) {
                                     seq = seq.add((DoubleSequence) o2);
                                 }
@@ -2379,8 +2379,8 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Long o1 = Utilities.readLong(dStack);
-                                Long o2 = Utilities.readLong(dStack);
+                                long o1 = Utilities.readLong(dStack);
+                                long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.gcd(o1, o2));
                                 return 1;
                             } catch (Exception e) {
@@ -2395,7 +2395,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Long o1 = Utilities.readLong(dStack);
+                                long o1 = Utilities.readLong(dStack);
                                 long o2 = Utilities.readLong(dStack);
                                 dStack.push(ArithmeticUtils.lcm(o1, o2));
                                 return 1;
@@ -3194,7 +3194,7 @@ class Filler1 {
                         {
                             try {
                                 String fname = Utilities.readString(dStack);
-                                dStack.push(new PrintStream(new File(fname)));
+                                dStack.push(new PrintStream(fname));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -3540,61 +3540,6 @@ class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "m+", "put any obj into global array",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                Object obj = dStack.pop();
-                                String name = Utilities.readString(dStack);
-                                predefinedWords._jforth.hashMap.put(name, obj);
-                                return 1;
-                            } catch (Exception e) {
-                                return 0;
-                            }
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "m-", "get obj from global array",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                String name = Utilities.readString(dStack);
-                                Object x = predefinedWords._jforth.hashMap.get(name);
-                                if (x == null)
-                                    return 0;
-                                predefinedWords._jforth.hashMap.remove(name);
-                                dStack.push(x);
-                                return 1;
-                            } catch (Exception e) {
-                                return 0;
-                            }
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "mlist", "list elements of global array",
-                        (dStack, vStack) ->
-                        {
-                            String list = predefinedWords._jforth.getMapContent();
-                            dStack.push(list);
-                            return 1;
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "mclr", "empties the global array",
-                        (dStack, vStack) ->
-                        {
-                            predefinedWords._jforth.hashMap.clear();
-                            return 1;
-                        }
-                ));
 
     }
 }
