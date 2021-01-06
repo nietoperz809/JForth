@@ -1339,11 +1339,13 @@ class Filler2 {
                         {
                             try {
                                 String name = Utilities.readString(dStack);
-                                String x = predefinedWords._jforth.globalMap.get(name);
-                                if (x == null)
+                                String word = predefinedWords._jforth.globalMap.get(name);
+                                if (word == null)
                                     return 0;
+                                boolean res = predefinedWords._jforth.doForKnownWords(word, dStack::push);
+                                if (!res)
+                                    dStack.push(word);
                                 predefinedWords._jforth.globalMap.remove(name);
-                                dStack.push(x);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

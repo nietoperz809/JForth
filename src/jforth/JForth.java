@@ -284,103 +284,62 @@ public class JForth {
      * Interpret or compile known words
      *
      * @param word      the word
-     * @param interpret true if direct mode, false if compile mode
+     * @param action function to be applied
      * @return true if word is known
      */
-    private boolean doForKnownWords(String word, boolean interpret) {
+    public boolean doForKnownWords(String word, HandleDFKW action) {
         Long num = Utilities.parseLong(word, base);
         if (num != null) {
-            if (interpret) {
-                dStack.push(num);
-            } else {
-                wordBeingDefined.addWord(new Literal(num));
-            }
+            action.apply(num);
             return true;
         }
         BigInteger big = Utilities.parseBigInt(word, base);
         if (big != null) {
-            if (interpret) {
-                dStack.push(big);
-            } else {
-                wordBeingDefined.addWord(new Literal(big));
-            }
+            action.apply(big);
             return true;
         }
         Double dnum = Utilities.parseDouble(word, base);
         if (dnum != null) {
-            if (interpret) {
-                dStack.push(dnum);
-            } else {
-                wordBeingDefined.addWord(new Literal(dnum));
-            }
+            action.apply(dnum);
             return true;
         }
         Complex co = Utilities.parseComplex(word, base);
         if (co != null) {
-            if (interpret) {
-                dStack.push(co);
-            } else {
-                wordBeingDefined.addWord(new Literal(co));
-            }
+            action.apply(co);
             return true;
         }
         Fraction fr = Utilities.parseFraction(word, base);
         if (fr != null) {
-            if (interpret) {
-                dStack.push(fr);
-            } else {
-                wordBeingDefined.addWord(new Literal(fr));
-            }
+            action.apply(fr);
             return true;
         }
         DoubleMatrix ma = DoubleMatrix.parseMatrix(word, base);
         if (ma != null) {
-            if (interpret) {
-                dStack.push(ma);
-            } else {
-                wordBeingDefined.addWord(new Literal(ma));
-            }
+            action.apply(ma);
             return true;
         }
         DoubleSequence lo = DoubleSequence.parseSequence(word, base);
         if (lo != null) {
-            if (interpret) {
-                dStack.push(lo);
-            } else {
-                wordBeingDefined.addWord(new Literal(lo));
-            }
+            action.apply(lo);
             return true;
         }
         StringSequence ss = StringSequence.parseSequence(word);
         if (ss != null) {
-            if (interpret) {
-                dStack.push(ss);
-            } else {
-                wordBeingDefined.addWord(new Literal(ss));
-            }
+            action.apply(ss);
             return true;
         }
         String ws = Utilities.parseString(word);
         if (ws != null) {
-            if (interpret) {
-                dStack.push(ws);
-            } else {
-                wordBeingDefined.addWord(new Literal(ws));
-            }
+            action.apply(ws);
             return true;
         }
         double[] pd = PolynomialParser.parsePolynomial(word, base);
         if (pd != null) {
-            if (interpret) {
-                dStack.push(new PolynomialFunction(pd));
-            } else {
-                wordBeingDefined.addWord(
-                        new Literal(
-                                new PolynomialFunction(pd)));
-            }
+            PolynomialFunction plf = new PolynomialFunction(pd);
+            action.apply(plf);
             return true;
         }
-        setLastError (new Exception("Error executing: "+word));
+        //setLastError (new Exception("Error executing: "+word));
         return false;
     }
 
@@ -402,7 +361,7 @@ public class JForth {
                 setLastError(new Exception("failed execution of '"+word+"'"));
             return ret;
         }
-        boolean ret = doForKnownWords(word, true);
+        boolean ret = doForKnownWords(word, dStack::push);
         if (ret) {
             return true;
         }
@@ -426,7 +385,7 @@ public class JForth {
             }
             return true;
         }
-        boolean ret = doForKnownWords(word, false);
+        boolean ret = doForKnownWords(word, o -> wordBeingDefined.addWord(new Literal(o)));
         if (ret) {
             return true;
         }

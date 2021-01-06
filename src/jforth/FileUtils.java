@@ -4,11 +4,21 @@ import java.io.*;
 import java.util.*;
 
 public class FileUtils {
+    /**
+     * Delete a file
+     * @param path Path to file
+     * @return true if successful
+     */
     public static boolean del(String path) {
         File f = new File(path);
         return f.delete();
     }
 
+    /**
+     * Get directory as string
+     * @param path Path to directory
+     * @return Directory string
+     */
     public static String dir(String path) {
         StringBuilder sb = new StringBuilder();
         path = path.replace('/', '\\');
@@ -35,6 +45,12 @@ public class FileUtils {
         return sb.toString();
     }
 
+    /**
+     * Save a String map
+     * @param map Map to save
+     * @param filename Name of new file
+     * @throws Exception if smth. gone wrong
+     */
     public static void saveMap (HashMap<String, String> map, String filename) throws Exception {
         Properties properties = new Properties();
         for (Map.Entry<String,String> entry : map.entrySet()) {
@@ -43,6 +59,12 @@ public class FileUtils {
         properties.store(new FileOutputStream(filename), null);
     }
 
+    /**
+     * Load s string map
+     * @param filename path of stored map
+     * @return A new map constructed from file
+     * @throws Exception if smth. gone wrong
+     */
     public static HashMap<String, String> loadMap (String filename) throws Exception {
         HashMap<String, String> map = new HashMap<>();
         Properties properties = new Properties();
@@ -53,6 +75,12 @@ public class FileUtils {
         return map;
     }
 
+    /**
+     * Save ArrayList of Strings
+     * @param as The list
+     * @param filename Path to new files
+     * @throws Exception if smth. gone wrong
+     */
     public static void saveStrings(ArrayList<String> as, String filename) throws Exception {
         FileWriter fw = new FileWriter(filename);
         for (String str : as) {
@@ -61,6 +89,12 @@ public class FileUtils {
         fw.close();
     }
 
+    /**
+     * Load a string list from file
+     * @param fileName Path to file
+     * @return A new string list created from that file
+     * @throws Exception if smth. gone wrong
+     */
     public static ArrayList<String> loadStrings(String fileName) throws Exception {
         ArrayList<String> ret = new ArrayList<>();
         BufferedReader file = new BufferedReader(new FileReader(fileName));
