@@ -19,21 +19,14 @@
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
       <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/com_indvd00m_ascii_render_ascii_render_2_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jarfile/laladumm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jarfile/run.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/asciiart_core_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Default]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/TestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/TestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/BigPrint.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForth.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratch.pad" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.pad" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/HandleDFKW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Callback_1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +56,9 @@
       <list>
         <option value="Package Object" />
         <option value="HTML File" />
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -405,16 +398,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551991492424" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resource" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MyRC5" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Docker" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
@@ -440,6 +434,7 @@
       <recent name="jforth.Utilities" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="jforth" />
       <recent name="jforth.waves" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -449,14 +444,14 @@
       <recent name="jforth.forthwords" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="jforth" />
       <recent name="tools" />
       <recent name="jforth.waves" />
-      <recent name="jforth" />
       <recent name="jforth.Math" />
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForth">
+  <component name="RunManager" selected="JUnit.TestCases">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -634,6 +629,7 @@
       <module name="JForth" />
       <method v="2">
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -642,7 +638,7 @@
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
       </method>
     </configuration>
-    <configuration name="TestCases" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <configuration name="TestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <useClassPathOnly />
       <option name="PACKAGE_NAME" value="" />
@@ -655,55 +651,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestCRC" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.TestGfMult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestCRC" />
+      <option name="METHOD_NAME" value="TestGfMult" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestCopySamExe" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.TestRevsFlush" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestCopySamExe" />
+      <option name="METHOD_NAME" value="TestRevsFlush" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestNested" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.testMList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestNested" />
+      <option name="METHOD_NAME" value="testMList" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestPlusLoop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.testMSaveLoad" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestPlusLoop" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestCases.TestPolyParser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestPolyParser" />
+      <option name="METHOD_NAME" value="testMSaveLoad" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -742,19 +727,18 @@
       <item itemvalue="Application.JForth" />
       <item itemvalue="Docker.Docker" />
       <item itemvalue="JUnit.TestCases" />
-      <item itemvalue="JUnit.TestCases.TestCRC" />
-      <item itemvalue="JUnit.TestCases.TestCopySamExe" />
-      <item itemvalue="JUnit.TestCases.TestNested" />
-      <item itemvalue="JUnit.TestCases.TestPlusLoop" />
-      <item itemvalue="JUnit.TestCases.TestPolyParser" />
+      <item itemvalue="JUnit.TestCases.TestRevsFlush" />
+      <item itemvalue="JUnit.TestCases.testMList" />
+      <item itemvalue="JUnit.TestCases.testMSaveLoad" />
+      <item itemvalue="JUnit.TestCases.TestGfMult" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestCases.TestCopySamExe" />
-        <item itemvalue="JUnit.TestCases.TestPolyParser" />
-        <item itemvalue="JUnit.TestCases.TestPlusLoop" />
-        <item itemvalue="JUnit.TestCases.TestNested" />
-        <item itemvalue="JUnit.TestCases.TestCRC" />
+        <item itemvalue="JUnit.TestCases" />
+        <item itemvalue="JUnit.TestCases.TestGfMult" />
+        <item itemvalue="JUnit.TestCases.testMSaveLoad" />
+        <item itemvalue="JUnit.TestCases.testMList" />
+        <item itemvalue="JUnit.TestCases.TestRevsFlush" />
       </list>
     </recent_temporary>
   </component>
@@ -859,258 +843,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00178" summary="removed some unnecessary bools">
-      <created>1587758015731</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1587758015747</updated>
-    </task>
-    <task id="LOCAL-00179" summary="minor changes">
-      <created>1588295813754</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
-      <option name="project" value="LOCAL" />
-      <updated>1588295813754</updated>
-    </task>
-    <task id="LOCAL-00180" summary="removed duplicate code">
-      <created>1591441600804</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1591441600820</updated>
-    </task>
-    <task id="LOCAL-00181" summary="added: string - number and string - string&#10;plus test functions">
-      <created>1599241802556</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
-      <option name="project" value="LOCAL" />
-      <updated>1599241802559</updated>
-    </task>
-    <task id="LOCAL-00182" summary="better quoting in StringSequence">
-      <created>1599273758831</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
-      <option name="project" value="LOCAL" />
-      <updated>1599273758832</updated>
-    </task>
-    <task id="LOCAL-00183" summary="some minor enhancements">
-      <created>1599319764274</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
-      <option name="project" value="LOCAL" />
-      <updated>1599319764274</updated>
-    </task>
-    <task id="LOCAL-00184" summary="added new morse player">
-      <created>1599331320535</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1599331320535</updated>
-    </task>
-    <task id="LOCAL-00185" summary="new dtmf player">
-      <created>1599354314625</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1599354314644</updated>
-    </task>
-    <task id="LOCAL-00186" summary="some enhancements">
-      <created>1599361215519</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1599361215519</updated>
-    </task>
-    <task id="LOCAL-00187" summary="improved tune command (experimental)">
-      <created>1599394726948</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1599394726949</updated>
-    </task>
-    <task id="LOCAL-00188" summary="enhancements regarding sound generation">
-      <created>1599420106961</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1599420106961</updated>
-    </task>
-    <task id="LOCAL-00189" summary="addad binary and hex input for long values">
-      <created>1599547645900</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
-      <option name="project" value="LOCAL" />
-      <updated>1599547645900</updated>
-    </task>
-    <task id="LOCAL-00190" summary="added 'binstr' word">
-      <created>1599619943341</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
-      <option name="project" value="LOCAL" />
-      <updated>1599619943341</updated>
-    </task>
-    <task id="LOCAL-00191" summary="updated gitignore">
-      <created>1599623255691</created>
-      <option name="number" value="00191" />
-      <option name="presentableId" value="LOCAL-00191" />
-      <option name="project" value="LOCAL" />
-      <updated>1599623255691</updated>
-    </task>
-    <task id="LOCAL-00192" summary="comments ( and \ work again&#10;(including test case)">
-      <created>1599623347841</created>
-      <option name="number" value="00192" />
-      <option name="presentableId" value="LOCAL-00192" />
-      <option name="project" value="LOCAL" />
-      <updated>1599623347844</updated>
-    </task>
-    <task id="LOCAL-00193" summary="updated readme">
-      <created>1599624775377</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
-      <option name="project" value="LOCAL" />
-      <updated>1599624775377</updated>
-    </task>
-    <task id="LOCAL-00194" summary="updated readme.md">
-      <created>1599625849874</created>
-      <option name="number" value="00194" />
-      <option name="presentableId" value="LOCAL-00194" />
-      <option name="project" value="LOCAL" />
-      <updated>1599625849874</updated>
-    </task>
-    <task id="LOCAL-00195" summary="added bf interpreter">
-      <created>1599738733043</created>
-      <option name="number" value="00195" />
-      <option name="presentableId" value="LOCAL-00195" />
-      <option name="project" value="LOCAL" />
-      <updated>1599738733045</updated>
-    </task>
-    <task id="LOCAL-00196" summary="testcase for brainfuck">
-      <created>1599747719198</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
-      <option name="project" value="LOCAL" />
-      <updated>1599747719199</updated>
-    </task>
-    <task id="LOCAL-00197" summary="added blob commands and pwd command">
-      <created>1600177212697</created>
-      <option name="number" value="00197" />
-      <option name="presentableId" value="LOCAL-00197" />
-      <option name="project" value="LOCAL" />
-      <updated>1600177212699</updated>
-    </task>
-    <task id="LOCAL-00198" summary="added waveplay command">
-      <created>1600191252320</created>
-      <option name="number" value="00198" />
-      <option name="presentableId" value="LOCAL-00198" />
-      <option name="project" value="LOCAL" />
-      <updated>1600191252320</updated>
-    </task>
-    <task id="LOCAL-00199" summary="added blob append and blob make functionality">
-      <created>1600736420059</created>
-      <option name="number" value="00199" />
-      <option name="presentableId" value="LOCAL-00199" />
-      <option name="project" value="LOCAL" />
-      <updated>1600736420060</updated>
-    </task>
-    <task id="LOCAL-00200" summary="some improvements + fresh jar file">
-      <created>1600750453026</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
-      <option name="project" value="LOCAL" />
-      <updated>1600750453026</updated>
-    </task>
-    <task id="LOCAL-00201" summary="repaired fillers, before version is broken">
-      <created>1600842537547</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
-      <option name="project" value="LOCAL" />
-      <updated>1600842537547</updated>
-    </task>
-    <task id="LOCAL-00202" summary="new jar, jar before is broken">
-      <created>1600843352488</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
-      <option name="project" value="LOCAL" />
-      <updated>1600843352488</updated>
-    </task>
-    <task id="LOCAL-00203" summary="+ test case 'nested'">
-      <created>1600844811227</created>
-      <option name="number" value="00203" />
-      <option name="presentableId" value="LOCAL-00203" />
-      <option name="project" value="LOCAL" />
-      <updated>1600844811227</updated>
-    </task>
-    <task id="LOCAL-00204" summary="backup ...">
-      <created>1600865953362</created>
-      <option name="number" value="00204" />
-      <option name="presentableId" value="LOCAL-00204" />
-      <option name="project" value="LOCAL" />
-      <updated>1600865953362</updated>
-    </task>
-    <task id="LOCAL-00205" summary="dup is now real object copy">
-      <created>1600867978324</created>
-      <option name="number" value="00205" />
-      <option name="presentableId" value="LOCAL-00205" />
-      <option name="project" value="LOCAL" />
-      <updated>1600867978325</updated>
-    </task>
-    <task id="LOCAL-00206" summary="backup">
-      <created>1600879634308</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
-      <option name="project" value="LOCAL" />
-      <updated>1600879634309</updated>
-    </task>
-    <task id="LOCAL-00207" summary="added crc">
-      <created>1600884914507</created>
-      <option name="number" value="00207" />
-      <option name="presentableId" value="LOCAL-00207" />
-      <option name="project" value="LOCAL" />
-      <updated>1600884914509</updated>
-    </task>
-    <task id="LOCAL-00208" summary="updated gitignore">
-      <created>1600913685711</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
-      <option name="project" value="LOCAL" />
-      <updated>1600913685711</updated>
-    </task>
-    <task id="LOCAL-00209" summary="Revert &quot;some improvements + fresh jar file&quot;&#10;&#10;This reverts commit 6cb502d9">
-      <created>1600916441868</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
-      <option name="project" value="LOCAL" />
-      <updated>1600916441868</updated>
-    </task>
-    <task id="LOCAL-00210" summary="restored">
-      <created>1600916830647</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1600916830647</updated>
-    </task>
-    <task id="LOCAL-00211" summary="updated">
-      <created>1600916916491</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1600916916491</updated>
-    </task>
-    <task id="LOCAL-00212" summary="before rebase">
-      <created>1600917324659</created>
-      <option name="number" value="00212" />
-      <option name="presentableId" value="LOCAL-00212" />
-      <option name="project" value="LOCAL" />
-      <updated>1600917324661</updated>
-    </task>
-    <task id="LOCAL-00213" summary="restored">
-      <created>1600918314135</created>
-      <option name="number" value="00213" />
-      <option name="presentableId" value="LOCAL-00213" />
-      <option name="project" value="LOCAL" />
-      <updated>1600918314135</updated>
-    </task>
     <task id="LOCAL-00214" summary="moved around">
       <created>1600918707645</created>
       <option name="number" value="00214" />
@@ -1202,7 +934,259 @@
       <option name="project" value="LOCAL" />
       <updated>1607292563608</updated>
     </task>
-    <option name="localTasksCounter" value="227" />
+    <task id="LOCAL-00227" summary="better bigPrint">
+      <created>1607462859658</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1607462859659</updated>
+    </task>
+    <task id="LOCAL-00228" summary="added ascii render lib">
+      <created>1607463025961</created>
+      <option name="number" value="00228" />
+      <option name="presentableId" value="LOCAL-00228" />
+      <option name="project" value="LOCAL" />
+      <updated>1607463025962</updated>
+    </task>
+    <task id="LOCAL-00229" summary="new jar">
+      <created>1607463195706</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1607463195707</updated>
+    </task>
+    <task id="LOCAL-00230" summary="bigprint improved">
+      <created>1607486218771</created>
+      <option name="number" value="00230" />
+      <option name="presentableId" value="LOCAL-00230" />
+      <option name="project" value="LOCAL" />
+      <updated>1607486218771</updated>
+    </task>
+    <task id="LOCAL-00231" summary="added polynomial array support">
+      <created>1607917396946</created>
+      <option name="number" value="00231" />
+      <option name="presentableId" value="LOCAL-00231" />
+      <option name="project" value="LOCAL" />
+      <updated>1607917396949</updated>
+    </task>
+    <task id="LOCAL-00232" summary="added tuples &amp; term evaluation">
+      <created>1607966249969</created>
+      <option name="number" value="00232" />
+      <option name="presentableId" value="LOCAL-00232" />
+      <option name="project" value="LOCAL" />
+      <updated>1607966249970</updated>
+    </task>
+    <task id="LOCAL-00233" summary="added tupel related stuff">
+      <created>1608015105709</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1608015105709</updated>
+    </task>
+    <task id="LOCAL-00234" summary="new jar">
+      <created>1608015183453</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1608015183453</updated>
+    </task>
+    <task id="LOCAL-00235" summary="little improvement">
+      <created>1608067753823</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1608067753823</updated>
+    </task>
+    <task id="LOCAL-00236" summary="removed pair class">
+      <created>1608534255137</created>
+      <option name="number" value="00236" />
+      <option name="presentableId" value="LOCAL-00236" />
+      <option name="project" value="LOCAL" />
+      <updated>1608534255153</updated>
+    </task>
+    <task id="LOCAL-00237" summary="added lagpoly rounding test">
+      <created>1608545192354</created>
+      <option name="number" value="00237" />
+      <option name="presentableId" value="LOCAL-00237" />
+      <option name="project" value="LOCAL" />
+      <updated>1608545192354</updated>
+    </task>
+    <task id="LOCAL-00238" summary="added gray code">
+      <created>1608564784761</created>
+      <option name="number" value="00238" />
+      <option name="presentableId" value="LOCAL-00238" />
+      <option name="project" value="LOCAL" />
+      <updated>1608564784761</updated>
+    </task>
+    <task id="LOCAL-00239" summary="some enhancements">
+      <created>1608579748498</created>
+      <option name="number" value="00239" />
+      <option name="presentableId" value="LOCAL-00239" />
+      <option name="project" value="LOCAL" />
+      <updated>1608579748498</updated>
+    </task>
+    <task id="LOCAL-00240" summary="added exp eval to toDouble &amp; toLong">
+      <created>1608602900464</created>
+      <option name="number" value="00240" />
+      <option name="presentableId" value="LOCAL-00240" />
+      <option name="project" value="LOCAL" />
+      <updated>1608602900464</updated>
+    </task>
+    <task id="LOCAL-00241" summary="test sinwave">
+      <created>1608836991590</created>
+      <option name="number" value="00241" />
+      <option name="presentableId" value="LOCAL-00241" />
+      <option name="project" value="LOCAL" />
+      <updated>1608836991590</updated>
+    </task>
+    <task id="LOCAL-00242" summary="added nice plotter.&#10;see testcases.testPlotter()">
+      <created>1608877811581</created>
+      <option name="number" value="00242" />
+      <option name="presentableId" value="LOCAL-00242" />
+      <option name="project" value="LOCAL" />
+      <updated>1608877811581</updated>
+    </task>
+    <task id="LOCAL-00243" summary="AsciiPlotter in separate class + pDim command">
+      <created>1608880296179</created>
+      <option name="number" value="00243" />
+      <option name="presentableId" value="LOCAL-00243" />
+      <option name="project" value="LOCAL" />
+      <updated>1608880296179</updated>
+    </task>
+    <task id="LOCAL-00244" summary="new jarfile">
+      <created>1608880436023</created>
+      <option name="number" value="00244" />
+      <option name="presentableId" value="LOCAL-00244" />
+      <option name="project" value="LOCAL" />
+      <updated>1608880436023</updated>
+    </task>
+    <task id="LOCAL-00245" summary="updated readme">
+      <created>1608893219194</created>
+      <option name="number" value="00245" />
+      <option name="presentableId" value="LOCAL-00245" />
+      <option name="project" value="LOCAL" />
+      <updated>1608893219196</updated>
+    </task>
+    <task id="LOCAL-00246" summary="improved wave player">
+      <created>1608893474115</created>
+      <option name="number" value="00246" />
+      <option name="presentableId" value="LOCAL-00246" />
+      <option name="project" value="LOCAL" />
+      <updated>1608893474116</updated>
+    </task>
+    <task id="LOCAL-00247" summary="introducing base class for sequences. massive changes, Tests suceed again">
+      <created>1608966203845</created>
+      <option name="number" value="00247" />
+      <option name="presentableId" value="LOCAL-00247" />
+      <option name="project" value="LOCAL" />
+      <updated>1608966203845</updated>
+    </task>
+    <task id="LOCAL-00248" summary="save">
+      <created>1609007296593</created>
+      <option name="number" value="00248" />
+      <option name="presentableId" value="LOCAL-00248" />
+      <option name="project" value="LOCAL" />
+      <updated>1609007296593</updated>
+    </task>
+    <task id="LOCAL-00249" summary="changed x= to f=">
+      <created>1609040282891</created>
+      <option name="number" value="00249" />
+      <option name="presentableId" value="LOCAL-00249" />
+      <option name="project" value="LOCAL" />
+      <updated>1609040282891</updated>
+    </task>
+    <task id="LOCAL-00250" summary="changed poly formatting using * sign&#10;10x -&gt; 10*x&#10;so that the math-it term parser do understand it">
+      <created>1609044307135</created>
+      <option name="number" value="00250" />
+      <option name="presentableId" value="LOCAL-00250" />
+      <option name="project" value="LOCAL" />
+      <updated>1609044307135</updated>
+    </task>
+    <task id="LOCAL-00251" summary="removed 'term' word. &#10;f= does it better!">
+      <created>1609073344912</created>
+      <option name="number" value="00251" />
+      <option name="presentableId" value="LOCAL-00251" />
+      <option name="project" value="LOCAL" />
+      <updated>1609073344928</updated>
+    </task>
+    <task id="LOCAL-00252" summary="new jar">
+      <created>1609073480000</created>
+      <option name="number" value="00252" />
+      <option name="presentableId" value="LOCAL-00252" />
+      <option name="project" value="LOCAL" />
+      <updated>1609073480000</updated>
+    </task>
+    <task id="LOCAL-00253" summary="move nee seq creation to base class">
+      <created>1609080496411</created>
+      <option name="number" value="00253" />
+      <option name="presentableId" value="LOCAL-00253" />
+      <option name="project" value="LOCAL" />
+      <updated>1609080496412</updated>
+    </task>
+    <task id="LOCAL-00254" summary="update">
+      <created>1609256854113</created>
+      <option name="number" value="00254" />
+      <option name="presentableId" value="LOCAL-00254" />
+      <option name="project" value="LOCAL" />
+      <updated>1609256854115</updated>
+    </task>
+    <task id="LOCAL-00255" summary="PolynomialParser now understands * after coefficient">
+      <created>1609481339895</created>
+      <option name="number" value="00255" />
+      <option name="presentableId" value="LOCAL-00255" />
+      <option name="project" value="LOCAL" />
+      <updated>1609481339895</updated>
+    </task>
+    <task id="LOCAL-00256" summary="save">
+      <created>1609522585733</created>
+      <option name="number" value="00256" />
+      <option name="presentableId" value="LOCAL-00256" />
+      <option name="project" value="LOCAL" />
+      <updated>1609522585733</updated>
+    </task>
+    <task id="LOCAL-00257" summary="simplified = and &lt;&gt;">
+      <created>1609525193956</created>
+      <option name="number" value="00257" />
+      <option name="presentableId" value="LOCAL-00257" />
+      <option name="project" value="LOCAL" />
+      <updated>1609525193957</updated>
+    </task>
+    <task id="LOCAL-00258" summary="added revs &amp; flush">
+      <created>1609553322518</created>
+      <option name="number" value="00258" />
+      <option name="presentableId" value="LOCAL-00258" />
+      <option name="project" value="LOCAL" />
+      <updated>1609553322518</updated>
+    </task>
+    <task id="LOCAL-00259" summary="added global array put/get">
+      <created>1609612785811</created>
+      <option name="number" value="00259" />
+      <option name="presentableId" value="LOCAL-00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1609612785811</updated>
+    </task>
+    <task id="LOCAL-00260" summary="m+, m-, mclr, mlist, + testCases">
+      <created>1609697485388</created>
+      <option name="number" value="00260" />
+      <option name="presentableId" value="LOCAL-00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1609697485388</updated>
+    </task>
+    <task id="LOCAL-00261" summary="added mload &amp; msave">
+      <created>1609874736382</created>
+      <option name="number" value="00261" />
+      <option name="presentableId" value="LOCAL-00261" />
+      <option name="project" value="LOCAL" />
+      <updated>1609874736384</updated>
+    </task>
+    <task id="LOCAL-00262" summary="fixed m- command">
+      <created>1609903955112</created>
+      <option name="number" value="00262" />
+      <option name="presentableId" value="LOCAL-00262" />
+      <option name="project" value="LOCAL" />
+      <updated>1609903955114</updated>
+    </task>
+    <option name="localTasksCounter" value="263" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1278,45 +1262,50 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added waveplay command" />
-    <MESSAGE value="added blob append and blob make functionality" />
-    <MESSAGE value="some improvements + fresh jar file" />
-    <MESSAGE value="repaired fillers, before version is broken" />
-    <MESSAGE value="new jar, jar before is broken" />
-    <MESSAGE value="+ test case 'nested'" />
-    <MESSAGE value="backup ..." />
-    <MESSAGE value="dup is now real object copy" />
-    <MESSAGE value="backup" />
-    <MESSAGE value="added crc" />
-    <MESSAGE value="updated gitignore" />
-    <MESSAGE value="Revert &quot;some improvements + fresh jar file&quot;&#10;&#10;This reverts commit 6cb502d9" />
-    <MESSAGE value="updated" />
-    <MESSAGE value="before rebase" />
-    <MESSAGE value="restored" />
-    <MESSAGE value="moved around" />
-    <MESSAGE value="sam voice speaks immediately" />
-    <MESSAGE value="update" />
-    <MESSAGE value="some improvements" />
-    <MESSAGE value="sam as java-file" />
+    <MESSAGE value="added lagpoly rounding test" />
+    <MESSAGE value="added gray code" />
+    <MESSAGE value="some enhancements" />
+    <MESSAGE value="added exp eval to toDouble &amp; toLong" />
+    <MESSAGE value="test sinwave" />
+    <MESSAGE value="added nice plotter.&#10;see testcases.testPlotter()" />
+    <MESSAGE value="AsciiPlotter in separate class + pDim command" />
+    <MESSAGE value="new jarfile" />
+    <MESSAGE value="updated readme" />
     <MESSAGE value="improved wave player" />
-    <MESSAGE value="moved things around" />
-    <MESSAGE value="improved samspeech" />
-    <MESSAGE value="ant task for buildnum works again" />
+    <MESSAGE value="introducing base class for sequences. massive changes, Tests suceed again" />
+    <MESSAGE value="changed x= to f=" />
+    <MESSAGE value="changed poly formatting using * sign&#10;10x -&gt; 10*x&#10;so that the math-it term parser do understand it" />
+    <MESSAGE value="removed 'term' word. &#10;f= does it better!" />
+    <MESSAGE value="new jar" />
+    <MESSAGE value="move nee seq creation to base class" />
+    <MESSAGE value="update" />
+    <MESSAGE value="PolynomialParser now understands * after coefficient" />
     <MESSAGE value="save" />
-    <option name="LAST_COMMIT_MESSAGE" value="save" />
+    <MESSAGE value="simplified = and &lt;&gt;" />
+    <MESSAGE value="added revs &amp; flush" />
+    <MESSAGE value="added global array put/get" />
+    <MESSAGE value="m+, m-, mclr, mlist, + testCases" />
+    <MESSAGE value="added mload &amp; msave" />
+    <MESSAGE value="fixed m- command" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed m- command" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/audio/Morse.java</url>
-          <line>61</line>
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
+          <line>42</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/audio/Morse.java</url>
-          <line>63</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
+          <line>1381</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
+          <line>290</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

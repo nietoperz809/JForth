@@ -438,6 +438,15 @@ public class TestCases
         shoudBeOK ("\r\n\r\n00\r\n01\r\n02\r\n10\r\n11\r\n12\r\n20\r\n21\r\n22\r\n30\r\n31\r\n32" ,s);
     }
 
+    @Test
+    public void TestGfMult()
+    {
+        String s = check (": NESTED cr 0 do dup 0 do sp j i gf* . loop loop drop ;",
+                "10 10 NESTED");
+        System.out.println(s);
+        shoudBeOK ("\r\n 0 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 0 2 4 6 8 10 12 14 16 18 0 3 6 5 12 15 10 9 24 27 0 4 8 12 16 20 24 28 32 36 0 5 10 15 20 17 30 27 40 45 0 6 12 10 24 30 20 18 48 54 0 7 14 9 28 27 18 21 56 63 0 8 16 24 32 40 48 56 64 72 0 9 18 27 36 45 54 63 72 65" ,s);
+    }
+
 
     @Test
     public void TestAddFractions()
@@ -1233,4 +1242,33 @@ public class TestCases
                 "8 --> OA==\n" +
                 "9 --> OQ==\n" ,s);
     }
+
+    @Test
+    public void testMSaveLoad()
+    {
+        String code = ": test 10 0 do i dup tobits m+ loop ; test listsave msave";
+        String s = check (code,"mlist .");
+        shoudBeOK ("0 --> {0}\n" +
+                "1 --> {1}\n" +
+                "2 --> {1,0}\n" +
+                "3 --> {1,1}\n" +
+                "4 --> {1,0,0}\n" +
+                "5 --> {1,0,1}\n" +
+                "6 --> {1,1,0}\n" +
+                "7 --> {1,1,1}\n" +
+                "8 --> {1,0,0,0}\n" +
+                "9 --> {1,0,0,1}\n" ,s);
+        s = check ("mclr listsave mload", "mlist .");
+        shoudBeOK ("0 --> {0}\n" +
+                "1 --> {1}\n" +
+                "2 --> {1,0}\n" +
+                "3 --> {1,1}\n" +
+                "4 --> {1,0,0}\n" +
+                "5 --> {1,0,1}\n" +
+                "6 --> {1,1,0}\n" +
+                "7 --> {1,1,1}\n" +
+                "8 --> {1,0,0,0}\n" +
+                "9 --> {1,0,0,1}\n" ,s);
+    }
+
 }

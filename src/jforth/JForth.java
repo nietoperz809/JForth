@@ -287,7 +287,7 @@ public class JForth {
      * @param action function to be applied
      * @return true if word is known
      */
-    public boolean doForKnownWords(String word, HandleDFKW action) {
+    public boolean doForKnownWords(String word, Callback_1 action) {
         Long num = Utilities.parseLong(word, base);
         if (num != null) {
             action.apply(num);
