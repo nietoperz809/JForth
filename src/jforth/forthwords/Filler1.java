@@ -2866,9 +2866,15 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long lo = Utilities.readLong(dStack);
-                                double number = predefinedWords._jforth.random.nextDouble() * lo;
-                                dStack.push(number);
+                                Object o = dStack.pop();
+                                if (o instanceof Long) {
+                                    long rnd = predefinedWords._jforth.random.nextLong() * (Long)o;
+                                    dStack.push(rnd);
+                                }
+                                else {
+                                    double number = predefinedWords._jforth.random.nextDouble() * (Double)o;
+                                    dStack.push(number);
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
