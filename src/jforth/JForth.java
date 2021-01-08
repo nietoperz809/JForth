@@ -7,7 +7,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
-//import scala.math.BigInt;
+import tools.Func;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -287,7 +287,7 @@ public class JForth {
      * @param action function to be applied
      * @return true if word is known
      */
-    public boolean doForKnownWords(String word, Callback_1 action) {
+    public boolean doForKnownWords(String word, Func<Object, Object> action) {
         Long num = Utilities.parseLong(word, base);
         if (num != null) {
             action.apply(num);
@@ -356,7 +356,7 @@ public class JForth {
             if (bw instanceof NonPrimitiveWord) {
                 currentWord = bw;  // Save for recursion
             }
-            boolean ret = bw.execute(dStack, vStack) != 0;
+            boolean ret = bw.apply(dStack, vStack) != 0;
             if (!ret)
                 setLastError(new Exception("failed execution of '"+word+"'"));
             return ret;
@@ -379,7 +379,7 @@ public class JForth {
         }
         if (bw != null) {
             if (bw.immediate) {
-                bw.execute(dStack, vStack);
+                bw.apply(dStack, vStack);
             } else {
                 wordBeingDefined.addWord(bw);
             }

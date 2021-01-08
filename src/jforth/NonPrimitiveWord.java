@@ -1,5 +1,7 @@
 package jforth;
 
+import tools.TwoFuncs;
+
 import java.util.*;
 
 public final class NonPrimitiveWord extends BaseWord
@@ -9,9 +11,10 @@ public final class NonPrimitiveWord extends BaseWord
     super(name, false, null);
   }
 
-  public void addWord(ExecuteIF eif)
+  public Object addWord(TwoFuncs<OStack, OStack, Integer> eif)
   {
     words.add(eif);
+    return null;
   }
 
   public int getNextWordIndex()
@@ -19,16 +22,16 @@ public final class NonPrimitiveWord extends BaseWord
     return words.size() + 1;
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     int index = 0;
     int size = words.size();
     while (index < size)
     {
-      ExecuteIF eif = words.get(index);
+      TwoFuncs<OStack, OStack, Integer> eif = words.get(index);
       if (eif instanceof BreakLoopControlWord)
         return 1;
-      int increment = eif.execute(dStack, vStack);
+      int increment = eif.apply(dStack, vStack);
       if (increment == 0)
         return 0;
       index += increment;
@@ -50,5 +53,5 @@ public final class NonPrimitiveWord extends BaseWord
 //  }
 // --Commented out by Inspection STOP (11/30/2018 1:20 AM)
 
-  private final ArrayList<ExecuteIF> words = new ArrayList<>();
+  private final ArrayList<TwoFuncs<OStack, OStack, Integer>> words = new ArrayList<>();
 }

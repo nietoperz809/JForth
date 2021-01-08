@@ -9,7 +9,7 @@ public class Literal extends BaseWord
         this.obj = o;
     }
 
-    public int execute(OStack dStack, OStack vStack)
+    public Integer apply(OStack dStack, OStack vStack)
     {
         dStack.push(obj);
         return 1;

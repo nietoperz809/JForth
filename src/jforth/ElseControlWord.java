@@ -13,7 +13,7 @@ public final class ElseControlWord extends BaseWord
     this.thenIndexIncrement = thenIndexIncrement;
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     return thenIndexIncrement - indexFollowingElse + 1;
   }

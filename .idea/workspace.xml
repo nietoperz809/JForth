@@ -20,13 +20,28 @@
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
       <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/TestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/TestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForth.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch.pad" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.pad" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/HandleDFKW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Callback_1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/BaseWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BaseWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/BreakLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BreakLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Callback_1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/DoLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/ElseControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ElseControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/EndLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/EndLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/ExecuteIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/IfControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/IfControlWord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/LeaveLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LeaveLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Literal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Literal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/LoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/NonPrimitiveWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/NonPrimitiveWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/PlusLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/PlusLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/PrimitiveWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/PrimitiveWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/StorageWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StorageWord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Func.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -843,13 +858,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00214" summary="moved around">
-      <created>1600918707645</created>
-      <option name="number" value="00214" />
-      <option name="presentableId" value="LOCAL-00214" />
-      <option name="project" value="LOCAL" />
-      <updated>1600918707645</updated>
-    </task>
     <task id="LOCAL-00215" summary="sam voice speaks immediately">
       <created>1600924335767</created>
       <option name="number" value="00215" />
@@ -1186,7 +1194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609903955114</updated>
     </task>
-    <option name="localTasksCounter" value="263" />
+    <task id="LOCAL-00263" summary="save">
+      <created>1610082610289</created>
+      <option name="number" value="00263" />
+      <option name="presentableId" value="LOCAL-00263" />
+      <option name="project" value="LOCAL" />
+      <updated>1610082610289</updated>
+    </task>
+    <option name="localTasksCounter" value="264" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1280,14 +1295,14 @@
     <MESSAGE value="move nee seq creation to base class" />
     <MESSAGE value="update" />
     <MESSAGE value="PolynomialParser now understands * after coefficient" />
-    <MESSAGE value="save" />
     <MESSAGE value="simplified = and &lt;&gt;" />
     <MESSAGE value="added revs &amp; flush" />
     <MESSAGE value="added global array put/get" />
     <MESSAGE value="m+, m-, mclr, mlist, + testCases" />
     <MESSAGE value="added mload &amp; msave" />
     <MESSAGE value="fixed m- command" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed m- command" />
+    <MESSAGE value="save" />
+    <option name="LAST_COMMIT_MESSAGE" value="save" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1301,11 +1316,6 @@
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
           <line>1381</line>
           <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
-          <line>290</line>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

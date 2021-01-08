@@ -499,7 +499,7 @@ class Filler2 {
                             Object o = dStack.pop();
                             if (o instanceof BaseWord) {
                                 BaseWord bw = (BaseWord) o;
-                                return bw.execute(dStack, vStack);
+                                return bw.apply(dStack, vStack);
                             }
                             return 0;
                         }
@@ -876,7 +876,7 @@ class Filler2 {
                                     new java.util.Timer().schedule(new TimerTask() {
                                         @Override
                                         public void run() {
-                                            bw.execute(dStack, vStack);
+                                            bw.apply(dStack, vStack);
                                         }
                                     }, delay);
                                     return 1;

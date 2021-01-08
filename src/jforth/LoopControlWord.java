@@ -10,7 +10,7 @@ public class LoopControlWord extends BaseWord
         this.indexIncrement = indexIncrement;
     }
 
-    public int execute (OStack dStack, OStack vStack)
+    public Integer apply(OStack dStack, OStack vStack)
     {
         if (vStack.size() < 2)
         {

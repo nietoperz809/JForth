@@ -7,7 +7,7 @@ public final class LeaveLoopControlWord extends BaseWord
     super("", false, null);
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     if (vStack.size() < 2)
       return 0;

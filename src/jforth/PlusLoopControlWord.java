@@ -7,7 +7,7 @@ public final class PlusLoopControlWord extends LoopControlWord
     super(indexIncrement);
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     if ((vStack.size() < 2) || dStack.empty())
       return 0;

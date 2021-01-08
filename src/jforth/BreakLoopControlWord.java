@@ -11,7 +11,7 @@ public class BreakLoopControlWord extends BaseWord
     }
 
     @Override
-    public int execute (OStack dataStack, OStack vStack)
+    public Integer apply(OStack dataStack, OStack vStack)
     {
 //        vStack.pop();
 //        Object o2 = vStack.peek();

@@ -10,7 +10,7 @@ public final class StorageWord extends BaseWord
     this.isArray = isArray;
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     dStack.push(this);
     return 1;

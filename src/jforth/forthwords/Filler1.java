@@ -1235,7 +1235,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                return predefinedWords._jforth.currentWord.execute(dStack, vStack);
+                                return predefinedWords._jforth.currentWord.apply(dStack, vStack);
                             } catch (Exception e) {
                                 return 0;
                             }

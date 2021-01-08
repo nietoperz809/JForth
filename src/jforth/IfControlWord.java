@@ -18,7 +18,7 @@ public final class IfControlWord extends BaseWord {
         elseIndexIncrement = elseIndex - currentIndex;
     }
 
-    public int execute(OStack dStack, OStack vStack) {
+    public Integer apply(OStack dStack, OStack vStack) {
         if (dStack.empty())
             return 0;
         Object o = dStack.pop();

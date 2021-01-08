@@ -9,7 +9,7 @@ public final class EndLoopControlWord extends LoopControlWord
     super(increment);
   }
 
-  public int execute(OStack dStack, OStack vStack)
+  public Integer apply(OStack dStack, OStack vStack)
   {
     if (dStack.empty())
       return 0;

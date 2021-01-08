@@ -3,7 +3,6 @@ package tools;
 // This exists in case we use Java < 8
 public interface Func<T, R>
 {
-
     /**
      * Applies this function to the given argument.
      *
