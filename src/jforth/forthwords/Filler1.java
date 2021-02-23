@@ -22,7 +22,8 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
@@ -136,10 +137,27 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long l2 = Utilities.readLong(dStack);
-                                SequenceBase ds = (SequenceBase) dStack.pop();
-                                int[] arr = LehmerCode.perm(ds.length(), (int) l2);
-                                dStack.push(ds.rearrange(arr));
+                                Object o1 = dStack.pop();
+                                if (o1 instanceof SequenceBase)
+                                {
+                                    SequenceBase ds = (SequenceBase) o1;
+                                    int[][] arr = LehmerCode.perm (ds.length());
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.append("{");
+                                    for (int[] i : arr)
+                                    {
+                                        sb.append(ds.rearrange(i));
+                                    }
+                                    sb.append("}");
+                                    dStack.push(sb.toString());
+                                }
+                                else
+                                {
+                                    long l2 = Utilities.getLong(o1);  // perm #
+                                    SequenceBase ds = (SequenceBase) dStack.pop();
+                                    int[] arr = LehmerCode.perm(ds.length(), (int) l2);
+                                    dStack.push(ds.rearrange(arr));
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

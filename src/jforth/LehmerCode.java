@@ -11,6 +11,22 @@ package jforth;/*
 public class LehmerCode
 {
     /**
+     * Make all perms
+     * @param n array length
+     * @return n! perms
+     */
+    public static int[][] perm (int n)
+    {
+        int perms = Utilities.factorial(n).intValue();
+        int[][] res = new int[perms][];
+        for (int i = 0; i < perms; i++)
+        {
+            res[i] = perm(n, i);
+        }
+        return res;
+    }
+
+    /**
      * Generates a single permutation
      * @param n How many elements
      * @param k number of permutation
