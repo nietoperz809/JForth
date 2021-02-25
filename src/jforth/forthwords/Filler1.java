@@ -20,15 +20,11 @@ import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
-
-//import scala.math.BigInt;
 
 class Filler1 {
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
@@ -138,21 +134,17 @@ class Filler1 {
                         {
                             try {
                                 Object o1 = dStack.pop();
-                                if (o1 instanceof SequenceBase)
-                                {
+                                if (o1 instanceof SequenceBase) {
                                     SequenceBase ds = (SequenceBase) o1;
-                                    int[][] arr = LehmerCode.perm (ds.length());
+                                    int[][] arr = LehmerCode.perm(ds.length());
                                     StringBuilder sb = new StringBuilder();
                                     sb.append("{");
-                                    for (int[] i : arr)
-                                    {
+                                    for (int[] i : arr) {
                                         sb.append(ds.rearrange(i));
                                     }
                                     sb.append("}");
                                     dStack.push(sb.toString());
-                                }
-                                else
-                                {
+                                } else {
                                     long l2 = Utilities.getLong(o1);  // perm #
                                     SequenceBase ds = (SequenceBase) dStack.pop();
                                     int[] arr = LehmerCode.perm(ds.length(), (int) l2);
@@ -1574,18 +1566,28 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "time", "Get a time string",
+                        "uptime", "Get uptime",
+                        (dStack, vStack) ->
+                        {
+                            long ll = System.currentTimeMillis() - predefinedWords._jforth.StartTime;
+                            String o1 = Utilities.readStringOrNull(dStack);
+                            try {
+                                dStack.push(Utilities.formatTime(ll, o1));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "time", "Get time",
                         (dStack, vStack) ->
                         {
                             String o1 = Utilities.readStringOrNull(dStack);
                             try {
-                                if (o1 == null) {
-                                    dStack.push(System.currentTimeMillis());
-                                } else {
-                                    SimpleDateFormat sdf = new SimpleDateFormat(o1);
-                                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                                    dStack.push(sdf.format(timestamp));
-                                }
+                                dStack.push(Utilities.formatTime(System.currentTimeMillis(), o1));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2886,11 +2888,10 @@ class Filler1 {
                             try {
                                 Object o = dStack.pop();
                                 if (o instanceof Long) {
-                                    long rnd = predefinedWords._jforth.random.nextLong() * (Long)o;
+                                    long rnd = predefinedWords._jforth.random.nextLong() * (Long) o;
                                     dStack.push(rnd);
-                                }
-                                else {
-                                    double number = predefinedWords._jforth.random.nextDouble() * (Double)o;
+                                } else {
+                                    double number = predefinedWords._jforth.random.nextDouble() * (Double) o;
                                     dStack.push(number);
                                 }
                                 return 1;
@@ -3070,16 +3071,16 @@ class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "tick", "Get clock value",
-                        (dStack, vStack) ->
-                        {
-                            long n = System.currentTimeMillis();
-                            dStack.push(n);
-                            return 1;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "tick", "Get clock value",
+//                        (dStack, vStack) ->
+//                        {
+//                            long n = System.currentTimeMillis();
+//                            dStack.push(n);
+//                            return 1;
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

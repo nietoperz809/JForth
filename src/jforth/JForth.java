@@ -27,6 +27,7 @@ public class JForth {
     public enum MODE {EDIT, DIRECT}
 
     public long LastETime;
+    public long StartTime;
     public final Random random = new Random();
     public HashMap<String, String> globalMap = new HashMap<>();
     public Exception LastError = null;
@@ -63,6 +64,7 @@ public class JForth {
     }
 
     public JForth(PrintStream out, RuntimeEnvironment ri) {
+        StartTime = System.currentTimeMillis();
         CurrentEnvironment = ri;
         compiling = false;
         base = 10;

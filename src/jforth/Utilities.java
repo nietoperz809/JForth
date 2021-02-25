@@ -15,6 +15,8 @@ import tools.TwoFuncs;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
@@ -28,13 +30,24 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2215";
-    private static final String BUILD_DATE = "02/23/2021 08:22:30 AM";
+    private static final String BUILD_NUMBER = "2216";
+    private static final String BUILD_DATE = "02/25/2021 04:28:59 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
 
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+
+    public static Object formatTime (long time, String format)
+    {
+        if (format == null) {
+            return time;
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            Timestamp timestamp = new Timestamp(time);
+            return sdf.format(timestamp);
+        }
+    }
 
     public static String bigPrint(String txt, int width) {
         IRender render = new Render();
