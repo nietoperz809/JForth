@@ -8,7 +8,7 @@ import org.apache.commons.math3.fraction.Fraction;
 import java.math.BigInteger;
 import java.util.List;
 
-class WordHelpers {
+public class WordHelpers {
     static int addLoopWord(OStack vStack, PredefinedWords predefs, Class<? extends LoopControlWord> clazz) {
         try {
             int beginIndex = (int) Utilities.readLong(vStack);
@@ -23,7 +23,7 @@ class WordHelpers {
         }
     }
 
-    static int add(OStack dStack, Object o1, Object o2, PredefinedWords pred) {
+    public static int add(OStack dStack, Object o1, Object o2, PredefinedWords pred) {
         try {
             dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::add));
             return 1;

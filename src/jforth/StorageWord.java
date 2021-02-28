@@ -1,5 +1,8 @@
 package jforth;
 
+import jforth.forthwords.PredefinedWords;
+import jforth.forthwords.WordHelpers;
+
 public final class StorageWord extends BaseWord
 {
   public StorageWord(String name, int size, boolean isArray)
@@ -36,25 +39,14 @@ public final class StorageWord extends BaseWord
     return 1;
   }
 
-  public int plusStore(Object data, int offset)
+  public int plusStore(Object data, int offset, PredefinedWords pred)
   {
     if ((offset < 0) || (offset >= size))
       return 0;
     Object o1 = array[offset];
-    if ((o1 instanceof Long) && (data instanceof Long))
-    {
-      long i1 = (Long) o1;
-      long i2 = (Long) data;
-      array[offset] = i1 + i2;
-    }
-    else if ((o1 instanceof String) && (data instanceof String))
-    {
-      String s1 = (String) o1;
-      String s2 = (String) data;
-      array[offset] = s1 + s2;
-    }
-    else
-      return 0;
+    OStack stack = new OStack();
+    WordHelpers.add (stack, data, o1, pred);
+    array[offset] = stack.pop();
     return 1;
   }
 

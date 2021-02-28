@@ -1488,7 +1488,7 @@ class Filler1 {
                                 }
                                 offset = (int) ((Long) off).longValue();
                             }
-                            return sw.plusStore(dStack.pop(), offset);
+                            return sw.plusStore(dStack.pop(), offset, predefinedWords);
                         }
                 ));
 
