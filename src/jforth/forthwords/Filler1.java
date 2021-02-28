@@ -27,6 +27,32 @@ import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
 class Filler1 {
+    static Object fetchVar(OStack dStack, OStack vStack) throws Exception{
+        Object o = dStack.pop();
+        if (!(o instanceof StorageWord)) {
+            throw new Exception("no storage word");
+        }
+        StorageWord sw = (StorageWord) o;
+        Object data;
+        if (sw.isArray()) {
+            data = sw.fetch(0);
+            if (data == null) {
+                throw new Exception("var is empty");
+            }
+        } else {  // No Array
+            Object off = dStack.pop();
+            if (!(off instanceof Long)) {
+                throw new Exception("Offset not Long");
+            }
+            int offset = (int) ((Long) off).longValue();
+            data = sw.fetch(offset);
+            if (data == null) {
+                throw new Exception("var is empty");
+            }
+        }
+        return data;
+    }
+
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         // do nothing. comments handled by tokenizer
         _fw.add(new PrimitiveWord   // dummy
@@ -1471,32 +1497,30 @@ class Filler1 {
                         "@", "Put variable value on stack",
                         (dStack, vStack) ->
                         {
-                            Object o = dStack.pop();
-                            if (!(o instanceof StorageWord)) {
+                            try {
+                                dStack.push(fetchVar (dStack, vStack));
+                            } catch (Exception e) {
                                 return 0;
                             }
-                            StorageWord sw = (StorageWord) o;
-                            Object data;
-                            if (sw.isArray()) {
-                                data = sw.fetch(0);
-                                if (data == null) {
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "?", "immediately print variable content",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object xx = fetchVar (dStack, vStack);
+                                String outstr = predefinedWords._jforth.ObjectToString(xx) +' ';
+                                if (outstr == null) {
                                     return 0;
                                 }
-                            } else {
-                                if (dStack.empty()) {
-                                    return 0;
-                                }
-                                Object off = dStack.pop();
-                                if (!(off instanceof Long)) {
-                                    return 0;
-                                }
-                                int offset = (int) ((Long) off).longValue();
-                                data = sw.fetch(offset);
-                                if (data == null) {
-                                    return 0;
-                                }
+                                predefinedWords._jforth._out.print(outstr);
+                            } catch (Exception e) {
+                                return 0;
                             }
-                            dStack.push(data);
                             return 1;
                         }
                 ));

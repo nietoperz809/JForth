@@ -1251,6 +1251,14 @@ public class TestCases
     }
 
     @Test
+    public void testVar2()
+    {
+        String code = "variable lala 123 lala ! 5 lala +!";
+        String s = check (code,"lala ?");
+        shoudBeOK ("128 " ,s);
+    }
+
+    @Test
     public void testMSaveLoad()
     {
         String code = ": test 10 0 do i dup tobits m+ loop ; test listsave msave";
