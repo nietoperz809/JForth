@@ -371,11 +371,16 @@ public class JForth {
         return true;
     }
 
+    boolean recflag = false;
+
     private boolean doCompile(String word) throws Exception {
         word = handleDirectStringOut(word, true);
         BaseWord bw;
-        if (currentWord != null && word.equalsIgnoreCase(currentWord.name)) {
+        if (word.equalsIgnoreCase("recursive"))
+            recflag = true;
+        if (recflag == true && currentWord != null && word.equalsIgnoreCase(currentWord.name)) {
             bw = dictionary.search("recurse");
+            recflag = false;
         } else {
             bw = dictionary.search(word);
         }

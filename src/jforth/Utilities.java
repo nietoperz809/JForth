@@ -30,8 +30,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2236";
-    private static final String BUILD_DATE = "03/01/2021 08:39:20 AM";
+    private static final String BUILD_NUMBER = "2245";
+    private static final String BUILD_DATE = "03/01/2021 04:24:25 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -514,6 +514,9 @@ public class Utilities {
         }
         if (o instanceof Long) {
             return (Long) o;
+        }
+        if (o instanceof Integer) {
+            return ((Integer)o).longValue();
         }
         if (o instanceof Fraction) {
             int denom = ((Fraction) o).getDenominator();
