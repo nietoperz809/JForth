@@ -1275,6 +1275,14 @@ public class TestCases
     }
 
     @Test
+    public void testArrayToNumList()
+    {
+        String code = "10 array lala : fill 10 0 do i 2 * i lala ! loop ; fill lala tonumlist";
+        String s = check (code,".");
+        shoudBeOK ("{0,2,4,6,8,10,12,14,16,18}" ,s);
+    }
+
+    @Test
     public void testMSaveLoad()
     {
         String code = ": test 10 0 do i dup tobits m+ loop ; test listsave msave";

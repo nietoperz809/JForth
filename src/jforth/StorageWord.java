@@ -11,12 +11,27 @@ public final class StorageWord extends BaseWord {
         this.isArray = isArray;
     }
 
+    public DoubleSequence asDoubleSequence()
+    {
+        DoubleSequence ds = new DoubleSequence();
+        for (Object o : array)
+        {
+            try {
+                Double dd = Utilities.getDouble(o);
+                ds._list.add(dd);
+            } catch (Exception e) {
+                ds._list.add(0.0);
+            }
+        }
+        return ds;
+    }
+
     public Integer apply(OStack dStack, OStack vStack) {
         dStack.push(this);
         return 1;
     }
 
-    public boolean isArray() {
+    public boolean isNotArray() {
         return !isArray;
     }
 

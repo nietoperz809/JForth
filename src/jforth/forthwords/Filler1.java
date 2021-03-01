@@ -34,7 +34,7 @@ class Filler1 {
         }
         StorageWord sw = (StorageWord) o;
         Object data;
-        if (sw.isArray()) {
+        if (sw.isNotArray()) {
             data = sw.fetch(0);
             if (data == null) {
                 throw new Exception("var is empty");
@@ -1445,7 +1445,7 @@ class Filler1 {
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (sw.isArray()) {
+                            if (sw.isNotArray()) {
                                 if (dStack.empty()) {
                                     return 0;
                                 }
@@ -1474,7 +1474,7 @@ class Filler1 {
                             }
                             StorageWord sw = (StorageWord) o;
                             int offset = 0;
-                            if (sw.isArray()) {
+                            if (sw.isNotArray()) {
                                 if (dStack.empty()) {
                                     return 0;
                                 }
@@ -2103,6 +2103,11 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
+                            if (o1 instanceof StorageWord) {
+                                StorageWord sw = (StorageWord)o1;
+                                dStack.push (sw.asDoubleSequence());
+                                return 1;
+                            }
                             if (o1 instanceof String) {
                                 String str = (String) o1;
                                 DoubleSequence ds = new DoubleSequence();
