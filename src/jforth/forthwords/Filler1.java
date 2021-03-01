@@ -1530,18 +1530,19 @@ class Filler1 {
                         "array", "Create array",
                         (dStack, vStack) ->
                         {
-                            Object o = dStack.pop();
-                            if (!(o instanceof Long)) {
+                            try {
+                                Long ll = Utilities.readLong(dStack);
+                                int size = ll.intValue();
+                                String name = predefinedWords._jforth.getNextToken();
+                                if (name == null) {
+                                    return 0;
+                                }
+                                StorageWord sw = new StorageWord(name, size, true);
+                                predefinedWords._jforth.dictionary.add(sw);
+                                return 1;
+                            } catch (Exception e) {
                                 return 0;
                             }
-                            int size = (int) ((Long) o).longValue();
-                            String name = predefinedWords._jforth.getNextToken();
-                            if (name == null) {
-                                return 0;
-                            }
-                            StorageWord sw = new StorageWord(name, size, true);
-                            predefinedWords._jforth.dictionary.add(sw);
-                            return 1;
                         }
                 ));
 

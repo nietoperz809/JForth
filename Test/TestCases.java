@@ -1259,6 +1259,22 @@ public class TestCases
     }
 
     @Test
+    public void testVarUnInit()
+    {
+        String code = "variable lala";
+        String s = check (code,"lala ?");
+        shoudBeOK ("0 " ,s);
+    }
+
+    @Test
+    public void testArray()
+    {
+        String code = "10 array lala 12 9 lala !";
+        String s = check (code,"9 lala ?");
+        shoudBeOK ("12 " ,s);
+    }
+
+    @Test
     public void testMSaveLoad()
     {
         String code = ": test 10 0 do i dup tobits m+ loop ; test listsave msave";
