@@ -19,29 +19,21 @@
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="improved wave player">
       <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jna_5_7_0_jpms.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/newJNA/jna-5.7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/newJNA/jna-platform-5.7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/MyWinApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_jna_4_4_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForth.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/BaseWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BaseWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/BreakLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BreakLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Callback_1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/DoLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/ElseControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ElseControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/EndLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/EndLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/ExecuteIF.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/IfControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/IfControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/LeaveLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LeaveLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Literal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Literal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/LoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/NonPrimitiveWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/NonPrimitiveWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/PlusLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/PlusLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/PrimitiveWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/PrimitiveWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/StorageWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StorageWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/printStack.4th" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/printStack.4th" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/sort.4th" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/sort.4th" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForth.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/RawConsoleInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/RawConsoleInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Func.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Func.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +64,8 @@
         <option value="Package Object" />
         <option value="HTML File" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -91,6 +83,14 @@
     <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="hiddenUrls">
@@ -418,22 +418,22 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MyRC5" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/newJNA/jna-platform-5.7.0.jar" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib\newJNA" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\java\JForth\jarfile" />
@@ -466,7 +466,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TestCases">
+  <component name="RunManager" selected="JAR Application.JForth.jar">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -655,55 +655,41 @@
     </configuration>
     <configuration name="TestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
-      <useClassPathOnly />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestGfMult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.TestNonStandardRecurse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestGfMult" />
+      <option name="METHOD_NAME" value="TestNonStandardRecurse" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.TestRevsFlush" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.testArrayToNumList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="TestRevsFlush" />
+      <option name="METHOD_NAME" value="testArrayToNumList" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestCases.testMList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCases.testVarUnInit" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="testMList" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestCases.testMSaveLoad" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestCases" />
-      <option name="METHOD_NAME" value="testMSaveLoad" />
+      <option name="METHOD_NAME" value="testVarUnInit" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -716,6 +702,10 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="JForth.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForth.jar" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
@@ -742,18 +732,18 @@
       <item itemvalue="Application.JForth" />
       <item itemvalue="Docker.Docker" />
       <item itemvalue="JUnit.TestCases" />
-      <item itemvalue="JUnit.TestCases.TestRevsFlush" />
-      <item itemvalue="JUnit.TestCases.testMList" />
-      <item itemvalue="JUnit.TestCases.testMSaveLoad" />
-      <item itemvalue="JUnit.TestCases.TestGfMult" />
+      <item itemvalue="JUnit.TestCases.testVarUnInit" />
+      <item itemvalue="JUnit.TestCases.testArrayToNumList" />
+      <item itemvalue="JUnit.TestCases.TestNonStandardRecurse" />
+      <item itemvalue="JAR Application.JForth.jar" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.JForth.jar" />
         <item itemvalue="JUnit.TestCases" />
-        <item itemvalue="JUnit.TestCases.TestGfMult" />
-        <item itemvalue="JUnit.TestCases.testMSaveLoad" />
-        <item itemvalue="JUnit.TestCases.testMList" />
-        <item itemvalue="JUnit.TestCases.TestRevsFlush" />
+        <item itemvalue="JUnit.TestCases.TestNonStandardRecurse" />
+        <item itemvalue="JUnit.TestCases.testArrayToNumList" />
+        <item itemvalue="JUnit.TestCases.testVarUnInit" />
       </list>
     </recent_temporary>
   </component>
@@ -857,69 +847,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00215" summary="sam voice speaks immediately">
-      <created>1600924335767</created>
-      <option name="number" value="00215" />
-      <option name="presentableId" value="LOCAL-00215" />
-      <option name="project" value="LOCAL" />
-      <updated>1600924335772</updated>
-    </task>
-    <task id="LOCAL-00216" summary="improved wave player">
-      <created>1600933725773</created>
-      <option name="number" value="00216" />
-      <option name="presentableId" value="LOCAL-00216" />
-      <option name="project" value="LOCAL" />
-      <updated>1600933725775</updated>
-    </task>
-    <task id="LOCAL-00217" summary="improved wave player">
-      <created>1600993840132</created>
-      <option name="number" value="00217" />
-      <option name="presentableId" value="LOCAL-00217" />
-      <option name="project" value="LOCAL" />
-      <updated>1600993840132</updated>
-    </task>
-    <task id="LOCAL-00218" summary="update">
-      <created>1601859058406</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
-      <option name="project" value="LOCAL" />
-      <updated>1601859058408</updated>
-    </task>
-    <task id="LOCAL-00219" summary="some improvements">
-      <created>1601877894683</created>
-      <option name="number" value="00219" />
-      <option name="presentableId" value="LOCAL-00219" />
-      <option name="project" value="LOCAL" />
-      <updated>1601877894683</updated>
-    </task>
-    <task id="LOCAL-00220" summary="improved wave player">
-      <created>1602087781735</created>
-      <option name="number" value="00220" />
-      <option name="presentableId" value="LOCAL-00220" />
-      <option name="project" value="LOCAL" />
-      <updated>1602087781737</updated>
-    </task>
-    <task id="LOCAL-00221" summary="sam as java-file">
-      <created>1602088114399</created>
-      <option name="number" value="00221" />
-      <option name="presentableId" value="LOCAL-00221" />
-      <option name="project" value="LOCAL" />
-      <updated>1602088114400</updated>
-    </task>
-    <task id="LOCAL-00222" summary="improved wave player">
-      <created>1602211749820</created>
-      <option name="number" value="00222" />
-      <option name="presentableId" value="LOCAL-00222" />
-      <option name="project" value="LOCAL" />
-      <updated>1602211749871</updated>
-    </task>
-    <task id="LOCAL-00223" summary="moved things around">
-      <created>1602230426860</created>
-      <option name="number" value="00223" />
-      <option name="presentableId" value="LOCAL-00223" />
-      <option name="project" value="LOCAL" />
-      <updated>1602230426860</updated>
     </task>
     <task id="LOCAL-00224" summary="improved samspeech">
       <created>1602281429584</created>
@@ -1201,7 +1128,70 @@
       <option name="project" value="LOCAL" />
       <updated>1610082610289</updated>
     </task>
-    <option name="localTasksCounter" value="264" />
+    <task id="LOCAL-00264" summary="removed unnecessary interfaces">
+      <created>1610093433779</created>
+      <option name="number" value="00264" />
+      <option name="presentableId" value="LOCAL-00264" />
+      <option name="project" value="LOCAL" />
+      <updated>1610093433779</updated>
+    </task>
+    <task id="LOCAL-00265" summary="random word now distinguishes between long &amp; double">
+      <created>1610105353816</created>
+      <option name="number" value="00265" />
+      <option name="presentableId" value="LOCAL-00265" />
+      <option name="project" value="LOCAL" />
+      <updated>1610105353816</updated>
+    </task>
+    <task id="LOCAL-00266" summary="improved 'permute' instruction">
+      <created>1614074036090</created>
+      <option name="number" value="00266" />
+      <option name="presentableId" value="LOCAL-00266" />
+      <option name="project" value="LOCAL" />
+      <updated>1614074036106</updated>
+    </task>
+    <task id="LOCAL-00267" summary="added uptime word&#10;removed tick word">
+      <created>1614224698860</created>
+      <option name="number" value="00267" />
+      <option name="presentableId" value="LOCAL-00267" />
+      <option name="project" value="LOCAL" />
+      <updated>1614224698860</updated>
+    </task>
+    <task id="LOCAL-00268" summary="added ? word (immediately print variable)">
+      <created>1614533636786</created>
+      <option name="number" value="00268" />
+      <option name="presentableId" value="LOCAL-00268" />
+      <option name="project" value="LOCAL" />
+      <updated>1614533636788</updated>
+    </task>
+    <task id="LOCAL-00269" summary="variable can now handle different objects">
+      <created>1614535750649</created>
+      <option name="number" value="00269" />
+      <option name="presentableId" value="LOCAL-00269" />
+      <option name="project" value="LOCAL" />
+      <updated>1614535750649</updated>
+    </task>
+    <task id="LOCAL-00270" summary="not initialized vars == 0">
+      <created>1614566854450</created>
+      <option name="number" value="00270" />
+      <option name="presentableId" value="LOCAL-00270" />
+      <option name="project" value="LOCAL" />
+      <updated>1614566854450</updated>
+    </task>
+    <task id="LOCAL-00271" summary="added array conversion to sequence">
+      <created>1614585614428</created>
+      <option name="number" value="00271" />
+      <option name="presentableId" value="LOCAL-00271" />
+      <option name="project" value="LOCAL" />
+      <updated>1614585614428</updated>
+    </task>
+    <task id="LOCAL-00272" summary="fixed bug with nonstd recursion">
+      <created>1614613638377</created>
+      <option name="number" value="00272" />
+      <option name="presentableId" value="LOCAL-00272" />
+      <option name="project" value="LOCAL" />
+      <updated>1614613638377</updated>
+    </task>
+    <option name="localTasksCounter" value="273" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1277,15 +1267,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added lagpoly rounding test" />
-    <MESSAGE value="added gray code" />
-    <MESSAGE value="some enhancements" />
-    <MESSAGE value="added exp eval to toDouble &amp; toLong" />
-    <MESSAGE value="test sinwave" />
-    <MESSAGE value="added nice plotter.&#10;see testcases.testPlotter()" />
-    <MESSAGE value="AsciiPlotter in separate class + pDim command" />
-    <MESSAGE value="new jarfile" />
-    <MESSAGE value="updated readme" />
     <MESSAGE value="improved wave player" />
     <MESSAGE value="introducing base class for sequences. massive changes, Tests suceed again" />
     <MESSAGE value="changed x= to f=" />
@@ -1302,23 +1283,31 @@
     <MESSAGE value="added mload &amp; msave" />
     <MESSAGE value="fixed m- command" />
     <MESSAGE value="save" />
-    <option name="LAST_COMMIT_MESSAGE" value="save" />
+    <MESSAGE value="removed unnecessary interfaces" />
+    <MESSAGE value="random word now distinguishes between long &amp; double" />
+    <MESSAGE value="improved 'permute' instruction" />
+    <MESSAGE value="added uptime word&#10;removed tick word" />
+    <MESSAGE value="added ? word (immediately print variable)" />
+    <MESSAGE value="variable can now handle different objects" />
+    <MESSAGE value="not initialized vars == 0" />
+    <MESSAGE value="added array conversion to sequence" />
+    <MESSAGE value="fixed bug with nonstd recursion" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug with nonstd recursion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
-          <line>1381</line>
-          <option name="timeStamp" value="14" />
+          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
+          <line>381</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/JForth$TestCases_soundTest.ic" NAME="TestCases.soundTest Coverage Results" MODIFIED="1599426467472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

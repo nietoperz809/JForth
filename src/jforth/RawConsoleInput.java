@@ -161,7 +161,7 @@ public class RawConsoleInput {
 
     private static class Kernel32Defs {
         static final int  STD_INPUT_HANDLE       = -10;
-        static final long INVALID_HANDLE_VALUE   = (Pointer.SIZE == 8) ? -1 : 0xFFFFFFFFL;
+        static final long INVALID_HANDLE_VALUE   = -1; //(Pointer.SIZE == 8) ? -1 : 0xFFFFFFFFL;
         static final int  ENABLE_PROCESSED_INPUT = 0x0001;
         static final int  ENABLE_LINE_INPUT      = 0x0002;
         static final int  ENABLE_ECHO_INPUT      = 0x0004;

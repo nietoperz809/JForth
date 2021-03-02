@@ -7,6 +7,7 @@ import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
 import org.fusesource.jansi.AnsiConsole;
 import org.mathIT.util.FunctionParser;
+import tools.MyWinApi;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -1404,6 +1405,17 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "pin", "pin window to top",
+                        (dStack, vStack) ->
+                        {
+                            boolean b = MyWinApi.SetConsoleToFG();
+                            if (!b)
+                                return 0;
+                            return 1;
+                        }
+                ));
 
     }
 }

@@ -3,12 +3,7 @@ variable range
 
 size array values
 
-: fill
-  size 0
-  do
-    range @ gaussian i values !
-  loop
-;
+: fill size 0 do range @ gaussian i values ! loop ;
 
 : show
   size 0
@@ -72,3 +67,4 @@ variable characters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456
 "content of array before sort: " . cr show cr
 bubbleSort
 "content of array after sort: " . cr show cr
+
