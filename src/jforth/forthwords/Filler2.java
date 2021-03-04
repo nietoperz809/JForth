@@ -1407,15 +1407,60 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "pin", "pin window to top",
+                        "wpin", "pin window to top",
                         (dStack, vStack) ->
                         {
-                            boolean b = MyWinApi.SetConsoleToFG();
-                            if (!b)
+                            try {
+                                MyWinApi.SetConsoleToFG();
+                                return 1;
+                            } catch (Exception e) {
                                 return 0;
-                            return 1;
+                            }
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "wfull", "set console to fullscreen",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                MyWinApi.SetConsoleFullScreen();
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "wpos", "set console position",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Point p = Utilities.readPoint(dStack);
+                                MyWinApi.SetConsolePos(p);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "wsize", "set console size",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Point p = Utilities.readPoint(dStack);
+                                MyWinApi.SetConsoleSize(p);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }

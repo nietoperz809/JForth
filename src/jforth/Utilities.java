@@ -13,6 +13,7 @@ import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import tools.TwoFuncs;
 
+import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -30,8 +31,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2255";
-    private static final String BUILD_DATE = "03/02/2021 05:58:46 AM";
+    private static final String BUILD_NUMBER = "2263";
+    private static final String BUILD_DATE = "03/04/2021 08:22:11 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -499,6 +500,13 @@ public class Utilities {
     public static long readLong(OStack dStack) throws Exception {
         return getLong(dStack.pop());
     }
+
+    public static Point readPoint(OStack dStack) throws Exception {
+        int x = (int)readLong(dStack);
+        int y = (int)readLong(dStack);
+        return new Point(x,y);
+    }
+
 
     public static FileInputStream readFileInputStream(OStack dStack) {
         return (FileInputStream) dStack.pop();
