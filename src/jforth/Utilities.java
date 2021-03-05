@@ -509,6 +509,11 @@ public class Utilities {
         return getLong(dStack.pop());
     }
 
+    public static long peekLong(OStack dStack) throws Exception {
+        return getLong(dStack.peek());
+    }
+
+
     public static Point readPoint(OStack dStack) throws Exception {
         int x = (int)readLong(dStack);
         int y = (int)readLong(dStack);
