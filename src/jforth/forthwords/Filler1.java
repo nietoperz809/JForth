@@ -2900,9 +2900,13 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long lo = Utilities.readLong(dStack);
+                                Object ob = dStack.pop();
+                                long lo = Utilities.getLong(ob);
                                 double number = predefinedWords._jforth.random.nextGaussian() * lo;
-                                dStack.push(number);
+                                if (ob instanceof Double)
+                                    dStack.push(number);
+                                else
+                                    dStack.push((long)number);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
