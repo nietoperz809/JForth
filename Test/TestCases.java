@@ -4,9 +4,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import tools.StringStream;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static jforth.PolynomialParser.parsePolynomial;
+import static jforth.Utilities.textFileToString;
 
 /**
  * Created by Administrator on 4/15/2017.
@@ -17,7 +19,6 @@ public class TestCases
     {
         StringStream _ss = new StringStream();
         JForth _forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.TEST);
-//        _forth.setPrintStream(_ss.getPrintStream());
         _forth.singleShot(prg);
         if (call != null)
         {
@@ -1081,6 +1082,16 @@ public class TestCases
     }
 
     @Test
+    public void replaceTest()
+    {
+        String s = check ("peter {\"e\",\"fuck\"} replace",".");
+        shoudBeOK ("pfucktfuckr" ,s);
+        s = check ("\"12. oct in 1929\" {\"\\d\",\"-\"} replace",".");
+        System.out.println(s);
+        shoudBeOK ("--. oct in ----" ,s);
+    }
+
+    @Test
     public void binHexInputTest()
     {
         String s = check ("-0xc000 _ 0b1001","...");
@@ -1281,6 +1292,109 @@ public class TestCases
         String s = check (code,".");
         shoudBeOK ("{0,2,4,6,8,10,12,14,16,18}" ,s);
     }
+
+    @Test
+    public void testNestedDo()
+    {
+        String code = ": dl4 0 10 do 5 0 do i . j . cr 1 +loop cr -2 +loop ;";
+        String s = check (code,"dl4");
+        System.out.println(s);
+        shoudBeOK ("010\r\n" +
+                "110\r\n" +
+                "210\r\n" +
+                "310\r\n" +
+                "410\r\n" +
+                "\r\n" +
+                "08\r\n" +
+                "18\r\n" +
+                "28\r\n" +
+                "38\r\n" +
+                "48\r\n" +
+                "\r\n" +
+                "06\r\n" +
+                "16\r\n" +
+                "26\r\n" +
+                "36\r\n" +
+                "46\r\n" +
+                "\r\n" +
+                "04\r\n" +
+                "14\r\n" +
+                "24\r\n" +
+                "34\r\n" +
+                "44\r\n" +
+                "\r\n" +
+                "02\r\n" +
+                "12\r\n" +
+                "22\r\n" +
+                "32\r\n" +
+                "42\r\n" +
+                "\r\n" +
+                "00\r\n" +
+                "10\r\n" +
+                "20\r\n" +
+                "30\r\n" +
+                "40\r\n\r\n" ,s);
+    }
+
+    @Test
+    public void testDo2()
+    {
+        String code = ": dl4 0 10 do i . -2 +loop ;";
+        String s = check (code,"dl4");
+        shoudBeOK ("1086420" ,s);
+        code = ": dl5 10 0 do i . 2 +loop ;";
+        s = check (code,"dl5");
+        shoudBeOK ("02468" ,s);
+    }
+
+
+    @Test
+    public void testLoadedPrg1()
+    {
+        try {
+            String s = textFileToString ("Programs/sort.4th");
+            s = check (s, null);
+            System.out.println(s);
+            s = textFileToString ("Programs/countDown.4th");
+            s = check (s, null);
+            shoudBeOK ("test of begin until\r\n" +
+                    "25\r\n" +
+                    "24\r\n" +
+                    "23\r\n" +
+                    "22\r\n" +
+                    "21\r\n" +
+                    "20\r\n" +
+                    "19\r\n" +
+                    "18\r\n" +
+                    "17\r\n" +
+                    "16\r\n" +
+                    "15\r\n" +
+                    "14\r\n" +
+                    "13\r\n" +
+                    "12\r\n" +
+                    "11\r\n" +
+                    "10\r\n" +
+                    "9\r\n" +
+                    "8\r\n" +
+                    "7\r\n" +
+                    "6\r\n" +
+                    "5\r\n" +
+                    "4\r\n" +
+                    "3\r\n" +
+                    "2\r\n" +
+                    "1\r\n" +
+                    "0\r\n\r\n",s);
+            s = textFileToString ("Programs/factorial.4th");
+            s = check (s, null);
+            shoudBeOK ("value of 10 factorial: 3628800\r\n" ,s);
+            s = textFileToString ("Programs/loops.4th");
+            s = check (s, null);
+            System.out.println(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void testMSaveLoad()

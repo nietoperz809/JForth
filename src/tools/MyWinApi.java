@@ -3,8 +3,11 @@ package tools;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.*;
 import com.sun.jna.platform.win32.WinDef.HWND;
+import jforth.JForth;
 
 import java.awt.*;
+
+import static com.sun.jna.platform.win32.WinUser.*;
 
 public class MyWinApi
 {
@@ -46,4 +49,8 @@ public class MyWinApi
                   new WinDef.LPARAM(0x20000000));
     }
 
+    public static void showWnd (long show) throws Exception {
+        HWND hwnd = getConsoleHWND();
+        User.ShowWindow(hwnd, show == JForth.TRUE ? SW_SHOW : SW_HIDE);
+    }
 }

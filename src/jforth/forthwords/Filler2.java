@@ -1,6 +1,7 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.ControlWords.*;
 import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.Morse;
 import jforth.audio.MusicTones;
@@ -1435,6 +1436,22 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "wshow", "show or hide the console",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Long l = Utilities.readLong(dStack);
+                                MyWinApi.showWnd(l);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
                         "wpos", "set console position",
                         (dStack, vStack) ->
                         {
@@ -1456,6 +1473,24 @@ class Filler2 {
                             try {
                                 Point p = Utilities.readPoint(dStack);
                                 MyWinApi.SetConsoleSize(p);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "replace", "regex transform a string",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                StringSequence ss = Utilities.readStringSequence(dStack);
+                                ArrayList<String> sl = ss.get_list();
+                                String in = Utilities.readString(dStack);
+                                String out = in.replaceAll(sl.get(0), sl.get(1));
+                                dStack.push (out);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

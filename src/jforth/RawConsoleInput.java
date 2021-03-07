@@ -118,8 +118,8 @@ public class RawConsoleInput {
     {
         if (initDone) {
             return; }
-        msvcrt = Native.loadLibrary("msvcrt", Msvcrt.class);
-        kernel32 = Native.loadLibrary("kernel32", Kernel32.class);
+        msvcrt = Native.load("msvcrt", Msvcrt.class);
+        kernel32 = Native.load("kernel32", Kernel32.class);
         try {
             consoleHandle = getStdInputHandle();
             originalConsoleMode = getConsoleMode(consoleHandle);
@@ -246,7 +246,7 @@ public class RawConsoleInput {
     private static synchronized void initUnix() throws IOException {
         if (initDone) {
             return; }
-        libc = Native.loadLibrary("c", Libc.class);
+        libc = Native.load("c", Libc.class);
         stdinIsConsole = libc.isatty(stdinFd) == 1;
         charsetDecoder = Charset.defaultCharset().newDecoder();
         if (stdinIsConsole) {

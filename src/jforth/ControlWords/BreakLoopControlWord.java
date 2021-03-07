@@ -1,4 +1,7 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.BaseWord;
+import jforth.OStack;
 
 /**
  * Created by Administrator on 4/25/2017.

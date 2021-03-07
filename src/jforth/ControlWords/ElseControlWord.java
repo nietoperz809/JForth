@@ -1,4 +1,7 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.BaseWord;
+import jforth.OStack;
 
 public final class ElseControlWord extends BaseWord
 {

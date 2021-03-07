@@ -1,4 +1,8 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.BaseWord;
+import jforth.OStack;
+import jforth.Utilities;
 
 public final class DoLoopControlWord extends BaseWord
 {

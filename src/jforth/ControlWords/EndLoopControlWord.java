@@ -1,4 +1,7 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.JForth;
+import jforth.OStack;
 
 import java.util.Objects;
 

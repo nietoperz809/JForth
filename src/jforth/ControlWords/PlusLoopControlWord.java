@@ -1,4 +1,7 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.OStack;
+import jforth.Utilities;
 
 public final class PlusLoopControlWord extends LoopControlWord {
     public PlusLoopControlWord(Integer indexIncrement) {

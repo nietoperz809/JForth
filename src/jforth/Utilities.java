@@ -32,8 +32,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2266";
-    private static final String BUILD_DATE = "03/05/2021 03:51:01 AM";
+    private static final String BUILD_NUMBER = "2276";
+    private static final String BUILD_DATE = "03/07/2021 05:28:09 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -657,9 +657,9 @@ public class Utilities {
         return new Vector3D(ds.pick(0), ds.pick(1), i2);
     }
 
-//    public static StringSequence readStringSequence(OStack dStack) {
-//        return getStringSequence(dStack.pop());
-//    }
+    public static StringSequence readStringSequence(OStack dStack) {
+        return getStringSequence(dStack.pop());
+    }
 
     public static StringSequence getStringSequence(Object o) {
         if (o instanceof StringSequence) {

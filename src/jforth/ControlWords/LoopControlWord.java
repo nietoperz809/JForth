@@ -1,4 +1,7 @@
-package jforth;
+package jforth.ControlWords;
+
+import jforth.BaseWord;
+import jforth.OStack;
 
 public class LoopControlWord extends BaseWord
 {
