@@ -1480,6 +1480,7 @@ class Filler2 {
                         }
                 ));
 
+
         _fw.add(new PrimitiveWord
                 (
                         "replace", "regex transform a string",
@@ -1497,5 +1498,22 @@ class Filler2 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "roman", "make roman number from integer",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long ll = Utilities.readLong(dStack);
+                                String s = Roman.toRoman((int)ll);
+                                dStack.push(s);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }

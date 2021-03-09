@@ -28,7 +28,7 @@ public class SAMSpeech
     }
 
     /**
-     * Genetrate WAV from text input using SAM
+     * Generate WAV from text input using SAM
      * @param txt text to speak
      * @return WAV data
      * @throws Exception if smth. went wrong
