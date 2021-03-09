@@ -1515,5 +1515,20 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "arab", "make arab number from roman",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String s1 = Utilities.readString(dStack);
+                                int i = Roman.toArab(s1);
+                                dStack.push(i);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }
