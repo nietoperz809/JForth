@@ -35,11 +35,15 @@ public class Roman {
     }
 
     public static String toRoman(int number) {
-        int l =  map.floorKey(number);
-        if ( number == l ) {
-            return map.get(number);
+        try {
+            int l =  map.floorKey(number);
+            if ( number == l ) {
+                return map.get(number);
+            }
+            return map.get(l) + toRoman(number-l);
+        } catch (Exception e) {
+            return "";
         }
-        return map.get(l) + toRoman(number-l);
     }
 
     public static int toArab(String number) throws Exception {

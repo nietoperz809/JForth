@@ -4,6 +4,10 @@ import jforth.forthwords.PredefinedWords;
 
 import java.util.ArrayList;
 
+/*
+卐  卐
+ */
+
 public class History
 {
     private static final String HISTORYFILENAME = "history";

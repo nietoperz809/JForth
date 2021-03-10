@@ -1424,4 +1424,28 @@ public class TestCases
                 "9 --> {1,0,0,1}\n" ,s);
     }
 
+    @Test
+    public void testIntToRoman()
+    {
+        String s = check ("1234567 roman",".");
+        System.out.println(s);
+        shoudBeOK ("M̅C̅C̅X̅X̅X̅I̅V̅DLXVII", s);
+    }
+
+    @Test
+    public void testRomanLoop()
+    {
+        String s = check ("11 0 do i roman . sp loop", null);
+        System.out.println(s);
+        shoudBeOK (" I II III IV V VI VII VIII IX X ", s);
+    }
+
+    @Test
+    public void testRomanToArab()
+    {
+        String s = check ("M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅C̅C̅C̅X̅X̅X̅X̅V̅DCLXXVIII arab",".");
+        System.out.println(s);
+        shoudBeOK ("12345678", s);
+    }
+
 }
