@@ -28,7 +28,7 @@ public abstract class Platform {
             if(getProperty("java.vm.name").equals("SableVM"))
                 version = 1.2f;
             else
-                version = Float.valueOf(getProperty("java.specification.version")).floatValue();
+                version = Float.valueOf(getProperty("java.specification.version"));
         } catch(Exception e) {
             System.err.println("WARNING: " + e + " while trying to find jvm version -  assuming 1.1");
             version = 1.1f;
@@ -69,7 +69,7 @@ public abstract class Platform {
     
     abstract void _socketSetKeepAlive(Socket s, boolean on) throws SocketException;
     public static void socketSetKeepAlive(Socket s, boolean on) throws SocketException { p._socketSetKeepAlive(s,on); }
-    
+
     abstract InetAddress _inetAddressFromBytes(byte[] a) throws UnknownHostException;
     public static InetAddress inetAddressFromBytes(byte[] a) throws UnknownHostException { return p._inetAddressFromBytes(a); }
     
@@ -81,10 +81,10 @@ public abstract class Platform {
         throws IOException;
     public static void setFileLength(RandomAccessFile f, int length)
         throws IOException { p._setFileLength(f, length); }
-    
+
     abstract File[] _listRoots();
     public static File[] listRoots() { return p._listRoots(); }
-    
+
     abstract File _getRoot(File f);
     public static File getRoot(File f) { return p._getRoot(f); }
     
@@ -111,10 +111,10 @@ public abstract class Platform {
         String _timeZoneGetDisplayName(TimeZone tz, boolean dst, boolean showlong, Locale l) {
             String[][] zs  = new DateFormatSymbols(l).getZoneStrings();
             String id = tz.getID();
-            for(int i=0;i<zs.length;i++)
-                if(zs[i][0].equals(id))
-                    return zs[i][dst ? (showlong ? 3 : 4) : (showlong ? 1 : 2)];
-            StringBuffer sb = new StringBuffer("GMT");
+            for (String[] z : zs)
+                if (z[0].equals(id))
+                    return z[dst ? (showlong ? 3 : 4) : (showlong ? 1 : 2)];
+            StringBuilder sb = new StringBuilder("GMT");
             int off = tz.getRawOffset() / 1000;
             if(off < 0) { sb.append("-"); off = -off; }
             else sb.append("+");
@@ -152,20 +152,20 @@ public abstract class Platform {
         File[] _listRoots() {
             String[] rootProps = new String[]{"java.home","java.class.path","java.library.path","java.io.tmpdir","java.ext.dirs","user.home","user.dir" };
             Hashtable known = new Hashtable();
-            for(int i=0;i<rootProps.length;i++) {
-                String prop = getProperty(rootProps[i]);
-                if(prop == null) continue;
-                for(;;) {
+            for (String rootProp : rootProps) {
+                String prop = getProperty(rootProp);
+                if (prop == null) continue;
+                for (; ; ) {
                     String path = prop;
                     int p;
-                    if((p = prop.indexOf(File.pathSeparatorChar)) != -1) {
-                        path = prop.substring(0,p);
-                        prop = prop.substring(p+1);
+                    if ((p = prop.indexOf(File.pathSeparatorChar)) != -1) {
+                        path = prop.substring(0, p);
+                        prop = prop.substring(p + 1);
                     }
                     File root = getRoot(new File(path));
                     //System.err.println(rootProps[i] + ": " + path + " -> " + root);
-                    known.put(root,Boolean.TRUE);
-                    if(p == -1) break;
+                    known.put(root, Boolean.TRUE);
+                    if (p == -1) break;
                 }
             }
             File[] ret = new File[known.size()];
@@ -174,7 +174,7 @@ public abstract class Platform {
                 ret[i++] = (File) e.nextElement();
             return ret;
         }
-        
+
         File _getRoot(File f) {
             if(!f.isAbsolute()) f = new File(f.getAbsolutePath());
             String p;
@@ -183,12 +183,12 @@ public abstract class Platform {
             return f;
         }
     }
-    
+
     static class Jdk12 extends Jdk11 {
         boolean _atomicCreateFile(File f) throws IOException {
             return f.createNewFile();
         }
-        
+
         String _timeZoneGetDisplayName(TimeZone tz, boolean dst, boolean showlong, Locale l) {
             return tz.getDisplayName(dst,showlong ? TimeZone.LONG : TimeZone.SHORT, l);
         }
@@ -199,7 +199,7 @@ public abstract class Platform {
 
         File[] _listRoots() { return File.listRoots(); }
     }
-    
+
     static class Jdk13 extends Jdk12 {
         void _socketHalfClose(Socket s, boolean output) throws IOException {
             if(output) s.shutdownOutput();

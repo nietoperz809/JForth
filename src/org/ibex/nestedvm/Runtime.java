@@ -95,7 +95,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     /** Subclasses should actually execute program in this method. They should continue 
         executing until state != RUNNING. Only syscall() can modify state. It is safe 
         to only check the state attribute after a call to syscall() */
-    protected abstract void _execute() throws ExecutionException;
+    protected abstract void _execute();
     
     /** Subclasses should return the address of the symbol <i>symbol</i> or -1 it it doesn't exits in this method 
         This method is only required if the call() function is used */
@@ -155,9 +155,9 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         int stackPages = 0;
         if(totalPages > 1) {
             stackSize = max(stackSize,pageSize);
-            stackSize = (stackSize + pageSize - 1) & ~(pageSize-1);
+            stackSize = (stackSize + pageSize - 1) & -pageSize;
             stackPages = stackSize >>> pageShift;
-            heapStart = (heapStart + pageSize - 1) & ~(pageSize-1);
+            heapStart = (heapStart + pageSize - 1) & -pageSize;
             if(stackPages + STACK_GUARD_PAGES + (heapStart >>> pageShift) >= totalPages)
                 throw new IllegalArgumentException("total pages too small");
         } else {
@@ -244,7 +244,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
             switch(addr&3) {
                 case 1: buf[x++] = (byte)((word>>>16)&0xff); if(--count==0) break;
                 case 2: buf[x++] = (byte)((word>>> 8)&0xff); if(--count==0) break;
-                case 3: buf[x++] = (byte)((word>>> 0)&0xff); if(--count==0) break;
+                case 3: buf[x++] = (byte)((word)&0xff); if(--count==0) break;
             }
             addr = (addr&~3)+4;
         }
@@ -258,8 +258,8 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
                 int n = min(c,pageWords-index);
                 for(int i=0;i<n;i++,x+=4) {
                     int word = page[index+i];
-                    buf[x+0] = (byte)((word>>>24)&0xff); buf[x+1] = (byte)((word>>>16)&0xff);
-                    buf[x+2] = (byte)((word>>> 8)&0xff); buf[x+3] = (byte)((word>>> 0)&0xff);                        
+                    buf[x] = (byte)((word>>>24)&0xff); buf[x+1] = (byte)((word>>>16)&0xff);
+                    buf[x+2] = (byte)((word>>> 8)&0xff); buf[x+3] = (byte)((word)&0xff);
                 }
                 a += n; c -=n;
             }
@@ -270,7 +270,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
             switch(count) {
                 case 3: buf[x+2] = (byte)((word>>>8)&0xff);
                 case 2: buf[x+1] = (byte)((word>>>16)&0xff);
-                case 1: buf[x+0] = (byte)((word>>>24)&0xff);
+                case 1: buf[x] = (byte)((word>>>24)&0xff);
             }
         }
     }
@@ -288,7 +288,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
             switch(addr&3) {
                 case 1: word = (word&0xff00ffff)|((buf[x++]&0xff)<<16); if(--count==0) break;
                 case 2: word = (word&0xffff00ff)|((buf[x++]&0xff)<< 8); if(--count==0) break;
-                case 3: word = (word&0xffffff00)|((buf[x++]&0xff)<< 0); if(--count==0) break;
+                case 3: word = (word&0xffffff00)|((buf[x++] & 0xff)); if(--count==0) break;
             }
             memWrite(addr&~3,word);
             addr += x;
@@ -303,7 +303,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
                 int index = a&pageWordMask;
                 int n = min(c,pageWords-index);
                 for(int i=0;i<n;i++,x+=4)
-                    page[index+i] = ((buf[x+0]&0xff)<<24)|((buf[x+1]&0xff)<<16)|((buf[x+2]&0xff)<<8)|((buf[x+3]&0xff)<<0);
+                    page[index+i] = ((buf[x]&0xff)<<24)|((buf[x+1]&0xff)<<16)|((buf[x+2]&0xff)<<8)|((buf[x + 3] & 0xff));
                 a += n; c -=n;
             }
             addr = a<<2; count&=3;
@@ -312,9 +312,9 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         if(count != 0) {
             int word = memRead(addr);
             switch(count) {
-                case 1: word = (word&0x00ffffff)|((buf[x+0]&0xff)<<24); break;
-                case 2: word = (word&0x0000ffff)|((buf[x+0]&0xff)<<24)|((buf[x+1]&0xff)<<16); break;
-                case 3: word = (word&0x000000ff)|((buf[x+0]&0xff)<<24)|((buf[x+1]&0xff)<<16)|((buf[x+2]&0xff)<<8); break;
+                case 1: word = (word&0x00ffffff)|((buf[x]&0xff)<<24); break;
+                case 2: word = (word&0x0000ffff)|((buf[x]&0xff)<<24)|((buf[x+1]&0xff)<<16); break;
+                case 3: word = (word&0x000000ff)|((buf[x]&0xff)<<24)|((buf[x+1]&0xff)<<16)|((buf[x+2]&0xff)<<8); break;
             }
             memWrite(addr,word);
         }
@@ -365,13 +365,13 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         int pageWords = (1<<pageShift)>>>2;
         int pageWordMask = pageWords - 1;
         
-        int fourBytes = ((ch&0xff)<<24)|((ch&0xff)<<16)|((ch&0xff)<<8)|((ch&0xff)<<0);
+        int fourBytes = ((ch&0xff)<<24)|((ch&0xff)<<16)|((ch&0xff)<<8)|((ch & 0xff));
         if((addr&3)!=0) {
             int word = memRead(addr&~3);
             switch(addr&3) {
                 case 1: word = (word&0xff00ffff)|((ch&0xff)<<16); if(--count==0) break;
                 case 2: word = (word&0xffff00ff)|((ch&0xff)<< 8); if(--count==0) break;
-                case 3: word = (word&0xffffff00)|((ch&0xff)<< 0); if(--count==0) break;
+                case 3: word = (word&0xffffff00)|((ch & 0xff)); if(--count==0) break;
             }
             memWrite(addr&~3,word);
             addr = (addr&~3)+4;
@@ -440,9 +440,9 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     }
     
     /** Created a new non-empty writable page at page number <i>page</i> */
-    private final int[] initPage(int page) { return initPage(page,false); }
+    private int[] initPage(int page) { return initPage(page,false); }
     /** Created a new non-empty page at page number <i>page</i>. If <i>ro</i> is set the page will be read-only */
-    private final int[] initPage(int page, boolean ro) {
+    private int[] initPage(int page, boolean ro) {
         int[] buf = new int[(1<<pageShift)>>>2];
         writePages[page] = ro ? null : buf;
         readPages[page] = buf;
@@ -456,7 +456,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         return exitStatus;
     }
         
-    private int addStringArray(String[] strings, int topAddr) throws FaultException {
+    private int addStringArray(String[] strings, int topAddr) {
         int count = strings.length;
         int total = 0; /* null last table entry  */
         for(int i=0;i<count;i++) total += strings[i].length() + 1;
@@ -508,17 +508,8 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     
     /** Calls _execute() (subclass's execute()) and catches exceptions */
     private void __execute() {
-        try {
-            _execute();
-        } catch(FaultException e) {
-            if(STDERR_DIAG) e.printStackTrace();
-            exit(128+11,true); // SIGSEGV
-            exitException = e;
-        } catch(ExecutionException e) {
-            if(STDERR_DIAG) e.printStackTrace();
-            exit(128+4,true); // SIGILL
-            exitException = e;
-        }
+        _execute();
+
     }
     
     /** Executes the process until the PAUSE syscall is invoked or the process exits. Returns true if the process exited. */
@@ -565,12 +556,8 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         if(args == null) args = new String[]{getClass().getName()};
         
         sp = top = writePages.length*(1<<pageShift);
-        try {
-            sp = argsAddr = addStringArray(args,sp);
-            sp = envAddr = addStringArray(createEnv(environ),sp);
-        } catch(FaultException e) {
-            throw new IllegalArgumentException("args/environ too big");
-        }
+        sp = argsAddr = addStringArray(args,sp);
+        sp = envAddr = addStringArray(createEnv(environ),sp);
         sp &= ~15;
         if(top - sp > ARG_MAX) throw new IllegalArgumentException("args/environ too big");
 
@@ -580,7 +567,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
             heapEnd = heapStart();
             if(heapEnd == 0) throw new Error("heapEnd == 0");
             int pageSize = writePages.length == 1 ? 4096 : (1<<pageShift);
-            heapEnd = (heapEnd + pageSize - 1) & ~(pageSize-1);
+            heapEnd = (heapEnd + pageSize - 1) & -pageSize;
         }
 
         CPUState cpuState = new CPUState();
@@ -855,10 +842,10 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     
     /** The stat/fstat syscall helper */
     int stat(FStat fs, int addr) throws FaultException {
-        memWrite(addr+0,(fs.dev()<<16)|(fs.inode()&0xffff)); // st_dev (top 16), // st_ino (bottom 16)
+        memWrite(addr,(fs.dev()<<16)|(fs.inode()&0xffff)); // st_dev (top 16), // st_ino (bottom 16)
         memWrite(addr+4,((fs.type()&0xf000))|(fs.mode()&0xfff)); // st_mode
         memWrite(addr+8,fs.nlink()<<16|fs.uid()&0xffff); // st_nlink (top 16) // st_uid (bottom 16)
-        memWrite(addr+12,fs.gid()<<16|0); // st_gid (top 16) // st_rdev (bottom 16)
+        memWrite(addr+12, fs.gid() << 16); // st_gid (top 16) // st_rdev (bottom 16)
         memWrite(addr+16,fs.size()); // st_size
         memWrite(addr+20,fs.atime()); // st_atime
         // memWrite(addr+24,0) // st_spare1
@@ -890,7 +877,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         long now = System.currentTimeMillis();
         int tv_sec = (int)(now / 1000);
         int tv_usec = (int)((now%1000)*1000);
-        memWrite(timevalAddr+0,tv_sec);
+        memWrite(timevalAddr,tv_sec);
         memWrite(timevalAddr+4,tv_usec);
         return 0;
     }
@@ -922,7 +909,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         
         try {
             if(tms!=0) {
-                memWrite(tms+0,userTime);
+                memWrite(tms,userTime);
                 memWrite(tms+4,sysTime);
                 memWrite(tms+8,userTime);
                 memWrite(tms+12,sysTime);
@@ -974,7 +961,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     private int sys_getpid() { return getPid(); }
     int getPid() { return 1; }
     
-    public static interface CallJavaCB { public int call(int a, int b, int c, int d); }
+    public interface CallJavaCB { int call(int a, int b, int c, int d); }
     
     private int sys_calljava(int a, int b, int c, int d) {
         if(state != RUNNING) throw new IllegalStateException("wound up calling sys_calljava while not in RUNNING");
@@ -1024,7 +1011,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         return 0;
     }
        
-    final int sys_fcntl(int fdn, int cmd, int arg) throws FaultException {
+    final int sys_fcntl(int fdn, int cmd, int arg) {
         int i;
             
         if(fdn < 0 || fdn >= OPEN_MAX) return -EBADFD;
@@ -1183,7 +1170,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
                 case 0: word = (word>>>24)&0xff; break;
                 case 1: word = (word>>>16)&0xff; break;
                 case 2: word = (word>>> 8)&0xff; break;
-                case 3: word = (word>>> 0)&0xff; break;
+                case 3: word = (word)&0xff; break;
             }
         }
         if (i > addr) i--; // do not count null
@@ -1208,7 +1195,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
                 case 0: if(((word>>>24)&0xff)==0) return sb.toString(); sb.append((char)((word>>>24)&0xff)); addr++;
                 case 1: if(((word>>>16)&0xff)==0) return sb.toString(); sb.append((char)((word>>>16)&0xff)); addr++;
                 case 2: if(((word>>> 8)&0xff)==0) return sb.toString(); sb.append((char)((word>>> 8)&0xff)); addr++;
-                case 3: if(((word>>> 0)&0xff)==0) return sb.toString(); sb.append((char)((word>>> 0)&0xff)); addr++;
+                case 3: if(((word)&0xff)==0) return sb.toString(); sb.append((char)((word)&0xff)); addr++;
             }
         }
     }
@@ -1485,7 +1472,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     }
     
     protected static class ErrnoException extends Exception {
-        public int errno;
+        public final int errno;
         public ErrnoException(int errno) { super("Errno: " + errno); this.errno = errno; }
     }
     
@@ -1493,9 +1480,9 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     public static class CPUState {
         public CPUState() { /* noop */ }
         /* GPRs */
-        public int[] r = new int[32];
+        public final int[] r = new int[32];
         /* Floating point regs */
-        public int[] f = new int[32];
+        public final int[] f = new int[32];
         public int hi, lo;
         public int fcsr;
         public int pc;
@@ -1536,7 +1523,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
     }
     
     /** Decode a packed string */
-    protected static final int[] decodeData(String s, int words) {
+    protected static int[] decodeData(String s, int words) {
         if(s.length() % 8 != 0) throw new IllegalArgumentException("string length must be a multiple of 8");
         if((s.length() / 8) * 7 < words*4) throw new IllegalArgumentException("string isn't big enough");
         int[] buf = new int[words];
@@ -1567,7 +1554,7 @@ public abstract class Runtime implements UsermodeConstants,Registers,Cloneable
         return buf2;
     }
     
-    final static String toHex(int n) { return "0x" + Long.toString(n & 0xffffffffL, 16); }
-    final static int min(int a, int b) { return a < b ? a : b; }
-    final static int max(int a, int b) { return a > b ? a : b; }
+    static String toHex(int n) { return "0x" + Long.toString(n & 0xffffffffL, 16); }
+    static int min(int a, int b) { return a < b ? a : b; }
+    static int max(int a, int b) { return a > b ? a : b; }
 }

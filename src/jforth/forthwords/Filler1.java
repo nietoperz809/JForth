@@ -3481,6 +3481,21 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "sumRec", "Make sum of reciprovals",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.sumRec());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "prod", "Product of all values",
                         (dStack, vStack) ->
                         {

@@ -1448,4 +1448,10 @@ public class TestCases
         shoudBeOK ("12345678", s);
     }
 
+    @Test
+    public void testSumRec()
+    {
+        String s = check ("1 {5,3} sumrec /",".");
+        shoudBeOK ("1.875", s);
+    }
 }

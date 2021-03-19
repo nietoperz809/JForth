@@ -257,6 +257,18 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return out;
     }
 
+    // Sum of Reciprocals
+    public double sumRec()
+    {
+        double ret = 0.0;
+        DoubleSequence s2 = reciprocals();
+        for (double d : s2._list)
+        {
+            ret += d;
+        }
+        return ret;
+    }
+
     public double sumQ()
     {
         return new SumOfSquares().evaluate (this.asPrimitiveArray());
@@ -266,6 +278,17 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
     {
         return new Product().evaluate (this.asPrimitiveArray());
     }
+
+    public DoubleSequence reciprocals()
+    {
+        DoubleSequence ret = new DoubleSequence();
+        for (double d : _list)
+        {
+            ret._list.add(1.0/d);
+        }
+        return ret;
+    }
+
 
     public DoubleSequence apply (PolynomialFunction p)
     {
