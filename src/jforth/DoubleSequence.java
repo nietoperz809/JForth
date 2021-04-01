@@ -257,18 +257,6 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return out;
     }
 
-    // Sum of Reciprocals
-    public double sumRec()
-    {
-        double ret = 0.0;
-        DoubleSequence s2 = reciprocals();
-        for (double d : s2._list)
-        {
-            ret += d;
-        }
-        return ret;
-    }
-
     public double sumQ()
     {
         return new SumOfSquares().evaluate (this.asPrimitiveArray());

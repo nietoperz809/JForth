@@ -32,8 +32,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2297";
-    private static final String BUILD_DATE = "03/19/2021 10:46:38 AM";
+    private static final String BUILD_NUMBER = "2308";
+    private static final String BUILD_DATE = "04/01/2021 06:21:56 AM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");

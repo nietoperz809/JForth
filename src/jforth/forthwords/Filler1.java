@@ -2425,6 +2425,21 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "squ", "Calculate a*a",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Complex o1 = Utilities.readComplex(dStack);
+                                dStack.push(o1.multiply(o1));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "gcd", "Greates common divisor",
                         (dStack, vStack) ->
                         {
@@ -3481,12 +3496,19 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "sumRec", "Make sum of reciprovals",
+                        "1/", "calculate reciprocal",
                         (dStack, vStack) ->
                         {
                             try {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.sumRec());
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence ds = Utilities.getDoubleSequence(o);
+                                    dStack.push (ds.reciprocals());
+                                }
+                                else {
+                                    double v = Utilities.getDouble(o);
+                                    dStack.push(1.0 / v);
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
