@@ -7,6 +7,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.fusesource.jansi.AnsiConsole;
+import streameditor.StreamingTextArea;
 import tools.Func;
 
 import java.io.IOException;
@@ -58,9 +59,15 @@ public class JForth {
     public final LineEdit _lineEditor;
     public final LSystem _lsys = new LSystem();
     private MultiDotStreamTokenizer st = null;
+    public StreamingTextArea guiTerminal;
 
     public JForth(RuntimeEnvironment ri) {
         this(System.out, ri);
+    }
+
+    public JForth(PrintStream out, RuntimeEnvironment ri, StreamingTextArea ta) {
+        this (out, ri);
+        guiTerminal = ta;
     }
 
     public JForth(PrintStream out, RuntimeEnvironment ri) {

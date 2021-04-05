@@ -4,5 +4,6 @@ public enum RuntimeEnvironment
 {
     CONSOLE,
     WEBSERVER,
-    TEST
+    TEST,
+    GUITERMINAL
 }

@@ -14,6 +14,9 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import tools.TwoFuncs;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -23,8 +26,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
+import static java.awt.Toolkit.getDefaultToolkit;
+import static java.awt.datatransfer.DataFlavor.stringFlavor;
 import static org.mathIT.numbers.Numbers.euclid;
 //import java.util.function.BiFunction;
 
@@ -32,11 +41,51 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2308";
-    private static final String BUILD_DATE = "04/01/2021 06:21:56 AM";
+    private static final String BUILD_NUMBER = "2369";
+    private static final String BUILD_DATE = "04/05/2021 06:41:33 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
+
+    private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(5);
+
+    private static int getExecutorFreeSlots ()
+    {
+        int tc = ((ThreadPoolExecutor) globalExecutor).getActiveCount();
+        int tm = ((ThreadPoolExecutor) globalExecutor).getCorePoolSize();
+        //System.out.println(tc + "/" + tm);
+        return tm - tc;
+    }
+
+    public static FutureTask<?> execute (Runnable r)
+    {
+        if (getExecutorFreeSlots() <= 0)
+        {
+            System.out.println("Thread pool exhausted");
+        }
+        return (FutureTask<?>) globalExecutor.submit(r);
+    }
+
+    public static String getClipBoardString ()
+    {
+        Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
+        Transferable clipData = clipboard.getContents(clipboard);
+        if (clipData != null)
+        {
+            try
+            {
+                if (clipData.isDataFlavorSupported(stringFlavor))
+                {
+                    return (String) (clipData.getTransferData(stringFlavor));
+                }
+            }
+            catch (UnsupportedFlavorException | IOException ufe)
+            {
+                System.err.println("getClipoardString fail");
+            }
+        }
+        return null;
+    }
 
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
@@ -515,7 +564,13 @@ public class Utilities {
 
 
     public static Point readPoint(OStack dStack) throws Exception {
-        int x = (int)readLong(dStack);
+        Object ox = dStack.pop();
+        if (ox instanceof DoubleSequence)
+        {
+            DoubleSequence ds = (DoubleSequence)ox;
+            return new Point (ds.pick(0).intValue(), ds.pick(1).intValue());
+        }
+        int x = (int)getLong(ox);
         int y = (int)readLong(dStack);
         return new Point(x,y);
     }

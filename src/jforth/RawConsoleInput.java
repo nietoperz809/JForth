@@ -128,7 +128,8 @@ public class RawConsoleInput {
             stdinIsConsole = false; }
         if (stdinIsConsole) {
             registerShutdownHook(); }
-        initDone = true; }
+        initDone = true;
+    }
 
     private static Pointer getStdInputHandle() throws IOException {
         Pointer handle = kernel32.GetStdHandle(Kernel32Defs.STD_INPUT_HANDLE);

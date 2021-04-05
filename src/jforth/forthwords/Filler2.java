@@ -894,8 +894,11 @@ class Filler2 {
                         "cls", "clear screen",
                         (dStack, vStack) ->
                         {
-                            //predefinedWords._jforth._out.print('\u000C');
-                            predefinedWords._jforth._out.print("\u001b[2J");
+                            if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                predefinedWords._jforth.guiTerminal.setText("");
+                            } else {
+                                predefinedWords._jforth._out.print("\u001b[2J");
+                            }
                             return 1;
                         }
                 ));
@@ -1304,6 +1307,22 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "qr", "Print QR code",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                QRTextWriter ap = new QRTextWriter();
+                                String s = Utilities.readString(dStack);
+                                dStack.push(ap.render(s));
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "binomial", "n choose k",
                         (dStack, vStack) ->
                         {
@@ -1412,7 +1431,13 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                MyWinApi.SetConsoleToFG();
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
+                                {
+                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setAlwaysOnTop(true);
+                                }
+                                else
+                                    MyWinApi.SetConsoleToFG();
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1422,11 +1447,17 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "wfull", "set console to fullscreen",
+                        "wfull", "set window to fullscreen",
                         (dStack, vStack) ->
                         {
                             try {
-                                MyWinApi.SetConsoleFullScreen();
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
+                                {
+                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                                }
+                                else
+                                    MyWinApi.SetConsoleFullScreen();
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1441,7 +1472,13 @@ class Filler2 {
                         {
                             try {
                                 Long l = Utilities.readLong(dStack);
-                                MyWinApi.showWnd(l);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
+                                {
+                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setVisible(l == JForth.TRUE ? true : false);
+                                }
+                                else
+                                    MyWinApi.showWnd(l);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1457,7 +1494,13 @@ class Filler2 {
                         {
                             try {
                                 Point p = Utilities.readPoint(dStack);
-                                MyWinApi.SetConsolePos(p);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
+                                {
+                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setLocation(p);
+                                }
+                                else
+                                    MyWinApi.SetConsolePos(p);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1491,7 +1534,7 @@ class Filler2 {
                                 ArrayList<String> sl = ss.get_list();
                                 String in = Utilities.readString(dStack);
                                 String out = in.replaceAll(sl.get(0), sl.get(1));
-                                dStack.push (out);
+                                dStack.push(out);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1506,7 +1549,7 @@ class Filler2 {
                         {
                             try {
                                 long ll = Utilities.readLong(dStack);
-                                String s = Roman.toRoman((int)ll);
+                                String s = Roman.toRoman((int) ll);
                                 dStack.push(s);
                                 return 1;
                             } catch (Exception e) {
