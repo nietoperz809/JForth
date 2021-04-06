@@ -41,8 +41,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2369";
-    private static final String BUILD_DATE = "04/05/2021 06:41:33 PM";
+    private static final String BUILD_NUMBER = "2373";
+    private static final String BUILD_DATE = "04/06/2021 03:36:11 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -561,7 +561,6 @@ public class Utilities {
     public static long peekLong(OStack dStack) throws Exception {
         return getLong(dStack.peek());
     }
-
 
     public static Point readPoint(OStack dStack) throws Exception {
         Object ox = dStack.pop();

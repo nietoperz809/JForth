@@ -6,9 +6,9 @@ import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
-import org.fusesource.jansi.AnsiConsole;
 import org.mathIT.util.FunctionParser;
 import tools.MyWinApi;
+import tools.StringStream;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -481,10 +481,11 @@ class Filler2 {
                                 final String ss = Utilities.readString(dStack);
                                 new Thread(() ->
                                 {
-                                    JForth f = new JForth(AnsiConsole.out,
-                                            RuntimeEnvironment.CONSOLE);
+                                    StringStream _stream = new StringStream();
+                                    JForth f = new JForth(_stream.getPrintStream(),
+                                            RuntimeEnvironment.EMBEDDED);
                                     f.interpretLine(ss);
-                                    AnsiConsole.out.flush();
+                                    dStack.push (_stream.toString());
                                 }).start();
                                 return 1;
                             } catch (Exception ex) {
@@ -1515,7 +1516,13 @@ class Filler2 {
                         {
                             try {
                                 Point p = Utilities.readPoint(dStack);
-                                MyWinApi.SetConsoleSize(p);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
+                                {
+                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setSize(p.x,p.y);
+                                }
+                                else
+                                   MyWinApi.SetConsoleSize(p);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

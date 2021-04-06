@@ -14,7 +14,7 @@
     <content url="file://$MODULE_DIR$/out" />
     <content url="file://$MODULE_DIR$/out/artifacts" />
     <content url="file://$MODULE_DIR$/out/production" />
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.apache.commons:commons-math3:3.6" level="project" />
     <orderEntry type="library" name="com.cedarsoftware:json-io:4.9.10" level="project" />
@@ -37,5 +37,6 @@
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.0" level="project" />
     <orderEntry type="library" name="com.indvd00m.ascii.render:ascii-render:2.2.0" level="project" />
     <orderEntry type="library" name="jna-5.7.0-jpms" level="project" />
+    <orderEntry type="library" name="zxing-2" level="project" />
   </component>
 </module>

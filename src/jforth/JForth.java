@@ -137,7 +137,7 @@ public class JForth {
         input = StringEscape.escape(input);
         if (mode == MODE.DIRECT) {
             if (!interpretLine(input)) {
-                if (_out == AnsiConsole.out) {
+                if (CurrentEnvironment == RuntimeEnvironment.CONSOLE) {
                     _out.print(input + " - " + ANSI_ERROR +
                             " word execution or stack error " +
                             ANSI_NORMAL);
@@ -195,7 +195,7 @@ public class JForth {
 
     public String ObjectToString(Object o) {
         String out = makePrintable(o);
-        if (_out == AnsiConsole.out) {
+        if (CurrentEnvironment == RuntimeEnvironment.CONSOLE)  {
             return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
         }
         return out;

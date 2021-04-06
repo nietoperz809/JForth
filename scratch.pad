@@ -10,3 +10,33 @@
     fact 0 ;
 
 1 2 3 4 5 6 7 8 9 10
+
+//////////////////////////////////////////////////////////////
+
+"filling array with 25 random double values" . 1000.0 range ! fill cr
+"content of array before sort: " . cr show cr
+bubbleSort
+"content of array after sort: " . cr show cr
+
+variable characters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" characters !
+
+: randomString
+  ""
+  15 random 0 do
+    characters @ dup length random dup 1+ subString +
+  loop
+;
+
+: stringFill
+  size 0
+  do
+    randomString i values !
+  loop
+;
+
+
+"filling array with 25 random strings" . stringFill cr
+"content of array before sort: " . cr show cr
+bubbleSort
+"content of array after sort: " . cr show cr
+

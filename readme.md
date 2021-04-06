@@ -6,7 +6,7 @@ This is a pretty complete Forth interpreter that supports also loops and various
 The original code is from: http://linuxenvy.com/bprentice/JForth/
 
 Sorry, there's no documentation. In order to see how things work, please take a look at the test cases
-in TestCases.java
+in ForthTestCases.java
 
 Have fun.
 

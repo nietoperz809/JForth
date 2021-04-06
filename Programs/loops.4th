@@ -26,16 +26,7 @@ cr
 
 "do loop with negative 2 increment: " . dl3 cr
 
-: dl4
-  0 10 do
-    5 0 do
-      "i = " . i .", j = " . j .
-      cr
-    1 +loop
-    cr
-  -2
-  +loop
-;
+: dl4 0 10 do 5 0 do "i = " . i .", j = " . j . cr 1 +loop cr -2 +loop ;
 
 cr "nested do loops: " . cr dl4
 

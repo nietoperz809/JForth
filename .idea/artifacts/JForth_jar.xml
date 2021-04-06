@@ -22,6 +22,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/ascii-render-api-2.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/newJNA/jna-5.7.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/newJNA/jna-platform-5.7.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../Libraries/Java/zxing-2.1/zxing-2.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>
