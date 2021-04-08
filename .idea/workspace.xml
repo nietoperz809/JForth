@@ -18,28 +18,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="new jna lib&#10;+ pin command">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/zxing_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/streameditor/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/C64.ttf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programs/loops.4th" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/loops.4th" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programs/sort.4th" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/sort.4th" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/TestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForth.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForth.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/laladumm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/run.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch.pad" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.pad" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -449,10 +437,10 @@
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="jforth.Utilities" />
       <recent name="tools.ResourceLoader" />
       <recent name="jforth.audio.WaveTools" />
       <recent name="jforth.FileUtils" />
-      <recent name="jforth.Utilities" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="jforth" />
@@ -472,7 +460,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForth">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -653,6 +641,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JForthGui" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="streameditor.GuiTerminal" />
+      <module name="JForth" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="jforth.JForth" />
       <method v="2">
@@ -680,16 +675,8 @@
       <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar" />
       <method v="2" />
     </configuration>
-    <configuration name="JForthGui.jar.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar.jar" />
-      <method v="2" />
-    </configuration>
     <configuration name="JForthGui_jar.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui_jar.jar" />
-      <method v="2" />
-    </configuration>
-    <configuration name="JForth.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/JForth_jar2/JForth.jar" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="TestNG">
@@ -715,20 +702,15 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForth" />
+      <item itemvalue="Application.JForthGui" />
       <item itemvalue="Docker.Docker" />
-      <item itemvalue="JAR Application.JForth.jar" />
-      <item itemvalue="JAR Application.JForthGui.jar.jar" />
-      <item itemvalue="JAR Application.JForthGui_jar.jar" />
       <item itemvalue="JAR Application.JForthGui.jar" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JAR Application.JForthGui.jar" />
-        <item itemvalue="JAR Application.JForthGui_jar.jar" />
-        <item itemvalue="JAR Application.JForthGui.jar.jar" />
-        <item itemvalue="JAR Application.JForth.jar" />
+        <item itemvalue="JUnit.ForthTestCases" />
       </list>
     </recent_temporary>
   </component>
@@ -832,20 +814,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00236" summary="removed pair class">
-      <created>1608534255137</created>
-      <option name="number" value="00236" />
-      <option name="presentableId" value="LOCAL-00236" />
-      <option name="project" value="LOCAL" />
-      <updated>1608534255153</updated>
-    </task>
-    <task id="LOCAL-00237" summary="added lagpoly rounding test">
-      <created>1608545192354</created>
-      <option name="number" value="00237" />
-      <option name="presentableId" value="LOCAL-00237" />
-      <option name="project" value="LOCAL" />
-      <updated>1608545192354</updated>
     </task>
     <task id="LOCAL-00238" summary="added gray code">
       <created>1608564784761</created>
@@ -1176,7 +1144,21 @@
       <option name="project" value="LOCAL" />
       <updated>1617641128387</updated>
     </task>
-    <option name="localTasksCounter" value="285" />
+    <task id="LOCAL-00285" summary="+ gui console&#10;+ jar file">
+      <created>1617716934781</created>
+      <option name="number" value="00285" />
+      <option name="presentableId" value="LOCAL-00285" />
+      <option name="project" value="LOCAL" />
+      <updated>1617716934781</updated>
+    </task>
+    <task id="LOCAL-00286" summary="+ linelistener">
+      <created>1617879916780</created>
+      <option name="number" value="00286" />
+      <option name="presentableId" value="LOCAL-00286" />
+      <option name="project" value="LOCAL" />
+      <updated>1617879916782</updated>
+    </task>
+    <option name="localTasksCounter" value="287" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1252,8 +1234,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="m+, m-, mclr, mlist, + testCases" />
-    <MESSAGE value="added mload &amp; msave" />
     <MESSAGE value="fixed m- command" />
     <MESSAGE value="save" />
     <MESSAGE value="removed unnecessary interfaces" />
@@ -1277,7 +1257,9 @@
     <MESSAGE value="added sumRec word + test" />
     <MESSAGE value="minor changes" />
     <MESSAGE value="added virtual terminal" />
-    <option name="LAST_COMMIT_MESSAGE" value="added virtual terminal" />
+    <MESSAGE value="+ gui console&#10;+ jar file" />
+    <MESSAGE value="+ linelistener" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ linelistener" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1286,11 +1268,6 @@
           <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
           <line>388</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
-          <line>483</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

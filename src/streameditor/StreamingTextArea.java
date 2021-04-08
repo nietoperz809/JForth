@@ -62,6 +62,17 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
     }
 
+    public char getKey() {
+        return lineListener.getBufferedChar();
+    }
+
+    public void lockLineInput(boolean lock) {
+        lineListener.lock (lock);
+        lineListener.reset();
+    }
+
+
+
 //    @Override
 //    public void paste ()
 //    {

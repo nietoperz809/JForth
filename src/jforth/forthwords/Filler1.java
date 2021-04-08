@@ -3024,9 +3024,10 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                int c = RawConsoleInput.read(true);
-                                RawConsoleInput.resetConsoleMode();
-                                dStack.push((long) c);
+                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
+                                char c = predefinedWords._jforth.guiTerminal.getKey();
+                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
+                                dStack.push ((long)c);
                                 return 1;
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -3096,40 +3097,31 @@ class Filler1 {
                             }
                             StringBuilder s = new StringBuilder();
                             try {
+                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
                                 while (true) {
-                                    char c = (char) RawConsoleInput.read(true);
+                                    char c;
+                                    c = (char) predefinedWords._jforth.guiTerminal.getKey();
                                     if (l > 0) {
                                         l--;
                                     }
-                                    if (c == '\r') {
+                                    if (c == (char)10) {
                                         break;
                                     }
                                     s.append(c);
                                     if (l == 0) {
                                         break;
                                     }
-                                    predefinedWords._jforth._out.print('-');
-                                    predefinedWords._jforth._out.flush();
                                 }
-                                RawConsoleInput.resetConsoleMode();
+                                // RawConsoleInput.resetConsoleMode();
+                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
                                 dStack.push(s.toString());
                                 return 1;
                             } catch (Exception e) {
+                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
                                 return 0;
                             }
                         }
                 ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "tick", "Get clock value",
-//                        (dStack, vStack) ->
-//                        {
-//                            long n = System.currentTimeMillis();
-//                            dStack.push(n);
-//                            return 1;
-//                        }
-//                ));
 
         _fw.add(new PrimitiveWord
                 (

@@ -3,17 +3,20 @@ package streameditor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.stream.Collectors;
 
 public class LineListener implements KeyListener {
 
-    public final ArrayBlockingQueue<String> lineBuffer = new ArrayBlockingQueue<>(128,true);
-    StringBuilder sb = new StringBuilder();
+    private final ArrayBlockingQueue<String> lineBuffer = new ArrayBlockingQueue<>(128,true);
+    private final ArrayBlockingQueue<Character> charBuffer = new ArrayBlockingQueue<>(1024,true);
+
+    private volatile boolean locked = false;
 
     @Override
     public void keyTyped (KeyEvent e)
     {
         char c = e.getKeyChar();
-        sb.append(c);
+        charBuffer.offer(c);
     }
 
     @Override
@@ -24,17 +27,30 @@ public class LineListener implements KeyListener {
     @Override
     public void keyReleased (KeyEvent e)
     {
+        if (locked)
+            return;
+
         if (e.getKeyChar() == '\n')
         {
             try
             {
-                lineBuffer.put(sb.toString());
-                sb.setLength(0);
+                String str =  charBuffer.stream().map(String::valueOf).collect(Collectors.joining());
+                lineBuffer.put(str);
+                charBuffer.clear();
             }
             catch (InterruptedException interruptedException)
             {
                 interruptedException.printStackTrace();
             }
+        }
+    }
+
+    public char getBufferedChar()
+    {
+        try {
+            return charBuffer.take();
+        } catch (InterruptedException e) {
+            return 'X';
         }
     }
 
@@ -49,5 +65,14 @@ public class LineListener implements KeyListener {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public void reset() {
+        lineBuffer.clear();
+        charBuffer.clear();
+    }
+
+    public void lock(boolean lock) {
+        locked = lock;
     }
 }

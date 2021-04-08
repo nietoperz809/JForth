@@ -1580,5 +1580,60 @@ class Filler2 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "col", "set text color",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Color col = Utilities.readColor(dStack);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    predefinedWords._jforth.guiTerminal.setForeground(col);
+                                }
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "bkg", "set background color",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Color col = Utilities.readColor(dStack);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    predefinedWords._jforth.guiTerminal.setBackground(col);
+                                }
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "font", "set background color",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String name = Utilities.readString(dStack);
+                                float size = (float)Utilities.readDouble(dStack);
+                                Font font = Font.createFont(Font.TRUETYPE_FONT, new File(name)).deriveFont(size);
+                                System.out.println(font);
+                                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                                ge.registerFont(font);
+                                predefinedWords._jforth.guiTerminal.setFont(font);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }

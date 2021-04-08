@@ -41,8 +41,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2373";
-    private static final String BUILD_DATE = "04/06/2021 03:36:11 PM";
+    private static final String BUILD_NUMBER = "2389";
+    private static final String BUILD_DATE = "04/08/2021 06:13:39 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -562,6 +562,18 @@ public class Utilities {
         return getLong(dStack.peek());
     }
 
+    public static Color readColor (OStack dStack) throws Exception {
+        Object ox = dStack.pop();
+        if (ox instanceof DoubleSequence) {
+            DoubleSequence ds = (DoubleSequence)ox;
+            return new Color(ds.pick(0).intValue(), ds.pick(1).intValue(), ds.pick(2).intValue());
+        }
+        int r = (int)getLong(ox);
+        int g = (int)readLong(dStack);
+        int b = (int)readLong(dStack);
+        return new Color (r,g,b);
+    }
+
     public static Point readPoint(OStack dStack) throws Exception {
         Object ox = dStack.pop();
         if (ox instanceof DoubleSequence)
@@ -1077,4 +1089,19 @@ public class Utilities {
         return in;
     }
 
+    public static String performBackspace(String in)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (char c : in.toCharArray())
+        {
+            if (c == '\b')
+            {
+                if (sb.length() > 0)
+                    sb.setLength(sb.length()-1);
+            }
+            else
+                sb.append(c);
+        }
+        return sb.toString();
+    }
 }
