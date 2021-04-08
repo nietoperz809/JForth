@@ -7,40 +7,21 @@ import tools.StringStream;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Administrator
  */
 public class StreamingTextArea extends JTextArea //implements Runnable
 {
-    public final ArrayBlockingQueue<String> lineBuffer = new ArrayBlockingQueue<>(128,true);
+    private final LineListener lineListener = new LineListener();
 
     public StreamingTextArea ()
     {
         super();
         setCaret(new BlockCaret());
-        setKeyListener();
+        addKeyListener (lineListener);
         init();
         runForth();
-    }
-
-    private String handleBackspace (String in)
-    {
-        StringBuilder sb = new StringBuilder();
-        for (char c : in.toCharArray())
-        {
-            if (c == '\b')
-            {
-                if (sb.length() > 0)
-                    sb.setLength(sb.length()-1);
-            }
-            else
-                sb.append(c);
-        }
-        return sb.toString();
     }
 
     private void addText(StringStream ss)
@@ -61,7 +42,7 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         Utilities.execute(() -> {
             for(;;)
             {
-                String lineData = handleBackspace(getBufferedLine());
+                String lineData = Utilities.performBackspace (lineListener.getBufferedLine());
                 System.out.println(lineData);
                 jForth.singleShot(lineData);
                 addText(_ss);
@@ -81,85 +62,35 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
     }
 
-    private void setKeyListener()
-    {
-        this.addKeyListener(new KeyListener()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            @Override
-            public void keyTyped (KeyEvent e)
-            {
-                char c = e.getKeyChar();
-                sb.append(c);
-            }
-
-            @Override
-            public void keyPressed (KeyEvent e)
-            {
-            }
-
-            @Override
-            public void keyReleased (KeyEvent e)
-            {
-                if (e.getKeyChar() == '\n')
-                {
-                    try
-                    {
-                        lineBuffer.put(sb.toString());
-                        sb.setLength(0);
-                    }
-                    catch (InterruptedException interruptedException)
-                    {
-                        interruptedException.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-
-    public String getBufferedLine()
-    {
-        try
-        {
-            return lineBuffer.take();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-            return "";
-        }
-    }
-
-    @Override
-    public void paste ()
-    {
-        super.paste();
-        String clip = Utilities.getClipBoardString();
-        if (clip == null)
-            return;
-
-        String[] split = clip.split("\\n");
-        for (String s : split)
-        {
-            try
-            {
-                lineBuffer.put(s);
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void fakeIn (String s)
-    {
-        try {
-            lineBuffer.put(s);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void paste ()
+//    {
+//        super.paste();
+//        String clip = Utilities.getClipBoardString();
+//        if (clip == null)
+//            return;
+//
+//        String[] split = clip.split("\\n");
+//        for (String s : split)
+//        {
+//            try
+//            {
+//                lineBuffer.put(s);
+//            }
+//            catch (InterruptedException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    public void fakeIn (String s)
+//    {
+//        try {
+//            lineBuffer.put(s);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
