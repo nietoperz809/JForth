@@ -18,6 +18,25 @@
           </component>
         </children>
       </scrollpane>
+      <grid id="9debb" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties>
+          <autoscrolls value="true"/>
+          <background color="-14605013"/>
+          <preferredSize width="0" height="25"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="1a033" class="javax.swing.JComboBox" binding="comboBox1" custom-create="true" default-binding="true">
+            <constraints border-constraint="West"/>
+            <properties>
+              <editable value="true"/>
+              <minimumSize width="200" height="100"/>
+              <preferredSize width="200" height="100"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

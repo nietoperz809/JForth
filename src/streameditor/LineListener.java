@@ -12,10 +12,21 @@ public class LineListener implements KeyListener {
 
     private volatile boolean locked = false;
 
+    public void fakeIn (String s)
+    {
+        try {
+            lineBuffer.put(s);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void keyTyped (KeyEvent e)
     {
         char c = e.getKeyChar();
+        //System.out.println(0+c);
         charBuffer.offer(c);
     }
 

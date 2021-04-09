@@ -17,15 +17,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="new jna lib&#10;+ pin command">
-      <change afterPath="$PROJECT_DIR$/jarfile/C64.ttf" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="save">
+      <change afterPath="$PROJECT_DIR$/jarfile/CODE2000.TTF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/DejaVuSans.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jarfile/MxPlus.ttf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/laladumm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/History.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
     </list>
@@ -51,6 +53,11 @@
   </component>
   <component name="DevPartner.ProjectWorkspace">
     <option name="runtimeAnalysisType" value="-1" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="1" />
+    <option name="PRINT_LINE_NUMBERS" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -412,12 +419,12 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/jarfile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jforth" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="emulator" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
@@ -704,13 +711,14 @@
       <item itemvalue="Application.JForth" />
       <item itemvalue="Application.JForthGui" />
       <item itemvalue="Docker.Docker" />
+      <item itemvalue="JAR Application.JForthGui_jar.jar" />
       <item itemvalue="JAR Application.JForthGui.jar" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JAR Application.JForthGui.jar" />
       </list>
     </recent_temporary>
   </component>
@@ -814,13 +822,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00238" summary="added gray code">
-      <created>1608564784761</created>
-      <option name="number" value="00238" />
-      <option name="presentableId" value="LOCAL-00238" />
-      <option name="project" value="LOCAL" />
-      <updated>1608564784761</updated>
     </task>
     <task id="LOCAL-00239" summary="some enhancements">
       <created>1608579748498</created>
@@ -1158,7 +1159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617879916782</updated>
     </task>
-    <option name="localTasksCounter" value="287" />
+    <task id="LOCAL-00287" summary="save">
+      <created>1617898986099</created>
+      <option name="number" value="00287" />
+      <option name="presentableId" value="LOCAL-00287" />
+      <option name="project" value="LOCAL" />
+      <updated>1617898986099</updated>
+    </task>
+    <option name="localTasksCounter" value="288" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1235,7 +1243,6 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="fixed m- command" />
-    <MESSAGE value="save" />
     <MESSAGE value="removed unnecessary interfaces" />
     <MESSAGE value="random word now distinguishes between long &amp; double" />
     <MESSAGE value="improved 'permute' instruction" />
@@ -1259,14 +1266,15 @@
     <MESSAGE value="added virtual terminal" />
     <MESSAGE value="+ gui console&#10;+ jar file" />
     <MESSAGE value="+ linelistener" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ linelistener" />
+    <MESSAGE value="save" />
+    <option name="LAST_COMMIT_MESSAGE" value="save" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
-          <line>388</line>
+          <line>363</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

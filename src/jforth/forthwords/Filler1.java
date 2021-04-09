@@ -2829,53 +2829,53 @@ class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        PredefinedWords.SAVEHIST, false, "Save history",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                predefinedWords._jforth.history.save();
-                            } catch (Exception ex) {
-                                return 0;
-                            }
-                            return 1;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        PredefinedWords.SAVEHIST, false, "Save history",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                predefinedWords._jforth.history.save();
+//                            } catch (Exception ex) {
+//                                return 0;
+//                            }
+//                            return 1;
+//                        }
+//                ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "loadHist", "Load history",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                predefinedWords._jforth.history.load();
-                            } catch (Exception ex) {
-                                return 0;
-                            }
-                            return 1;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "loadHist", "Load history",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                predefinedWords._jforth.history.load();
+//                            } catch (Exception ex) {
+//                                return 0;
+//                            }
+//                            return 1;
+//                        }
+//                ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        PredefinedWords.PLAYHIST, false, "Execute History",
-                        (dStack, vStack) ->
-                        {
-                            predefinedWords._jforth.play();
-                            return 1;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        PredefinedWords.PLAYHIST, false, "Execute History",
+//                        (dStack, vStack) ->
+//                        {
+//                            predefinedWords._jforth.play();
+//                            return 1;
+//                        }
+//                ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "clearHist", "Clear History",
-                        (dStack, vStack) ->
-                        {
-                            predefinedWords._jforth.history.clear();
-                            return 1;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "clearHist", "Clear History",
+//                        (dStack, vStack) ->
+//                        {
+//                            predefinedWords._jforth.history.clear();
+//                            return 1;
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

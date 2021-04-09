@@ -6,7 +6,6 @@ import jforth.forthwords.PredefinedWords;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import org.fusesource.jansi.AnsiConsole;
 import streameditor.StreamingTextArea;
 import tools.Func;
 
@@ -28,7 +27,7 @@ public class JForth {
     public enum MODE {EDIT, DIRECT}
 
     public long LastETime;
-    public long StartTime;
+    public final long StartTime;
     public final Random random = new Random();
     public HashMap<String, String> globalMap = new HashMap<>();
     public Exception LastError = null;
@@ -36,17 +35,16 @@ public class JForth {
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
     // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_CLS = "\u001b[2J";
-    private static final String ANSI_BOLD = "\u001b[1m";
-    private static final String ANSI_YELLOW = "\u001b[33m";
-    private static final String ANSI_NORMAL = "\u001b[0m";
+    // private static final String ANSI_BOLD = "\u001b[1m";
+    // private static final String ANSI_YELLOW = "\u001b[33m";
+    // private static final String ANSI_NORMAL = "\u001b[0m";
     // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
-    private static final String ANSI_ERROR = "\u001b[93;41m";
+    // private static final String ANSI_ERROR = "\u001b[93;41m";
     private static final String FORTHPROMPT = "\nJFORTH> ";
     private static final String EDITORPROMPT = "\nEdit> ";
     private static final String OK = " OK";
     private static final int HISTORY_LENGTH = 1000;
     private static Voice voice = null;
-    public final History history;
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
@@ -75,7 +73,6 @@ public class JForth {
         CurrentEnvironment = ri;
         compiling = false;
         base = 10;
-        history = new History(HISTORY_LENGTH);
         _out = out;
         new PredefinedWords(this, dictionary);
         _lineEditor = new LineEdit(out, this);
@@ -107,26 +104,26 @@ public class JForth {
         voice.speak(txt);
     }
 
-    /**
-     * Starting point
-     *
-     * @param args not used
+    /*
+      Starting point
+
+      @param args not used
      */
-    public static void main(String[] args) {
-        AnsiConsole.systemInstall();
-        JForth jf;
-        while (true) // Restart the interpreter on memory errors
-        {
-            jf = new JForth(AnsiConsole.out, RuntimeEnvironment.CONSOLE);
-            try {
-                jf.mainLoop();
-                break;
-            } catch (OutOfMemoryError ex) {
-                jf._out.println(ANSI_ERROR + "Memory Error: " + ex.getMessage());
-                jf._out.println(ANSI_ERROR + "RESET!");
-            }
-        }
-    }
+//    public static void main(String[] args) {
+//        AnsiConsole.systemInstall();
+//        JForth jf;
+//        while (true) // Restart the interpreter on memory errors
+//        {
+//            jf = new JForth(AnsiConsole.out, RuntimeEnvironment.CONSOLE);
+//            try {
+//                jf.mainLoop();
+//                break;
+//            } catch (OutOfMemoryError ex) {
+//                jf._out.println(ANSI_ERROR + "Memory Error: " + ex.getMessage());
+//                jf._out.println(ANSI_ERROR + "RESET!");
+//            }
+//        }
+//    }
 
     /**
      * Execute one line and generate output
@@ -137,17 +134,9 @@ public class JForth {
         input = StringEscape.escape(input);
         if (mode == MODE.DIRECT) {
             if (!interpretLine(input)) {
-                if (CurrentEnvironment == RuntimeEnvironment.CONSOLE) {
-                    _out.print(input + " - " + ANSI_ERROR +
-                            " word execution or stack error " +
-                            ANSI_NORMAL);
-                } else {
-                    _out.print(input +
-                            " word execution or stack error");
-                }
+                _out.print(input + " word execution or stack error");
                 dStack.removeAllElements();
             } else {
-                history.add(input);
                 _out.print(OK);
             }
         } else // mode == EDIT
@@ -194,24 +183,10 @@ public class JForth {
     }
 
     public String ObjectToString(Object o) {
-        String out = makePrintable(o);
-        if (CurrentEnvironment == RuntimeEnvironment.CONSOLE)  {
-            return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
-        }
-        return out;
-    }
-
-    /**
-     * Run the history
-     */
-    public void play() {
-        for (String s : history.history) {
-            if (!interpretLine(s)) {
-                dStack.removeAllElements();
-            }
-            _out.print(FORTHPROMPT);
-            _out.flush();
-        }
+        //        if (CurrentEnvironment == RuntimeEnvironment.CONSOLE)  {
+//            return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
+//        }
+        return makePrintable(o);
     }
 
     /**
@@ -385,7 +360,7 @@ public class JForth {
         BaseWord bw;
         if (word.equalsIgnoreCase("recursive"))
             recflag = true;
-        if (recflag == true && currentWord != null && word.equalsIgnoreCase(currentWord.name)) {
+        if (recflag && currentWord != null && word.equalsIgnoreCase(currentWord.name)) {
             bw = dictionary.search("recurse");
             recflag = false;
         } else {

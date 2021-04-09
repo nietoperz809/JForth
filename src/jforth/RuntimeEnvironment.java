@@ -2,7 +2,7 @@ package jforth;
 
 public enum RuntimeEnvironment
 {
-    CONSOLE,
+    //CONSOLE,
     WEBSERVER,
     TEST,
     GUITERMINAL,

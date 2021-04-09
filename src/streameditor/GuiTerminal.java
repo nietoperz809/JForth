@@ -6,6 +6,10 @@ import java.awt.*;
 public class GuiTerminal {
     private JPanel MainPanel;
     private JTextArea textArea1;
+    private JComboBox<String> comboBox1;
+
+    public GuiTerminal() {
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("GuiTerminal");
@@ -36,6 +40,16 @@ public class GuiTerminal {
         final JScrollPane scrollPane1 = new JScrollPane();
         MainPanel.add(scrollPane1, BorderLayout.CENTER);
         scrollPane1.setViewportView(textArea1);
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout(0, 0));
+        panel1.setAutoscrolls(true);
+        panel1.setBackground(new Color(-14605013));
+        panel1.setPreferredSize(new Dimension(0, 25));
+        MainPanel.add(panel1, BorderLayout.SOUTH);
+        comboBox1.setEditable(true);
+        comboBox1.setMinimumSize(new Dimension(200, 100));
+        comboBox1.setPreferredSize(new Dimension(200, 100));
+        panel1.add(comboBox1, BorderLayout.WEST);
     }
 
     /**
@@ -46,6 +60,7 @@ public class GuiTerminal {
     }
 
     private void createUIComponents() {
-        textArea1 = new StreamingTextArea();
+        comboBox1 = new JComboBox<>();
+        textArea1 = new StreamingTextArea(comboBox1);
     }
 }

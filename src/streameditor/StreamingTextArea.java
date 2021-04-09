@@ -14,21 +14,38 @@ import java.awt.*;
 public class StreamingTextArea extends JTextArea //implements Runnable
 {
     private final LineListener lineListener = new LineListener();
+    private final JComboBox<String> combo;
 
-    public StreamingTextArea ()
+    public StreamingTextArea (JComboBox<String> combo)
     {
         super();
+
+        this.combo = combo;
+        //combo.setEditable(true);
+        combo.addActionListener(e -> {
+            if (e.getActionCommand().equals("comboBoxEdited"))
+            {
+                String item = (String) combo.getEditor().getItem();
+                lineListener.fakeIn(item);
+                appendText(item);
+            }
+        });
+
         setCaret(new BlockCaret());
         addKeyListener (lineListener);
         init();
         runForth();
     }
 
-    private void addText(StringStream ss)
+    private void appendText(StringStream ss)
+    {
+        appendText(ss.toString());
+        ss.clear();
+    }
+
+    private void appendText(String txt)
     {
         int cp = getCaretPosition();
-        String txt = ss.toString();
-        ss.clear();
         insert(txt, cp);
         setCaretPosition(cp+txt.length());
     }
@@ -38,14 +55,16 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         StringStream _ss = new StringStream();
         JForth jForth = new JForth (_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
         jForth.singleShot("");
-        addText(_ss);
+        appendText(_ss);
         Utilities.execute(() -> {
             for(;;)
             {
                 String lineData = Utilities.performBackspace (lineListener.getBufferedLine());
-                System.out.println(lineData);
+                if (lineData.isEmpty())
+                    continue;
+                combo.insertItemAt(lineData, 0);
                 jForth.singleShot(lineData);
-                addText(_ss);
+                appendText(_ss);
             }
         });
     }
@@ -71,8 +90,6 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         lineListener.reset();
     }
 
-
-
 //    @Override
 //    public void paste ()
 //    {
@@ -95,13 +112,5 @@ public class StreamingTextArea extends JTextArea //implements Runnable
 //        }
 //    }
 //
-//    public void fakeIn (String s)
-//    {
-//        try {
-//            lineBuffer.put(s);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 }
