@@ -130,12 +130,14 @@ public class JForth {
      *
      * @param input String containing forth commands
      */
-    public void singleShot(String input) {
+    public boolean singleShot(String input) {
+        boolean res = true;
         input = StringEscape.escape(input);
         if (mode == MODE.DIRECT) {
             if (!interpretLine(input)) {
                 _out.print(input + " word execution or stack error");
                 dStack.removeAllElements();
+                res = false;
             } else {
                 _out.print(OK);
             }
@@ -151,6 +153,7 @@ public class JForth {
             _out.print(EDITORPROMPT);
         }
         _out.flush();
+        return res;
     }
 
     /**

@@ -71,6 +71,7 @@ public class LineEdit {
     }
 
     boolean handleLine(String in) {
+        in = in.trim();
         if (in.startsWith("#")) {
             int firstspc = in.indexOf(' ');
             String args;

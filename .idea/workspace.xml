@@ -17,19 +17,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="save">
-      <change afterPath="$PROJECT_DIR$/jarfile/CODE2000.TTF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jarfile/DejaVuSans.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/jarfile/MxPlus.ttf" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForth_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_fusesource_jansi_jansi_1_15.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/History.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/RuntimeEnvironment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/LineEdit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LineEdit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,9 +60,9 @@
       <list>
         <option value="Package Object" />
         <option value="HTML File" />
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -823,20 +819,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00239" summary="some enhancements">
-      <created>1608579748498</created>
-      <option name="number" value="00239" />
-      <option name="presentableId" value="LOCAL-00239" />
-      <option name="project" value="LOCAL" />
-      <updated>1608579748498</updated>
-    </task>
-    <task id="LOCAL-00240" summary="added exp eval to toDouble &amp; toLong">
-      <created>1608602900464</created>
-      <option name="number" value="00240" />
-      <option name="presentableId" value="LOCAL-00240" />
-      <option name="project" value="LOCAL" />
-      <updated>1608602900464</updated>
-    </task>
     <task id="LOCAL-00241" summary="test sinwave">
       <created>1608836991590</created>
       <option name="number" value="00241" />
@@ -1166,7 +1148,21 @@
       <option name="project" value="LOCAL" />
       <updated>1617898986099</updated>
     </task>
-    <option name="localTasksCounter" value="288" />
+    <task id="LOCAL-00288" summary="backup">
+      <created>1617944344439</created>
+      <option name="number" value="00288" />
+      <option name="presentableId" value="LOCAL-00288" />
+      <option name="project" value="LOCAL" />
+      <updated>1617944344439</updated>
+    </task>
+    <task id="LOCAL-00289" summary="terminal now understands ansi colors">
+      <created>1618060501719</created>
+      <option name="number" value="00289" />
+      <option name="presentableId" value="LOCAL-00289" />
+      <option name="project" value="LOCAL" />
+      <updated>1618060501719</updated>
+    </task>
+    <option name="localTasksCounter" value="290" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1242,7 +1238,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixed m- command" />
     <MESSAGE value="removed unnecessary interfaces" />
     <MESSAGE value="random word now distinguishes between long &amp; double" />
     <MESSAGE value="improved 'permute' instruction" />
@@ -1256,7 +1251,6 @@
     <MESSAGE value="addad jar file" />
     <MESSAGE value="added wsize &amp; wpos commands" />
     <MESSAGE value="fixed bug in PlusLoopControlWord: &#10;countdown loop didn't count to 0" />
-    <MESSAGE value="backup" />
     <MESSAGE value="added replace word" />
     <MESSAGE value="+ roman numbers" />
     <MESSAGE value="+ reverse roman (arab)" />
@@ -1267,18 +1261,9 @@
     <MESSAGE value="+ gui console&#10;+ jar file" />
     <MESSAGE value="+ linelistener" />
     <MESSAGE value="save" />
-    <option name="LAST_COMMIT_MESSAGE" value="save" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
-          <line>363</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="backup" />
+    <MESSAGE value="terminal now understands ansi colors" />
+    <option name="LAST_COMMIT_MESSAGE" value="terminal now understands ansi colors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
