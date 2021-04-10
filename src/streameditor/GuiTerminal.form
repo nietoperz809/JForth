@@ -12,7 +12,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="5800d" class="javax.swing.JTextArea" binding="textArea1" custom-create="true" default-binding="true">
+          <component id="5800d" class="javax.swing.JTextPane" binding="textArea1" custom-create="true" default-binding="true">
             <constraints/>
             <properties/>
           </component>

@@ -11,7 +11,7 @@ import java.awt.*;
 /**
  * @author Administrator
  */
-public class StreamingTextArea extends JTextArea //implements Runnable
+public class StreamingTextArea extends ColorPane
 {
     private final LineListener lineListener = new LineListener();
     private final JComboBox<String> combo;
@@ -19,9 +19,7 @@ public class StreamingTextArea extends JTextArea //implements Runnable
     public StreamingTextArea (JComboBox<String> combo)
     {
         super();
-
         this.combo = combo;
-        //combo.setEditable(true);
         combo.addActionListener(e -> {
             if (e.getActionCommand().equals("comboBoxEdited"))
             {
@@ -37,17 +35,10 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         runForth();
     }
 
-    private void appendText(StringStream ss)
-    {
-        appendText(ss.toString());
-        ss.clear();
-    }
-
     private void appendText(String txt)
     {
-        int cp = getCaretPosition();
-        insert(txt, cp);
-        setCaretPosition(cp+txt.length());
+        appendANSI(txt);
+        setCaretPosition (getDocument().getLength());
     }
 
     private void runForth()
@@ -55,7 +46,8 @@ public class StreamingTextArea extends JTextArea //implements Runnable
         StringStream _ss = new StringStream();
         JForth jForth = new JForth (_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
         jForth.singleShot("");
-        appendText(_ss);
+        appendText(_ss.toString());
+        _ss.clear();
         Utilities.execute(() -> {
             for(;;)
             {
@@ -63,20 +55,28 @@ public class StreamingTextArea extends JTextArea //implements Runnable
                 if (lineData.isEmpty())
                     continue;
                 combo.insertItemAt(lineData, 0);
-                jForth.singleShot(lineData);
-                appendText(_ss);
+                boolean res = jForth.singleShot(lineData);
+                String txt = _ss.toString();
+                _ss.clear();
+
+                if (res)
+                {
+                    txt = AnsiColors.YELLOW.getLin()+txt;
+                }
+                else
+                {
+                    txt = AnsiColors.RED.getLin()+txt;
+                }
+                txt = txt.replace("JFORTH", AnsiColors.RESET.getLin()+"JFORTH");
+                appendText(txt);
             }
         });
     }
 
     private void init()
     {
-        setBackground(new java.awt.Color(0, 0, 153));
-        setForeground(new java.awt.Color(255, 255, 102));
-        setColumns(80);
+        setBackground(new java.awt.Color(0, 0, 0));
         setFont(new java.awt.Font("Monospaced", Font.PLAIN, 16)); // NOI18N
-        setLineWrap(true);
-        setRows(20);
         setCaretColor(new java.awt.Color(255, 102, 102));
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
     }

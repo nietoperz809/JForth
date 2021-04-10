@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GuiTerminal {
     private JPanel MainPanel;
-    private JTextArea textArea1;
+    private JTextPane textArea1;
     private JComboBox<String> comboBox1;
 
     public GuiTerminal() {
@@ -15,7 +15,9 @@ public class GuiTerminal {
         JFrame frame = new JFrame("GuiTerminal");
         frame.setContentPane(new GuiTerminal().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(new Dimension(800, 600));
+        frame.setLocationRelativeTo(null);
+        //frame.pack();
         frame.setVisible(true);
     }
 
