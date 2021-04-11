@@ -1,5 +1,7 @@
 package tools;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.*;
 import java.util.Objects;
 
@@ -68,6 +70,20 @@ public class ResourceLoader
             os.close ();
         }
         return tempName;
+    }
+
+    public static Image loadImageFromRessource (String name)
+    {
+        InputStream is = ClassLoader.getSystemResourceAsStream (name);
+        try
+        {
+            return ImageIO.read(is);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

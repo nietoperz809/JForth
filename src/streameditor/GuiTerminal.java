@@ -40,18 +40,26 @@ public class GuiTerminal {
         MainPanel = new JPanel();
         MainPanel.setLayout(new BorderLayout(0, 0));
         final JScrollPane scrollPane1 = new JScrollPane();
+        scrollPane1.setHorizontalScrollBarPolicy(30);
         MainPanel.add(scrollPane1, BorderLayout.CENTER);
         scrollPane1.setViewportView(textArea1);
         final JPanel panel1 = new JPanel();
-        panel1.setLayout(new BorderLayout(0, 0));
+        panel1.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 1));
         panel1.setAutoscrolls(true);
-        panel1.setBackground(new Color(-14605013));
-        panel1.setPreferredSize(new Dimension(0, 25));
+        panel1.setBackground(new Color(-16777216));
+        panel1.setPreferredSize(new Dimension(0, 30));
         MainPanel.add(panel1, BorderLayout.SOUTH);
+        final JLabel label1 = new JLabel();
+        label1.setBackground(new Color(-16777216));
+        label1.setForeground(new Color(-1642753));
+        label1.setOpaque(true);
+        label1.setPreferredSize(new Dimension(54, 30));
+        label1.setText("History ->");
+        panel1.add(label1);
         comboBox1.setEditable(true);
-        comboBox1.setMinimumSize(new Dimension(200, 100));
-        comboBox1.setPreferredSize(new Dimension(200, 100));
-        panel1.add(comboBox1, BorderLayout.WEST);
+        comboBox1.setMinimumSize(new Dimension(200, 30));
+        comboBox1.setPreferredSize(new Dimension(200, 30));
+        panel1.add(comboBox1);
     }
 
     /**

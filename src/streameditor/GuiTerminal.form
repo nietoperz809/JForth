@@ -9,7 +9,9 @@
     <children>
       <scrollpane id="543e3">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <horizontalScrollBarPolicy value="30"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="5800d" class="javax.swing.JTextPane" binding="textArea1" custom-create="true" default-binding="true">
@@ -18,21 +20,31 @@
           </component>
         </children>
       </scrollpane>
-      <grid id="9debb" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="9debb" layout-manager="FlowLayout" hgap="10" vgap="1" flow-align="0">
         <constraints border-constraint="South"/>
         <properties>
           <autoscrolls value="true"/>
-          <background color="-14605013"/>
-          <preferredSize width="0" height="25"/>
+          <background color="-16777216"/>
+          <preferredSize width="0" height="30"/>
         </properties>
         <border type="none"/>
         <children>
+          <component id="44aef" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <background color="-16777216"/>
+              <foreground color="-1642753"/>
+              <opaque value="true"/>
+              <preferredSize width="54" height="30"/>
+              <text value="History -&gt;"/>
+            </properties>
+          </component>
           <component id="1a033" class="javax.swing.JComboBox" binding="comboBox1" custom-create="true" default-binding="true">
-            <constraints border-constraint="West"/>
+            <constraints/>
             <properties>
               <editable value="true"/>
-              <minimumSize width="200" height="100"/>
-              <preferredSize width="200" height="100"/>
+              <minimumSize width="200" height="30"/>
+              <preferredSize width="200" height="30"/>
             </properties>
           </component>
         </children>

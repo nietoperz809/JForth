@@ -19,7 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
 
 public class JForth {
     public final RuntimeEnvironment CurrentEnvironment;
@@ -43,7 +42,7 @@ public class JForth {
     private static final String FORTHPROMPT = "\nJFORTH> ";
     private static final String EDITORPROMPT = "\nEdit> ";
     private static final String OK = " OK";
-    private static final int HISTORY_LENGTH = 1000;
+    // --Commented out by Inspection (4/10/2021 8:28 PM):private static final int HISTORY_LENGTH = 1000;
     private static Voice voice = null;
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
@@ -56,7 +55,7 @@ public class JForth {
     public BaseWord currentWord;
     public final LineEdit _lineEditor;
     public final LSystem _lsys = new LSystem();
-    private MultiDotStreamTokenizer st = null;
+    private MultiDotStreamTokenizer tokenizer = null;
     public StreamingTextArea guiTerminal;
 
     public JForth(RuntimeEnvironment ri) {
@@ -159,21 +158,21 @@ public class JForth {
     /**
      * Main loop
      */
-    private void mainLoop() {
-        dStack.removeAllElements();
-        Scanner scanner = new Scanner(System.in);
-        _out.println(Utilities.buildInfo);
-        singleShot("\n"); // to show prompt immediately
-        try {
-            executeFile("autoexec.4th");
-        } catch (Exception unused) {
-            // execution error, file not found
-        }
-        while (true) {
-            String s = scanner.nextLine().trim();
-            singleShot(s);
-        }
-    }
+//    private void mainLoop() {
+//        dStack.removeAllElements();
+//        Scanner scanner = new Scanner(System.in);
+//        _out.println(Utilities.buildInfo);
+//        singleShot("\n"); // to show prompt immediately
+//        try {
+//            executeFile("autoexec.4th");
+//        } catch (Exception unused) {
+//            // execution error, file not found
+//        }
+//        while (true) {
+//            String s = scanner.nextLine().trim();
+//            singleShot(s);
+//        }
+//    }
 
     /**
      * Make human-readable String from object
@@ -201,14 +200,14 @@ public class JForth {
     public boolean interpretLine(String text) {
         try {
             StringReader sr = new StringReader(text);
-            st = new MultiDotStreamTokenizer(sr);
-            st.resetSyntax();
-            st.wordChars('!', '~');
+            tokenizer = new MultiDotStreamTokenizer(sr);
+            tokenizer.resetSyntax();
+            tokenizer.wordChars('!', '~');
             //st.quoteChar('_');  // test
-            st.whitespaceChars('\u0000', '\u0020');
-            int ttype = st.nextToken();
+            tokenizer.whitespaceChars('\u0000', '\u0020');
+            int ttype = tokenizer.nextToken();
             while (ttype != StreamTokenizer.TT_EOF) {
-                String word = st.sval;
+                String word = tokenizer.sval;
                 if (word == null)
                     return true;
                 if (word.equals("\\"))   // Comment until line end
@@ -218,13 +217,13 @@ public class JForth {
                 if (word.equals("(")) // filter out comments
                 {
                     for (; ; ) {
-                        st.nextToken();
-                        String word2 = st.sval;
+                        tokenizer.nextToken();
+                        String word2 = tokenizer.sval;
                         if (word2.endsWith(")")) {
                             break;
                         }
                     }
-                    st.nextToken();
+                    tokenizer.nextToken();
                     continue;
                 }
                 if (!compiling) {
@@ -236,7 +235,7 @@ public class JForth {
                         return false;
                     }
                 }
-                ttype = st.nextToken();
+                ttype = tokenizer.nextToken();
             }
             return true;
         } catch (Exception e) {
@@ -249,8 +248,8 @@ public class JForth {
         if (word.equals(".\"")) {
             StringBuilder sb = new StringBuilder();
             for (; ; ) {
-                st.nextToken();
-                String word2 = st.sval;
+                tokenizer.nextToken();
+                String word2 = tokenizer.sval;
                 if (word2.endsWith("\"")) {
                     sb.append(word2, 0, word2.length() - 1);
                     break;
@@ -388,8 +387,8 @@ public class JForth {
 
     public String getNextToken() {
         try {
-            if (st.nextToken() != StreamTokenizer.TT_EOF) {
-                return st.sval;
+            if (tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
+                return tokenizer.sval;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();

@@ -15,6 +15,9 @@ public class StreamingTextArea extends ColorPane
 {
     private final LineListener lineListener = new LineListener();
     private final JComboBox<String> combo;
+    private static final String AnsiDefaultOutput = AnsiColors.getCode(Color.yellow);
+    private static final String AnsiError = AnsiColors.getCode (Color.RED);
+    private static final String AnsiReset = AnsiColors.getCode (Color.white);
 
     public StreamingTextArea (JComboBox<String> combo)
     {
@@ -23,7 +26,7 @@ public class StreamingTextArea extends ColorPane
         combo.addActionListener(e -> {
             if (e.getActionCommand().equals("comboBoxEdited"))
             {
-                String item = (String) combo.getEditor().getItem();
+                String item = (String) combo.getEditor().getItem() +"\n";
                 lineListener.fakeIn(item);
                 appendText(item);
             }
@@ -35,39 +38,53 @@ public class StreamingTextArea extends ColorPane
         runForth();
     }
 
+    public void addImage (Image img)
+    {
+        appendANSI("\n");
+        addIcon(img);
+        appendANSI("\n");
+    }
+
     private void appendText(String txt)
     {
-        appendANSI(txt);
-        setCaretPosition (getDocument().getLength());
+        try {
+            appendANSI(txt);
+            setCaretPosition (getDocument().getLength());
+        } catch (Exception e) {
+            System.out.println("HUH?");;
+        }
     }
 
     private void runForth()
     {
         StringStream _ss = new StringStream();
+        _ss.getPrintStream().println(Utilities.buildInfo);
         JForth jForth = new JForth (_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
         jForth.singleShot("");
         appendText(_ss.toString());
         _ss.clear();
+
         Utilities.execute(() -> {
             for(;;)
             {
                 String lineData = Utilities.performBackspace (lineListener.getBufferedLine());
                 if (lineData.isEmpty())
                     continue;
-                combo.insertItemAt(lineData, 0);
+                if (!lineData.equals("\n"))
+                    combo.insertItemAt(lineData, 0);
                 boolean res = jForth.singleShot(lineData);
                 String txt = _ss.toString();
                 _ss.clear();
 
                 if (res)
                 {
-                    txt = AnsiColors.YELLOW.getLin()+txt;
+                    txt = AnsiDefaultOutput+txt;
                 }
                 else
                 {
-                    txt = AnsiColors.RED.getLin()+txt;
+                    txt = AnsiError+txt;
                 }
-                txt = txt.replace("JFORTH", AnsiColors.RESET.getLin()+"JFORTH");
+                txt = txt.replace("JFORTH", AnsiReset+"JFORTH");
                 appendText(txt);
             }
         });

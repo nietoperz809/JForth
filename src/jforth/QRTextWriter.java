@@ -4,23 +4,36 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 public class QRTextWriter {
 
-    public String render (String txt) throws Exception
+    public Image render (String txt) throws Exception
     {
-        final int x = 100;
-        final int y = 100;
+        if (txt.isEmpty())
+            return null;
+        final int x = 800;
+        final int y = 800;
         QRCodeWriter w = new QRCodeWriter();
-        BitMatrix matrix = w.encode (txt, BarcodeFormat.QR_CODE, x, y);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < matrix.getWidth(); i++)
+        BitMatrix m = w.encode(txt, BarcodeFormat.QR_CODE, x, y);
+        BufferedImage _img = new BufferedImage(x, y, BufferedImage.TYPE_INT_RGB);
+        _img.createGraphics();
+        Graphics2D graphics = (Graphics2D) _img.getGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, x, y);
+        graphics.setColor(Color.BLACK);
+
+        for (int i = 0; i < x; i++)
         {
-            for (int j = 0; j < matrix.getWidth(); j++)
+            for (int j = 0; j < y; j++)
             {
-                sb.append (matrix.get(i,j) ? '\u3000' : " ");
+                if (m.get(i, j))
+                {
+                    graphics.fillRect(i, j, 1, 1);
+                }
             }
-            sb.append('\n');
         }
-        return sb.toString();
+        return _img;
     }
 }

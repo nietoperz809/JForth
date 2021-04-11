@@ -1314,7 +1314,8 @@ class Filler2 {
                             try {
                                 QRTextWriter ap = new QRTextWriter();
                                 String s = Utilities.readString(dStack);
-                                dStack.push(ap.render(s));
+                                Image img = ap.render(s);
+                                predefinedWords._jforth.guiTerminal.addImage(img);
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1635,14 +1636,31 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "font", "set background color",
+                        "tochar", "make character",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long ll = Utilities.readLong(dStack);
+                                dStack.push (""+(char)ll);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "font", "set fpnt",
                         (dStack, vStack) ->
                         {
                             try {
                                 String name = Utilities.readString(dStack);
-                                float size = (float)Utilities.readDouble(dStack);
+                                float size = 16;
+                                if (!dStack.empty())
+                                    size = (float)Utilities.readDouble(dStack);
                                 Font font = Font.createFont(Font.TRUETYPE_FONT, new File(name)).deriveFont(size);
-                                System.out.println(font);
+                                //System.out.println(font);
                                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                                 ge.registerFont(font);
                                 predefinedWords._jforth.guiTerminal.setFont(font);

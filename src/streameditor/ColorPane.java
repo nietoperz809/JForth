@@ -2,26 +2,10 @@ package streameditor;
 
 import javax.swing.*;
 import javax.swing.text.*;
-import java.awt.Color;
+import java.awt.*;
 
-public class ColorPane extends JTextPane {
-    static final Color D_Black   = Color.BLACK; //getHSBColor( 0.000f, 0.000f, 0.000f );
-    static final Color D_Red     = Color.RED; //getHSBColor( 0.000f, 1.000f, 0.502f );
-    static final Color D_Blue    = Color.BLUE; //getHSBColor( 0.667f, 1.000f, 0.502f );
-    static final Color D_Magenta = Color.MAGENTA; //getHSBColor( 0.833f, 1.000f, 0.502f );
-    static final Color D_Green   = Color.GREEN; //getHSBColor( 0.333f, 1.000f, 0.502f );
-    static final Color D_Yellow  = Color.YELLOW; //getHSBColor( 0.167f, 1.000f, 0.502f );
-    static final Color D_Cyan    = Color.CYAN; //getHSBColor( 0.500f, 1.000f, 0.502f );
-    static final Color D_White   = Color.WHITE; //getHSBColor( 0.000f, 0.000f, 0.753f );
-//    static final Color B_Black   = Color.getHSBColor( 0.000f, 0.000f, 0.502f );
-//    static final Color B_Red     = Color.getHSBColor( 0.000f, 1.000f, 1.000f );
-//    static final Color B_Blue    = Color.getHSBColor( 0.667f, 1.000f, 1.000f );
-//    static final Color B_Magenta = Color.getHSBColor( 0.833f, 1.000f, 1.000f );
-//    static final Color B_Green   = Color.getHSBColor( 0.333f, 1.000f, 1.000f );
-//    static final Color B_Yellow  = Color.getHSBColor( 0.167f, 1.000f, 1.000f );
-//    static final Color B_Cyan    = Color.getHSBColor( 0.500f, 1.000f, 1.000f );
-//    static final Color B_White   = Color.getHSBColor( 0.000f, 0.000f, 1.000f );
-    static final Color cReset    = Color.getHSBColor( 0.000f, 0.000f, 1.000f );
+public abstract class ColorPane extends JTextPane {
+    static final Color cReset    = Color.WHITE;
     static Color colorCurrent    = cReset;
     String remaining = "";
 
@@ -34,12 +18,36 @@ public class ColorPane extends JTextPane {
         replaceSelection(s); // there is no selection, so inserts at caret
     }
 
+    /**
+     * Experimental
+     */
+    public void addIcon (Image img) {
+        Image newimg = img.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        Icon icon = new ImageIcon(newimg);
+        JLabel label = new JLabel(icon);
+
+        StyledDocument document = (StyledDocument) getDocument();
+        StyleContext context = new StyleContext();
+
+        Style labelStyle = context.getStyle(StyleContext.DEFAULT_STYLE);
+
+        StyleConstants.setComponent(labelStyle, label);
+
+        setCaretPosition(document.getLength());  // place caret at the end (with no selection)
+
+        try {
+            document.insertString(document.getLength(), "I", labelStyle);
+        } catch (BadLocationException badLocationException) {
+            System.err.println("Oops");
+        }
+    }
+
     public void appendANSI(String s) { // convert ANSI color codes first
         int aPos = 0;   // current char position in addString
-        int aIndex = 0; // index of next Escape sequence
-        int mIndex = 0; // index of "m" terminating Escape sequence
-        String tmpString = "";
-        boolean stillSearching = true; // true until no more Escape sequences
+        int aIndex; // index of next Escape sequence
+        int mIndex; // index of "m" terminating Escape sequence
+        String tmpString;
+        boolean stillSearching; // true until no more Escape sequences
         String addString = remaining + s;
         remaining = "";
 
@@ -62,13 +70,13 @@ public class ColorPane extends JTextPane {
             while (stillSearching) {
                 mIndex = addString.indexOf("m",aPos); // find the end of the escape sequence
                 if (mIndex < 0) { // the buffer ends halfway through the ansi string!
-                    remaining = addString.substring(aPos,addString.length());
+                    remaining = addString.substring(aPos);
                     stillSearching = false;
                     continue;
                 }
                 else {
                     tmpString = addString.substring(aPos,mIndex+1);
-                    colorCurrent = getANSIColor(tmpString);
+                    colorCurrent = AnsiColors.getColor (tmpString, colorCurrent);
                 }
                 aPos = mIndex + 1;
 // now we have the color, send text that is in that color (up to next escape)
@@ -76,7 +84,7 @@ public class ColorPane extends JTextPane {
                 aIndex = addString.indexOf("\u001B", aPos);
 
                 if (aIndex == -1) { // if that was the last sequence of the input, send remaining text
-                    tmpString = addString.substring(aPos,addString.length());
+                    tmpString = addString.substring(aPos);
                     append(colorCurrent, tmpString);
                     stillSearching = false;
                     continue; // jump out of loop early, as the whole string has been sent now
@@ -89,34 +97,5 @@ public class ColorPane extends JTextPane {
 
             } // while there's text in the input buffer
         }
-    }
-
-    public Color getANSIColor(String ANSIColor) {
-        if (ANSIColor.equals("\u001B[30m"))        { return D_Black; }
-        else if (ANSIColor.equals("\u001B[31m"))   { return D_Red; }
-        else if (ANSIColor.equals("\u001B[32m"))   { return D_Green; }
-        else if (ANSIColor.equals("\u001B[33m"))   { return D_Yellow; }
-        else if (ANSIColor.equals("\u001B[34m"))   { return D_Blue; }
-        else if (ANSIColor.equals("\u001B[35m"))   { return D_Magenta; }
-        else if (ANSIColor.equals("\u001B[36m"))   { return D_Cyan; }
-        else if (ANSIColor.equals("\u001B[37m"))   { return D_White; }
-//        else if (ANSIColor.equals("\u001B[0;30m")) { return D_Black; }
-//        else if (ANSIColor.equals("\u001B[0;31m")) { return D_Red; }
-//        else if (ANSIColor.equals("\u001B[0;32m")) { return D_Green; }
-//        else if (ANSIColor.equals("\u001B[0;33m")) { return D_Yellow; }
-//        else if (ANSIColor.equals("\u001B[0;34m")) { return D_Blue; }
-//        else if (ANSIColor.equals("\u001B[0;35m")) { return D_Magenta; }
-//        else if (ANSIColor.equals("\u001B[0;36m")) { return D_Cyan; }
-//        else if (ANSIColor.equals("\u001B[0;37m")) { return D_White; }
-//        else if (ANSIColor.equals("\u001B[1;30m")) { return B_Black; }
-//        else if (ANSIColor.equals("\u001B[1;31m")) { return B_Red; }
-//        else if (ANSIColor.equals("\u001B[1;32m")) { return B_Green; }
-//        else if (ANSIColor.equals("\u001B[1;33m")) { return B_Yellow; }
-//        else if (ANSIColor.equals("\u001B[1;34m")) { return B_Blue; }
-//        else if (ANSIColor.equals("\u001B[1;35m")) { return B_Magenta; }
-//        else if (ANSIColor.equals("\u001B[1;36m")) { return B_Cyan; }
-//        else if (ANSIColor.equals("\u001B[1;37m")) { return B_White; }
-        else if (ANSIColor.equals("\u001B[0m"))    { return cReset; }
-        else { return D_White; }
     }
 }
