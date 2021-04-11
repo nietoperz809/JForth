@@ -1,5 +1,7 @@
 package streameditor;
 
+import tools.ForthProperties;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
@@ -9,7 +11,7 @@ public abstract class ColorPane extends JTextPane {
     static Color colorCurrent    = cReset;
     String remaining = "";
 
-    public void append(Color c, String s) {
+    protected void append(Color c, String s) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
         int len = getDocument().getLength(); // same value as getText().length();
@@ -19,30 +21,30 @@ public abstract class ColorPane extends JTextPane {
     }
 
     /**
-     * Experimental
+     * Show and scale image
      */
-    public void addIcon (Image img) {
-        Image newimg = img.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+    protected boolean addIcon (Image img) {
+        Point imgScale = ForthProperties.getImgScale();
+        Image newimg = img.getScaledInstance (imgScale.x, imgScale.y,  Image.SCALE_SMOOTH); // scale it the smooth way
         Icon icon = new ImageIcon(newimg);
         JLabel label = new JLabel(icon);
 
         StyledDocument document = (StyledDocument) getDocument();
         StyleContext context = new StyleContext();
-
         Style labelStyle = context.getStyle(StyleContext.DEFAULT_STYLE);
-
         StyleConstants.setComponent(labelStyle, label);
-
         setCaretPosition(document.getLength());  // place caret at the end (with no selection)
 
         try {
             document.insertString(document.getLength(), "I", labelStyle);
         } catch (BadLocationException badLocationException) {
-            System.err.println("Oops");
+            return false;
+            //System.err.println("Oops");
         }
+        return true;
     }
 
-    public void appendANSI(String s) { // convert ANSI color codes first
+    protected void appendANSI(String s) { // convert ANSI color codes first
         int aPos = 0;   // current char position in addString
         int aIndex; // index of next Escape sequence
         int mIndex; // index of "m" terminating Escape sequence

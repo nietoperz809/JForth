@@ -3,6 +3,7 @@ package streameditor;
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
 import jforth.Utilities;
+import tools.ForthProperties;
 import tools.StringStream;
 
 import javax.swing.*;
@@ -92,7 +93,7 @@ public class StreamingTextArea extends ColorPane
 
     private void init()
     {
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(ForthProperties.getBkColor());
         setFont(new java.awt.Font("Monospaced", Font.PLAIN, 16)); // NOI18N
         setCaretColor(new java.awt.Color(255, 102, 102));
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));

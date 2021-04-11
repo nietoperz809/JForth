@@ -15,6 +15,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import webserver.SimpleWebserver;
 
+import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
@@ -1105,6 +1106,12 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
+                            if (o instanceof Image) {
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    predefinedWords._jforth.guiTerminal.addImage((Image) o);
+                                    return 1;
+                                }
+                            }
                             String outstr = predefinedWords._jforth.ObjectToString(o);
                             if (outstr == null) {
                                 return 0;

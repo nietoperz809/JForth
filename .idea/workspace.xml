@@ -17,20 +17,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="line editor now works in gui window">
-      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="new jar">
+      <change afterPath="$PROJECT_DIR$/src/tools/ForthProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/AsciiPlotter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/AnsiColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/AnsiColors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/ColorPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/ResourceLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/ResourceLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +65,8 @@
         <option value="Package Object" />
         <option value="HTML File" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -834,20 +833,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00242" summary="added nice plotter.&#10;see testcases.testPlotter()">
-      <created>1608877811581</created>
-      <option name="number" value="00242" />
-      <option name="presentableId" value="LOCAL-00242" />
-      <option name="project" value="LOCAL" />
-      <updated>1608877811581</updated>
-    </task>
-    <task id="LOCAL-00243" summary="AsciiPlotter in separate class + pDim command">
-      <created>1608880296179</created>
-      <option name="number" value="00243" />
-      <option name="presentableId" value="LOCAL-00243" />
-      <option name="project" value="LOCAL" />
-      <updated>1608880296179</updated>
-    </task>
     <task id="LOCAL-00244" summary="new jarfile">
       <created>1608880436023</created>
       <option name="number" value="00244" />
@@ -1177,7 +1162,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618061330779</updated>
     </task>
-    <option name="localTasksCounter" value="291" />
+    <task id="LOCAL-00291" summary="can display qr codes">
+      <created>1618119189588</created>
+      <option name="number" value="00291" />
+      <option name="presentableId" value="LOCAL-00291" />
+      <option name="project" value="LOCAL" />
+      <updated>1618119189588</updated>
+    </task>
+    <task id="LOCAL-00292" summary="new jar">
+      <created>1618119336157</created>
+      <option name="number" value="00292" />
+      <option name="presentableId" value="LOCAL-00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1618119336157</updated>
+    </task>
+    <option name="localTasksCounter" value="293" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1253,8 +1252,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="random word now distinguishes between long &amp; double" />
-    <MESSAGE value="improved 'permute' instruction" />
     <MESSAGE value="added uptime word&#10;removed tick word" />
     <MESSAGE value="added ? word (immediately print variable)" />
     <MESSAGE value="variable can now handle different objects" />
@@ -1278,7 +1275,9 @@
     <MESSAGE value="backup" />
     <MESSAGE value="terminal now understands ansi colors" />
     <MESSAGE value="line editor now works in gui window" />
-    <option name="LAST_COMMIT_MESSAGE" value="line editor now works in gui window" />
+    <MESSAGE value="can display qr codes" />
+    <MESSAGE value="new jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="new jar" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

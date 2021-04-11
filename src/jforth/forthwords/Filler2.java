@@ -7,9 +7,12 @@ import jforth.audio.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
 import org.mathIT.util.FunctionParser;
+import tools.ForthProperties;
 import tools.MyWinApi;
+import tools.Plot2D;
 import tools.StringStream;
 
+import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.sound.sampled.Clip;
@@ -1295,10 +1298,11 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                AsciiPlotter ap = new AsciiPlotter(plotterDimension);
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
-                                dStack.push(ap.plot(s1, s2));
+                                Plot2D plotter = new Plot2D(s1.asPrimitiveArray(), s2.asPrimitiveArray());
+                                Image img = plotter.paint();
+                                dStack.push(img);
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1314,8 +1318,7 @@ class Filler2 {
                             try {
                                 QRTextWriter ap = new QRTextWriter();
                                 String s = Utilities.readString(dStack);
-                                Image img = ap.render(s);
-                                predefinedWords._jforth.guiTerminal.addImage(img);
+                                dStack.push(ap.render(s));
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1642,6 +1645,37 @@ class Filler2 {
                             try {
                                 long ll = Utilities.readLong(dStack);
                                 dStack.push (""+(char)ll);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "loadIMG", "load Image from Disk",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String path = Utilities.readString(dStack);
+                                Image img = ImageIO.read(new File(path));
+                                dStack.push (img);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "ImgScale", "set Image Scale",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Point pt = Utilities.readPoint(dStack);
+                                ForthProperties.putImgScale(pt);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
