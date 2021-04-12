@@ -2372,24 +2372,19 @@ class Filler1 {
                         "subSeq", "Subsequence of string or list",
                         (dStack, vStack) ->
                         {
-                            if (dStack.size() < 3) {
-                                return 0;
-                            }
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            Object o3 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof String)) {
-                                int i1 = (int) ((Long) o1).longValue();
-                                int i2 = (int) ((Long) o2).longValue();
-                                dStack.push(((String) o3).substring(i2, i1));
+                            try {
+                                int l1 = (int)Utilities.readLong(dStack);
+                                int l2 = (int)Utilities.readLong(dStack);
+                                Object o = dStack.pop();
+                                if (o instanceof  SequenceBase) {
+                                    dStack.push(((SequenceBase)o).subList(l2, l1));
+                                    return 1;
+                                }
+                                dStack.push(((String)o).substring(l2, l1));
                                 return 1;
-                            }
-                            if ((o1 instanceof Long) && (o2 instanceof Long) && (o3 instanceof DoubleSequence)) {
-                                int i1 = (int) ((Long) o1).longValue();
-                                int i2 = (int) ((Long) o2).longValue();
-                                DoubleSequence ds = (DoubleSequence) o3;
-                                dStack.push(ds.subList(i2, i1));
-                                return 1;
+
+                            } catch (Exception e) {
+                                //return 0;
                             }
                             return 0;
                         }

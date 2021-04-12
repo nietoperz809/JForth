@@ -106,7 +106,10 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
 
     public SequenceBase<? extends Comparable<?>> subList (int from, int to)
     {
-        return makeInstance((ArrayList<E>) _list.subList(from, to));
+        ArrayList<E> ret = new ArrayList<>(_list);
+        return makeInstance((ArrayList<E>)new ArrayList(ret.subList(from, to)));
+
+        //return makeInstance((ArrayList<E>) _list.subList(from, to));
     }
 
     public E pick (int i)

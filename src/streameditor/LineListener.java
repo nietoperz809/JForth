@@ -33,6 +33,9 @@ public class LineListener implements KeyListener {
     @Override
     public void keyPressed (KeyEvent e)
     {
+//        if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+//            System.out.println("Pasted!");
+//        }
     }
 
     @Override

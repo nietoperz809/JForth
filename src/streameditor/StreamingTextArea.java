@@ -35,10 +35,32 @@ public class StreamingTextArea extends ColorPane
 
         setCaret(new BlockCaret());
         addKeyListener (lineListener);
-        init();
-        runForth();
+        setBackground(ForthProperties.getBkColor());
+        setFont(new java.awt.Font("Monospaced", Font.PLAIN, 16)); // NOI18N
+        setCaretColor(new java.awt.Color(255, 102, 102));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        runForthLoop();
     }
 
+    /**
+     * Handle text from clipboard
+     */
+    @Override
+    public void paste ()
+    {
+        super.paste();
+        String clip = Utilities.getClipBoardString();
+        String[] split = clip.split("\\n");
+        for (String s : split)
+        {
+            lineListener.fakeIn(s);
+        }
+    }
+
+    /**
+     * Add image to our TextPane
+     * @param img the Image
+     */
     public void addImage (Image img)
     {
         appendANSI("\n");
@@ -46,6 +68,10 @@ public class StreamingTextArea extends ColorPane
         appendANSI("\n");
     }
 
+    /**
+     * Add Text and does text coloring
+     * @param txt
+     */
     private void appendText(String txt)
     {
         try {
@@ -56,16 +82,24 @@ public class StreamingTextArea extends ColorPane
         }
     }
 
-    private void runForth()
+    /**
+     * Initialize and start Forth thread
+     */
+    private void runForthLoop()
     {
         StringStream _ss = new StringStream();
         _ss.getPrintStream().println(Utilities.buildInfo);
         JForth jForth = new JForth (_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
+        try {
+            jForth.executeFile("autoexec.4th");
+        } catch (Exception e) {
+            System.out.println("autoexec file not found");
+        }
         jForth.singleShot("");
         appendText(_ss.toString());
         _ss.clear();
 
-        Utilities.execute(() -> {
+        Utilities.executeThread(() -> {
             for(;;)
             {
                 String lineData = Utilities.performBackspace (lineListener.getBufferedLine());
@@ -91,44 +125,21 @@ public class StreamingTextArea extends ColorPane
         });
     }
 
-    private void init()
-    {
-        setBackground(ForthProperties.getBkColor());
-        setFont(new java.awt.Font("Monospaced", Font.PLAIN, 16)); // NOI18N
-        setCaretColor(new java.awt.Color(255, 102, 102));
-        setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-    }
-
+    /**
+     * Get single char from input buffer
+     * Blocks if there is none
+     * @return the character
+     */
     public char getKey() {
         return lineListener.getBufferedChar();
     }
 
+    /**
+     * Halt line input but keep single char input runing
+     * @param lock true if line input is disabled
+     */
     public void lockLineInput(boolean lock) {
         lineListener.lock (lock);
         lineListener.reset();
     }
-
-//    @Override
-//    public void paste ()
-//    {
-//        super.paste();
-//        String clip = Utilities.getClipBoardString();
-//        if (clip == null)
-//            return;
-//
-//        String[] split = clip.split("\\n");
-//        for (String s : split)
-//        {
-//            try
-//            {
-//                lineBuffer.put(s);
-//            }
-//            catch (InterruptedException e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-
 }

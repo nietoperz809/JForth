@@ -8,8 +8,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/cmulex.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/cmutimelex.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/cedarsoftware/json-io/4.9.10/json-io-4.9.10.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/ascii-render-2.2.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/ascii-render-api-2.2.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.3.0/jaxb-api-2.3.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/newJNA/jna-5.7.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/newJNA/jna-platform-5.7.0.jar" path-in-jar="/" />

@@ -34,7 +34,6 @@
     <orderEntry type="library" name="cmutimelex" level="project" />
     <orderEntry type="library" name="mathIT" level="project" />
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.0" level="project" />
-    <orderEntry type="library" name="com.indvd00m.ascii.render:ascii-render:2.2.0" level="project" />
     <orderEntry type="library" name="jna-5.7.0-jpms" level="project" />
     <orderEntry type="library" name="zxing-2" level="project" />
   </component>

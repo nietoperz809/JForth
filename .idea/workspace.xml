@@ -18,18 +18,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="new jar">
-      <change afterPath="$PROJECT_DIR$/src/tools/ForthProperties.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_indvd00m_ascii_render_ascii_render_2_2_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/AsciiPlotter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ascii-render-2.2.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ascii-render-api-2.2.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/SequenceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SequenceBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/ColorPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +114,9 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="3" />
   </component>
   <component name="ProjectId" id="1T7COVnQfLr98KQLTtt1dpZQnu6" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -419,7 +425,7 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jforth" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jforth/forthwords" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
@@ -467,7 +473,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.testSubSeq">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -683,6 +689,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ForthTestCases.testSubSeq" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="testSubSeq" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -722,9 +739,11 @@
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases.testMList" />
+      <item itemvalue="JUnit.ForthTestCases.testSubSeq" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.testSubSeq" />
         <item itemvalue="JUnit.ForthTestCases.testMList" />
         <item itemvalue="JUnit.All in JForth" />
         <item itemvalue="JUnit.ForthTestCases" />
@@ -832,13 +851,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00244" summary="new jarfile">
-      <created>1608880436023</created>
-      <option name="number" value="00244" />
-      <option name="presentableId" value="LOCAL-00244" />
-      <option name="project" value="LOCAL" />
-      <updated>1608880436023</updated>
     </task>
     <task id="LOCAL-00245" summary="updated readme">
       <created>1608893219194</created>
@@ -1176,7 +1188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618119336157</updated>
     </task>
-    <option name="localTasksCounter" value="293" />
+    <task id="LOCAL-00293" summary="No it has an image plotter&#10;textmode fades away ...">
+      <created>1618169694098</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1618169694100</updated>
+    </task>
+    <option name="localTasksCounter" value="294" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1252,7 +1271,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added uptime word&#10;removed tick word" />
     <MESSAGE value="added ? word (immediately print variable)" />
     <MESSAGE value="variable can now handle different objects" />
     <MESSAGE value="not initialized vars == 0" />
@@ -1277,7 +1295,8 @@
     <MESSAGE value="line editor now works in gui window" />
     <MESSAGE value="can display qr codes" />
     <MESSAGE value="new jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="new jar" />
+    <MESSAGE value="No it has an image plotter&#10;textmode fades away ..." />
+    <option name="LAST_COMMIT_MESSAGE" value="No it has an image plotter&#10;textmode fades away ..." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

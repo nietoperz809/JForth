@@ -5,15 +5,15 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 
 public class Plot2D {
-    double[] xi;
-    double[] yi;
+    final double[] xi;
+    final double[] yi;
 
     public Plot2D(double[] x, double[] y) {
         this.xi = x;
         this.yi = y;
     }
 
-    public static double max(double[] t) {
+    private static double max(double[] t) {
         double maximum = t[0];
         for (int i = 1; i < t.length; i++) {
             if (t[i] > maximum) {
@@ -23,7 +23,7 @@ public class Plot2D {
         return maximum;
     }
 
-    public static double min(double[] t) {
+    private static double min(double[] t) {
         double minimum = t[0];
         for (int i = 1; i < t.length; i++) {
             if (t[i] < minimum) {
@@ -98,10 +98,10 @@ public class Plot2D {
 //        }
     }
 
-    public static void main(String args[]) {
-        double[] r = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
-        double[] t = {2.7, 2.8, 31.4, 38.1, 58.0, 76.2, 100.5, 130.0, 149.3, 180.09, 120};
-        Plot2D applet = new Plot2D(r, t);
-        applet.paint();
-    }
+//    public static void main(String[] args) {
+//        double[] r = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+//        double[] t = {2.7, 2.8, 31.4, 38.1, 58.0, 76.2, 100.5, 130.0, 149.3, 180.09, 120};
+//        Plot2D applet = new Plot2D(r, t);
+//        applet.paint();
+//    }
 }

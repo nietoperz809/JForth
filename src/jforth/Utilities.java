@@ -1,10 +1,5 @@
 package jforth;
 
-import com.indvd00m.ascii.render.Render;
-import com.indvd00m.ascii.render.api.ICanvas;
-import com.indvd00m.ascii.render.api.IContextBuilder;
-import com.indvd00m.ascii.render.api.IRender;
-import com.indvd00m.ascii.render.elements.PseudoText;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -41,8 +36,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2441";
-    private static final String BUILD_DATE = "04/11/2021 09:31:54 PM";
+    private static final String BUILD_NUMBER = "2462";
+    private static final String BUILD_DATE = "04/12/2021 06:38:26 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -57,7 +52,7 @@ public class Utilities {
         return tm - tc;
     }
 
-    public static FutureTask<?> execute (Runnable r)
+    public static FutureTask<?> executeThread(Runnable r)
     {
         if (getExecutorFreeSlots() <= 0)
         {
@@ -108,15 +103,8 @@ public class Utilities {
     }
 
     public static String bigPrint(String txt, int width) {
-        IRender render = new Render();
-        //render.setPseudoCanvas(true);
-        IContextBuilder builder = render.newBuilder();
-        //float w2 = (txt.length()*width)/1.9f;
-        double w2 = (txt.length() * width) * 7.0 / 13.0;
-        builder.width((int) w2).height(width);
-        builder.element(new PseudoText(txt, false));
-        ICanvas canvas = render.render(builder.build());
-        return canvas.getText();
+        // TODO: make graphics version
+        return "";
     }
 
     public static String printHexBinary(byte[] data) {
