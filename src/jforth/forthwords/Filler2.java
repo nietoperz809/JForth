@@ -18,6 +18,7 @@ import javax.script.ScriptEngineManager;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -1661,6 +1662,22 @@ class Filler2 {
                                 String path = Utilities.readString(dStack);
                                 Image img = ImageIO.read(new File(path));
                                 dStack.push (img);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "saveIMG", "save Image to Disk",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String path = Utilities.readString(dStack);
+                                BufferedImage img = (BufferedImage) dStack.pop();
+                                ImageIO.write(img, "png", new File(path));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

@@ -2995,11 +2995,10 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             String path;
-                            try {
+                            if (!dStack.empty() && dStack.peek() instanceof String)
                                 path = Utilities.readString(dStack);
-                            } catch (Exception e) {
+                            else
                                 path = ".";
-                            }
                             dStack.push(FileUtils.dir(path));
                             return 1;
                         }
