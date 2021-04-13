@@ -1465,4 +1465,31 @@ public class ForthTestCases
         s = check ("{a,b,c,d,e,f,r,g,h} 3 6 subseq",".");
         shoudBeOK ("{\"d\",\"e\",\"f\"}", s);
     }
+
+    @Test
+    public void testSeqOps()
+    {
+        String s = check ("{1,2} {1,2} -",".");
+        shoudBeOK ("{}", s);
+        s = check ("{x,y} {x,y} -",".");
+        shoudBeOK ("{}", s);
+        s = check ("{x,y} {1,2} -",".");
+        shoudBeOK ("{\"x\",\"y\"}", s);
+        s = check ("{1,2} {x,y} -",".");
+        shoudBeOK ("{1,2}", s);
+        s = check ("{1,2} {} -",".");
+        shoudBeOK ("{1,2}", s);
+        s = check ("{1,2} {} +",".");
+        shoudBeOK ("{1,2}", s);
+        s = check ("{x,y} {} -",".");
+        shoudBeOK ("{\"x\",\"y\"}", s);
+        s = check ("{x,y} {} +",".");
+        shoudBeOK ("{\"x\",\"y\"}", s);
+        s = check ("{} {} +",".");
+        shoudBeOK ("{}", s);
+        s = check ("{} {} -",".");
+        shoudBeOK ("{}", s);
+        s = check ("{a,b,c} {\"a\",\"b\",\"c\"} -",".");
+        shoudBeOK ("{}", s);
+    }
 }

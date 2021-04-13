@@ -15,7 +15,8 @@ public class LineListener implements KeyListener {
     public void fakeIn (String s)
     {
         try {
-            lineBuffer.put(s);
+            for (char c : s.toCharArray())
+                charBuffer.put(c);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

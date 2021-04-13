@@ -71,9 +71,28 @@ public class WordHelpers {
             long i2 = (Long) o2;
             i2 += i1;
             dStack.push(i2);
-        } else if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence)) {
+            return 1;
+        }
+        if (o1 instanceof SequenceBase)
+        {
+            if (((SequenceBase<?>) o1).length() == 0)
+            {
+                dStack.push(o2);
+                return 1;
+            }
+        }
+        if (o2 instanceof SequenceBase)
+        {
+            if (((SequenceBase<?>) o2).length() == 0)
+            {
+                dStack.push(o1);
+                return 1;
+            }
+        }
+        if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence)) {
             DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
             dStack.push(s);
+            return 1;
         } else if ((o1 instanceof Double) && (o2 instanceof DoubleSequence)) {
             Double d1 = (Double) o1;
             DoubleSequence d2 = (DoubleSequence) o2;

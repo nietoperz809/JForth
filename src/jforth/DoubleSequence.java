@@ -203,6 +203,8 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
     {
         if (base != 10)
             return null;
+        if (in.equals("{}"))
+            return new DoubleSequence();
         String seq = Utilities.extractSequence (in);
         if (seq == null)
             return null;
