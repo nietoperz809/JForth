@@ -1110,7 +1110,7 @@ public class ForthTestCases
     {
         String s = check ("1234 ( a comment ) dup ( next comm.) +",".");
         shoudBeOK ("2468" ,s);
-        s = check ("1234 \\ some other bullshitt",".");
+        s = check ("1234 // some other bullshitt",".");
         shoudBeOK ("1234" ,s);
     }
 
@@ -1454,6 +1454,16 @@ public class ForthTestCases
         String s = check ("{5,3} 1/ sum 1/",".");
         shoudBeOK ("1.875", s);
     }
+
+    @Test
+    public void testSpecialChars()
+    {
+        String s = check ("\\1234",".");
+        shoudBeOK ("ʜ", s);
+        s = check ("\\33lala\\77",".");
+        shoudBeOK ("\33lala\77", s);
+    }
+
 
     @Test
     public void testSubSeq()

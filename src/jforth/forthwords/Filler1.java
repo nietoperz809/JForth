@@ -13,6 +13,7 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
+import tools.SpecialChars;
 import webserver.SimpleWebserver;
 
 import java.awt.*;
@@ -1112,11 +1113,11 @@ class Filler1 {
                                     return 1;
                                 }
                             }
-                            String outstr = predefinedWords._jforth.ObjectToString(o);
+                            String outstr = predefinedWords._jforth.makePrintable(o);
                             if (outstr == null) {
                                 return 0;
                             }
-                            predefinedWords._jforth._out.print(outstr);
+                            predefinedWords._jforth._out.print(new SpecialChars().convertSC(outstr));
                             return 1;
                         }
                 ));
@@ -1149,7 +1150,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             for (Object o : dStack) {
-                                predefinedWords._jforth._out.print(predefinedWords._jforth.ObjectToString(o) + " ");
+                                predefinedWords._jforth._out.print(predefinedWords._jforth.makePrintable(o) + " ");
                             }
                             return 1;
                         }
@@ -1162,7 +1163,7 @@ class Filler1 {
                         {
                             while (!dStack.isEmpty()) {
                                 Object o = dStack.pop();
-                                predefinedWords._jforth._out.print(predefinedWords._jforth.ObjectToString(o));
+                                predefinedWords._jforth._out.print(predefinedWords._jforth.makePrintable(o));
                             }
                             return 1;
                         }
@@ -1520,7 +1521,7 @@ class Filler1 {
                         {
                             try {
                                 Object xx = fetchVar (dStack, vStack);
-                                String outstr = predefinedWords._jforth.ObjectToString(xx) +' ';
+                                String outstr = predefinedWords._jforth.makePrintable(xx) +' ';
                                 if (outstr == null) {
                                     return 0;
                                 }

@@ -8,6 +8,7 @@ import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import streameditor.StreamingTextArea;
 import tools.Func;
+import tools.SpecialChars;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -184,12 +185,9 @@ public class JForth {
         return Utilities.makePrintable(o, base);
     }
 
-    public String ObjectToString(Object o) {
-        //        if (CurrentEnvironment == RuntimeEnvironment.CONSOLE)  {
-//            return ANSI_YELLOW + ANSI_BOLD + out + ANSI_NORMAL;
-//        }
-        return makePrintable(o);
-    }
+//    public String ObjectToString(Object o) {
+//        return Utilities.makePrintable(o, base);
+//    }
 
     /**
      * Run a single line of FORTH statements
@@ -210,7 +208,7 @@ public class JForth {
                 String word = tokenizer.sval;
                 if (word == null)
                     return true;
-                if (word.equals("\\"))   // Comment until line end
+                if (word.equals("//"))   // Comment until line end
                 {
                     return true;
                 }

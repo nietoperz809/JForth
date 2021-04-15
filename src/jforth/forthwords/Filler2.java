@@ -628,7 +628,7 @@ class Filler2 {
                 ));
 
         _fw.add(new PrimitiveWord
-                ( //TODO: didn't work in direct mode!!! only as programmed word
+                (
                         "loop", true, "repeat loop",
                         (dStack, vStack) ->
                                 WordHelpers.addLoopWord(vStack, predefinedWords, LoopControlWord.class)
