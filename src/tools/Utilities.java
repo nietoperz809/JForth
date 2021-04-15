@@ -1,12 +1,12 @@
-package jforth;
+package tools;
 
+import jforth.*;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
-import tools.TwoFuncs;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -37,8 +37,8 @@ import static org.mathIT.numbers.Numbers.euclid;
  * Created by Administrator on 3/21/2017.
  */
 public class Utilities {
-    private static final String BUILD_NUMBER = "2509";
-    private static final String BUILD_DATE = "04/15/2021 06:58:01 AM";
+    private static final String BUILD_NUMBER = "2525";
+    private static final String BUILD_DATE = "04/15/2021 12:15:41 PM";
 
     public static final String buildInfo = "JForth, Build: " + Utilities.BUILD_NUMBER + ", " + Utilities.BUILD_DATE
             + " -- " + System.getProperty("java.version");
@@ -289,7 +289,7 @@ public class Utilities {
         return null;
     }
 
-    static Complex parseComplex(String in, int base) {
+    public static Complex parseComplex(String in, int base) {
         if (base != 10) {
             return null;
         }
@@ -319,7 +319,7 @@ public class Utilities {
         return new Complex(Double.parseDouble(parts[0]), Double.parseDouble(parts[1]));
     }
 
-    static Fraction parseFraction(String in, int base) {
+    public static Fraction parseFraction(String in, int base) {
         if (base != 10) {
             return null;
         }
@@ -1094,5 +1094,19 @@ public class Utilities {
                 sb.append(c);
         }
         return sb.toString();
+    }
+
+    public static String replaceUmlauts(String output) {
+        String newString = output.replace("\u00fc", "ue")
+                .replace("\u00f6", "oe")
+                .replace("\u00e4", "ae")
+                .replace("\u00df", "ss")
+                .replaceAll("\u00dc(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Ue")
+                .replaceAll("\u00d6(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Oe")
+                .replaceAll("\u00c4(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Ae")
+                .replace("\u00dc", "UE")
+                .replace("\u00d6", "OE")
+                .replace("\u00c4", "AE");
+        return newString;
     }
 }

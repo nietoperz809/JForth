@@ -14,6 +14,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.SpecialChars;
+import tools.Utilities;
 import webserver.SimpleWebserver;
 
 import java.awt.*;

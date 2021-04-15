@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static jforth.PolynomialParser.parsePolynomial;
-import static jforth.Utilities.textFileToString;
+import static tools.Utilities.textFileToString;
 
 /**
  * Created by Administrator on 4/15/2017.

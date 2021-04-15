@@ -7,10 +7,7 @@ import jforth.audio.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
 import org.mathIT.util.FunctionParser;
-import tools.ForthProperties;
-import tools.MyWinApi;
-import tools.Plot2D;
-import tools.StringStream;
+import tools.*;
 
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
@@ -1640,7 +1637,7 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "tochar", "make character",
+                        "tochar", "make character from numeric value",
                         (dStack, vStack) ->
                         {
                             try {

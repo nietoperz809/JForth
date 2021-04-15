@@ -2,7 +2,7 @@ package jforth.ControlWords;
 
 import jforth.BaseWord;
 import jforth.OStack;
-import jforth.Utilities;
+import tools.Utilities;
 
 public final class DoLoopControlWord extends BaseWord
 {

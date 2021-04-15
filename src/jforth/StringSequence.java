@@ -4,6 +4,8 @@
 package jforth;
 
 
+import tools.Utilities;
+
 import java.util.*;
 
 public class StringSequence extends SequenceBase<String> implements java.io.Serializable

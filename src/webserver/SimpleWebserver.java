@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import jforth.Utilities;
+import tools.Utilities;
 import tools.StringStream;
 
 import java.io.BufferedInputStream;

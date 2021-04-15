@@ -26,8 +26,9 @@ public class LineListener implements KeyListener {
     @Override
     public void keyTyped (KeyEvent e)
     {
+        if (e.isControlDown())
+            return;
         char c = e.getKeyChar();
-        //System.out.println(0+c);
         charBuffer.offer(c);
     }
 

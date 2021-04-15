@@ -1,5 +1,7 @@
 package jforth;
 
+import tools.Utilities;
+
 import java.util.*;
 
 public class WordsList

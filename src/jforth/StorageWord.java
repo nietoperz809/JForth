@@ -2,6 +2,7 @@ package jforth;
 
 import jforth.forthwords.PredefinedWords;
 import jforth.forthwords.WordHelpers;
+import tools.Utilities;
 
 public final class StorageWord extends BaseWord {
     public StorageWord(String name, int size, boolean isArray) {

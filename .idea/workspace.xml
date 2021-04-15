@@ -17,16 +17,31 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="fixed dir word&#10;+ added saveimg">
-      <change afterPath="$PROJECT_DIR$/src/tools/SpecialChars.java" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="strings can have octals eg. \33 (for ESC)">
+      <change afterPath="$PROJECT_DIR$/src/tools/MemoryClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/MemoryJavaFileManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/ControlWords/DoLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ControlWords/DoLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/ControlWords/PlusLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ControlWords/PlusLoopControlWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JavaExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JavaExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/LehmerCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LehmerCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/StorageWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StorageWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/StringSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StringSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/WordsList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/WordsList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/buildnum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/buildnum.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -437,11 +452,11 @@
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\tools" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\jarfile" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="jforth.Utilities" />
@@ -454,6 +469,7 @@
       <recent name="jforth.waves" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="tools" />
       <recent name="jforth.audio" />
       <recent name="jforth" />
       <recent name="jforth.waves" />
@@ -467,7 +483,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -855,13 +871,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00248" summary="save">
-      <created>1609007296593</created>
-      <option name="number" value="00248" />
-      <option name="presentableId" value="LOCAL-00248" />
-      <option name="project" value="LOCAL" />
-      <updated>1609007296593</updated>
-    </task>
     <task id="LOCAL-00249" summary="changed x= to f=">
       <created>1609040282891</created>
       <option name="number" value="00249" />
@@ -1198,7 +1207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618296057199</updated>
     </task>
-    <option name="localTasksCounter" value="297" />
+    <task id="LOCAL-00297" summary="strings can have octals eg. \33 (for ESC)">
+      <created>1618462860833</created>
+      <option name="number" value="00297" />
+      <option name="presentableId" value="LOCAL-00297" />
+      <option name="project" value="LOCAL" />
+      <updated>1618462860834</updated>
+    </task>
+    <option name="localTasksCounter" value="298" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1274,7 +1290,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added array conversion to sequence" />
     <MESSAGE value="fixed bug with nonstd recursion" />
     <MESSAGE value="new jna lib&#10;+ pin command" />
     <MESSAGE value="addad jar file" />
@@ -1299,19 +1314,20 @@
     <MESSAGE value="repaired subseq" />
     <MESSAGE value="fixed some bugs regarding empty seq" />
     <MESSAGE value="fixed dir word&#10;+ added saveimg" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed dir word&#10;+ added saveimg" />
+    <MESSAGE value="strings can have octals eg. \33 (for ESC)" />
+    <option name="LAST_COMMIT_MESSAGE" value="strings can have octals eg. \33 (for ESC)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>2112</line>
+          <line>2113</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>

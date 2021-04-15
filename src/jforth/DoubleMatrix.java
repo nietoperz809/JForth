@@ -3,10 +3,11 @@ package jforth;
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
+import tools.Utilities;
 
 import java.util.ArrayList;
 
-import static jforth.Utilities.parseCSVtoDoubleArray;
+import static tools.Utilities.parseCSVtoDoubleArray;
 
 public class DoubleMatrix extends BlockRealMatrix implements java.io.Serializable
 {

@@ -2,7 +2,7 @@ package streameditor;
 
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import jforth.Utilities;
+import tools.Utilities;
 import tools.ForthProperties;
 import tools.StringStream;
 

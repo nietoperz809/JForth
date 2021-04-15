@@ -8,7 +8,7 @@ import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import streameditor.StreamingTextArea;
 import tools.Func;
-import tools.SpecialChars;
+import tools.Utilities;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -132,6 +132,7 @@ public class JForth {
      */
     public boolean singleShot(String input) {
         boolean res = true;
+        input = Utilities.replaceUmlauts(input);
         input = StringEscape.escape(input);
         if (mode == MODE.DIRECT) {
             if (!interpretLine(input)) {
@@ -202,7 +203,8 @@ public class JForth {
             tokenizer.resetSyntax();
             tokenizer.wordChars('!', '~');
             //st.quoteChar('_');  // test
-            tokenizer.whitespaceChars('\u0000', '\u0020');
+            //tokenizer.whitespaceChars('\u0000', '\u0020');
+            tokenizer.whitespaceChars('\u0020', '\u0020');
             int ttype = tokenizer.nextToken();
             while (ttype != StreamTokenizer.TT_EOF) {
                 String word = tokenizer.sval;

@@ -1,9 +1,9 @@
-<project name="MyProject" default="init" basedir=".">
+<project name="MyProject" default="init" basedir="../tools">
     <description>
         increment build variable
     </description>
     <!-- set global properties for this build -->
-    <property name="src" location="../src/jforth"/>
+    <property name="src" location="../src/tools"/>
 
     <tstamp>
         <format property="current.time" pattern="MM/dd/yyyy hh:mm:ss aa" />
