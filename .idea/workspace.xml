@@ -17,31 +17,24 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="strings can have octals eg. \33 (for ESC)">
-      <change afterPath="$PROJECT_DIR$/src/tools/MemoryClassLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/MemoryJavaFileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="noved things around + bugfix in LineListener.java">
+      <change afterPath="$PROJECT_DIR$/src/tools/ByteArrayClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/SerializableImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/ControlWords/DoLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ControlWords/DoLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/ControlWords/PlusLoopControlWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/ControlWords/PlusLoopControlWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/FileUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JavaExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JavaExecutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/LehmerCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LehmerCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/StorageWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StorageWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/StringSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StringSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/WordsList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/WordsList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/build.number" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/buildnum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/buildnum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/LineListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/MyWinApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/MyWinApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/ResourceLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/ResourceLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -679,6 +672,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ForthTestCases.testLoadedPrg1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="testLoadedPrg1" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ForthTestCases.testMList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -690,11 +694,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testSeqOps" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.testMSaveLoad" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testSeqOps" />
+      <option name="METHOD_NAME" value="testMSaveLoad" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -706,17 +710,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="METHOD_NAME" value="testSpecialChars" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.testSubSeq" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testSubSeq" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -756,17 +749,17 @@
       <item itemvalue="Docker.Docker" />
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testMList" />
-      <item itemvalue="JUnit.ForthTestCases.testSubSeq" />
-      <item itemvalue="JUnit.ForthTestCases.testSeqOps" />
       <item itemvalue="JUnit.ForthTestCases.testSpecialChars" />
+      <item itemvalue="JUnit.ForthTestCases.testLoadedPrg1" />
+      <item itemvalue="JUnit.ForthTestCases.testMSaveLoad" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.testSpecialChars" />
-        <item itemvalue="JUnit.ForthTestCases.testSeqOps" />
-        <item itemvalue="JUnit.ForthTestCases.testSubSeq" />
+        <item itemvalue="JUnit.ForthTestCases.testLoadedPrg1" />
+        <item itemvalue="JUnit.ForthTestCases.testMSaveLoad" />
         <item itemvalue="JUnit.ForthTestCases.testMList" />
+        <item itemvalue="JUnit.ForthTestCases.testSpecialChars" />
       </list>
     </recent_temporary>
   </component>
@@ -870,13 +863,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00249" summary="changed x= to f=">
-      <created>1609040282891</created>
-      <option name="number" value="00249" />
-      <option name="presentableId" value="LOCAL-00249" />
-      <option name="project" value="LOCAL" />
-      <updated>1609040282891</updated>
     </task>
     <task id="LOCAL-00250" summary="changed poly formatting using * sign&#10;10x -&gt; 10*x&#10;so that the math-it term parser do understand it">
       <created>1609044307135</created>
@@ -1214,7 +1200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618462860834</updated>
     </task>
-    <option name="localTasksCounter" value="298" />
+    <task id="LOCAL-00298" summary="noved things around + bugfix in LineListener.java">
+      <created>1618483327672</created>
+      <option name="number" value="00298" />
+      <option name="presentableId" value="LOCAL-00298" />
+      <option name="project" value="LOCAL" />
+      <updated>1618483327672</updated>
+    </task>
+    <option name="localTasksCounter" value="299" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1290,7 +1283,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixed bug with nonstd recursion" />
     <MESSAGE value="new jna lib&#10;+ pin command" />
     <MESSAGE value="addad jar file" />
     <MESSAGE value="added wsize &amp; wpos commands" />
@@ -1315,20 +1307,31 @@
     <MESSAGE value="fixed some bugs regarding empty seq" />
     <MESSAGE value="fixed dir word&#10;+ added saveimg" />
     <MESSAGE value="strings can have octals eg. \33 (for ESC)" />
-    <option name="LAST_COMMIT_MESSAGE" value="strings can have octals eg. \33 (for ESC)" />
+    <MESSAGE value="noved things around + bugfix in LineListener.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="noved things around + bugfix in LineListener.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>2113</line>
+          <line>2117</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
           <line>29</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/FileUtils.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Test/ForthTestCases.java</url>
+          <line>1358</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

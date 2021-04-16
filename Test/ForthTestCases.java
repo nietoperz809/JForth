@@ -1247,7 +1247,7 @@ public class ForthTestCases
     @Test
     public void testMList()
     {
-        String code = "10 0 do i dup tostr b64 m+ loop";
+        String code = "10 0 do i dup tostr b64 swap m+ loop";
         String s = check (code,"mlist .");
         shoudBeOK ("0 --> MA==\n" +
                 "1 --> MQ==\n" +
@@ -1399,7 +1399,7 @@ public class ForthTestCases
     @Test
     public void testMSaveLoad()
     {
-        String code = ": test 10 0 do i dup tobits m+ loop ; test listsave msave";
+        String code = ": test 10 0 do i dup tobits swap m+ loop ; test listsave msave";
         String s = check (code,"mlist .");
         shoudBeOK ("0 --> {0}\n" +
                 "1 --> {1}\n" +

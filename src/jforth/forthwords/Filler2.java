@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.TimerTask;
 import java.util.zip.CRC32;
 
@@ -1265,7 +1266,7 @@ class Filler2 {
                             if (predefinedWords._jforth.LastError == null)
                                 dStack.push("Everything's fine ...");
                             else {
-                                String sb = predefinedWords._jforth.LastError.toString() +
+                                String sb = predefinedWords._jforth.LastError +
                                         ", " +
                                         (currentTimeMillis() - predefinedWords._jforth.LastETime) / 1000 +
                                         " secs ago\n";
@@ -1299,7 +1300,7 @@ class Filler2 {
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
                                 Plot2D plotter = new Plot2D(s1.asPrimitiveArray(), s2.asPrimitiveArray());
-                                Image img = plotter.paint();
+                                SerializableImage img = plotter.paint();
                                 dStack.push(img);
                             } catch (Exception e) {
                                 return 0;
@@ -1346,9 +1347,9 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Object obj = dStack.pop();
                                 String name = Utilities.readString(dStack);
-                                predefinedWords._jforth.globalMap.put(name, predefinedWords._jforth.makePrintable(obj));
+                                Object obj = dStack.pop();
+                                predefinedWords._jforth.globalMap.put(name, obj);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1363,12 +1364,10 @@ class Filler2 {
                         {
                             try {
                                 String name = Utilities.readString(dStack);
-                                String word = predefinedWords._jforth.globalMap.get(name);
+                                Object word = predefinedWords._jforth.globalMap.get(name);
                                 if (word == null)
                                     return 0;
-                                boolean res = predefinedWords._jforth.doForKnownWords(word, dStack::push);
-                                if (!res)
-                                    dStack.push(word);
+                                dStack.push(word);
                                 predefinedWords._jforth.globalMap.remove(name);
                                 return 1;
                             } catch (Exception e) {
@@ -1405,7 +1404,7 @@ class Filler2 {
                         {
                             String name = Utilities.readString(dStack);
                             try {
-                                FileUtils.saveMap(predefinedWords._jforth.globalMap, name);
+                                FileUtils.deepSave(name, predefinedWords._jforth.globalMap);
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1420,7 +1419,8 @@ class Filler2 {
                         {
                             String name = Utilities.readString(dStack);
                             try {
-                                predefinedWords._jforth.globalMap = FileUtils.loadMap(name);
+                                predefinedWords._jforth.globalMap
+                                        = (HashMap<String, Object>) FileUtils.deepLoad(name);
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1439,8 +1439,8 @@ class Filler2 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setAlwaysOnTop(true);
                                 }
-                                else
-                                    MyWinApi.SetConsoleToFG();
+//                                else
+//                                    MyWinApi.SetConsoleToFG();
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1459,8 +1459,8 @@ class Filler2 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                                 }
-                                else
-                                    MyWinApi.SetConsoleFullScreen();
+//                                else
+//                                    MyWinApi.SetConsoleFullScreen();
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1474,14 +1474,14 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Long l = Utilities.readLong(dStack);
+                                long l = Utilities.readLong(dStack);
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
                                 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setVisible(l == JForth.TRUE ? true : false);
                                 }
-                                else
-                                    MyWinApi.showWnd(l);
+//                                else
+//                                    MyWinApi.showWnd(l);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1502,8 +1502,8 @@ class Filler2 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setLocation(p);
                                 }
-                                else
-                                    MyWinApi.SetConsolePos(p);
+//                                else
+//                                    MyWinApi.SetConsolePos(p);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1523,8 +1523,8 @@ class Filler2 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setSize(p.x,p.y);
                                 }
-                                else
-                                   MyWinApi.SetConsoleSize(p);
+//                                else
+//                                   MyWinApi.SetConsoleSize(p);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1657,8 +1657,8 @@ class Filler2 {
                         {
                             try {
                                 String path = Utilities.readString(dStack);
-                                Image img = ImageIO.read(new File(path));
-                                dStack.push (img);
+                                BufferedImage img = ImageIO.read(new File(path));
+                                dStack.push (new SerializableImage(img));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1673,7 +1673,7 @@ class Filler2 {
                         {
                             try {
                                 String path = Utilities.readString(dStack);
-                                BufferedImage img = (BufferedImage) dStack.pop();
+                                BufferedImage img = ((SerializableImage) dStack.pop()).getImage();
                                 ImageIO.write(img, "png", new File(path));
                                 return 1;
                             } catch (Exception e) {

@@ -53,7 +53,7 @@ public class StreamingTextArea extends ColorPane
         String[] split = clip.split("\\n");
         for (String s : split)
         {
-            lineListener.fakeIn(s);
+            lineListener.fakeIn(s+"\n");
         }
     }
 

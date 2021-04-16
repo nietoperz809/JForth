@@ -1,6 +1,11 @@
 package jforth;
 
+import com.cedarsoftware.util.io.JsonReader;
+import com.cedarsoftware.util.io.JsonWriter;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class FileUtils {
@@ -51,9 +56,9 @@ public class FileUtils {
      * @param filename Name of new file
      * @throws Exception if smth. gone wrong
      */
-    public static void saveMap (HashMap<String, String> map, String filename) throws Exception {
+    public static void saveMap (HashMap<String, Object> map, String filename) throws Exception {
         Properties properties = new Properties();
-        for (Map.Entry<String,String> entry : map.entrySet()) {
+        for (Map.Entry<String,Object> entry : map.entrySet()) {
             properties.put(entry.getKey(), entry.getValue());
         }
         properties.store(new FileOutputStream(filename), null);
@@ -65,8 +70,8 @@ public class FileUtils {
      * @return A new map constructed from file
      * @throws Exception if smth. gone wrong
      */
-    public static HashMap<String, String> loadMap (String filename) throws Exception {
-        HashMap<String, String> map = new HashMap<>();
+    public static HashMap<String, Object> loadMap (String filename) throws Exception {
+        HashMap<String, Object> map = new HashMap<>();
         Properties properties = new Properties();
         properties.load(new FileInputStream(filename));
         for (String key : properties.stringPropertyNames()) {
@@ -112,17 +117,46 @@ public class FileUtils {
         return ret;
     }
 
-//    public static void saveObject(String name, Object obj) throws IOException {
-//        String j1 = JsonWriter.objectToJson(obj);
-//        PrintWriter p = new PrintWriter(name + ".json");
-//        p.println(JsonWriter.formatJson(j1));
-//        p.close();
-//    }
-//
-//    public static Object loadObject(String name) throws IOException {
-//        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
-//        String s = new String(b);
-//        return JsonReader.jsonToJava(s);
-//    }
+    public static void saveObjectAsJson(String name, Object obj) throws IOException {
+        String j1 = JsonWriter.objectToJson(obj);
+        PrintWriter p = new PrintWriter(name + ".json");
+        p.println(JsonWriter.formatJson(j1));
+        p.close();
+    }
 
+    public static Object loadObjectFromJson(String name) throws IOException {
+        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
+        String s = new String(b);
+        return JsonReader.jsonToJava(s);
+    }
+
+    public static void deepSave (String path, Object obj) throws Exception
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new ObjectOutputStream(baos).writeObject(obj);
+        OutputStream outputStream = new FileOutputStream (path);
+        baos.writeTo(outputStream);
+    }
+
+    public static Object deepLoad (String path) throws Exception
+    {
+        byte[] array = Files.readAllBytes(Paths.get(path));
+        ByteArrayInputStream bais = new ByteArrayInputStream(array);
+        return new ObjectInputStream(bais).readObject();
+    }
 }
+/*
+    public static Object deepCopy(Object o) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            new ObjectOutputStream(baos).writeObject(o);
+
+            ByteArrayInputStream bais =
+                    new ByteArrayInputStream(baos.toByteArray());
+
+            return new ObjectInputStream(bais).readObject();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+ */

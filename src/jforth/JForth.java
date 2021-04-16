@@ -29,7 +29,7 @@ public class JForth {
     public long LastETime;
     public final long StartTime;
     public final Random random = new Random();
-    public HashMap<String, String> globalMap = new HashMap<>();
+    public HashMap<String, Object> globalMap = new HashMap<>();
     public Exception LastError = null;
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
@@ -203,8 +203,8 @@ public class JForth {
             tokenizer.resetSyntax();
             tokenizer.wordChars('!', '~');
             //st.quoteChar('_');  // test
-            //tokenizer.whitespaceChars('\u0000', '\u0020');
-            tokenizer.whitespaceChars('\u0020', '\u0020');
+            tokenizer.whitespaceChars('\u0000', '\u0020');
+            //tokenizer.whitespaceChars('\u0020', '\u0020');
             int ttype = tokenizer.nextToken();
             while (ttype != StreamTokenizer.TT_EOF) {
                 String word = tokenizer.sval;

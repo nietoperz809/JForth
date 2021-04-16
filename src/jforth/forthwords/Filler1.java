@@ -13,11 +13,11 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
+import tools.SerializableImage;
 import tools.SpecialChars;
 import tools.Utilities;
 import webserver.SimpleWebserver;
 
-import java.awt.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
@@ -1108,9 +1108,13 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
-                            if (o instanceof Image) {
+                            if (o instanceof SerializableImage) {
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
-                                    predefinedWords._jforth.guiTerminal.addImage((Image) o);
+                                    try {
+                                        predefinedWords._jforth.guiTerminal.addImage(((SerializableImage)o).getImage());
+                                    } catch (IOException e) {
+                                        return 0;
+                                    }
                                     return 1;
                                 }
                             }
