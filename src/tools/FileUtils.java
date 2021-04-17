@@ -1,4 +1,4 @@
-package jforth;
+package tools;
 
 import com.cedarsoftware.util.io.JsonReader;
 import com.cedarsoftware.util.io.JsonWriter;
@@ -145,18 +145,3 @@ public class FileUtils {
         return new ObjectInputStream(bais).readObject();
     }
 }
-/*
-    public static Object deepCopy(Object o) {
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            new ObjectOutputStream(baos).writeObject(o);
-
-            ByteArrayInputStream bais =
-                    new ByteArrayInputStream(baos.toByteArray());
-
-            return new ObjectInputStream(bais).readObject();
-        } catch (Exception ex) {
-            return null;
-        }
-    }
- */

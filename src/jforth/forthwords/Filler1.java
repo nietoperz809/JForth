@@ -13,6 +13,7 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
+import tools.FileUtils;
 import tools.SerializableImage;
 import tools.SpecialChars;
 import tools.Utilities;

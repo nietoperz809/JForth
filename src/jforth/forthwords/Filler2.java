@@ -1478,7 +1478,7 @@ class Filler2 {
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
                                 {
                                     JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
-                                    frame.setVisible(l == JForth.TRUE ? true : false);
+                                    frame.setVisible(l == JForth.TRUE);
                                 }
 //                                else
 //                                    MyWinApi.showWnd(l);
@@ -1672,9 +1672,17 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
+                                String imgformat = ForthProperties.getImgFormat();
+                                String fileEnd = "."+imgformat;
                                 String path = Utilities.readString(dStack);
-                                BufferedImage img = ((SerializableImage) dStack.pop()).getImage();
-                                ImageIO.write(img, "png", new File(path));
+                                if (!path.endsWith(fileEnd))
+                                    path = path+fileEnd;
+                                BufferedImage img;
+                                if (dStack.isEmpty())
+                                    img = predefinedWords._jforth.guiTerminal.getScreenShot();
+                                else
+                                    img = ((SerializableImage) dStack.pop()).getImage();
+                                ImageIO.write(img, imgformat, new File(path));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

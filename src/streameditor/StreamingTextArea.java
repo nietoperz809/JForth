@@ -2,12 +2,13 @@ package streameditor;
 
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import tools.Utilities;
 import tools.ForthProperties;
 import tools.StringStream;
+import tools.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * @author Administrator
@@ -43,6 +44,25 @@ public class StreamingTextArea extends ColorPane
     }
 
     /**
+     * Make image from TextArea
+     * @return The Image
+     */
+    public BufferedImage getScreenShot ()
+    {
+        Rectangle r = this.getVisibleRect();
+        int w = r.width;
+        int h = r.height;
+        int type = BufferedImage.TYPE_INT_RGB;
+        BufferedImage image = new BufferedImage(w, h, type);
+        Graphics2D g2 = image.createGraphics();
+        // Translate g2 to clipping rectangle of textArea.
+        g2.translate(-r.x, -r.y);
+        this.paint(g2);
+        g2.dispose();
+        return image;
+    }
+
+    /**
      * Handle text from clipboard
      */
     @Override
@@ -50,6 +70,7 @@ public class StreamingTextArea extends ColorPane
     {
         super.paste();
         String clip = Utilities.getClipBoardString();
+        //clip.replace("\"", "\\042");
         String[] split = clip.split("\\n");
         for (String s : split)
         {

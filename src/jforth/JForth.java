@@ -7,6 +7,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import streameditor.StreamingTextArea;
+import tools.FileUtils;
 import tools.Func;
 import tools.Utilities;
 
@@ -23,9 +24,7 @@ import java.util.Random;
 
 public class JForth {
     public final RuntimeEnvironment CurrentEnvironment;
-
     public enum MODE {EDIT, DIRECT}
-
     public long LastETime;
     public final long StartTime;
     public final Random random = new Random();
@@ -34,16 +33,9 @@ public class JForth {
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
-    // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_CLS = "\u001b[2J";
-    // private static final String ANSI_BOLD = "\u001b[1m";
-    // private static final String ANSI_YELLOW = "\u001b[33m";
-    // private static final String ANSI_NORMAL = "\u001b[0m";
-    // --Commented out by Inspection (3/25/2017 10:54 AM):private static final String ANSI_WHITEONBLUE = "\u001b[37;44m";
-    // private static final String ANSI_ERROR = "\u001b[93;41m";
     private static final String FORTHPROMPT = "\nJFORTH> ";
     private static final String EDITORPROMPT = "\nEdit> ";
     private static final String OK = " OK";
-    // --Commented out by Inspection (4/10/2021 8:28 PM):private static final int HISTORY_LENGTH = 1000;
     private static Voice voice = null;
     public final WordsList dictionary = new WordsList();
     private final OStack dStack = new OStack();
@@ -104,27 +96,6 @@ public class JForth {
         voice.speak(txt);
     }
 
-    /*
-      Starting point
-
-      @param args not used
-     */
-//    public static void main(String[] args) {
-//        AnsiConsole.systemInstall();
-//        JForth jf;
-//        while (true) // Restart the interpreter on memory errors
-//        {
-//            jf = new JForth(AnsiConsole.out, RuntimeEnvironment.CONSOLE);
-//            try {
-//                jf.mainLoop();
-//                break;
-//            } catch (OutOfMemoryError ex) {
-//                jf._out.println(ANSI_ERROR + "Memory Error: " + ex.getMessage());
-//                jf._out.println(ANSI_ERROR + "RESET!");
-//            }
-//        }
-//    }
-
     /**
      * Execute one line and generate output
      *
@@ -158,25 +129,6 @@ public class JForth {
     }
 
     /**
-     * Main loop
-     */
-//    private void mainLoop() {
-//        dStack.removeAllElements();
-//        Scanner scanner = new Scanner(System.in);
-//        _out.println(Utilities.buildInfo);
-//        singleShot("\n"); // to show prompt immediately
-//        try {
-//            executeFile("autoexec.4th");
-//        } catch (Exception unused) {
-//            // execution error, file not found
-//        }
-//        while (true) {
-//            String s = scanner.nextLine().trim();
-//            singleShot(s);
-//        }
-//    }
-
-    /**
      * Make human-readable String from object
      *
      * @param o input object
@@ -185,10 +137,6 @@ public class JForth {
     public String makePrintable(Object o) {
         return Utilities.makePrintable(o, base);
     }
-
-//    public String ObjectToString(Object o) {
-//        return Utilities.makePrintable(o, base);
-//    }
 
     /**
      * Run a single line of FORTH statements

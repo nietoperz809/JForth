@@ -6,8 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileBlob implements java.io.Serializable
-{
+public class FileBlob implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
     String _path;
     byte[] _content;
     private static final Charset _cs = StandardCharsets.ISO_8859_1;

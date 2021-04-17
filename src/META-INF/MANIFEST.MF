@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
-Main-Class: jforth.JForth
-Permissions: all-permissions
-
+Main-Class: streameditor.GuiTerminal
+Class-Path: commons-math3-3.6.jar cmu_us_kal-1.2.2.jar jaxb-api-2.3.0.ja
+ r jna-5.7.0.jar jna-platform-5.7.0.jar cmu_time_awb-1.2.
+ 2.jar zxing-2.1.jar cmutimelex.jar mathIT.jar cmulex.jar json-io-4.9.10.jar
 
