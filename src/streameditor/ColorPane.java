@@ -11,7 +11,22 @@ public abstract class ColorPane extends JTextPane {
     static Color colorCurrent    = cReset;
     String remaining = "";
 
-    protected void append(Color c, String s) {
+//    protected ColorPane()
+//    {
+//        super();
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                setContentType("text/html");
+//                String HTMLTEXT = "<html><head><style>.foot{color:red} .head{color:blue}</style></head>"
+//                        + "<span style='font-family:consolas'>java2s.com</span><br/>"
+//                        + "<span style='font-family:tahoma'>java2s.com</span>";
+//                setText (HTMLTEXT);
+//            }
+//        });
+//    }
+
+    protected void append (Color c, String s) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
         int len = getDocument().getLength(); // same value as getText().length();

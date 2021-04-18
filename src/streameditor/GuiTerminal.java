@@ -1,5 +1,7 @@
 package streameditor;
 
+import tools.BuildInfo;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +14,7 @@ public class GuiTerminal {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("GuiTerminal");
+        JFrame frame = new JFrame(BuildInfo.buildInfo);
         frame.setContentPane(new GuiTerminal().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(800, 600));

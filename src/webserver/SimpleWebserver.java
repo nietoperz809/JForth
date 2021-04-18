@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import tools.Utilities;
+import tools.BuildInfo;
 import tools.StringStream;
 
 import java.io.BufferedInputStream;
@@ -68,7 +68,7 @@ public class SimpleWebserver
         }
         else if (split[0].equals("/headline"))
         {
-            os.write(Utilities.buildInfo.getBytes());
+            os.write(BuildInfo.buildInfo.getBytes());
         }
         else if (txt.equals("/jquery.js")) //send jquery
         {

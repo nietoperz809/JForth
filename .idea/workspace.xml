@@ -17,19 +17,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="+ SerializableImage&#10;and some improvements">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="+ able to take screenshots of terminal">
+      <change afterPath="$PROJECT_DIR$/.idea/ant.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/FileBlob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/FileBlob.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/FileUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/LineEdit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/LineEdit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/ColorPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/GuiTerminal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/ForthProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/ForthProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/buildnum.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/buildnum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,7 +421,7 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../FixPad" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/tools/buildnum.xml" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
@@ -859,13 +858,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00251" summary="removed 'term' word. &#10;f= does it better!">
-      <created>1609073344912</created>
-      <option name="number" value="00251" />
-      <option name="presentableId" value="LOCAL-00251" />
-      <option name="project" value="LOCAL" />
-      <updated>1609073344928</updated>
-    </task>
     <task id="LOCAL-00252" summary="new jar">
       <created>1609073480000</created>
       <option name="number" value="00252" />
@@ -1202,7 +1194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618545905131</updated>
     </task>
-    <option name="localTasksCounter" value="300" />
+    <task id="LOCAL-00300" summary="+ able to take screenshots of terminal">
+      <created>1618655377905</created>
+      <option name="number" value="00300" />
+      <option name="presentableId" value="LOCAL-00300" />
+      <option name="project" value="LOCAL" />
+      <updated>1618655377905</updated>
+    </task>
+    <option name="localTasksCounter" value="301" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1278,7 +1277,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="addad jar file" />
     <MESSAGE value="added wsize &amp; wpos commands" />
     <MESSAGE value="fixed bug in PlusLoopControlWord: &#10;countdown loop didn't count to 0" />
     <MESSAGE value="added replace word" />
@@ -1303,7 +1301,8 @@
     <MESSAGE value="strings can have octals eg. \33 (for ESC)" />
     <MESSAGE value="noved things around + bugfix in LineListener.java" />
     <MESSAGE value="+ SerializableImage&#10;and some improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ SerializableImage&#10;and some improvements" />
+    <MESSAGE value="+ able to take screenshots of terminal" />
+    <option name="LAST_COMMIT_MESSAGE" value="+ able to take screenshots of terminal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
