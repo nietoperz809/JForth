@@ -2,7 +2,6 @@ package streameditor;
 
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
-import tools.BuildInfo;
 import tools.ForthProperties;
 import tools.StringStream;
 import tools.Utilities;
@@ -63,35 +62,16 @@ public class StreamingTextArea extends ColorPane
         return image;
     }
 
-/*
-    @Override
-    public void paste ()
-    {
-        super.paste();
-        String clip = Utilities.getClipBoardString();
-        String[] split = clip.split("\\n");
-        for (String s : split)
-        {
-            lineListener.fakeIn(s);
-        }
-    }
- */
-
     /**
      * Handle text from clipboard
      * "laladumm"
      */
     @Override
-    public void paste ()  // TODO: Fixit!!!
+    public void paste ()
     {
         super.paste();
         String clip = Utilities.getClipBoardString().trim();
         clip = clip.replaceAll("[\\p{C}]", " ");
-        //clip = clip.replaceAll("\"", " ");
-        //clip = "\""+clip+"\"";
-
-        //System.out.println(clip);
-        //clip = "\""+clip.replace("\n", " ")+"\"";
         lineListener.fakeIn(clip);
     }
 

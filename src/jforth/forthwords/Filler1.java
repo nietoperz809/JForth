@@ -1119,6 +1119,14 @@ class Filler1 {
                                     return 1;
                                 }
                             }
+                            if (o instanceof SizedString)
+                            {
+                                SizedString ss = (SizedString)o;
+                                String outstr = predefinedWords._jforth.makePrintable(ss.getStr());
+                                predefinedWords._jforth.guiTerminal.setFontsize(ss.getSize());
+                                predefinedWords._jforth._out.print(new SpecialChars().convertSC(outstr));
+                                return 1;
+                            }
                             String outstr = predefinedWords._jforth.makePrintable(o);
                             if (outstr == null) {
                                 return 0;
@@ -1853,7 +1861,7 @@ class Filler1 {
                             try {
                                 Object o = dStack.pop();
                                 String outstr = predefinedWords._jforth.makePrintable(o);
-                                dStack.push(Utilities.bigPrint(outstr, 20));
+                                dStack.push (new SizedString(outstr));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

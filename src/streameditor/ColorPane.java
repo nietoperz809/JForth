@@ -10,29 +10,23 @@ public abstract class ColorPane extends JTextPane {
     static final Color cReset    = Color.WHITE;
     static Color colorCurrent    = cReset;
     String remaining = "";
+    int currentFontsize = 16;
+    int defaultFontsize = 16;
 
-//    protected ColorPane()
-//    {
-//        super();
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                setContentType("text/html");
-//                String HTMLTEXT = "<html><head><style>.foot{color:red} .head{color:blue}</style></head>"
-//                        + "<span style='font-family:consolas'>java2s.com</span><br/>"
-//                        + "<span style='font-family:tahoma'>java2s.com</span>";
-//                setText (HTMLTEXT);
-//            }
-//        });
-//    }
+    public void setFontsize (int s)
+    {
+        currentFontsize = s;
+    }
 
     protected void append (Color c, String s) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+        aset = sc.addAttribute(aset, StyleConstants.FontSize, currentFontsize);
         int len = getDocument().getLength(); // same value as getText().length();
         setCaretPosition(len);  // place caret at the end (with no selection)
         setCharacterAttributes(aset, false);
         replaceSelection(s); // there is no selection, so inserts at caret
+        currentFontsize = defaultFontsize;
     }
 
     /**
