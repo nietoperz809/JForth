@@ -98,11 +98,6 @@ public class Utilities {
         }
     }
 
-    public static String bigPrint(String txt, int width) {
-        // TODO: make graphics version
-        return "";
-    }
-
     public static String printHexBinary(byte[] data) {
         StringBuilder r = new StringBuilder(data.length * 2);
         for (byte b : data) {
@@ -1075,7 +1070,12 @@ public class Utilities {
         return in;
     }
 
-    public static String performBackspace(String in)
+    /**
+     * Do the Backspace
+     * @param in String containig backspace chars
+     * @return smaller string with BS and that char before rmoved
+     */
+    public static String translateBackspace(String in)
     {
         StringBuilder sb = new StringBuilder();
         for (char c : in.toCharArray())

@@ -15,4 +15,11 @@ public class SizedString {
     public SizedString(String s) {
         str = s;
     }
+
+    @Override
+    public String toString() {
+        return "Sz{" +
+                str +
+                "/" + size + '}';
+    }
 }

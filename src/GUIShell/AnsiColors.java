@@ -1,4 +1,4 @@
-package streameditor;
+package GUIShell;
 
 import java.awt.*;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package streameditor;
+package GUIShell;
 
 import tools.ForthProperties;
 
@@ -18,7 +18,7 @@ public abstract class ColorPane extends JTextPane {
         currentFontsize = s;
     }
 
-    protected void append (Color c, String s) {
+    private void append (Color c, String s) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
         aset = sc.addAttribute(aset, StyleConstants.FontSize, currentFontsize);
@@ -26,6 +26,7 @@ public abstract class ColorPane extends JTextPane {
         setCaretPosition(len);  // place caret at the end (with no selection)
         setCharacterAttributes(aset, false);
         replaceSelection(s); // there is no selection, so inserts at caret
+        setCaretPosition (getDocument().getLength());
         currentFontsize = defaultFontsize;
     }
 

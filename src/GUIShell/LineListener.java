@@ -1,4 +1,4 @@
-package streameditor;
+package GUIShell;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

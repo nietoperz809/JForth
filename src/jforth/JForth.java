@@ -6,7 +6,7 @@ import jforth.forthwords.PredefinedWords;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import streameditor.StreamingTextArea;
+import GUIShell.JfTerminalPanel;
 import tools.FileUtils;
 import tools.Func;
 import tools.Utilities;
@@ -49,13 +49,13 @@ public class JForth {
     public final LineEdit _lineEditor;
     public final LSystem _lsys = new LSystem();
     private MultiDotStreamTokenizer tokenizer = null;
-    public StreamingTextArea guiTerminal;
+    public JfTerminalPanel guiTerminal;
 
     public JForth(RuntimeEnvironment ri) {
         this(System.out, ri);
     }
 
-    public JForth(PrintStream out, RuntimeEnvironment ri, StreamingTextArea ta) {
+    public JForth(PrintStream out, RuntimeEnvironment ri, JfTerminalPanel ta) {
         this (out, ri);
         guiTerminal = ta;
     }
@@ -111,7 +111,8 @@ public class JForth {
                 dStack.removeAllElements();
                 res = false;
             } else {
-                _out.print(OK);
+                //if (this.CurrentEnvironment != RuntimeEnvironment.GUITERMINAL)
+                   _out.print(OK);
             }
         } else // mode == EDIT
         {
