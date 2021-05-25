@@ -32,6 +32,8 @@ import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
 import static org.mathIT.numbers.Numbers.exactBinomial;
+import static tools.Utilities.humanReadableByteCountBin;
+import static tools.Utilities.humanReadableByteCountSI;
 
 class Filler2 {
     private static final Point plotterDimension = new Point(100, 20);
@@ -1720,6 +1722,38 @@ class Filler2 {
                                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
                                 ge.registerFont(font);
                                 predefinedWords._jforth.guiTerminal.setFont(font);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "HumBin", "Shows large byte amaounts human readable based on 1024",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long l = Utilities.readLong(dStack);
+                                String si = humanReadableByteCountBin (l);
+                                dStack.push(si);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "HumSi", "Shows large byte amaounts human readable based on 1000",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long l = Utilities.readLong(dStack);
+                                String si = humanReadableByteCountSI (l);
+                                dStack.push(si);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
