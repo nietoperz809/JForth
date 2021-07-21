@@ -4,6 +4,7 @@ import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
+import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
@@ -116,6 +117,16 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
     {
         _list.addAll(src1._list);
         _list.addAll(src2._list);
+    }
+
+    public static DoubleSequence fromFracSeq (FracSequence fr) {
+        DoubleSequence ds = new DoubleSequence();
+        for (Fraction f : fr._list)
+        {
+            double d = f.doubleValue();
+            ds._list.add(d);
+        }
+        return ds;
     }
 
     public static DoubleSequence fromNumberString (String str)

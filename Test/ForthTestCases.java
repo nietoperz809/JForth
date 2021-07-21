@@ -938,6 +938,13 @@ public class ForthTestCases
     }
 
     @Test
+    public void FracSeq1()
+    {
+        String s = check ("{1/2,3/4} todouble", ".");
+        shoudBeOK ("{0.5,0.75}" ,s);
+    }
+
+    @Test
     public void TestStrSeqPlus()
     {
         String s = check ("{a,b,c,d} peter +", ".");
@@ -1501,5 +1508,11 @@ public class ForthTestCases
         shoudBeOK ("{}", s);
         s = check ("{a,b,c} {\"a\",\"b\",\"c\"} -",".");
         shoudBeOK ("{}", s);
+    }
+
+    @Test
+    public void testHumRead() {
+        String s = check ("12345678 dup humbin swap humsi",". sp .");
+        shoudBeOK ("12.3 MB 11.8 MiB", s);
     }
 }

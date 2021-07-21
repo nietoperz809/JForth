@@ -1835,6 +1835,8 @@ class Filler1 {
                             } else if (o1 instanceof BigInteger) {
                                 BigInteger oc = (BigInteger) o1;
                                 dStack.push(oc.doubleValue());
+                            } else if (o1 instanceof FracSequence) {
+                                 dStack.push (DoubleSequence.fromFracSeq((FracSequence) o1));
                             } else {
                                 return 0;
                             }
