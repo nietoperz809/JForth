@@ -258,6 +258,11 @@ public class JForth {
             action.apply(lo);
             return true;
         }
+        FracSequence fs = FracSequence.parseSequence(word);
+        if (fs != null) {
+            action.apply(fs);
+            return true;
+        }
         StringSequence ss = StringSequence.parseSequence(word);
         if (ss != null) {
             action.apply(ss);
