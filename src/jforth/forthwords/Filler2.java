@@ -6,6 +6,7 @@ import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
+import org.apache.commons.math3.fraction.Fraction;
 import org.mathIT.util.FunctionParser;
 import tools.*;
 
@@ -489,7 +490,7 @@ class Filler2 {
                                     JForth f = new JForth(_stream.getPrintStream(),
                                             RuntimeEnvironment.EMBEDDED);
                                     f.interpretLine(ss);
-                                    dStack.push (_stream.toString());
+                                    dStack.push(_stream.toString());
                                 }).start();
                                 return 1;
                             } catch (Exception ex) {
@@ -1436,9 +1437,8 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
-                                {
-                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setAlwaysOnTop(true);
                                 }
 //                                else
@@ -1456,9 +1456,8 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
-                                {
-                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                                 }
 //                                else
@@ -1477,9 +1476,8 @@ class Filler2 {
                         {
                             try {
                                 long l = Utilities.readLong(dStack);
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
-                                {
-                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setVisible(l == JForth.TRUE);
                                 }
 //                                else
@@ -1499,9 +1497,8 @@ class Filler2 {
                         {
                             try {
                                 Point p = Utilities.readPoint(dStack);
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
-                                {
-                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
                                     frame.setLocation(p);
                                 }
 //                                else
@@ -1520,10 +1517,9 @@ class Filler2 {
                         {
                             try {
                                 Point p = Utilities.readPoint(dStack);
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL)
-                                {
-                                    JFrame frame = (JFrame)SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
-                                    frame.setSize(p.x,p.y);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    frame.setSize(p.x, p.y);
                                 }
 //                                else
 //                                   MyWinApi.SetConsoleSize(p);
@@ -1644,7 +1640,7 @@ class Filler2 {
                         {
                             try {
                                 long ll = Utilities.readLong(dStack);
-                                dStack.push (""+(char)ll);
+                                dStack.push("" + (char) ll);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1660,7 +1656,7 @@ class Filler2 {
                             try {
                                 String path = Utilities.readString(dStack);
                                 BufferedImage img = ImageIO.read(new File(path));
-                                dStack.push (new SerializableImage(img));
+                                dStack.push(new SerializableImage(img));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1675,10 +1671,10 @@ class Filler2 {
                         {
                             try {
                                 String imgformat = ForthProperties.getImgFormat();
-                                String fileEnd = "."+imgformat;
+                                String fileEnd = "." + imgformat;
                                 String path = Utilities.readString(dStack);
                                 if (!path.endsWith(fileEnd))
-                                    path = path+fileEnd;
+                                    path = path + fileEnd;
                                 BufferedImage img;
                                 if (dStack.isEmpty())
                                     img = predefinedWords._jforth.guiTerminal.getScreenShot();
@@ -1709,14 +1705,14 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "font", "set fpnt",
+                        "font", "set font",
                         (dStack, vStack) ->
                         {
                             try {
                                 String name = Utilities.readString(dStack);
                                 float size = 16;
                                 if (!dStack.empty())
-                                    size = (float)Utilities.readDouble(dStack);
+                                    size = (float) Utilities.readDouble(dStack);
                                 Font font = Font.createFont(Font.TRUETYPE_FONT, new File(name)).deriveFont(size);
                                 //System.out.println(font);
                                 GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -1736,7 +1732,7 @@ class Filler2 {
                         {
                             try {
                                 long l = Utilities.readLong(dStack);
-                                String si = humanReadableByteCountBin (l);
+                                String si = humanReadableByteCountBin(l);
                                 dStack.push(si);
                                 return 1;
                             } catch (Exception e) {
@@ -1747,12 +1743,12 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "HumSi", "Shows large byte amaounts human readable based on 1000",
+                        "HumSi", "Shows large byte amounts human readable based on 1000",
                         (dStack, vStack) ->
                         {
                             try {
                                 long l = Utilities.readLong(dStack);
-                                String si = humanReadableByteCountSI (l);
+                                String si = humanReadableByteCountSI(l);
                                 dStack.push(si);
                                 return 1;
                             } catch (Exception e) {
@@ -1761,5 +1757,42 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "FracTran", "Run Fractran language",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ret = new DoubleSequence();
+                                ArrayList<Double> ldetect = new ArrayList<>();
+                                long arg = Utilities.readLong(dStack);
+                                FracSequence fr = (FracSequence) dStack.pop();
+                                ArrayList<Fraction> list = fr.get_list();
+                                int idx = 0;
+                                ret.add ((double)arg);
+                                while (true) {
+                                    double d = arg * list.get(idx).doubleValue();
+                                    if (ldetect.contains(d))  // loop detect
+                                        break;
+                                    ldetect.add(d);
+                                    idx++;
+                                    if (idx == list.size())
+                                        idx = 0;
+                                    if ((d % 1) == 0) {
+                                        ret.add(d);
+                                        if (ret.length() == 15) {
+                                            break;
+                                        }
+                                        arg = (long) d;
+                                        idx = 0;
+                                    }
+                                }
+                                dStack.push(ret);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }
