@@ -1764,7 +1764,7 @@ class Filler2 {
                         {
                             try {
                                 DoubleSequence ret = new DoubleSequence();
-                                ArrayList<Double> ldetect = new ArrayList<>();
+                                int noint = 0;
                                 long arg = Utilities.readLong(dStack);
                                 FracSequence fr = (FracSequence) dStack.pop();
                                 ArrayList<Fraction> list = fr.get_list();
@@ -1772,19 +1772,22 @@ class Filler2 {
                                 ret.add ((double)arg);
                                 while (true) {
                                     double d = arg * list.get(idx).doubleValue();
-                                    if (ldetect.contains(d))  // loop detect
-                                        break;
-                                    ldetect.add(d);
                                     idx++;
                                     if (idx == list.size())
                                         idx = 0;
                                     if ((d % 1) == 0) {
+                                        noint = 0;
                                         ret.add(d);
                                         if (ret.length() == 15) {
                                             break;
                                         }
                                         arg = (long) d;
                                         idx = 0;
+                                    }
+                                    else {
+                                        noint++;
+                                        if (noint == list.size())
+                                            break;
                                     }
                                 }
                                 dStack.push(ret);
