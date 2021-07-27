@@ -814,6 +814,14 @@ public class ForthTestCases
     }
 
     @Test
+    public void TestFracSeqCalc()
+    {
+        String s = check ("\"x+3\" {1/2,1/3,1/4} f=",
+                ".");
+        shoudBeOK ("{7/2,10/3,13/4}" ,s);
+    }
+
+    @Test
     public void TestFracConv()
     {
         String s = check ("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1} todouble tofraction",

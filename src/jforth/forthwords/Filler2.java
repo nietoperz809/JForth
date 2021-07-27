@@ -64,6 +64,15 @@ class Filler2 {
                                     dStack.push(new DoubleSequence(list));
                                     return 1;
                                 }
+                                if (o instanceof FracSequence){
+                                    FracSequence fr = (FracSequence)o;
+                                    FracSequence res = new FracSequence();
+                                    for (Fraction fra : fr.get_list()){
+                                        res.add(new Fraction(fp.evaluate(0, fra.doubleValue())));
+                                    }
+                                    dStack.push(res);
+                                    return 1;
+                                }
                                 if (o instanceof DoubleMatrix) {
                                     DoubleMatrix m = (DoubleMatrix) o;
                                     if (m.getColumnDimension() != 2)
