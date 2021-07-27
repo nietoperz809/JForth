@@ -1778,7 +1778,7 @@ class Filler2 {
                                     if ((d % 1) == 0) {
                                         noint = 0;
                                         ret.add(d);
-                                        if (ret.length() == 15) {
+                                        if (ret.length() == 15) {  /* max length */
                                             break;
                                         }
                                         arg = (long) d;
@@ -1786,7 +1786,7 @@ class Filler2 {
                                     }
                                     else {
                                         noint++;
-                                        if (noint == list.size())
+                                        if (noint == list.size()) /* no int result */
                                             break;
                                     }
                                 }

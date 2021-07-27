@@ -3,7 +3,11 @@ package jforth;
 import org.apache.commons.math3.fraction.Fraction;
 import tools.Utilities;
 
-public class FracSequence extends SequenceBase<Fraction> implements java.io.Serializable{
+public class FracSequence extends SequenceBase<Fraction> implements java.io.Serializable {
+
+    public FracSequence ()
+    {
+    }
 
     public FracSequence (String csv) throws Exception
     {

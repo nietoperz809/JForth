@@ -940,6 +940,15 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
+                            if (o1 instanceof SequenceBase)
+                            {
+                                SequenceBase<?> sb = (SequenceBase<?>) o1;
+                                for (Object oo : sb.get_list())
+                                {
+                                    dStack.push(oo);
+                                }
+                                return 1;
+                            }
                             if (o1 instanceof Complex) {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(d1.getReal());
@@ -1894,7 +1903,16 @@ class Filler1 {
                         {
                             try {
                                 Object o1 = dStack.pop();
-                                dStack.push(Utilities.getFrac(o1));
+                                if (o1 instanceof DoubleSequence) {
+                                    DoubleSequence ds = (DoubleSequence)o1;
+                                    FracSequence fr = new FracSequence();
+                                    for (double d : ds.get_list()) {
+                                        fr.add(Utilities.getFrac(d));
+                                    }
+                                    dStack.push(fr);
+                                } else {
+                                    dStack.push(Utilities.getFrac(o1));
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -3406,7 +3424,7 @@ class Filler1 {
                                     return 1;
                                 }
                                 if (o instanceof SequenceBase) {
-                                    SequenceBase od = (SequenceBase) o;
+                                    SequenceBase<?> od = (SequenceBase<?>) o;
                                     dStack.push(od.reverse());
                                     return 1;
                                 }

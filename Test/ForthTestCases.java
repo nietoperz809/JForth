@@ -810,7 +810,15 @@ public class ForthTestCases
     {
         String s = check ("2/4 4/8 +",
                 ".");
-        shoudBeOK ("1" ,s);
+        shoudBeOK ("1/1" ,s);
+    }
+
+    @Test
+    public void TestFracConv()
+    {
+        String s = check ("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1} todouble tofraction",
+                ".");
+        shoudBeOK ("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1}" ,s);
     }
 
     @Test
@@ -942,6 +950,13 @@ public class ForthTestCases
     {
         String s = check ("{1/2,3/4} todouble", ".");
         shoudBeOK ("{0.5,0.75}" ,s);
+    }
+
+    @Test
+    public void FracTran()
+    {
+        String s = check ("{5/3,2/5} 72 fractran", ".");
+        shoudBeOK ("{72,120,200,80,32}" ,s);  // https://de.wikipedia.org/wiki/FRACTRAN
     }
 
     @Test

@@ -327,9 +327,9 @@ public class Utilities {
     }
 
     public static String formatFraction(Fraction f) {
-        if (f.getDenominator() == 1) {
-            return "" + f.getNumerator();
-        }
+//        if (f.getDenominator() == 1) {
+//            return "" + f.getNumerator();
+//        }
         return f.getNumerator() + "/" + f.getDenominator();
     }
 
