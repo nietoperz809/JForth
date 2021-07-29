@@ -837,9 +837,17 @@ class Filler2 {
                                 try {
                                     DoubleSequence ds = new DoubleSequence(sq);
                                     dStack.push(ds.reverse());
+                                    return 1;
                                 } catch (NumberFormatException e) {
-                                    dStack.push(sq.reverse());
+                                    try {
+                                        FracSequence fs = new FracSequence(sq);
+                                        dStack.push(fs.reverse());
+                                        return 1;
+                                    } catch (Exception exception) {
+                                        //
+                                    }
                                 }
+                                dStack.push(sq.reverse());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

@@ -1,5 +1,7 @@
 package jforth;
 
+import org.apache.commons.math3.fraction.Fraction;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -22,6 +24,10 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         if (this instanceof DoubleSequence)
         {
             return new DoubleSequence((ArrayList<Double>)list);
+        }
+        if (this instanceof FracSequence)
+        {
+            return new FracSequence((ArrayList<Fraction>)list);
         }
         return null;
     }

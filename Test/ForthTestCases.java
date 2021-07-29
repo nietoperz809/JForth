@@ -814,6 +814,14 @@ public class ForthTestCases
     }
 
     @Test
+    public void TestFracCollect()
+    {
+        String s = check ("10 -4/8 7 collect",
+                ".");
+        shoudBeOK ("{10/1,-1/2,7/1}" ,s);
+    }
+
+    @Test
     public void TestFracSeqCalc()
     {
         String s = check ("\"x+3\" {1/2,1/3,1/4} f=",

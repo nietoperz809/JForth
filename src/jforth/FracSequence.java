@@ -3,6 +3,9 @@ package jforth;
 import org.apache.commons.math3.fraction.Fraction;
 import tools.Utilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FracSequence extends SequenceBase<Fraction> implements java.io.Serializable {
 
     public FracSequence ()
@@ -12,6 +15,28 @@ public class FracSequence extends SequenceBase<Fraction> implements java.io.Seri
     public FracSequence (String csv) throws Exception
     {
         this (csv.split (","));
+    }
+
+    public FracSequence (List<Fraction> list)
+    {
+        _list = new ArrayList<>(list);
+    }
+
+    public FracSequence (StringSequence in) throws NumberFormatException {
+        for (int s=0; s<in.length (); s++)
+        {
+            String ss = in.pick(s);
+            Fraction frac;
+            try {
+                int i = Integer.parseInt(ss);
+                frac = new Fraction(i);
+            } catch (NumberFormatException e) {
+                frac = Utilities.parseFraction(ss,10);
+            }
+            if (frac == null)
+                throw new NumberFormatException("not a frac");
+            _list.add (frac);
+        }
     }
 
     public FracSequence (String[] values) throws Exception
