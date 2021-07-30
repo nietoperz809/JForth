@@ -3619,10 +3619,10 @@ class Filler1 {
                             try {
                                 long l1 = Utilities.readLong(dStack);
                                 Object o = dStack.pop();
-                                if (o instanceof DoubleSequence) {
-                                    dStack.push(((DoubleSequence) o).pick((int) l1));
-                                } else if (o instanceof StringSequence) {
-                                    dStack.push(((StringSequence) o).pick((int) l1));
+                                if (o instanceof SequenceBase) {
+                                    dStack.push(((SequenceBase<?>) o).pick((int) l1));
+                                } else if (o instanceof FileBlob) {
+                                    dStack.push(((FileBlob)o).get_content()[(int) l1]);
                                 } else if (o instanceof String) {
                                     char c = ((String) o).charAt((int) l1);
                                     dStack.push("" + c);
