@@ -2415,6 +2415,11 @@ class Filler1 {
                                     dStack.push(((SequenceBase)o).subList(l2, l1));
                                     return 1;
                                 }
+                                else if (o instanceof FileBlob) {
+                                    byte[] part = ((FileBlob)o).get_partial(l2,l1);
+                                    dStack.push (new DoubleSequence(part));
+                                    return 1;
+                                }
                                 dStack.push(((String)o).substring(l2, l1));
                                 return 1;
 
@@ -3622,7 +3627,8 @@ class Filler1 {
                                 if (o instanceof SequenceBase) {
                                     dStack.push(((SequenceBase<?>) o).pick((int) l1));
                                 } else if (o instanceof FileBlob) {
-                                    dStack.push(((FileBlob)o).get_content()[(int) l1]);
+                                    byte in = ((FileBlob)o).get_content()[(int) l1];
+                                    dStack.push((double)(((int)in)&0x00ff));
                                 } else if (o instanceof String) {
                                     char c = ((String) o).charAt((int) l1);
                                     dStack.push("" + c);

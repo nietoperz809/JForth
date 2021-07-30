@@ -105,6 +105,13 @@ public class FileBlob implements java.io.Serializable {
         return _content;
     }
 
+    public byte[] get_partial (int from, int to)
+    {
+        byte[] res = new byte[to-from];
+        System.arraycopy(_content, from, res, 0, to-from);
+        return res;
+    }
+
     public void set_content (byte[] _content)
     {
         this._content = _content;
