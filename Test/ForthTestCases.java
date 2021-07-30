@@ -732,7 +732,7 @@ public class ForthTestCases
     @Test
     public void TestScatterColl()
     {
-        String s = check ("{1,2,3,4,5,6} scatter",".s");
+        String s = check ("{1,2,3,4,5,6} scat",".s");
         shoudBeOK ("1 2 3 4 5 6 " ,s);
         s = check ("1 2 3 4 5 6 collect",".");
         shoudBeOK ("{1,2,3,4,5,6}" ,s);
@@ -819,6 +819,14 @@ public class ForthTestCases
         String s = check ("10 -4/8 7 collect",
                 ".");
         shoudBeOK ("{10/1,-1/2,7/1}" ,s);
+    }
+
+    @Test
+    public void TestFracScat()
+    {
+        String s = check ("{10/1,-1/2,7/1} scat",
+                "...");
+        shoudBeOK ("7/1-1/210/1" ,s);
     }
 
     @Test

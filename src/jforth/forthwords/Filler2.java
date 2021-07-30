@@ -857,12 +857,12 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "scatter", "desintegrate sequence onto stack",
+                        "scat", "desintegrate sequence onto stack",
                         (dStack, vStack) ->
                         {
                             try {
-                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
-                                for (Double d : ds.asPrimitiveArray()) {
+                                SequenceBase<?> sb = (SequenceBase<?>)dStack.pop();
+                                for (Object d : sb.get_list()) {
                                     dStack.push(d);
                                 }
                                 return 1;
