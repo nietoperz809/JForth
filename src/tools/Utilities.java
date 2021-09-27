@@ -393,11 +393,17 @@ public class Utilities {
     }
 
     public static Long parseLong(String word, int base) {
+        long mult = 1;
+        if (word.endsWith("M"))
+        {
+            mult = 1000000;
+            word = word.substring(0, word.length() - 1);
+        }
         try {
-            return Long.parseLong(word, base);
+            return mult * Long.parseLong(word, base);
         } catch (NumberFormatException ignored) {
             try {
-                return Long.decode(word);
+                return mult * Long.decode(word);
             } catch (NumberFormatException e) {
                 Long ll = parseBinary(word);
                 if (ll == null) {

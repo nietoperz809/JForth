@@ -830,6 +830,14 @@ public class ForthTestCases
     }
 
     @Test
+    public void TestF2L()
+    {
+        String s = check ("446M f2l 3 round",
+                ".");
+        shoudBeOK ("0.672" ,s);
+    }
+
+    @Test
     public void TestFracSeqCalc()
     {
         String s = check ("\"x+3\" {1/2,1/3,1/4} f=",

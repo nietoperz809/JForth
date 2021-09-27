@@ -1145,6 +1145,22 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "f2l", "frequency to wave length & vice versa",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d = Utilities.readDouble(dStack);
+                                d = 299792458.0/d;
+                                dStack.push(d);
+                                return 1;
+                            } catch (Exception ignored) {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "pwd", "get working directory",
                         (dStack, vStack) ->
                         {
@@ -1157,6 +1173,32 @@ class Filler2 {
                             return 0;
                         }
                 ));
+
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "cwd", "set working directory",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                String newDir = Utilities.readString(dStack);
+//
+//                                boolean result = false;  // Boolean indicating whether directory was set
+//                                File    directory;       // Desired current working directory
+//
+//                                directory = new File(newDir).getAbsoluteFile();
+//                                if (directory.exists() || directory.mkdirs())
+//                                {
+//                                    result = (System.setProperty("user.dir", directory.getAbsolutePath()) != null);
+//                                }
+//                                if (!result)
+//                                    throw new Exception("dir doesn't exist");
+//
+//                                return 1;
+//                            } catch (Exception ignored) {
+//                            }
+//                            return 0;
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

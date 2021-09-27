@@ -1,14 +1,27 @@
 package GUIShell;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 public class LineListener implements KeyListener {
+    Robot robot;
+
+    public LineListener() {
+        super();
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            robot = null;
+            e.printStackTrace();
+        }
+    }
 
     private final ArrayBlockingQueue<String> lineBuffer = new ArrayBlockingQueue<>(128, true);
-    private final ArrayBlockingQueue<Character> charBuffer = new ArrayBlockingQueue<>(1024, true);
+    private ArrayBlockingQueue<Character> charBuffer = new ArrayBlockingQueue<>(1024, true);
+    String lastStr;
 
     private volatile boolean locked = false;
 
@@ -27,13 +40,39 @@ public class LineListener implements KeyListener {
         if (e.isControlDown())
             return;
         char c = e.getKeyChar();
-        charBuffer.offer(c);
+        if (c == '\u0008') {  // handle Backspace
+            ArrayBlockingQueue<Character> cb2 = new ArrayBlockingQueue<>(1024, true);
+            while (charBuffer.size() > 1) {
+                cb2.add(charBuffer.poll());
+            }
+            charBuffer = cb2;
+        } else
+            charBuffer.offer(c);  // insert at tail
     }
+
+//    public void writeKeyboard(Robot bot, String st) throws Exception {
+//        String upperCase = st.toUpperCase();
+//
+//        for(int i = 0; i < upperCase.length(); i++) {
+//            String letter = Character.toString(upperCase.charAt(i));
+//            String code = "VK_" + letter;
+//
+//            Field f = KeyEvent.class.getField(code);
+//            int keyEvent = f.getInt(null);
+//
+//            bot.keyPress(keyEvent);
+//            bot.keyRelease(keyEvent);
+//        }
+//    }
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        if ((e.getKeyCode() == KeyEvent.VK_V) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
-//            System.out.println("Pasted!");
+//        if (e.getKeyCode() == 35) {
+//            try {
+//                writeKeyboard(robot, lastStr);
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
 //        }
     }
 
@@ -44,9 +83,8 @@ public class LineListener implements KeyListener {
 
         if (e.getKeyChar() == '\n') {
             try {
-                String str = charBuffer.stream().map(String::valueOf).collect(Collectors.joining());
-                //System.out.println(str);
-                lineBuffer.put(str);
+                lastStr = charBuffer.stream().map(String::valueOf).collect(Collectors.joining());
+                lineBuffer.put(lastStr);
                 charBuffer.clear();
             } catch (InterruptedException interruptedException) {
                 interruptedException.printStackTrace();
