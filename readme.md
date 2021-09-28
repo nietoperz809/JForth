@@ -20,6 +20,8 @@ Long
 0xffd2 ( hex input)  
 0b1100101 ( binary input)   
 01:00:00 ( equals 3600, timer value hh:mm:ss)
+12M (equals to 12000000, aka 12 Million)
+4K (equals to 4000, aka 4 Thousand)
 
 Double
 > Ex: 123.456 
@@ -78,6 +80,7 @@ Predefined Words
 0>              -- Gives 1 if TOS greater than zero
 1+              -- Add 1 to TOS
 1-              -- Substract 1 from TOS
+1/              -- calculate reciprocal
 2*              -- Multiply TOS by 2
 2+              -- Add 2 to TOS
 2-              -- Substract 2 from TOS
@@ -96,6 +99,7 @@ Predefined Words
 >               -- 1 if TOS-1 is bigger than TOS
 >>              -- Rotate right
 >R              -- Put TOS to variable stack
+?               -- immediately print variable content
 ?DUP            -- Duplicate TOS if not zero
 @               -- Put variable value on stack
 ABS             -- Absolute value
@@ -105,6 +109,7 @@ AGAIN           -- Go back to BEGIN (infinite loop)
 ALTSUM          -- Add all elements together but alternates sign
 AND             -- Binary and of 2 values
 APPLY           -- Apply polynomial to sequence
+ARAB            -- make arab number from roman
 ARRAY           -- Create array
 ASIN            -- Inverse sine
 ASK             -- Show yes/no box
@@ -117,13 +122,15 @@ BEGIN           -- Marks the start of an indefinite loop.
 BF              -- execute brainfuck code
 BIG             -- BigPrint
 BIN             -- Set number base to 2
+BINOMIAL        -- n choose k
 BINSTR          -- Make binary String
+BKG             -- set background color
 BLOBNAME        -- puts blob's path name on stack
 BREAK           -- Breaks out of the forth word
 BYE             -- End the Forth interpreter
+C               -- Speed of light in m/s
 CGROUP          -- Make cyclic group from generator and mod value
 CLEAR           -- Clear the stack
-CLEARHIST       -- Clear History
 CLLTZ           -- Get collatz sequence
 CLOSEBYTEREADER -- Close file
 CLOSEREADER     -- Close file
@@ -147,24 +154,28 @@ DO              -- Sets up a finite loop, given index and limit.
 DOTP            -- Dot product of 3D vectors
 DROP            -- remove TOS
 DTMF            -- create DTMF sound
-DUP             -- Duplicat TOS
+DUP             -- Duplicate TOS
 E               -- Natural logarithm base
 EDITOR          -- Enter line editor
-ELSE
+ELSE 
 EMIT            -- Emit single char to console
 ERR             -- Put last error message onto stack
 EXECUTE         -- executes word from stack
 EXP             -- E^x
-F=              -- Solve polynomial or evaluate term
 F'=             -- Derive a polynomial
+F2L             -- frequency to wave length & vice versa
+F=              -- evaluate term
 FACT            -- Factorial
 FACTOR          -- Prime factorisation
 FALSE           -- Gives 0
 FIB             -- Fibonacci number
 FITPOLY         -- Make polynomial sequence of Points
+FLUSH           -- pops and shows whole stack
+FONT            -- set font
 FORGET          -- Delete word from dictionary
 FORTH           -- execute forth line asynchronously
 FRACTION        -- Create a fraction from 2 Numbers
+FRACTRAN        -- Run Fractran language
 GAMMA           -- Gamma funcction
 GAUSSIAN        -- Gaussian random number
 GCD             -- Greates common divisor
@@ -179,10 +190,13 @@ HASH            -- generate hash string
 HEX             -- Set number base to 16
 HEXSTR          -- Make hex string
 HTTP            -- run web server
+HUMBIN          -- Shows large byte amaounts human readable based on 1024
+HUMSI           -- Shows large byte amounts human readable based on 1000
 I               -- put loop variable i on stack
 IDM             -- Create Identity Matrix
-IF
+IF 
 IGROUP          -- calculate inverses of a group
+IMGSCALE        -- set Image Scale
 INTERSECT       -- Make intersection of 2 sequences
 INVM            -- Inverse of a Matrix
 ISPRIME         -- Primality test
@@ -196,7 +210,7 @@ LEAVE           -- Terminate the loop immediately
 LENGTH          -- Get length of what is on the stack
 LIST            -- Put program in editor on stack
 LN              -- Natural logarithm
-LOADHIST        -- Load history
+LOADIMG         -- load Image from Disk
 LOG10           -- Logarithm to base 10
 LOOP            -- repeat loop
 LPICK           -- Get one Element from sequence
@@ -204,18 +218,24 @@ LSCLR           -- Remove all rules
 LSGET           -- get LSystem result
 LSINFO          -- Get complete LSystem as String
 LSPUT           -- Set Matrial for LSystem
-LSREP           -- run LSystem on previous result
+LSREP           -- run LSystem on previous result 
 LSRULE          -- Set Rule for LSystem
 LSWAP           -- swap 2 list or string members
 LUPM            -- l/u decomposition of a Matrix
+M+              -- put any obj into global array
+M-              -- get obj from global array
 MAX             -- Biggest value
+MCLR            -- empties the global array
 MEAN            -- Mean value of sequence
 MIN             -- Smallest value
 MIX             -- Mix two Lists
 MKBLOB          -- make blob from String
+MLIST           -- list elements of global array
+MLOAD           -- load global array from file
 MOD             -- Division remainder
 MORSE           -- play Morse code
 MORSETXT        -- translate to Morse alphabet
+MSAVE           -- save global array to file
 MSG             -- Show message box
 NAMEBLOB        -- rename existing blob
 NIP             -- same as swap+drop
@@ -232,7 +252,6 @@ PHI             -- Phi of complex number
 PI              -- Circle constant PI
 PICK            -- Get value from arbitrary Positon and place it on TOS
 PING            -- Check a host
-PLAYHIST        -- Execute History
 PLAYWAV         -- play Wave file
 PLOT            -- Plot x/y data
 POW             -- Exponentation
@@ -241,6 +260,7 @@ PSP             -- Push space on stack
 PUTBLOB         -- write blob to disk
 PWD             -- get working directory
 QMEAN           -- Quadratic Mean of sequence
+QR              -- Print QR code
 R>              -- Move variable to data stack
 R@              -- Copy variable to data stack
 RANDOM          -- Pseudo random number
@@ -248,16 +268,19 @@ READBYTE        -- Read byte from file
 READLINE        -- Read line from file
 RECURSE         -- Re-run current word
 RECURSIVE       -- Re-run current word
+REPLACE         -- regex transform a string
 REV             -- Reverse a sequence
+REVS            -- reverse whole stack
 ROLL            -- Remove nth element and put it on TOS
+ROMAN           -- make roman number from integer
 ROT             -- Rotate first 3 elements on stack
 ROUND           -- Rounding double value
 RUN             -- Runs program in editor
 RUNFILE         -- run program file
 SAM             -- speak with SAM voice
-SAVEHIST        -- Save history
+SAVEIMG         -- save Image to Disk
 SAY             -- speak a string
-SCATTER         -- desintegrate sequence onto stack
+SCAT            -- desintegrate sequence onto stack
 SEQ             -- generate sequence
 SETBASE         -- Set a new number base
 SF=             -- Antiderive of a polynomial
@@ -271,6 +294,7 @@ SP              -- Emit single space
 SPACES          -- Emit multiple spaces
 SPLIT           -- Split object into partitions
 SQRT            -- Square root
+SQU             -- Calculate a*a
 STDDEV          -- Standard Deviation of sequence
 STOPWAV         -- stop playing wave clip
 SUBSEQ          -- Subsequence of string or list
@@ -279,11 +303,11 @@ SUMQ            -- Make sum of squares
 SWAP            -- Swap TOS and TOS-1
 TAN             -- Tangent
 TANH            -- Tangent hyperbolicus
-THEN
-TICK            -- Get clock value
-TIME            -- Get a time string
+THEN 
+TIME            -- Get time
 TOBIG           -- Make BigInt values of what is on the stack
 TOBITS          -- Make bit sequence from number
+TOCHAR          -- make character from numeric value
 TOCOMPLEX       -- convert to Complex
 TODLIST         -- Create List of digits
 TODOUBLE        -- Make double value of what is on the stack
@@ -309,19 +333,26 @@ UNHTTP          -- stop web server
 UNIQUE          -- Only keep unique elements of sequence
 UNLINK          -- Delete file
 UNTIL           -- If false, go back to BEGIN. If true, terminate the loop
+UPTIME          -- Get uptime
 URLDEC          -- Decode URL encoded string
 URLENC          -- URL encode a string
 VAR             -- Variance of sequence
 VARIABLE        -- Create new variable
+WFULL           -- set window to fullscreen
 WHAT            -- Show description about a word
 WHATPERC        -- calculate x is what percent of y
 WORDS           -- Show all words
 WORDSD          -- Show words and description
+WPIN            -- pin window to top
+WPOS            -- set console position
 WRITEBYTE       -- Write byte into file
 WRITEEOL        -- Write string end into file
 WRITESTRING     -- Write string to file
+WSHOW           -- show or hide the console
+WSIZE           -- set console size
 XOR             -- Xors two values
-ZETA            -- Riemann Zeta function</pre>
+ZETA            -- Riemann Zeta function
+</pre>
 
 Line Editor
 ------------------------------

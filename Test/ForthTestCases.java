@@ -71,6 +71,14 @@ public class ForthTestCases extends Base
     }
 
     @Test
+    public void TestConstants()
+    {
+        String s = check ("c pi * e / tolong", ".");
+        System.out.println(s);
+        shoudBeOK ("346478342" ,s);
+    }
+
+    @Test
     public void TestKM()
     {
         String s = check ("1K 10M +", ".");
