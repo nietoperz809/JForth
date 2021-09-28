@@ -10,12 +10,9 @@ import java.util.Arrays;
 import static jforth.PolynomialParser.parsePolynomial;
 import static tools.Utilities.textFileToString;
 
-/**
- * Created by Administrator on 4/15/2017.
- */
-public class ForthTestCases
+class Base
 {
-    private String check (String prg, String call)
+    String check (String prg, String call)
     {
         StringStream _ss = new StringStream();
         JForth _forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.TEST);
@@ -27,18 +24,24 @@ public class ForthTestCases
         }
         return _ss.toString();
     }
-    
-    private void shoudBeOK (String a, String s)
+
+    void shoudBeOK (String a, String s)
     {
         final String EP = " OK\nJFORTH> ";
         Assert.assertEquals(a+EP, s);
     }
 
-    private void shoudBe (String a, String s)
+    void shoudBe (String a, String s)
     {
         Assert.assertEquals(a, s);
     }
+}
 
+/**
+ * Created by Administrator on 4/15/2017.
+ */
+public class ForthTestCases extends Base
+{
     @Test
     public void TestConversion()
     {
@@ -68,11 +71,19 @@ public class ForthTestCases
     }
 
     @Test
+    public void TestKM()
+    {
+        String s = check ("1K 10M +", ".");
+        System.out.println(s);
+        shoudBeOK ("10001000" ,s);
+    }
+
+    @Test
     public void TestRoll()
     {
         String s = check ("1 2 3 4 2 roll", ". . . .");
         System.out.println(s);
-        shoudBeOK ("2431" ,s);
+        shoudBeOK ("2431", s);
     }
 
     @Test

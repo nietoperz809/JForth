@@ -384,7 +384,7 @@ public class Utilities {
         if (in.startsWith("0b")) {
             in = in.substring(2);
             try {
-                return Long.parseLong(in, 2) * sign;
+              return Long.parseLong(in, 2) * sign;
             } catch (NumberFormatException e) {
                 return null;
             }
@@ -397,6 +397,11 @@ public class Utilities {
         if (word.endsWith("M"))
         {
             mult = 1000000;
+            word = word.substring(0, word.length() - 1);
+        }
+        else if (word.endsWith("K"))
+        {
+            mult = 1000;
             word = word.substring(0, word.length() - 1);
         }
         try {
