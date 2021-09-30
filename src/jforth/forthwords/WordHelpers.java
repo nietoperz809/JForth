@@ -5,6 +5,7 @@ import jforth.ControlWords.LoopControlWord;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
+import tools.SerializableImage;
 import tools.Utilities;
 
 import java.math.BigInteger;
@@ -261,6 +262,13 @@ public class WordHelpers {
         }
         try {
             dStack.push(Utilities.doCalcDouble(o2, o1, Utilities::mult));
+            return 1;
+        } catch (Exception ignored) {
+        }
+        try {
+            SerializableImage img = (SerializableImage)o2;
+            Double factor = Utilities.getDouble(o1);
+            dStack.push(img.resizeImage(factor));
             return 1;
         } catch (Exception ignored) {
         }

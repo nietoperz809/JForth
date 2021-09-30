@@ -2432,6 +2432,16 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "C", "Speed of light in m/s",
+                        (dStack, vStack) ->
+                        {
+                            dStack.push(299792458L);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "E", "Natural logarithm base",
                         (dStack, vStack) ->
                         {

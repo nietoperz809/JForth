@@ -376,7 +376,7 @@ It knows these commands:
 
 </pre>
 
-Text mode X/Y-Plotter
+X/Y-Plotter
 -----------------------------------
 You need 2 sequences of same size on the stack. 
 One for the x and another for the y coordinates. 

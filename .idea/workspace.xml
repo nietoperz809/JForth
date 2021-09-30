@@ -17,13 +17,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="some improvements">
-      <change afterPath="$PROJECT_DIR$/src/jforth/SizedString.java" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="bigprint works again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/ColorPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/streameditor/StreamingTextArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/SerializableImage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,6 +96,11 @@
         <option value="https://github.com/nietoperz809/JForth" />
       </set>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/UnmodifiableHeaders.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/com/sun/net/httpserver/Headers.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/ExchangeImpl.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -409,6 +416,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="408" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551991492424" />
@@ -422,9 +430,12 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+    <property name="settings.editor.selected.configurable" value="xpath.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
+  </component>
+  <component name="ReaderModeSettings">
+    <option name="enabled" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -640,7 +651,7 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="streameditor.GuiTerminal" />
+      <option name="MAIN_CLASS_NAME" value="GUIShell.JfGuiApplication" />
       <module name="JForth" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -662,44 +673,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testLoadedPrg1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestConstants" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testLoadedPrg1" />
+      <option name="METHOD_NAME" value="TestConstants" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testMList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestF2L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testMList" />
+      <option name="METHOD_NAME" value="TestF2L" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testMSaveLoad" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestKM" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testMSaveLoad" />
+      <option name="METHOD_NAME" value="TestKM" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testSpecialChars" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestRoll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testSpecialChars" />
+      <option name="METHOD_NAME" value="TestRoll" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -736,20 +747,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="Docker.Docker" />
       <item itemvalue="JUnit.ForthTestCases" />
-      <item itemvalue="JUnit.ForthTestCases.testMList" />
-      <item itemvalue="JUnit.ForthTestCases.testSpecialChars" />
-      <item itemvalue="JUnit.ForthTestCases.testLoadedPrg1" />
-      <item itemvalue="JUnit.ForthTestCases.testMSaveLoad" />
+      <item itemvalue="JUnit.ForthTestCases.TestF2L" />
+      <item itemvalue="JUnit.ForthTestCases.TestKM" />
+      <item itemvalue="JUnit.ForthTestCases.TestRoll" />
+      <item itemvalue="JUnit.ForthTestCases.TestConstants" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.TestConstants" />
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.testLoadedPrg1" />
-        <item itemvalue="JUnit.ForthTestCases.testMSaveLoad" />
-        <item itemvalue="JUnit.ForthTestCases.testMList" />
-        <item itemvalue="JUnit.ForthTestCases.testSpecialChars" />
+        <item itemvalue="JUnit.ForthTestCases.TestRoll" />
+        <item itemvalue="JUnit.ForthTestCases.TestKM" />
+        <item itemvalue="JUnit.ForthTestCases.TestF2L" />
       </list>
     </recent_temporary>
   </component>
@@ -853,132 +863,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00253" summary="move nee seq creation to base class">
-      <created>1609080496411</created>
-      <option name="number" value="00253" />
-      <option name="presentableId" value="LOCAL-00253" />
-      <option name="project" value="LOCAL" />
-      <updated>1609080496412</updated>
-    </task>
-    <task id="LOCAL-00254" summary="update">
-      <created>1609256854113</created>
-      <option name="number" value="00254" />
-      <option name="presentableId" value="LOCAL-00254" />
-      <option name="project" value="LOCAL" />
-      <updated>1609256854115</updated>
-    </task>
-    <task id="LOCAL-00255" summary="PolynomialParser now understands * after coefficient">
-      <created>1609481339895</created>
-      <option name="number" value="00255" />
-      <option name="presentableId" value="LOCAL-00255" />
-      <option name="project" value="LOCAL" />
-      <updated>1609481339895</updated>
-    </task>
-    <task id="LOCAL-00256" summary="save">
-      <created>1609522585733</created>
-      <option name="number" value="00256" />
-      <option name="presentableId" value="LOCAL-00256" />
-      <option name="project" value="LOCAL" />
-      <updated>1609522585733</updated>
-    </task>
-    <task id="LOCAL-00257" summary="simplified = and &lt;&gt;">
-      <created>1609525193956</created>
-      <option name="number" value="00257" />
-      <option name="presentableId" value="LOCAL-00257" />
-      <option name="project" value="LOCAL" />
-      <updated>1609525193957</updated>
-    </task>
-    <task id="LOCAL-00258" summary="added revs &amp; flush">
-      <created>1609553322518</created>
-      <option name="number" value="00258" />
-      <option name="presentableId" value="LOCAL-00258" />
-      <option name="project" value="LOCAL" />
-      <updated>1609553322518</updated>
-    </task>
-    <task id="LOCAL-00259" summary="added global array put/get">
-      <created>1609612785811</created>
-      <option name="number" value="00259" />
-      <option name="presentableId" value="LOCAL-00259" />
-      <option name="project" value="LOCAL" />
-      <updated>1609612785811</updated>
-    </task>
-    <task id="LOCAL-00260" summary="m+, m-, mclr, mlist, + testCases">
-      <created>1609697485388</created>
-      <option name="number" value="00260" />
-      <option name="presentableId" value="LOCAL-00260" />
-      <option name="project" value="LOCAL" />
-      <updated>1609697485388</updated>
-    </task>
-    <task id="LOCAL-00261" summary="added mload &amp; msave">
-      <created>1609874736382</created>
-      <option name="number" value="00261" />
-      <option name="presentableId" value="LOCAL-00261" />
-      <option name="project" value="LOCAL" />
-      <updated>1609874736384</updated>
-    </task>
-    <task id="LOCAL-00262" summary="fixed m- command">
-      <created>1609903955112</created>
-      <option name="number" value="00262" />
-      <option name="presentableId" value="LOCAL-00262" />
-      <option name="project" value="LOCAL" />
-      <updated>1609903955114</updated>
-    </task>
-    <task id="LOCAL-00263" summary="save">
-      <created>1610082610289</created>
-      <option name="number" value="00263" />
-      <option name="presentableId" value="LOCAL-00263" />
-      <option name="project" value="LOCAL" />
-      <updated>1610082610289</updated>
-    </task>
-    <task id="LOCAL-00264" summary="removed unnecessary interfaces">
-      <created>1610093433779</created>
-      <option name="number" value="00264" />
-      <option name="presentableId" value="LOCAL-00264" />
-      <option name="project" value="LOCAL" />
-      <updated>1610093433779</updated>
-    </task>
-    <task id="LOCAL-00265" summary="random word now distinguishes between long &amp; double">
-      <created>1610105353816</created>
-      <option name="number" value="00265" />
-      <option name="presentableId" value="LOCAL-00265" />
-      <option name="project" value="LOCAL" />
-      <updated>1610105353816</updated>
-    </task>
-    <task id="LOCAL-00266" summary="improved 'permute' instruction">
-      <created>1614074036090</created>
-      <option name="number" value="00266" />
-      <option name="presentableId" value="LOCAL-00266" />
-      <option name="project" value="LOCAL" />
-      <updated>1614074036106</updated>
-    </task>
-    <task id="LOCAL-00267" summary="added uptime word&#10;removed tick word">
-      <created>1614224698860</created>
-      <option name="number" value="00267" />
-      <option name="presentableId" value="LOCAL-00267" />
-      <option name="project" value="LOCAL" />
-      <updated>1614224698860</updated>
-    </task>
-    <task id="LOCAL-00268" summary="added ? word (immediately print variable)">
-      <created>1614533636786</created>
-      <option name="number" value="00268" />
-      <option name="presentableId" value="LOCAL-00268" />
-      <option name="project" value="LOCAL" />
-      <updated>1614533636788</updated>
-    </task>
-    <task id="LOCAL-00269" summary="variable can now handle different objects">
-      <created>1614535750649</created>
-      <option name="number" value="00269" />
-      <option name="presentableId" value="LOCAL-00269" />
-      <option name="project" value="LOCAL" />
-      <updated>1614535750649</updated>
-    </task>
-    <task id="LOCAL-00270" summary="not initialized vars == 0">
-      <created>1614566854450</created>
-      <option name="number" value="00270" />
-      <option name="presentableId" value="LOCAL-00270" />
-      <option name="project" value="LOCAL" />
-      <updated>1614566854450</updated>
     </task>
     <task id="LOCAL-00271" summary="added array conversion to sequence">
       <created>1614585614428</created>
@@ -1197,7 +1081,133 @@
       <option name="project" value="LOCAL" />
       <updated>1618718213685</updated>
     </task>
-    <option name="localTasksCounter" value="302" />
+    <task id="LOCAL-00302" summary="bigprint works again">
+      <created>1618733306374</created>
+      <option name="number" value="00302" />
+      <option name="presentableId" value="LOCAL-00302" />
+      <option name="project" value="LOCAL" />
+      <updated>1618733306375</updated>
+    </task>
+    <task id="LOCAL-00303" summary="moved things around + command listbox">
+      <created>1621049685623</created>
+      <option name="number" value="00303" />
+      <option name="presentableId" value="LOCAL-00303" />
+      <option name="project" value="LOCAL" />
+      <updated>1621049685623</updated>
+    </task>
+    <task id="LOCAL-00304" summary="added human readable byte count formatter">
+      <created>1621943536465</created>
+      <option name="number" value="00304" />
+      <option name="presentableId" value="LOCAL-00304" />
+      <option name="project" value="LOCAL" />
+      <updated>1621943536472</updated>
+    </task>
+    <task id="LOCAL-00305" summary="added fracsequence">
+      <created>1626882066879</created>
+      <option name="number" value="00305" />
+      <option name="presentableId" value="LOCAL-00305" />
+      <option name="project" value="LOCAL" />
+      <updated>1626882066885</updated>
+    </task>
+    <task id="LOCAL-00306" summary="added toDouble for fracSeq">
+      <created>1626886851259</created>
+      <option name="number" value="00306" />
+      <option name="presentableId" value="LOCAL-00306" />
+      <option name="project" value="LOCAL" />
+      <updated>1626886851259</updated>
+    </task>
+    <task id="LOCAL-00307" summary="siko">
+      <created>1627303224121</created>
+      <option name="number" value="00307" />
+      <option name="presentableId" value="LOCAL-00307" />
+      <option name="project" value="LOCAL" />
+      <updated>1627303224121</updated>
+    </task>
+    <task id="LOCAL-00308" summary="fractran now works">
+      <created>1627304544774</created>
+      <option name="number" value="00308" />
+      <option name="presentableId" value="LOCAL-00308" />
+      <option name="project" value="LOCAL" />
+      <updated>1627304544774</updated>
+    </task>
+    <task id="LOCAL-00309" summary="convert frac seq to double seq and vice versa + test">
+      <created>1627344323504</created>
+      <option name="number" value="00309" />
+      <option name="presentableId" value="LOCAL-00309" />
+      <option name="project" value="LOCAL" />
+      <updated>1627344323504</updated>
+    </task>
+    <task id="LOCAL-00310" summary="F= works with frac sequences + test">
+      <created>1627393626429</created>
+      <option name="number" value="00310" />
+      <option name="presentableId" value="LOCAL-00310" />
+      <option name="project" value="LOCAL" />
+      <updated>1627393626429</updated>
+    </task>
+    <task id="LOCAL-00311" summary="new jar">
+      <created>1627393797907</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
+      <option name="project" value="LOCAL" />
+      <updated>1627393797907</updated>
+    </task>
+    <task id="LOCAL-00312" summary="&quot;collect&quot; can now handle fractions">
+      <created>1627575718421</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
+      <option name="project" value="LOCAL" />
+      <updated>1627575718421</updated>
+    </task>
+    <task id="LOCAL-00313" summary="fixed scatter word (scat) + test">
+      <created>1627631560680</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
+      <option name="project" value="LOCAL" />
+      <updated>1627631560711</updated>
+    </task>
+    <task id="LOCAL-00314" summary="new jar">
+      <created>1627631756834</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
+      <option name="project" value="LOCAL" />
+      <updated>1627631756834</updated>
+    </task>
+    <task id="LOCAL-00315" summary="improved lpick">
+      <created>1627635821646</created>
+      <option name="number" value="00315" />
+      <option name="presentableId" value="LOCAL-00315" />
+      <option name="project" value="LOCAL" />
+      <updated>1627635821646</updated>
+    </task>
+    <task id="LOCAL-00316" summary="subseq works for fileblobs">
+      <created>1627637973576</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
+      <option name="project" value="LOCAL" />
+      <updated>1627637973576</updated>
+    </task>
+    <task id="LOCAL-00317" summary="added f2l word and M (Million) prefix">
+      <created>1632777903968</created>
+      <option name="number" value="00317" />
+      <option name="presentableId" value="LOCAL-00317" />
+      <option name="project" value="LOCAL" />
+      <updated>1632777903970</updated>
+    </task>
+    <task id="LOCAL-00318" summary="introduced K postfix for longs &amp; Test">
+      <created>1632808228821</created>
+      <option name="number" value="00318" />
+      <option name="presentableId" value="LOCAL-00318" />
+      <option name="project" value="LOCAL" />
+      <updated>1632808228826</updated>
+    </task>
+    <task id="LOCAL-00319" summary="updated">
+      <created>1632830976103</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
+      <option name="project" value="LOCAL" />
+      <updated>1632830976104</updated>
+    </task>
+    <option name="localTasksCounter" value="320" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1273,23 +1283,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixed bug in PlusLoopControlWord: &#10;countdown loop didn't count to 0" />
-    <MESSAGE value="added replace word" />
-    <MESSAGE value="+ roman numbers" />
-    <MESSAGE value="+ reverse roman (arab)" />
-    <MESSAGE value="little bugfix" />
-    <MESSAGE value="added sumRec word + test" />
-    <MESSAGE value="minor changes" />
-    <MESSAGE value="added virtual terminal" />
-    <MESSAGE value="+ gui console&#10;+ jar file" />
-    <MESSAGE value="+ linelistener" />
-    <MESSAGE value="save" />
-    <MESSAGE value="backup" />
-    <MESSAGE value="terminal now understands ansi colors" />
-    <MESSAGE value="line editor now works in gui window" />
-    <MESSAGE value="can display qr codes" />
-    <MESSAGE value="new jar" />
-    <MESSAGE value="No it has an image plotter&#10;textmode fades away ..." />
     <MESSAGE value="repaired subseq" />
     <MESSAGE value="fixed some bugs regarding empty seq" />
     <MESSAGE value="fixed dir word&#10;+ added saveimg" />
@@ -1298,25 +1291,37 @@
     <MESSAGE value="+ SerializableImage&#10;and some improvements" />
     <MESSAGE value="+ able to take screenshots of terminal" />
     <MESSAGE value="some improvements" />
-    <option name="LAST_COMMIT_MESSAGE" value="some improvements" />
+    <MESSAGE value="bigprint works again" />
+    <MESSAGE value="moved things around + command listbox" />
+    <MESSAGE value="added human readable byte count formatter" />
+    <MESSAGE value="added fracsequence" />
+    <MESSAGE value="added toDouble for fracSeq" />
+    <MESSAGE value="siko" />
+    <MESSAGE value="fractran now works" />
+    <MESSAGE value="convert frac seq to double seq and vice versa + test" />
+    <MESSAGE value="F= works with frac sequences + test" />
+    <MESSAGE value="&quot;collect&quot; can now handle fractions" />
+    <MESSAGE value="fixed scatter word (scat) + test" />
+    <MESSAGE value="new jar" />
+    <MESSAGE value="improved lpick" />
+    <MESSAGE value="subseq works for fileblobs" />
+    <MESSAGE value="added f2l word and M (Million) prefix" />
+    <MESSAGE value="introduced K postfix for longs &amp; Test" />
+    <MESSAGE value="updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>2126</line>
-          <option name="timeStamp" value="10" />
+          <line>1906</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/tools/FileUtils.java</url>
-          <line>134</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Test/ForthTestCases.java</url>
-          <line>1358</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
+          <line>268</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
