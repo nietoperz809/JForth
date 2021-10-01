@@ -64,10 +64,10 @@ class Filler2 {
                                     dStack.push(new DoubleSequence(list));
                                     return 1;
                                 }
-                                if (o instanceof FracSequence){
-                                    FracSequence fr = (FracSequence)o;
+                                if (o instanceof FracSequence) {
+                                    FracSequence fr = (FracSequence) o;
                                     FracSequence res = new FracSequence();
-                                    for (Fraction fra : fr.get_list()){
+                                    for (Fraction fra : fr.get_list()) {
                                         res.add(new Fraction(fp.evaluate(0, fra.doubleValue())));
                                     }
                                     dStack.push(res);
@@ -861,7 +861,7 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                SequenceBase<?> sb = (SequenceBase<?>)dStack.pop();
+                                SequenceBase<?> sb = (SequenceBase<?>) dStack.pop();
                                 for (Object d : sb.get_list()) {
                                     dStack.push(d);
                                 }
@@ -1150,7 +1150,7 @@ class Filler2 {
                         {
                             try {
                                 double d = Utilities.readDouble(dStack);
-                                d = 299792458.0/d;
+                                d = 299792458.0 / d;
                                 dStack.push(d);
                                 return 1;
                             } catch (Exception ignored) {
@@ -1553,16 +1553,18 @@ class Filler2 {
                         "wdat", "put window position data onto stack",
                         (dStack, vStack) ->
                         {
-                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
-                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
-                                    dStack.push(frame.getX());
-                                    dStack.push(frame.getY());
-                                    Dimension d = frame.getSize();
-                                    dStack.push(d.width);
-                                    dStack.push(d.height);
-                                    return 1;
-                                }
-                                return 0;
+                            if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                DoubleSequence ds = new DoubleSequence();
+                                ds.add((double) frame.getX());
+                                ds.add((double) frame.getY());
+                                Dimension d = frame.getSize();
+                                ds.add((double) d.width);
+                                ds.add((double) d.height);
+                                dStack.push(ds);
+                                return 1;
+                            }
+                            return 0;
                         }
                 ));
 
@@ -1856,7 +1858,7 @@ class Filler2 {
                                 FracSequence fr = (FracSequence) dStack.pop();
                                 ArrayList<Fraction> list = fr.get_list();
                                 int idx = 0;
-                                ret.add ((double)arg);
+                                ret.add((double) arg);
                                 while (true) {
                                     double d = arg * list.get(idx).doubleValue();
                                     idx++;
@@ -1870,8 +1872,7 @@ class Filler2 {
                                         }
                                         arg = (long) d;
                                         idx = 0;
-                                    }
-                                    else {
+                                    } else {
                                         noint++;
                                         if (noint == list.size()) /* no int result */
                                             break;
