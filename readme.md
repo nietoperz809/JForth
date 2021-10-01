@@ -12,15 +12,15 @@ Have fun.
 
 Currently supported data types
 ------------------------------
-`As of JForth, 1892, 09/09/2020`
+`As of JForth, 1892, 09/09/2020`<br>
 `Input can be typed using the following notations:`
 
 Long
 > Ex: 1234  
 0xffd2 ( hex input)  
 0b1100101 ( binary input)   
-01:00:00 ( equals 3600, timer value hh:mm:ss)
-12M (equals to 12000000, aka 12 Million)
+01:00:00 ( equals 3600, timer value hh:mm:ss)<br>
+12M (equals to 12000000, aka 12 Million)<br>
 4K (equals to 4000, aka 4 Thousand)
 
 Double

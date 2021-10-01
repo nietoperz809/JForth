@@ -1764,6 +1764,16 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "Ver", "Get version information",
+                        (dStack, vStack) ->
+                        {
+                            dStack.push(BuildInfo.buildInfo);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "font", "set font",
                         (dStack, vStack) ->
                         {

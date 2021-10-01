@@ -278,10 +278,20 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "rot", "Rotate first 3 elements on stack",
+                        "rot", "Rotate first 3 elements on stack or rotate image by 90 degrees",
                         (dStack, vStack) ->
                         {
                             Object o3 = dStack.pop();
+                            if (o3 instanceof SerializableImage)
+                            {
+                                try {
+                                    SerializableImage img = (SerializableImage)o3;
+                                    dStack.push(img.rotate90());
+                                    return 1;
+                                } catch (Exception e) {
+                                    return 0;
+                                }
+                            }
                             Object o2 = dStack.pop();
                             Object o1 = dStack.pop();
                             dStack.push(o2);
