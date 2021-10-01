@@ -1548,6 +1548,24 @@ class Filler2 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "wdat", "put window position data onto stack",
+                        (dStack, vStack) ->
+                        {
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
+                                    JFrame frame = (JFrame) SwingUtilities.getRoot(predefinedWords._jforth.guiTerminal);
+                                    dStack.push(frame.getX());
+                                    dStack.push(frame.getY());
+                                    Dimension d = frame.getSize();
+                                    dStack.push(d.width);
+                                    dStack.push(d.height);
+                                    return 1;
+                                }
+                                return 0;
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (
