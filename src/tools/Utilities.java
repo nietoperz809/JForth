@@ -24,10 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static java.awt.Toolkit.getDefaultToolkit;
@@ -88,16 +85,27 @@ public class Utilities {
         return String.join("\n", lines.toArray(new String[lines.size()]));
     }
 
+    public static String formatTimeDuration(long duration) {
+        long hours = TimeUnit.MILLISECONDS.toHours(duration);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(duration) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
 
     public static Object formatTime (long time, String format)
     {
         if (format == null) {
             return time;
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
-            Timestamp timestamp = new Timestamp(time);
-            return sdf.format(timestamp);
         }
+        if (format.equals("~")) {
+            return formatTimeDuration(time);
+        }
+        if (format.equals("#")) {
+            format = "EEE, d MMM yyyy HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Timestamp timestamp = new Timestamp(time);
+        return sdf.format(timestamp);
     }
 
     public static String printHexBinary(byte[] data) {

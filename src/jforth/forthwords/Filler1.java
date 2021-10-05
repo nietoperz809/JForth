@@ -14,7 +14,6 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.FileUtils;
-import jforth.SerializableImage;
 import tools.SpecialChars;
 import tools.Utilities;
 import webserver.SimpleWebserver;
@@ -1654,6 +1653,7 @@ class Filler1 {
                         "uptime", "Get uptime",
                         (dStack, vStack) ->
                         {
+                            //long ll = ManagementFactory.getRuntimeMXBean().getUptime();
                             long ll = System.currentTimeMillis() - predefinedWords._jforth.StartTime;
                             String o1 = Utilities.readStringOrNull(dStack);
                             try {

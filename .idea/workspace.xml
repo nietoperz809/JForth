@@ -18,18 +18,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GUIShell/MouseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIShell/JfTerminalPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SerializableImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -481,7 +475,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.TestTimeView">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -676,28 +670,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestF2L" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestF2L" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.TestKM" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestKM" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ForthTestCases.TestNip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -720,9 +692,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ForthTestCases.TestTimeView" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestTimeView" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -750,19 +740,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases.TestF2L" />
-      <item itemvalue="JUnit.ForthTestCases.TestKM" />
       <item itemvalue="JUnit.ForthTestCases.TestRoll" />
       <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases.TestNip" />
+      <item itemvalue="Java Scratch.Test" />
+      <item itemvalue="JUnit.ForthTestCases.TestTimeView" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.TestTimeView" />
         <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="Java Scratch.Test" />
         <item itemvalue="JUnit.ForthTestCases.TestNip" />
         <item itemvalue="JUnit.ForthTestCases.TestRoll" />
-        <item itemvalue="JUnit.ForthTestCases.TestKM" />
-        <item itemvalue="JUnit.ForthTestCases.TestF2L" />
       </list>
     </recent_temporary>
   </component>
@@ -866,13 +856,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00275" summary="added wsize &amp; wpos commands">
-      <created>1614885942152</created>
-      <option name="number" value="00275" />
-      <option name="presentableId" value="LOCAL-00275" />
-      <option name="project" value="LOCAL" />
-      <updated>1614885942152</updated>
     </task>
     <task id="LOCAL-00276" summary="fixed bug in PlusLoopControlWord: &#10;countdown loop didn't count to 0">
       <created>1614915043857</created>
@@ -1210,7 +1193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633130905979</updated>
     </task>
-    <option name="localTasksCounter" value="324" />
+    <task id="LOCAL-00324" summary="moved things around">
+      <created>1633416828416</created>
+      <option name="number" value="00324" />
+      <option name="presentableId" value="LOCAL-00324" />
+      <option name="project" value="LOCAL" />
+      <updated>1633416828416</updated>
+    </task>
+    <option name="localTasksCounter" value="325" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1286,7 +1276,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="noved things around + bugfix in LineListener.java" />
     <MESSAGE value="+ SerializableImage&#10;and some improvements" />
     <MESSAGE value="+ able to take screenshots of terminal" />
     <MESSAGE value="some improvements" />
@@ -1311,7 +1300,8 @@
     <MESSAGE value="introducing image rotate &amp; &quot;ver&quot; word" />
     <MESSAGE value="added wdat word" />
     <MESSAGE value="wdat is now doublesequence" />
-    <option name="LAST_COMMIT_MESSAGE" value="wdat is now doublesequence" />
+    <MESSAGE value="moved things around" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved things around" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

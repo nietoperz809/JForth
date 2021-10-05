@@ -874,12 +874,13 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "toTime", "make time string from TOS",
+                        "toTime", "make HH:MM:SS from TOS",
                         (dStack, vStack) ->
                         {
                             try {
                                 Long v = Utilities.readLong(dStack);
                                 dStack.push(Utilities.toTimeView(v));
+                                        //.formatTimeDuration(v));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
