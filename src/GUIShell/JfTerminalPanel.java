@@ -35,6 +35,8 @@ public class JfTerminalPanel extends ColorPane {
             }
         });
 
+        addMouseListener(new MouseHandler(this));
+
         setCaret(new BlockCaret());
         addKeyListener(lineListener);
         setBackground(ForthProperties.getBkColor());

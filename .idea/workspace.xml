@@ -18,13 +18,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GUIShell/MouseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIShell/JfTerminalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/QRTextWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/SerializableImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SerializableImage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -462,9 +467,9 @@
       <recent name="jforth.waves" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="jforth" />
       <recent name="tools" />
       <recent name="jforth.audio" />
-      <recent name="jforth" />
       <recent name="jforth.waves" />
       <recent name="jforth.forthwords" />
     </key>
@@ -662,22 +667,10 @@
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in JForth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.TestConstants" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestConstants" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="package" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -699,6 +692,17 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="METHOD_NAME" value="TestKM" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestNip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestNip" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -746,16 +750,16 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.TestF2L" />
       <item itemvalue="JUnit.ForthTestCases.TestKM" />
       <item itemvalue="JUnit.ForthTestCases.TestRoll" />
-      <item itemvalue="JUnit.ForthTestCases.TestConstants" />
+      <item itemvalue="JUnit.All in JForth" />
+      <item itemvalue="JUnit.ForthTestCases.TestNip" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases.TestConstants" />
-        <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="JUnit.ForthTestCases.TestNip" />
         <item itemvalue="JUnit.ForthTestCases.TestRoll" />
         <item itemvalue="JUnit.ForthTestCases.TestKM" />
         <item itemvalue="JUnit.ForthTestCases.TestF2L" />
@@ -862,27 +866,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00272" summary="fixed bug with nonstd recursion">
-      <created>1614613638377</created>
-      <option name="number" value="00272" />
-      <option name="presentableId" value="LOCAL-00272" />
-      <option name="project" value="LOCAL" />
-      <updated>1614613638377</updated>
-    </task>
-    <task id="LOCAL-00273" summary="new jna lib&#10;+ pin command">
-      <created>1614661417355</created>
-      <option name="number" value="00273" />
-      <option name="presentableId" value="LOCAL-00273" />
-      <option name="project" value="LOCAL" />
-      <updated>1614661417357</updated>
-    </task>
-    <task id="LOCAL-00274" summary="addad jar file">
-      <created>1614661559574</created>
-      <option name="number" value="00274" />
-      <option name="presentableId" value="LOCAL-00274" />
-      <option name="project" value="LOCAL" />
-      <updated>1614661559575</updated>
     </task>
     <task id="LOCAL-00275" summary="added wsize &amp; wpos commands">
       <created>1614885942152</created>
@@ -1206,7 +1189,28 @@
       <option name="project" value="LOCAL" />
       <updated>1633007982353</updated>
     </task>
-    <option name="localTasksCounter" value="321" />
+    <task id="LOCAL-00321" summary="introducing image rotate &amp; &quot;ver&quot; word">
+      <created>1633074134146</created>
+      <option name="number" value="00321" />
+      <option name="presentableId" value="LOCAL-00321" />
+      <option name="project" value="LOCAL" />
+      <updated>1633074134158</updated>
+    </task>
+    <task id="LOCAL-00322" summary="added wdat word">
+      <created>1633130278032</created>
+      <option name="number" value="00322" />
+      <option name="presentableId" value="LOCAL-00322" />
+      <option name="project" value="LOCAL" />
+      <updated>1633130278032</updated>
+    </task>
+    <task id="LOCAL-00323" summary="wdat is now doublesequence">
+      <created>1633130905979</created>
+      <option name="number" value="00323" />
+      <option name="presentableId" value="LOCAL-00323" />
+      <option name="project" value="LOCAL" />
+      <updated>1633130905979</updated>
+    </task>
+    <option name="localTasksCounter" value="324" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1282,9 +1286,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixed some bugs regarding empty seq" />
-    <MESSAGE value="fixed dir word&#10;+ added saveimg" />
-    <MESSAGE value="strings can have octals eg. \33 (for ESC)" />
     <MESSAGE value="noved things around + bugfix in LineListener.java" />
     <MESSAGE value="+ SerializableImage&#10;and some improvements" />
     <MESSAGE value="+ able to take screenshots of terminal" />
@@ -1307,14 +1308,17 @@
     <MESSAGE value="introduced K postfix for longs &amp; Test" />
     <MESSAGE value="updated" />
     <MESSAGE value="scale imge on stack with * operator" />
-    <option name="LAST_COMMIT_MESSAGE" value="scale imge on stack with * operator" />
+    <MESSAGE value="introducing image rotate &amp; &quot;ver&quot; word" />
+    <MESSAGE value="added wdat word" />
+    <MESSAGE value="wdat is now doublesequence" />
+    <option name="LAST_COMMIT_MESSAGE" value="wdat is now doublesequence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>1916</line>
+          <line>1935</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

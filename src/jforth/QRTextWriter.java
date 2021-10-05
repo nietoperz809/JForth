@@ -3,7 +3,6 @@ package jforth;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import tools.SerializableImage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

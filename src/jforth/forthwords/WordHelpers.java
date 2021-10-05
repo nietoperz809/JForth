@@ -5,7 +5,7 @@ import jforth.ControlWords.LoopControlWord;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import tools.SerializableImage;
+import jforth.SerializableImage;
 import tools.Utilities;
 
 import java.math.BigInteger;

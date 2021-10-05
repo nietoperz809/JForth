@@ -14,7 +14,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.FileUtils;
-import tools.SerializableImage;
+import jforth.SerializableImage;
 import tools.SpecialChars;
 import tools.Utilities;
 import webserver.SimpleWebserver;
@@ -31,7 +31,7 @@ import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
 class Filler1 {
-    static Object fetchVar(OStack dStack, OStack vStack) throws Exception{
+    static Object fetchVar(OStack dStack) throws Exception{
         Object o = dStack.pop();
         if (!(o instanceof StorageWord)) {
             throw new Exception("no storage word");
@@ -213,6 +213,22 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "iswap", false, "mirrors an image",
+                        (dStack, vStack) ->
+                        {
+                            Object o1 = dStack.pop();
+                                try {
+                                    SerializableImage img = (SerializableImage)o1;
+                                    dStack.push(img.mirror());
+                                    return 1;
+                                } catch (Exception e) {
+                                    return 0;
+                                }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "2swap", "Swaps first 2 pairs of elements",
                         (dStack, vStack) ->
                         {
@@ -278,12 +294,25 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "rot", "Rotate first 3 elements on stack or rotate image by 90 degrees",
+                        "rot", "Rotate first 3 elements on stack",
                         (dStack, vStack) ->
                         {
                             Object o3 = dStack.pop();
-                            if (o3 instanceof SerializableImage)
-                            {
+                            Object o2 = dStack.pop();
+                            Object o1 = dStack.pop();
+                            dStack.push(o2);
+                            dStack.push(o3);
+                            dStack.push(o1);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "irot", "Rotate  image by 90 degrees",
+                        (dStack, vStack) ->
+                        {
+                            Object o3 = dStack.pop();
                                 try {
                                     SerializableImage img = (SerializableImage)o3;
                                     dStack.push(img.rotate90());
@@ -291,13 +320,6 @@ class Filler1 {
                                 } catch (Exception e) {
                                     return 0;
                                 }
-                            }
-                            Object o2 = dStack.pop();
-                            Object o1 = dStack.pop();
-                            dStack.push(o2);
-                            dStack.push(o3);
-                            dStack.push(o1);
-                            return 1;
                         }
                 ));
 
@@ -1539,7 +1561,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                dStack.push(fetchVar (dStack, vStack));
+                                dStack.push(fetchVar (dStack));
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1553,11 +1575,8 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Object xx = fetchVar (dStack, vStack);
+                                Object xx = fetchVar (dStack);
                                 String outstr = predefinedWords._jforth.makePrintable(xx) +' ';
-                                if (outstr == null) {
-                                    return 0;
-                                }
                                 predefinedWords._jforth._out.print(outstr);
                             } catch (Exception e) {
                                 return 0;
@@ -3549,14 +3568,22 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "1/", "calculate reciprocal",
+                        "1/", "calculate inverse",
                         (dStack, vStack) ->
                         {
                             try {
                                 Object o = dStack.pop();
-                                if (o instanceof DoubleSequence) {
+                                if (o instanceof SerializableImage) {
+                                    SerializableImage img = (SerializableImage) o;
+                                    img = img.neg();
+                                    dStack.push(img);
+                                }
+                                else if (o instanceof DoubleSequence) {
                                     DoubleSequence ds = Utilities.getDoubleSequence(o);
                                     dStack.push (ds.reciprocals());
+                                } else if (o instanceof Complex) {
+                                    Complex co = (Complex)o;
+                                    dStack.push(co.reciprocal());
                                 }
                                 else {
                                     double v = Utilities.getDouble(o);

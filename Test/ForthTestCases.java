@@ -797,7 +797,7 @@ public class ForthTestCases extends Base
     @Test
     public void TestNip()
     {
-        String s = check ("a b c nip",".s");
+        String s = check ("a b \"c\" nip",".s");
         shoudBeOK ("a c " ,s);
     }
 

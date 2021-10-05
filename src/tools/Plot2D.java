@@ -1,5 +1,7 @@
 package tools;
 
+import jforth.SerializableImage;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;

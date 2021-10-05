@@ -7,13 +7,16 @@ The original code is from: http://linuxenvy.com/bprentice/JForth/
 
 Sorry, there's no documentation. In order to see how things work, please take a look at the test cases
 in ForthTestCases.java
+                       
+ <h4>PLEASE NOTE: This is the GUI version!
+ The text mode verion is no longer supported!
+</h4>
 
 Have fun.
 
 Currently supported data types
 ------------------------------
-`As of JForth, 1892, 09/09/2020`<br>
-`Input can be typed using the following notations:`
+`As of JForth, Build: 2734, Input can be typed using the following notations:`
 
 Long
 > Ex: 1234  
@@ -54,7 +57,7 @@ String
 Comment
 > ( a comment: open bracket, space, text, close bracket)   
 >( another comment: open bracket, space, text, space, close bracket )   
->\\ comment all until line end
+>\\ comment out everything until line end
 
 
 Predefined Words
