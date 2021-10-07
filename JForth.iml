@@ -8,7 +8,6 @@
       <sourceFolder url="file://$MODULE_DIR$/resource" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/JForth_jar" />
-      <excludeFolder url="file://$MODULE_DIR$/jarfile" />
       <excludeFolder url="file://$MODULE_DIR$/out/production" />
     </content>
     <content url="file://$MODULE_DIR$/out" />

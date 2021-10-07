@@ -9,13 +9,18 @@ import tools.Utilities;
 import java.util.function.Consumer;
 
 final class Graphics {
-    static Canvas canvas = new Canvas();
+    private static final Canvas canvas = new Canvas();
+
+    private static String markInfo (String txt)
+    {
+        return "(Graphics) "+txt;
+    }
 
     private static void add(WordsList _fw, String name, String info,
                             Consumer<int[]> f) {
         _fw.add(new PrimitiveWord
                 (
-                        name, info,
+                        name, markInfo(info),
                         (dStack, vStack) ->
                         {
                             try {
@@ -42,7 +47,7 @@ final class Graphics {
 
         _fw.add(new PrimitiveWord
                 (
-                        "gstamp", "draw image to canvas",
+                        "gstamp", markInfo("draw image to canvas"),
                         (dStack, vStack) ->
                         {
                             try {
@@ -59,7 +64,7 @@ final class Graphics {
 
         _fw.add(new PrimitiveWord
                 (
-                        "gout", "put canvas onto stack",
+                        "gout", markInfo("put canvas onto stack"),
                         (dStack, vStack) ->
                         {
                             try {

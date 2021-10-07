@@ -18,29 +18,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/doubesin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/Canvas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/Chargen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/ChargenData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/AnsiColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/AnsiColors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/BlockCaret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/BlockCaret.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/ColorPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/JfGuiApplication.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/JfGuiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/LineListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIShell/MouseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/MouseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -874,13 +855,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00277" summary="backup">
-      <created>1614916456482</created>
-      <option name="number" value="00277" />
-      <option name="presentableId" value="LOCAL-00277" />
-      <option name="project" value="LOCAL" />
-      <updated>1614916456482</updated>
-    </task>
     <task id="LOCAL-00278" summary="added replace word">
       <created>1615135135466</created>
       <option name="number" value="00278" />
@@ -1217,7 +1191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633423392579</updated>
     </task>
-    <option name="localTasksCounter" value="326" />
+    <task id="LOCAL-00326" summary="added support for graphics">
+      <created>1633631624621</created>
+      <option name="number" value="00326" />
+      <option name="presentableId" value="LOCAL-00326" />
+      <option name="project" value="LOCAL" />
+      <updated>1633631624627</updated>
+    </task>
+    <option name="localTasksCounter" value="327" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1293,7 +1274,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="+ able to take screenshots of terminal" />
     <MESSAGE value="some improvements" />
     <MESSAGE value="bigprint works again" />
     <MESSAGE value="moved things around + command listbox" />
@@ -1318,7 +1298,8 @@
     <MESSAGE value="wdat is now doublesequence" />
     <MESSAGE value="moved things around" />
     <MESSAGE value="bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix" />
+    <MESSAGE value="added support for graphics" />
+    <option name="LAST_COMMIT_MESSAGE" value="added support for graphics" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

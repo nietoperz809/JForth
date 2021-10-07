@@ -64,6 +64,8 @@ Predefined Words
 ------------------------------
 
 <pre>
+ OK
+JFORTH> wordsd .
 !               -- Store value into variable or array
 '               -- Push word from dictionary onto stack
 (               -- Begin comment
@@ -83,7 +85,7 @@ Predefined Words
 0>              -- Gives 1 if TOS greater than zero
 1+              -- Add 1 to TOS
 1-              -- Substract 1 from TOS
-1/              -- calculate reciprocal
+1/              -- calculate inverse
 2*              -- Multiply TOS by 2
 2+              -- Add 2 to TOS
 2-              -- Substract 2 from TOS
@@ -181,14 +183,25 @@ FRACTION        -- Create a fraction from 2 Numbers
 FRACTRAN        -- Run Fractran language
 GAMMA           -- Gamma funcction
 GAUSSIAN        -- Gaussian random number
+GBOX            -- draw box
 GCD             -- Greates common divisor
+GCIRCLE         -- draw circle
+GCLEAR          -- clear canvas
+GCOLOR          -- set drawing color
+GDISC           -- draw disc
+GDRAWTO         -- draw line from prev x/y to new x/y
 GETBLOB         -- read blob into memory
 GF*             -- Galois multiplication of TOS and TOS-1
 GF+             -- Galois addition TOS-1 + TOS
 GF-             -- Galois subtraction TOS-1 - TOS
 GF/             -- Galois division TOS-1 by TOS
+GLINE           -- draw line
 GMEAN           -- Geometric mean
+GOUT            -- put canvas onto stack
+GPLOT           -- plot x/y
 GRAY            -- make gray code
+GRECT           -- draw rectangle
+GSTAMP          -- draw image to canvas
 HASH            -- generate hash string
 HEX             -- Set number base to 16
 HEXSTR          -- Make hex string
@@ -202,7 +215,9 @@ IGROUP          -- calculate inverses of a group
 IMGSCALE        -- set Image Scale
 INTERSECT       -- Make intersection of 2 sequences
 INVM            -- Inverse of a Matrix
+IROT            -- Rotate  image by 90 degrees
 ISPRIME         -- Primality test
+ISWAP           -- mirrors an image
 J               -- put loop variable j on stack
 JAVA            -- compile and run java class
 JS              -- evaluate js expression string
@@ -248,7 +263,6 @@ OPENREADER      -- Open file
 OPENWRITER      -- Open file for Writing
 OR              -- Binary or of 2 values
 OVER            -- Copy TOS-1 to TOS
-PDIM            -- set plotter width/height
 PERCENT         -- calculate x percent of y
 PERMUTE         -- Generate permutation
 PHI             -- Phi of complex number
@@ -321,7 +335,7 @@ TONUMLIST       -- Make number list of what is on the stack
 TOPOLY          -- Make polynomial from doubleSequence
 TOSLIST         -- Create String List from Double List
 TOSTR           -- Make string of TOS
-TOTIME          -- make time string from TOS
+TOTIME          -- make HH:MM:SS from TOS
 TRANSM          -- Transpose a Matrix
 TRUE            -- Gives 1
 TUCK            -- Copy TOS to TOS-2
@@ -341,6 +355,8 @@ URLDEC          -- Decode URL encoded string
 URLENC          -- URL encode a string
 VAR             -- Variance of sequence
 VARIABLE        -- Create new variable
+VER             -- Get version information
+WDAT            -- put window position data onto stack
 WFULL           -- set window to fullscreen
 WHAT            -- Show description about a word
 WHATPERC        -- calculate x is what percent of y
@@ -355,7 +371,7 @@ WSHOW           -- show or hide the console
 WSIZE           -- set console size
 XOR             -- Xors two values
 ZETA            -- Riemann Zeta function
-</pre>
+ </pre>
 
 Line Editor
 ------------------------------
@@ -403,3 +419,54 @@ A _'swap'_ puts them into right order and _'plot .'_ create and show the graphic
 This is how it looks:
      
 ![](doubesin.png)
+
+Drawing functions
+------------------------------
+This Forth has an internal 1024 * 1024 canvas where you can draw on. 
+
+<pre>
+GBOX            -- (Graphics) draw box
+GCIRCLE         -- (Graphics) draw circle
+GCLEAR          -- (Graphics) clear canvas
+GCOLOR          -- (Graphics) set drawing color
+GDISC           -- (Graphics) draw disc
+GDRAWTO         -- (Graphics) draw line from prev x/y to new x/y
+GLINE           -- (Graphics) draw line
+GOUT            -- (Graphics) put canvas onto stack
+GPLOT           -- (Graphics) plot x/y
+GRECT           -- (Graphics) draw rectangle
+GSTAMP          -- (Graphics) draw image to canvas
+</pre>
+
+{100,200,30,70} GBOX
+>Draws a solid box at 100/200, width=30, height=70 using the current drawing color.
+
+{100,200,30,70} GCIRCLE
+>Draw an elipse at 100/200, width=30, height=70 using the current drawing color.
+
+{100,200,30} GCOLOR
+>Set current drawing color to RGB=100/200/30
+
+{100,200,30} GCLEAR
+>Overwrite the canvas with a specific color (Here R=100, G=200, B=30)
+
+{100,200,30,70} GDISC
+>Draw a solid disc at 100/200, width=30, height=70 using the current drawing color.
+
+{100,200} GDRAWTO
+>Draw a line from the last plot point to 100/200
+
+GOUT
+>Put the Canvas on stack (so it can be viewed by using the dot) 
+
+{100,200} GPLOT
+>Plot a point at 100/200 using the current drawing color
+
+{100,200,30,70} GRECT
+>Draw a rectangle at 100/200, width=30, height=70 using the current drawing color.
+
+{100,200,30,70} GSTAMP
+>Draw another image (which must be on the stack) at position 100/200 and resize it to width/height=30/70
+
+
+
