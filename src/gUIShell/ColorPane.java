@@ -1,4 +1,4 @@
-package GUIShell;
+package gUIShell;
 
 import tools.ForthProperties;
 

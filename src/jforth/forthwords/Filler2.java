@@ -37,7 +37,7 @@ import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
 
 class Filler2 {
-    private static final Point plotterDimension = new Point(100, 20);
+   // private static final Point plotterDimension = new Point(100, 20);
 
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
@@ -1339,20 +1339,20 @@ class Filler2 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "pDim", "set plotter width/height",
-                        (dStack, vStack) ->
-                        {
-                            try {
-                                plotterDimension.y = (int) Utilities.readLong(dStack);
-                                plotterDimension.x = (int) Utilities.readLong(dStack);
-                                return 1;
-                            } catch (Exception e) {
-                                return 0;
-                            }
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "pDim", "set plotter width/height",
+//                        (dStack, vStack) ->
+//                        {
+//                            try {
+//                                plotterDimension.y = (int) Utilities.readLong(dStack);
+//                                plotterDimension.x = (int) Utilities.readLong(dStack);
+//                                return 1;
+//                            } catch (Exception e) {
+//                                return 0;
+//                            }
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (

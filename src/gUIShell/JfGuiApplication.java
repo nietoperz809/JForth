@@ -1,43 +1,17 @@
-package GUIShell;
+package gUIShell;
 
 import tools.BuildInfo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class JfGuiApplication {
     private JPanel MainPanel;
     private JfTerminalPanel textArea1;
     private JComboBox<String> comboBox1;
-    private JComboBox comboBox2;
 
     public JfGuiApplication() {
         $$$setupUI$$$();
-        comboBox2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String s = (String) comboBox2.getSelectedItem();
-                switch (s) {
-                    case "Stack":
-                        textArea1.appendANSI(s + " --> " + textArea1.singleShot(".s"));
-                        break;
-
-                    case "ClrStack":
-                        textArea1.appendANSI(s + " --> " + textArea1.singleShot("clear"));
-                        break;
-
-                    case "ClrScreen":
-                        textArea1.appendANSI(s + " --> " + textArea1.singleShot("cls"));
-                        break;
-
-                    case "Words":
-                        textArea1.appendANSI(s + " --> " + textArea1.singleShot("words ."));
-                        break;
-                }
-            }
-        });
     }
 
     public static void main(String[] args) {
@@ -75,19 +49,6 @@ public class JfGuiApplication {
         comboBox1.setMinimumSize(new Dimension(200, 30));
         comboBox1.setPreferredSize(new Dimension(200, 30));
         panel1.add(comboBox1);
-        comboBox2 = new JComboBox();
-        comboBox2.setMaximumRowCount(256);
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        defaultComboBoxModel1.addElement("--- select below ---");
-        defaultComboBoxModel1.addElement("Stack");
-        defaultComboBoxModel1.addElement("ClrStack");
-        defaultComboBoxModel1.addElement("ClrScreen");
-        defaultComboBoxModel1.addElement("Words");
-        comboBox2.setModel(defaultComboBoxModel1);
-        comboBox2.setPreferredSize(new Dimension(150, 30));
-        comboBox2.setRequestFocusEnabled(false);
-        comboBox2.setVerifyInputWhenFocusTarget(false);
-        panel1.add(comboBox2);
     }
 
     /**

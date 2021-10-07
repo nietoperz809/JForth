@@ -63,8 +63,8 @@ public class Plot2D {
         int y0 = 10;
         int xm = 670;
         int ym = 410;
-        int xspan = xm - x0;
-        int yspan = ym - y0;
+        int xspan = xm - x0;   // 600
+        int yspan = ym - y0;   // 400
         double xmax = max(xi);
         double xmin = min(xi);
         double ymax = max(yi);

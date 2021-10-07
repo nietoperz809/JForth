@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -30,7 +29,6 @@ import java.util.stream.Collectors;
 import static java.awt.Toolkit.getDefaultToolkit;
 import static java.awt.datatransfer.DataFlavor.stringFlavor;
 import static org.mathIT.numbers.Numbers.euclid;
-//import java.util.function.BiFunction;
 
 /**
  * Created by Administrator on 3/21/2017.
@@ -562,6 +560,13 @@ public class Utilities {
         return getLong(dStack.peek());
     }
 
+    public static int[] read4 (OStack dStack) throws Exception {
+        DoubleSequence ds = readDoubleSequence(dStack);
+        if (ds.length() != 4)
+            throw new Exception ("wrong Seq length");
+        return ds.asIntArray();
+    }
+
     public static Color readColor (OStack dStack) throws Exception {
         Object ox = dStack.pop();
         if (ox instanceof DoubleSequence) {
@@ -1015,7 +1020,7 @@ public class Utilities {
             return PolySupport.formatPoly((PolynomialFunction) o);
         } else if (o instanceof BigInteger) {
             return o.toString();
-        } else if (o instanceof BufferedImage) {
+        } else if (o instanceof SerializableImage) {
             return "Image";
         } else {
             return o.toString();

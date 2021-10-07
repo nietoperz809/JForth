@@ -1,4 +1,4 @@
-package GUIShell;
+package gUIShell;
 
 import jforth.JForth;
 import jforth.RuntimeEnvironment;

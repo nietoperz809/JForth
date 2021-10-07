@@ -1,4 +1,4 @@
-package GUIShell;
+package gUIShell;
 
 import java.awt.*;
 import java.util.HashMap;
