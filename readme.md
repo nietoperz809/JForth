@@ -14,6 +14,9 @@ in ForthTestCases.java
 
 Have fun.
 
+<hr>
+
+
 Currently supported data types
 ------------------------------
 `As of JForth, Build: 2734, Input can be typed using the following notations:`
@@ -59,6 +62,7 @@ Comment
 >( another comment: open bracket, space, text, space, close bracket )   
 >\\ comment out everything until line end
 
+<hr>
 
 Predefined Words
 ------------------------------
@@ -373,6 +377,8 @@ XOR             -- Xors two values
 ZETA            -- Riemann Zeta function
  </pre>
 
+<hr>
+
 Line Editor
 ------------------------------
 The integrated line editor is invoked by _'editor'_
@@ -394,6 +400,8 @@ It knows these commands:
  any other  -- input is appended to the buffer.
 
 </pre>
+
+<hr>
 
 X/Y-Plotter
 -----------------------------------
@@ -419,6 +427,9 @@ A _'swap'_ puts them into right order and _'plot .'_ create and show the graphic
 This is how it looks:
      
 ![](doubesin.png)
+
+<hr>
+
 
 Drawing functions
 ------------------------------
@@ -468,5 +479,19 @@ GOUT
 {100,200,30,70} GSTAMP
 >Draw another image (which must be on the stack) at position 100/200 and resize it to width/height=30/70
 
+<hr>
 
+Web interface
+------------------------------
+
+JForth can be used with a web browser as shell.
+First start the internal web serer: 
+>80 http
+
+Then open a browser on localhost:80. You'll see a black web page with a blue headline containing an input box, 
+where you can type Forth commands. On hitting the enter key, the commands are sent to JForth for execution. 
+The result is sent back to the browser and appears in the black area. Also images wil be shown, for example:
+> HelloWorld qr .
+
+will result in an QR code shown in the black area.
 
