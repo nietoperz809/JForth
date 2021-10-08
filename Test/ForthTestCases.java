@@ -1590,4 +1590,9 @@ public class ForthTestCases extends Base
         shoudBeOK ("1890457618", s); // little red box
     }
 
+    @Test
+    public void testQR() {
+        String s = check ("helloWorld qr crc32 hash",".");
+        shoudBeOK ("4277785947", s); // white canvas
+    }
 }
