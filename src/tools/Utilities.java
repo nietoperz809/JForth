@@ -1158,4 +1158,11 @@ public class Utilities {
         return String.format("%.1f %ciB", value / 1024.0, ci.current());
     }
 
+    public static byte[] convertToBytes(Object object) throws IOException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream out = new ObjectOutputStream(bos)) {
+            out.writeObject(object);
+            return bos.toByteArray();
+        }
+    }
 }

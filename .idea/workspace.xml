@@ -21,9 +21,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SerializableImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/FileBlob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/FileBlob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -670,11 +671,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestNip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestNip" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestHash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestHash" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -710,13 +721,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Java Scratch" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test" />
-      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -740,19 +744,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="Java Scratch.Test" />
       <item itemvalue="JUnit.All in JForth" />
-      <item itemvalue="JUnit.ForthTestCases.TestNip" />
       <item itemvalue="JUnit.ForthTestCases.TestTimeView" />
       <item itemvalue="JUnit.ForthTestCases.testGraph" />
+      <item itemvalue="JUnit.ForthTestCases.TestHash" />
+      <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ForthTestCases.testGraph" />
+        <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.ForthTestCases.TestHash" />
         <item itemvalue="JUnit.All in JForth" />
         <item itemvalue="JUnit.ForthTestCases.TestTimeView" />
-        <item itemvalue="Java Scratch.Test" />
-        <item itemvalue="JUnit.ForthTestCases.TestNip" />
       </list>
     </recent_temporary>
   </component>
@@ -856,13 +860,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00279" summary="+ roman numbers">
-      <created>1615290010960</created>
-      <option name="number" value="00279" />
-      <option name="presentableId" value="LOCAL-00279" />
-      <option name="project" value="LOCAL" />
-      <updated>1615290010960</updated>
     </task>
     <task id="LOCAL-00280" summary="+ reverse roman (arab)">
       <created>1615310057234</created>
@@ -1200,7 +1197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633634846618</updated>
     </task>
-    <option name="localTasksCounter" value="328" />
+    <task id="LOCAL-00328" summary="added graphics test">
+      <created>1633675850936</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
+      <option name="project" value="LOCAL" />
+      <updated>1633675850936</updated>
+    </task>
+    <option name="localTasksCounter" value="329" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1276,7 +1280,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="bigprint works again" />
     <MESSAGE value="moved things around + command listbox" />
     <MESSAGE value="added human readable byte count formatter" />
     <MESSAGE value="added fracsequence" />
@@ -1301,7 +1304,8 @@
     <MESSAGE value="bugfix" />
     <MESSAGE value="added support for graphics" />
     <MESSAGE value="updated readme &amp; jarfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated readme &amp; jarfile" />
+    <MESSAGE value="added graphics test" />
+    <option name="LAST_COMMIT_MESSAGE" value="added graphics test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

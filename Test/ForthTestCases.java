@@ -1585,9 +1585,9 @@ public class ForthTestCases extends Base
     @Test
     public void testGraph() {
         String s = check ("gout crc32 hash",".");
-        shoudBeOK ("1306680907", s); // white canvas
+        shoudBeOK ("95113177", s); // white canvas
         s = check ("{255,0,0} gcolor {100,100,50,50} gbox gout crc32 hash",".");
-        shoudBeOK ("1294682444", s); // little red box
+        shoudBeOK ("1890457618", s); // little red box
     }
 
 }

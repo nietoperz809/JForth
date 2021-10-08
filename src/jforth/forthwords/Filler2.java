@@ -37,7 +37,7 @@ import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
 
 class Filler2 {
-   // private static final Point plotterDimension = new Point(100, 20);
+    // private static final Point plotterDimension = new Point(100, 20);
 
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
@@ -332,12 +332,12 @@ class Filler2 {
                         {
                             try {
                                 String hashtype = Utilities.readString(dStack).toLowerCase();
-                                Object input = dStack.pop();
-                                byte[] inbytes = null;
-                                if (input instanceof String)
-                                    inbytes = ((String)input).getBytes(JForth.ENCODING);
-                                else if (input instanceof SerializableImage)
-                                    inbytes = ((SerializableImage)input).getBytes();
+                                Object o1 = dStack.pop();
+                                byte[] inbytes;
+                                if (o1 instanceof String)
+                                    inbytes = ((String)o1).getBytes(JForth.ENCODING);
+                                else
+                                    inbytes = Utilities.convertToBytes(o1);
                                 if (hashtype.equals("crc32")) {
                                     CRC32 crc = new CRC32();
                                     crc.update(inbytes, 0, inbytes.length);
@@ -884,7 +884,7 @@ class Filler2 {
                             try {
                                 Long v = Utilities.readLong(dStack);
                                 dStack.push(Utilities.toTimeView(v));
-                                        //.formatTimeDuration(v));
+                                //.formatTimeDuration(v));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

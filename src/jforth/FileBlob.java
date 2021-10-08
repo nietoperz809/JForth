@@ -112,8 +112,8 @@ public class FileBlob implements java.io.Serializable {
         return res;
     }
 
-    public void set_content (byte[] _content)
-    {
-        this._content = _content;
-    }
+//    public void set_content (byte[] _content)
+//    {
+//        this._content = _content;
+//    }
 }
