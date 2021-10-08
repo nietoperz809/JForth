@@ -9,6 +9,7 @@ import java.io.*;
 
 public class SerializableImage implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private final byte[] bytes;
     int width, height;
 
@@ -18,6 +19,10 @@ public class SerializableImage implements Serializable {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write (img, "png", baos);
         bytes = baos.toByteArray();
+    }
+
+    public byte[] getBytes() {
+        return bytes;
     }
 
     public BufferedImage getImage() throws IOException {

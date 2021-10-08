@@ -331,19 +331,23 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String hash = Utilities.readString(dStack).toLowerCase();
-                                String input = Utilities.readString(dStack);
-                                byte[] inbytes = input.getBytes(JForth.ENCODING);
-                                if (hash.equals("crc32")) {
+                                String hashtype = Utilities.readString(dStack).toLowerCase();
+                                Object input = dStack.pop();
+                                byte[] inbytes = null;
+                                if (input instanceof String)
+                                    inbytes = ((String)input).getBytes(JForth.ENCODING);
+                                else if (input instanceof SerializableImage)
+                                    inbytes = ((SerializableImage)input).getBytes();
+                                if (hashtype.equals("crc32")) {
                                     CRC32 crc = new CRC32();
                                     crc.update(inbytes, 0, inbytes.length);
                                     dStack.push(crc.getValue());
-                                } else if (hash.equals("crc16")) {
+                                } else if (hashtype.equals("crc16")) {
                                     CRC16 crc = new CRC16();
                                     crc.calc(inbytes);
                                     dStack.push((long) crc.getCRC());
                                 } else {
-                                    MessageDigest md = MessageDigest.getInstance(hash);
+                                    MessageDigest md = MessageDigest.getInstance(hashtype);
                                     dStack.push(new DoubleSequence(md.digest(inbytes)));
                                 }
                                 return 1;
