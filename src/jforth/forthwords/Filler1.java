@@ -24,6 +24,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Objects;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
@@ -1156,6 +1157,11 @@ class Filler1 {
                                     } catch (IOException e) {
                                         return 0;
                                     }
+                                    return 1;
+                                } else if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    byte[] buff = ((SerializableImage)o).getBytes();
+                                    String encoded = Base64.getEncoder().encodeToString(buff);
+                                    predefinedWords._jforth._out.print ("imgBytes"+encoded);
                                     return 1;
                                 }
                             }

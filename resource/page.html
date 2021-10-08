@@ -35,6 +35,7 @@
         <input type="text" size="100" id="txt"/>
     </header>
     <pre id="cod"></pre>
+    <img id="ItemPreview" src="" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
 
@@ -55,6 +56,13 @@
                 txt.val('');
                 $.get("forth", encodeURIComponent(input), function( data )
                 {
+                    if (data.startsWith("imgBytes"))
+                    {
+                        var imgdat = data.substring(8,data.length-3);
+                        document.getElementById("ItemPreview").src = "data:image/png;base64," + imgdat;
+                        //$('#cod').text(imgdat);
+                        return;
+                    }
                     var res = data.split ('~')
                     if (res[0] == 'alertbox%%')
                     {

@@ -42,10 +42,10 @@ public class SimpleWebserver
         }
     }
 
-    private StringStream _ss = new StringStream();
-    private JForth forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.WEBSERVER);
+    private final StringStream _ss = new StringStream();
+    private final JForth forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.WEBSERVER);
 
-    private HttpHandler httpHandler = e ->
+    private final HttpHandler httpHandler = e ->
     {
         //System.out.println("HTTP: " + e.getRequestURI().toString());
         String txt = e.getRequestURI().toString();
