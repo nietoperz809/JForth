@@ -17,13 +17,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="updated readme">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_math3_3_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/jaxb_api_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_io_4_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_cedarsoftware_json_io_4_9_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_xml_bind_jaxb_api_2_3_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_math3_3_6.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/resource/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,8 +428,8 @@
     <property name="ignore_missing_gitignore" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/jforth" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jaxb-api-2.3.0.jar" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -436,11 +442,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\Programs" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib\newJNA" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\tools" />
@@ -859,20 +865,6 @@
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
     </task>
-    <task id="LOCAL-00282" summary="added sumRec word + test">
-      <created>1616147568444</created>
-      <option name="number" value="00282" />
-      <option name="presentableId" value="LOCAL-00282" />
-      <option name="project" value="LOCAL" />
-      <updated>1616147568444</updated>
-    </task>
-    <task id="LOCAL-00283" summary="minor changes">
-      <created>1617251148086</created>
-      <option name="number" value="00283" />
-      <option name="presentableId" value="LOCAL-00283" />
-      <option name="project" value="LOCAL" />
-      <updated>1617251148088</updated>
-    </task>
     <task id="LOCAL-00284" summary="added virtual terminal">
       <created>1617641128387</created>
       <option name="number" value="00284" />
@@ -1202,7 +1194,21 @@
       <option name="project" value="LOCAL" />
       <updated>1633699215830</updated>
     </task>
-    <option name="localTasksCounter" value="331" />
+    <task id="LOCAL-00331" summary="enabled web interface to show images from forth">
+      <created>1633708314243</created>
+      <option name="number" value="00331" />
+      <option name="presentableId" value="LOCAL-00331" />
+      <option name="project" value="LOCAL" />
+      <updated>1633708314681</updated>
+    </task>
+    <task id="LOCAL-00332" summary="updated readme">
+      <created>1633724876850</created>
+      <option name="number" value="00332" />
+      <option name="presentableId" value="LOCAL-00332" />
+      <option name="project" value="LOCAL" />
+      <updated>1633724876850</updated>
+    </task>
+    <option name="localTasksCounter" value="333" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1266,11 +1272,37 @@
             </State>
           </value>
         </entry>
+        <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/Administrator/Desktop/java/JForth/lib" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
       </map>
     </option>
     <option name="OPEN_GENERIC_TABS">
       <map>
         <entry key="1" value="TOOL_WINDOW" />
+        <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
@@ -1278,8 +1310,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added human readable byte count formatter" />
-    <MESSAGE value="added fracsequence" />
     <MESSAGE value="added toDouble for fracSeq" />
     <MESSAGE value="siko" />
     <MESSAGE value="fractran now works" />
@@ -1303,7 +1333,9 @@
     <MESSAGE value="added graphics test" />
     <MESSAGE value="bugfix" />
     <MESSAGE value="added testQR" />
-    <option name="LAST_COMMIT_MESSAGE" value="added testQR" />
+    <MESSAGE value="enabled web interface to show images from forth" />
+    <MESSAGE value="updated readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated readme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

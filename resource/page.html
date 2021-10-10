@@ -35,7 +35,7 @@
         <input type="text" size="100" id="txt"/>
     </header>
     <pre id="cod"></pre>
-    <img id="ItemPreview" src="" />
+    <img id="pict" src="" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
 
@@ -59,8 +59,10 @@
                     if (data.startsWith("imgBytes"))
                     {
                         var imgdat = data.substring(8,data.length-3);
-                        document.getElementById("ItemPreview").src = "data:image/png;base64," + imgdat;
-                        //$('#cod').text(imgdat);
+                        var elem = document.getElementById("pict");
+                        elem.src = "data:image/png;base64," + imgdat;
+                        elem.width = "500";
+                        elem.height = "500";
                         return;
                     }
                     var res = data.split ('~')

@@ -9,14 +9,13 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/JForth_jar" />
       <excludeFolder url="file://$MODULE_DIR$/out/production" />
+      <excludeFolder url="file://$MODULE_DIR$/libsave" />
     </content>
     <content url="file://$MODULE_DIR$/out" />
     <content url="file://$MODULE_DIR$/out/artifacts" />
     <content url="file://$MODULE_DIR$/out/production" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.apache.commons:commons-math3:3.6" level="project" />
-    <orderEntry type="library" name="com.cedarsoftware:json-io:4.9.10" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit4">
         <CLASSES>
@@ -32,8 +31,10 @@
     <orderEntry type="library" name="cmu_time_awb-1.2.2" level="project" />
     <orderEntry type="library" name="cmutimelex" level="project" />
     <orderEntry type="library" name="mathIT" level="project" />
-    <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.0" level="project" />
     <orderEntry type="library" name="jna-5.7.0-jpms" level="project" />
     <orderEntry type="library" name="zxing-2" level="project" />
+    <orderEntry type="library" name="commons-math3-3.6" level="project" />
+    <orderEntry type="library" name="json-io-4.9.10" level="project" />
+    <orderEntry type="library" name="jaxb-api-2.3.0" level="project" />
   </component>
 </module>
