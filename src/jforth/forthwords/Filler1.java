@@ -1923,6 +1923,11 @@ class Filler1 {
                             try {
                                 String words = Utilities.readString(dStack);
                                 byte[] bstr = SAMSpeech.doSam(words);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    String encoded = Base64.getEncoder().encodeToString(bstr);
+                                    predefinedWords._jforth._out.print ("audBytes"+encoded);
+                                    return 1;
+                                }
                                 WaveTools.playWave(bstr, false);
                                 return 1;
                             } catch (Exception e) {

@@ -39,7 +39,6 @@ public class SAMSpeech
         ByteArrayOutputStream ba = new ByteArrayOutputStream();
         PrintStream p = new PrintStream (ba);
         meth.invoke(null, p, arg);
-        byte[] result = ba.toByteArray ();
-        return result;
+        return ba.toByteArray ();
     }
 }

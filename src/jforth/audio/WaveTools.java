@@ -7,6 +7,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * from here: ftp://sccn.ucsd.edu/pub/virtualmedia/AePlayWave.java
@@ -22,12 +23,14 @@ public class WaveTools
      */
     public static Clip playWave (File file, boolean cont) throws Exception
     {
-        final Clip clip = (Clip) AudioSystem.getLine (new Line.Info (Clip.class));
-        clip.open (AudioSystem.getAudioInputStream (file));
-        if (cont)
-            clip.loop (Clip.LOOP_CONTINUOUSLY);
-        clip.start ();
-        return clip;
+        byte[] buff = Files.readAllBytes(file.toPath());
+        return playWave(buff, cont);
+//        final Clip clip = (Clip) AudioSystem.getLine (new Line.Info (Clip.class));
+//        clip.open (AudioSystem.getAudioInputStream (file));
+//        if (cont)
+//            clip.loop (Clip.LOOP_CONTINUOUSLY);
+//        clip.start ();
+//        return clip;
     }
 
     public static Clip playWave (byte[] data, boolean cont) throws Exception
