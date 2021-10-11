@@ -1,6 +1,10 @@
 package jforth.audio;
 
+import jforth.forthwords.PredefinedWords;
+
 import javax.sound.sampled.SourceDataLine;
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.HashMap;
 
 public class DtmfMorsePlayer extends SynthToneBase
@@ -77,6 +81,17 @@ public class DtmfMorsePlayer extends SynthToneBase
     public static void playDtmfString (String in)
     {
         playString (in, DtmfMorsePlayer::playOneDtmf);
+    }
+
+    public static void sendDtmftoBrowser (String in, PredefinedWords predefinedWords) throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        for (char c : in.toCharArray ())
+        {
+            baos.write(makeDtmfWave(c));
+        }
+        byte[] complete = WaveTools.withWAVHeader (baos.toByteArray(), af);
+        String encoded = Base64.getEncoder().encodeToString(complete);
+        predefinedWords._jforth._out.print ("audBytes"+encoded);
     }
 
     public static void playMorseString (String in)

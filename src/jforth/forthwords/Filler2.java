@@ -3,7 +3,7 @@ package jforth.forthwords;
 import jforth.*;
 import jforth.ControlWords.*;
 import jforth.audio.DtmfMorsePlayer;
-import jforth.audio.Morse;
+import jforth.Morse;
 import jforth.audio.MusicTones;
 import jforth.audio.WaveTools;
 import org.apache.commons.math3.fraction.Fraction;
@@ -32,6 +32,7 @@ import java.util.TimerTask;
 import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
+import static jforth.audio.DtmfMorsePlayer.sendDtmftoBrowser;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
@@ -965,6 +966,10 @@ class Filler2 {
                         {
                             try {
                                 String s1 = Utilities.readString(dStack);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    sendDtmftoBrowser (s1, predefinedWords);
+                                    return 1;
+                                }
                                 DtmfMorsePlayer.playDtmfString(s1);
                                 return 1;
                             } catch (Exception e) {

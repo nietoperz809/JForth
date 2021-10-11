@@ -45,13 +45,13 @@ public class Utilities {
         return tm - tc;
     }
 
-    public static FutureTask<?> executeThread(Runnable r)
+    public static void executeThread(Runnable r)
     {
         if (getExecutorFreeSlots() <= 0)
         {
             System.out.println("Thread pool exhausted");
         }
-        return (FutureTask<?>) globalExecutor.submit(r);
+        globalExecutor.submit(r);
     }
 
     public static String getClipBoardString ()
@@ -80,7 +80,7 @@ public class Utilities {
     public static String textFileToString(String path) throws IOException {
         File f = new File (path);
         List<String> lines = Files.readAllLines(f.toPath());
-        return String.join("\n", lines.toArray(new String[lines.size()]));
+        return String.join("\n", lines.toArray(new String[0]));
     }
 
     public static String formatTimeDuration(long duration) {
@@ -1118,7 +1118,7 @@ public class Utilities {
     }
 
     public static String replaceUmlauts(String output) {
-        String newString = output.replace("\u00fc", "ue")
+        return output.replace("\u00fc", "ue")
                 .replace("\u00f6", "oe")
                 .replace("\u00e4", "ae")
                 .replace("\u00df", "ss")
@@ -1128,7 +1128,6 @@ public class Utilities {
                 .replace("\u00dc", "UE")
                 .replace("\u00d6", "OE")
                 .replace("\u00c4", "AE");
-        return newString;
     }
 
     public static String humanReadableByteCountSI(long bytes) {

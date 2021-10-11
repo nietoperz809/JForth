@@ -61,7 +61,7 @@ public class SimpleWebserver
             String cmd = URLDecoder.decode(split[1], "UTF-8");
             forth.singleShot(cmd);
             String erg = _ss.toString();
-            erg.replace ("·","&#xb7;"); // replace morse dots
+            erg = erg.replace ("·","•"); // replace morse dots
             byte[] arr = erg.getBytes (StandardCharsets.UTF_8);
             os.write(arr, 0, arr.length - 8);
             _ss.clear ();

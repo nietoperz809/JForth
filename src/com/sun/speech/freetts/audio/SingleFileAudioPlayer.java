@@ -7,21 +7,16 @@
  */
 package com.sun.speech.freetts.audio;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.SequenceInputStream;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.sun.speech.freetts.util.Utilities;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-
-import com.sun.speech.freetts.util.Utilities;
+import java.io.*;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /** Streams audio to a file. */
 public class SingleFileAudioPlayer implements AudioPlayer {

@@ -1,8 +1,5 @@
 package tools;
 
-import com.cedarsoftware.util.io.JsonReader;
-import com.cedarsoftware.util.io.JsonWriter;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -58,9 +55,10 @@ public class FileUtils {
      */
     public static void saveMap (HashMap<String, Object> map, String filename) throws Exception {
         Properties properties = new Properties();
-        for (Map.Entry<String,Object> entry : map.entrySet()) {
-            properties.put(entry.getKey(), entry.getValue());
-        }
+        properties.putAll(map);
+//        for (Map.Entry<String,Object> entry : map.entrySet()) {
+//            properties.put(entry.getKey(), entry.getValue());
+//        }
         properties.store(new FileOutputStream(filename), null);
     }
 
@@ -117,18 +115,18 @@ public class FileUtils {
         return ret;
     }
 
-    public static void saveObjectAsJson(String name, Object obj) throws IOException {
-        String j1 = JsonWriter.objectToJson(obj);
-        PrintWriter p = new PrintWriter(name + ".json");
-        p.println(JsonWriter.formatJson(j1));
-        p.close();
-    }
-
-    public static Object loadObjectFromJson(String name) throws IOException {
-        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
-        String s = new String(b);
-        return JsonReader.jsonToJava(s);
-    }
+//    public static void saveObjectAsJson(String name, Object obj) throws IOException {
+//        String j1 = JsonWriter.objectToJson(obj);
+//        PrintWriter p = new PrintWriter(name + ".json");
+//        p.println(JsonWriter.formatJson(j1));
+//        p.close();
+//    }
+//
+//    public static Object loadObjectFromJson(String name) throws IOException {
+//        byte[] b = Files.readAllBytes(Paths.get(name + ".json"));
+//        String s = new String(b);
+//        return JsonReader.jsonToJava(s);
+//    }
 
     public static void deepSave (String path, Object obj) throws Exception
     {
