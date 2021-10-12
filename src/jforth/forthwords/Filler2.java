@@ -30,8 +30,7 @@ import java.util.TimerTask;
 import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
-import static jforth.audio.DtmfMorsePlayer.sendDtmftoBrowser;
-import static jforth.audio.DtmfMorsePlayer.sendMorsetoBrowser;
+import static jforth.audio.DtmfMorsePlayer.*;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
@@ -965,6 +964,12 @@ class Filler2 {
                         {
                             try {
                                 String s1 = Utilities.readString(dStack).toUpperCase();
+                                if (s1.startsWith("+")) {
+                                    s1 = s1.substring(1);
+                                    byte[] wav = createContiguousDTMF(s1);
+                                    dStack.push(new FileBlob(wav, "DTMF.wav"));
+                                    return 1;
+                                }
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
                                     sendDtmftoBrowser (s1, predefinedWords);
                                     return 1;
@@ -985,6 +990,12 @@ class Filler2 {
                         {
                             try {
                                 String s1 = Utilities.readString(dStack);
+                                if (s1.startsWith("+")) {
+                                    s1 = s1.substring(1);
+                                    byte[] wav = createContiguousMorse(Morse.text2Morse(s1));
+                                    dStack.push(new FileBlob(wav, "DTMF.wav"));
+                                    return 1;
+                                }
                                 String s2 = Morse.text2Morse(s1);
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
                                     sendMorsetoBrowser (s2, predefinedWords);

@@ -66,14 +66,20 @@ public class DtmfMorsePlayer extends SynthToneBase {
     }
 
     public static void sendDtmftoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
+        byte[] wav = createContiguousDTMF(in);
+        String encoded = Base64.getEncoder().encodeToString(wav);
+        predefinedWords._jforth._out.print("audBytes" + encoded);
+    }
+
+    public static byte[] createContiguousDTMF(String in) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         for (char c : in.toCharArray()) {
             baos.write(makeDtmfWave(c));
         }
-        sendWavToBrowser(baos, predefinedWords);
+        return  WaveTools.withWAVHeader(baos.toByteArray(), af);
     }
 
-    public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
+    public static byte[] createContiguousMorse (String in) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         for (char c : in.toCharArray()) {
             if (c == '·') {
@@ -88,28 +94,18 @@ public class DtmfMorsePlayer extends SynthToneBase {
                 playIntoBuffer(baos, pause, 200);
             }
         }
-        sendWavToBrowser(baos, predefinedWords);
+        return  WaveTools.withWAVHeader(baos.toByteArray(), af);
     }
 
-    private static void sendWavToBrowser (ByteArrayOutputStream baos, PredefinedWords predefinedWords) throws Exception {
-        byte[] complete = WaveTools.withWAVHeader(baos.toByteArray(), af);
-        String encoded = Base64.getEncoder().encodeToString(complete);
+    public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
+        byte[] wav = createContiguousMorse(in);
+        String encoded = Base64.getEncoder().encodeToString(wav);
         predefinedWords._jforth._out.print("audBytes" + encoded);
     }
 
     public static void playMorseString(String in) {
         playString(in, DtmfMorsePlayer::playOneMorse);
     }
-
-//    private static void playShort(SourceDataLine line) {
-//        play(line, sin, 50);
-//        play(line, pause, 100);
-//    }
-//
-//    private static void playLong(SourceDataLine line) {
-//        play(line, sin, 200);
-//        play(line, pause, 100);
-//    }
 
     private static void playOneMorse(char c, SourceDataLine line) {
         if (c == '·') {

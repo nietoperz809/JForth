@@ -17,10 +17,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="dtmf * morse can be played in browser">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
@@ -474,7 +474,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.testDtmfInMemory">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -690,11 +690,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testGraph" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.testDtmfInMemory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testGraph" />
+      <option name="METHOD_NAME" value="testDtmfInMemory" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -742,19 +742,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases.testGraph" />
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testQR" />
       <item itemvalue="JUnit.ForthTestCases.morseTest" />
       <item itemvalue="JUnit.All in JForth" />
+      <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
         <item itemvalue="JUnit.All in JForth" />
         <item itemvalue="JUnit.ForthTestCases.morseTest" />
         <item itemvalue="JUnit.ForthTestCases.testQR" />
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.testGraph" />
       </list>
     </recent_temporary>
   </component>
@@ -858,27 +858,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00289" summary="terminal now understands ansi colors">
-      <created>1618060501719</created>
-      <option name="number" value="00289" />
-      <option name="presentableId" value="LOCAL-00289" />
-      <option name="project" value="LOCAL" />
-      <updated>1618060501719</updated>
-    </task>
-    <task id="LOCAL-00290" summary="line editor now works in gui window">
-      <created>1618061330779</created>
-      <option name="number" value="00290" />
-      <option name="presentableId" value="LOCAL-00290" />
-      <option name="project" value="LOCAL" />
-      <updated>1618061330779</updated>
-    </task>
-    <task id="LOCAL-00291" summary="can display qr codes">
-      <created>1618119189588</created>
-      <option name="number" value="00291" />
-      <option name="presentableId" value="LOCAL-00291" />
-      <option name="project" value="LOCAL" />
-      <updated>1618119189588</updated>
     </task>
     <task id="LOCAL-00292" summary="new jar">
       <created>1618119336157</created>
@@ -1202,7 +1181,28 @@
       <option name="project" value="LOCAL" />
       <updated>1633999837374</updated>
     </task>
-    <option name="localTasksCounter" value="338" />
+    <task id="LOCAL-00338" summary="dtmf * morse can be played in browser">
+      <created>1634014494850</created>
+      <option name="number" value="00338" />
+      <option name="presentableId" value="LOCAL-00338" />
+      <option name="project" value="LOCAL" />
+      <updated>1634014494850</updated>
+    </task>
+    <task id="LOCAL-00339" summary="new jar">
+      <created>1634014655022</created>
+      <option name="number" value="00339" />
+      <option name="presentableId" value="LOCAL-00339" />
+      <option name="project" value="LOCAL" />
+      <updated>1634014655022</updated>
+    </task>
+    <task id="LOCAL-00340" summary="readme edited">
+      <created>1634015016075</created>
+      <option name="number" value="00340" />
+      <option name="presentableId" value="LOCAL-00340" />
+      <option name="project" value="LOCAL" />
+      <updated>1634015016075</updated>
+    </task>
+    <option name="localTasksCounter" value="341" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1304,10 +1304,7 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="F= works with frac sequences + test" />
-    <MESSAGE value="&quot;collect&quot; can now handle fractions" />
     <MESSAGE value="fixed scatter word (scat) + test" />
-    <MESSAGE value="new jar" />
     <MESSAGE value="improved lpick" />
     <MESSAGE value="subseq works for fileblobs" />
     <MESSAGE value="added f2l word and M (Million) prefix" />
@@ -1329,7 +1326,10 @@
     <MESSAGE value="sam is now speaking over http" />
     <MESSAGE value="save" />
     <MESSAGE value="backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup" />
+    <MESSAGE value="dtmf * morse can be played in browser" />
+    <MESSAGE value="new jar" />
+    <MESSAGE value="readme edited" />
+    <option name="LAST_COMMIT_MESSAGE" value="readme edited" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

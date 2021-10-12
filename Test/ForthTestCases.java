@@ -1593,6 +1593,14 @@ public class ForthTestCases extends Base
     @Test
     public void testQR() {
         String s = check ("helloWorld qr crc32 hash",".");
-        shoudBeOK ("4277785947", s); // white canvas
+        shoudBeOK ("4277785947", s);
+    }
+
+    @Test
+    public void testDtmfInMemory() {
+        String s = check ("\"+1234\" dtmf crc32 hash",".");
+        shoudBeOK ("1382974991", s);
+        s = check ("+sos morse crc32 hash",".");
+        shoudBeOK ("1344292831", s); 
     }
 }
