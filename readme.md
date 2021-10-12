@@ -493,5 +493,6 @@ where you can type Forth commands. On hitting the enter key, the commands are se
 The result is sent back to the browser and appears in the black area. Also images wil be shown, for example:
 > HelloWorld qr .
 
-will result in an QR code shown in the black area.
+... will result in an QR code shown in the black area.
 
+DTMF and Morse tones can also be played in the browser
