@@ -31,6 +31,7 @@ import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
 import static jforth.audio.DtmfMorsePlayer.sendDtmftoBrowser;
+import static jforth.audio.DtmfMorsePlayer.sendMorsetoBrowser;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
@@ -984,7 +985,12 @@ class Filler2 {
                         {
                             try {
                                 String s1 = Utilities.readString(dStack);
-                                DtmfMorsePlayer.playMorseString(Morse.text2Morse(s1));
+                                String s2 = Morse.text2Morse(s1);
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    sendMorsetoBrowser (s2, predefinedWords);
+                                    return 1;
+                                }
+                                DtmfMorsePlayer.playMorseString(s2);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

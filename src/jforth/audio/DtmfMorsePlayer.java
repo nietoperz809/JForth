@@ -70,6 +70,28 @@ public class DtmfMorsePlayer extends SynthToneBase {
         for (char c : in.toCharArray()) {
             baos.write(makeDtmfWave(c));
         }
+        sendWavToBrowser(baos, predefinedWords);
+    }
+
+    public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        for (char c : in.toCharArray()) {
+            if (c == '·') {
+                playIntoBuffer(baos, sin, 50);
+                playIntoBuffer(baos, pause, 100);
+            }
+            else if (c == '-') {
+                playIntoBuffer(baos, sin, 200);
+                playIntoBuffer(baos, pause, 100);
+            }
+            else if (c == ' ') {
+                playIntoBuffer(baos, pause, 200);
+            }
+        }
+        sendWavToBrowser(baos, predefinedWords);
+    }
+
+    private static void sendWavToBrowser (ByteArrayOutputStream baos, PredefinedWords predefinedWords) throws Exception {
         byte[] complete = WaveTools.withWAVHeader(baos.toByteArray(), af);
         String encoded = Base64.getEncoder().encodeToString(complete);
         predefinedWords._jforth._out.print("audBytes" + encoded);
@@ -79,22 +101,27 @@ public class DtmfMorsePlayer extends SynthToneBase {
         playString(in, DtmfMorsePlayer::playOneMorse);
     }
 
-    private static void playShort(SourceDataLine line) {
-        play(line, sin, 50);
-        play(line, pause, 100);
-    }
-
-    private static void playLong(SourceDataLine line) {
-        play(line, sin, 200);
-        play(line, pause, 100);
-    }
+//    private static void playShort(SourceDataLine line) {
+//        play(line, sin, 50);
+//        play(line, pause, 100);
+//    }
+//
+//    private static void playLong(SourceDataLine line) {
+//        play(line, sin, 200);
+//        play(line, pause, 100);
+//    }
 
     private static void playOneMorse(char c, SourceDataLine line) {
-        if (c == '·')
-            playShort(line);
-        else if (c == '-')
-            playLong(line);
-        else if (c == ' ')
+        if (c == '·') {
+            play(line, sin, 50);
+            play(line, pause, 100);
+        }
+        else if (c == '-') {
+            play(line, sin, 200);
+            play(line, pause, 100);
+        }
+        else if (c == ' ') {
             play(line, pause, 200);
+        }
     }
 }

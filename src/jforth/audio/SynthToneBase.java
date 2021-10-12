@@ -4,6 +4,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+import java.io.ByteArrayOutputStream;
 
 public class SynthToneBase
 {
@@ -47,7 +48,12 @@ public class SynthToneBase
         int length = Math.min (SAMPLE_RATE * ms / 1000, tone.length);
         line.write (tone, 0, length);
     }
-    
+
+    protected static void playIntoBuffer (ByteArrayOutputStream baos, byte[] tone, int ms)
+    {
+        int length = Math.min (SAMPLE_RATE * ms / 1000, tone.length);
+        baos.write (tone, 0, length);
+    }
 
     /**
      * Open data line
