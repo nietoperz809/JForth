@@ -17,17 +17,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="updated readme">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/commons_math3_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jaxb_api_2_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/json_io_4_9_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_cedarsoftware_json_io_4_9_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_xml_bind_jaxb_api_2_3_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_commons_commons_math3_3_6.xml" beforeDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/resource/page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
@@ -433,7 +428,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="xpath.settings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
@@ -480,7 +475,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.All in JForth">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -685,11 +680,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestHash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.morseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestHash" />
+      <option name="METHOD_NAME" value="morseTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -748,19 +743,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases.testGraph" />
-      <item itemvalue="JUnit.ForthTestCases.TestHash" />
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testQR" />
+      <item itemvalue="JUnit.ForthTestCases.morseTest" />
+      <item itemvalue="JUnit.All in JForth" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="JUnit.ForthTestCases.morseTest" />
         <item itemvalue="JUnit.ForthTestCases.testQR" />
         <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.testGraph" />
-        <item itemvalue="JUnit.ForthTestCases.TestHash" />
-        <item itemvalue="JUnit.All in JForth" />
       </list>
     </recent_temporary>
   </component>
@@ -864,34 +859,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00284" summary="added virtual terminal">
-      <created>1617641128387</created>
-      <option name="number" value="00284" />
-      <option name="presentableId" value="LOCAL-00284" />
-      <option name="project" value="LOCAL" />
-      <updated>1617641128387</updated>
-    </task>
-    <task id="LOCAL-00285" summary="+ gui console&#10;+ jar file">
-      <created>1617716934781</created>
-      <option name="number" value="00285" />
-      <option name="presentableId" value="LOCAL-00285" />
-      <option name="project" value="LOCAL" />
-      <updated>1617716934781</updated>
-    </task>
-    <task id="LOCAL-00286" summary="+ linelistener">
-      <created>1617879916780</created>
-      <option name="number" value="00286" />
-      <option name="presentableId" value="LOCAL-00286" />
-      <option name="project" value="LOCAL" />
-      <updated>1617879916782</updated>
-    </task>
-    <task id="LOCAL-00287" summary="save">
-      <created>1617898986099</created>
-      <option name="number" value="00287" />
-      <option name="presentableId" value="LOCAL-00287" />
-      <option name="project" value="LOCAL" />
-      <updated>1617898986099</updated>
     </task>
     <task id="LOCAL-00288" summary="backup">
       <created>1617944344439</created>
@@ -1208,7 +1175,35 @@
       <option name="project" value="LOCAL" />
       <updated>1633724876850</updated>
     </task>
-    <option name="localTasksCounter" value="333" />
+    <task id="LOCAL-00333" summary="updated readme">
+      <created>1633869255453</created>
+      <option name="number" value="00333" />
+      <option name="presentableId" value="LOCAL-00333" />
+      <option name="project" value="LOCAL" />
+      <updated>1633869255453</updated>
+    </task>
+    <task id="LOCAL-00334" summary="put missing libs in lib folder">
+      <created>1633876741035</created>
+      <option name="number" value="00334" />
+      <option name="presentableId" value="LOCAL-00334" />
+      <option name="project" value="LOCAL" />
+      <updated>1633876741051</updated>
+    </task>
+    <task id="LOCAL-00335" summary="sam is now speaking over http">
+      <created>1633928335379</created>
+      <option name="number" value="00335" />
+      <option name="presentableId" value="LOCAL-00335" />
+      <option name="project" value="LOCAL" />
+      <updated>1633928335379</updated>
+    </task>
+    <task id="LOCAL-00336" summary="save">
+      <created>1633974524450</created>
+      <option name="number" value="00336" />
+      <option name="presentableId" value="LOCAL-00336" />
+      <option name="project" value="LOCAL" />
+      <updated>1633974524450</updated>
+    </task>
+    <option name="localTasksCounter" value="337" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1310,9 +1305,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added toDouble for fracSeq" />
-    <MESSAGE value="siko" />
-    <MESSAGE value="fractran now works" />
     <MESSAGE value="convert frac seq to double seq and vice versa + test" />
     <MESSAGE value="F= works with frac sequences + test" />
     <MESSAGE value="&quot;collect&quot; can now handle fractions" />
@@ -1335,18 +1327,10 @@
     <MESSAGE value="added testQR" />
     <MESSAGE value="enabled web interface to show images from forth" />
     <MESSAGE value="updated readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated readme" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>1941</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="put missing libs in lib folder" />
+    <MESSAGE value="sam is now speaking over http" />
+    <MESSAGE value="save" />
+    <option name="LAST_COMMIT_MESSAGE" value="save" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

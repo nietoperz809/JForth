@@ -65,6 +65,15 @@
                         elem.height = "500";
                         return;
                     }
+                    if (data.startsWith("audBytes"))
+                    {
+                        var audat = data.substring(8,data.length-3);
+                        const WAV = new Audio("data:Audio/WAV;base64," + audat);
+                        WAV.setAttribute("controls","controls");
+                        WAV.play();
+                        //$('#cod').text(decoded);
+                        return;
+                    }
                     var res = data.split ('~')
                     if (res[0] == 'alertbox%%')
                     {

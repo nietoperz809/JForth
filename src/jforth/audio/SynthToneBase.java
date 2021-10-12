@@ -15,7 +15,7 @@ public class SynthToneBase
 
     public static final int SAMPLE_RATE = 22050;
     public static final float SECONDS = 0.5f;
-    protected static final int SLEN = (int) (SECONDS * SAMPLE_RATE);
+    protected static final int SLEN = (int) (SECONDS * SAMPLE_RATE)/3;
     protected static final byte[] pause = new byte[SLEN];
 
     static final AudioFormat af =
@@ -47,6 +47,7 @@ public class SynthToneBase
         int length = Math.min (SAMPLE_RATE * ms / 1000, tone.length);
         line.write (tone, 0, length);
     }
+    
 
     /**
      * Open data line

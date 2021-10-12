@@ -1,15 +1,13 @@
 package jforth.forthwords;
 
 import jforth.*;
+import jforth.audio.*;
 import jforth.ControlWords.*;
 import jforth.audio.DtmfMorsePlayer;
-import jforth.Morse;
 import jforth.audio.MusicTones;
-import jforth.audio.WaveTools;
 import org.apache.commons.math3.fraction.Fraction;
 import org.mathIT.util.FunctionParser;
 import tools.*;
-
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -965,7 +963,7 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String s1 = Utilities.readString(dStack);
+                                String s1 = Utilities.readString(dStack).toUpperCase();
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
                                     sendDtmftoBrowser (s1, predefinedWords);
                                     return 1;
