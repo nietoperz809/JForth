@@ -157,6 +157,12 @@ public class MusicTones extends SynthToneBase {
         }
     }
 
+    /**
+     *  Make song from string and return a complete WAV-File
+     * @param input String representation of song
+     * @return  byte[] containing wave file
+     * @throws Exception If smth. gone wrong
+     */
     public static byte[] putSongIntoMemory(String input) throws Exception {
         multiplier = 1;
         ArrayList<String> list = parseTones(input);
@@ -165,7 +171,7 @@ public class MusicTones extends SynthToneBase {
         for (String value : list) {
             makeToneAndStore(baos, value);
         }
-        return  WaveTools.withWAVHeader(baos.toByteArray(), af);
+        return WaveTools.withWAVHeader(baos.toByteArray(), af);
     }
 
     public static void sendSongtoBrowser(String in, PredefinedWords predefinedWords) throws Exception {

@@ -97,6 +97,7 @@ public class DtmfMorsePlayer extends SynthToneBase {
     public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
         toBrowser (createContiguousMorse(in), predefinedWords);
     }
+
     public static void playMorseString(String in) {
         playString(in, DtmfMorsePlayer::playOneMorse);
     }
