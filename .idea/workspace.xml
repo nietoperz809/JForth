@@ -17,10 +17,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="dtmf * morse can be played in browser">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
@@ -450,6 +453,7 @@
       <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="jforth.audio.SynthToneBase" />
       <recent name="jforth.Utilities" />
       <recent name="tools.ResourceLoader" />
       <recent name="jforth.audio.WaveTools" />
@@ -474,7 +478,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.testDtmfInMemory">
+  <component name="RunManager" selected="JUnit.ForthTestCases.testWavsInMemory">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -669,16 +673,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ForthTestCases.morseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -706,6 +700,17 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="METHOD_NAME" value="testQR" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.testWavsInMemory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="testWavsInMemory" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -742,19 +747,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testQR" />
       <item itemvalue="JUnit.ForthTestCases.morseTest" />
       <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
+      <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
         <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
         <item itemvalue="JUnit.All in JForth" />
         <item itemvalue="JUnit.ForthTestCases.morseTest" />
         <item itemvalue="JUnit.ForthTestCases.testQR" />
-        <item itemvalue="JUnit.ForthTestCases" />
       </list>
     </recent_temporary>
   </component>
@@ -858,13 +863,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00292" summary="new jar">
-      <created>1618119336157</created>
-      <option name="number" value="00292" />
-      <option name="presentableId" value="LOCAL-00292" />
-      <option name="project" value="LOCAL" />
-      <updated>1618119336157</updated>
     </task>
     <task id="LOCAL-00293" summary="No it has an image plotter&#10;textmode fades away ...">
       <created>1618169694098</created>
@@ -1202,7 +1200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634015016075</updated>
     </task>
-    <option name="localTasksCounter" value="341" />
+    <task id="LOCAL-00341" summary="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)">
+      <created>1634037142112</created>
+      <option name="number" value="00341" />
+      <option name="presentableId" value="LOCAL-00341" />
+      <option name="project" value="LOCAL" />
+      <updated>1634037142112</updated>
+    </task>
+    <option name="localTasksCounter" value="342" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1304,7 +1309,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="fixed scatter word (scat) + test" />
     <MESSAGE value="improved lpick" />
     <MESSAGE value="subseq works for fileblobs" />
     <MESSAGE value="added f2l word and M (Million) prefix" />
@@ -1329,7 +1333,8 @@
     <MESSAGE value="dtmf * morse can be played in browser" />
     <MESSAGE value="new jar" />
     <MESSAGE value="readme edited" />
-    <option name="LAST_COMMIT_MESSAGE" value="readme edited" />
+    <MESSAGE value="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)" />
+    <option name="LAST_COMMIT_MESSAGE" value="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

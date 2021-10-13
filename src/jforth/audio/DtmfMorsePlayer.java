@@ -4,7 +4,6 @@ import jforth.forthwords.PredefinedWords;
 
 import javax.sound.sampled.SourceDataLine;
 import java.io.ByteArrayOutputStream;
-import java.util.Base64;
 import java.util.HashMap;
 
 public class DtmfMorsePlayer extends SynthToneBase {
@@ -66,9 +65,7 @@ public class DtmfMorsePlayer extends SynthToneBase {
     }
 
     public static void sendDtmftoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
-        byte[] wav = createContiguousDTMF(in);
-        String encoded = Base64.getEncoder().encodeToString(wav);
-        predefinedWords._jforth._out.print("audBytes" + encoded);
+        toBrowser (createContiguousDTMF(in), predefinedWords);
     }
 
     public static byte[] createContiguousDTMF(String in) throws Exception {
@@ -98,11 +95,8 @@ public class DtmfMorsePlayer extends SynthToneBase {
     }
 
     public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
-        byte[] wav = createContiguousMorse(in);
-        String encoded = Base64.getEncoder().encodeToString(wav);
-        predefinedWords._jforth._out.print("audBytes" + encoded);
+        toBrowser (createContiguousMorse(in), predefinedWords);
     }
-
     public static void playMorseString(String in) {
         playString(in, DtmfMorsePlayer::playOneMorse);
     }

@@ -1597,10 +1597,12 @@ public class ForthTestCases extends Base
     }
 
     @Test
-    public void testDtmfInMemory() {
+    public void testWavsInMemory() {
         String s = check ("\"+1234\" dtmf crc32 hash",".");
         shoudBeOK ("1382974991", s);
         s = check ("+sos morse crc32 hash",".");
-        shoudBeOK ("1344292831", s); 
+        shoudBeOK ("1344292831", s);
+        s = check ("+c4d4l3c4d4 tune crc32 hash",".");
+        shoudBeOK ("3543203879", s);
     }
 }

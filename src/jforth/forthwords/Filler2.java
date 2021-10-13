@@ -1,13 +1,15 @@
 package jforth.forthwords;
 
 import jforth.*;
-import jforth.audio.*;
 import jforth.ControlWords.*;
 import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.MusicTones;
+import jforth.audio.SynthToneBase;
+import jforth.audio.WaveTools;
 import org.apache.commons.math3.fraction.Fraction;
 import org.mathIT.util.FunctionParser;
 import tools.*;
+
 import javax.imageio.ImageIO;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -31,6 +33,7 @@ import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
 import static jforth.audio.DtmfMorsePlayer.*;
+import static jforth.audio.MusicTones.putSongIntoMemory;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
@@ -334,7 +337,7 @@ class Filler2 {
                                 Object o1 = dStack.pop();
                                 byte[] inbytes;
                                 if (o1 instanceof String)
-                                    inbytes = ((String)o1).getBytes(JForth.ENCODING);
+                                    inbytes = ((String) o1).getBytes(JForth.ENCODING);
                                 else
                                     inbytes = Utilities.convertToBytes(o1);
                                 if (hashtype.equals("crc32")) {
@@ -949,6 +952,16 @@ class Filler2 {
                         {
                             try {
                                 String s1 = Utilities.readString(dStack);
+                                if (s1.startsWith("+")) {
+                                    s1 = s1.substring(1);
+                                    byte[] wav = putSongIntoMemory(s1);
+                                    dStack.push(new FileBlob(wav, "tune.wav"));
+                                    return 1;
+                                }
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    MusicTones.sendSongtoBrowser(s1, predefinedWords);
+                                    return 1;
+                                }
                                 MusicTones.playSong(s1);
                                 return 1;
                             } catch (Exception e) {
@@ -971,7 +984,7 @@ class Filler2 {
                                     return 1;
                                 }
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
-                                    sendDtmftoBrowser (s1, predefinedWords);
+                                    sendDtmftoBrowser(s1, predefinedWords);
                                     return 1;
                                 }
                                 DtmfMorsePlayer.playDtmfString(s1);
@@ -998,7 +1011,7 @@ class Filler2 {
                                 }
                                 String s2 = Morse.text2Morse(s1);
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
-                                    sendMorsetoBrowser (s2, predefinedWords);
+                                    sendMorsetoBrowser(s2, predefinedWords);
                                     return 1;
                                 }
                                 DtmfMorsePlayer.playMorseString(s2);
@@ -1142,7 +1155,7 @@ class Filler2 {
                             try {
                                 long l1 = Utilities.readLong(dStack);
                                 long l2 = Utilities.readLong(dStack);
-                                MusicTones.playSingleTone((int) l1, (int) l2);
+                                SynthToneBase.playSingleTone((int) l1, (int) l2);
                                 return 1;
                             } catch (Exception ignored) {
                             }

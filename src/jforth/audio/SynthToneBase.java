@@ -1,19 +1,22 @@
 package jforth.audio;
 
+import jforth.forthwords.PredefinedWords;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import java.io.ByteArrayOutputStream;
+import java.util.Base64;
+
+@java.lang.FunctionalInterface
+interface FunctionalInterface
+{
+    void doForChar (char c, SourceDataLine line);
+}
 
 public class SynthToneBase
 {
-    @java.lang.FunctionalInterface
-    interface FunctionalInterface
-    {
-        void doForChar (char c, SourceDataLine line);
-    }
-
     public static final int SAMPLE_RATE = 22050;
     public static final float SECONDS = 0.5f;
     protected static final int SLEN = (int) (SECONDS * SAMPLE_RATE)/3;
@@ -47,6 +50,12 @@ public class SynthToneBase
     {
         int length = Math.min (SAMPLE_RATE * ms / 1000, tone.length);
         line.write (tone, 0, length);
+    }
+
+    protected static void toBrowser (byte[] wav, PredefinedWords predefinedWords)
+    {
+        String encoded = Base64.getEncoder().encodeToString(wav);
+        predefinedWords._jforth._out.print("audBytes" + encoded);
     }
 
     protected static void playIntoBuffer (ByteArrayOutputStream baos, byte[] tone, int ms)
@@ -97,6 +106,30 @@ public class SynthToneBase
         }
         catch (Exception ignored)
         {
+        }
+    }
+
+    public static void playSingleTone (int freq, int ms)
+    {
+        if (ms < 1 || freq < 1)
+            return;
+        try
+        {
+            SourceDataLine line = AudioSystem.getSourceDataLine (af);
+            line.open (af, SAMPLE_RATE);
+            line.start ();
+            // play (line, pause, 500);
+
+            byte[] out = new byte[SAMPLE_RATE * ms / 1000];
+            makeSingleWave (freq, out);
+            play (line, out, ms);
+
+            line.drain ();
+            line.close ();
+        }
+        catch (Exception ignored)
+        {
+            //System.out.println (ignored);
         }
     }
 }

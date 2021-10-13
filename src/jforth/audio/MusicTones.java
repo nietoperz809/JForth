@@ -1,11 +1,12 @@
 package jforth.audio;
 
-import javax.sound.sampled.AudioSystem;
+import jforth.forthwords.PredefinedWords;
+
 import javax.sound.sampled.SourceDataLine;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class MusicTones extends SynthToneBase
-{
+public class MusicTones extends SynthToneBase {
     /**
      * Array of frequencies
      */
@@ -25,20 +26,17 @@ public class MusicTones extends SynthToneBase
     /**
      * Musical notes
      */
-    private static final String[] notes = {"C","C#","D","Eb","E","F","F#","G","G#","A","Bb","B"};
+    private static final String[] notes = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B"};
 
     /**
      * Tone length
      */
     private static int multiplier;  // Tone length
 
-    private static float getFrequency (String note, int octave) throws ArrayIndexOutOfBoundsException
-    {
+    private static float getFrequency(String note, int octave) throws ArrayIndexOutOfBoundsException {
         int x = -1;
-        for (int s=0; s<=notes.length; s++)
-        {
-            if (notes[s].equals(note))
-            {
+        for (int s = 0; s <= notes.length; s++) {
+            if (notes[s].equals(note)) {
                 x = s;
                 break;
             }
@@ -46,79 +44,84 @@ public class MusicTones extends SynthToneBase
         return frequencies[octave][x];
     }
 
-    private static void makeTone (SourceDataLine line, String code)
-    {
+    private static void makeToneAndPlay(SourceDataLine line, String code) {
         float freq;
-        if (code.charAt(0) == 'L')
-        {
-            multiplier = code.charAt(1)-'0';
+        if (code.charAt(0) == 'L') {
+            multiplier = code.charAt(1) - '0';
             return;
         }
-        if (code.length()==2)
+        if (code.length() == 2) {
+            freq = getFrequency(code.substring(0, 1), code.charAt(1) - '0');
+        } else // length == 3
         {
-            freq = getFrequency(code.substring(0, 1), code.charAt(1)-'0');
+            freq = getFrequency(code.substring(0, 2), code.charAt(2) - '0');
         }
-        else // length == 3
-        {
-            freq = getFrequency(code.substring(0, 2), code.charAt(2)-'0');
-        }
-        int ms = 100*multiplier;
+        int ms = 100 * multiplier;
         byte[] out = new byte[SAMPLE_RATE * ms / 1000];
-        makeSingleWave (freq, out);
-        play (line, out, ms);
+        makeSingleWave(freq, out);
+        play(line, out, ms);
+        //System.out.println("tonelength = "+ms);
+    }
+
+    private static void makeToneAndStore(ByteArrayOutputStream baos, String code) {
+        float freq;
+        if (code.charAt(0) == 'L') {
+            multiplier = code.charAt(1) - '0';
+            return;
+        }
+        if (code.length() == 2) {
+            freq = getFrequency(code.substring(0, 1), code.charAt(1) - '0');
+        } else // length == 3
+        {
+            freq = getFrequency(code.substring(0, 2), code.charAt(2) - '0');
+        }
+        int ms = 100 * multiplier;
+        byte[] out = new byte[SAMPLE_RATE * ms / 1000];
+        makeSingleWave(freq, out);
+        baos.write(out, 0, out.length);
     }
 
     /**
      * Find Notes in string, also length code 'L'
+     *
      * @param in input string
      * @return List of found notes
      */
-    private static ArrayList<String> parseTones (String in)
-    {
+    private static ArrayList<String> parseTones(String in) {
         in = in.toUpperCase();
         ArrayList<String> toks = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        for (int s=0; s<in.length(); s++)
-        {
+        for (int s = 0; s < in.length(); s++) {
             boolean found = false;
             char c = in.charAt(s);
             if (sb.length() == 0)  // 1st char
             {
-                if (c == 'L' || c == 'C' || c == 'D' || c == 'E' || c == 'F' || c == 'G' || c == 'A' || c == 'B')
-                {
+                if (c == 'L' || c == 'C' || c == 'D' || c == 'E' || c == 'F' || c == 'G' || c == 'A' || c == 'B') {
                     found = true;
                     sb.append(c);
                 }
-            }
-            else if (sb.length() == 1) // 2nd char
+            } else if (sb.length() == 1) // 2nd char
             {
                 char c2 = sb.charAt(0);
-                if (c2 =='L')   // first is 'L'
+                if (c2 == 'L')   // first is 'L'
                 {
-                    if (c >='1' && c <= '9')
-                    {
+                    if (c >= '1' && c <= '9') {
                         sb.append(c);
                         toks.add(sb.toString());
                         sb.setLength(0);
                         continue;
                     }
-                }
-                else if (c == '#' && (c2 == 'C' || c2 =='G' || c2 =='F'))
-                {
+                } else if (c == '#' && (c2 == 'C' || c2 == 'G' || c2 == 'F')) {
                     found = true;
                     sb.append('#');
-                }
-                else if (c == 'B' && (c2 == 'E' || c2 == 'B'))
-                {
+                } else if (c == 'B' && (c2 == 'E' || c2 == 'B')) {
                     found = true;
                     sb.append('b');
                 }
             }
-            if (sb.length() != 0)
-            {
-                int oct = c-'0';
-                if (oct >=0 && oct < 9)
-                {
+            if (sb.length() != 0) {
+                int oct = c - '0';
+                if (oct >= 0 && oct < 9) {
                     sb.append(c);
                     toks.add(sb.toString());
                     sb.setLength(0);
@@ -127,63 +130,48 @@ public class MusicTones extends SynthToneBase
             if (!found)
                 sb.setLength(0);
         }
+        //System.out.println(toks);
         return toks;
     }
 
     /**
      * Make song from string
-     * @param input Input String  (eg. c4d4l3c4d4 means play c4,d4 length=3, then c4d4 again)
+     *
+     * @param input Input String  (eg. c4d4l3c4d4 means
+     *              play c4,d4 length=1,
+     *              then c4,d4 again with length=3)
      */
-    public static void playSong (String input)
-    {
+    public static void playSong(String input) {
         multiplier = 1;
-        ArrayList<String> list = parseTones (input);
+        ArrayList<String> list = parseTones(input);
 
-        try
-        {
+        try {
             SourceDataLine line = openLine();
 
-            for (String value : list)
-            {
-                makeTone (line, value);
+            for (String value : list) {
+                makeToneAndPlay(line, value);
             }
-            closeLine (line);
-        }
-        catch (Exception ignored)
-        {
+            closeLine(line);
+        } catch (Exception ignored) {
             //System.out.println (ignored);
         }
     }
 
-    public static void playSingleTone (int freq, int ms)
-    {
-        if (ms < 1 || freq < 1)
-            return;
-        try
-        {
-            SourceDataLine line = AudioSystem.getSourceDataLine (af);
-            line.open (af, SAMPLE_RATE);
-            line.start ();
-            // play (line, pause, 500);
+    public static byte[] putSongIntoMemory(String input) throws Exception {
+        multiplier = 1;
+        ArrayList<String> list = parseTones(input);
 
-            byte[] out = new byte[SAMPLE_RATE * ms / 1000];
-            makeSingleWave (freq, out);
-            play (line, out, ms);
-
-            line.drain ();
-            line.close ();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        for (String value : list) {
+            makeToneAndStore(baos, value);
         }
-        catch (Exception ignored)
-        {
-            //System.out.println (ignored);
-        }
+        return  WaveTools.withWAVHeader(baos.toByteArray(), af);
     }
+
+    public static void sendSongtoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
+        toBrowser (putSongIntoMemory(in), predefinedWords);
+    }
+
 
 } // End class
 
-/*
-        int ms = 100*multiplier;
-        byte[] out = new byte[SAMPLE_RATE * ms / 1000];
-        makeSingleWave (freq, out);
-        play (line, out, ms);
- */
