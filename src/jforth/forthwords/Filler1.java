@@ -30,6 +30,7 @@ import java.util.Objects;
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
+@SuppressWarnings("rawtypes")
 class Filler1 {
     static Object fetchVar(OStack dStack) throws Exception{
         Object o = dStack.pop();
@@ -1277,7 +1278,7 @@ class Filler1 {
                                 for (int i = 0; i < i1; i++) {
                                     sb.append(" ");
                                 }
-                                predefinedWords._jforth._out.print(sb.toString());
+                                predefinedWords._jforth._out.print(sb);
                                 return 1;
                             } else {
                                 return 0;
@@ -1321,11 +1322,11 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Long l = Utilities.readLong(dStack);
+                                long l = Utilities.readLong(dStack);
                                 if (l > 36 || l < 2) {
                                     return 0;
                                 }
-                                predefinedWords._jforth.base = l.intValue();
+                                predefinedWords._jforth.base = (int) l;
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -1596,13 +1597,12 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Long ll = Utilities.readLong(dStack);
-                                int size = ll.intValue();
+                                long size = Utilities.readLong(dStack);
                                 String name = predefinedWords._jforth.getNextToken();
                                 if (name == null) {
                                     return 0;
                                 }
-                                StorageWord sw = new StorageWord(name, size, true);
+                                StorageWord sw = new StorageWord(name, (int)size, true);
                                 predefinedWords._jforth.dictionary.add(sw);
                                 return 1;
                             } catch (Exception e) {
@@ -3190,8 +3190,7 @@ class Filler1 {
                             try {
                                 predefinedWords._jforth.guiTerminal.lockLineInput(true);
                                 while (true) {
-                                    char c;
-                                    c = (char) predefinedWords._jforth.guiTerminal.getKey();
+                                    char c = predefinedWords._jforth.guiTerminal.getKey();
                                     if (l > 0) {
                                         l--;
                                     }
@@ -3531,11 +3530,7 @@ class Filler1 {
                         {
                             try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                Double sum = o.sum();
-                                if (sum.longValue() == sum)
-                                    dStack.push(sum.longValue());
-                                else
-                                    dStack.push(sum);
+                                dStack.push (o.sum());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -3550,11 +3545,7 @@ class Filler1 {
                         {
                             try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                Double sum = o.altsum();
-                                if (sum.longValue() == sum)
-                                    dStack.push(sum.longValue());
-                                else
-                                    dStack.push(sum);
+                                dStack.push (o.altsum());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
