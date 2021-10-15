@@ -110,23 +110,31 @@ public class JfTerminalPanel extends ColorPane {
         _ss.clear();
 
         Utilities.executeThread(() -> {
-            for (; ; ) {
+            //noinspection InfiniteLoopStatement
+            while (true) {
                 String lineData = Utilities.translateBackspace(lineListener.getBufferedLine());
                 if (lineData.isEmpty())
                     continue;
                 if (!lineData.equals("\n"))
                     combo.insertItemAt(lineData, 0);
-                boolean res = _jf.singleShot(lineData);
-                String txt = _ss.toString();
-                _ss.clear();
-
-                if (res) {
-                    txt = AnsiDefaultOutput + txt;
-                } else {
-                    txt = AnsiError + txt;
+                // Generate multiple inputs from single line
+                String[] arr = lineData.split("\\s+");
+                if (arr.length == 0)
+                    arr = new String[]{"\n"};
+                for (int n=0; n<arr.length; n++) {
+                    boolean res = _jf.singleShot(arr[n]);
+                    String txt = _ss.toString();
+                    _ss.clear();
+                    if (txt.startsWith(" OK\n") && n != arr.length-1)   // empty result
+                        continue;
+                    if (res) {
+                        txt = AnsiDefaultOutput + txt;
+                    } else {
+                        txt = AnsiError + txt;
+                    }
+                    txt = txt.replace("JFORTH", AnsiReset + "JFORTH");
+                    appendANSI(txt);
                 }
-                txt = txt.replace("JFORTH", AnsiReset + "JFORTH");
-                appendANSI(txt);
             }
         });
     }
