@@ -32,6 +32,7 @@
     <header>
         <p id="hline"></p>
         <img src="favicon.ico" alt="Tiger face" height="32" width="32">
+        <button onclick="cls()">cls</button>
         <input type="text" size="100" id="txt"/>
     </header>
     <pre id="cod"></pre>
@@ -39,13 +40,19 @@
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript">
 
+    var socket;
+    var txt;
+    var code;
+
     $(document).ready(function()
     {
+        subscribeToWebSocket();
         $.get("headline", function(data) // ask for headline
         {
             $('#hline').text(data);
         });
-        var txt = $('#txt');
+        txt = $('#txt');
+        code = $('#cod');
         var savetxt = [];
         txt.keydown(function (e)
         {
@@ -54,46 +61,7 @@
                 var input = txt.val();
                 savetxt.push (txt.val());
                 txt.val('');
-                $.get("forth", encodeURIComponent(input), function( data )
-                {
-                    if (data.startsWith("imgBytes"))
-                    {
-                        var imgdat = data.substring(8,data.length-3);
-                        var elem = document.getElementById("pict");
-                        elem.src = "data:image/png;base64," + imgdat;
-                        elem.width = "500";
-                        elem.height = "500";
-                        return;
-                    }
-                    if (data.startsWith("audBytes"))
-                    {
-                        var audat = data.substring(8,data.length-3);
-                        const WAV = new Audio("data:Audio/WAV;base64," + audat);
-                        WAV.setAttribute("controls","controls");
-                        WAV.play();
-                        //$('#cod').text(decoded);
-                        return;
-                    }
-                    var res = data.split ('~')
-                    if (res[0] == 'alertbox%%')
-                    {
-                        var cret = confirm (res[1].split(' ')[0]);
-                        if (cret == true)
-                        {
-                            $.get("forth", "TRUE", function( data )
-                            {
-                            });
-                        }
-                        else
-                        {
-                            $.get("forth", "FALSE", function( data )
-                            {
-                            });
-                        }
-                    }
-                    else
-                       $('#cod').text(data);
-                });
+                socket.send (input);
             }
             else if (e.keyCode === 38)
             {
@@ -102,6 +70,46 @@
             }
         });
     });
+
+    function cls()
+    {
+        code.text('');
+    }
+
+    function showMessage (text)
+    {
+        code.text(text);
+    }
+
+    function addMessage (text)
+    {
+        code.append (text);
+    }
+
+    function subscribeToWebSocket()
+    {
+        socket = new WebSocket('ws://localhost:8080/websocket-echo');
+
+        socket.onopen = function ()
+        {
+            showMessage ('JForth Websocket ready.\n');
+        };
+
+        socket.onmessage = function (msg)
+        {
+            addMessage (msg.data);
+        };
+
+        socket.onerror = function (msg)
+        {
+            //showError('Sorry but there was an error');
+        };
+
+        socket.onclose = function ()
+        {
+            //showError('Server is offline!');
+        };
+    }
     </script>
 </body>
 </html>

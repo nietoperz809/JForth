@@ -17,16 +17,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added line splitter">
+      <change afterPath="$PROJECT_DIR$/src/webserver/WebSocketHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/resource/page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,9 +114,6 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1T7COVnQfLr98KQLTtt1dpZQnu6" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -429,8 +427,8 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
   </component>
@@ -471,14 +469,14 @@
       <recent name="jforth.forthwords" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="webserver" />
       <recent name="jforth" />
       <recent name="tools" />
       <recent name="jforth.waves" />
       <recent name="jforth.Math" />
-      <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.testWavsInMemory">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -651,6 +649,19 @@
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <configuration name="CayleyTable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jforth.CayleyTable" />
+      <module name="JForth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jforth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+      </method>
+    </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="gUIShell.JfGuiApplication" />
       <module name="JForth" />
@@ -673,12 +684,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.morseTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="morseTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -689,17 +699,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="METHOD_NAME" value="testDtmfInMemory" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.testQR" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testQR" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -747,19 +746,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases.testQR" />
-      <item itemvalue="JUnit.ForthTestCases.morseTest" />
+      <item itemvalue="Application.CayleyTable" />
       <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
       <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
+      <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
-        <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
+        <item itemvalue="Application.CayleyTable" />
         <item itemvalue="JUnit.All in JForth" />
-        <item itemvalue="JUnit.ForthTestCases.morseTest" />
-        <item itemvalue="JUnit.ForthTestCases.testQR" />
+        <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
       </list>
     </recent_temporary>
   </component>
@@ -863,41 +862,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00293" summary="No it has an image plotter&#10;textmode fades away ...">
-      <created>1618169694098</created>
-      <option name="number" value="00293" />
-      <option name="presentableId" value="LOCAL-00293" />
-      <option name="project" value="LOCAL" />
-      <updated>1618169694100</updated>
-    </task>
-    <task id="LOCAL-00294" summary="repaired subseq">
-      <created>1618245633298</created>
-      <option name="number" value="00294" />
-      <option name="presentableId" value="LOCAL-00294" />
-      <option name="project" value="LOCAL" />
-      <updated>1618245633298</updated>
-    </task>
-    <task id="LOCAL-00295" summary="fixed some bugs regarding empty seq">
-      <created>1618275667460</created>
-      <option name="number" value="00295" />
-      <option name="presentableId" value="LOCAL-00295" />
-      <option name="project" value="LOCAL" />
-      <updated>1618275667460</updated>
-    </task>
-    <task id="LOCAL-00296" summary="fixed dir word&#10;+ added saveimg">
-      <created>1618296057199</created>
-      <option name="number" value="00296" />
-      <option name="presentableId" value="LOCAL-00296" />
-      <option name="project" value="LOCAL" />
-      <updated>1618296057199</updated>
-    </task>
-    <task id="LOCAL-00297" summary="strings can have octals eg. \33 (for ESC)">
-      <created>1618462860833</created>
-      <option name="number" value="00297" />
-      <option name="presentableId" value="LOCAL-00297" />
-      <option name="project" value="LOCAL" />
-      <updated>1618462860834</updated>
     </task>
     <task id="LOCAL-00298" summary="noved things around + bugfix in LineListener.java">
       <created>1618483327672</created>
@@ -1207,7 +1171,42 @@
       <option name="project" value="LOCAL" />
       <updated>1634037142112</updated>
     </task>
-    <option name="localTasksCounter" value="342" />
+    <task id="LOCAL-00342" summary="before inspection fixups">
+      <created>1634157663616</created>
+      <option name="number" value="00342" />
+      <option name="presentableId" value="LOCAL-00342" />
+      <option name="project" value="LOCAL" />
+      <updated>1634157663616</updated>
+    </task>
+    <task id="LOCAL-00343" summary="some improvements">
+      <created>1634177498648</created>
+      <option name="number" value="00343" />
+      <option name="presentableId" value="LOCAL-00343" />
+      <option name="project" value="LOCAL" />
+      <updated>1634177498648</updated>
+    </task>
+    <task id="LOCAL-00344" summary="make single commands from input line">
+      <created>1634332113173</created>
+      <option name="number" value="00344" />
+      <option name="presentableId" value="LOCAL-00344" />
+      <option name="project" value="LOCAL" />
+      <updated>1634332113173</updated>
+    </task>
+    <task id="LOCAL-00345" summary="little bugfix">
+      <created>1634344777979</created>
+      <option name="number" value="00345" />
+      <option name="presentableId" value="LOCAL-00345" />
+      <option name="project" value="LOCAL" />
+      <updated>1634344777979</updated>
+    </task>
+    <task id="LOCAL-00346" summary="added line splitter">
+      <created>1634369586635</created>
+      <option name="number" value="00346" />
+      <option name="presentableId" value="LOCAL-00346" />
+      <option name="project" value="LOCAL" />
+      <updated>1634369586650</updated>
+    </task>
+    <option name="localTasksCounter" value="347" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1309,11 +1308,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="improved lpick" />
-    <MESSAGE value="subseq works for fileblobs" />
-    <MESSAGE value="added f2l word and M (Million) prefix" />
-    <MESSAGE value="introduced K postfix for longs &amp; Test" />
-    <MESSAGE value="updated" />
     <MESSAGE value="scale imge on stack with * operator" />
     <MESSAGE value="introducing image rotate &amp; &quot;ver&quot; word" />
     <MESSAGE value="added wdat word" />
@@ -1334,7 +1328,12 @@
     <MESSAGE value="new jar" />
     <MESSAGE value="readme edited" />
     <MESSAGE value="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)" />
-    <option name="LAST_COMMIT_MESSAGE" value="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)" />
+    <MESSAGE value="before inspection fixups" />
+    <MESSAGE value="some improvements" />
+    <MESSAGE value="make single commands from input line" />
+    <MESSAGE value="little bugfix" />
+    <MESSAGE value="added line splitter" />
+    <option name="LAST_COMMIT_MESSAGE" value="added line splitter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

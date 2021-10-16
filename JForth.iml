@@ -36,5 +36,6 @@
     <orderEntry type="library" name="commons-math3-3.6" level="project" />
     <orderEntry type="library" name="json-io-4.9.10" level="project" />
     <orderEntry type="library" name="jaxb-api-2.3.0" level="project" />
+    <orderEntry type="library" name="webbitserver.webbit" level="project" />
   </component>
 </module>

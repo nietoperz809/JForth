@@ -2,24 +2,33 @@ package webserver;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import jforth.JForth;
-import jforth.RuntimeEnvironment;
+import org.webbitserver.WebServer;
+import org.webbitserver.WebServers;
+import org.webbitserver.handler.StaticFileHandler;
 import tools.BuildInfo;
-import tools.StringStream;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 
 public class SimpleWebserver
 {
     private static HttpServer server;
+    public static WebSocketHandler wsh;
+
+    public static WebSocketHandler startWSH (int port)
+    {
+        WebServer webServer = WebServers.createWebServer(port);
+        webServer.add(new StaticFileHandler("/static-files"));
+        WebSocketHandler wsh = new WebSocketHandler();
+        webServer.add("/websocket-echo", wsh);
+        webServer.start();
+        return wsh;
+    }
 
     public static void stop()
     {
@@ -35,15 +44,13 @@ public class SimpleWebserver
         try
         {
             new SimpleWebserver().startServer(port);
+            wsh = startWSH(8080);
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
     }
-
-    private final StringStream _ss = new StringStream();
-    private final JForth forth = new JForth(_ss.getPrintStream(), RuntimeEnvironment.WEBSERVER);
 
     private final HttpHandler httpHandler = e ->
     {
@@ -58,13 +65,22 @@ public class SimpleWebserver
         }
         else if (split[0].equals("/forth"))
         {
-            String cmd = URLDecoder.decode(split[1], "UTF-8");
-            forth.singleShot(cmd);
-            String erg = _ss.toString();
-            erg = erg.replace ("·","•"); // replace morse dots
-            byte[] arr = erg.getBytes (StandardCharsets.UTF_8);
-            os.write(arr, 0, arr.length - 8);
-            _ss.clear ();
+//            String cmd = URLDecoder.decode(split[1], "UTF-8");
+//            JForth.runCommands1By1 (cmd, (cmdArray, idx) -> {
+//                forth.singleShot(cmdArray[idx]);
+//                String erg = _ss.toString();
+//                _ss.clear ();
+//                if (!(erg.startsWith(" OK\n") && idx != cmdArray.length - 1)) { // empty result
+//                    erg = erg.replace("·", "•"); // replace morse dots
+//                    byte[] arr2 = erg.getBytes(StandardCharsets.UTF_8);
+//                    try {
+//                        os.write(arr2, 0, arr2.length - 8);
+//                        os.flush();
+//                    } catch (IOException ignored) {
+//                        //ex.printStackTrace();
+//                    }
+//                }
+//            });
         }
         else if (split[0].equals("/headline"))
         {

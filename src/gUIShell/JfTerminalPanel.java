@@ -29,7 +29,7 @@ public class JfTerminalPanel extends ColorPane {
         this.combo = combo;
         combo.addActionListener(e -> {
             if (e.getActionCommand().equals("comboBoxEdited")) {
-                String item = (String) combo.getEditor().getItem() + "\n";
+                String item = combo.getEditor().getItem() + "\n";
                 lineListener.fakeIn(item);
                 appendANSI(item);
             }
@@ -94,21 +94,6 @@ public class JfTerminalPanel extends ColorPane {
         addIcon(img);
         appendANSI("\n");
     }
-
-//    public static  void runCommands1By1 (String lineData, BiConsumer<String[], Integer> con) {
-//        if (lineData.isEmpty())
-//            return;
-//        // Generate multiple inputs from single line
-//        String[] arr = lineData.split("\\s+");
-//        if (arr.length == 0) {
-//            arr = new String[]{"\n"};
-//        } else if (arr[0].equals(":") && arr[arr.length - 1].equals(";")) {
-//            arr = new String[]{lineData};
-//        }
-//        for (int n = 0; n < arr.length; n++) {
-//            con.accept(arr, n);
-//        }
-//    }
 
     /**
      * Initialize and start Forth thread
