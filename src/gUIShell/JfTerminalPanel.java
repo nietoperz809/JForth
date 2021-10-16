@@ -119,8 +119,12 @@ public class JfTerminalPanel extends ColorPane {
                     combo.insertItemAt(lineData, 0);
                 // Generate multiple inputs from single line
                 String[] arr = lineData.split("\\s+");
-                if (arr.length == 0)
+                if (arr.length == 0) {
                     arr = new String[]{"\n"};
+                }
+                else if (arr[0].equals(":") && arr[arr.length-1].equals(";")) {
+                    arr = new String[]{lineData};
+                }
                 for (int n=0; n<arr.length; n++) {
                     boolean res = _jf.singleShot(arr[n]);
                     String txt = _ss.toString();
