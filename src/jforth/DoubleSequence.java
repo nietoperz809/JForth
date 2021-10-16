@@ -155,7 +155,7 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
      * @param start first value
      * @param howmuch number of value
      * @param step distance from one value to another
-     * @return
+     * @return the new Sequence
      */
     public static DoubleSequence makeCounted (double start, int howmuch, double step)
     {
@@ -190,7 +190,7 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
 
     public static DoubleSequence primeFactors(long n)
     {
-        List<Double> factors = new ArrayList<Double>();
+        List<Double> factors = new ArrayList<>();
         while (n % 2 == 0 && n > 0)
         {
             factors.add(2.0);

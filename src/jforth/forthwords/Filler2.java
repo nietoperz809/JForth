@@ -1153,9 +1153,31 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long l1 = Utilities.readLong(dStack);
-                                long l2 = Utilities.readLong(dStack);
+                                long l1 = Utilities.readLong(dStack); // freq
+                                long l2 = Utilities.readLong(dStack); // millisecs
+                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
+                                    byte[] tone = createSingleToneWav ((int) l1, (int) l2);
+                                    toBrowser (tone, predefinedWords);
+                                    return 1;
+                                }
                                 SynthToneBase.playSingleTone((int) l1, (int) l2);
+                                return 1;
+                            } catch (Exception ignored) {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sbeep", "put single tone on stack",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long l1 = Utilities.readLong(dStack); // freq
+                                long l2 = Utilities.readLong(dStack); // millisecs
+                                byte[] tone = createSingleToneWav ((int) l1, (int) l2);
+                                dStack.push (new FileBlob (tone,"tone.wav"));
                                 return 1;
                             } catch (Exception ignored) {
                             }

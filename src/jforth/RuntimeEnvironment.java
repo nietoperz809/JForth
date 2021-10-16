@@ -6,5 +6,5 @@ public enum RuntimeEnvironment
     WEBSERVER,
     TEST,
     GUITERMINAL,
-    EMBEDDED;
+    EMBEDDED
 }

@@ -10,7 +10,7 @@ public abstract class BaseWord implements TwoFuncs<OStack, OStack, Integer>, Com
     private static final long serialVersionUID = 7526471155622776148L;
     public final String name;
     private final String info;
-    boolean immediate;
+    final boolean immediate;
 
     public BaseWord (String name, boolean immediate, String inf)
     {

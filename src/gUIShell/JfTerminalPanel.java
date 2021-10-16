@@ -14,15 +14,15 @@ import java.awt.image.BufferedImage;
  * @author Administrator
  */
 public class JfTerminalPanel extends ColorPane {
-    // The forth and its output channel -----------------------------------------------------------
-    public StringStream _ss = new StringStream();
-    public JForth _jf = new JForth(_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
-    // --------------------------------------------------------------------------------------------
-    private final LineListener lineListener = new LineListener();
-    private final JComboBox<String> combo;
     private static final String AnsiDefaultOutput = AnsiColors.getCode(Color.yellow);
     private static final String AnsiError = AnsiColors.getCode(Color.RED);
     private static final String AnsiReset = AnsiColors.getCode(Color.white);
+    // --------------------------------------------------------------------------------------------
+    private final LineListener lineListener = new LineListener();
+    private final JComboBox<String> combo;
+    // The forth and its output channel -----------------------------------------------------------
+    public StringStream _ss = new StringStream();
+    public JForth _jf = new JForth(_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
 
     public JfTerminalPanel(JComboBox<String> combo) {
         super();
@@ -46,10 +46,9 @@ public class JfTerminalPanel extends ColorPane {
         runForthLoop();
     }
 
-    public String singleShot (String in)
-    {
+    public String singleShot(String in) {
         _jf.singleShot(in);
-        String ret  = _ss.toString();
+        String ret = _ss.toString();
         _ss.clear();
         return ret;
     }
@@ -96,6 +95,21 @@ public class JfTerminalPanel extends ColorPane {
         appendANSI("\n");
     }
 
+//    public static  void runCommands1By1 (String lineData, BiConsumer<String[], Integer> con) {
+//        if (lineData.isEmpty())
+//            return;
+//        // Generate multiple inputs from single line
+//        String[] arr = lineData.split("\\s+");
+//        if (arr.length == 0) {
+//            arr = new String[]{"\n"};
+//        } else if (arr[0].equals(":") && arr[arr.length - 1].equals(";")) {
+//            arr = new String[]{lineData};
+//        }
+//        for (int n = 0; n < arr.length; n++) {
+//            con.accept(arr, n);
+//        }
+//    }
+
     /**
      * Initialize and start Forth thread
      */
@@ -113,32 +127,22 @@ public class JfTerminalPanel extends ColorPane {
             //noinspection InfiniteLoopStatement
             while (true) {
                 String lineData = Utilities.translateBackspace(lineListener.getBufferedLine());
-                if (lineData.isEmpty())
-                    continue;
                 if (!lineData.equals("\n"))
-                    combo.insertItemAt(lineData, 0);
-                // Generate multiple inputs from single line
-                String[] arr = lineData.split("\\s+");
-                if (arr.length == 0) {
-                    arr = new String[]{"\n"};
-                }
-                else if (arr[0].equals(":") && arr[arr.length-1].equals(";")) {
-                    arr = new String[]{lineData};
-                }
-                for (int n=0; n<arr.length; n++) {
-                    boolean res = _jf.singleShot(arr[n]);
+                    combo.insertItemAt (lineData, 0);
+                JForth.runCommands1By1 (lineData, (arr, idx) -> {
+                    boolean res = _jf.singleShot(arr[idx]);
                     String txt = _ss.toString();
                     _ss.clear();
-                    if (txt.startsWith(" OK\n") && n != arr.length-1)   // empty result
-                        continue;
-                    if (res) {
-                        txt = AnsiDefaultOutput + txt;
-                    } else {
-                        txt = AnsiError + txt;
+                    if (!(txt.startsWith(" OK\n") && idx != arr.length - 1)) { // empty result
+                        if (res) {
+                            txt = AnsiDefaultOutput + txt;
+                        } else {
+                            txt = AnsiError + txt;
+                        }
+                        txt = txt.replace("JFORTH", AnsiReset + "JFORTH");
+                        appendANSI(txt);
                     }
-                    txt = txt.replace("JFORTH", AnsiReset + "JFORTH");
-                    appendANSI(txt);
-                }
+                });
             }
         });
     }

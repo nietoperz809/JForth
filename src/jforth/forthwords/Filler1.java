@@ -1688,12 +1688,13 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "sleep", "Sleep some milliseconds",
+                        "sleep", "Sleep some milliseconds",        // TODO: strange behaviour
                         (dStack, vStack) ->
                         {
                             try {
                                 long l1 = Utilities.readLong(dStack);
                                 Thread.sleep(l1);
+                                //predefinedWords._jforth._out.flush();
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

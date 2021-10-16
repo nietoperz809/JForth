@@ -3,7 +3,7 @@ package jforth;
 import java.util.TreeMap;
 
 public class Roman {
-    private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+    private final static TreeMap<Integer, String> map = new TreeMap<>();
 
     static {
         map.put(1000000, "M̅");

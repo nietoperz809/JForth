@@ -10,12 +10,10 @@ import java.util.function.Consumer;
 
 final class Graphics {
     private static final Canvas canvas = new Canvas();
-
     private static String markInfo (String txt)
     {
         return "(Graphics) "+txt;
     }
-
     private static void add(WordsList _fw, String name, String info,
                             Consumer<int[]> f) {
         _fw.add(new PrimitiveWord

@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.function.BiConsumer;
 
 public class JForth {
     public final RuntimeEnvironment CurrentEnvironment;
@@ -51,16 +52,16 @@ public class JForth {
     private MultiDotStreamTokenizer tokenizer = null;
     public JfTerminalPanel guiTerminal;
 
-    public JForth(RuntimeEnvironment ri) {
+    public JForth (RuntimeEnvironment ri) {
         this(System.out, ri);
     }
 
-    public JForth(PrintStream out, RuntimeEnvironment ri, JfTerminalPanel ta) {
+    public JForth (PrintStream out, RuntimeEnvironment ri, JfTerminalPanel ta) {
         this (out, ri);
         guiTerminal = ta;
     }
 
-    public JForth(PrintStream out, RuntimeEnvironment ri) {
+    public JForth (PrintStream out, RuntimeEnvironment ri) {
         StartTime = System.currentTimeMillis();
         CurrentEnvironment = ri;
         compiling = false;
@@ -97,6 +98,26 @@ public class JForth {
     }
 
     /**
+     * Helper function to split a line in single forth statements
+     * @param lineData  The line
+     * @param con Function to handle the statements, will be called for each statement
+     */
+    public static void runCommands1By1 (String lineData, BiConsumer<String[], Integer> con) {
+        if (lineData.isEmpty())
+            return;
+        // Generate multiple inputs from single line
+        String[] arr = lineData.split("\\s+");
+        if (arr.length == 0) {
+            arr = new String[]{"\n"};
+        } else if (arr[0].equals(":") && arr[arr.length - 1].equals(";")) {
+            arr = new String[]{lineData};
+        }
+        for (int n = 0; n < arr.length; n++) {
+            con.accept(arr, n);
+        }
+    }
+
+    /**
      * Execute one line and generate output
      *
      * @param input String containing forth commands
@@ -114,8 +135,7 @@ public class JForth {
                 //if (this.CurrentEnvironment != RuntimeEnvironment.GUITERMINAL)
                    _out.print(OK);
             }
-        } else // mode == EDIT
-        {
+        } else { // mode == EDIT
             if (!_lineEditor.handleLine(input)) {
                 mode = MODE.DIRECT;
             }

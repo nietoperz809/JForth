@@ -52,7 +52,7 @@ public class SynthToneBase
         line.write (tone, 0, length);
     }
 
-    protected static void toBrowser (byte[] wav, PredefinedWords predefinedWords)
+    public static void toBrowser (byte[] wav, PredefinedWords predefinedWords)
     {
         String encoded = Base64.getEncoder().encodeToString(wav);
         predefinedWords._jforth._out.print("audBytes" + encoded);
@@ -107,6 +107,12 @@ public class SynthToneBase
         catch (Exception ignored)
         {
         }
+    }
+
+    public static byte[] createSingleToneWav (int freq, int ms) throws Exception {
+        byte[] out = new byte[SAMPLE_RATE * ms / 1000];
+        makeSingleWave (freq, out);
+        return WaveTools.withWAVHeader (out, af);
     }
 
     public static void playSingleTone (int freq, int ms)

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class LineEdit {
     private final JForth _interpreter;
     private ArrayList<String> list = new ArrayList<>();
-    private ArrayList<String> undolist = new ArrayList<>();
+    private final ArrayList<String> undolist = new ArrayList<>();
     private final PrintStream _out;
 
     private static final String helpText =

@@ -14,7 +14,7 @@ interface ChargenData
     /**
      * The character bitmap
      */
-    static final byte[] c64Chargen = 
+    byte[] c64Chargen =
     {
         (byte) 0x3c, (byte) 0x66, (byte) 0x6e, (byte) 0x6e, (byte) 0x60, (byte) 0x62, (byte) 0x3c, (byte) 0x00, (byte) 0x18,
         (byte) 0x3c, (byte) 0x66, (byte) 0x7e, (byte) 0x66, (byte) 0x66, (byte) 0x66, (byte) 0x00, (byte) 0x7c, (byte) 0x66,

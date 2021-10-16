@@ -11,7 +11,8 @@ public class SerializableImage implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final byte[] bytes;
-    int width, height;
+    final int width;
+    final int height;
 
     public SerializableImage (BufferedImage img) throws IOException {
         width = img.getWidth();
