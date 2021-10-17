@@ -26,19 +26,21 @@
             left: 0;
             right: 0;
         }
+
+
     </style>
 </head>
 <body bgcolor="#000000">
-    <header>
-        <p id="hline"></p>
-        <img src="favicon.ico" alt="Tiger face" height="32" width="32">
-        <button onclick="cls()">cls</button>
-        <input type="text" size="100" id="txt"/>
-    </header>
-    <pre id="cod"></pre>
-    <img id="pict" src="" />
-    <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript">
+<header>
+    <p id="hline"></p>
+    <img src="favicon.ico" alt="Tiger face" height="32" width="32">
+    <button onclick="cls()">cls</button>
+    <input type="text" size="100" id="txt"/>
+</header>
+<pre id="cod"></pre>
+<img id="pict" src=""/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
 
     var socket;
     var txt;
@@ -97,7 +99,17 @@
 
         socket.onmessage = function (msg)
         {
-            addMessage (msg.data);
+            var dat = msg.data;
+            if (dat.startsWith("imgBytes"))
+            {
+                var imgdat = dat.substring (8,dat.length-12);
+                var elem = document.getElementById("pict");
+                elem.src = "data:image/png;base64," + imgdat;
+                elem.width = "500";
+                elem.height = "500";
+                return;
+            }
+            addMessage (dat);
         };
 
         socket.onerror = function (msg)
@@ -110,6 +122,8 @@
             //showError('Server is offline!');
         };
     }
-    </script>
+
+
+</script>
 </body>
 </html>
