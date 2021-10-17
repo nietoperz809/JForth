@@ -107,6 +107,15 @@
                 elem.src = "data:image/png;base64," + imgdat;
                 elem.width = "500";
                 elem.height = "500";
+                addMessage ('\nOK');
+                return;
+            }
+            if (dat.startsWith("audBytes"))
+            {
+                const WAV = new Audio("data:Audio/WAV;base64," + dat.substring(8,dat.length-12));
+                WAV.setAttribute("controls","controls");
+                WAV.play();
+                addMessage ('\nOK');
                 return;
             }
             addMessage (dat);
@@ -122,8 +131,6 @@
             //showError('Server is offline!');
         };
     }
-
-
 </script>
 </body>
 </html>
