@@ -1607,4 +1607,10 @@ public class ForthTestCases extends TestBase
         s = check ("1000 2000 sbeep crc32 hash",".");
         shoudBeThis("1491943541", s);
     }
+
+    @Test
+    public void testJson() {
+        String s = check ("2+3i json",".");
+        shoudBeThis("{\"imaginary\":3.0,\"real\":2.0}", s);
+    }
 }

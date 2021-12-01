@@ -6,7 +6,7 @@ import jforth.forthwords.PredefinedWords;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import gUIShell.JfTerminalPanel;
+import guishell.JfTerminalPanel;
 import tools.FileUtils;
 import tools.Func;
 import tools.Utilities;

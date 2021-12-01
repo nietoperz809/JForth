@@ -42,6 +42,8 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript">
 
+<!--    TODO: Make msgboxes work-->
+
     var socket;
     var txt;
     var code;
@@ -76,6 +78,9 @@
     function cls()
     {
         code.text('');
+        var elem = document.getElementById("pict");
+        elem.width = "0";
+        elem.height = "0";
     }
 
     function showMessage (text)
@@ -123,12 +128,12 @@
 
         socket.onerror = function (msg)
         {
-            //showError('Sorry but there was an error');
+            addMessage ("--- Socket Error ---");
         };
 
         socket.onclose = function ()
         {
-            //showError('Server is offline!');
+            addMessage ("--- Web connection broken ---");
         };
     }
 </script>

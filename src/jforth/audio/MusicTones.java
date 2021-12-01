@@ -175,7 +175,7 @@ public class MusicTones extends SynthToneBase {
     }
 
     public static void sendSongtoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
-        toBrowser (putSongIntoMemory(in), predefinedWords);
+        AudiotoBrowser(putSongIntoMemory(in), predefinedWords);
     }
 
 

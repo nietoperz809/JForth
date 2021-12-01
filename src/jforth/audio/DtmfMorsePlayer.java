@@ -65,7 +65,7 @@ public class DtmfMorsePlayer extends SynthToneBase {
     }
 
     public static void sendDtmftoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
-        toBrowser (createContiguousDTMF(in), predefinedWords);
+        AudiotoBrowser(createContiguousDTMF(in), predefinedWords);
     }
 
     public static byte[] createContiguousDTMF(String in) throws Exception {
@@ -95,7 +95,7 @@ public class DtmfMorsePlayer extends SynthToneBase {
     }
 
     public static void sendMorsetoBrowser(String in, PredefinedWords predefinedWords) throws Exception {
-        toBrowser (createContiguousMorse(in), predefinedWords);
+        AudiotoBrowser(createContiguousMorse(in), predefinedWords);
     }
 
     public static void playMorseString(String in) {

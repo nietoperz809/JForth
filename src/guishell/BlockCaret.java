@@ -1,4 +1,4 @@
-package gUIShell;
+package guishell;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;

@@ -1,4 +1,4 @@
-package gUIShell;
+package guishell;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

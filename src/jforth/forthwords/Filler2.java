@@ -1115,6 +1115,23 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "pdiff", "calculate percentual difference",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double v1 = Utilities.readDouble(dStack);
+                                double v2 = Utilities.readDouble(dStack);
+                                double res = 100.0*Math.abs((v1-v2)/((v1+v2)/2));
+                                dStack.push(res);
+                                return 1;
+                            } catch (Exception ignored) {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "percent", "calculate x percent of y",
                         (dStack, vStack) ->
                         {
@@ -1157,7 +1174,7 @@ class Filler2 {
                                 long l2 = Utilities.readLong(dStack); // millisecs
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
                                     byte[] tone = createSingleToneWav ((int) l1, (int) l2);
-                                    toBrowser (tone, predefinedWords);
+                                    AudiotoBrowser(tone, predefinedWords);
                                     return 1;
                                 }
                                 SynthToneBase.playSingleTone((int) l1, (int) l2);

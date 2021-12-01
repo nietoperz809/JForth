@@ -17,17 +17,33 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added line splitter">
-      <change afterPath="$PROJECT_DIR$/src/webserver/WebSocketHandler.java" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/json_io_4_9_10.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/resource/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/AnsiColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/AnsiColors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/BlockCaret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/BlockCaret.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/ColorPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfGuiApplication.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfGuiApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/LineListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gUIShell/MouseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/MouseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/webserver/SimpleWebserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,8 +116,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/UnmodifiableHeaders.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/com/sun/net/httpserver/Headers.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/ExchangeImpl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/com/sun/net/httpserver/Headers.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -111,6 +127,9 @@
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="gbpu2alf" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
@@ -424,7 +443,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jaxb-api-2.3.0.jar" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31444243" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
@@ -476,7 +495,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.testJson">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -663,7 +682,7 @@
       </method>
     </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="gUIShell.JfGuiApplication" />
+      <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
       <module name="JForth" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -673,15 +692,6 @@
       <option name="MAIN_CLASS_NAME" value="jforth.JForth" />
       <method v="2">
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
-      </method>
-    </configuration>
-    <configuration name="All in JForth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -694,11 +704,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testDtmfInMemory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.testJson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testDtmfInMemory" />
+      <option name="METHOD_NAME" value="testJson" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -722,6 +732,10 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="JForthGui.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar" />
+      <method v="2" />
     </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
@@ -747,18 +761,18 @@
     <list>
       <item itemvalue="Application.JForthGui" />
       <item itemvalue="Application.CayleyTable" />
-      <item itemvalue="JUnit.All in JForth" />
-      <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
+      <item itemvalue="JAR Application.JForthGui.jar" />
       <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
       <item itemvalue="JUnit.ForthTestCases" />
+      <item itemvalue="JUnit.ForthTestCases.testJson" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.testJson" />
+        <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
         <item itemvalue="Application.CayleyTable" />
-        <item itemvalue="JUnit.All in JForth" />
-        <item itemvalue="JUnit.ForthTestCases.testDtmfInMemory" />
       </list>
     </recent_temporary>
   </component>
@@ -862,27 +876,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00298" summary="noved things around + bugfix in LineListener.java">
-      <created>1618483327672</created>
-      <option name="number" value="00298" />
-      <option name="presentableId" value="LOCAL-00298" />
-      <option name="project" value="LOCAL" />
-      <updated>1618483327672</updated>
-    </task>
-    <task id="LOCAL-00299" summary="+ SerializableImage&#10;and some improvements">
-      <created>1618545905115</created>
-      <option name="number" value="00299" />
-      <option name="presentableId" value="LOCAL-00299" />
-      <option name="project" value="LOCAL" />
-      <updated>1618545905131</updated>
-    </task>
-    <task id="LOCAL-00300" summary="+ able to take screenshots of terminal">
-      <created>1618655377905</created>
-      <option name="number" value="00300" />
-      <option name="presentableId" value="LOCAL-00300" />
-      <option name="project" value="LOCAL" />
-      <updated>1618655377905</updated>
     </task>
     <task id="LOCAL-00301" summary="some improvements">
       <created>1618718213684</created>
@@ -1206,7 +1199,28 @@
       <option name="project" value="LOCAL" />
       <updated>1634369586650</updated>
     </task>
-    <option name="localTasksCounter" value="347" />
+    <task id="LOCAL-00347" summary="first version based on websocket">
+      <created>1634411921234</created>
+      <option name="number" value="00347" />
+      <option name="presentableId" value="LOCAL-00347" />
+      <option name="project" value="LOCAL" />
+      <updated>1634411921234</updated>
+    </task>
+    <task id="LOCAL-00348" summary="img displaying works again">
+      <created>1634428944939</created>
+      <option name="number" value="00348" />
+      <option name="presentableId" value="LOCAL-00348" />
+      <option name="project" value="LOCAL" />
+      <updated>1634428944939</updated>
+    </task>
+    <task id="LOCAL-00349" summary="migrated to websocket">
+      <created>1634464475578</created>
+      <option name="number" value="00349" />
+      <option name="presentableId" value="LOCAL-00349" />
+      <option name="project" value="LOCAL" />
+      <updated>1634464475578</updated>
+    </task>
+    <option name="localTasksCounter" value="350" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1303,14 +1317,10 @@
         <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0" value="TOOL_WINDOW" />
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="scale imge on stack with * operator" />
-    <MESSAGE value="introducing image rotate &amp; &quot;ver&quot; word" />
-    <MESSAGE value="added wdat word" />
     <MESSAGE value="wdat is now doublesequence" />
     <MESSAGE value="moved things around" />
     <MESSAGE value="added support for graphics" />
@@ -1333,7 +1343,10 @@
     <MESSAGE value="make single commands from input line" />
     <MESSAGE value="little bugfix" />
     <MESSAGE value="added line splitter" />
-    <option name="LAST_COMMIT_MESSAGE" value="added line splitter" />
+    <MESSAGE value="first version based on websocket" />
+    <MESSAGE value="img displaying works again" />
+    <MESSAGE value="migrated to websocket" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrated to websocket" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

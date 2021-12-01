@@ -1,5 +1,7 @@
 package jforth.forthwords;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jforth.*;
 import jforth.audio.SAMSpeech;
 import jforth.audio.WaveTools;
@@ -3720,6 +3722,38 @@ class Filler1 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "json", "Convert to JSON",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object o = dStack.pop();
+                                Gson gson = new Gson();
+                                String json = gson.toJson(o);
+                                dStack.push (json);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+        _fw.add(new PrimitiveWord
+                (
+                        "json2", "Convert to JSON",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object o = dStack.pop();
+                                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                                String json = gson.toJson(o);
+                                dStack.push (json);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
     }
 }

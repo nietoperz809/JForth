@@ -52,7 +52,7 @@ public class SynthToneBase
         line.write (tone, 0, length);
     }
 
-    public static void toBrowser (byte[] wav, PredefinedWords predefinedWords)
+    public static void AudiotoBrowser(byte[] wav, PredefinedWords predefinedWords)
     {
         String encoded = Base64.getEncoder().encodeToString(wav);
         predefinedWords._jforth._out.print("audBytes" + encoded);

@@ -1,4 +1,4 @@
-package gUIShell;
+package guishell;
 
 import tools.BuildInfo;
 
