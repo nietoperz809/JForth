@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class OStack extends Stack<Object>
 {
-    private final Stack<Object> saveStack = new Stack<>();
+    private final Stack<Object> saveStack = new SizedStack<>(10);
 
     @Override
     public synchronized void removeAllElements ()

@@ -1191,7 +1191,7 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             if (!dStack.unpop()) {
-                                predefinedWords._jforth._out.print("Nothing to do ...");
+                                return 0;
                             }
                             return 1;
                         }

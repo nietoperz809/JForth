@@ -1909,6 +1909,21 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "Free", "Get anount of free heap mmeory",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long heapFreeSize = Runtime.getRuntime().freeMemory();
+                                dStack.push(heapFreeSize);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "HumSi", "Shows large byte amounts human readable based on 1000",
                         (dStack, vStack) ->
                         {
