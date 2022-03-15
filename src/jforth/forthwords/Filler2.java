@@ -39,8 +39,6 @@ import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
 
 class Filler2 {
-    // private static final Point plotterDimension = new Point(100, 20);
-
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
 
@@ -1871,18 +1869,49 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "lfonts", "Show all system fonts",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String fonts[] =
+                                        GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+                                StringBuilder sb = new StringBuilder();
+                                for (int s=0; s<fonts.length; s++)
+                                {
+                                    sb.append('@').append(s).append(" : ").append(fonts[s]).append("\r\n");
+                                }
+                                dStack.push (sb.toString());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "font", "set font",
                         (dStack, vStack) ->
                         {
                             try {
-                                String name = Utilities.readString(dStack);
+                                String fonts[] =
+                                        GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+                                int fidx = -1;
                                 float size = 16;
+                                Font font;
+                                String name = Utilities.readString(dStack);
+                                if (name.startsWith("@"))
+                                    fidx = Integer.parseInt(name.substring(1));
                                 if (!dStack.empty())
                                     size = (float) Utilities.readDouble(dStack);
-                                Font font = Font.createFont(Font.TRUETYPE_FONT, new File(name)).deriveFont(size);
-                                //System.out.println(font);
-                                GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-                                ge.registerFont(font);
+                                if (fidx != -1) {
+                                    font = new Font (fonts[fidx], Font.PLAIN, (int)size);
+                                }
+                                else {
+                                    font = Font.createFont(Font.TRUETYPE_FONT, new File(name)).deriveFont(size);
+                                    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+                                    ge.registerFont(font);
+                                }
                                 predefinedWords._jforth.guiTerminal.setFont(font);
                                 return 1;
                             } catch (Exception e) {
