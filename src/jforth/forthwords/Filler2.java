@@ -1249,32 +1249,6 @@ class Filler2 {
                         }
                 ));
 
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "cwd", "set working directory",
-//                        (dStack, vStack) ->
-//                        {
-//                            try {
-//                                String newDir = Utilities.readString(dStack);
-//
-//                                boolean result = false;  // Boolean indicating whether directory was set
-//                                File    directory;       // Desired current working directory
-//
-//                                directory = new File(newDir).getAbsoluteFile();
-//                                if (directory.exists() || directory.mkdirs())
-//                                {
-//                                    result = (System.setProperty("user.dir", directory.getAbsolutePath()) != null);
-//                                }
-//                                if (!result)
-//                                    throw new Exception("dir doesn't exist");
-//
-//                                return 1;
-//                            } catch (Exception ignored) {
-//                            }
-//                            return 0;
-//                        }
-//                ));
-
         _fw.add(new PrimitiveWord
                 (
                         "getblob", "read blob into memory",
@@ -1412,21 +1386,6 @@ class Filler2 {
                             return 1;
                         }
                 ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "pDim", "set plotter width/height",
-//                        (dStack, vStack) ->
-//                        {
-//                            try {
-//                                plotterDimension.y = (int) Utilities.readLong(dStack);
-//                                plotterDimension.x = (int) Utilities.readLong(dStack);
-//                                return 1;
-//                            } catch (Exception e) {
-//                                return 0;
-//                            }
-//                        }
-//                ));
 
         _fw.add(new PrimitiveWord
                 (
@@ -1873,7 +1832,7 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String fonts[] =
+                                String[] fonts =
                                         GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
                                 StringBuilder sb = new StringBuilder();
                                 for (int s=0; s<fonts.length; s++)
@@ -1894,7 +1853,7 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String fonts[] =
+                                String[] fonts =
                                         GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
                                 int fidx = -1;
                                 float size = 16;

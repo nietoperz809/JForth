@@ -17,30 +17,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/json_io_4_9_10.xml" beforeDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added lfonts command and 'font' to select system fonts with @number">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/google_code_gson.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/webbitserver_webbit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/resource/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/resource/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/AnsiColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/AnsiColors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/BlockCaret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/BlockCaret.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/ColorPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfGuiApplication.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfGuiApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfGuiApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/LineListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/LineListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gUIShell/MouseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/MouseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/BaseWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BaseWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Brainfuck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Brainfuck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Canvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Canvas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/CayleyTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/CayleyTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/OStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/OStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
@@ -115,9 +102,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/UnmodifiableHeaders.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/ExchangeImpl.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/com/sun/net/httpserver/Headers.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/ExchangeImpl.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/adopt-openjdk-1.8.0_292/src.zip!/sun/net/httpserver/UnmodifiableHeaders.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -419,41 +406,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="Downloaded.Files.Path.Enabled" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="jforth" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="408" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551991492424" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
-    <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="ignore_missing_gitignore" value="true" />
-    <property name="js.eslint.eslintPackage" value="" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/jforth" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jaxb-api-2.3.0.jar" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.31444243" />
-    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
-    <property name="show.migrate.to.gradle.popup" value="false" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/../../../../../android/TextConsole/app/src/main/java/jforth/waves/Wave16.java" />
-  </component>
-  <component name="ReaderModeSettings">
-    <option name="enabled" value="false" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Administrator/Desktop/java/JForth",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
@@ -495,7 +459,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.testJson">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -762,16 +726,16 @@
       <item itemvalue="Application.JForthGui" />
       <item itemvalue="Application.CayleyTable" />
       <item itemvalue="JAR Application.JForthGui.jar" />
-      <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testJson" />
+      <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases.testJson" />
-        <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
+        <item itemvalue="JUnit.ForthTestCases.testJson" />
         <item itemvalue="Application.CayleyTable" />
       </list>
     </recent_temporary>
@@ -876,27 +840,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00301" summary="some improvements">
-      <created>1618718213684</created>
-      <option name="number" value="00301" />
-      <option name="presentableId" value="LOCAL-00301" />
-      <option name="project" value="LOCAL" />
-      <updated>1618718213685</updated>
-    </task>
-    <task id="LOCAL-00302" summary="bigprint works again">
-      <created>1618733306374</created>
-      <option name="number" value="00302" />
-      <option name="presentableId" value="LOCAL-00302" />
-      <option name="project" value="LOCAL" />
-      <updated>1618733306375</updated>
-    </task>
-    <task id="LOCAL-00303" summary="moved things around + command listbox">
-      <created>1621049685623</created>
-      <option name="number" value="00303" />
-      <option name="presentableId" value="LOCAL-00303" />
-      <option name="project" value="LOCAL" />
-      <updated>1621049685623</updated>
     </task>
     <task id="LOCAL-00304" summary="added human readable byte count formatter">
       <created>1621943536465</created>
@@ -1220,7 +1163,28 @@
       <option name="project" value="LOCAL" />
       <updated>1634464475578</updated>
     </task>
-    <option name="localTasksCounter" value="350" />
+    <task id="LOCAL-00350" summary="updated">
+      <created>1638325992375</created>
+      <option name="number" value="00350" />
+      <option name="presentableId" value="LOCAL-00350" />
+      <option name="project" value="LOCAL" />
+      <updated>1638325992377</updated>
+    </task>
+    <task id="LOCAL-00351" summary="limit savestack to 10">
+      <created>1639680782646</created>
+      <option name="number" value="00351" />
+      <option name="presentableId" value="LOCAL-00351" />
+      <option name="project" value="LOCAL" />
+      <updated>1639680782648</updated>
+    </task>
+    <task id="LOCAL-00352" summary="added lfonts command and 'font' to select system fonts with @number">
+      <created>1647373639441</created>
+      <option name="number" value="00352" />
+      <option name="presentableId" value="LOCAL-00352" />
+      <option name="project" value="LOCAL" />
+      <updated>1647373639441</updated>
+    </task>
+    <option name="localTasksCounter" value="353" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1321,9 +1285,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="wdat is now doublesequence" />
-    <MESSAGE value="moved things around" />
-    <MESSAGE value="added support for graphics" />
     <MESSAGE value="updated readme &amp; jarfile" />
     <MESSAGE value="added graphics test" />
     <MESSAGE value="bugfix" />
@@ -1346,7 +1307,10 @@
     <MESSAGE value="first version based on websocket" />
     <MESSAGE value="img displaying works again" />
     <MESSAGE value="migrated to websocket" />
-    <option name="LAST_COMMIT_MESSAGE" value="migrated to websocket" />
+    <MESSAGE value="updated" />
+    <MESSAGE value="limit savestack to 10" />
+    <MESSAGE value="added lfonts command and 'font' to select system fonts with @number" />
+    <option name="LAST_COMMIT_MESSAGE" value="added lfonts command and 'font' to select system fonts with @number" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

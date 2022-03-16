@@ -41,7 +41,7 @@ public abstract class BaseWord implements TwoFuncs<OStack, OStack, Integer>, Com
     public String getInfo() throws Exception
     {
         if (info == null)
-            throw new Exception ("Info no available");
+            throw new Exception ("Info not available");
         return info;
     }
 

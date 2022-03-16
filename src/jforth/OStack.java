@@ -15,7 +15,7 @@ public class OStack extends Stack<Object>
             Object o = super.pop();
             saveStack.push(o);
         }
-        super.removeAllElements();
+        //super.removeAllElements();
     }
 
     public Object get2(int n)
