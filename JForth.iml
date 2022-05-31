@@ -32,10 +32,10 @@
     <orderEntry type="library" name="cmutimelex" level="project" />
     <orderEntry type="library" name="mathIT" level="project" />
     <orderEntry type="library" name="jna-5.7.0-jpms" level="project" />
-    <orderEntry type="library" name="zxing-2" level="project" />
     <orderEntry type="library" name="commons-math3-3.6" level="project" />
     <orderEntry type="library" name="jaxb-api-2.3.0" level="project" />
     <orderEntry type="library" name="webbitserver.webbit" level="project" />
     <orderEntry type="library" name="google.code.gson" level="project" />
+    <orderEntry type="library" name="zxing-2.1" level="project" />
   </component>
 </module>
