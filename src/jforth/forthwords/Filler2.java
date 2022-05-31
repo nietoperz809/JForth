@@ -44,6 +44,24 @@ class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "f2=", "evaluate term with 2 arguments",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Double y = Utilities.readDouble(dStack);
+                                Double x = Utilities.readDouble(dStack);
+                                String f = Utilities.readString(dStack);
+                                FunctionParser fp = new FunctionParser(f);
+                                dStack.push(fp.evaluate(0, x, y));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "f=", "evaluate term",
                         (dStack, vStack) ->
                         {

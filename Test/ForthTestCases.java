@@ -63,6 +63,14 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void TestF2()
+    {
+        String s = check ("\"sqrt(x*x+y*y)\" 3 4 f2=", ".");
+        System.out.println(s);
+        shoudBeThis("5" ,s);
+    }
+
+    @Test
     public void TestCrossProduct()
     {
         String s = check ("{1,2,3} {4,5,6} crossP", ".");

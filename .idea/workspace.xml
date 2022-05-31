@@ -17,17 +17,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added lfonts command and 'font' to select system fonts with @number">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/google_code_gson.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/webbitserver_webbit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/BaseWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/BaseWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Brainfuck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Brainfuck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Canvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Canvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/CayleyTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/CayleyTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/OStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/OStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
@@ -120,6 +113,9 @@
   </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="1T7COVnQfLr98KQLTtt1dpZQnu6" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -410,12 +406,12 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Administrator/Desktop/java/JForth",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
+    "last_opened_file_path": "C:/peter.home/java/JForth",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+    "settings.editor.selected.configurable": "advanced.settings"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -459,7 +455,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.TestF2">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -632,19 +628,6 @@
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <configuration name="CayleyTable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jforth.CayleyTable" />
-      <module name="JForth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="jforth.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
-      </method>
-    </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
       <module name="JForth" />
@@ -663,6 +646,17 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestF2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestF2" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -724,19 +718,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="Application.CayleyTable" />
       <item itemvalue="JAR Application.JForthGui.jar" />
+      <item itemvalue="JUnit.ForthTestCases.TestF2" />
       <item itemvalue="JUnit.ForthTestCases" />
       <item itemvalue="JUnit.ForthTestCases.testJson" />
       <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.TestF2" />
         <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases.testWavsInMemory" />
         <item itemvalue="JUnit.ForthTestCases.testJson" />
-        <item itemvalue="Application.CayleyTable" />
       </list>
     </recent_temporary>
   </component>
@@ -840,13 +834,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00304" summary="added human readable byte count formatter">
-      <created>1621943536465</created>
-      <option name="number" value="00304" />
-      <option name="presentableId" value="LOCAL-00304" />
-      <option name="project" value="LOCAL" />
-      <updated>1621943536472</updated>
     </task>
     <task id="LOCAL-00305" summary="added fracsequence">
       <created>1626882066879</created>
@@ -1184,7 +1171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647373639441</updated>
     </task>
-    <option name="localTasksCounter" value="353" />
+    <task id="LOCAL-00353" summary="update">
+      <created>1647475108073</created>
+      <option name="number" value="00353" />
+      <option name="presentableId" value="LOCAL-00353" />
+      <option name="project" value="LOCAL" />
+      <updated>1647475108073</updated>
+    </task>
+    <option name="localTasksCounter" value="354" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1285,7 +1279,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="updated readme &amp; jarfile" />
     <MESSAGE value="added graphics test" />
     <MESSAGE value="bugfix" />
     <MESSAGE value="added testQR" />
@@ -1310,7 +1303,8 @@
     <MESSAGE value="updated" />
     <MESSAGE value="limit savestack to 10" />
     <MESSAGE value="added lfonts command and 'font' to select system fonts with @number" />
-    <option name="LAST_COMMIT_MESSAGE" value="added lfonts command and 'font' to select system fonts with @number" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
