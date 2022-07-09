@@ -7,7 +7,7 @@ public class ForthProperties {
     private static HashMap<String, Object> map = new HashMap<>();
 
     static {
-        putImgScale (new Point(120, 120));
+        putImgScale (new Point(400, 400));
         putBkColor (Color.BLACK);
         putImgFormat ("png");
     }

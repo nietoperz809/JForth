@@ -1414,7 +1414,7 @@ class Filler2 {
                                 DoubleSequence s1 = Utilities.readDoubleSequence(dStack);
                                 DoubleSequence s2 = Utilities.readDoubleSequence(dStack);
                                 Plot2D plotter = new Plot2D(s1.asPrimitiveArray(), s2.asPrimitiveArray());
-                                SerializableImage img = plotter.paint();
+                                SerializableImage img = plotter.plot0();
                                 dStack.push(img);
                             } catch (Exception e) {
                                 return 0;

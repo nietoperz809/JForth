@@ -105,6 +105,11 @@ public class JForth {
     public static void runCommands1By1 (String lineData, BiConsumer<String[], Integer> con) {
         if (lineData.isEmpty())
             return;
+        if (lineData.endsWith("\"\n") && lineData.startsWith("\"")) // quoted string
+        {
+            con.accept (new String[]{lineData.substring(0, lineData.length()-1)}, 0);
+            return;
+        }
         // Generate multiple inputs from single line
         String[] arr = lineData.split("\\s+");
         if (arr.length == 0) {

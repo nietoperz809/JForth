@@ -25,7 +25,7 @@ class TestBase
         return _ss.toString();
     }
 
-    void shoudBeThis(String a, String s)
+    void shouldBeThis(String a, String s)
     {
         final String EP = " OK\nJFORTH> ";
         Assert.assertEquals(a+EP, s);
@@ -47,19 +47,19 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("hex a0 dec", ".");
         System.out.println(s);
-        shoudBeThis("160" ,s);
+        shouldBeThis("160" ,s);
         s = check ("dec 65535 hex", ".");
         System.out.println(s);
-        shoudBeThis("FFFF" ,s);
+        shouldBeThis("FFFF" ,s);
         s = check ("bin 10101010 hex", ".");
         System.out.println(s);
-        shoudBeThis("AA" ,s);
+        shouldBeThis("AA" ,s);
         s = check ("hex 73 bin", ".");
         System.out.println(s);
-        shoudBeThis("1110011" ,s);
+        shouldBeThis("1110011" ,s);
         s = check ("3 setbase 10 10 20 + +", ".");
         System.out.println(s);
-        shoudBeThis("110" ,s);
+        shouldBeThis("110" ,s);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"sqrt(x*x+y*y)\" 3 4 f2=", ".");
         System.out.println(s);
-        shoudBeThis("5" ,s);
+        shouldBeThis("5" ,s);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("{1,2,3} {4,5,6} crossP", ".");
         System.out.println(s);
-        shoudBeThis("{-3,6,-3}" ,s);
+        shouldBeThis("{-3,6,-3}" ,s);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("c pi * e / tolong", ".");
         System.out.println(s);
-        shoudBeThis("346478342" ,s);
+        shouldBeThis("346478342" ,s);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("1K 10M +", ".");
         System.out.println(s);
-        shoudBeThis("10001000" ,s);
+        shouldBeThis("10001000" ,s);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("1 2 3 4 2 roll", ". . . .");
         System.out.println(s);
-        shoudBeThis("2431", s);
+        shouldBeThis("2431", s);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("{1,2,3} {4,5,6} dotP", ".");
         System.out.println(s);
-        shoudBeThis("32" ,s);
+        shouldBeThis("32" ,s);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("10 0 do i .", "loop");
         System.out.println(s);
-        shoudBeThis("0123456789" ,s);
+        shouldBeThis("0123456789" ,s);
     }
 
     @Test
@@ -123,7 +123,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check (": test 10 0 do i . 2 +loop 10 0 do i . 3 +loop ;", "test");
         System.out.println(s);
-        shoudBeThis("024680369" ,s);
+        shouldBeThis("024680369" ,s);
     }
 
 
@@ -132,7 +132,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check (": test 10 0 do i . loop ;", "test");
         System.out.println(s);
-        shoudBeThis("0123456789" ,s);
+        shouldBeThis("0123456789" ,s);
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test variable hello hello ! hello @ length hello @ ;",
                 "{1,2,3,4} test . .");
         System.out.println(s);
-        shoudBeThis("{1,2,3,4}4" ,s);
+        shouldBeThis("{1,2,3,4}4" ,s);
     }
 
     @Test
@@ -150,7 +150,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test variable hello hello ! hello @ length fact ;",
                 "{1,2,3,4} test .");
         System.out.println(s);
-        shoudBeThis("24" ,s);
+        shouldBeThis("24" ,s);
     }
 
     @Test
@@ -159,7 +159,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test variable hello hello ! hello @ length fact 0 ;",
                 "{1,2,3,4} test . .");
         System.out.println(s);
-        shoudBeThis("024" ,s);
+        shouldBeThis("024" ,s);
     }
 
     @Test
@@ -168,7 +168,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test variable hello hello ! hello @ length 24 0 do i . loop ;",
                 "{1,2,3,4} test .");
         System.out.println(s);
-        shoudBeThis("012345678910111213141516171819202122234" ,s);
+        shouldBeThis("012345678910111213141516171819202122234" ,s);
     }
 
     @Test
@@ -177,7 +177,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test variable hello hello ! hello @ length fact 0 do i . loop ;",
                 "{1,2,3} test");
         System.out.println(s);
-        shoudBeThis("012345" ,s);
+        shouldBeThis("012345" ,s);
     }
 
     @Test
@@ -222,7 +222,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"hello\" rev",
                 ".");
         System.out.println(s);
-        shoudBeThis("olleh" ,s);
+        shouldBeThis("olleh" ,s);
     }
 
     @Test
@@ -231,7 +231,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"laladummthequickbrownfoxjumpsoverthelazydog\" sort unique toStr",
                 ".");
         System.out.println(s);
-        shoudBeThis("abcdefghijklmnopqrstuvwxyz" ,s);
+        shouldBeThis("abcdefghijklmnopqrstuvwxyz" ,s);
     }
 
     @Test
@@ -240,7 +240,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{2,3,5,7,11,13,17,19,23} prod factor 8 factor",
                 ". .");
         System.out.println(s);
-        shoudBeThis("{2,2,2}{2,3,5,7,11,13,17,19,23}" ,s);
+        shouldBeThis("{2,2,2}{2,3,5,7,11,13,17,19,23}" ,s);
     }
 
     @Test
@@ -249,7 +249,7 @@ public class ForthTestCases extends TestBase
         String s = check ("12 11 - 12L 11 - 12L 11.0 - 12.0 11 -",
                 ". . . .");
         System.out.println(s);
-        shoudBeThis("1111" ,s);
+        shouldBeThis("1111" ,s);
     }
 
     @Test
@@ -258,7 +258,7 @@ public class ForthTestCases extends TestBase
         String s = check ("2 77 pow dup toBits toBig",
                 ". sp .");
         System.out.println(s);
-        shoudBeThis("151115727451828646838272 151115727451828646838272" ,s);
+        shouldBeThis("151115727451828646838272 151115727451828646838272" ,s);
     }
 
     @Test
@@ -267,7 +267,7 @@ public class ForthTestCases extends TestBase
         String s = check ("x^2+x x^2+x *",
                 ".");
         System.out.println(s);
-        shoudBeThis("x^2+2*x^3+x^4" ,s);
+        shouldBeThis("x^2+2*x^3+x^4" ,s);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class ForthTestCases extends TestBase
         String s = check ("4x^5+3x^2 x^2-6 1 pick 1 pick / ",
                 ". .\" +(\" mod . .\" )\"");
         System.out.println(s);
-        shoudBeThis("3+24*x+4*x^3+(18+144*x)" ,s);
+        shouldBeThis("3+24*x+4*x^3+(18+144*x)" ,s);
     }
 
     @Test
@@ -284,7 +284,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("4*x^5+3*x^2 x^2-6 /",".");
         System.out.println(s);
-        shoudBeThis("3+24*x+4*x^3" ,s);
+        shouldBeThis("3+24*x+4*x^3" ,s);
     }
 
     @Test
@@ -293,7 +293,7 @@ public class ForthTestCases extends TestBase
         String s = check ("-13x^7+3x^5 x^2-6 /mod ",
                 ". sp .\" rest:\" .");
         System.out.println(s);
-        shoudBeThis("-450*x-75*x^3-13*x^5 rest:1-2700*x" ,s);
+        shouldBeThis("-450*x-75*x^3-13*x^5 rest:1-2700*x" ,s);
     }
 
     @Test
@@ -302,7 +302,7 @@ public class ForthTestCases extends TestBase
         String s = check ("12.0 7 / 100L * dup type ",
                 ". sp .\" - \" .");
         System.out.println(s);
-        shoudBeThis("BigInteger - 100" ,s);
+        shouldBeThis("BigInteger - 100" ,s);
     }
 
     @Test
@@ -311,7 +311,7 @@ public class ForthTestCases extends TestBase
         String s = check ("10 dup dup",
                 "sin . sp cos . sp tan .");
         System.out.println(s);
-        shoudBeThis("-0.5440211108893698 -0.8390715290764524 0.6483608274590866" ,s);
+        shouldBeThis("-0.5440211108893698 -0.8390715290764524 0.6483608274590866" ,s);
     }
 
     @Test
@@ -328,7 +328,7 @@ public class ForthTestCases extends TestBase
         String s = check ("hex 0a 14 *",
                 ".");
         System.out.println(s);
-        shoudBeThis("C8" ,s);
+        shouldBeThis("C8" ,s);
     }
 
     @Test
@@ -337,7 +337,7 @@ public class ForthTestCases extends TestBase
         String s = check (": *+ * + ;",
                 "5 6 7 *+ .");
         System.out.println(s);
-        shoudBeThis("47" ,s);
+        shouldBeThis("47" ,s);
     }
 
     @Test
@@ -347,7 +347,7 @@ public class ForthTestCases extends TestBase
                         "3 x !",
                 "x @ .");
         System.out.println(s);
-        shoudBeThis("3" ,s);
+        shouldBeThis("3" ,s);
     }
 
     @Test
@@ -356,7 +356,7 @@ public class ForthTestCases extends TestBase
         String s = check ("4711 constant bla",
                 "bla .");
         System.out.println(s);
-        shoudBeThis("4711" ,s);
+        shouldBeThis("4711" ,s);
     }
 
     @Test
@@ -365,7 +365,7 @@ public class ForthTestCases extends TestBase
         String s = check ("1 2 3 4 5 6 tuck",
                 ". . . . . . .");
         System.out.println(s);
-        shoudBeThis("6564321" ,s);
+        shouldBeThis("6564321" ,s);
     }
 
     @Test
@@ -374,7 +374,7 @@ public class ForthTestCases extends TestBase
         String s = check (": konto dup abs . 0< if \"soll\" . else \"haben\" . then ;",
                 "0 konto -1 konto");
         System.out.println(s);
-        shoudBeThis("0haben1soll" ,s);
+        shouldBeThis("0haben1soll" ,s);
     }
 
     @Test
@@ -383,7 +383,7 @@ public class ForthTestCases extends TestBase
         String s = check (": rtest dup 0< if sp \"stop\" . else 1 - dup sp . recurse then ;",
                 "6 rtest");
         System.out.println(s);
-        shoudBeThis(" 5 4 3 2 1 0 -1 stop" ,s);
+        shouldBeThis(" 5 4 3 2 1 0 -1 stop" ,s);
     }
 
     @Test
@@ -393,7 +393,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test 0 begin dup . 1+ dup 5 = until ;",
                 "test");
         System.out.println(s);
-        shoudBeThis("01234" ,s);
+        shouldBeThis("01234" ,s);
     }
 
     @Test
@@ -402,7 +402,7 @@ public class ForthTestCases extends TestBase
         String s = check ("0 begin dup . 6 + dup 99 >",
                 "until");
         System.out.println(s);
-        shoudBeThis("06121824303642485460667278849096" ,s);
+        shouldBeThis("06121824303642485460667278849096" ,s);
     }
 
     @Test
@@ -422,7 +422,7 @@ public class ForthTestCases extends TestBase
         String s = check ("0 1 2 3 4 5 begin .",
                 "again");
         System.out.println(s);
-        shoudBeThis("543210" ,s);
+        shouldBeThis("543210" ,s);
     }
 
     @Test
@@ -442,7 +442,7 @@ public class ForthTestCases extends TestBase
         String s = check (": test 0 1 2 3 4 5 6 7 8 9 10 begin . dup 5 < if break then again ;",
                 "test");
         System.out.println(s);
-        shoudBeThis("1098765" ,s);
+        shouldBeThis("1098765" ,s);
     }
 
     @Test
@@ -454,7 +454,7 @@ public class ForthTestCases extends TestBase
                         ": check test fump ;",
                     "check");
         System.out.println(s);
-        shoudBeThis("1098765          lala" ,s);
+        shouldBeThis("1098765          lala" ,s);
     }
 
     @Test
@@ -463,7 +463,7 @@ public class ForthTestCases extends TestBase
         String s = check (": NESTED cr 0 do dup  0 do cr j . i . loop loop drop ;",
                 "3 4 NESTED");
         System.out.println(s);
-        shoudBeThis("\r\n\r\n00\r\n01\r\n02\r\n10\r\n11\r\n12\r\n20\r\n21\r\n22\r\n30\r\n31\r\n32" ,s);
+        shouldBeThis("\r\n\r\n00\r\n01\r\n02\r\n10\r\n11\r\n12\r\n20\r\n21\r\n22\r\n30\r\n31\r\n32" ,s);
     }
 
     @Test
@@ -472,7 +472,7 @@ public class ForthTestCases extends TestBase
         String s = check (": NESTED cr 0 do dup 0 do sp j i gf* . loop loop drop ;",
                 "10 10 NESTED");
         System.out.println(s);
-        shoudBeThis("\r\n 0 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 0 2 4 6 8 10 12 14 16 18 0 3 6 5 12 15 10 9 24 27 0 4 8 12 16 20 24 28 32 36 0 5 10 15 20 17 30 27 40 45 0 6 12 10 24 30 20 18 48 54 0 7 14 9 28 27 18 21 56 63 0 8 16 24 32 40 48 56 64 72 0 9 18 27 36 45 54 63 72 65" ,s);
+        shouldBeThis("\r\n 0 0 0 0 0 0 0 0 0 0 0 1 2 3 4 5 6 7 8 9 0 2 4 6 8 10 12 14 16 18 0 3 6 5 12 15 10 9 24 27 0 4 8 12 16 20 24 28 32 36 0 5 10 15 20 17 30 27 40 45 0 6 12 10 24 30 20 18 48 54 0 7 14 9 28 27 18 21 56 63 0 8 16 24 32 40 48 56 64 72 0 9 18 27 36 45 54 63 72 65" ,s);
     }
 
 
@@ -482,7 +482,7 @@ public class ForthTestCases extends TestBase
         String s = check ("1/2 1/8 1/32 1/128",
                 "+ + + .");
         System.out.println(s);
-        shoudBeThis("85/128" ,s);
+        shouldBeThis("85/128" ,s);
     }
 
     @Test
@@ -491,7 +491,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"lala\" \"dumm\"",
                 "+ 2 * .");
         System.out.println(s);
-        shoudBeThis("laladummlaladumm" ,s);
+        shouldBeThis("laladummlaladumm" ,s);
     }
 
     @Test
@@ -500,7 +500,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{1.2,2.3,3,4,4.5} type swap drop",
                 ".s");
         System.out.println(s);
-        shoudBeThis("DoubleSequence " ,s);
+        shouldBeThis("DoubleSequence " ,s);
     }
 
     @Test
@@ -509,7 +509,7 @@ public class ForthTestCases extends TestBase
         String s = check ("1 2 3 4 5 7 revs",
                 "flush");
         System.out.println(s);
-        shoudBeThis("123457" ,s);
+        shouldBeThis("123457" ,s);
     }
 
 
@@ -519,7 +519,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{{1,2,3}{4,5}{6,7,8,9}} toNumList",
                 ". . .");
         System.out.println(s);
-        shoudBeThis("{6,7,8,9}{4,5,0,0}{1,2,3,0}" ,s);
+        shouldBeThis("{6,7,8,9}{4,5,0,0}{1,2,3,0}" ,s);
     }
 
     @Test
@@ -528,7 +528,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toM",
                 ".");
         System.out.println(s);
-        shoudBeThis("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}}" ,s);
+        shouldBeThis("{{3,4,55,7,99,0}{4,5,6,7,8,9}{1,2,3,0,0,0}}" ,s);
     }
 
     @Test
@@ -537,7 +537,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{{1,2,3}{4,5,6}{7,8,1}} detM 3 round",
                 ".");
         System.out.println(s);
-        shoudBeThis("24" ,s);
+        shouldBeThis("24" ,s);
     }
 
     @Test
@@ -546,7 +546,7 @@ public class ForthTestCases extends TestBase
         String s = check (" {{1,2,3}{4,5,6}{7,8,1}} lupM",
                 ". . .");
         System.out.println(s);
-        shoudBeThis("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}}" ,s);
+        shouldBeThis("{{0,0,1}{1,0,0}{0,1,0}}{{7,8,1}{0,0.8571,2.8571}{0,0,4}}{{1,0,0}{0.1429,1,0}{0.5714,0.5,1}}" ,s);
     }
 
     @Test
@@ -555,7 +555,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{1,1,2,4,3,9} fitPoly 3 round",
                 ".");
         System.out.println(s);
-        shoudBeThis("x^2" ,s);
+        shouldBeThis("x^2" ,s);
     }
 
     @Test
@@ -564,7 +564,7 @@ public class ForthTestCases extends TestBase
         String s = check ("{1,2,2,4,3,9} lagPoly",
                 ".");
         System.out.println(s);
-        shoudBeThis("3-2.5*x+1.5*x^2" ,s);
+        shouldBeThis("3-2.5*x+1.5*x^2" ,s);
     }
 
     @Test
@@ -573,7 +573,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"peter\" \"doof\" mix toStr",
                 ".");
         System.out.println(s);
-        shoudBeThis("pdeotoefr" ,s);
+        shouldBeThis("pdeotoefr" ,s);
     }
 
     @Test
@@ -582,7 +582,7 @@ public class ForthTestCases extends TestBase
         String s = check ("0.5 10 pow 4 round",
                 ".");
         System.out.println(s);
-        shoudBeThis("0.001" ,s);
+        shouldBeThis("0.001" ,s);
     }
 
     @Test
@@ -591,7 +591,7 @@ public class ForthTestCases extends TestBase
         String s = check ("hex 1fff 1 xor",
                 ".");
         System.out.println(s);
-        shoudBeThis("1FFE" ,s);
+        shouldBeThis("1FFE" ,s);
     }
 
     @Test
@@ -600,7 +600,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"text='';for(i=0;i<10;i++)text+=3*i+'-';\" js",
                 ".");
         System.out.println(s);
-        shoudBeThis("0-3-6-9-12-15-18-21-24-27-" ,s);
+        shouldBeThis("0-3-6-9-12-15-18-21-24-27-" ,s);
     }
 
     @Test
@@ -609,7 +609,7 @@ public class ForthTestCases extends TestBase
         String s = check ("\"str='Visit_W3Schools';n=str.search(/w3schools/i);\" js",
                 ".");
         System.out.println(s);
-        shoudBeThis("6" ,s);
+        shouldBeThis("6" ,s);
     }
 
     @Test
@@ -619,7 +619,7 @@ public class ForthTestCases extends TestBase
                 ".");
         String s = check ("\"lala\" openReader readLine swap readLine rot +",
                 ".");
-        shoudBeThis("*EOF*hallo_doof" ,s);
+        shouldBeThis("*EOF*hallo_doof" ,s);
     }
 
     @Test
@@ -627,7 +627,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("-1 zeta toFraction",
                 ".");
-        shoudBeThis("-1/12" ,s);
+        shouldBeThis("-1/12" ,s);
     }
 
     @Test
@@ -635,7 +635,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("8 8 + sqrt fact 8 / fact",
                 ".");
-        shoudBeThis("6" ,s);
+        shouldBeThis("6" ,s);
     }
 
     @Test
@@ -643,7 +643,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("{1,2,3,100,200,255} hexStr",
                 ".");
-        shoudBeThis("01020364C8FF" ,s);
+        shouldBeThis("01020364C8FF" ,s);
     }
 
     @Test
@@ -651,7 +651,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"01020364C8FF\" unhexStr",
                 ".");
-        shoudBeThis("{1,2,3,100,200,255}" ,s);
+        shouldBeThis("{1,2,3,100,200,255}" ,s);
     }
 
     @Test
@@ -659,7 +659,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"Hallo\" \"SHA-1\" hash hexStr",
                 ".");
-        shoudBeThis("59D9A6DF06B9F610F7DB8E036896ED03662D168F" ,s);
+        shouldBeThis("59D9A6DF06B9F610F7DB8E036896ED03662D168F" ,s);
     }
 
     @Test
@@ -667,7 +667,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("hallo dup crc16 hash swap crc32 hash _ swap",
                 "...");
-        shoudBeThis("3111268817_1235" ,s);
+        shouldBeThis("3111268817_1235" ,s);
     }
 
     @Test
@@ -675,14 +675,14 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"lala\" {32} toStr \"dumm\" + + urlEnc",
                 ".");
-        shoudBeThis("lala+dumm" ,s);
+        shouldBeThis("lala+dumm" ,s);
     }
 
     @Test
     public void TestCollatz()
     {
         String s = check ("11 clltz dup length swap sum",". .");
-        shoudBeThis("25915" ,s);
+        shouldBeThis("25915" ,s);
     }
 
     @Test
@@ -701,25 +701,25 @@ public class ForthTestCases extends TestBase
                 e.printStackTrace();
             }
             String s = check ("1000 \"hello\" udpput","");
-            shoudBeThis("" ,s);
+            shouldBeThis("" ,s);
         })).start();
 
         String s = check ("1000 udpget",".");
-        shoudBeThis("hello" ,s);
+        shouldBeThis("hello" ,s);
     }
 
     @Test
     public void TestDlist()
     {
         String s = check ("1234567890L toDList",".");
-        shoudBeThis("{1,2,3,4,5,6,7,8,9,0}" ,s);
+        shouldBeThis("{1,2,3,4,5,6,7,8,9,0}" ,s);
     }
 
     @Test
     public void TestDAltsum()
     {
         String s = check ("3229380809664349823849028340088048L toDList altsum",".");
-        shoudBeThis("33" ,s);
+        shouldBeThis("33" ,s);
     }
 
     @Test
@@ -730,90 +730,90 @@ public class ForthTestCases extends TestBase
                         "public static double func(double arg) {return Math.sqrt(arg);}"+
                         "\"";
         String s = check ("56.25 "+source + " java",".");
-        shoudBeThis("7.5" ,s);
+        shouldBeThis("7.5" ,s);
     }
 
     @Test
     public void TestDotQuote()
     {
         String s = check (".\" hello doof \"",null);
-        shoudBeThis("hello doof " ,s);
+        shouldBeThis("hello doof " ,s);
     }
 
     @Test
     public void TestMultiDots()
     {
         String s = check ("1 2 3 4 5",".....");
-        shoudBeThis("54321" ,s);
+        shouldBeThis("54321" ,s);
     }
 
     @Test
     public void TestShift()
     {
         String s = check ("\"peter\" >> >> >>",".");
-        shoudBeThis("terpe" ,s);
+        shouldBeThis("terpe" ,s);
         s = check ("\"peter\" << >> <<",".");
-        shoudBeThis("eterp" ,s);
+        shouldBeThis("eterp" ,s);
     }
 
     @Test
     public void TestScatterColl()
     {
         String s = check ("{1,2,3,4,5,6} scat",".s");
-        shoudBeThis("1 2 3 4 5 6 " ,s);
+        shouldBeThis("1 2 3 4 5 6 " ,s);
         s = check ("1 2 3 4 5 6 collect",".");
-        shoudBeThis("{1,2,3,4,5,6}" ,s);
+        shouldBeThis("{1,2,3,4,5,6}" ,s);
     }
 
     @Test
     public void TestSeqGen()
     {
         String s = check ("3 6 9 seq",".");
-        shoudBeThis("{3,12,21,30,39,48}" ,s);
+        shouldBeThis("{3,12,21,30,39,48}" ,s);
     }
 
     @Test
     public void TestIsPrime()
     {
         String s = check ("7919 isPrime 12 isPrime swap","..");
-        shoudBeThis("10" ,s);
+        shouldBeThis("10" ,s);
     }
 
     @Test
     public void TestB64()
     {
         String s = check ("\"hoelle\" b64 dup unb64",". sp .");
-        shoudBeThis("hoelle aG9lbGxl" ,s);
+        shouldBeThis("hoelle aG9lbGxl" ,s);
     }
 
     @Test
     public void TestExecute()
     {
         String s = check ("' + 6 7 rot execute",".");
-        shoudBeThis("13" ,s);
+        shouldBeThis("13" ,s);
     }
 
     @Test
     public void TestTimeView()
     {
         String s = check ("123456 toTime",".");
-        shoudBeThis("34:17:36" ,s);
+        shouldBeThis("34:17:36" ,s);
         s = check ("34:17:36",".");
-        shoudBeThis("123456" ,s);
+        shouldBeThis("123456" ,s);
     }
 
     @Test
     public void TestNip()
     {
         String s = check ("a b \"c\" nip",".s");
-        shoudBeThis("a c " ,s);
+        shouldBeThis("a c " ,s);
     }
 
     @Test
     public void TestNonStandardRecurse()
     {
         String s = check (": facky recursive dup 1 > if dup 1- facky * then ;","6 facky .");
-        shoudBeThis("720" ,s);
+        shouldBeThis("720" ,s);
     }
 
     @Test
@@ -821,7 +821,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("3+6i dup phi swap abs 3 round swap 3 round",
                 ". sp .");
-        shoudBeThis("1.107 6.708" ,s);
+        shouldBeThis("1.107 6.708" ,s);
     }
 
     @Test
@@ -829,7 +829,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("-1 ln 99 +",
                 ".");
-        shoudBeThis("99+3.141592653589793i" ,s);
+        shouldBeThis("99+3.141592653589793i" ,s);
     }
 
     @Test
@@ -837,7 +837,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("2/4 4/8 +",
                 ".");
-        shoudBeThis("1/1" ,s);
+        shouldBeThis("1/1" ,s);
     }
 
     @Test
@@ -845,7 +845,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("10 -4/8 7 collect",
                 ".");
-        shoudBeThis("{10/1,-1/2,7/1}" ,s);
+        shouldBeThis("{10/1,-1/2,7/1}" ,s);
     }
 
     @Test
@@ -853,7 +853,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("{10/1,-1/2,7/1} scat",
                 "...");
-        shoudBeThis("7/1-1/210/1" ,s);
+        shouldBeThis("7/1-1/210/1" ,s);
     }
 
     @Test
@@ -861,7 +861,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("446M f2l 3 round",
                 ".");
-        shoudBeThis("0.672" ,s);
+        shouldBeThis("0.672" ,s);
     }
 
     @Test
@@ -869,7 +869,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"x+3\" {1/2,1/3,1/4} f=",
                 ".");
-        shoudBeThis("{7/2,10/3,13/4}" ,s);
+        shouldBeThis("{7/2,10/3,13/4}" ,s);
     }
 
     @Test
@@ -877,250 +877,250 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1} todouble tofraction",
                 ".");
-        shoudBeThis("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1}" ,s);
+        shouldBeThis("{7/3,99/98,13/49,39/35,36/91,10/143,49/13,7/11,1/2,91/1}" ,s);
     }
 
     @Test
     public void TestEulerIdentity()
     {
         String s = check ("0+1i pi * exp 3 round", ".");
-        shoudBeThis("-1" ,s);
+        shouldBeThis("-1" ,s);
     }
 
     @Test
     public void Test4PowI()
     {
         String s = check ("2 ln 1i * 2 * exp 4 1i pow =", ".");
-        shoudBeThis("1" ,s);
+        shouldBeThis("1" ,s);
     }
 
     @Test
     public void TestStringMult()
     {
         String s = check ("la 2 * 3 ku * +", ".");
-        shoudBeThis("lalakukuku" ,s);
+        shouldBeThis("lalakukuku" ,s);
     }
 
     @Test
     public void TestCGroup()
     {
         String s = check ("7 11 cgroup", ".");
-        shoudBeThis("{7,5,2,3,10,4,6,9,8,1}" ,s);
+        shouldBeThis("{7,5,2,3,10,4,6,9,8,1}" ,s);
     }
 
     @Test
     public void TestCGroupInverseAndEquality()
     {
         String s = check ("7 11 cgroup dup 11 igroup dup rot dup rot swap =", ". . .");
-        shoudBeThis("1{7,5,2,3,10,4,6,9,8,1}{8,9,6,4,10,3,2,5,7,1}" ,s);
+        shouldBeThis("1{7,5,2,3,10,4,6,9,8,1}{8,9,6,4,10,3,2,5,7,1}" ,s);
     }
 
     @Test
     public void TestCTab()
     {
         String s = check ("5 ctab", ".");
-        shoudBeThis("{{1,2,3,4}{2,4,1,3}{3,1,4,2}{4,3,2,1}}" ,s);
+        shouldBeThis("{{1,2,3,4}{2,4,1,3}{3,1,4,2}{4,3,2,1}}" ,s);
     }
 
     @Test
     public void TestIntersectNlist()
     {
         String s = check ("{1,2,3,4} {1,2,4} intersect", ".");
-        shoudBeThis("{1,2,4}" ,s);
+        shouldBeThis("{1,2,4}" ,s);
     }
 
     @Test
     public void TestIntersectSlist()
     {
         String s = check ("{a,b,c} {d,e,a} intersect", ".");
-        shoudBeThis("{\"a\"}" ,s);
+        shouldBeThis("{\"a\"}" ,s);
     }
 
     @Test
     public void TestIntersectString()
     {
         String s = check ("peter dieter intersect", ".");
-        shoudBeThis("eter" ,s);
+        shouldBeThis("eter" ,s);
     }
 
     @Test
     public void TestMeans()
     {
         String s = check ("{1,2,3,4,5,6} gmean", ".");
-        shoudBeThis("2.993795165523909" ,s);
+        shouldBeThis("2.993795165523909" ,s);
         s = check ("{1,2,3,4,5,6} mean", ".");
-        shoudBeThis("3.5" ,s);
+        shouldBeThis("3.5" ,s);
         s = check ("{1,2,3,4,5,6} qmean", ".");
-        shoudBeThis("3.8944404818493075" ,s);
+        shouldBeThis("3.8944404818493075" ,s);
         s = check ("{1,2,3,4,5,6} stddev", ".");
-        shoudBeThis("1.8708286933869707" ,s);
+        shouldBeThis("1.8708286933869707" ,s);
         s = check ("{1,2,-3,4,5,6} var", ".");
-        shoudBeThis("10.7" ,s);
+        shouldBeThis("10.7" ,s);
     }
 
     @Test
     public void TestPick()
     {
         String s = check ("{peter,ist,lieb,oder,doof} 2 lpick", ".");
-        shoudBeThis("lieb" ,s);
+        shouldBeThis("lieb" ,s);
         s = check ("{1,2,3,19,4,6} 3 lpick", ".");
-        shoudBeThis("19" ,s);
+        shouldBeThis("19" ,s);
         s = check ("motherfucker 6 lpick", ".");
-        shoudBeThis("f" ,s);
+        shouldBeThis("f" ,s);
     }
 
     @Test
     public void UniqTest()
     {
         String s = check ("{a,s,a,s,d,a,s} unique", ".");
-        shoudBeThis("{\"a\",\"s\",\"d\"}" ,s);
+        shouldBeThis("{\"a\",\"s\",\"d\"}" ,s);
     }
 
     @Test
     public void TestRotateNumSeq()
     {
         String s = check ("{1,2,3} << {1,2,3} >>", "..");
-        shoudBeThis("{3,1,2}{2,3,1}" ,s);
+        shouldBeThis("{3,1,2}{2,3,1}" ,s);
     }
 
     @Test
     public void TestRotateStrSeq()
     {
         String s = check ("{a,f,g,j} << {j,o,7,laal} >>", "..");
-        shoudBeThis("{\"laal\",\"j\",\"o\",\"7\"}{\"f\",\"g\",\"j\",\"a\"}" ,s);
+        shouldBeThis("{\"laal\",\"j\",\"o\",\"7\"}{\"f\",\"g\",\"j\",\"a\"}" ,s);
     }
 
     @Test
     public void TestDivToStrSeq()
     {
         String s = check ("laladumm 2 /", ".");
-        shoudBeThis("{\"la\",\"la\",\"du\",\"mm\"}" ,s);
+        shouldBeThis("{\"la\",\"la\",\"du\",\"mm\"}" ,s);
     }
 
     @Test
     public void TestStrSeqFact()
     {
         String s = check ("\"peter       ist    lieb\" factor", ".");
-        shoudBeThis("{\"peter\",\"ist\",\"lieb\"}" ,s);
+        shouldBeThis("{\"peter\",\"ist\",\"lieb\"}" ,s);
     }
 
     @Test
     public void FracSeq1()
     {
         String s = check ("{1/2,3/4} todouble", ".");
-        shoudBeThis("{0.5,0.75}" ,s);
+        shouldBeThis("{0.5,0.75}" ,s);
     }
 
     @Test
     public void FracTran()
     {
         String s = check ("{5/3,2/5} 72 fractran", ".");
-        shoudBeThis("{72,120,200,80,32}" ,s);  // https://de.wikipedia.org/wiki/FRACTRAN
+        shouldBeThis("{72,120,200,80,32}" ,s);  // https://de.wikipedia.org/wiki/FRACTRAN
     }
 
     @Test
     public void TestStrSeqPlus()
     {
         String s = check ("{a,b,c,d} peter +", ".");
-        shoudBeThis("{\"a\",\"b\",\"c\",\"d\",\"peter\"}" ,s);
+        shouldBeThis("{\"a\",\"b\",\"c\",\"d\",\"peter\"}" ,s);
         s = check ("peter {a,b,c,f} +", ".");
-        shoudBeThis("{\"peter\",\"a\",\"b\",\"c\",\"f\"}" ,s);
+        shouldBeThis("{\"peter\",\"a\",\"b\",\"c\",\"f\"}" ,s);
     }
 
     @Test
     public void TestStrSeqSubX()
     {
         String s = check ("peter 1 / {e,t} - toStr", ".");
-        shoudBeThis("pr" ,s);
+        shouldBeThis("pr" ,s);
     }
 
     @Test
     public void TestListConv()
     {
         String s = check ("{1,2,3,4,5,6} type swap toslist type swap drop", ". sp .");
-        shoudBeThis("StringSequence DoubleSequence" ,s);
+        shouldBeThis("StringSequence DoubleSequence" ,s);
     }
 
     @Test
     public void TestSListPermute()
     {
         String s = check ("peter 1 / 12 permute toStr", ".");
-        shoudBeThis("trpee" ,s);
+        shouldBeThis("trpee" ,s);
     }
 
     @Test
     public void AllPermute()
     {
         String s = check ("{1,2,3} permute", ".");
-        shoudBeThis("{{1,3,2}{2,1,3}{3,1,2}{1,2,3}{2,3,1}{3,2,1}}" ,s);
+        shouldBeThis("{{1,3,2}{2,1,3}{3,1,2}{1,2,3}{2,3,1}{3,2,1}}" ,s);
     }
 
     @Test
     public void TestSListSpc()
     {
         String s = check ("\"fick dich\" toslist", ".");
-        shoudBeThis("{\"fick\",\"dich\"}" ,s);
+        shouldBeThis("{\"fick\",\"dich\"}" ,s);
         s = check ("\"fickdich\" toslist", ".");
-        shoudBeThis("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
+        shouldBeThis("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
         s = check ("fickdich toslist", ".");
-        shoudBeThis("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
+        shouldBeThis("{\"f\",\"i\",\"c\",\"k\",\"d\",\"i\",\"c\",\"h\"}" ,s);
     }
 
     @Test
     public void TestStringSplit()
     {
         String s = check ("\"move back mo'fucker the onyx is here\" toslist", ".");
-        shoudBeThis("{\"move\",\"back\",\"mo'fucker\",\"the\",\"onyx\",\"is\",\"here\"}" ,s);
+        shouldBeThis("{\"move\",\"back\",\"mo'fucker\",\"the\",\"onyx\",\"is\",\"here\"}" ,s);
     }
 
     @Test
     public void TestStringSplit2()
     {
         String s = check ("\"e\" peter split 1/2 split 3+4i split collect", ".");
-        shoudBeThis("{\"p\",\"t\",\"r\",\"1\",\"2\",\"3\",\"4\"}" ,s);
+        shouldBeThis("{\"p\",\"t\",\"r\",\"1\",\"2\",\"3\",\"4\"}" ,s);
     }
 
     @Test
     public void TestLswap()
     {
         String s = check ("{a,b,c,d,r} 1 2 lswap dup type", "..");
-        shoudBeThis("StringSequence{\"a\",\"c\",\"b\",\"d\",\"r\"}" ,s);
+        shouldBeThis("StringSequence{\"a\",\"c\",\"b\",\"d\",\"r\"}" ,s);
         s = check ("{1,2,3,4,5} 1 2 lswap dup type", "..");
-        shoudBeThis("DoubleSequence{1,3,2,4,5}" ,s);
+        shouldBeThis("DoubleSequence{1,3,2,4,5}" ,s);
     }
 
     @Test
     public void TestRev()
     {
         String s = check ("\"hello world\" rev", ".");
-        shoudBeThis("dlrow olleh" ,s);
+        shouldBeThis("dlrow olleh" ,s);
         s = check ("{1,2,3,4,5} rev", ".");
-        shoudBeThis("{5,4,3,2,1}" ,s);
+        shouldBeThis("{5,4,3,2,1}" ,s);
         s = check ("{gone,wild,man} rev", ".");
-        shoudBeThis("{\"man\",\"wild\",\"gone\"}" ,s);
+        shouldBeThis("{\"man\",\"wild\",\"gone\"}" ,s);
     }
 
     @Test
     public void TestLSystem()
     {
         String s = check ("ABA lsput A->AB lsrule B->A lsrule lsget", ".");
-        shoudBeThis("ABAAB" ,s);
+        shouldBeThis("ABAAB" ,s);
         s = check ("ABA lsput A->AB lsrule B->A lsrule lsclr lsget", ".");
-        shoudBeThis("ABA" ,s);
+        shouldBeThis("ABA" ,s);
     }
 
     @Test
     public void StrSortRev()
     {
         String s = check ("move_back_motherfucker sort rev", ".");
-        shoudBeThis("vutrroommkkhfeeeccba__" ,s);
+        shouldBeThis("vutrroommkkhfeeeccba__" ,s);
     }
 
     @Test
     public void percTest()
     {
         String s = check ("12345 25 percent 12345 swap whatperc", ".");
-        shoudBeThis("25" ,s);
+        shouldBeThis("25" ,s);
     }
 
     @Test
@@ -1128,7 +1128,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("33 type 33L type 33/99 type 33.0 type 33+2i type {33} type {{33}} type",
                 ". sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp . sp .");
-        shoudBeThis("DoubleMatrix {{33}} DoubleSequence {33} Complex 33+2i Double 33 Fraction 1/3 BigInteger 33 Long 33" ,s);
+        shouldBeThis("DoubleMatrix {{33}} DoubleSequence {33} Complex 33+2i Double 33 Fraction 1/3 BigInteger 33 Long 33" ,s);
     }
 
     @Test
@@ -1136,7 +1136,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("laladumm 4 -",
                 ".");
-        shoudBeThis("lala" ,s);
+        shouldBeThis("lala" ,s);
     }
 
     @Test
@@ -1144,7 +1144,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("peter lieb -",
                 ".");
-        shoudBeThis("ptr" ,s);
+        shouldBeThis("ptr" ,s);
     }
 
     @Test
@@ -1152,7 +1152,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("\"hello world\" morsetxt",
                 ".");
-        shoudBeThis("···· · ·-·· ·-·· ---  ·-- --- ·-· ·-·· -··" ,s);
+        shouldBeThis("···· · ·-·· ·-·· ---  ·-- --- ·-· ·-·· -··" ,s);
     }
 
     @Test
@@ -1166,33 +1166,33 @@ public class ForthTestCases extends TestBase
     public void replaceTest()
     {
         String s = check ("peter {\"e\",\"fuck\"} replace",".");
-        shoudBeThis("pfucktfuckr" ,s);
+        shouldBeThis("pfucktfuckr" ,s);
         s = check ("\"12. oct in 1929\" {\"\\d\",\"-\"} replace",".");
         System.out.println(s);
-        shoudBeThis("--. oct in ----" ,s);
+        shouldBeThis("--. oct in ----" ,s);
     }
 
     @Test
     public void binHexInputTest()
     {
         String s = check ("-0xc000 _ 0b1001","...");
-        shoudBeThis("9_-49152" ,s);
+        shouldBeThis("9_-49152" ,s);
     }
 
     @Test
     public void binStrTest()
     {
         String s = check ("1234 dup binstr swap \"-\" swap hexstr","...");
-        shoudBeThis("4d2-10011010010" ,s);
+        shouldBeThis("4d2-10011010010" ,s);
     }
 
     @Test
     public void commentTest()
     {
         String s = check ("1234 ( a comment ) dup ( next comm.) +",".");
-        shoudBeThis("2468" ,s);
+        shouldBeThis("2468" ,s);
         s = check ("1234 // some other bullshitt",".");
-        shoudBeThis("1234" ,s);
+        shouldBeThis("1234" ,s);
     }
 
     @Test
@@ -1200,7 +1200,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
         String s = check ("\""+code+"\""+" bf",".");
-        shoudBeThis("Hello World!\n" ,s);
+        shouldBeThis("Hello World!\n" ,s);
     }
 
     @Test
@@ -1208,7 +1208,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "{1,2,3,4} toPoly {1,2,3,4} f=";
         String s = check (code,".");
-        shoudBeThis("{10,49,142,313}" ,s);
+        shouldBeThis("{10,49,142,313}" ,s);
     }
 
     @Test
@@ -1216,7 +1216,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "\"x/y\" {{3,6}} f=";
         String s = check (code,".");
-        shoudBeThis("0.5" ,s);
+        shouldBeThis("0.5" ,s);
     }
 
     @Test
@@ -1224,7 +1224,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "\"x-y\" {{3,6}{19,7}{5,-3}{11,10}} f=";
         String s = check (code,".");
-        shoudBeThis("{-3,12,8,1}" ,s);
+        shouldBeThis("{-3,12,8,1}" ,s);
     }
 
     @Test
@@ -1232,7 +1232,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "sin(x) 12 f=";
         String s = check (code,".");
-        shoudBeThis("-0.5365729180004349" ,s);
+        shouldBeThis("-0.5365729180004349" ,s);
     }
 
     @Test
@@ -1240,7 +1240,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "x/(x-2) {1,2,3,4} f=";
         String s = check (code,".");
-        shoudBeThis("{-1,Infinity,3,2}" ,s);
+        shouldBeThis("{-1,Infinity,3,2}" ,s);
     }
 
     @Test
@@ -1248,7 +1248,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "x+x 1/2 f=";
         String s = check (code,".");
-        shoudBeThis("1" ,s);
+        shouldBeThis("1" ,s);
     }
 
 
@@ -1257,10 +1257,10 @@ public class ForthTestCases extends TestBase
     {
         String code = "-0.5+1003i toNumList";
         String s = check (code,".");
-        shoudBeThis("{-0.5,1003}" ,s);
+        shouldBeThis("{-0.5,1003}" ,s);
         code = "128/-10 toNumList";
         s = check (code,".");
-        shoudBeThis("{-64,5}" ,s);
+        shouldBeThis("{-64,5}" ,s);
     }
 
     @Test
@@ -1268,10 +1268,10 @@ public class ForthTestCases extends TestBase
     {
         String code = "6/11 rev";
         String s = check (code,".");
-        shoudBeThis("11/6" ,s);
+        shouldBeThis("11/6" ,s);
         code = "{0.128,-2.1} rev";
         s = check (code,".");
-        shoudBeThis("{-2.1,0.128}" ,s);
+        shouldBeThis("{-2.1,0.128}" ,s);
     }
 
     @Test
@@ -1279,7 +1279,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "{2,4,8,16,32,64} lagpoly 1 round 256 f=";
         String s = check (code,".");
-        shoudBeThis("512" ,s);
+        shouldBeThis("512" ,s);
     }
 
     @Test
@@ -1287,7 +1287,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "{3.667776,-6.87899,5.3,100,4.8888} 1 round";
         String s = check (code,".");
-        shoudBeThis("{3.7,-6.9,5.3,100,4.9}" ,s);
+        shouldBeThis("{3.7,-6.9,5.3,100,4.9}" ,s);
     }
 
     @Test
@@ -1295,10 +1295,10 @@ public class ForthTestCases extends TestBase
     {
         String code = "peter gray dup ungray swap";
         String s = check (code,". sp .");
-        shoudBeThis("HWNWK peter" ,s);
+        shouldBeThis("HWNWK peter" ,s);
         code = "{1,2,3,4,5,6,7,8,9} gray dup ungray";
         s = check (code, "..");
-        shoudBeThis("{1,2,3,4,5,6,7,8,9}{1,3,2,6,7,5,4,12,13}" ,s);
+        shouldBeThis("{1,2,3,4,5,6,7,8,9}{1,3,2,6,7,5,4,12,13}" ,s);
     }
 
     @Test
@@ -1306,7 +1306,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "3.2 32 0.1 seq sin(x) swap f= 100*x swap f= 1 round";
         String s = check (code,".");
-        shoudBeThis("{-5.8,-15.8,-25.6,-35.1,-44.3,-53,-61.2,-68.8,-75.7,-81.8,-87.2,-91.6,-95.2,-97.8,-99.4,-100,-99.6,-98.2,-95.9,-92.6,-88.3,-83.2,-77.3,-70.6,-63.1,-55.1,-46.5,-37.4,-27.9,-18.2,-8.3,1.7}" ,s);
+        shouldBeThis("{-5.8,-15.8,-25.6,-35.1,-44.3,-53,-61.2,-68.8,-75.7,-81.8,-87.2,-91.6,-95.2,-97.8,-99.4,-100,-99.6,-98.2,-95.9,-92.6,-88.3,-83.2,-77.3,-70.6,-63.1,-55.1,-46.5,-37.4,-27.9,-18.2,-8.3,1.7}" ,s);
     }
 
 //    @Test
@@ -1322,7 +1322,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "10 4 binomial sp 49 6 binomial";
         String s = check (code,". sp .");
-        shoudBeThis("13983816 210" ,s);
+        shouldBeThis("13983816 210" ,s);
     }
 
     @Test
@@ -1330,7 +1330,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "10 0 do i dup tostr b64 swap m+ loop";
         String s = check (code,"mlist .");
-        shoudBeThis("0 --> MA==\n" +
+        shouldBeThis("0 --> MA==\n" +
                 "1 --> MQ==\n" +
                 "2 --> Mg==\n" +
                 "3 --> Mw==\n" +
@@ -1347,7 +1347,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "variable lala 123 lala ! 5 lala +!";
         String s = check (code,"lala ?");
-        shoudBeThis("128 " ,s);
+        shouldBeThis("128 " ,s);
     }
 
     @Test
@@ -1355,7 +1355,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "variable lala";
         String s = check (code,"lala ?");
-        shoudBeThis("0 " ,s);
+        shouldBeThis("0 " ,s);
     }
 
     @Test
@@ -1363,7 +1363,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "10 array lala 12 9 lala !";
         String s = check (code,"9 lala ?");
-        shoudBeThis("12 " ,s);
+        shouldBeThis("12 " ,s);
     }
 
     @Test
@@ -1371,7 +1371,7 @@ public class ForthTestCases extends TestBase
     {
         String code = "10 array lala : fill 10 0 do i 2 * i lala ! loop ; fill lala tonumlist";
         String s = check (code,".");
-        shoudBeThis("{0,2,4,6,8,10,12,14,16,18}" ,s);
+        shouldBeThis("{0,2,4,6,8,10,12,14,16,18}" ,s);
     }
 
     @Test
@@ -1380,7 +1380,7 @@ public class ForthTestCases extends TestBase
         String code = ": dl4 0 10 do 5 0 do i . j . cr 1 +loop cr -2 +loop ;";
         String s = check (code,"dl4");
         System.out.println(s);
-        shoudBeThis("010\r\n" +
+        shouldBeThis("010\r\n" +
                 "110\r\n" +
                 "210\r\n" +
                 "310\r\n" +
@@ -1422,10 +1422,10 @@ public class ForthTestCases extends TestBase
     {
         String code = ": dl4 0 10 do i . -2 +loop ;";
         String s = check (code,"dl4");
-        shoudBeThis("1086420" ,s);
+        shouldBeThis("1086420" ,s);
         code = ": dl5 10 0 do i . 2 +loop ;";
         s = check (code,"dl5");
-        shoudBeThis("02468" ,s);
+        shouldBeThis("02468" ,s);
     }
 
 
@@ -1438,7 +1438,7 @@ public class ForthTestCases extends TestBase
             System.out.println(s);
             s = textFileToString ("Programs/countDown.4th");
             s = check (s, null);
-            shoudBeThis("test of begin until\r\n" +
+            shouldBeThis("test of begin until\r\n" +
                     "25\r\n" +
                     "24\r\n" +
                     "23\r\n" +
@@ -1467,7 +1467,7 @@ public class ForthTestCases extends TestBase
                     "0\r\n\r\n",s);
             s = textFileToString ("Programs/factorial.4th");
             s = check (s, null);
-            shoudBeThis("value of 10 factorial: 3628800\r\n" ,s);
+            shouldBeThis("value of 10 factorial: 3628800\r\n" ,s);
             s = textFileToString ("Programs/loops.4th");
             s = check (s, null);
             System.out.println(s);
@@ -1482,7 +1482,7 @@ public class ForthTestCases extends TestBase
     {
         String code = ": test 10 0 do i dup tobits swap m+ loop ; test listsave msave";
         String s = check (code,"mlist .");
-        shoudBeThis("0 --> {0}\n" +
+        shouldBeThis("0 --> {0}\n" +
                 "1 --> {1}\n" +
                 "2 --> {1,0}\n" +
                 "3 --> {1,1}\n" +
@@ -1493,7 +1493,7 @@ public class ForthTestCases extends TestBase
                 "8 --> {1,0,0,0}\n" +
                 "9 --> {1,0,0,1}\n" ,s);
         s = check ("mclr listsave mload", "mlist .");
-        shoudBeThis("0 --> {0}\n" +
+        shouldBeThis("0 --> {0}\n" +
                 "1 --> {1}\n" +
                 "2 --> {1,0}\n" +
                 "3 --> {1,1}\n" +
@@ -1510,7 +1510,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("1234567 roman",".");
         System.out.println(s);
-        shoudBeThis("M̅C̅C̅X̅X̅X̅I̅V̅DLXVII", s);
+        shouldBeThis("M̅C̅C̅X̅X̅X̅I̅V̅DLXVII", s);
     }
 
     @Test
@@ -1518,7 +1518,7 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("11 0 do i roman . sp loop", null);
         System.out.println(s);
-        shoudBeThis(" I II III IV V VI VII VIII IX X ", s);
+        shouldBeThis(" I II III IV V VI VII VIII IX X ", s);
     }
 
     @Test
@@ -1526,23 +1526,23 @@ public class ForthTestCases extends TestBase
     {
         String s = check ("M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅M̅C̅C̅C̅X̅X̅X̅X̅V̅DCLXXVIII arab",".");
         System.out.println(s);
-        shoudBeThis("12345678", s);
+        shouldBeThis("12345678", s);
     }
 
     @Test
     public void testSumRec()
     {
         String s = check ("{5,3} 1/ sum 1/",".");
-        shoudBeThis("1.875", s);
+        shouldBeThis("1.875", s);
     }
 
     @Test
     public void testSpecialChars()
     {
         String s = check ("\\1234",".");
-        shoudBeThis("ʜ", s);
+        shouldBeThis("ʜ", s);
         s = check ("\\33lala\\77",".");
-        shoudBeThis("\33lala\77", s);
+        shouldBeThis("\33lala\77", s);
     }
 
 
@@ -1550,75 +1550,81 @@ public class ForthTestCases extends TestBase
     public void testSubSeq()
     {
         String s = check ("laladumm 3 6 subseq",".");
-        shoudBeThis("adu", s);
+        shouldBeThis("adu", s);
         s = check ("{2,3,4,5,6,7,8,9} 3 6 subseq",".");
-        shoudBeThis("{5,6,7}", s);
+        shouldBeThis("{5,6,7}", s);
         s = check ("{a,b,c,d,e,f,r,g,h} 3 6 subseq",".");
-        shoudBeThis("{\"d\",\"e\",\"f\"}", s);
+        shouldBeThis("{\"d\",\"e\",\"f\"}", s);
     }
 
     @Test
     public void testSeqOps()
     {
         String s = check ("{1,2} {1,2} -",".");
-        shoudBeThis("{}", s);
+        shouldBeThis("{}", s);
         s = check ("{x,y} {x,y} -",".");
-        shoudBeThis("{}", s);
+        shouldBeThis("{}", s);
         s = check ("{x,y} {1,2} -",".");
-        shoudBeThis("{\"x\",\"y\"}", s);
+        shouldBeThis("{\"x\",\"y\"}", s);
         s = check ("{1,2} {x,y} -",".");
-        shoudBeThis("{1,2}", s);
+        shouldBeThis("{1,2}", s);
         s = check ("{1,2} {} -",".");
-        shoudBeThis("{1,2}", s);
+        shouldBeThis("{1,2}", s);
         s = check ("{1,2} {} +",".");
-        shoudBeThis("{1,2}", s);
+        shouldBeThis("{1,2}", s);
         s = check ("{x,y} {} -",".");
-        shoudBeThis("{\"x\",\"y\"}", s);
+        shouldBeThis("{\"x\",\"y\"}", s);
         s = check ("{x,y} {} +",".");
-        shoudBeThis("{\"x\",\"y\"}", s);
+        shouldBeThis("{\"x\",\"y\"}", s);
         s = check ("{} {} +",".");
-        shoudBeThis("{}", s);
+        shouldBeThis("{}", s);
         s = check ("{} {} -",".");
-        shoudBeThis("{}", s);
+        shouldBeThis("{}", s);
         s = check ("{a,b,c} {\"a\",\"b\",\"c\"} -",".");
-        shoudBeThis("{}", s);
+        shouldBeThis("{}", s);
     }
 
     @Test
     public void testHumRead() {
         String s = check ("12345678 dup humbin swap humsi",". sp .");
-        shoudBeThis("12.3 MB 11.8 MiB", s);
+        shouldBeThis("12.3 MB 11.8 MiB", s);
     }
 
     @Test
     public void testGraph() {
         String s = check ("gout crc32 hash",".");
-        shoudBeThis("95113177", s); // white canvas
+        shouldBeThis("95113177", s); // white canvas
         s = check ("{255,0,0} gcolor {100,100,50,50} gbox gout crc32 hash",".");
-        shoudBeThis("1890457618", s); // little red box
+        shouldBeThis("1890457618", s); // little red box
     }
 
     @Test
     public void testQR() {
         String s = check ("helloWorld qr crc32 hash",".");
-        shoudBeThis("4277785947", s);
+        shouldBeThis("4277785947", s);
     }
 
     @Test
     public void testWavsInMemory() {
         String s = check ("\"+1234\" dtmf crc32 hash",".");
-        shoudBeThis("1382974991", s);
+        shouldBeThis("1382974991", s);
         s = check ("+sos morse crc32 hash",".");
-        shoudBeThis("1344292831", s);
+        shouldBeThis("1344292831", s);
         s = check ("+c4d4l3c4d4 tune crc32 hash",".");
-        shoudBeThis("3543203879", s);
+        shouldBeThis("3543203879", s);
         s = check ("1000 2000 sbeep crc32 hash",".");
-        shoudBeThis("1491943541", s);
+        shouldBeThis("1491943541", s);
     }
 
     @Test
     public void testJson() {
         String s = check ("2+3i json",".");
-        shoudBeThis("{\"imaginary\":3.0,\"real\":2.0}", s);
+        shouldBeThis("{\"imaginary\":3.0,\"real\":2.0}", s);
+    }
+
+    @Test
+    public void testQuotedString() {
+        String s = check ("\"hello world how ya doing?\"",".");
+        shouldBeThis ("hello world how ya doing?", s);
     }
 }
