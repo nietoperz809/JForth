@@ -1309,13 +1309,13 @@ public class ForthTestCases extends TestBase
         shouldBeThis("{-5.8,-15.8,-25.6,-35.1,-44.3,-53,-61.2,-68.8,-75.7,-81.8,-87.2,-91.6,-95.2,-97.8,-99.4,-100,-99.6,-98.2,-95.9,-92.6,-88.3,-83.2,-77.3,-70.6,-63.1,-55.1,-46.5,-37.4,-27.9,-18.2,-8.3,1.7}" ,s);
     }
 
-//    @Test
-//    public void testPlotter()
-//    {
-//        String code = "0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot";
-//        String s = check (code,".");
-//        System.out.println(s);
-//    }
+    @Test
+    public void testPlotter()
+    {
+        String code = "0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot crc32 hash";
+        String s = check (code,".");
+        shouldBeThis("219997675" ,s);
+    }
 
     @Test
     public void testBinomial()
