@@ -79,11 +79,11 @@ final class Graphics {
 
 /*
 500 500 imgscale
-{100,100,255} pclear
-{255,100,100} pcolor
-{300,300,200,200} pdisc
-pout .
+{100,100,255} gclear
+{255,100,100} gcolor
+{300,300,200,200} gdisc
+gout .
 
-500 500 imgscale 0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot .
+500 500 imgscale 0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap gplot .
 
  */

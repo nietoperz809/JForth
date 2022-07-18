@@ -2195,9 +2195,12 @@ class Filler1 {
                             }
                             if (o1 instanceof String) {
                                 String str = (String) o1;
-                                DoubleSequence ds = new DoubleSequence();
-                                for (int s = 0; s < str.length(); s++) {
-                                    ds.add((double) str.charAt(s));
+                                DoubleSequence ds = DoubleSequence.parseSequence(str, 10);
+                                if (ds == null) {
+                                    ds = new DoubleSequence();
+                                    for (int s = 0; s < str.length(); s++) {
+                                        ds.add((double) str.charAt(s));
+                                    }
                                 }
                                 dStack.push(ds);
                                 return 1;

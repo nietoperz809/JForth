@@ -58,20 +58,6 @@ public class Plot2D {
         return (double)Math.round(in * 100d) / 100d;
     }
 
-    public SerializableImage plot1() throws IOException {
-        imgbuff = makeImg(720, 480);
-        Graphics2D g2 = (Graphics2D) imgbuff.getGraphics(); //(Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setPaint(Color.green);
-        g2.setStroke(new BasicStroke(2));
-        int h2 = imgbuff.getHeight()/2;
-        int w2 = imgbuff.getWidth()/2;
-        g2.draw(new Line2D.Double(0, h2, imgbuff.getWidth(),h2));
-        g2.draw(new Line2D.Double(w2, 0, w2, imgbuff.getHeight()));
-        return new SerializableImage(imgbuff);
-    }
-
     public SerializableImage plot0() throws IOException {
         imgbuff = makeImg(720, 480);
         Graphics2D g2 = (Graphics2D) imgbuff.getGraphics(); //(Graphics2D) g;

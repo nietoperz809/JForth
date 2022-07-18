@@ -523,6 +523,15 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void TestNumList2()
+    {
+        String s = check ("\"{1,2,3,4}\" tonumlist dup type",
+                "..");
+        System.out.println(s);
+        shouldBeThis("DoubleSequence{1,2,3,4}" ,s);
+    }
+
+    @Test
     public void TestToMatrix()
     {
         String s = check ("{1,2,3} {4,5,6,7,8,9} {3,4,55,7,99} toM",

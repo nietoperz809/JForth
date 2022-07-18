@@ -641,7 +641,7 @@ public class Utilities {
         throw new Exception("no blob");
     }
 
-    private static BigInteger getBig(Object o1) throws Exception {
+    public static BigInteger getBig(Object o1) throws Exception {
         if (o1 instanceof BigInteger) {
             return (BigInteger) o1;
         }
