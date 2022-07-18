@@ -17,15 +17,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added plotter test">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="tonumlist can now parse number sequence strings">
+      <change afterPath="$PROJECT_DIR$/src/jforth/MixedSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/MyWinApi.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Plot2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Plot2D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -459,7 +455,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.TestNuList2">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -730,11 +726,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.TestNuList2" />
         <item itemvalue="JUnit.ForthTestCases.TestMatrixToList" />
         <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases.testPlotter" />
-        <item itemvalue="JUnit.ForthTestCases" />
       </list>
     </recent_temporary>
   </component>
@@ -838,13 +834,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00312" summary="&quot;collect&quot; can now handle fractions">
-      <created>1627575718421</created>
-      <option name="number" value="00312" />
-      <option name="presentableId" value="LOCAL-00312" />
-      <option name="project" value="LOCAL" />
-      <updated>1627575718421</updated>
     </task>
     <task id="LOCAL-00313" summary="fixed scatter word (scat) + test">
       <created>1627631560680</created>
@@ -1182,7 +1171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657674713871</updated>
     </task>
-    <option name="localTasksCounter" value="361" />
+    <task id="LOCAL-00361" summary="tonumlist can now parse number sequence strings">
+      <created>1658114531239</created>
+      <option name="number" value="00361" />
+      <option name="presentableId" value="LOCAL-00361" />
+      <option name="project" value="LOCAL" />
+      <updated>1658114531239</updated>
+    </task>
+    <option name="localTasksCounter" value="362" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1283,7 +1279,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="put missing libs in lib folder" />
     <MESSAGE value="sam is now speaking over http" />
     <MESSAGE value="save" />
     <MESSAGE value="backup" />
@@ -1308,15 +1303,16 @@
     <MESSAGE value="libs added" />
     <MESSAGE value="fixed quoted string bug and added regarding test case." />
     <MESSAGE value="added plotter test" />
-    <option name="LAST_COMMIT_MESSAGE" value="added plotter test" />
+    <MESSAGE value="tonumlist can now parse number sequence strings" />
+    <option name="LAST_COMMIT_MESSAGE" value="tonumlist can now parse number sequence strings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/tools/Utilities.java</url>
-          <line>644</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
+          <line>292</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
