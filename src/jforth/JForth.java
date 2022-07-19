@@ -317,63 +317,7 @@ public class JForth {
             action.apply(mx);
             return true;
         }
-        Long num = Utilities.parseLong(input, base);
-        if (num != null) {
-            action.apply(num);
-            return true;
-        }
-        BigInteger big = Utilities.parseBigInt(input, base);
-        if (big != null) {
-            action.apply(big);
-            return true;
-        }
-        Double dnum = Utilities.parseDouble(input, base);
-        if (dnum != null) {
-            action.apply(dnum);
-            return true;
-        }
-        Complex co = Utilities.parseComplex(input, base);
-        if (co != null) {
-            action.apply(co);
-            return true;
-        }
-        Fraction fr = Utilities.parseFraction(input, base);
-        if (fr != null) {
-            action.apply(fr);
-            return true;
-        }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(input, base);
-        if (ma != null) {
-            action.apply(ma);
-            return true;
-        }
-        DoubleSequence lo = DoubleSequence.parseSequence(input, base);
-        if (lo != null) {
-            action.apply(lo);
-            return true;
-        }
-        FracSequence fs = FracSequence.parseSequence(input);
-        if (fs != null) {
-            action.apply(fs);
-            return true;
-        }
-        StringSequence ss = StringSequence.parseSequence(input);
-        if (ss != null) {
-            action.apply(ss);
-            return true;
-        }
-        String ws = Utilities.parseString(input);
-        if (ws != null) {
-            action.apply(ws);
-            return true;
-        }
-        double[] pd = PolynomialParser.parsePolynomial(input, base);
-        if (pd != null) {
-            PolynomialFunction plf = new PolynomialFunction(pd);
-            action.apply(plf);
-            return true;
-        }
-        return false;
+        return doForKnownWordsUnmixed(input, action, base);
     }
 
     private void setLastError(Exception e)
