@@ -1897,7 +1897,12 @@ class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.peek();
-                            dStack.push(o1.getClass().getSimpleName());
+                            String res;
+                            if (o1 instanceof MixedSequence)
+                                res = ((MixedSequence)o1).types();
+                            else
+                                res = o1.getClass().getSimpleName();
+                            dStack.push(res);
                             return 1;
                         }
                 ));

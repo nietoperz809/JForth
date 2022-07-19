@@ -1636,4 +1636,22 @@ public class ForthTestCases extends TestBase
         String s = check ("\"hello world how ya doing?\"",".");
         shouldBeThis ("hello world how ya doing?", s);
     }
+
+    @Test
+    public void testMixedSeq() {
+        String s = check ("{{1,2,3};{peter,ist,lieb};\"motha,fucka\";\"mothafucka\";3+4i;1103;2/4}",".");
+        shouldBeThis ("{{1,2,3};{\"peter\",\"ist\",\"lieb\"};\"motha,fucka\";\"mothafucka\";3+4i;1103;1/2}", s);
+    }
+
+    @Test
+    public void testMixedSeqType() {
+        String s = check ("{{1,2,3};{peter,ist,lieb};\"motha,fucka\";\"mothafucka\";3+4i;1103;2/4;0.666;{1/2,1/6}} type",".");
+        shouldBeThis ("{DoubleSequence,StringSequence,String,String,Complex,Long,Fraction,Double,FracSequence}", s);
+    }
+
+    @Test
+    public void testMixedSeq2() {
+        String s = check ("{\"lala\";12}",".");
+        shouldBeThis ("{\"lala\";12}", s);
+    }
 }

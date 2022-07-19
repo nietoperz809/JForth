@@ -1,7 +1,7 @@
 **JForth**
 ----------
 
-This is a pretty complete Forth interpreter that supports also loops and various data types.
+This is a pretty bloated Forth interpreter that supports also loops and various data types.
 
 The original code is from: http://linuxenvy.com/bprentice/JForth/
 
@@ -44,6 +44,13 @@ DoubeMatrix
 StringSequence
 > Ex: {a,b,hello,666}
 
+FracSequence
+> Ex: {1/2,22,7}
+
+MixedSequence
+> Ex: {"hello";{1,2,3};0.123;7;3x-8}
+> note the ';' as delimiter.
+
 PolynomialFunction
 > Ex: 2x^3-x^2+7x-9 
 
@@ -55,9 +62,9 @@ Fraction
 
 String
 > "hello"   
->hello ( without quotes if not defined as forthword)
+> or hello (without quotes) if not defined as forthword)
 
-Comment
+Comment (not a real data type)
 > ( a comment: open bracket, space, text, close bracket)   
 >( another comment: open bracket, space, text, space, close bracket )   
 >\\ comment out everything until line end
@@ -68,8 +75,9 @@ Predefined Words
 ------------------------------
 
 <pre>
- OK
+
 JFORTH> wordsd .
+
 !               -- Store value into variable or array
 '               -- Push word from dictionary onto stack
 (               -- Begin comment
@@ -147,7 +155,7 @@ CLOSEWRITER     -- Close file
 CLS             -- clear screen
 COLLECT         -- collects all numbers or strings from stack into sequence
 COMPLEX         -- Create a complex from 2 numbers
-CONJ            -- Conjugate of complex or fraction
+CONJ            -- Conjugate of complex or MyFraction
 CONSTANT        -- create new Constant
 COS             -- Cosine
 COSH            -- Cosinus hyperbolicus
@@ -172,6 +180,7 @@ ERR             -- Put last error message onto stack
 EXECUTE         -- executes word from stack
 EXP             -- E^x
 F'=             -- Derive a polynomial
+F2=             -- evaluate term with 2 arguments
 F2L             -- frequency to wave length & vice versa
 F=              -- evaluate term
 FACT            -- Factorial
@@ -183,29 +192,29 @@ FLUSH           -- pops and shows whole stack
 FONT            -- set font
 FORGET          -- Delete word from dictionary
 FORTH           -- execute forth line asynchronously
-FRACTION        -- Create a fraction from 2 Numbers
 FRACTRAN        -- Run Fractran language
+FREE            -- Get anount of free heap mmeory
 GAMMA           -- Gamma funcction
 GAUSSIAN        -- Gaussian random number
-GBOX            -- draw box
+GBOX            -- (Graphics) draw box
 GCD             -- Greates common divisor
-GCIRCLE         -- draw circle
-GCLEAR          -- clear canvas
-GCOLOR          -- set drawing color
-GDISC           -- draw disc
-GDRAWTO         -- draw line from prev x/y to new x/y
+GCIRCLE         -- (Graphics) draw circle
+GCLEAR          -- (Graphics) clear canvas
+GCOLOR          -- (Graphics) set drawing color
+GDISC           -- (Graphics) draw disc
+GDRAWTO         -- (Graphics) draw line from prev x/y to new x/y
 GETBLOB         -- read blob into memory
 GF*             -- Galois multiplication of TOS and TOS-1
 GF+             -- Galois addition TOS-1 + TOS
 GF-             -- Galois subtraction TOS-1 - TOS
 GF/             -- Galois division TOS-1 by TOS
-GLINE           -- draw line
+GLINE           -- (Graphics) draw line
 GMEAN           -- Geometric mean
-GOUT            -- put canvas onto stack
-GPLOT           -- plot x/y
+GOUT            -- (Graphics) put canvas onto stack
+GPLOT           -- (Graphics) plot x/y
 GRAY            -- make gray code
-GRECT           -- draw rectangle
-GSTAMP          -- draw image to canvas
+GRECT           -- (Graphics) draw rectangle
+GSTAMP          -- (Graphics) draw image to canvas
 HASH            -- generate hash string
 HEX             -- Set number base to 16
 HEXSTR          -- Make hex string
@@ -225,11 +234,14 @@ ISWAP           -- mirrors an image
 J               -- put loop variable j on stack
 JAVA            -- compile and run java class
 JS              -- evaluate js expression string
+JSON            -- Convert to JSON
+JSON2           -- Convert to JSON
 KEY             -- Get key from keyboard
 LAGPOLY         -- Make lagrange polynomial sequence of Points
 LCM             -- Least common multiple
 LEAVE           -- Terminate the loop immediately
 LENGTH          -- Get length of what is on the stack
+LFONTS          -- Show all system fonts
 LIST            -- Put program in editor on stack
 LN              -- Natural logarithm
 LOADIMG         -- load Image from Disk
@@ -259,6 +271,7 @@ MORSE           -- play Morse code
 MORSETXT        -- translate to Morse alphabet
 MSAVE           -- save global array to file
 MSG             -- Show message box
+MYFRACTION      -- Create a MyFraction from 2 Numbers
 NAMEBLOB        -- rename existing blob
 NIP             -- same as swap+drop
 NOT             -- Gives 0 if TOS is not 0, otherwise 1
@@ -267,6 +280,7 @@ OPENREADER      -- Open file
 OPENWRITER      -- Open file for Writing
 OR              -- Binary or of 2 values
 OVER            -- Copy TOS-1 to TOS
+PDIFF           -- calculate percentual difference
 PERCENT         -- calculate x percent of y
 PERMUTE         -- Generate permutation
 PHI             -- Phi of complex number
@@ -301,6 +315,7 @@ RUNFILE         -- run program file
 SAM             -- speak with SAM voice
 SAVEIMG         -- save Image to Disk
 SAY             -- speak a string
+SBEEP           -- put single tone on stack
 SCAT            -- desintegrate sequence onto stack
 SEQ             -- generate sequence
 SETBASE         -- Set a new number base
@@ -332,7 +347,7 @@ TOCHAR          -- make character from numeric value
 TOCOMPLEX       -- convert to Complex
 TODLIST         -- Create List of digits
 TODOUBLE        -- Make double value of what is on the stack
-TOFRACTION      -- Make fraction from value on the stack
+TOFRACTION      -- Make Fraction from value on the stack
 TOLONG          -- Make long values of what is on the stack
 TOM             -- Make Matrix from Sequences
 TONUMLIST       -- Make number list of what is on the stack

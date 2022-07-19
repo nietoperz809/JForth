@@ -7,33 +7,44 @@ import tools.Utilities;
 import java.util.ArrayList;
 
 /*
- {{1,2,3};{peter,ist,lieb};"motha,fucka";"mothafucka";3+4i;1103;2/4}
+ {{1,2,3};{peter,ist,lieb};"motha,fucka";"mothafucka";3+4i;1103;2/4;0.666;{1/2,1/6}}
  */
 
 public class MixedSequence extends SequenceBase {
 
     public static MixedSequence parseSequence (String in) {
         if (in.startsWith("{") && in.endsWith("}")) {
-            MixedSequence ms = new MixedSequence();
             in = Utilities.extractSequence (in);
             String[] parts = split(in);
             if (parts == null)
                 return null;
+            MixedSequence ms = new MixedSequence();
             for (String s : parts) {
-                JForth.doForKnownWords (s, ms._list::add, 10);
+                JForth.doForKnownWordsUnmixed (s, ms._list::add, 10);
             }
             return ms;
         }
         return null;
     }
 
-    @Override
-    public String toString ()
-    {
+    public String types() {
         StringBuilder sb = new StringBuilder ();
         sb.append ('{');
-        for (int x = 0; x < _list.size (); x++)
-        {
+        for (int x = 0; x < _list.size (); x++) {
+            Object o = _list.get(x);
+            sb.append (o.getClass().getSimpleName());
+            if (x < _list.size()-1)
+                sb.append (",");
+        }
+        sb.append ('}');
+        return sb.toString ();
+    }
+
+    @Override
+    public String toString () {
+        StringBuilder sb = new StringBuilder ();
+        sb.append ('{');
+        for (int x = 0; x < _list.size (); x++) {
             Object o = _list.get(x);
             String s1 = Utilities.makePrintable(o, 10);
             if (o instanceof String)
@@ -41,8 +52,7 @@ public class MixedSequence extends SequenceBase {
             sb.append (s1);
             if (o instanceof String)
                 sb.append("\"");
-            if (x != _list.size () - 1)
-            {
+            if (x != _list.size () - 1) {
                 sb.append (";");
             }
         }
