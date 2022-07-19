@@ -2,11 +2,11 @@ package jforth;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory;
+import guishell.JfTerminalPanel;
 import jforth.forthwords.PredefinedWords;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import guishell.JfTerminalPanel;
 import tools.FileUtils;
 import tools.Func;
 import tools.Utilities;

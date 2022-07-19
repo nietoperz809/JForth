@@ -17,11 +17,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="tonumlist can now parse number sequence strings">
-      <change afterPath="$PROJECT_DIR$/src/jforth/MixedSequence.java" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="tring MixedSequence datatype">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/FracSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/FracSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/MixedSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/MixedSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -641,6 +646,15 @@
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
       </method>
     </configuration>
+    <configuration name="All in JForth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -651,33 +665,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestMatrixToList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestFracCollect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestMatrixToList" />
+      <option name="METHOD_NAME" value="TestFracCollect" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestNuList2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestStrSeqFact" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestNuList2" />
+      <option name="METHOD_NAME" value="TestStrSeqFact" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testPlotter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.testRev2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testPlotter" />
+      <option name="METHOD_NAME" value="testRev2" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -690,10 +704,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="JForthGui.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar" />
-      <method v="2" />
     </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
@@ -718,19 +728,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JAR Application.JForthGui.jar" />
-      <item itemvalue="JUnit.ForthTestCases.TestNuList2" />
-      <item itemvalue="JUnit.ForthTestCases.TestMatrixToList" />
-      <item itemvalue="JUnit.ForthTestCases.testPlotter" />
+      <item itemvalue="JUnit.All in JForth" />
+      <item itemvalue="JUnit.ForthTestCases.TestFracCollect" />
+      <item itemvalue="JUnit.ForthTestCases.TestStrSeqFact" />
+      <item itemvalue="JUnit.ForthTestCases.testRev2" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.TestNuList2" />
-        <item itemvalue="JUnit.ForthTestCases.TestMatrixToList" />
-        <item itemvalue="JAR Application.JForthGui.jar" />
-        <item itemvalue="JUnit.ForthTestCases.testPlotter" />
+        <item itemvalue="JUnit.ForthTestCases.TestFracCollect" />
+        <item itemvalue="JUnit.ForthTestCases.testRev2" />
+        <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="JUnit.ForthTestCases.TestStrSeqFact" />
       </list>
     </recent_temporary>
   </component>
@@ -834,13 +844,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00313" summary="fixed scatter word (scat) + test">
-      <created>1627631560680</created>
-      <option name="number" value="00313" />
-      <option name="presentableId" value="LOCAL-00313" />
-      <option name="project" value="LOCAL" />
-      <updated>1627631560711</updated>
     </task>
     <task id="LOCAL-00314" summary="new jar">
       <created>1627631756834</created>
@@ -1178,7 +1181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658114531239</updated>
     </task>
-    <option name="localTasksCounter" value="362" />
+    <task id="LOCAL-00362" summary="tring MixedSequence datatype">
+      <created>1658157824214</created>
+      <option name="number" value="00362" />
+      <option name="presentableId" value="LOCAL-00362" />
+      <option name="project" value="LOCAL" />
+      <updated>1658157824214</updated>
+    </task>
+    <option name="localTasksCounter" value="363" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1279,7 +1289,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="sam is now speaking over http" />
     <MESSAGE value="save" />
     <MESSAGE value="backup" />
     <MESSAGE value="dtmf * morse can be played in browser" />
@@ -1304,15 +1313,31 @@
     <MESSAGE value="fixed quoted string bug and added regarding test case." />
     <MESSAGE value="added plotter test" />
     <MESSAGE value="tonumlist can now parse number sequence strings" />
-    <option name="LAST_COMMIT_MESSAGE" value="tonumlist can now parse number sequence strings" />
+    <MESSAGE value="tring MixedSequence datatype" />
+    <option name="LAST_COMMIT_MESSAGE" value="tring MixedSequence datatype" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/JForth.java</url>
-          <line>292</line>
-          <option name="timeStamp" value="11" />
+          <url>file://$PROJECT_DIR$/src/jforth/MixedSequence.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tools/Utilities.java</url>
+          <line>990</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tools/Utilities.java</url>
+          <line>313</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tools/Utilities.java</url>
+          <line>977</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -104,6 +104,8 @@ public class DoubleMatrix extends BlockRealMatrix implements java.io.Serializabl
             for (int s=0; s<rows.length; s++)
             {
                 mtd[s] = parseCSVtoDoubleArray(rows[s]);
+                if (mtd[s] == null)
+                    return null;
                 if (mtd[s].length>max)
                     max = mtd[s].length;
             }

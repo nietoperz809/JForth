@@ -67,7 +67,8 @@ public class FracSequence extends SequenceBase<Fraction> implements java.io.Seri
         sb.append ('{');
         for (int x = 0; x < _list.size (); x++)
         {
-            String s1 = Utilities.formatFraction(_list.get(x));
+            Fraction fr = _list.get(x);
+            String s1 = Utilities.formatFraction(fr);
             sb.append (s1);
             if (x != _list.size () - 1)
             {

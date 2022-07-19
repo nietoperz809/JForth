@@ -951,7 +951,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord   //
                 (
-                        "conj", "Conjugate of complex or fraction",
+                        "conj", "Conjugate of complex or MyFraction",
                         (dStack, vStack) ->
                         {
                             Object o1 = dStack.pop();
@@ -1729,7 +1729,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "fraction", "Create a fraction from 2 Numbers",
+                        "MyFraction", "Create a MyFraction from 2 Numbers",
                         (dStack, vStack) ->
                         {
                             try {
@@ -1941,7 +1941,7 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "toFraction", "Make fraction from value on the stack",
+                        "toFraction", "Make Fraction from value on the stack",
                         (dStack, vStack) ->
                         {
                             try {
@@ -2403,7 +2403,7 @@ class Filler1 {
                             } else if (o1 instanceof Double) {
                                 dStack.push(Double.toString((Double) o1));
                             } else if (o1 instanceof Fraction) {
-                                dStack.push(Utilities.formatFraction((Fraction) o1));
+                                dStack.push(((Fraction) o1).toString());
                             } else if (o1 instanceof Complex) {
                                 dStack.push(Utilities.formatComplex((Complex) o1));
                             } else if (o1 instanceof DoubleSequence) {

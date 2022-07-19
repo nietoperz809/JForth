@@ -2,46 +2,109 @@ package jforth;
 
 // TODO: experimental class
 
-public class MixedSequence extends SequenceBase<String> {
+import tools.Utilities;
+
+import java.util.ArrayList;
+
+/*
+ {{1,2,3};{peter,ist,lieb};"motha,fucka";"mothafucka";3+4i;1103;2/4}
+ */
+
+public class MixedSequence extends SequenceBase {
 
     public static MixedSequence parseSequence (String in) {
         if (in.startsWith("{") && in.endsWith("}")) {
-            in = in.substring(1,in.length()-1);
-            System.out.println(in);
-            System.out.println(parse (in));
+            MixedSequence ms = new MixedSequence();
+            in = Utilities.extractSequence (in);
+            String[] parts = split(in);
+            if (parts == null)
+                return null;
+            for (String s : parts) {
+                JForth.doForKnownWords (s, ms._list::add, 10);
+            }
+            return ms;
         }
         return null;
     }
 
-    private static String parse (String in) {
-        int state = 0;
+    @Override
+    public String toString ()
+    {
+        StringBuilder sb = new StringBuilder ();
+        sb.append ('{');
+        for (int x = 0; x < _list.size (); x++)
+        {
+            Object o = _list.get(x);
+            String s1 = Utilities.makePrintable(o, 10);
+            if (o instanceof String)
+                sb.append("\"");
+            sb.append (s1);
+            if (o instanceof String)
+                sb.append("\"");
+            if (x != _list.size () - 1)
+            {
+                sb.append (";");
+            }
+        }
+        sb.append ('}');
+        return sb.toString ();
+    }
+
+    private enum State {OUT, CURLY, QUOTE}
+
+    /**
+     * Split whole input into parts
+     * @param in e.g.: {{1,2,3};{peter,ist,lieb};"motha,fucka";"mothafucka";3+4i;1103;2/4}
+     *           or: {{1/2,3/4};hello}
+     * @return Array of substrings
+     */
+    private static String[] split(String in) {
+        State inQuote = State.OUT;
+        int semiColons = 0;
         StringBuilder sb = new StringBuilder();
+        ArrayList<String> arl = new ArrayList<>();
         for (char c : in.toCharArray()) {
-            switch (state) {
-                case 0:
-                    if (c == '{') {
-                        state = 1;
-                        break;
-                    }
-                    if (c == '\"') {
-                        state = 2;
+            switch (inQuote) {
+                case OUT:
+                    if (c == ';') {
+                        semiColons++;
+                        if (sb.length() > 0) {
+                            arl.add(sb.toString());
+                            sb.setLength(0);
+                        }
                         break;
                     }
                     sb.append(c);
-                case 1:
-                    if (c == '}' && state == 1) {
-                        state = 0;
-                        break;
+                    if (c == '{') {
+                        inQuote = State.CURLY;
                     }
-                case 2:
-                    if (c == '\"' && state == 2) {
-                        state = 0;
-                        break;
+                    if (c == '\"') {
+                        inQuote = State.QUOTE;
                     }
-
-
+                    break;
+                case CURLY:
+                    sb.append(c);
+                    if (c == '}') {
+                        inQuote = State.OUT;
+                        arl.add(sb.toString());
+                        sb.setLength(0);
+                    }
+                    break;
+                case QUOTE:
+                    sb.append(c);
+                    if (c == '\"') {
+                        inQuote = State.OUT;
+                        arl.add(sb.toString());
+                        sb.setLength(0);
+                    }
+                    break;
             }
         }
-        return sb.toString();
+        if (semiColons == 0) // no mixedSeq
+            return null;
+        if (sb.length() > 0)
+            arl.add(sb.toString());
+        return arl.toArray(new String[0]);
     }
+
 }

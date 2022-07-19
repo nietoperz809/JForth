@@ -209,35 +209,13 @@ public class Utilities {
         return String.format("%d:%02d:%02d", h, m, s);
     }
 
-//    public static byte[] toRawByteArray (String in)
-//    {
-//        char[] chars = in.toCharArray ();
-//        byte[] bytes = new byte[chars.length * 2];
-//        for (int i = 0; i < chars.length; i++)
-//        {
-//            bytes[i * 2] = (byte) (chars[i] >> 8);
-//            bytes[i * 2 + 1] = (byte) chars[i];
-//        }
-//        return bytes;
-//    }
-//
-//    public static char[] fromRawByteArray (byte[] bytes)
-//    {
-//        char[] chars2 = new char[bytes.length / 2];
-//        for (int i = 0; i < chars2.length; i++)
-//        {
-//            chars2[i] = (char) ((bytes[i * 2] << 8) + (bytes[i * 2 + 1] & 0xFF));
-//        }
-//        return chars2;
-//    }
-
     public static void terminateSoon(int delay) {
         new Thread(() ->
         {
             try {
-                Thread.sleep(delay);
+                TimeUnit.MILLISECONDS.sleep(delay);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             System.exit(0);
         }).start();
@@ -333,9 +311,6 @@ public class Utilities {
     }
 
     public static String formatFraction(Fraction f) {
-//        if (f.getDenominator() == 1) {
-//            return "" + f.getNumerator();
-//        }
         return f.getNumerator() + "/" + f.getDenominator();
     }
 
@@ -611,8 +586,8 @@ public class Utilities {
             return ((Integer)o).longValue();
         }
         if (o instanceof Fraction) {
-            int denom = ((Fraction) o).getDenominator();
-            int nume = ((Fraction) o).getNumerator();
+            int denom = (int) ((Fraction) o).getDenominator();
+            int nume = (int) ((Fraction) o).getNumerator();
             if (nume % denom == 0) {
                 return nume / denom;
             }
@@ -1013,7 +988,7 @@ public class Utilities {
         } else if (o instanceof Complex) {
             return Utilities.formatComplex((Complex) o);
         } else if (o instanceof Fraction) {
-            return Utilities.formatFraction((Fraction) o);
+            return Utilities.formatFraction((Fraction)o);
         } else if (o instanceof String) {
             return StringEscape.unescape((String) o);
         } else if (o instanceof PolynomialFunction) {
