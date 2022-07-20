@@ -74,19 +74,12 @@ public class WordHelpers {
             dStack.push(i2);
             return 1;
         }
-        if (o1 instanceof SequenceBase)
-        {
-            if (((SequenceBase<?>) o1).length() == 0)
-            {
-                dStack.push(o2);
-                return 1;
-            }
-        }
-        if (o2 instanceof SequenceBase)
-        {
-            if (((SequenceBase<?>) o2).length() == 0)
-            {
-                dStack.push(o1);
+        if (o2 instanceof MixedSequence) {
+            MixedSequence s2 = (MixedSequence) o2;
+            if (o1 instanceof SequenceBase) {
+                SequenceBase<?> s1 = (SequenceBase<?>) o1;
+                s2.get_list().addAll(s1.get_list());
+                dStack.push(s2);
                 return 1;
             }
         }
@@ -118,6 +111,16 @@ public class WordHelpers {
         } else if (o1 instanceof String) {
             String s = pred._jforth.makePrintable(o2) + o1;
             dStack.push(s);
+        } else if (o1 instanceof SequenceBase) {
+            if (((SequenceBase<?>) o1).length() == 0) {
+                dStack.push(o2);
+            }
+        } else if (o2 instanceof SequenceBase) {
+            if (((SequenceBase<?>) o2).length() == 0) {
+                dStack.push(o1);
+            }
+            ((SequenceBase) (o2)).addOne(o1);
+            dStack.push(o2);
         } else {
             return 0;
         }
@@ -265,7 +268,7 @@ public class WordHelpers {
         } catch (Exception ignored) {
         }
         try {
-            SerializableImage img = (SerializableImage)o2;
+            SerializableImage img = (SerializableImage) o2;
             Double factor = Utilities.getDouble(o1);
             dStack.push(img.resizeImage(factor));
             return 1;
@@ -350,7 +353,7 @@ public class WordHelpers {
         } else if (o2 instanceof String && o1 instanceof String) {
             StringSequence ss2 = new StringSequence(((String) o2).toCharArray());
             StringSequence ss1 = new StringSequence(((String) o1).toCharArray());
-            dStack.push(((StringSequence)ss2.difference(ss1)).asString());
+            dStack.push(((StringSequence) ss2.difference(ss1)).asString());
         } else if (o2 instanceof String && o1 instanceof Long) {
             String s = (String) o2;
             int l = ((Long) o1).intValue();

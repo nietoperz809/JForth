@@ -1654,4 +1654,23 @@ public class ForthTestCases extends TestBase
         String s = check ("{\"lala\";12}",".");
         shouldBeThis ("{\"lala\";12}", s);
     }
+
+    @Test
+    public void testMixedSeq3() {
+        String s = check ("{1/2;20)",".");
+        shouldBeThis ("{1/2;20)", s);
+    }
+
+    @Test
+    public void testMixedAdd() {
+        String s = check ("{1;0.1} {2,3} +",".");
+        shouldBeThis ("{1;0.1;2;3}", s);
+        s = check ("{1;0.1} {1/2} +",".");
+        shouldBeThis ("{1;0.1;1/2}", s);
+        s = check ("{\"a\";\"b\";\"c\"} {\"d\";\"e\";\"f\"} +",".");
+        shouldBeThis ("{\"a\";\"b\";\"c\";\"d\";\"e\";\"f\"}", s);
+        s = check ("{a;b;c} {d;e;f} +",".");
+        shouldBeThis ("{\"a\";\"b\";\"c\";\"d\";\"e\";\"f\"}", s);
+    }
+
 }

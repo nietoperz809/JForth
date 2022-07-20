@@ -12,6 +12,35 @@ import java.util.ArrayList;
 
 public class MixedSequence extends SequenceBase {
 
+    private MixedSequence() {
+
+    }
+//
+//    public MixedSequence (String[] in)
+//    {
+//        for (int s=0; s<in.length; s++) {
+//            boolean ret = JForth.doForKnownWordsUnmixed(in[s], this._list::add, 10);
+//            if (!ret)
+//                _list.add(in[s]);
+//        }
+//    }
+//
+//    public MixedSequence (String csv)
+//    {
+//        this (csv.split (";"));
+//    }
+//
+//    public static MixedSequence parseSequence (String in)
+//    {
+//        String seq = Utilities.extractSequence (in);
+//        if (seq == null)
+//        {
+//            return null;
+//        }
+//        return new MixedSequence (seq);
+//    }
+//
+
     public static MixedSequence parseSequence (String in) {
         if (in.startsWith("{") && in.endsWith("}")) {
             in = Utilities.extractSequence (in);
@@ -20,7 +49,9 @@ public class MixedSequence extends SequenceBase {
                 return null;
             MixedSequence ms = new MixedSequence();
             for (String s : parts) {
-                JForth.doForKnownWordsUnmixed (s, ms._list::add, 10);
+                boolean ret = JForth.doForKnownWordsUnmixed (s, ms._list::add, 10);
+                if (!ret)
+                    ms._list.add(s); // raw strings
             }
             return ms;
         }
