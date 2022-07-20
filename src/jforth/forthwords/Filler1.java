@@ -959,7 +959,7 @@ class Filler1 {
                                 Complex d1 = (Complex) o1;
                                 dStack.push(d1.conjugate());
                             }
-                            if (o1 instanceof Fraction) {
+                            else if (o1 instanceof Fraction) {
                                 Fraction d1 = (Fraction) o1;
                                 dStack.push(d1.reciprocal());
                             } else {

@@ -1673,4 +1673,23 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("{\"a\";\"b\";\"c\";\"d\";\"e\";\"f\"}", s);
     }
 
+    @Test
+    public void testConjugate() {
+        String s = check ("22/7 conj",".");
+        shouldBeThis ("7/22", s);
+        s = check ("4+0.5i conj",".");
+        shouldBeThis ("4-0.5i", s);
+    }
+
+    @Test
+    public void testInvComplexAndMult() {
+        String s = check ("3+4i dup 1/ dup rot dup rot *",". sp . sp .");
+        shouldBeThis ("1 3+4i 0.12-0.16i", s);
+    }
+
+    @Test
+    public void testComplexdiv() {
+        String s = check ("2+3i 1+1i /",".");
+        shouldBeThis ("2.5+0.5i", s);
+    }
 }
