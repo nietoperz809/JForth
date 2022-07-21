@@ -1692,4 +1692,10 @@ public class ForthTestCases extends TestBase
         String s = check ("2+3i 1+1i /",".");
         shouldBeThis ("2.5+0.5i", s);
     }
+
+    @Test
+    public void testComplexPolar() {
+        String s = check ("5+2i c2p p2c 3 round",".");
+        shouldBeThis ("5+2i", s);
+    }
 }

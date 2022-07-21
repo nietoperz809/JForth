@@ -6,6 +6,7 @@ import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.MusicTones;
 import jforth.audio.SynthToneBase;
 import jforth.audio.WaveTools;
+import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.mathIT.util.FunctionParser;
 import tools.*;
@@ -34,6 +35,7 @@ import java.util.zip.CRC32;
 import static java.lang.System.currentTimeMillis;
 import static jforth.audio.DtmfMorsePlayer.*;
 import static jforth.audio.MusicTones.putSongIntoMemory;
+import static org.apache.commons.math3.complex.ComplexUtils.polar2Complex;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
@@ -1977,6 +1979,43 @@ class Filler2 {
                                     }
                                 }
                                 dStack.push(ret);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "c2p", "get polar representaton of complex number",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Complex c = Utilities.readComplex(dStack);
+                                double r = Math.sqrt(c.getReal()*c.getReal()+c.getImaginary()+c.getImaginary());
+                                double a = Math.atan(c.getImaginary()/c.getReal());
+                                DoubleSequence res = new DoubleSequence(r,a);
+                                dStack.push(res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "p2c", "convert polar representation to complex number",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                if (ds.length() != 2) {
+                                    throw new RuntimeException("ds length != 2");
+                                }
+                                Complex c = polar2Complex (ds.pick(0), ds.pick(1));
+                                dStack.push(c);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
