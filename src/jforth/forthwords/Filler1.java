@@ -2254,15 +2254,19 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "toPoly", "Make polynomial from doubleSequence",
+                        "toPoly", "Make polynomial from doubleSequence or string",
                         (dStack, vStack) ->
                         {
+                            PolynomialFunction p = null;
                             Object o = dStack.pop();
-                            if (!(o instanceof DoubleSequence)) {
-                                return 0;
+                            if (o instanceof DoubleSequence) {
+                                 p = new PolynomialFunction(((DoubleSequence) o).asPrimitiveArray());
                             }
-                            PolynomialFunction p =
-                                    new PolynomialFunction(((DoubleSequence) o).asPrimitiveArray());
+                            else if (o instanceof String) {
+                                p = new PolynomialFunction(PolynomialParser.parsePolynomial((String)o, 10));
+                            }
+                            if (p == null)
+                                return 0;
                             dStack.push(p);
                             return 1;
                         }
@@ -3617,6 +3621,36 @@ class Filler1 {
                             try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 dStack.push(o.prod());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "variance", "get variance of sequence",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.variance());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "normalize", "Normalize the seq, so it has a mean of 0 and a standard deviation of 1",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.normalize());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

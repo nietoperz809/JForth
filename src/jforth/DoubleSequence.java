@@ -6,6 +6,7 @@ import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoint;
 import org.apache.commons.math3.fraction.Fraction;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
@@ -281,6 +282,12 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return new Product().evaluate (this.asPrimitiveArray());
     }
 
+    public double variance()
+    {
+        return StatUtils.variance(this.asPrimitiveArray());
+    }
+
+
     public DoubleSequence reciprocals()
     {
         DoubleSequence ret = new DoubleSequence();
@@ -378,5 +385,10 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         }
         sb.append('}');
         return sb.toString();
+    }
+
+    public DoubleSequence normalize() {
+        double[] arr = StatUtils.normalize(asPrimitiveArray());
+        return new DoubleSequence(arr);
     }
 }

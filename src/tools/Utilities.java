@@ -535,17 +535,19 @@ public class Utilities {
         return getLong(dStack.peek());
     }
 
-    public static int[] read4 (OStack dStack) throws Exception {
+    public static double[] read2 (OStack dStack) throws Exception {
         DoubleSequence ds = readDoubleSequence(dStack);
-        if (ds.length() != 4)
+        if (ds.length() != 2)
             throw new Exception ("wrong Seq length");
-        return ds.asIntArray();
+        return ds.asPrimitiveArray();
     }
 
     public static Color readColor (OStack dStack) throws Exception {
         Object ox = dStack.pop();
         if (ox instanceof DoubleSequence) {
             DoubleSequence ds = (DoubleSequence)ox;
+            if (ds.length() != 3)
+                throw new Exception ("wrong Seq length");
             return new Color(ds.pick(0).intValue(), ds.pick(1).intValue(), ds.pick(2).intValue());
         }
         int r = (int)getLong(ox);
@@ -559,6 +561,8 @@ public class Utilities {
         if (ox instanceof DoubleSequence)
         {
             DoubleSequence ds = (DoubleSequence)ox;
+            if (ds.length() != 2)
+                throw new RuntimeException("ds != 2");
             return new Point (ds.pick(0).intValue(), ds.pick(1).intValue());
         }
         int x = (int)getLong(ox);

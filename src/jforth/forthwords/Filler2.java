@@ -1447,9 +1447,8 @@ class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long s1 = Utilities.readLong(dStack);
-                                long s2 = Utilities.readLong(dStack);
-                                dStack.push(exactBinomial((int) s2, (int) s1));
+                                double[] dat = Utilities.read2(dStack);
+                                dStack.push(exactBinomial((int)dat[0], (int)dat[1]));
                             } catch (Exception e) {
                                 return 0;
                             }

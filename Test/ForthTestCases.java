@@ -1329,7 +1329,7 @@ public class ForthTestCases extends TestBase
     @Test
     public void testBinomial()
     {
-        String code = "10 4 binomial sp 49 6 binomial";
+        String code = "{10,4} binomial sp {49,6} binomial";
         String s = check (code,". sp .");
         shouldBeThis("13983816 210" ,s);
     }
@@ -1698,4 +1698,11 @@ public class ForthTestCases extends TestBase
         String s = check ("5+2i c2p p2c 3 round",".");
         shouldBeThis ("5+2i", s);
     }
+
+    @Test
+    public void testPolynomFromValue() {
+        String s = check ("{1,2,3,4,5,6,7,8,9,10} dup max tostr \"*x\" + topoly swap apply",".");
+        shouldBeThis ("{10,20,30,40,50,60,70,80,90,100}", s);
+    }
+
 }
