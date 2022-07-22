@@ -17,15 +17,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added complex/polar conversion and test">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="toPoly from string &amp; more tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/Brainfuck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Brainfuck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/MixedSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/MixedSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/RawConsoleInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/SequenceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SequenceBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/SizedStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SizedStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -459,7 +462,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.testPolynomFromValue">
+  <component name="RunManager" selected="JUnit.ForthTestCases">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -655,6 +658,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ForthTestCases.TestPolyDiv2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestPolyDiv2" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ForthTestCases.testBinomial" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -671,17 +685,6 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
       <option name="METHOD_NAME" value="testComplexPolar" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.testComplexdiv" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testComplexdiv" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -729,19 +732,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
+      <item itemvalue="JUnit.ForthTestCases.TestPolyDiv2" />
       <item itemvalue="JUnit.ForthTestCases.testBinomial" />
       <item itemvalue="JUnit.ForthTestCases.testComplexPolar" />
-      <item itemvalue="JUnit.ForthTestCases.testComplexdiv" />
       <item itemvalue="JUnit.ForthTestCases.testPolynomFromValue" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.ForthTestCases.TestPolyDiv2" />
         <item itemvalue="JUnit.ForthTestCases.testPolynomFromValue" />
         <item itemvalue="JUnit.ForthTestCases.testBinomial" />
-        <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.testComplexPolar" />
-        <item itemvalue="JUnit.ForthTestCases.testComplexdiv" />
       </list>
     </recent_temporary>
   </component>
@@ -845,13 +848,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00321" summary="introducing image rotate &amp; &quot;ver&quot; word">
-      <created>1633074134146</created>
-      <option name="number" value="00321" />
-      <option name="presentableId" value="LOCAL-00321" />
-      <option name="project" value="LOCAL" />
-      <updated>1633074134158</updated>
     </task>
     <task id="LOCAL-00322" summary="added wdat word">
       <created>1633130278032</created>
@@ -1189,7 +1185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658382713202</updated>
     </task>
-    <option name="localTasksCounter" value="370" />
+    <task id="LOCAL-00370" summary="toPoly from string &amp; more tests">
+      <created>1658409668176</created>
+      <option name="number" value="00370" />
+      <option name="presentableId" value="LOCAL-00370" />
+      <option name="project" value="LOCAL" />
+      <updated>1658409668176</updated>
+    </task>
+    <option name="localTasksCounter" value="371" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1290,7 +1293,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="before inspection fixups" />
     <MESSAGE value="some improvements" />
     <MESSAGE value="make single commands from input line" />
     <MESSAGE value="little bugfix" />
@@ -1315,7 +1317,8 @@
     <MESSAGE value="created new jarfile" />
     <MESSAGE value="bugfix &amp; some test cases added" />
     <MESSAGE value="added complex/polar conversion and test" />
-    <option name="LAST_COMMIT_MESSAGE" value="added complex/polar conversion and test" />
+    <MESSAGE value="toPoly from string &amp; more tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="toPoly from string &amp; more tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1326,9 +1329,9 @@
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/SequenceBase.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="69" />
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
+          <line>3739</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

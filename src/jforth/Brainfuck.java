@@ -1,13 +1,19 @@
 package jforth;
 
-import java.io.IOException;
+import guishell.JfTerminalPanel;
 
 public class Brainfuck {
     private final byte[] mem;
+    JfTerminalPanel terminal;
     private int dptr;
 
-    public Brainfuck() {
+    private Brainfuck() {
         mem = new byte[30000];
+    }
+
+    public Brainfuck(JfTerminalPanel guiTerminal) {
+        this();
+        terminal = guiTerminal;
     }
 
     public String interpret(String code) {
@@ -25,13 +31,9 @@ public class Brainfuck {
             } else if (code.charAt(i) == '.') {
                 sb.append((char) mem[dptr]);
             } else if (code.charAt(i) == ',') {
-                try {
-                    int x = RawConsoleInput.read(true);
-                    if (x != 0x0a)
-                        mem[dptr] = (byte) x;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                int x = terminal.getKey();
+                if (x != 0x0a)
+                    mem[dptr] = (byte) x;
             } else if (code.charAt(i) == '[') {
                 if (mem[dptr] == 0) {
                     i++;

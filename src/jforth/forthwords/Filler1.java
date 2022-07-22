@@ -760,16 +760,22 @@ class Filler1 {
                             Object o1 = dStack.pop();
                             Object o2 = dStack.pop();
                             try {
-                                dStack.push(PolySupport.execute(o2, o1, PolySupport::polyMod));
-                                dStack.push(PolySupport.execute(o2, o1, PolySupport::polyDiv));
+                                PolynomialFunction p1 = PolySupport.execute(o2, o1, PolySupport::polyMod);
+                                PolynomialFunction p2 = PolySupport.execute(o2, o1, PolySupport::polyDiv);
+                                MixedSequence mx = new MixedSequence();
+                                mx.addAnything(p2);
+                                mx.addAnything(p1);
+                                dStack.push(mx);
                                 return 1;
                             } catch (Exception ignored) {
                             }
                             try {
                                 long l1 = Utilities.getLong(o1);
                                 long l2 = Utilities.getLong(o2);
-                                dStack.push(l2 % l1);
-                                dStack.push(l2 / l1);
+                                DoubleSequence ds = new DoubleSequence();
+                                ds.add ((double)(l2/l1));
+                                ds.add ((double)(l2%l1));
+                                dStack.push(ds);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -3660,6 +3666,21 @@ class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "mode", "get a new sequence which is the 'mode' of the input",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.mode());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "intersect", "Make intersection of 2 sequences",
                         (dStack, vStack) ->
                         {
@@ -3719,7 +3740,7 @@ class Filler1 {
                                 long l1 = Utilities.readLong(dStack);
                                 Object o = dStack.pop();
                                 if (o instanceof SequenceBase) {
-                                    dStack.push(((SequenceBase<?>) o).pick((int) l1));
+                                    dStack.push(((SequenceBase) o).pickAnything((int) l1));
                                 } else if (o instanceof FileBlob) {
                                     byte in = ((FileBlob)o).get_content()[(int) l1];
                                     dStack.push((double)(((int)in)&0x00ff));
@@ -3780,6 +3801,7 @@ class Filler1 {
                             }
                         }
                 ));
+
         _fw.add(new PrimitiveWord
                 (
                         "json2", "Convert to JSON",

@@ -290,10 +290,9 @@ public class ForthTestCases extends TestBase
     @Test
     public void TestPolyDiv2()
     {
-        String s = check ("-13x^7+3x^5 x^2-6 /mod ",
-                ". sp .\" rest:\" .");
+        String s = check ("-13x^7+3x^5 x^2-6 /mod ", ".");
         System.out.println(s);
-        shouldBeThis("-450*x-75*x^3-13*x^5 rest:1-2700*x" ,s);
+        shouldBeThis("{-450*x-75*x^3-13*x^5;1-2700*x}" ,s);
     }
 
     @Test

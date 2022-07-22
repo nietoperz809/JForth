@@ -11,6 +11,7 @@ import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.commons.math3.stat.descriptive.summary.Sum;
 import org.apache.commons.math3.stat.descriptive.summary.SumOfSquares;
+import tools.Func;
 import tools.Utilities;
 
 import java.math.BigInteger;
@@ -388,7 +389,19 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
     }
 
     public DoubleSequence normalize() {
-        double[] arr = StatUtils.normalize(asPrimitiveArray());
-        return new DoubleSequence(arr);
+        return transform (StatUtils::normalize);
     }
+
+    public DoubleSequence mode() {
+        return transform (StatUtils::mode);
+    }
+
+    public DoubleSequence transform (Func<double[], double[]> action) {
+        return new DoubleSequence(transformInnerArray(action));
+    }
+
+    public double[] transformInnerArray (Func<double[], double[]> action) {
+        return action.apply(asPrimitiveArray());
+    }
+
 }

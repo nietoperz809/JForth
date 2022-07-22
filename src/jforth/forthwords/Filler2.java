@@ -1227,7 +1227,7 @@ class Filler2 {
                         {
                             try {
                                 String s = Utilities.readString(dStack);
-                                String ret = new Brainfuck().interpret(s);
+                                String ret = new Brainfuck(predefinedWords._jforth.guiTerminal).interpret(s);
                                 if (ret == null)
                                     return 0;
                                 dStack.push(ret);

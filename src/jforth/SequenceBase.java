@@ -123,6 +123,11 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return _list.get(i);
     }
 
+    public Object pickAnything (int i)
+    {
+        return _list.get(i);
+    }
+
     public void add (E s)
     {
         if (!s.equals("{}"))

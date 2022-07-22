@@ -3,7 +3,7 @@ package jforth;
 import java.util.Stack;
 
 public class SizedStack<T> extends Stack<T> {
-    private int maxSize;
+    private final int maxSize;
 
     public SizedStack(int size) {
         super();

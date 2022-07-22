@@ -12,8 +12,13 @@ import java.util.ArrayList;
 
 public class MixedSequence extends SequenceBase {
 
-    private MixedSequence() {
+    public MixedSequence() {
 
+    }
+
+    public void addAnything (Object o)
+    {
+        _list.add(o);
     }
 //
 //    public MixedSequence (String[] in)
