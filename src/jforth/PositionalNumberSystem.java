@@ -11,7 +11,7 @@ public class PositionalNumberSystem
 
     private static PositionalNumberSystem instance;
 
-    static public  PositionalNumberSystem getPsnInst() {
+    static public  PositionalNumberSystem getPnsInst() {
         return instance;
     }
 

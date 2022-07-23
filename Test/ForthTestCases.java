@@ -1704,4 +1704,11 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("{10,20,30,40,50,60,70,80,90,100}", s);
     }
 
+    @Test
+    public void testPNS() {
+        String s = check ("abcdef pns-init 123456789 pns-do",".");
+        shouldBeThis ("cabdaadfbbd", s);
+        s = check ("abcdef pns-init cabdaadfbbd pns-undo",".");
+        shouldBeThis ("123456789", s);
+    }
 }

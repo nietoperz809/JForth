@@ -17,14 +17,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
-      <change afterPath="$PROJECT_DIR$/src/jforth/PositionalNumberSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/DoubleSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/PositionalNumberSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/PositionalNumberSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
@@ -459,7 +456,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.testPNS">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -677,11 +674,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testComplexPolar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.testPNS" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testComplexPolar" />
+      <option name="METHOD_NAME" value="testPNS" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -729,19 +726,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
+      <item itemvalue="JUnit.ForthTestCases.testPNS" />
       <item itemvalue="JUnit.ForthTestCases.TestPolyDiv2" />
       <item itemvalue="JUnit.ForthTestCases.testBinomial" />
-      <item itemvalue="JUnit.ForthTestCases.testComplexPolar" />
       <item itemvalue="JUnit.ForthTestCases.testPolynomFromValue" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.testPNS" />
         <item itemvalue="JUnit.ForthTestCases" />
         <item itemvalue="JUnit.ForthTestCases.TestPolyDiv2" />
         <item itemvalue="JUnit.ForthTestCases.testPolynomFromValue" />
         <item itemvalue="JUnit.ForthTestCases.testBinomial" />
-        <item itemvalue="JUnit.ForthTestCases.testComplexPolar" />
       </list>
     </recent_temporary>
   </component>
@@ -845,13 +842,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00323" summary="wdat is now doublesequence">
-      <created>1633130905979</created>
-      <option name="number" value="00323" />
-      <option name="presentableId" value="LOCAL-00323" />
-      <option name="project" value="LOCAL" />
-      <updated>1633130905979</updated>
     </task>
     <task id="LOCAL-00324" summary="moved things around">
       <created>1633416828416</created>
@@ -1189,7 +1179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658449592880</updated>
     </task>
-    <option name="localTasksCounter" value="372" />
+    <task id="LOCAL-00372" summary="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa">
+      <created>1658570375855</created>
+      <option name="number" value="00372" />
+      <option name="presentableId" value="LOCAL-00372" />
+      <option name="project" value="LOCAL" />
+      <updated>1658570375855</updated>
+    </task>
+    <option name="localTasksCounter" value="373" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1290,7 +1287,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="some improvements" />
     <MESSAGE value="make single commands from input line" />
     <MESSAGE value="little bugfix" />
     <MESSAGE value="added line splitter" />
@@ -1315,7 +1311,8 @@
     <MESSAGE value="added complex/polar conversion and test" />
     <MESSAGE value="toPoly from string &amp; more tests" />
     <MESSAGE value="backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup" />
+    <MESSAGE value="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa" />
+    <option name="LAST_COMMIT_MESSAGE" value="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
