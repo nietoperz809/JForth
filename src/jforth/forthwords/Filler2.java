@@ -40,7 +40,7 @@ import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
 
-class Filler2 {
+final class Filler2 {
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
         LSystem lSys = predefinedWords._jforth._lsys;
 

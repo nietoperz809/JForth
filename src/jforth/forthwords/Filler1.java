@@ -33,7 +33,7 @@ import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
 
 @SuppressWarnings("rawtypes")
-class Filler1 {
+final class Filler1 {
     static Object fetchVar(OStack dStack) throws Exception{
         Object o = dStack.pop();
         if (!(o instanceof StorageWord)) {

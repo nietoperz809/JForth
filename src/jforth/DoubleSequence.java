@@ -88,6 +88,14 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         }
     }
 
+    public DoubleSequence (long ... vals)
+    {
+        for (double val : vals)
+        {
+            _list.add(val);
+        }
+    }
+
     public DoubleSequence (int ... vals)
     {
         for (int val : vals)

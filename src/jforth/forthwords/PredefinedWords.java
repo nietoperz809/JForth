@@ -18,6 +18,7 @@ public class PredefinedWords
         this._jforth = jf;
         Filler1.fill(wl, this);
         Filler2.fill(wl, this);
+        Filler3.fill(wl, this);
         Graphics.fill(wl);
     }
 
