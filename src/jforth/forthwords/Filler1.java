@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import jforth.*;
 import jforth.audio.SAMSpeech;
 import jforth.audio.WaveTools;
+import org.apache.commons.math3.analysis.function.*;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
@@ -31,6 +32,7 @@ import java.util.Objects;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
+import static tools.Utilities.functionOverDS;
 
 @SuppressWarnings("rawtypes")
 final class Filler1 {
@@ -901,20 +903,20 @@ final class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord
-                (
-                        "var", "Variance of sequence",
-                        (dStack, vStack) ->
-                        {
-                            Object o1 = dStack.pop();
-                            if (o1 instanceof DoubleSequence) {
-                                dStack.push
-                                        (DoubleSequence.getStats((DoubleSequence) o1).getVariance());
-                                return 1;
-                            }
-                            return 0;
-                        }
-                ));
+//        _fw.add(new PrimitiveWord
+//                (
+//                        "var", "Variance of sequence",
+//                        (dStack, vStack) ->
+//                        {
+//                            Object o1 = dStack.pop();
+//                            if (o1 instanceof DoubleSequence) {
+//                                dStack.push
+//                                        (DoubleSequence.getStats((DoubleSequence) o1).getVariance());
+//                                return 1;
+//                            }
+//                            return 0;
+//                        }
+//                ));
 
         _fw.add(new PrimitiveWord
                 (
@@ -2670,7 +2672,7 @@ final class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "fib", "Fibonacci number",
+                        "fib", "nth Fibonacci number",
                         (dStack, vStack) ->
                         {
                             try {
@@ -2689,6 +2691,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Log());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex oc = Utilities.readComplex(dStack);
                                 Complex erg = oc.log();
                                 dStack.push(erg);
@@ -2720,6 +2727,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Log10());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 double d = Utilities.readDouble(dStack);
                                 dStack.push(Math.log10(d));
                                 return 1;
@@ -2735,6 +2747,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Exp());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.exp());
                                 return 1;
@@ -2750,6 +2767,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Sin());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sin());
                                 return 1;
@@ -2797,6 +2819,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Cos());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.cos());
                                 return 1;
@@ -2812,6 +2839,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Tan());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.tan());
                                 return 1;
@@ -2827,6 +2859,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Asin());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.asin());
                                 return 1;
@@ -2842,6 +2879,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Acos());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.acos());
                                 return 1;
@@ -2857,6 +2899,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Atan());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.atan());
                                 return 1;
@@ -2888,6 +2935,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Sinh());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.sinh());
                                 return 1;
@@ -2903,6 +2955,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Cosh());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.cosh());
                                 return 1;
@@ -2918,6 +2975,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
+                                DoubleSequence ds = functionOverDS (dStack, new Tanh());
+                                if (ds != null) {
+                                    dStack.push(ds);
+                                    return 1;
+                                }
                                 Complex o1 = Utilities.readComplex(dStack);
                                 dStack.push(o1.tanh());
                                 return 1;
@@ -3591,7 +3653,7 @@ final class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "1/", "calculate inverse",
+                        "1/", "calculate multiplicative inverse",
                         (dStack, vStack) ->
                         {
                             try {

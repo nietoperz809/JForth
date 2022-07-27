@@ -1,6 +1,7 @@
 package tools;
 
 import jforth.*;
+import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -23,7 +24,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static java.awt.Toolkit.getDefaultToolkit;
@@ -1142,5 +1146,18 @@ public class Utilities {
             out.writeObject(object);
             return bos.toByteArray();
         }
+    }
+
+    public static DoubleSequence functionOverDS(OStack dStack, UnivariateFunction func) {
+        Object o = dStack.peek();
+        if (o instanceof DoubleSequence) {
+            DoubleSequence in = Utilities.readDoubleSequence(dStack);
+            DoubleSequence out = new DoubleSequence();
+            for (double d : in.asPrimitiveArray()) {
+                out.get_list().add(func.value(d));
+            }
+            return out;
+        }
+        return null;
     }
 }

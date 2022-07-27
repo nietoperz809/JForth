@@ -962,7 +962,7 @@ public class ForthTestCases extends TestBase
         shouldBeThis("3.8944404818493075" ,s);
         s = check ("{1,2,3,4,5,6} stddev", ".");
         shouldBeThis("1.8708286933869707" ,s);
-        s = check ("{1,2,-3,4,5,6} var", ".");
+        s = check ("{1,2,-3,4,5,6} variance", ".");
         shouldBeThis("10.7" ,s);
     }
 
@@ -1711,4 +1711,11 @@ public class ForthTestCases extends TestBase
         s = check ("abcdef pns-init cabdaadfbbd pns-undo",".");
         shouldBeThis ("123456789", s);
     }
+
+    @Test
+    public void testHarmonic() {
+        String s = check ("{1,2,3} {1,2,3,4,5,6} harmonic 3 round",".");
+        shouldBeThis ("{0.284,0.754,-0.911}", s);
+    }
+
 }
