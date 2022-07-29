@@ -1718,4 +1718,12 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("{0.284,0.754,-0.911}", s);
     }
 
+    @Test
+    public void testtoDate() {
+        String s = check ("1659113108148 todate",".");
+        shouldBeThis ("Friday, July 29, 2022 6:45, PM", s);
+        s = check ("1659113108148 todatess",".");
+        shouldBeThis ("{\"Friday\",\"July\",\"29\",\"2022\",\"6:45\",\"PM\"}", s);
+    }
+
 }

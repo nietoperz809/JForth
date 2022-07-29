@@ -213,8 +213,8 @@ public class Utilities {
 
     public static String toDateView(Long in) {
         Date date = new Date(in);
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm, a", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getDefault());
         return sdf.format(date);
     }
 

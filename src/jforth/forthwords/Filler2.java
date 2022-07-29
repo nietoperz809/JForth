@@ -913,12 +913,30 @@ final class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "toDate", "make Date sedonde on TOS",
+                        "toDate", "make Date from seconds on TOS",
                         (dStack, vStack) ->
                         {
                             try {
                                 Long v = Utilities.readLong(dStack);
                                 dStack.push(Utilities.toDateView(v));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toDateSS", "make Date from seconds on TOS as Stringsequence",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Long v = Utilities.readLong(dStack);
+                                String date = Utilities.toDateView(v);
+                                String[] parts = date.split("[ ,]+");
+                                StringSequence ret = new StringSequence(parts);
+                                dStack.push(ret);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
