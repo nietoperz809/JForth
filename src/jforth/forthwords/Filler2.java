@@ -904,7 +904,21 @@ final class Filler2 {
                             try {
                                 Long v = Utilities.readLong(dStack);
                                 dStack.push(Utilities.toTimeView(v));
-                                //.formatTimeDuration(v));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toDate", "make Date sedonde on TOS",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Long v = Utilities.readLong(dStack);
+                                dStack.push(Utilities.toDateView(v));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

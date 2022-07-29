@@ -20,10 +20,8 @@ import java.sql.Timestamp;
 import java.text.CharacterIterator;
 import java.text.SimpleDateFormat;
 import java.text.StringCharacterIterator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EmptyStackException;
 import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -211,6 +209,13 @@ public class Utilities {
         int m = s / 60;
         s %= 60;
         return String.format("%d:%02d:%02d", h, m, s);
+    }
+
+    public static String toDateView(Long in) {
+        Date date = new Date(in);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE,MMMM d,yyyy h:mm,a", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return sdf.format(date);
     }
 
     public static void terminateSoon(int delay) {

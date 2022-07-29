@@ -17,12 +17,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added test cases for pns">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
@@ -736,8 +733,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases.testHarmonic" />
         <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.ForthTestCases.testHarmonic" />
         <item itemvalue="JUnit.ForthTestCases.testPNS" />
         <item itemvalue="JUnit.ForthTestCases.TestPolyDiv2" />
         <item itemvalue="JUnit.ForthTestCases.testPolynomFromValue" />
@@ -844,13 +841,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00325" summary="bugfix">
-      <created>1633423392579</created>
-      <option name="number" value="00325" />
-      <option name="presentableId" value="LOCAL-00325" />
-      <option name="project" value="LOCAL" />
-      <updated>1633423392579</updated>
     </task>
     <task id="LOCAL-00326" summary="added support for graphics">
       <created>1633631624621</created>
@@ -1188,7 +1178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658571449073</updated>
     </task>
-    <option name="localTasksCounter" value="374" />
+    <task id="LOCAL-00374" summary="backup">
+      <created>1658888616866</created>
+      <option name="number" value="00374" />
+      <option name="presentableId" value="LOCAL-00374" />
+      <option name="project" value="LOCAL" />
+      <updated>1658888616866</updated>
+    </task>
+    <option name="localTasksCounter" value="375" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1311,10 +1308,10 @@
     <MESSAGE value="bugfix &amp; some test cases added" />
     <MESSAGE value="added complex/polar conversion and test" />
     <MESSAGE value="toPoly from string &amp; more tests" />
-    <MESSAGE value="backup" />
     <MESSAGE value="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa" />
     <MESSAGE value="added test cases for pns" />
-    <option name="LAST_COMMIT_MESSAGE" value="added test cases for pns" />
+    <MESSAGE value="backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="backup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
