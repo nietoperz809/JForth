@@ -2207,7 +2207,7 @@ final class Filler1 {
                                 return 1;
                             }
                             if (o1 instanceof String) {
-                                String str = (String) o1;
+                                String str = StringEscape.unescape((String) o1);
                                 DoubleSequence ds = DoubleSequence.parseSequence(str, 10);
                                 if (ds == null) {
                                     ds = new DoubleSequence();

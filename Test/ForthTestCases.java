@@ -1637,6 +1637,13 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void testQuotedString2() {
+        String s = check ("\"hello world\"","tonumlist .");
+        shouldBeThis ("{104,101,108,108,111,32,119,111,114,108,100}", s);
+    }
+
+
+    @Test
     public void testMixedSeq() {
         String s = check ("{{1,2,3};{peter,ist,lieb};\"motha,fucka\";\"mothafucka\";3+4i;1103;2/4}",".");
         shouldBeThis ("{{1,2,3};{\"peter\",\"ist\",\"lieb\"};\"motha,fucka\";\"mothafucka\";3+4i;1103;1/2}", s);
