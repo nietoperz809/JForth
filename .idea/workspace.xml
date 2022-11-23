@@ -17,12 +17,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="new jar">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="little bugfixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/OStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/OStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
@@ -78,7 +76,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -457,7 +454,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.testQuotedString2">
+  <component name="RunManager" selected="JUnit.ForthTestCases.OctalTest">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -637,6 +634,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SpecialChars" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tools.SpecialChars" />
+      <module name="JForth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tools.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+      </method>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="jforth.JForth" />
       <method v="2">
@@ -662,11 +672,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.testQuotedString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.OctalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testQuotedString" />
+      <option name="METHOD_NAME" value="OctalTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -691,10 +701,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="JForthGui.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -718,19 +724,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JAR Application.JForthGui.jar" />
+      <item itemvalue="Application.SpecialChars" />
       <item itemvalue="JUnit.All in JForth" />
-      <item itemvalue="JUnit.ForthTestCases.testQuotedString" />
+      <item itemvalue="JUnit.ForthTestCases.OctalTest" />
       <item itemvalue="JUnit.ForthTestCases.testQuotedString2" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ForthTestCases.OctalTest" />
+        <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="Application.SpecialChars" />
         <item itemvalue="JUnit.ForthTestCases.testQuotedString2" />
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.All in JForth" />
-        <item itemvalue="JAR Application.JForthGui.jar" />
-        <item itemvalue="JUnit.ForthTestCases.testQuotedString" />
       </list>
     </recent_temporary>
   </component>
@@ -834,13 +840,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00329" summary="bugfix">
-      <created>1633691799298</created>
-      <option name="number" value="00329" />
-      <option name="presentableId" value="LOCAL-00329" />
-      <option name="project" value="LOCAL" />
-      <updated>1633691799298</updated>
     </task>
     <task id="LOCAL-00330" summary="added testQR">
       <created>1633699215830</created>
@@ -1178,7 +1177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659126730465</updated>
     </task>
-    <option name="localTasksCounter" value="378" />
+    <task id="LOCAL-00378" summary="little bugfixes">
+      <created>1669179358863</created>
+      <option name="number" value="00378" />
+      <option name="presentableId" value="LOCAL-00378" />
+      <option name="project" value="LOCAL" />
+      <updated>1669179358863</updated>
+    </task>
+    <option name="localTasksCounter" value="379" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1279,7 +1285,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="img displaying works again" />
     <MESSAGE value="migrated to websocket" />
     <MESSAGE value="updated" />
     <MESSAGE value="limit savestack to 10" />
@@ -1304,7 +1309,8 @@
     <MESSAGE value="added toDate word" />
     <MESSAGE value="added todateSS and test cases" />
     <MESSAGE value="new jar" />
-    <option name="LAST_COMMIT_MESSAGE" value="new jar" />
+    <MESSAGE value="little bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="little bugfixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

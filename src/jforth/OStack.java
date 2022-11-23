@@ -1,5 +1,7 @@
 package jforth;
 
+import tools.SpecialChars;
+
 import java.util.EmptyStackException;
 import java.util.Stack;
 
@@ -29,6 +31,9 @@ public class OStack extends Stack<Object>
     {
         Object o = super.pop();
         saveStack.push (o);
+        if (o instanceof String) {
+            return new SpecialChars().convertSC((String)o);
+        }
         return o;
     }
 

@@ -1171,6 +1171,13 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void OctalTest()
+    {
+        String s = check ("octal\\40coded\\40spaces\\40\\40--lala", ".");
+        shouldBeThis("octal coded spaces  --lala" ,s);
+    }
+
+    @Test
     public void replaceTest()
     {
         String s = check ("peter {\"e\",\"fuck\"} replace",".");
