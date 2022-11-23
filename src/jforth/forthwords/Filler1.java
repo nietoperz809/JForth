@@ -17,7 +17,6 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.FileUtils;
-import tools.SpecialChars;
 import tools.Utilities;
 import webserver.SimpleWebserver;
 
@@ -1181,14 +1180,14 @@ final class Filler1 {
                                 SizedString ss = (SizedString)o;
                                 String outstr = predefinedWords._jforth.makePrintable(ss.getStr());
                                 predefinedWords._jforth.guiTerminal.setFontsize(ss.getSize());
-                                predefinedWords._jforth._out.print(new SpecialChars().convertSC(outstr));
+                                predefinedWords._jforth._out.print(outstr);
                                 return 1;
                             }
                             String outstr = predefinedWords._jforth.makePrintable(o);
                             if (outstr == null) {
                                 return 0;
                             }
-                            predefinedWords._jforth._out.print(new SpecialChars().convertSC(outstr));
+                            predefinedWords._jforth._out.print(outstr);
                             return 1;
                         }
                 ));

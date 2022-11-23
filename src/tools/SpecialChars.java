@@ -6,8 +6,7 @@ public class SpecialChars {
     private StringBuilder out = new StringBuilder();
     private int state = 0;
 
-    private void finish()
-    {
+    private void finish() {
         if (state == 1) {
             if (coll.length() == 0)
                 out.append(ESC);
@@ -20,12 +19,9 @@ public class SpecialChars {
         }
     }
 
-    public String convertSC(String in)
-    {
-        for (char c : in.toCharArray())
-        {
-            switch (state)
-            {
+    public String convertSC(String in) {
+        for (char c : in.toCharArray()) {
+            switch (state) {
                 case 0:
                     if (c == ESC)
                         state = 1;
@@ -35,20 +31,18 @@ public class SpecialChars {
                 case 1:
                     if (c <= '7' && c >= '0') // octal digits
                         coll.append(c);
-                    else
-                    {
+                    else {
                         finish();
-                        out.append(c);
+                        if (c == ESC) {
+                            state = 1;
+                        } else {
+                            out.append(c);
+                        }
                     }
                     break;
             }
         }
         finish();
         return out.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new SpecialChars().convertSC("peter|123 ist lieb|"));
-        System.out.println(new SpecialChars().convertSC("peter| ist lieb|122"));
     }
 }
