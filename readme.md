@@ -500,7 +500,7 @@ Web interface
 ------------------------------
 
 JForth can be used with a web browser as shell.
-First start the internal web serer: 
+First start the internal web server: 
 >80 http
 
 Then open a browser on localhost:80. You'll see a black web page with a blue headline containing an input box, 
