@@ -1178,6 +1178,12 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void DoubleSam()
+    {
+        check ("play\\40two\\40times\\40in\\40a\\40single\\40line dup sam sam" ,null);
+    }
+
+    @Test
     public void replaceTest()
     {
         String s = check ("peter {\"e\",\"fuck\"} replace",".");

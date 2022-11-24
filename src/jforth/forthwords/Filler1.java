@@ -1943,7 +1943,7 @@ final class Filler1 {
                                     predefinedWords._jforth._out.print ("audBytes"+encoded);
                                     return 1;
                                 }
-                                WaveTools.playWave(bstr, false);
+                                WaveTools.palyWaveAndWait(bstr);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

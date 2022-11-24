@@ -3,6 +3,7 @@ package jforth.audio;
 import javax.sound.sampled.*;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * from here: ftp://sccn.ucsd.edu/pub/virtualmedia/AePlayWave.java
@@ -45,6 +46,41 @@ public class WaveTools {
         clip.start();
         return clip;
     }
+
+    public static void palyWaveAndWait(byte[] data) throws Exception {
+        final AtomicBoolean ab = new AtomicBoolean(false);
+        Clip c = playWave(data, false);
+        c.addLineListener(event -> {
+            if (event.getType() == LineEvent.Type.STOP)
+                ab.set(true);
+        });
+        while (!ab.get()) {
+            Thread.sleep(100);
+        }
+        c.close();
+    }
+
+
+//    public static Clip playWave(byte[] data, boolean cont) {
+//        InputStream inp = new BufferedInputStream(new ByteArrayInputStream(data));
+//        try {
+//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(inp);
+//            Clip clip = AudioSystem.getClip();
+//            clip.open(audioInputStream);
+//            clip.setFramePosition(0);
+//            clip.start();
+//            clip.addLineListener(event -> {
+//                if (event.getType() == LineEvent.Type.STOP)
+//                    ab.set(true);
+//            });
+//            while (!ab.get()) {
+//                Thread.sleep(100);
+//            }
+//            return clip;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     /**
      * Stop and close an audio clip
