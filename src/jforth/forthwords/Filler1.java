@@ -1838,7 +1838,7 @@ final class Filler1 {
                             } else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push(BigInteger.valueOf((long) oc.getReal()));
-                                dStack.push(BigInteger.valueOf((long) oc.getImaginary()));
+                                //dStack.push(BigInteger.valueOf((long) oc.getImaginary()));
                             } else if (o1 instanceof Fraction) {
                                 Fraction oc = (Fraction) o1;
                                 dStack.push(BigInteger.valueOf((long) oc.getNumerator() / (long) oc.getDenominator()));
@@ -2530,9 +2530,9 @@ final class Filler1 {
                             try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 Complex erg = o1.sqrt();
-                                if (erg.getImaginary() == 0.0)
-                                    dStack.push (erg.getReal());
-                                else
+//                                if (erg.getImaginary() == 0.0)
+//                                    dStack.push (erg.getReal());
+//                                else
                                     dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
