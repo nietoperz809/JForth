@@ -1943,7 +1943,7 @@ final class Filler1 {
                                     predefinedWords._jforth._out.print ("audBytes"+encoded);
                                     return 1;
                                 }
-                                WaveTools.palyWaveAndWait(bstr);
+                                WaveTools.palyWaveAndWait(bstr, 30);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2529,7 +2529,11 @@ final class Filler1 {
                         {
                             try {
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.sqrt());
+                                Complex erg = o1.sqrt();
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

@@ -47,7 +47,8 @@ public class WaveTools {
         return clip;
     }
 
-    public static void palyWaveAndWait(byte[] data) throws Exception {
+    public static void palyWaveAndWait(byte[] data, int timeoutSeconds) throws Exception {
+        timeoutSeconds *= 10;
         final AtomicBoolean ab = new AtomicBoolean(false);
         Clip c = playWave(data, false);
         c.addLineListener(event -> {
@@ -56,6 +57,8 @@ public class WaveTools {
         });
         while (!ab.get()) {
             Thread.sleep(100);
+            if (0 == timeoutSeconds--)
+                break;
         }
         c.close();
     }
