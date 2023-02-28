@@ -262,6 +262,14 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void TestToBig2()
+    {
+        String s = check ("12345678987654321 sqrt toBig",".");
+        System.out.println(s);
+        shouldBeThis("111111111" ,s);
+    }
+
+    @Test
     public void TestPolyMult()
     {
         String s = check ("x^2+x x^2+x *",
@@ -1744,6 +1752,12 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("Friday, July 29, 2022 6:45, PM", s);
         s = check ("1659113108148 todatess",".");
         shouldBeThis ("{\"Friday\",\"July\",\"29\",\"2022\",\"6:45\",\"PM\"}", s);
+    }
+
+    @Test
+    public void testMix1() {
+        String s = check ("1 1L 1.0 tomix rev type",".");
+        shouldBeThis ("{Long,BigInteger,Double}", s);
     }
 
 }

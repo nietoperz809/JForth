@@ -1835,11 +1835,11 @@ final class Filler1 {
                                 dStack.push(((DoubleSequence) o1).fromBitList());
                             } else if (o1 instanceof String) {
                                 dStack.push(new BigInteger((String) o1));
-                            } else if (o1 instanceof Complex) {
+                            } /*else if (o1 instanceof Complex) {
                                 Complex oc = (Complex) o1;
                                 dStack.push(BigInteger.valueOf((long) oc.getReal()));
                                 //dStack.push(BigInteger.valueOf((long) oc.getImaginary()));
-                            } else if (o1 instanceof Fraction) {
+                            }*/ else if (o1 instanceof Fraction) {
                                 Fraction oc = (Fraction) o1;
                                 dStack.push(BigInteger.valueOf((long) oc.getNumerator() / (long) oc.getDenominator()));
                             } else {
@@ -2180,6 +2180,11 @@ final class Filler1 {
                                 DoubleSequence ds = (DoubleSequence) o;
                                 dStack.push(new StringSequence(ds));
                                 return 1;
+                            } else if (o instanceof MixedSequence) {
+                                MixedSequence ms = (MixedSequence) o;
+                                StringSequence ss = new StringSequence(ms);
+                                dStack.push(ss);
+                                return 1;
                             } else if (o instanceof String) {
                                 String s = StringEscape.unescape((String) o);
                                 if (s.contains(" ")) {
@@ -2191,6 +2196,21 @@ final class Filler1 {
                                 return 1;
                             }
                             return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "toMix", "Create Mixed List from Double List",
+                        (dStack, vStack) ->
+                        {
+                            MixedSequence mix = new MixedSequence();
+                            while (!dStack.isEmpty()) {
+                                Object o = dStack.pop();
+                                mix.addAnything(o);
+                            }
+                            dStack.push(mix);
+                            return 1;
                         }
                 ));
 
@@ -2530,9 +2550,9 @@ final class Filler1 {
                             try {
                                 Complex o1 = Utilities.readComplex(dStack);
                                 Complex erg = o1.sqrt();
-//                                if (erg.getImaginary() == 0.0)
-//                                    dStack.push (erg.getReal());
-//                                else
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
                                     dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
@@ -2548,7 +2568,11 @@ final class Filler1 {
                         {
                             try {
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.multiply(o1));
+                                Complex erg = o1.multiply(o1);
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2756,7 +2780,11 @@ final class Filler1 {
                                     return 1;
                                 }
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.exp());
+                                Complex erg = o1.exp();
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2776,7 +2804,11 @@ final class Filler1 {
                                     return 1;
                                 }
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.sin());
+                                Complex erg = o1.sin();
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2828,7 +2860,11 @@ final class Filler1 {
                                     return 1;
                                 }
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.cos());
+                                Complex erg = o1.cos();
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -2848,7 +2884,11 @@ final class Filler1 {
                                     return 1;
                                 }
                                 Complex o1 = Utilities.readComplex(dStack);
-                                dStack.push(o1.tan());
+                                Complex erg = o1.tan();
+                                if (erg.getImaginary() == 0.0)
+                                    dStack.push (erg.getReal());
+                                else
+                                    dStack.push(erg);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

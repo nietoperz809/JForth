@@ -16,6 +16,10 @@ public class MixedSequence extends SequenceBase {
 
     }
 
+    public MixedSequence (ArrayList<?> ar) {
+        this._list = ar;
+    }
+
     public void addAnything (Object o)
     {
         _list.add(o);

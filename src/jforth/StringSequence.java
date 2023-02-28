@@ -17,7 +17,10 @@ public class StringSequence extends SequenceBase<String> implements java.io.Seri
 
     public StringSequence (SequenceBase<String> src)
     {
-        _list.addAll (src._list);
+        for (Object o : src._list) {
+            _list.add(Utilities.makePrintable(o,10));
+        }
+        //_list.addAll (src._list);
     }
 
     public StringSequence (StringSequence src)
@@ -40,6 +43,14 @@ public class StringSequence extends SequenceBase<String> implements java.io.Seri
             _list.add ("" + c);
         }
     }
+
+//    public StringSequence (MixedSequence mix)
+//    {
+//        ArrayList<?> al = mix.get_list();
+//        for (Object o : al) {
+//            _list.add(o.toString());
+//        }
+//    }
 
     public StringSequence (List<String> list)
     {
