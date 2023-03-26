@@ -6,6 +6,7 @@ import jforth.audio.DtmfMorsePlayer;
 import jforth.audio.MusicTones;
 import jforth.audio.SynthToneBase;
 import jforth.audio.WaveTools;
+import jforth.seq.*;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
 import org.mathIT.util.FunctionParser;
@@ -1701,12 +1702,23 @@ final class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                StringSequence ss = Utilities.readStringSequence(dStack);
-                                ArrayList<String> sl = ss.get_list();
-                                String in = Utilities.readString(dStack);
-                                String out = in.replaceAll(sl.get(0), sl.get(1));
-                                dStack.push(out);
-                                return 1;
+                                Object o = dStack.pop();
+                                StringSequence ss = Utilities.getStringSequence(o);
+                                if (ss != null) {
+                                    ArrayList<String> sl = ss.get_list();
+                                    String in = Utilities.readString(dStack);
+                                    String out = in.replaceAll(sl.get(0), sl.get(1));
+                                    dStack.push(out);
+                                    return 1;
+                                } else {
+                                    DoubleSequence ds = Utilities.getDoubleSequence(o);
+                                    ArrayList<Double> sl = ds.get_list();
+                                    DoubleSequence src = Utilities.readDoubleSequence(dStack);
+                                    DoubleSequence dst = DoubleSequence.replace (src, sl.get(0), sl.get(1));
+                                    dStack.push(dst);
+                                    return 1;
+
+                                }
                             } catch (Exception e) {
                                 return 0;
                             }

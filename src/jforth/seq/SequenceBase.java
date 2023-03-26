@@ -1,4 +1,4 @@
-package jforth;
+package jforth.seq;
 
 import org.apache.commons.math3.fraction.Fraction;
 
@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 
 public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io.Serializable {
-    protected ArrayList<E> _list = new ArrayList<>();
+    public ArrayList<E> _list = new ArrayList<>();
 
     public SequenceBase() {
     }
@@ -216,4 +216,14 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         return test.size() == 0;
     }
 
+    @Override
+    public SequenceBase<E> clone() {
+        try {
+            SequenceBase<E> clone = (SequenceBase<E>) super.clone();
+            clone._list = new ArrayList<>(_list);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

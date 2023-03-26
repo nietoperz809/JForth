@@ -1,6 +1,6 @@
 package jforth.forthwords;
 
-import jforth.DoubleSequence;
+import jforth.seq.DoubleSequence;
 import jforth.PrimitiveWord;
 import jforth.WordsList;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;

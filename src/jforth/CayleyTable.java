@@ -1,5 +1,7 @@
 package jforth;
 
+import jforth.seq.DoubleMatrix;
+
 public class CayleyTable {
     private final DoubleMatrix _m;
 

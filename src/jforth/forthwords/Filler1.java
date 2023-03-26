@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import jforth.*;
 import jforth.audio.SAMSpeech;
 import jforth.audio.WaveTools;
+import jforth.seq.*;
 import org.apache.commons.math3.analysis.function.*;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
@@ -2201,7 +2202,7 @@ final class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "toMix", "Create Mixed List from Double List",
+                        "toMix", "Create Mixed List from stack content",
                         (dStack, vStack) ->
                         {
                             MixedSequence mix = new MixedSequence();

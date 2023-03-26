@@ -1,7 +1,8 @@
-package jforth;
+package jforth.seq;
 
 // TODO: experimental class
 
+import jforth.JForth;
 import tools.Utilities;
 
 import java.util.ArrayList;
@@ -20,35 +21,9 @@ public class MixedSequence extends SequenceBase {
         this._list = ar;
     }
 
-    public void addAnything (Object o)
-    {
+    public void addAnything (Object o) {
         _list.add(o);
     }
-//
-//    public MixedSequence (String[] in)
-//    {
-//        for (int s=0; s<in.length; s++) {
-//            boolean ret = JForth.doForKnownWordsUnmixed(in[s], this._list::add, 10);
-//            if (!ret)
-//                _list.add(in[s]);
-//        }
-//    }
-//
-//    public MixedSequence (String csv)
-//    {
-//        this (csv.split (";"));
-//    }
-//
-//    public static MixedSequence parseSequence (String in)
-//    {
-//        String seq = Utilities.extractSequence (in);
-//        if (seq == null)
-//        {
-//            return null;
-//        }
-//        return new MixedSequence (seq);
-//    }
-//
 
     public static MixedSequence parseSequence (String in) {
         if (in.startsWith("{") && in.endsWith("}")) {

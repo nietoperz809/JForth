@@ -2,6 +2,10 @@ package jforth.forthwords;
 
 import jforth.*;
 import jforth.ControlWords.LoopControlWord;
+import jforth.seq.DoubleSequence;
+import jforth.seq.MixedSequence;
+import jforth.seq.SequenceBase;
+import jforth.seq.StringSequence;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;

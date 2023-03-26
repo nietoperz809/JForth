@@ -1,5 +1,6 @@
-package jforth;
+package jforth.seq;
 
+import jforth.JForth;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunctionLagrangeForm;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
@@ -412,4 +413,17 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return action.apply(asPrimitiveArray());
     }
 
+    public static DoubleSequence replace (DoubleSequence in, double old, double nev) {
+        ArrayList<Double> ar = in._list;
+        ArrayList ar2 = new ArrayList<Double>();
+        for (Double aDouble : ar) {
+            if (aDouble == old)
+                ar2.add(nev);
+            else
+                ar2.add(aDouble);
+        }
+        DoubleSequence ret = new DoubleSequence();
+        ret._list.addAll(ar2);
+        return ret;
+    }
 }

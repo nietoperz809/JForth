@@ -1,9 +1,10 @@
 
 // not used
 
-package jforth;
+package jforth.seq;
 
 
+import jforth.StringEscape;
 import tools.Utilities;
 
 import java.util.*;

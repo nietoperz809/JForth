@@ -1,4 +1,4 @@
-package jforth;
+package jforth.seq;
 
 import org.apache.commons.math3.linear.BlockRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
@@ -16,7 +16,7 @@ public class DoubleMatrix extends BlockRealMatrix implements java.io.Serializabl
         super(src.getData());
     }
 
-    DoubleMatrix (int rows, int cols)
+    public DoubleMatrix(int rows, int cols)
     {
         super(rows, cols);
     }
@@ -91,7 +91,7 @@ public class DoubleMatrix extends BlockRealMatrix implements java.io.Serializabl
         return res;
     }
 
-    static DoubleMatrix parseMatrix (String in, int base)
+    public static DoubleMatrix parseMatrix(String in, int base)
     {
         if (base != 10)
             return null;

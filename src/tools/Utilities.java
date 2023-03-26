@@ -1,6 +1,9 @@
 package tools;
 
 import jforth.*;
+import jforth.seq.DoubleMatrix;
+import jforth.seq.DoubleSequence;
+import jforth.seq.StringSequence;
 import org.apache.commons.math3.analysis.UnivariateFunction;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
