@@ -51,8 +51,8 @@ final class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Double y = Utilities.readDouble(dStack);
-                                Double x = Utilities.readDouble(dStack);
+                                double y = Utilities.readDouble(dStack);
+                                double x = Utilities.readDouble(dStack);
                                 String f = Utilities.readString(dStack);
                                 FunctionParser fp = new FunctionParser(f);
                                 dStack.push(fp.evaluate(0, x, y));
@@ -1562,6 +1562,22 @@ final class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "osave", "save TOS to file",
+                        (dStack, vStack) ->
+                        {
+                            String name = Utilities.readString(dStack);
+                            Object o1 = dStack.pop();
+                            try {
+                                FileUtils.deepSave(name, o1);
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "mload", "load global array from file",
                         (dStack, vStack) ->
                         {
@@ -1569,6 +1585,22 @@ final class Filler2 {
                             try {
                                 predefinedWords._jforth.globalMap
                                         = (HashMap<String, Object>) FileUtils.deepLoad(name);
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "oload", "load object from file to TOS",
+                        (dStack, vStack) ->
+                        {
+                            String name = Utilities.readString(dStack);
+                            try {
+                                Object o1 = FileUtils.deepLoad(name);
+                                dStack.push(o1);
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1709,16 +1741,14 @@ final class Filler2 {
                                     String in = Utilities.readString(dStack);
                                     String out = in.replaceAll(sl.get(0), sl.get(1));
                                     dStack.push(out);
-                                    return 1;
                                 } else {
                                     DoubleSequence ds = Utilities.getDoubleSequence(o);
                                     ArrayList<Double> sl = ds.get_list();
                                     DoubleSequence src = Utilities.readDoubleSequence(dStack);
                                     DoubleSequence dst = DoubleSequence.replace (src, sl.get(0), sl.get(1));
                                     dStack.push(dst);
-                                    return 1;
-
                                 }
+                                return 1;
                             } catch (Exception e) {
                                 return 0;
                             }
@@ -1816,7 +1846,7 @@ final class Filler2 {
                         {
                             try {
                                 long ll = Utilities.readLong(dStack);
-                                dStack.push("" + (char) ll);
+                                dStack.push(Character.toString((char) ll));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

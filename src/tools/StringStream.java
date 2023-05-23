@@ -26,6 +26,12 @@ public class StringStream
         baos.reset();
     }
 
+    public String getAndClear() {
+        String ret = toString();
+        clear();
+        return ret;
+    }
+
     @Override
     public String toString () {
         try

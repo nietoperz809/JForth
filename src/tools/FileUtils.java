@@ -47,36 +47,36 @@ public class FileUtils {
         return sb.toString();
     }
 
-    /**
-     * Save a String map
-     * @param map Map to save
-     * @param filename Name of new file
-     * @throws Exception if smth. gone wrong
-     */
-    public static void saveMap (HashMap<String, Object> map, String filename) throws Exception {
-        Properties properties = new Properties();
-        properties.putAll(map);
-//        for (Map.Entry<String,Object> entry : map.entrySet()) {
-//            properties.put(entry.getKey(), entry.getValue());
-//        }
-        properties.store(new FileOutputStream(filename), null);
-    }
+//    /**
+//     * Save a String map
+//     * @param map Map to save
+//     * @param filename Name of new file
+//     * @throws Exception if smth. gone wrong
+//     */
+//    public static void saveMap (HashMap<String, Object> map, String filename) throws Exception {
+//        Properties properties = new Properties();
+//        properties.putAll(map);
+////        for (Map.Entry<String,Object> entry : map.entrySet()) {
+////            properties.put(entry.getKey(), entry.getValue());
+////        }
+//        properties.store(new FileOutputStream(filename), null);
+//    }
 
-    /**
-     * Load s string map
-     * @param filename path of stored map
-     * @return A new map constructed from file
-     * @throws Exception if smth. gone wrong
-     */
-    public static HashMap<String, Object> loadMap (String filename) throws Exception {
-        HashMap<String, Object> map = new HashMap<>();
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(filename));
-        for (String key : properties.stringPropertyNames()) {
-            map.put(key, properties.get(key).toString());
-        }
-        return map;
-    }
+//    /**
+//     * Load s string map
+//     * @param filename path of stored map
+//     * @return A new map constructed from file
+//     * @throws Exception if smth. gone wrong
+//     */
+//    public static HashMap<String, Object> loadMap (String filename) throws Exception {
+//        HashMap<String, Object> map = new HashMap<>();
+//        Properties properties = new Properties();
+//        properties.load(new FileInputStream(filename));
+//        for (String key : properties.stringPropertyNames()) {
+//            map.put(key, properties.get(key).toString());
+//        }
+//        return map;
+//    }
 
     /**
      * Save ArrayList of Strings

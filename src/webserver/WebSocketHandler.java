@@ -57,8 +57,7 @@ public class WebSocketHandler extends BaseWebSocketHandler
         //System.out.println ("from websocket: "+ message);
         JForth.runCommands1By1 (message, (cmdArray, idx) -> {
             forth.singleShot(cmdArray[idx]);
-            String erg = _ss.toString();
-            _ss.clear ();
+            String erg = _ss.getAndClear();
             if (!(erg.startsWith(" OK\n") && idx != cmdArray.length - 1)) { // empty result
                 erg = erg.replace("·", "•"); // replace morse dots
                 write(erg);

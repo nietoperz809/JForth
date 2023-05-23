@@ -48,8 +48,7 @@ public class JfTerminalPanel extends ColorPane {
 
     public String singleShot(String in) {
         _jf.singleShot(in);
-        String ret = _ss.toString();
-        _ss.clear();
+        String ret = _ss.getAndClear();
         return ret;
     }
 
@@ -102,11 +101,10 @@ public class JfTerminalPanel extends ColorPane {
         try {
             _jf.executeFile("autoexec.4th");
         } catch (Exception e) {
-            System.out.println("autoexec file not found");
+            appendANSI("autoexec file not found");
         }
         _jf.singleShot("");
-        appendANSI(_ss.toString());
-        _ss.clear();
+        appendANSI(_ss.getAndClear());
 
         Utilities.executeThread(() -> {
             //noinspection InfiniteLoopStatement
@@ -116,8 +114,7 @@ public class JfTerminalPanel extends ColorPane {
                     combo.insertItemAt (lineData, 0);
                 JForth.runCommands1By1 (lineData, (arr, idx) -> {
                     boolean res = _jf.singleShot(arr[idx]);
-                    String txt = _ss.toString();
-                    _ss.clear();
+                    String txt = _ss.getAndClear();
                     if (!(txt.startsWith(" OK\n") && idx != arr.length - 1)) { // empty result
                         if (res) {
                             txt = AnsiDefaultOutput + txt;
