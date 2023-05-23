@@ -1,18 +1,25 @@
 package jforth.forthwords;
 
-import jforth.seq.DoubleSequence;
 import jforth.PrimitiveWord;
+import jforth.SerializableImage;
 import jforth.WordsList;
+import jforth.seq.DoubleSequence;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;
 import org.apache.commons.math3.analysis.function.Signum;
 import tools.Utilities;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.image.BufferedImage;
 import java.math.BigInteger;
 
 import static jforth.PositionalNumberSystem.getPnsInst;
+import static tools.Utilities.readString;
 
 final class Filler3 {
-
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
 
         _fw.add(new PrimitiveWord
@@ -21,7 +28,7 @@ final class Filler3 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String s = Utilities.readString(dStack);
+                                String s = readString(dStack);
                                 getPnsInst().newInstance(s);
                                 return 1;
                             } catch (Exception e) {
@@ -53,7 +60,7 @@ final class Filler3 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String s = Utilities.readString(dStack);
+                                String s = readString(dStack);
                                 BigInteger bi = getPnsInst().toNumber(s);
                                 dStack.push(bi);
                                 return 1;
@@ -140,6 +147,43 @@ final class Filler3 {
 //                            }
 //                        }
 //                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "gclip", "put clipboard data on stack",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
+                                Transferable data = board.getContents(null);
+                                if (data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                                    dStack.push(data.getTransferData(DataFlavor.stringFlavor));
+                                } else if (data.isDataFlavorSupported(DataFlavor.imageFlavor)) {
+                                    Object img = data.getTransferData(DataFlavor.imageFlavor);
+                                    dStack.push(new SerializableImage((BufferedImage) img));
+                                }
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "sclip", "send TOS to clipboard",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String s = readString(dStack);
+                                Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
+                                board.setContents(new StringSelection(s), null);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
     }
 }
