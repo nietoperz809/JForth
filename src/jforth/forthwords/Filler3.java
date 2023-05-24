@@ -1,19 +1,13 @@
 package jforth.forthwords;
 
 import jforth.PrimitiveWord;
-import jforth.SerializableImage;
 import jforth.WordsList;
 import jforth.seq.DoubleSequence;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;
 import org.apache.commons.math3.analysis.function.Signum;
+import tools.ClipBoard;
 import tools.Utilities;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-import java.awt.image.BufferedImage;
 import java.math.BigInteger;
 
 import static jforth.PositionalNumberSystem.getPnsInst;
@@ -100,7 +94,7 @@ final class Filler3 {
                             try {
                                 Object o = dStack.pop();
                                 if (o instanceof DoubleSequence) {
-                                    DoubleSequence in = (DoubleSequence)o;
+                                    DoubleSequence in = (DoubleSequence) o;
                                     Signum si = new Signum();
                                     DoubleSequence out = new DoubleSequence();
                                     for (double d : in.asPrimitiveArray()) {
@@ -108,13 +102,11 @@ final class Filler3 {
                                     }
                                     dStack.push(out);
                                     return 1;
-                                }
-                                else if (o instanceof Double) {
-                                    dStack.push (Math.signum((Double)o));
+                                } else if (o instanceof Double) {
+                                    dStack.push(Math.signum((Double) o));
                                     return 1;
-                                }
-                                else if (o instanceof Long) {
-                                    dStack.push ((long)Math.signum((Long)o));
+                                } else if (o instanceof Long) {
+                                    dStack.push((long) Math.signum((Long) o));
                                     return 1;
                                 }
 
@@ -154,14 +146,7 @@ final class Filler3 {
                         (dStack, vStack) ->
                         {
                             try {
-                                Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                Transferable data = board.getContents(null);
-                                if (data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-                                    dStack.push(data.getTransferData(DataFlavor.stringFlavor));
-                                } else if (data.isDataFlavorSupported(DataFlavor.imageFlavor)) {
-                                    Object img = data.getTransferData(DataFlavor.imageFlavor);
-                                    dStack.push(new SerializableImage((BufferedImage) img));
-                                }
+                                dStack.push(ClipBoard.get());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
@@ -175,9 +160,7 @@ final class Filler3 {
                         (dStack, vStack) ->
                         {
                             try {
-                                String s = readString(dStack);
-                                Clipboard board = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                board.setContents(new StringSelection(s), null);
+                                ClipBoard.put(readString(dStack));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

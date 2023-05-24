@@ -85,5 +85,4 @@ public class SerializableImage implements Serializable {
         }
         return new SerializableImage (img);
     }
-
 }

@@ -22,11 +22,6 @@ import java.util.ArrayList;
  * Type "editor" to enter the line editor
  */
 public class LineEdit {
-    private final JForth _interpreter;
-    private ArrayList<String> list = new ArrayList<>();
-    private final ArrayList<String> undolist = new ArrayList<>();
-    private final PrintStream _out;
-
     private static final String helpText =
             " * Line Editor: -->\n" +
                     " Commands are:\n" +
@@ -38,11 +33,16 @@ public class LineEdit {
                     " #x         -- leave line editor\n" +
                     " #r text    -- read file where text is the file name\n" +
                     " #s test    -- save file where text is the file name\n" +
-                    " #innn text -- Insert before, where nnn is the line number and text is the content\n" +
+                    " #innn      -- Insert next line at line 'nnn'\n" +
                     " #nnn       -- Delete line nnn\n" +
                     " #u         -- undo last list change\n" +
                     " #e         -- execute file in editor\n" +
                     " any other  -- input is appended to the buffer.";
+    private final JForth _interpreter;
+    private final ArrayList<String> undolist = new ArrayList<>();
+    private final PrintStream _out;
+    private int insertPos = -1;
+    private ArrayList<String> list = new ArrayList<>();
 
     LineEdit(PrintStream p, JForth forth) {
         _out = p;
@@ -72,7 +72,7 @@ public class LineEdit {
         _out.flush();
     }
 
-    boolean handleLine(String in) {
+    public boolean handleLine(String in) {
         in = in.trim();
         if (in.startsWith("#")) {
             int firstspc = in.indexOf(' ');
@@ -80,11 +80,11 @@ public class LineEdit {
             String cmd;
             if (firstspc == -1)  // no Space found
             {
-                cmd = in.substring(1, in.length());
+                cmd = in.substring(1);
                 args = null;
             } else {
                 cmd = in.substring(1, firstspc);
-                args = in.substring(firstspc + 1, in.length());
+                args = in.substring(firstspc + 1);
             }
             try {
                 int linenum = Integer.parseInt(cmd);
@@ -149,8 +149,7 @@ public class LineEdit {
                 } else if (cmd.startsWith("i")) // insert
                 {
                     saveList();
-                    int pos = Integer.parseInt(cmd.substring(1));
-                    list.add(pos, args);
+                    insertPos = Integer.parseInt(cmd.substring(1));
                 } else {
                     printErr();
                     return true;
@@ -163,7 +162,12 @@ public class LineEdit {
         } else {
             if (in.length() > 0) {
                 saveList();
-                list.add(in);
+                if (insertPos != -1) {
+                    list.add(insertPos, in);
+                    insertPos = -1;
+                } else {
+                    list.add(in);
+                }
                 printOk();
             }
         }
