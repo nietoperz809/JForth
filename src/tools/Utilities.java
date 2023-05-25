@@ -797,6 +797,15 @@ public class Utilities {
         throw new Exception("Wrong args");
     }
 
+    public static DoubleSequence doCalcDoubleSeq(Object o1, Object o2,
+                                         TwoFuncs<DoubleSequence, DoubleSequence, DoubleSequence> func)
+            throws Exception {
+        if (o1 instanceof DoubleSequence || o2 instanceof DoubleSequence) {
+            return func.apply((DoubleSequence)o1, (DoubleSequence)o2);
+        }
+        throw new Exception("Wrong args");
+    }
+
     public static Complex doCalcComplex(Object o1, Object o2, TwoFuncs<Complex, Complex, Complex> func) throws Exception {
         if (areBothObjectsOfType(o1, o2, Complex.class)) {
             return func.apply(getComplex(o1), getComplex(o2));

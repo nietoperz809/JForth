@@ -142,8 +142,12 @@ public class JForth {
                    _out.print(OK);
             }
         } else { // mode == EDIT
-            if (!_lineEditor.handleLine(input)) {
-                mode = MODE.DIRECT;
+            try {
+                if (!_lineEditor.handleLine(input)) {
+                    mode = MODE.DIRECT;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         if (mode == MODE.DIRECT) {

@@ -22,6 +22,9 @@ import java.util.ArrayList;
  * Type "editor" to enter the line editor
  */
 public class LineEdit {
+    private static final int NONE = -1;
+    private static final int LOAD = -1;
+    private static final int SAVE = -1;
     private static final String helpText =
             " * Line Editor: -->\n" +
                     " Commands are:\n" +
@@ -29,7 +32,7 @@ public class LineEdit {
                     " #t         -- print list as String\n" +
                     " #c         -- clear all\n" +
                     " #h         -- this help text\n" +
-                    " #dir       -- List directory\n" +
+                    " #d         -- List directory\n" +
                     " #x         -- leave line editor\n" +
                     " #r text    -- read file where text is the file name\n" +
                     " #s test    -- save file where text is the file name\n" +
@@ -41,6 +44,8 @@ public class LineEdit {
     private final JForth _interpreter;
     private final ArrayList<String> undolist = new ArrayList<>();
     private final PrintStream _out;
+    private String fileName;
+    private int action = NONE;
     private int insertPos = -1;
     private ArrayList<String> list = new ArrayList<>();
 
@@ -72,37 +77,10 @@ public class LineEdit {
         _out.flush();
     }
 
-    public boolean handleLine(String in) {
+    public boolean handleLine(String in) throws Exception {
         in = in.trim();
         if (in.startsWith("#")) {
-            int firstspc = in.indexOf(' ');
-            String args;
-            String cmd;
-            if (firstspc == -1)  // no Space found
-            {
-                cmd = in.substring(1);
-                args = null;
-            } else {
-                cmd = in.substring(1, firstspc);
-                args = in.substring(firstspc + 1);
-            }
-            try {
-                int linenum = Integer.parseInt(cmd);
-                if (args == null) {
-                    try {
-                        saveList();
-                        list.remove(linenum);
-                    } catch (Exception e) {
-                        printErr();
-                    }
-                } else {
-                    saveList();
-                    list.set(linenum, args);
-                }
-                return true;
-            } catch (Exception ignored) {
-
-            }
+            String cmd = in.substring(1);
             try {
                 boolean retval = true;
                 if (cmd.equals("l")) // List with line numbers
@@ -127,19 +105,19 @@ public class LineEdit {
                     clear();
                 } else if (cmd.equals("r"))   // load new program
                 {
+                    action = LOAD;
                     saveList();
-                    load(args);
                 } else if (cmd.equals("a"))   // append program from disk
                 {
                     saveList();
-                    append(args);
+                    //append(args);
                 } else if (cmd.equals("s"))   // save program
                 {
-                    save(args);
+                    action = SAVE;
                 } else if (cmd.equals("h"))   // print help
                 {
                     _out.println(helpText);
-                } else if (cmd.equals("dir")) // show directory
+                } else if (cmd.equals("d")) // show directory
                 {
                     String s = FileUtils.dir(".");
                     _out.println(s.trim());
@@ -162,6 +140,13 @@ public class LineEdit {
         } else {
             if (in.length() > 0) {
                 saveList();
+//                if (action == SAVE) {
+//                    save (in);
+//                    action = NONE;
+//                } else if (action == LOAD) {
+//                    load (in);
+//                    action = NONE;
+//                } else
                 if (insertPos != -1) {
                     list.add(insertPos, in);
                     insertPos = -1;

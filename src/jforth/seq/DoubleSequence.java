@@ -326,6 +326,28 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return ds;
     }
 
+    public static DoubleSequence mult (DoubleSequence s1, DoubleSequence other)
+    {
+        int len = Math.max(s1.length(), other.length());
+        DoubleSequence ds = new DoubleSequence();
+        double a, b;
+        for (int s=0; s<len; s++) {
+            try {
+                a = s1.pick(s);
+            } catch (IndexOutOfBoundsException e) {
+                a = 0;
+            }
+            try {
+                b = other.pick(s);
+            } catch (IndexOutOfBoundsException e) {
+                b = 0;
+            }
+            ds.add(a*b);
+        }
+        return ds;
+    }
+
+
     public String asString ()
     {
         StringBuilder sb = new StringBuilder();

@@ -242,6 +242,11 @@ public class WordHelpers {
 
     static int mult(OStack dStack, Object o1, Object o2) {
         try {
+            dStack.push(Utilities.doCalcDoubleSeq(o2, o1, DoubleSequence::mult));
+            return 1;
+        } catch (Exception ignored) {
+        }
+        try {
             dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::mult));
             return 1;
         } catch (Exception ignored) {
