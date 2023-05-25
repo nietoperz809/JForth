@@ -3098,38 +3098,6 @@ final class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "editor", "Enter line editor",
-                        (dStack, vStack) ->
-                        {
-                            predefinedWords._jforth._out.println("Type #h for help ...");
-                            predefinedWords._jforth.mode = JForth.MODE.EDIT;
-                            return 1;
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "run", "Runs program in editor",
-                        (dStack, vStack) ->
-                        {
-                            String s = predefinedWords._jforth._lineEditor.toString();
-                            predefinedWords._jforth.interpretLine(s);
-                            return 1;
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
-                        "list", "Put program in editor on stack",
-                        (dStack, vStack) ->
-                        {
-                            dStack.push(predefinedWords._jforth._lineEditor.toString());
-                            return 1;
-                        }
-                ));
-
-        _fw.add(new PrimitiveWord
-                (
                         "gaussian", "Gaussian random number",
                         (dStack, vStack) ->
                         {

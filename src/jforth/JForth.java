@@ -25,62 +25,47 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 
 public class JForth {
-    public final RuntimeEnvironment CurrentEnvironment;
-    public enum MODE {EDIT, DIRECT}
-    public long LastETime;
-    public final long StartTime;
-    public final Random random = new Random();
-    public HashMap<String, Object> globalMap = new HashMap<>();
-    public Exception LastError = null;
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
     public static final Long TRUE = 1L;
     public static final Long FALSE = 0L;
     private static final String FORTHPROMPT = "\nJFORTH> ";
-    private static final String EDITORPROMPT = "\nEdit> ";
     private static final String OK = " OK";
     private static Voice voice = null;
+    public final RuntimeEnvironment CurrentEnvironment;
+    public final long StartTime;
+    public final Random random = new Random();
     public final WordsList dictionary = new WordsList();
+    public final transient PrintStream _out; // output channel
+    public final LSystem _lsys = new LSystem();
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
-    public MODE mode = MODE.DIRECT;
-    public final transient PrintStream _out; // output channel
+    public long LastETime;
+    public HashMap<String, Object> globalMap = new HashMap<>();
+    public Exception LastError = null;
     public boolean compiling;
     public int base;
     public NonPrimitiveWord wordBeingDefined = null;
     public BaseWord currentWord;
-    public final LineEdit _lineEditor;
-    public final LSystem _lsys = new LSystem();
-    private MultiDotStreamTokenizer tokenizer = null;
     public JfTerminalPanel guiTerminal;
+    boolean recflag = false;
+    private MultiDotStreamTokenizer tokenizer = null;
 
-    public JForth (RuntimeEnvironment ri) {
+    public JForth(RuntimeEnvironment ri) {
         this(System.out, ri);
     }
 
-    public JForth (PrintStream out, RuntimeEnvironment ri, JfTerminalPanel ta) {
-        this (out, ri);
+    public JForth(PrintStream out, RuntimeEnvironment ri, JfTerminalPanel ta) {
+        this(out, ri);
         guiTerminal = ta;
     }
 
-    public JForth (PrintStream out, RuntimeEnvironment ri) {
+    public JForth(PrintStream out, RuntimeEnvironment ri) {
         StartTime = System.currentTimeMillis();
         CurrentEnvironment = ri;
         compiling = false;
         base = 10;
         _out = out;
         new PredefinedWords(this, dictionary);
-        _lineEditor = new LineEdit(out, this);
-    }
-
-    public String getMapContent () {
-        StringBuilder sb = new StringBuilder();
-        @SuppressWarnings("unchecked")
-        HashMap<String, Object> map = (HashMap<String, Object>) globalMap.clone();
-        map.forEach((key, value) -> sb.append(key)
-                .append(" --> ")
-                .append(makePrintable(value))
-                .append('\n'));
-        return sb.toString();
     }
 
     /**
@@ -100,15 +85,16 @@ public class JForth {
 
     /**
      * Helper function to split a line in single forth statements
-     * @param lineData  The line
-     * @param con Function to handle the statements, will be called for each statement
+     *
+     * @param lineData The line
+     * @param con      Function to handle the statements, will be called for each statement
      */
-    public static void runCommands1By1 (String lineData, BiConsumer<String[], Integer> con) {
+    public static void runCommands1By1(String lineData, BiConsumer<String[], Integer> con) {
         if (lineData.isEmpty())
             return;
         if (lineData.endsWith("\"\n") && lineData.startsWith("\"")) // quoted string
         {
-            con.accept (new String[]{lineData.substring(0, lineData.length()-1)}, 0);
+            con.accept(new String[]{lineData.substring(0, lineData.length() - 1)}, 0);
             return;
         }
         // Generate multiple inputs from single line
@@ -123,6 +109,98 @@ public class JForth {
         }
     }
 
+    public static boolean doForKnownWordsUnmixed(String input, Func<Object, Object> action, int base) {
+        Long num = Utilities.parseLong(input, base);
+        if (num != null) {
+            action.apply(num);
+            return true;
+        }
+        BigInteger big = Utilities.parseBigInt(input, base);
+        if (big != null) {
+            action.apply(big);
+            return true;
+        }
+        Double dnum = Utilities.parseDouble(input, base);
+        if (dnum != null) {
+            action.apply(dnum);
+            return true;
+        }
+        Complex co = Utilities.parseComplex(input, base);
+        if (co != null) {
+            action.apply(co);
+            return true;
+        }
+        Fraction fr = Utilities.parseFraction(input, base);
+        if (fr != null) {
+            action.apply(fr);
+            return true;
+        }
+        DoubleMatrix ma = DoubleMatrix.parseMatrix(input, base);
+        if (ma != null) {
+            action.apply(ma);
+            return true;
+        }
+        DoubleSequence lo = DoubleSequence.parseSequence(input, base);
+        if (lo != null) {
+            action.apply(lo);
+            return true;
+        }
+        FracSequence fs = FracSequence.parseSequence(input);
+        if (fs != null) {
+            action.apply(fs);
+            return true;
+        }
+        StringSequence ss = StringSequence.parseSequence(input);
+        if (ss != null) {
+            action.apply(ss);
+            return true;
+        }
+        String ws = Utilities.parseString(input);
+        if (ws != null) {
+            action.apply(ws);
+            return true;
+        }
+        double[] pd = PolynomialParser.parsePolynomial(input, base);
+        if (pd != null) {
+            PolynomialFunction plf = new PolynomialFunction(pd);
+            action.apply(plf);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Interpret or compile known words
+     *
+     * @param input  the word
+     * @param action function to be applied
+     * @return true if word is known
+     * <p>
+     * Made static so it can be used frome elsewhere
+     */
+
+
+    public static boolean doForKnownWords(String input, Func<Object, Object> action, int base) {
+        // should be last?
+        MixedSequence mx = MixedSequence.parseSequence(input);
+        if (mx != null) {
+            action.apply(mx);
+            return true;
+        }
+        return doForKnownWordsUnmixed(input, action, base);
+    }
+
+    public String getMapContent() {
+        StringBuilder sb = new StringBuilder();
+        @SuppressWarnings("unchecked")
+        HashMap<String, Object> map = (HashMap<String, Object>) globalMap.clone();
+        map.forEach((key, value) -> sb.append(key)
+                .append(" --> ")
+                .append(makePrintable(value))
+                .append('\n'));
+        return sb.toString();
+    }
+
     /**
      * Execute one line and generate output
      *
@@ -132,29 +210,15 @@ public class JForth {
         boolean res = true;
         input = Utilities.replaceUmlauts(input);
         input = StringEscape.escape(input);
-        if (mode == MODE.DIRECT) {
-            if (!interpretLine(input)) {
-                _out.print(input + " word execution or stack error");
-                dStack.removeAllElements();
-                res = false;
-            } else {
-                //if (this.CurrentEnvironment != RuntimeEnvironment.GUITERMINAL)
-                   _out.print(OK);
-            }
-        } else { // mode == EDIT
-            try {
-                if (!_lineEditor.handleLine(input)) {
-                    mode = MODE.DIRECT;
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if (mode == MODE.DIRECT) {
-            _out.print(FORTHPROMPT);
+        if (!interpretLine(input)) {
+            _out.print(input + " word execution or stack error");
+            dStack.removeAllElements();
+            res = false;
         } else {
-            _out.print(EDITORPROMPT);
+            //if (this.CurrentEnvironment != RuntimeEnvironment.GUITERMINAL)
+            _out.print(OK);
         }
+        _out.print(FORTHPROMPT);
         _out.flush();
         return res;
     }
@@ -245,88 +309,7 @@ public class JForth {
         return word;
     }
 
-    public static boolean doForKnownWordsUnmixed(String input, Func<Object, Object> action, int base) {
-        Long num = Utilities.parseLong(input, base);
-        if (num != null) {
-            action.apply(num);
-            return true;
-        }
-        BigInteger big = Utilities.parseBigInt(input, base);
-        if (big != null) {
-            action.apply(big);
-            return true;
-        }
-        Double dnum = Utilities.parseDouble(input, base);
-        if (dnum != null) {
-            action.apply(dnum);
-            return true;
-        }
-        Complex co = Utilities.parseComplex(input, base);
-        if (co != null) {
-            action.apply(co);
-            return true;
-        }
-        Fraction fr = Utilities.parseFraction(input, base);
-        if (fr != null) {
-            action.apply(fr);
-            return true;
-        }
-        DoubleMatrix ma = DoubleMatrix.parseMatrix(input, base);
-        if (ma != null) {
-            action.apply(ma);
-            return true;
-        }
-        DoubleSequence lo = DoubleSequence.parseSequence(input, base);
-        if (lo != null) {
-            action.apply(lo);
-            return true;
-        }
-        FracSequence fs = FracSequence.parseSequence(input);
-        if (fs != null) {
-            action.apply(fs);
-            return true;
-        }
-        StringSequence ss = StringSequence.parseSequence(input);
-        if (ss != null) {
-            action.apply(ss);
-            return true;
-        }
-        String ws = Utilities.parseString(input);
-        if (ws != null) {
-            action.apply(ws);
-            return true;
-        }
-        double[] pd = PolynomialParser.parsePolynomial(input, base);
-        if (pd != null) {
-            PolynomialFunction plf = new PolynomialFunction(pd);
-            action.apply(plf);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * Interpret or compile known words
-     *
-     * @param input      the word
-     * @param action function to be applied
-     * @return true if word is known
-     *
-     * Made static so it can be used frome elsewhere
-     */
-
-
-    public static boolean doForKnownWords(String input, Func<Object, Object> action, int base) {
-        // should be last?
-        MixedSequence mx = MixedSequence.parseSequence (input);
-        if (mx != null) {
-            action.apply(mx);
-            return true;
-        }
-        return doForKnownWordsUnmixed(input, action, base);
-    }
-
-    private void setLastError(Exception e)
-    {
+    private void setLastError(Exception e) {
         LastError = e;
         LastETime = System.currentTimeMillis();
     }
@@ -340,7 +323,7 @@ public class JForth {
             }
             boolean ret = bw.apply(dStack, vStack) != 0;
             if (!ret)
-                setLastError(new Exception("failed execution of '"+word+"'"));
+                setLastError(new Exception("failed execution of '" + word + "'"));
             return ret;
         }
         boolean ret = doForKnownWords(word, dStack::push, base);
@@ -350,8 +333,6 @@ public class JForth {
         dStack.push(word); // as String if word isn't known
         return true;
     }
-
-    boolean recflag = false;
 
     private boolean doCompile(String word) throws Exception {
         word = handleDirectStringOut(word, true);
