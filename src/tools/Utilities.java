@@ -221,6 +221,47 @@ public class Utilities {
         return sdf.format(date);
     }
 
+    /**
+     * Rank two strings similarity in terms of distance The lower the number,
+     * the more similar these strings are to each other See:
+     * http://en.wikipedia.org/wiki/Levenshtein_distance#Computing_Levenshtein_distance
+     *
+     * @param s
+     * @param t
+     * @return Distance (higher is better)
+     */
+    public static int levenshteinDistance(String s, String t) {
+        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
+            return -1;
+        }
+
+        s = s.toLowerCase().replaceAll("[^a-zA-Z0-9\\s]", "");
+        t = t.toLowerCase().replaceAll("[^a-zA-Z0-9\\s]", "");
+        int m = s.length();
+        int n = t.length();
+        int[][] dist = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            dist[i][0] = i;
+        }
+        for (int i = 1; i <= n; i++) {
+            dist[0][i] = i;
+        }
+        for (int j = 1; j <= n; j++) {
+            for (int i = 1; i <= m; i++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dist[i][j] = dist[i - 1][j - 1];
+                } else {
+                    int del = dist[i - 1][j] + 1;
+                    int insert = dist[i][j - 1] + 1;
+                    int sub = dist[i - 1][j - 1] + 1;
+                    dist[i][j] = Math.min(Math.min(del, insert), sub);
+                }
+            }
+        }
+        return Math.max(m, n) - dist[m][n];
+    }
+
+
     public static void terminateSoon(int delay) {
         new Thread(() ->
         {

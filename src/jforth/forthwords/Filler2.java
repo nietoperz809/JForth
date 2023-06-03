@@ -285,6 +285,22 @@ final class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "leven", "levenshtein distance of 2 strings",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String s1 = Utilities.readString(dStack);
+                                String s2 = Utilities.readString(dStack);
+                                dStack.push(Utilities.levenshteinDistance(s1, s2));
+                                return 1;
+                            } catch (Exception ex) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "gray", "make gray code",
                         (dStack, vStack) ->
                         {
