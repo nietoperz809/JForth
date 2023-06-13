@@ -68,8 +68,8 @@ final class Filler2 {
                         "f=", "evaluate term",
                         (dStack, vStack) ->
                         {
-                            Object o = dStack.pop();
-                            String f = Utilities.readString(dStack);
+                            Object o = dStack.pop();   // Argument
+                            String f = Utilities.readString(dStack); // function
                             FunctionParser fp = new FunctionParser(f);
                             try {
                                 double d = Utilities.getDouble(o);

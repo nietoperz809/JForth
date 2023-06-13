@@ -18,6 +18,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.FileUtils;
+import tools.FindRoot;
 import tools.Utilities;
 import webserver.SimpleWebserver;
 
@@ -29,6 +30,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.function.DoubleFunction;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
 import static org.mathIT.numbers.Riemann.zeta;
@@ -2748,6 +2750,26 @@ final class Filler1 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord  // TODO: in progress
+                (
+                        "newrap", "Roots of a function",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String f = Utilities.readString(dStack); // function
+                                Double d = Utilities.readDouble(dStack);
+                                FunctionParser fp = new FunctionParser(f);
+                                DoubleFunction<Double> func = value -> fp.evaluate(0, value);
+                                double res = FindRoot.newrahMethod(func, d);
+                                dStack.push(res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (

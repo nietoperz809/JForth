@@ -1206,6 +1206,12 @@ public class Utilities {
         }
     }
 
+    /**
+     * Apply function to a list of Doubles
+     * @param dStack Stack eith DoubleSequence on top
+     * @param func the function
+     * @return the results
+     */
     public static DoubleSequence functionOverDS(OStack dStack, UnivariateFunction func) {
         Object o = dStack.peek();
         if (o instanceof DoubleSequence) {
@@ -1218,4 +1224,17 @@ public class Utilities {
         }
         return null;
     }
+
+//    /**
+//     * Make standard UF from Functionparser
+//     * @param fp the functionParser
+//     * @return the UF
+//     */
+//    public static UnivariateFunction toUF (FunctionParser fp) {
+//        return v -> fp.evaluate(0, v);
+//    }
+//
+//    public static PolynomialFunction toPF (FunctionParser fp) {
+//        PolynomialFunction pf = new PolynomialFunction();
+//    }
 }
