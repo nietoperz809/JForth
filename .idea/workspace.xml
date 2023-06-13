@@ -2,6 +2,7 @@
 <project version="4">
   <component name="AnalysisUIOptions">
     <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ArtifactsWorkspaceSettings">
@@ -17,13 +18,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="octal string bugfix">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added newrap, 1st version (single root)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/FindRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/FindRoot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,6 +80,11 @@
     <option name="RESET_MODE" value="HARD" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -88,10 +94,11 @@
     </file-type-list>
   </component>
   <component name="GithubPullRequestsUISettings">
-    <option name="hiddenUrls">
-      <set>
-        <option value="https://github.com/nietoperz809/JForth" />
-      </set>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8a0fcd97-d93e-4716-a413-e082f42b9365" />
+        <option name="url" value="https://github.com/nietoperz809/JForth.git" />
+      </UrlAndAccount>
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -402,19 +409,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/peter.home/java/sirens",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "editor.preferences.appearance"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/peter.home/java/sirens&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\peter.home\java\JForth\lib" />
@@ -442,11 +450,11 @@
       <recent name="jforth.waves" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="jforth.seq" />
       <recent name="jforth" />
       <recent name="tools" />
       <recent name="jforth.audio" />
       <recent name="jforth.waves" />
-      <recent name="jforth.forthwords" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="jforth" />
@@ -456,7 +464,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JForthGui">
+  <component name="RunManager" selected="JUnit.ForthTestCases.TestNewrap">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -629,15 +637,8 @@
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <configuration name="JForthGui" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
-      <module name="JForth" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SpecialChars" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tools.SpecialChars" />
+    <configuration name="FindRoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tools.FindRoot" />
       <module name="JForth" />
       <extension name="coverage">
         <pattern>
@@ -647,6 +648,13 @@
       </extension>
       <method v="2">
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
+      </method>
+    </configuration>
+    <configuration name="JForthGui" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
+      <module name="JForth" />
+      <method v="2">
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -664,33 +672,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.DoubleSam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="DoubleSam" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestNewrap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestNewrap" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.OctalTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestSeqMult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="OctalTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ForthTestCases.testQuotedString2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="testQuotedString2" />
+      <option name="METHOD_NAME" value="TestSeqMult" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -727,19 +734,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="Application.SpecialChars" />
+      <item itemvalue="Application.FindRoot" />
+      <item itemvalue="JUnit.ForthTestCases.TestNewrap" />
+      <item itemvalue="JUnit.ForthTestCases.TestSeqMult" />
       <item itemvalue="JUnit.All in JForth" />
-      <item itemvalue="JUnit.ForthTestCases.DoubleSam" />
-      <item itemvalue="JUnit.ForthTestCases.OctalTest" />
-      <item itemvalue="JUnit.ForthTestCases.testQuotedString2" />
+      <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases.DoubleSam" />
-        <item itemvalue="JUnit.ForthTestCases.OctalTest" />
+        <item itemvalue="JUnit.ForthTestCases.TestNewrap" />
+        <item itemvalue="Application.FindRoot" />
+        <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.ForthTestCases.TestSeqMult" />
         <item itemvalue="JUnit.All in JForth" />
-        <item itemvalue="Application.SpecialChars" />
-        <item itemvalue="JUnit.ForthTestCases.testQuotedString2" />
       </list>
     </recent_temporary>
   </component>
@@ -843,90 +850,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00332" summary="updated readme">
-      <created>1633724876850</created>
-      <option name="number" value="00332" />
-      <option name="presentableId" value="LOCAL-00332" />
-      <option name="project" value="LOCAL" />
-      <updated>1633724876850</updated>
-    </task>
-    <task id="LOCAL-00333" summary="updated readme">
-      <created>1633869255453</created>
-      <option name="number" value="00333" />
-      <option name="presentableId" value="LOCAL-00333" />
-      <option name="project" value="LOCAL" />
-      <updated>1633869255453</updated>
-    </task>
-    <task id="LOCAL-00334" summary="put missing libs in lib folder">
-      <created>1633876741035</created>
-      <option name="number" value="00334" />
-      <option name="presentableId" value="LOCAL-00334" />
-      <option name="project" value="LOCAL" />
-      <updated>1633876741051</updated>
-    </task>
-    <task id="LOCAL-00335" summary="sam is now speaking over http">
-      <created>1633928335379</created>
-      <option name="number" value="00335" />
-      <option name="presentableId" value="LOCAL-00335" />
-      <option name="project" value="LOCAL" />
-      <updated>1633928335379</updated>
-    </task>
-    <task id="LOCAL-00336" summary="save">
-      <created>1633974524450</created>
-      <option name="number" value="00336" />
-      <option name="presentableId" value="LOCAL-00336" />
-      <option name="project" value="LOCAL" />
-      <updated>1633974524450</updated>
-    </task>
-    <task id="LOCAL-00337" summary="backup">
-      <created>1633999837374</created>
-      <option name="number" value="00337" />
-      <option name="presentableId" value="LOCAL-00337" />
-      <option name="project" value="LOCAL" />
-      <updated>1633999837374</updated>
-    </task>
-    <task id="LOCAL-00338" summary="dtmf * morse can be played in browser">
-      <created>1634014494850</created>
-      <option name="number" value="00338" />
-      <option name="presentableId" value="LOCAL-00338" />
-      <option name="project" value="LOCAL" />
-      <updated>1634014494850</updated>
-    </task>
-    <task id="LOCAL-00339" summary="new jar">
-      <created>1634014655022</created>
-      <option name="number" value="00339" />
-      <option name="presentableId" value="LOCAL-00339" />
-      <option name="project" value="LOCAL" />
-      <updated>1634014655022</updated>
-    </task>
-    <task id="LOCAL-00340" summary="readme edited">
-      <created>1634015016075</created>
-      <option name="number" value="00340" />
-      <option name="presentableId" value="LOCAL-00340" />
-      <option name="project" value="LOCAL" />
-      <updated>1634015016075</updated>
-    </task>
-    <task id="LOCAL-00341" summary="a &quot;+&quot; before an argument to 'dtmf' or 'morse' creates a big audio file on the stack (as fileblob)">
-      <created>1634037142112</created>
-      <option name="number" value="00341" />
-      <option name="presentableId" value="LOCAL-00341" />
-      <option name="project" value="LOCAL" />
-      <updated>1634037142112</updated>
-    </task>
-    <task id="LOCAL-00342" summary="before inspection fixups">
-      <created>1634157663616</created>
-      <option name="number" value="00342" />
-      <option name="presentableId" value="LOCAL-00342" />
-      <option name="project" value="LOCAL" />
-      <updated>1634157663616</updated>
-    </task>
-    <task id="LOCAL-00343" summary="some improvements">
-      <created>1634177498648</created>
-      <option name="number" value="00343" />
-      <option name="presentableId" value="LOCAL-00343" />
-      <option name="project" value="LOCAL" />
-      <updated>1634177498648</updated>
     </task>
     <task id="LOCAL-00344" summary="make single commands from input line">
       <created>1634332113173</created>
@@ -1187,7 +1110,91 @@
       <option name="project" value="LOCAL" />
       <updated>1669230637575</updated>
     </task>
-    <option name="localTasksCounter" value="381" />
+    <task id="LOCAL-00381" summary="sam now waits for clip before">
+      <created>1669270346689</created>
+      <option name="number" value="00381" />
+      <option name="presentableId" value="LOCAL-00381" />
+      <option name="project" value="LOCAL" />
+      <updated>1669270346689</updated>
+    </task>
+    <task id="LOCAL-00382" summary="suppress imaginary part in sqrt on rel numbers">
+      <created>1677428939130</created>
+      <option name="number" value="00382" />
+      <option name="presentableId" value="LOCAL-00382" />
+      <option name="project" value="LOCAL" />
+      <updated>1677428939130</updated>
+    </task>
+    <task id="LOCAL-00383" summary="little bugfix">
+      <created>1677429598791</created>
+      <option name="number" value="00383" />
+      <option name="presentableId" value="LOCAL-00383" />
+      <option name="project" value="LOCAL" />
+      <updated>1677429598791</updated>
+    </task>
+    <task id="LOCAL-00384" summary="added TOMIX word &amp; test">
+      <created>1677603811389</created>
+      <option name="number" value="00384" />
+      <option name="presentableId" value="LOCAL-00384" />
+      <option name="project" value="LOCAL" />
+      <updated>1677603811389</updated>
+    </task>
+    <task id="LOCAL-00385" summary="added seq pakage and made 'replace' handle DoubleSequence">
+      <created>1679856221899</created>
+      <option name="number" value="00385" />
+      <option name="presentableId" value="LOCAL-00385" />
+      <option name="project" value="LOCAL" />
+      <updated>1679856221899</updated>
+    </task>
+    <task id="LOCAL-00386" summary="added osave &amp; oload words">
+      <created>1684802399597</created>
+      <option name="number" value="00386" />
+      <option name="presentableId" value="LOCAL-00386" />
+      <option name="project" value="LOCAL" />
+      <updated>1684802399601</updated>
+    </task>
+    <task id="LOCAL-00387" summary="added sclip &amp; gclip">
+      <created>1684867492278</created>
+      <option name="number" value="00387" />
+      <option name="presentableId" value="LOCAL-00387" />
+      <option name="project" value="LOCAL" />
+      <updated>1684867492278</updated>
+    </task>
+    <task id="LOCAL-00388" summary="fixed bug in line editor (insert line didn't work)">
+      <created>1684928955650</created>
+      <option name="number" value="00388" />
+      <option name="presentableId" value="LOCAL-00388" />
+      <option name="project" value="LOCAL" />
+      <updated>1684928955650</updated>
+    </task>
+    <task id="LOCAL-00389" summary="added mult. on 2 sequences and test">
+      <created>1684978435529</created>
+      <option name="number" value="00389" />
+      <option name="presentableId" value="LOCAL-00389" />
+      <option name="project" value="LOCAL" />
+      <updated>1684978435529</updated>
+    </task>
+    <task id="LOCAL-00390" summary="removed line editor">
+      <created>1684984620543</created>
+      <option name="number" value="00390" />
+      <option name="presentableId" value="LOCAL-00390" />
+      <option name="project" value="LOCAL" />
+      <updated>1684984620543</updated>
+    </task>
+    <task id="LOCAL-00391" summary="added levenshtein">
+      <created>1685774932942</created>
+      <option name="number" value="00391" />
+      <option name="presentableId" value="LOCAL-00391" />
+      <option name="project" value="LOCAL" />
+      <updated>1685774932948</updated>
+    </task>
+    <task id="LOCAL-00392" summary="added newrap, 1st version (single root)">
+      <created>1686658961964</created>
+      <option name="number" value="00392" />
+      <option name="presentableId" value="LOCAL-00392" />
+      <option name="project" value="LOCAL" />
+      <updated>1686658961964</updated>
+    </task>
+    <option name="localTasksCounter" value="393" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1207,12 +1214,17 @@
     </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+        <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="1">
           <value>
             <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -1231,6 +1243,7 @@
                   </entry>
                 </map>
               </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
             </State>
           </value>
         </entry>
@@ -1254,7 +1267,6 @@
         <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0">
           <value>
             <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -1273,33 +1285,16 @@
                   </entry>
                 </map>
               </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
             </State>
           </value>
         </entry>
-      </map>
-    </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="1" value="TOOL_WINDOW" />
-        <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="limit savestack to 10" />
-    <MESSAGE value="added lfonts command and 'font' to select system fonts with @number" />
-    <MESSAGE value="update" />
-    <MESSAGE value="f2= + test implemented" />
-    <MESSAGE value="added missing library zxing-2.1.jar" />
-    <MESSAGE value="libs added" />
-    <MESSAGE value="fixed quoted string bug and added regarding test case." />
-    <MESSAGE value="added plotter test" />
-    <MESSAGE value="tonumlist can now parse number sequence strings" />
-    <MESSAGE value="tring MixedSequence datatype" />
-    <MESSAGE value="all 172 tests succeed" />
-    <MESSAGE value="siko" />
     <MESSAGE value="created new jarfile" />
     <MESSAGE value="bugfix &amp; some test cases added" />
     <MESSAGE value="added complex/polar conversion and test" />
@@ -1313,15 +1308,37 @@
     <MESSAGE value="little bugfixes" />
     <MESSAGE value="octal values im string -bugfix" />
     <MESSAGE value="octal string bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="octal string bugfix" />
+    <MESSAGE value="sam now waits for clip before" />
+    <MESSAGE value="suppress imaginary part in sqrt on rel numbers" />
+    <MESSAGE value="little bugfix" />
+    <MESSAGE value="added TOMIX word &amp; test" />
+    <MESSAGE value="added seq pakage and made 'replace' handle DoubleSequence" />
+    <MESSAGE value="added osave &amp; oload words" />
+    <MESSAGE value="added sclip &amp; gclip" />
+    <MESSAGE value="fixed bug in line editor (insert line didn't work)" />
+    <MESSAGE value="added mult. on 2 sequences and test" />
+    <MESSAGE value="removed line editor" />
+    <MESSAGE value="added levenshtein" />
+    <MESSAGE value="added newrap, 1st version (single root)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added newrap, 1st version (single root)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
-          <line>29</line>
+          <line>33</line>
           <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/audio/WaveTools.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/seq/SequenceBase.java</url>
+          <line>136</line>
+          <option name="timeStamp" value="89" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1331,7 +1348,7 @@
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/JForth$TestCases_soundTest.ic" NAME="TestCases.soundTest Coverage Results" MODIFIED="1599426467472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/JForth$ForthTestCases.ic" NAME="ForthTestCases Coverage Results" MODIFIED="1658273818868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/JForth$TestCases_soundTest.ic" NAME="TestCases.soundTest Coverage Results" MODIFIED="1599426467472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -43,6 +43,12 @@ class TestBase
 public class ForthTestCases extends TestBase
 {
     @Test
+    public void TestSeqMult() {
+        String s = check ("{1,2,3,4,5} {1,3,1,3,1,3,1,3} *", ".");
+        shouldBeThis("{1,6,3,12,5,0,0,0}" ,s);
+    }
+
+    @Test
     public void TestConversion()
     {
         String s = check ("hex a0 dec", ".");
@@ -1199,6 +1205,8 @@ public class ForthTestCases extends TestBase
         s = check ("\"12. oct in 1929\" {\"\\d\",\"-\"} replace",".");
         System.out.println(s);
         shouldBeThis("--. oct in ----" ,s);
+        s = check ("{1,2,3,4,1,2,3,4} {1,4} replace", ".");
+        shouldBeThis("{4,2,3,4,4,2,3,4}" ,s);
     }
 
     @Test
@@ -1760,4 +1768,13 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("{Long,BigInteger,Double}", s);
     }
 
+    @Test
+    public void TestNewrap()
+    {
+        String s = check ("{-10,10} x^3-6x^2+5x+12 newrap", ".");
+        System.out.println(s);
+        shouldBeThis("{-1,4,3}" ,s);
+        s = check ("{-10,10} x^2-10 newrap", ".");
+        shouldBeThis("{-3.1623,3.1623}" ,s);
+    }
 }

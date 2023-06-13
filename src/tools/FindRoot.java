@@ -1,7 +1,8 @@
 package tools;
 
-import org.mathIT.util.FunctionParser;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.DoubleFunction;
 
 public class FindRoot {
@@ -12,7 +13,7 @@ public class FindRoot {
         return (x) -> (a.apply(DX+x) - a.apply(x)) / DX;
     }
 
-    public static double newrahMethod(DoubleFunction<Double> f, double P0){
+    public static double newrahMethod (DoubleFunction<Double> f, double P0){
         int count = 1;
         double P1; // P1
         while(true){
@@ -26,11 +27,22 @@ public class FindRoot {
         }
     }
 
-    public static void main(String[] args) {
-        FunctionParser fp = new FunctionParser("x^2-10");
-        DoubleFunction<Double> func = value -> fp.evaluate(0, value);
-        newrahMethod (func, 10);
+    public static ArrayList<Double> findRoots (DoubleFunction<Double> f, double from, double to) {
+        Set<Double> set = new HashSet<>();
+        while (from < to) {
+            double d = newrahMethod(f, from);
+            d = Math.round(10000.0 * d) / 10000.0;
+            set.add(d);
+            from += 0.5;
+        }
+        return new ArrayList<>(set);
     }
+
+//    public static void main(String[] args) {
+//        FunctionParser fp = new FunctionParser("x^2-10");
+//        DoubleFunction<Double> func = value -> fp.evaluate(0, value);
+//        newrahMethod (func, 10);
+//    }
 }
 
 

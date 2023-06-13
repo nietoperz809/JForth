@@ -27,9 +27,7 @@ import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.DoubleFunction;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
@@ -2751,18 +2749,21 @@ final class Filler1 {
                         }
                 ));
 
-        _fw.add(new PrimitiveWord  // TODO: in progress
+        _fw.add(new PrimitiveWord
                 (
-                        "newrap", "Roots of a function",
+                        "newrap", "find Roots of a function",
                         (dStack, vStack) ->
                         {
                             try {
                                 String f = Utilities.readString(dStack); // function
-                                Double d = Utilities.readDouble(dStack);
+                                SequenceBase ds = Utilities.readDoubleSequence(dStack);
+                                ds = ds.sort();
+                                Double val1 = ((DoubleSequence)ds).pick(0);
+                                Double val2 = ((DoubleSequence)ds).pick(1);
                                 FunctionParser fp = new FunctionParser(f);
                                 DoubleFunction<Double> func = value -> fp.evaluate(0, value);
-                                double res = FindRoot.newrahMethod(func, d);
-                                dStack.push(res);
+                                DoubleSequence sd = new DoubleSequence(FindRoot.findRoots(func, val1, val2));
+                                dStack.push(sd);
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
