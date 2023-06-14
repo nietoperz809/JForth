@@ -19,6 +19,7 @@ import org.apache.commons.math3.util.ArithmeticUtils;
 import org.mathIT.util.FunctionParser;
 import tools.FileUtils;
 import tools.FindRoot;
+import tools.PollardRho;
 import tools.Utilities;
 import webserver.SimpleWebserver;
 
@@ -27,7 +28,9 @@ import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Objects;
 import java.util.function.DoubleFunction;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
@@ -2655,6 +2658,22 @@ final class Filler1 {
 
         _fw.add(new PrimitiveWord
                 (
+                        "factorN", "Prime factorisation of big integers",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                BigInteger ob = Utilities.readBig(dStack);
+                                ArrayList<BigInteger> al = PollardRho.factor(ob);
+                                dStack.push(new BigSequence(al));
+                                return 1;
+                            } catch (Exception ignored) {
+                            }
+                            return 0;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
                         "pow", "Exponentation",
                         (dStack, vStack) ->
                         {
@@ -3724,6 +3743,21 @@ final class Filler1 {
                             try {
                                 DoubleSequence o = Utilities.readDoubleSequence(dStack);
                                 dStack.push(o.prod());
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "prodN", "same as PROD but with BigInteger result",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
+                                dStack.push(o.prodN());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
