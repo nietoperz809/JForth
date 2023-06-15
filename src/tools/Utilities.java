@@ -41,49 +41,39 @@ import static org.mathIT.numbers.Numbers.euclid;
 public class Utilities {
 
     private static final ExecutorService globalExecutor = Executors.newFixedThreadPool(5);
+    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
-    private static int getExecutorFreeSlots ()
-    {
+    private static int getExecutorFreeSlots() {
         int tc = ((ThreadPoolExecutor) globalExecutor).getActiveCount();
         int tm = ((ThreadPoolExecutor) globalExecutor).getCorePoolSize();
         //System.out.println(tc + "/" + tm);
         return tm - tc;
     }
 
-    public static void executeThread(Runnable r)
-    {
-        if (getExecutorFreeSlots() <= 0)
-        {
+    public static void executeThread(Runnable r) {
+        if (getExecutorFreeSlots() <= 0) {
             System.out.println("Thread pool exhausted");
         }
         globalExecutor.submit(r);
     }
 
-    public static String getClipBoardString ()
-    {
+    public static String getClipBoardString() {
         Clipboard clipboard = getDefaultToolkit().getSystemClipboard();
         Transferable clipData = clipboard.getContents(clipboard);
-        if (clipData != null)
-        {
-            try
-            {
-                if (clipData.isDataFlavorSupported(stringFlavor))
-                {
+        if (clipData != null) {
+            try {
+                if (clipData.isDataFlavorSupported(stringFlavor)) {
                     return (String) (clipData.getTransferData(stringFlavor));
                 }
-            }
-            catch (UnsupportedFlavorException | IOException ufe)
-            {
+            } catch (UnsupportedFlavorException | IOException ufe) {
                 System.err.println("getClipoardString fail");
             }
         }
         return null;
     }
 
-    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
-
     public static String textFileToString(String path) throws IOException {
-        File f = new File (path);
+        File f = new File(path);
         List<String> lines = Files.readAllLines(f.toPath());
         return String.join("\n", lines.toArray(new String[0]));
     }
@@ -95,8 +85,7 @@ public class Utilities {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    public static Object formatTime (long time, String format)
-    {
+    public static Object formatTime(long time, String format) {
         if (format == null) {
             return time;
         }
@@ -418,7 +407,7 @@ public class Utilities {
         if (in.startsWith("0b")) {
             in = in.substring(2);
             try {
-              return Long.parseLong(in, 2) * sign;
+                return Long.parseLong(in, 2) * sign;
             } catch (NumberFormatException e) {
                 return null;
             }
@@ -428,13 +417,10 @@ public class Utilities {
 
     public static Long parseLong(String word, int base) {
         long mult = 1;
-        if (word.endsWith("M"))
-        {
+        if (word.endsWith("M")) {
             mult = 1000000;
             word = word.substring(0, word.length() - 1);
-        }
-        else if (word.endsWith("K"))
-        {
+        } else if (word.endsWith("K")) {
             mult = 1000;
             word = word.substring(0, word.length() - 1);
         }
@@ -588,39 +574,38 @@ public class Utilities {
         return getLong(dStack.peek());
     }
 
-    public static double[] read2 (OStack dStack) throws Exception {
+    public static double[] read2(OStack dStack) throws Exception {
         DoubleSequence ds = readDoubleSequence(dStack);
         if (ds.length() != 2)
-            throw new Exception ("wrong Seq length");
+            throw new Exception("wrong Seq length");
         return ds.asPrimitiveArray();
     }
 
-    public static Color readColor (OStack dStack) throws Exception {
+    public static Color readColor(OStack dStack) throws Exception {
         Object ox = dStack.pop();
         if (ox instanceof DoubleSequence) {
-            DoubleSequence ds = (DoubleSequence)ox;
+            DoubleSequence ds = (DoubleSequence) ox;
             if (ds.length() != 3)
-                throw new Exception ("wrong Seq length");
+                throw new Exception("wrong Seq length");
             return new Color(ds.pick(0).intValue(), ds.pick(1).intValue(), ds.pick(2).intValue());
         }
-        int r = (int)getLong(ox);
-        int g = (int)readLong(dStack);
-        int b = (int)readLong(dStack);
-        return new Color (r,g,b);
+        int r = (int) getLong(ox);
+        int g = (int) readLong(dStack);
+        int b = (int) readLong(dStack);
+        return new Color(r, g, b);
     }
 
     public static Point readPoint(OStack dStack) throws Exception {
         Object ox = dStack.pop();
-        if (ox instanceof DoubleSequence)
-        {
-            DoubleSequence ds = (DoubleSequence)ox;
+        if (ox instanceof DoubleSequence) {
+            DoubleSequence ds = (DoubleSequence) ox;
             if (ds.length() != 2)
                 throw new RuntimeException("ds != 2");
-            return new Point (ds.pick(0).intValue(), ds.pick(1).intValue());
+            return new Point(ds.pick(0).intValue(), ds.pick(1).intValue());
         }
-        int x = (int)getLong(ox);
-        int y = (int)readLong(dStack);
-        return new Point(x,y);
+        int x = (int) getLong(ox);
+        int y = (int) readLong(dStack);
+        return new Point(x, y);
     }
 
 
@@ -640,7 +625,7 @@ public class Utilities {
             return (Long) o;
         }
         if (o instanceof Integer) {
-            return ((Integer)o).longValue();
+            return ((Integer) o).longValue();
         }
         if (o instanceof Fraction) {
             int denom = (int) ((Fraction) o).getDenominator();
@@ -721,6 +706,21 @@ public class Utilities {
             double[] out = new double[vals.length];
             for (int s = 0; s < vals.length; s++) {
                 out[s] = Double.parseDouble(vals[s]);
+            }
+            return out;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static BigInteger[] parseCSVtoBigArray(String in) {
+        try {
+            String[] vals = in.split(",");
+            BigInteger[] out = new BigInteger[vals.length];
+            for (int s = 0; s < vals.length; s++) {
+                if (!vals[s].endsWith("L"))
+                    return null;
+                out[s] = parseBigInt(vals[s], 10);
             }
             return out;
         } catch (NumberFormatException e) {
@@ -831,7 +831,8 @@ public class Utilities {
         return a / b;
     }
 
-    public static Double doCalcDouble(Object o1, Object o2, TwoFuncs<Double, Double, Double> func) throws Exception {
+    public static Double doCalcDouble(Object o1, Object o2, TwoFuncs<Double, Double, Double> func) throws
+            Exception {
         if (o1 instanceof Double || o2 instanceof Double) {
             return func.apply(getDouble(o1), getDouble(o2));
         }
@@ -839,15 +840,16 @@ public class Utilities {
     }
 
     public static DoubleSequence doCalcDoubleSeq(Object o1, Object o2,
-                                         TwoFuncs<DoubleSequence, DoubleSequence, DoubleSequence> func)
+                                                 TwoFuncs<DoubleSequence, DoubleSequence, DoubleSequence> func)
             throws Exception {
         if (o1 instanceof DoubleSequence || o2 instanceof DoubleSequence) {
-            return func.apply((DoubleSequence)o1, (DoubleSequence)o2);
+            return func.apply((DoubleSequence) o1, (DoubleSequence) o2);
         }
         throw new Exception("Wrong args");
     }
 
-    public static Complex doCalcComplex(Object o1, Object o2, TwoFuncs<Complex, Complex, Complex> func) throws Exception {
+    public static Complex doCalcComplex(Object o1, Object o2, TwoFuncs<Complex, Complex, Complex> func) throws
+            Exception {
         if (areBothObjectsOfType(o1, o2, Complex.class)) {
             return func.apply(getComplex(o1), getComplex(o2));
         }
@@ -858,7 +860,8 @@ public class Utilities {
         return (c.isInstance(o1) || c.isInstance(o2));
     }
 
-    public static Fraction doCalcFraction(Object o1, Object o2, TwoFuncs<Fraction, Fraction, Fraction> func) throws Exception {
+    public static Fraction doCalcFraction(Object o1, Object o2, TwoFuncs<Fraction, Fraction, Fraction> func) throws
+            Exception {
         if (areBothObjectsOfType(o1, o2, Fraction.class)) {
             return func.apply(getFrac(o1), getFrac(o2));
         }
@@ -899,7 +902,8 @@ public class Utilities {
         throw new Exception("Wrong args");
     }
 
-    public static DoubleMatrix doCalcMatrix(Object o1, Object o2, TwoFuncs<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception {
+    public static DoubleMatrix doCalcMatrix(Object o1, Object
+            o2, TwoFuncs<DoubleMatrix, DoubleMatrix, DoubleMatrix> func) throws Exception {
         if (areBothObjectsOfType(o1, o2, DoubleMatrix.class)) {
             return func.apply(getMatrix(o1), getMatrix(o2));
         }
@@ -1054,7 +1058,7 @@ public class Utilities {
         } else if (o instanceof Complex) {
             return Utilities.formatComplex((Complex) o);
         } else if (o instanceof Fraction) {
-            return Utilities.formatFraction((Fraction)o);
+            return Utilities.formatFraction((Fraction) o);
         } else if (o instanceof String) {
             return StringEscape.unescape((String) o);
         } else if (o instanceof PolynomialFunction) {
@@ -1139,20 +1143,17 @@ public class Utilities {
 
     /**
      * Do the Backspace
+     *
      * @param in String containig backspace chars
      * @return smaller string with BS and that char before rmoved
      */
-    public static String translateBackspace(String in)
-    {
+    public static String translateBackspace(String in) {
         StringBuilder sb = new StringBuilder();
-        for (char c : in.toCharArray())
-        {
-            if (c == '\b')
-            {
+        for (char c : in.toCharArray()) {
+            if (c == '\b') {
                 if (sb.length() > 0)
-                    sb.setLength(sb.length()-1);
-            }
-            else
+                    sb.setLength(sb.length() - 1);
+            } else
                 sb.append(c);
         }
         return sb.toString();
@@ -1208,8 +1209,9 @@ public class Utilities {
 
     /**
      * Apply function to a list of Doubles
+     *
      * @param dStack Stack eith DoubleSequence on top
-     * @param func the function
+     * @param func   the function
      * @return the results
      */
     public static DoubleSequence functionOverDS(OStack dStack, UnivariateFunction func) {

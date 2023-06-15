@@ -1777,4 +1777,20 @@ public class ForthTestCases extends TestBase
         s = check ("{-10,10} x^2-10 newrap", ".");
         shouldBeThis("{-3.1623,3.1623}" ,s);
     }
+
+    @Test
+    public void TestPollRho()
+    {
+        String s = check ("99999999999999999999L factorn", ".");
+        System.out.println(s);
+        shouldBeThis("{3,3,11,41,101,271,3541,9091,27961}" ,s);
+    }
+
+    @Test
+    public void TestProdBig()
+    {
+        String s = check ("12345667890987654321L factorn prod", ".");
+        System.out.println(s);
+        shouldBeThis("12345667890987654321" ,s);
+    }
 }

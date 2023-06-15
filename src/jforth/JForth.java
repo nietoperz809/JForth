@@ -145,6 +145,11 @@ public class JForth {
             action.apply(lo);
             return true;
         }
+        BigSequence bs = BigSequence.parseSequence(input, base);
+        if (bs != null) {
+            action.apply(bs);
+            return true;
+        }
         FracSequence fs = FracSequence.parseSequence(input);
         if (fs != null) {
             action.apply(fs);

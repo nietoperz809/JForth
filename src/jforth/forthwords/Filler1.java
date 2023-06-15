@@ -3741,8 +3741,12 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push(o.prod());
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
+                                    dStack.push(((DoubleSequence)o).prod());
+                                } else {
+                                    dStack.push(((BigSequence) o).prod());
+                                }
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

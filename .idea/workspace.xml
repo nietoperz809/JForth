@@ -18,13 +18,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added newrap, 1st version (single root)">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added PollardRho factorizer and BigSequence">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/seq/BigSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/BigSequence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/FindRoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/FindRoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -464,7 +465,7 @@
       <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ForthTestCases.TestNewrap">
+  <component name="RunManager" selected="JUnit.ForthTestCases">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -637,19 +638,6 @@
       <option name="_new_target" value="&quot;.&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
-    <configuration name="FindRoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tools.FindRoot" />
-      <module name="JForth" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tools.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
-      </method>
-    </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
       <module name="JForth" />
@@ -682,22 +670,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestNewrap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.FracSeq1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestNewrap" />
+      <option name="METHOD_NAME" value="FracSeq1" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestSeqMult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestPollRho" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestSeqMult" />
+      <option name="METHOD_NAME" value="TestPollRho" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestProdBig" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestProdBig" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -734,19 +733,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="Application.FindRoot" />
-      <item itemvalue="JUnit.ForthTestCases.TestNewrap" />
-      <item itemvalue="JUnit.ForthTestCases.TestSeqMult" />
+      <item itemvalue="JUnit.ForthTestCases.FracSeq1" />
+      <item itemvalue="JUnit.ForthTestCases.TestPollRho" />
+      <item itemvalue="JUnit.ForthTestCases.TestProdBig" />
       <item itemvalue="JUnit.All in JForth" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ForthTestCases.TestNewrap" />
-        <item itemvalue="Application.FindRoot" />
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.TestSeqMult" />
+        <item itemvalue="JUnit.ForthTestCases.FracSeq1" />
         <item itemvalue="JUnit.All in JForth" />
+        <item itemvalue="JUnit.ForthTestCases.TestProdBig" />
+        <item itemvalue="JUnit.ForthTestCases.TestPollRho" />
       </list>
     </recent_temporary>
   </component>
@@ -850,20 +849,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00344" summary="make single commands from input line">
-      <created>1634332113173</created>
-      <option name="number" value="00344" />
-      <option name="presentableId" value="LOCAL-00344" />
-      <option name="project" value="LOCAL" />
-      <updated>1634332113173</updated>
-    </task>
-    <task id="LOCAL-00345" summary="little bugfix">
-      <created>1634344777979</created>
-      <option name="number" value="00345" />
-      <option name="presentableId" value="LOCAL-00345" />
-      <option name="project" value="LOCAL" />
-      <updated>1634344777979</updated>
     </task>
     <task id="LOCAL-00346" summary="added line splitter">
       <created>1634369586635</created>
@@ -1194,7 +1179,21 @@
       <option name="project" value="LOCAL" />
       <updated>1686658961964</updated>
     </task>
-    <option name="localTasksCounter" value="393" />
+    <task id="LOCAL-00393" summary="newrap now scans whole interval &#10;+ tests">
+      <created>1686664412484</created>
+      <option name="number" value="00393" />
+      <option name="presentableId" value="LOCAL-00393" />
+      <option name="project" value="LOCAL" />
+      <updated>1686664412484</updated>
+    </task>
+    <task id="LOCAL-00394" summary="added PollardRho factorizer and BigSequence">
+      <created>1686776443145</created>
+      <option name="number" value="00394" />
+      <option name="presentableId" value="LOCAL-00394" />
+      <option name="project" value="LOCAL" />
+      <updated>1686776443145</updated>
+    </task>
+    <option name="localTasksCounter" value="395" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1218,6 +1217,7 @@
       <map>
         <entry key="1" value="TOOL_WINDOW" />
         <entry key="cabdf2b1-83dc-46bb-9384-2a9c25b805d0" value="TOOL_WINDOW" />
+        <entry key="e9ff85b7-22bf-4234-a5ec-08f9ace7e378" value="TOOL_WINDOW" />
       </map>
     </option>
     <option name="TAB_STATES">
@@ -1289,14 +1289,37 @@
             </State>
           </value>
         </entry>
+        <entry key="e9ff85b7-22bf-4234-a5ec-08f9ace7e378">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/peter.home/java/JForth/src" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="created new jarfile" />
-    <MESSAGE value="bugfix &amp; some test cases added" />
     <MESSAGE value="added complex/polar conversion and test" />
     <MESSAGE value="toPoly from string &amp; more tests" />
     <MESSAGE value="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa" />
@@ -1320,7 +1343,9 @@
     <MESSAGE value="removed line editor" />
     <MESSAGE value="added levenshtein" />
     <MESSAGE value="added newrap, 1st version (single root)" />
-    <option name="LAST_COMMIT_MESSAGE" value="added newrap, 1st version (single root)" />
+    <MESSAGE value="newrap now scans whole interval &#10;+ tests" />
+    <MESSAGE value="added PollardRho factorizer and BigSequence" />
+    <option name="LAST_COMMIT_MESSAGE" value="added PollardRho factorizer and BigSequence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1334,11 +1359,6 @@
           <url>file://$PROJECT_DIR$/src/jforth/audio/WaveTools.java</url>
           <line>51</line>
           <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/seq/SequenceBase.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="89" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

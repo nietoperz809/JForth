@@ -1,5 +1,7 @@
 package jforth.seq;
 
+import tools.Utilities;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 
@@ -20,6 +22,20 @@ public class BigSequence extends SequenceBase<BigInteger> implements java.io.Ser
         }
     }
 
+    public static BigSequence parseSequence(String in, int base) {
+        if (base != 10)
+            return null;
+        if (in.equals("{}"))
+            return new BigSequence();
+        String seq = Utilities.extractSequence(in);
+        if (seq == null)
+            return null;
+        BigInteger[] arr = Utilities.parseCSVtoBigArray(seq);
+        if (arr == null)
+            return null;
+        return new BigSequence(arr);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         String str;
@@ -36,5 +52,13 @@ public class BigSequence extends SequenceBase<BigInteger> implements java.io.Ser
         return sb.toString();
     }
 
+    public BigInteger prod() {
+        BigInteger ret = BigInteger.ONE;
+        ArrayList<BigInteger> arr = this.get_list();
+        for (BigInteger bi : arr) {
+            ret = ret.multiply(bi);
+        }
+        return ret;
+    }
 
 }
