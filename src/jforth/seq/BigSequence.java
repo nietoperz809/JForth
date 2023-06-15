@@ -4,6 +4,7 @@ import tools.Utilities;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BigSequence extends SequenceBase<BigInteger> implements java.io.Serializable {
     public BigSequence() {
@@ -11,16 +12,17 @@ public class BigSequence extends SequenceBase<BigInteger> implements java.io.Ser
     }
 
     public BigSequence(BigInteger[] vals) {
-        for (BigInteger val : vals) {
-            _list.add(val);
-        }
+        _list.addAll(Arrays.asList(vals));
     }
 
     public BigSequence(ArrayList<BigInteger> vals) {
-        for (BigInteger val : vals) {
-            _list.add(val);
-        }
+        _list.addAll(vals);
     }
+
+    public BigSequence(DoubleSequence vals) {
+        _list.addAll(Arrays.asList(vals.asBigIntArray()));
+    }
+
 
     public static BigSequence parseSequence(String in, int base) {
         if (base != 10)
@@ -61,4 +63,12 @@ public class BigSequence extends SequenceBase<BigInteger> implements java.io.Ser
         return ret;
     }
 
+    public BigInteger sum() {
+        BigInteger ret = BigInteger.ZERO;
+        ArrayList<BigInteger> arr = this.get_list();
+        for (BigInteger bi : arr) {
+            ret = ret.add(bi);
+        }
+        return ret;
+    }
 }

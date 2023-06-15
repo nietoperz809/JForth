@@ -270,6 +270,14 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return out;
     }
 
+    public BigInteger[] asBigIntArray() {
+        BigInteger[] out = new BigInteger[_list.size()];
+        for (int s = 0; s < _list.size(); s++)
+            out[s] = BigInteger.valueOf((long)(double)_list.get(s));
+        return out;
+    }
+
+
     public int[] asIntArray() {
         int[] out = new int[_list.size()];
         for (int s = 0; s < _list.size(); s++)

@@ -1836,7 +1836,7 @@ final class Filler1 {
                             } else if (o1 instanceof Double) {
                                 dStack.push(BigInteger.valueOf(((Double) o1).longValue()));
                             } else if (o1 instanceof DoubleSequence) {
-                                dStack.push(((DoubleSequence) o1).fromBitList());
+                                dStack.push(new BigSequence((DoubleSequence)o1));
                             } else if (o1 instanceof String) {
                                 dStack.push(new BigInteger((String) o1));
                             } /*else if (o1 instanceof Complex) {
@@ -3666,8 +3666,11 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                DoubleSequence o = Utilities.readDoubleSequence(dStack);
-                                dStack.push (o.sum());
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence)
+                                    dStack.push (((DoubleSequence)o).sum());
+                                else if (o instanceof BigSequence)
+                                    dStack.push (((BigSequence)o).sum());
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

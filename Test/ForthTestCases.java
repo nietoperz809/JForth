@@ -259,12 +259,11 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
-    public void TestBitsBig()
+    public void TestBits()
     {
-        String s = check ("2 77 pow dup toBits toBig",
-                ". sp .");
+        String s = check ("2 77 pow",".");
         System.out.println(s);
-        shouldBeThis("151115727451828646838272 151115727451828646838272" ,s);
+        shouldBeThis("151115727451828646838272" ,s);
     }
 
     @Test
@@ -273,6 +272,17 @@ public class ForthTestCases extends TestBase
         String s = check ("12345678987654321 sqrt toBig",".");
         System.out.println(s);
         shouldBeThis("111111111" ,s);
+        s = check ("{1,2,3,4,5} type swap tobig type","...");
+        System.out.println(s);
+        shouldBeThis("BigSequence{1,2,3,4,5}DoubleSequence" ,s);
+    }
+
+    @Test
+    public void TestToBiSeq()
+    {
+        String s = check ("{1,2,3,4,5} tobig type",".");
+        System.out.println(s);
+        shouldBeThis("BigSequence" ,s);
     }
 
     @Test
