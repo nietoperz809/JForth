@@ -1803,4 +1803,12 @@ public class ForthTestCases extends TestBase
         System.out.println(s);
         shouldBeThis("12345667890987654321" ,s);
     }
+
+    @Test
+    public void TestHaar()
+    {
+        String s = check ("{3,7,11,19,57,73,-77,-1} haar dup unhaar", "..");
+        System.out.println(s);
+        shouldBeThis("{3,7,11,19,57,73,-77,-1}{5,15,65,-39,-2,-4,-8,-38}" ,s);
+    }
 }
