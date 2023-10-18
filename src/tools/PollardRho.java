@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
+/**
+ * Prime factorization
+ */
 public class PollardRho {
     private final static BigInteger ZERO = new BigInteger("0");
     private final static BigInteger ONE  = new BigInteger("1");
@@ -38,18 +41,18 @@ public class PollardRho {
         return al;
     }
 
-    private static ArrayList<BigInteger> factor(BigInteger N, ArrayList<BigInteger> al) {
+    private static void factor(BigInteger N, ArrayList<BigInteger> al) {
         if (N.compareTo(ONE) == 0)
-            return al;
+            return;
         if (N.isProbablePrime(20))
         {
             al.add(N);
-            return al;
+            return;
         }
         BigInteger divisor = rho(N);
         factor(divisor, al);
         factor(N.divide(divisor), al);
-        return al;
+        return;
     }
 
 //

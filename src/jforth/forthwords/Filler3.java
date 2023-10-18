@@ -3,6 +3,7 @@ package jforth.forthwords;
 import jforth.PrimitiveWord;
 import jforth.WordsList;
 import jforth.seq.DoubleSequence;
+import jforth.seq.Haar;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;
 import org.apache.commons.math3.analysis.function.Signum;
 import tools.ClipBoard;
@@ -11,6 +12,7 @@ import tools.Utilities;
 import java.math.BigInteger;
 
 import static jforth.PositionalNumberSystem.getPnsInst;
+import static tools.Utilities.readDoubleSequence;
 import static tools.Utilities.readString;
 
 final class Filler3 {
@@ -161,6 +163,40 @@ final class Filler3 {
                         {
                             try {
                                 ClipBoard.put(readString(dStack));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "haar", "haar wavelet transform",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                double[] prim = ds.asPrimitiveArray();
+                                Haar.Forward(prim);
+                                dStack.push (new DoubleSequence(prim));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "unhaar", "backward haar wavelet transform",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                double[] prim = ds.asPrimitiveArray();
+                                Haar.Backward(prim);
+                                dStack.push (new DoubleSequence(prim));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
