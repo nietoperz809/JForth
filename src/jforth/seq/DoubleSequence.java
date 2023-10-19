@@ -102,15 +102,8 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         _list.addAll(src._list);
     }
 
-    /**
-     * Constructor to append 2 DS
-     *
-     * @param src1 DS1
-     * @param src2 DS2
-     */
-    public DoubleSequence(DoubleSequence src1, DoubleSequence src2) {
-        _list.addAll(src1._list);
-        _list.addAll(src2._list);
+    public DoubleSequence(DoubleSequence... src) {
+        addAll(src);
     }
 
     public static DoubleSequence fromFracSeq(FracSequence fr) {

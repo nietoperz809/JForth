@@ -87,6 +87,11 @@ public class WordHelpers {
                 return 1;
             }
         }
+        if ((o1 instanceof StringSequence) && (o2 instanceof StringSequence)) {
+            StringSequence s = new StringSequence((StringSequence) o2, (StringSequence) o1);
+            dStack.push(s);
+            return 1;
+        }
         if ((o1 instanceof DoubleSequence) && (o2 instanceof DoubleSequence)) {
             DoubleSequence s = new DoubleSequence((DoubleSequence) o2, (DoubleSequence) o1);
             dStack.push(s);
@@ -296,10 +301,14 @@ public class WordHelpers {
                 return 1;
             } else if (o2 instanceof DoubleSequence) {
                 DoubleSequence d2 = (DoubleSequence) o2;
-                DoubleSequence d3 = new DoubleSequence();  // empty
-                while (i1-- != 0) {
-                    d3 = d3.add(d2);
-                }
+                DoubleSequence d3 = new DoubleSequence(d2);
+                d3.multiply((int)i1);
+                dStack.push(d3);
+                return 1;
+            } else if (o2 instanceof StringSequence) {
+                StringSequence d2 = (StringSequence) o2;
+                StringSequence d3 = new StringSequence(d2);
+                d3.multiply((int)i1);
                 dStack.push(d3);
                 return 1;
             } else if (o2 instanceof String) {

@@ -29,6 +29,10 @@ public class StringSequence extends SequenceBase<String> implements java.io.Seri
         _list.addAll (src._list);
     }
 
+    public StringSequence (StringSequence ... src) {
+        addAll(src);
+    }
+
     public StringSequence (DoubleSequence in)
     {
         for (Double d : in.get_list ())

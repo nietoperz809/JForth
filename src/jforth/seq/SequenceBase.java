@@ -12,6 +12,7 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
     public SequenceBase() {
     }
 
+
     @SuppressWarnings("unchecked")
     public static <E> ArrayList<E> mixin(SequenceBase<? extends E> d1, SequenceBase<? extends E> d2) {
         int len = Math.max(d1.length(), d2.length());
@@ -225,5 +226,18 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public void addAll (SequenceBase<E> ... src) {
+        for (SequenceBase<E> s : src)
+            _list.addAll(s._list);
+    }
+
+    public void multiply (int n) {
+        ArrayList<E> l2 = new ArrayList<>();
+        while (n-- != 0) {
+            l2.addAll(_list);
+        }
+        _list = l2;
     }
 }
