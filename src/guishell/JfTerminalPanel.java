@@ -7,6 +7,8 @@ import tools.StringStream;
 import tools.Utilities;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Element;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -94,6 +96,36 @@ public class JfTerminalPanel extends ColorPane {
         appendANSI("\n");
     }
 
+    public String currentLine(JTextPane textTx) {
+        // Get section element
+        Element section = textTx.getDocument().getDefaultRootElement();
+
+        // Get number of paragraphs.
+        // In a text pane, a span of characters terminated by single
+        // newline is typically called a paragraph.
+        int paraCount = section.getElementCount();
+
+        int position = textTx.getCaret().getDot();
+
+        // Get index ranges for each paragraph
+        for (int i = 0; i < paraCount; i++) {
+            Element e1 = section.getElement(i);
+
+            int rangeStart = e1.getStartOffset();
+            int rangeEnd = e1.getEndOffset();
+
+            try {
+                String para = textTx.getText(rangeStart, rangeEnd - rangeStart);
+
+                if (position >= rangeStart && position <= rangeEnd)
+                    return para;
+            } catch (BadLocationException ex) {
+                System.err.println("Get current line from editor error: " + ex.getMessage());
+            }
+        }
+        return null;
+    }
+
     /**
      * Initialize and start Forth thread
      */
@@ -109,22 +141,20 @@ public class JfTerminalPanel extends ColorPane {
         Utilities.executeThread(() -> {
             //noinspection InfiniteLoopStatement
             while (true) {
-                String lineData = Utilities.translateBackspace(lineListener.getBufferedLine());
-                if (!lineData.equals("\n"))
-                    combo.insertItemAt (lineData, 0);
-                JForth.runCommands1By1 (lineData, (arr, idx) -> {
-                    boolean res = _jf.singleShot(arr[idx]);
-                    String txt = _ss.getAndClear();
-                    if (!(txt.startsWith(" OK\n") && idx != arr.length - 1)) { // empty result
-                        if (res) {
-                            txt = AnsiDefaultOutput + txt;
-                        } else {
-                            txt = AnsiError + txt;
-                        }
-                        txt = txt.replace("JFORTH", AnsiReset + "JFORTH");
-                        appendANSI(txt);
-                    }
-                });
+                lineListener.getBufferedLine(); / WAIT
+
+                ///
+                String lineData = currentLine(this);
+                lineData = lineData.replace("JFORTH>", "");
+                ///
+                boolean ok = _jf.interpretLine(lineData);
+                String txt = _ss.getAndClear();
+                if (ok)
+                    txt = AnsiDefaultOutput + txt;
+                else
+                    txt = AnsiError + "Error";
+                txt = txt+ "\nJFORTH> ";
+                appendANSI(txt);
             }
         });
     }

@@ -450,6 +450,14 @@ public class Utilities {
         }
     }
 
+    public static Double parseDouble(String word) throws NumberFormatException {
+        if (word.equals("e"))
+            return Math.E;
+        if (word.equals("pi"))
+            return Math.PI;
+        return Double.parseDouble(word);
+    }
+
     public static List<String> splitEqually(String text, int size) {
         try {
             List<String> ret = new ArrayList<>((text.length() + size - 1) / size);
@@ -690,13 +698,7 @@ public class Utilities {
             double[] out = new double[vals.length];
             int s = 0;
             for (String x : vals) {
-                if (x.equals("e")) {
-                    out[s++] = Math.E;
-                } else if (x.equals("pi")) {
-                    out[s++] = Math.PI;
-                }
-                else
-                    out[s++] = Double.parseDouble(x);
+                out[s++] = Utilities.parseDouble(x);
             }
             return out;
         } catch (NumberFormatException e) {
