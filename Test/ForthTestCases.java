@@ -1681,7 +1681,6 @@ public class ForthTestCases extends TestBase
         shouldBeThis ("{104,101,108,108,111,32,119,111,114,108,100}", s);
     }
 
-
     @Test
     public void testMixedSeq() {
         String s = check ("{{1,2,3};{peter,ist,lieb};\"motha,fucka\";\"mothafucka\";3+4i;1103;2/4}",".");
@@ -1810,5 +1809,33 @@ public class ForthTestCases extends TestBase
         String s = check ("{3,7,11,19,57,73,-77,-1} haar dup unhaar", "..");
         System.out.println(s);
         shouldBeThis("{3,7,11,19,57,73,-77,-1}{5,15,65,-39,-2,-4,-8,-38}" ,s);
+        s = check ("{0.15,-4.85,-0.05,5.15} unhaar 3 round", ".");
+        System.out.println(s);
+        shouldBeThis("{0.1,0.2,0.3,-10}" ,s);
     }
+
+    @Test
+    public void TestSSDup()
+    {
+        String s = check ("{a,b} dup +", ".");
+        System.out.println(s);
+        shouldBeThis("{\"a\",\"b\",\"a\",\"b\"}" ,s);
+    }
+
+    @Test
+    public void TestListMult()
+    {
+        String s = check ("{1,2} 2 * {a,b,c} 3 *", "..");
+        System.out.println(s);
+        shouldBeThis("{\"a\",\"b\",\"c\",\"a\",\"b\",\"c\",\"a\",\"b\",\"c\"}{1,2,1,2}" ,s);
+    }
+
+    @Test
+    public void TestPiAndEinDS()
+    {
+        String s = check ("{1,pi,e,2} 2 round", ".");
+        System.out.println(s);
+        shouldBeThis("{1,3.14,2.72,2}" ,s);
+    }
+
 }
