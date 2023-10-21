@@ -450,7 +450,6 @@ public class Utilities {
         }
     }
 
-
     public static List<String> splitEqually(String text, int size) {
         try {
             List<String> ret = new ArrayList<>((text.length() + size - 1) / size);
@@ -526,21 +525,6 @@ public class Utilities {
         return getDouble(o);
     }
 
-//    static public boolean canBeDouble(Object o1) {
-//        if (o1 instanceof BigInteger) {
-//            return true;
-//        }
-//        if (o1 instanceof Double) {
-//            return true;
-//        }
-//        if (o1 instanceof Long) {
-//            return true;
-//        }
-//        if (o1 instanceof Fraction) {
-//            return true;
-//        }
-//        return o1 instanceof Complex;
-//    }
 
     static public Double getDouble(Object o1) throws Exception {
         if (o1 instanceof BigInteger) {
@@ -704,8 +688,15 @@ public class Utilities {
         try {
             String[] vals = in.split(",");
             double[] out = new double[vals.length];
-            for (int s = 0; s < vals.length; s++) {
-                out[s] = Double.parseDouble(vals[s]);
+            int s = 0;
+            for (String x : vals) {
+                if (x.equals("e")) {
+                    out[s++] = Math.E;
+                } else if (x.equals("pi")) {
+                    out[s++] = Math.PI;
+                }
+                else
+                    out[s++] = Double.parseDouble(x);
             }
             return out;
         } catch (NumberFormatException e) {
