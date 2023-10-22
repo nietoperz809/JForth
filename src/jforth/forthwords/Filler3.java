@@ -3,17 +3,17 @@ package jforth.forthwords;
 import jforth.PrimitiveWord;
 import jforth.WordsList;
 import jforth.seq.DoubleSequence;
-import jforth.seq.Haar;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;
 import org.apache.commons.math3.analysis.function.Signum;
 import tools.ClipBoard;
+import tools.Haar;
 import tools.Utilities;
 
 import java.math.BigInteger;
+import java.util.zip.Deflater;
 
 import static jforth.PositionalNumberSystem.getPnsInst;
-import static tools.Utilities.readDoubleSequence;
-import static tools.Utilities.readString;
+import static tools.Utilities.*;
 
 final class Filler3 {
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {
@@ -197,6 +197,41 @@ final class Filler3 {
                                 double[] prim = ds.asPrimitiveArray();
                                 Haar.Backward(prim);
                                 dStack.push (new DoubleSequence(prim));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "zip", "compress",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                byte[] bt = ds.asBytes();
+                                byte[] zipped = compress(bt,
+                                        Deflater.BEST_COMPRESSION, false);
+                                dStack.push (new DoubleSequence(zipped));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "unzip", "decompress",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                byte[] bt = ds.asBytes();
+                                byte[] unzipped = decompress(bt, false);
+                                dStack.push (new DoubleSequence(unzipped));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;

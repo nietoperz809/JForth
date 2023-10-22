@@ -33,6 +33,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import static java.awt.Toolkit.getDefaultToolkit;
 import static java.awt.datatransfer.DataFlavor.stringFlavor;
@@ -1253,16 +1256,37 @@ public class Utilities {
         return null;
     }
 
-//    /**
-//     * Make standard UF from Functionparser
-//     * @param fp the functionParser
-//     * @return the UF
-//     */
-//    public static UnivariateFunction toUF (FunctionParser fp) {
-//        return v -> fp.evaluate(0, v);
-//    }
-//
-//    public static PolynomialFunction toPF (FunctionParser fp) {
-//        PolynomialFunction pf = new PolynomialFunction();
-//    }
+    public static byte[] compress(byte[] input, int compressionLevel,
+                                  boolean GZIPFormat) throws IOException {
+        Deflater compressor = new Deflater(compressionLevel, GZIPFormat);
+        compressor.setInput(input);
+        compressor.finish();
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        byte[] readBuffer = new byte[1024];
+        int readCount = 0;
+        while (!compressor.finished()) {
+            readCount = compressor.deflate(readBuffer);
+            if (readCount > 0) {
+                bao.write(readBuffer, 0, readCount);
+            }
+        }
+        compressor.end();
+        return bao.toByteArray();
+    }
+    public static byte[] decompress(byte[] input, boolean GZIPFormat)
+            throws IOException, DataFormatException {
+        Inflater decompressor = new Inflater(GZIPFormat);
+        decompressor.setInput(input);
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        byte[] readBuffer = new byte[1024];
+        int readCount = 0;
+        while (!decompressor.finished()) {
+            readCount = decompressor.inflate(readBuffer);
+            if (readCount > 0) {
+                bao.write(readBuffer, 0, readCount);
+            }
+        }
+        decompressor.end();
+        return bao.toByteArray();
+    }
 }

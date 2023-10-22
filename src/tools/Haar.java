@@ -22,7 +22,7 @@
 //    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-package jforth.seq;
+package tools;
 
 /**
  * Haar Wavelet Transform.
