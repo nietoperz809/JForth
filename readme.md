@@ -37,6 +37,9 @@ BigInt
 
 DoubleSequence
 > Ex: {1,2,4.456,7}
+
+BigSequence
+> Ex: {1L,2L,4L.456L,7L}
  
 DoubeMatrix
 > Ex: {{1,2,4}{5,8,9}} 
@@ -391,30 +394,6 @@ WSIZE           -- set console size
 XOR             -- Xors two values
 ZETA            -- Riemann Zeta function
  </pre>
-
-<hr>
-
-Line Editor
-------------------------------
-The integrated line editor is invoked by _'editor'_
-It knows these commands:
-
-<pre>
- #l         -- List (with line numbers)
- #t         -- print list as String
- #c         -- clear all
- #h         -- this help text
- #dir       -- List directory
- #x         -- leave line editor
- #r text    -- read file where text is the file name
- #s test    -- save file where text is the file name
- #innn text -- Insert before, where nnn is the line number and text is the content
- #nnn       -- Delete line nnn
- #u         -- undo last list change
- #e         -- execute file in editor
- any other  -- input is appended to the buffer.
-
-</pre>
 
 <hr>
 

@@ -18,14 +18,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added BigSequence + prod() + tests">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doubesin.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/seq/BigSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/BigSequence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/seq/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/DoubleSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/linde" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/FileBlob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/FileBlob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,6 +129,10 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="1T7COVnQfLr98KQLTtt1dpZQnu6" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -440,11 +448,11 @@
       <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="tools.Utilities" />
       <recent name="jforth.audio.SynthToneBase" />
       <recent name="jforth.Utilities" />
       <recent name="tools.ResourceLoader" />
       <recent name="jforth.audio.WaveTools" />
-      <recent name="jforth.FileUtils" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="jforth" />
@@ -458,14 +466,14 @@
       <recent name="jforth.waves" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="jforth.seq" />
       <recent name="jforth" />
       <recent name="webserver" />
       <recent name="tools" />
       <recent name="jforth.waves" />
-      <recent name="jforth.Math" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in JForth">
+  <component name="RunManager" selected="Application.JForthGui">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -594,50 +602,6 @@
       <arguments />
       <envs />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <module name="JForth" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <module name="JForth" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <module name="JForth" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
     <configuration name="JForthGui" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="guishell.JfGuiApplication" />
       <module name="JForth" />
@@ -651,15 +615,6 @@
         <option name="AntTarget" enabled="true" antfile="file://$PROJECT_DIR$/src/jforth/buildnum.xml" target="init" />
       </method>
     </configuration>
-    <configuration name="All in JForth" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="JForth" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ForthTestCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
@@ -670,33 +625,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestBits" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.FracSeq1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestBits" />
+      <option name="METHOD_NAME" value="FracSeq1" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestToBiSeq" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestListMult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestToBiSeq" />
+      <option name="METHOD_NAME" value="TestListMult" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestToBig2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestPiAndEinDS" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestToBig2" />
+      <option name="METHOD_NAME" value="TestPiAndEinDS" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestSSDup" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestSSDup" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -731,21 +697,69 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <module name="JForth" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
-      <item itemvalue="JUnit.ForthTestCases.TestBits" />
-      <item itemvalue="JUnit.ForthTestCases.TestToBiSeq" />
-      <item itemvalue="JUnit.ForthTestCases.TestToBig2" />
-      <item itemvalue="JUnit.All in JForth" />
+      <item itemvalue="JUnit.ForthTestCases.FracSeq1" />
+      <item itemvalue="JUnit.ForthTestCases.TestPiAndEinDS" />
+      <item itemvalue="JUnit.ForthTestCases.TestListMult" />
+      <item itemvalue="JUnit.ForthTestCases.TestSSDup" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in JForth" />
-        <item itemvalue="JUnit.ForthTestCases.TestToBig2" />
-        <item itemvalue="JUnit.ForthTestCases.TestToBiSeq" />
-        <item itemvalue="JUnit.ForthTestCases.TestBits" />
         <item itemvalue="JUnit.ForthTestCases" />
+        <item itemvalue="JUnit.ForthTestCases.TestPiAndEinDS" />
+        <item itemvalue="JUnit.ForthTestCases.FracSeq1" />
+        <item itemvalue="JUnit.ForthTestCases.TestListMult" />
+        <item itemvalue="JUnit.ForthTestCases.TestSSDup" />
       </list>
     </recent_temporary>
   </component>
@@ -849,13 +863,6 @@
       <workItem from="1528043766951" duration="2883000" />
       <workItem from="1528289229690" duration="13447000" />
       <workItem from="1529646331170" duration="822000" />
-    </task>
-    <task id="LOCAL-00347" summary="first version based on websocket">
-      <created>1634411921234</created>
-      <option name="number" value="00347" />
-      <option name="presentableId" value="LOCAL-00347" />
-      <option name="project" value="LOCAL" />
-      <updated>1634411921234</updated>
     </task>
     <task id="LOCAL-00348" summary="img displaying works again">
       <created>1634428944939</created>
@@ -1193,7 +1200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686793699236</updated>
     </task>
-    <option name="localTasksCounter" value="396" />
+    <task id="LOCAL-00396" summary="tobig makes DoubleSequence to BigSequence">
+      <created>1686871387184</created>
+      <option name="number" value="00396" />
+      <option name="presentableId" value="LOCAL-00396" />
+      <option name="project" value="LOCAL" />
+      <updated>1686871387184</updated>
+    </task>
+    <option name="localTasksCounter" value="404" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1320,13 +1334,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="toPoly from string &amp; more tests" />
-    <MESSAGE value="added PositionalNumberSystem for conversion of decimal numbers into another system and vice versa" />
-    <MESSAGE value="added test cases for pns" />
-    <MESSAGE value="backup" />
-    <MESSAGE value="added toDate word" />
-    <MESSAGE value="added todateSS and test cases" />
-    <MESSAGE value="new jar" />
     <MESSAGE value="little bugfixes" />
     <MESSAGE value="octal values im string -bugfix" />
     <MESSAGE value="octal string bugfix" />
@@ -1345,22 +1352,46 @@
     <MESSAGE value="newrap now scans whole interval &#10;+ tests" />
     <MESSAGE value="added PollardRho factorizer and BigSequence" />
     <MESSAGE value="added BigSequence + prod() + tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="added BigSequence + prod() + tests" />
+    <MESSAGE value="tobig makes DoubleSequence to BigSequence" />
+    <MESSAGE value="added haar wavelets" />
+    <MESSAGE value="test haar wavelet" />
+    <MESSAGE value="some improvements &amp; tests" />
+    <MESSAGE value="added pi/e-test" />
+    <MESSAGE value="new shellinput (experimantal)" />
+    <MESSAGE value="backup" />
+    <option name="LAST_COMMIT_MESSAGE" value="backup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
           <line>33</line>
           <option name="timeStamp" value="66" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/audio/WaveTools.java</url>
           <line>51</line>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
+          <line>249</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

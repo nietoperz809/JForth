@@ -132,7 +132,7 @@ public class FileUtils {
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         new ObjectOutputStream(baos).writeObject(obj);
-        OutputStream outputStream = new FileOutputStream (path);
+        OutputStream outputStream = Files.newOutputStream(Paths.get(path));
         baos.writeTo(outputStream);
     }
 
