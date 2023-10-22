@@ -11,6 +11,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 /**
  * @author Administrator
@@ -80,7 +81,7 @@ public class JfTerminalPanel extends ColorPane {
     @Override
     public void paste() {
         super.paste();
-        String clip = Utilities.getClipBoardString().trim();
+        String clip = Objects.requireNonNull(Utilities.getClipBoardString()).trim();
         clip = clip.replaceAll("[\\p{C}]", " ");
         lineListener.fakeIn(clip);
     }
@@ -141,7 +142,7 @@ public class JfTerminalPanel extends ColorPane {
         Utilities.executeThread(() -> {
             //noinspection InfiniteLoopStatement
             while (true) {
-                lineListener.getBufferedLine(); / WAIT
+                lineListener.getBufferedLine(); /* WAIT */
 
                 ///
                 String lineData = currentLine(this);
@@ -150,10 +151,10 @@ public class JfTerminalPanel extends ColorPane {
                 boolean ok = _jf.interpretLine(lineData);
                 String txt = _ss.getAndClear();
                 if (ok)
-                    txt = AnsiDefaultOutput + txt;
+                    txt = AnsiDefaultOutput + txt + " OK\n";
                 else
-                    txt = AnsiError + "Error";
-                txt = txt+ "\nJFORTH> ";
+                    txt = AnsiError + " Error\n";
+                txt = txt+ "JFORTH> ";
                 appendANSI(txt);
             }
         });

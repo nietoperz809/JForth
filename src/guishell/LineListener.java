@@ -1,22 +1,15 @@
 package guishell;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 public class LineListener implements KeyListener {
-    Robot robot;
+    //Robot robot;
 
     public LineListener() {
         super();
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            robot = null;
-            e.printStackTrace();
-        }
     }
 
     private final ArrayBlockingQueue<String> lineBuffer = new ArrayBlockingQueue<>(128, true);
@@ -50,30 +43,9 @@ public class LineListener implements KeyListener {
             charBuffer.offer(c);  // insert at tail
     }
 
-//    public void writeKeyboard(Robot bot, String st) throws Exception {
-//        String upperCase = st.toUpperCase();
-//
-//        for(int i = 0; i < upperCase.length(); i++) {
-//            String letter = Character.toString(upperCase.charAt(i));
-//            String code = "VK_" + letter;
-//
-//            Field f = KeyEvent.class.getField(code);
-//            int keyEvent = f.getInt(null);
-//
-//            bot.keyPress(keyEvent);
-//            bot.keyRelease(keyEvent);
-//        }
-//    }
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        if (e.getKeyCode() == 35) {
-//            try {
-//                writeKeyboard(robot, lastStr);
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        }
     }
 
     @Override
