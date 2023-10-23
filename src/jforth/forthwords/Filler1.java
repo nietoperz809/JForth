@@ -3252,10 +3252,10 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
-                                char c = predefinedWords._jforth.guiTerminal.getKey();
-                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
-                                dStack.push ((long)c);
+//                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
+//                                char c = predefinedWords._jforth.guiTerminal.getKey();
+//                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
+//                                dStack.push ((long)c);
                                 return 1;
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -3317,34 +3317,30 @@ final class Filler1 {
                         "accept", true, "Read string from keyboard",
                         (dStack, vStack) ->
                         {
-                            long l;
                             try {
-                                l = Utilities.readLong(dStack);
-                            } catch (Exception e) {
-                                l = -1;
-                            }
-                            StringBuilder s = new StringBuilder();
-                            try {
-                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
-                                while (true) {
-                                    char c = predefinedWords._jforth.guiTerminal.getKey();
-                                    if (l > 0) {
-                                        l--;
-                                    }
-                                    if (c == (char)10) {
-                                        break;
-                                    }
-                                    s.append(c);
-                                    if (l == 0) {
-                                        break;
-                                    }
-                                }
-                                // RawConsoleInput.resetConsoleMode();
-                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
-                                dStack.push(s.toString());
+                                long l = Utilities.readLong(dStack);
+                                String s = predefinedWords._jforth.guiTerminal.collectKeys((int)l);
+                                dStack.push(s);
+                                        ;
+//                                while (true) {
+//                                    char c = predefinedWords._jforth.guiTerminal.getKey();
+//                                    if (l > 0) {
+//                                        l--;
+//                                    }
+//                                    if (c == (char)10) {
+//                                        break;
+//                                    }
+//                                    s.append(c);
+//                                    if (l == 0) {
+//                                        break;
+//                                    }
+//                                }
+//                                // RawConsoleInput.resetConsoleMode();
+//                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
+//                                dStack.push(s.toString());
                                 return 1;
                             } catch (Exception e) {
-                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
+//                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
                                 return 0;
                             }
                         }

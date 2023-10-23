@@ -20,18 +20,48 @@ public class JfTerminalPanel extends ColorPane {
     private static final String AnsiDefaultOutput = AnsiColors.getCode(Color.yellow);
     private static final String AnsiError = AnsiColors.getCode(Color.RED);
     private static final String AnsiReset = AnsiColors.getCode(Color.white);
-    // --------------------------------------------------------------------------------------------
-    private final LineListener lineListener = new LineListener();
     // The forth and its output channel -----------------------------------------------------------
     public final StringStream _ss = new StringStream();
     public final JForth _jf = new JForth(_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
+    private StringBuffer collector;
+    private Object waiter = new Object();
+    private int ncoll;
+
+    public String collectKeys(int n) throws Exception{
+        collector = new StringBuffer();
+        ncoll = n;
+        synchronized(waiter) {
+            waiter.wait();
+        }
+        String str = collector.toString();
+        collector = null;
+        return str;
+    }
+
+    private void runForthThread(JComboBox<String> combo) {
+        (new Thread(() -> {
+            String lineData = Utilities.currentLine(JfTerminalPanel.this);
+            assert lineData != null;
+            lineData = lineData.replace("JFORTH>", "");
+            boolean ok = _jf.interpretLine(lineData);
+            String response = _ss.getAndClear();
+            if (ok) {
+                combo.addItem(lineData.trim());
+                response = AnsiDefaultOutput + response + " OK\n";
+            }
+            else
+                response = AnsiError + " Error\n";
+            response = response+ AnsiReset + "JFORTH> ";
+            appendANSI(response);
+        })).start();
+    }
 
     public JfTerminalPanel(JComboBox<String> combo) {
         super();
         combo.addActionListener(e -> {
             if (e.getActionCommand().equals("comboBoxEdited")) {
                 String item = combo.getEditor().getItem() + "\n";
-                lineListener.fakeIn(item);
+                //lineListener.fakeIn(item);
                 appendANSI(item);
             }
         });
@@ -48,21 +78,17 @@ public class JfTerminalPanel extends ColorPane {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (e.getKeyChar() == '\n') {
-                    String lineData = Utilities.currentLine(JfTerminalPanel.this);
-                    assert lineData != null;
-                    lineData = lineData.replace("JFORTH>", "");
-                    ///
-                    boolean ok = _jf.interpretLine(lineData);
-                    String response = _ss.getAndClear();
-                    if (ok) {
-                        combo.addItem(lineData.trim());
-                        response = AnsiDefaultOutput + response + " OK\n";
+                if (collector != null) {
+                    collector.append(e.getKeyChar());
+                    if (collector.length() >= ncoll) {
+                        synchronized (waiter) {
+                            waiter.notifyAll();
+                        }
                     }
-                    else
-                        response = AnsiError + " Error\n";
-                    response = response+ AnsiReset + "JFORTH> ";
-                    appendANSI(response);
+                    return;
+                }
+                if (e.getKeyChar() == '\n') {
+                    runForthThread(combo);
                 }
             }
         });
@@ -110,7 +136,7 @@ public class JfTerminalPanel extends ColorPane {
         super.paste();
         String clip = Objects.requireNonNull(Utilities.getClipBoardString()).trim();
         clip = clip.replaceAll("\\p{C}", " ");
-        lineListener.fakeIn(clip);
+        //lineListener.fakeIn(clip);
     }
 
     /**
@@ -122,26 +148,5 @@ public class JfTerminalPanel extends ColorPane {
         appendANSI("\n");
         addIcon(img);
         appendANSI("\n");
-    }
-
-
-    /**
-     * Get single char from input buffer
-     * Blocks if there is none
-     *
-     * @return the character
-     */
-    public char getKey() {
-        return lineListener.getBufferedChar();
-    }
-
-    /**
-     * Halt line input but keep single char input runing
-     *
-     * @param lock true if line input is disabled
-     */
-    public void lockLineInput(boolean lock) {
-        lineListener.lock(lock);
-        lineListener.reset();
     }
 }

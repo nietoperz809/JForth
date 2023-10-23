@@ -31,7 +31,7 @@ public class Brainfuck {
             } else if (code.charAt(i) == '.') {
                 sb.append((char) mem[dptr]);
             } else if (code.charAt(i) == ',') {
-                int x = terminal.getKey();
+                int x = 0; // TODO: terminal.getKey();
                 if (x != 0x0a)
                     mem[dptr] = (byte) x;
             } else if (code.charAt(i) == '[') {
