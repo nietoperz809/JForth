@@ -19,26 +19,37 @@ import java.util.Objects;
 public class JfTerminalPanel extends ColorPane {
     private static final String AnsiDefaultOutput = AnsiColors.getCode(Color.yellow);
     private static final String AnsiError = AnsiColors.getCode(Color.RED);
-    private static final String AnsiReset = AnsiColors.getCode(Color.white);
+    private static final String AnsiReset = AnsiColors.getCode(Color.GREEN);
+
+    private final JComboBox<String> combo;
     // The forth and its output channel -----------------------------------------------------------
     public final StringStream _ss = new StringStream();
     public final JForth _jf = new JForth(_ss.getPrintStream(), RuntimeEnvironment.GUITERMINAL, this);
     private StringBuffer collector;
-    private Object waiter = new Object();
+    //private Object waiter = new Object();
     private int ncoll;
 
+    /**
+     * Get some keystrokes (e.g. for forth accept word)
+     * @param n Number of keys that must be hit leave the wait state
+     * @return All keys as ons string
+     * @throws Exception if smth. gone rong
+     */
     public String collectKeys(int n) throws Exception{
         collector = new StringBuffer();
         ncoll = n;
-        synchronized(waiter) {
-            waiter.wait();
+        synchronized(this) {
+            wait();
         }
         String str = collector.toString();
         collector = null;
         return str;
     }
 
-    private void runForthThread(JComboBox<String> combo) {
+    /**
+     * Execute forth interpreter in separate thread
+     */
+    private void runForthThread() {
         (new Thread(() -> {
             String lineData = Utilities.currentLine(JfTerminalPanel.this);
             assert lineData != null;
@@ -50,14 +61,38 @@ public class JfTerminalPanel extends ColorPane {
                 response = AnsiDefaultOutput + response + " OK\n";
             }
             else
-                response = AnsiError + " Error\n";
+                response = AnsiError + _jf.LastError+"\n";
             response = response+ AnsiReset + "JFORTH> ";
             appendANSI(response);
         })).start();
     }
 
-    public JfTerminalPanel(JComboBox<String> combo) {
+    /**
+     * Key adapter for this GUI app
+     * @return the KA itself
+     */
+    private KeyAdapter thisKA() {
+        return new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (collector != null) {
+                    collector.append(e.getKeyChar());
+                    if (collector.length() >= ncoll) {
+                        synchronized (JfTerminalPanel.this) {
+                            JfTerminalPanel.this.notifyAll();
+                        }
+                    }
+                }
+                else if (e.getKeyChar() == '\n') {
+                    runForthThread();
+                }
+            }
+        };
+    }
+
+    public JfTerminalPanel(JComboBox<String> comboBox) {
         super();
+        combo = comboBox;
         combo.addActionListener(e -> {
             if (e.getActionCommand().equals("comboBoxEdited")) {
                 String item = combo.getEditor().getItem() + "\n";
@@ -75,23 +110,7 @@ public class JfTerminalPanel extends ColorPane {
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         // run JForth
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (collector != null) {
-                    collector.append(e.getKeyChar());
-                    if (collector.length() >= ncoll) {
-                        synchronized (waiter) {
-                            waiter.notifyAll();
-                        }
-                    }
-                    return;
-                }
-                if (e.getKeyChar() == '\n') {
-                    runForthThread(combo);
-                }
-            }
-        });
+        addKeyListener(thisKA());
 
         // start ...
         try {

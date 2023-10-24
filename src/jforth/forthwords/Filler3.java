@@ -5,6 +5,7 @@ import jforth.WordsList;
 import jforth.seq.DoubleSequence;
 import org.apache.commons.math3.analysis.function.HarmonicOscillator;
 import org.apache.commons.math3.analysis.function.Signum;
+import org.apache.commons.math3.complex.Complex;
 import tools.ClipBoard;
 import tools.Haar;
 import tools.Utilities;
@@ -239,5 +240,30 @@ final class Filler3 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "neg", "negate",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence x =((DoubleSequence)o).neg();
+                                    dStack.push(x);
+                                    return 1;
+                                }
+                                if (o instanceof Complex) {
+                                    Complex c = ((Complex)o).pow(-1);
+                                    dStack.push(c);
+                                    return 1;
+                                }
+                                Double d = (Double)o;
+                                dStack.push (-d);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }

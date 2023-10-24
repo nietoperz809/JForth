@@ -306,6 +306,14 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
         return ret;
     }
 
+    public DoubleSequence neg() {
+        DoubleSequence ret = new DoubleSequence();
+        for (double d : _list) {
+            ret._list.add(-d);
+        }
+        return ret;
+    }
+
     public DoubleSequence apply(PolynomialFunction p) {
         DoubleSequence ret = new DoubleSequence();
         for (double d : _list) {

@@ -3252,10 +3252,8 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             try {
-//                                predefinedWords._jforth.guiTerminal.lockLineInput(true);
-//                                char c = predefinedWords._jforth.guiTerminal.getKey();
-//                                predefinedWords._jforth.guiTerminal.lockLineInput(false);
-//                                dStack.push ((long)c);
+                                String c = predefinedWords._jforth.guiTerminal.collectKeys(1);
+                                dStack.push ((long)c.charAt(0));
                                 return 1;
                             } catch (Exception e) {
                                 e.printStackTrace();

@@ -16,7 +16,7 @@ public class Brainfuck {
         terminal = guiTerminal;
     }
 
-    public String interpret(String code) {
+    public String interpret(String code) throws Exception {
         StringBuilder sb = new StringBuilder();
         int l = 0;
         for (int i = 0; i < code.length(); i++) {
@@ -31,7 +31,8 @@ public class Brainfuck {
             } else if (code.charAt(i) == '.') {
                 sb.append((char) mem[dptr]);
             } else if (code.charAt(i) == ',') {
-                int x = 0; // TODO: terminal.getKey();
+                String c = terminal.collectKeys(1);
+                int x = c.charAt(0);
                 if (x != 0x0a)
                     mem[dptr] = (byte) x;
             } else if (code.charAt(i) == '[') {
@@ -63,12 +64,12 @@ public class Brainfuck {
                 }
             }
         }
-        if (sb.length() == 0)
-            return null;
+//        if (sb.length() == 0)
+//            return null;
         return sb.toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String test = "hallodoof";
         //String test = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
         String out = new Brainfuck().interpret(test);
