@@ -1550,27 +1550,67 @@ final class Filler1 {
                         "+!", "Add value to variable",
                         (dStack, vStack) ->
                         {
+                            try {
+                                Object o = dStack.pop();
+                                if (!(o instanceof StorageWord)) {
+                                    return 0;
+                                }
+                                StorageWord sw = (StorageWord) o;
+
+                                int offset = StorageWord.helper1(sw, dStack);
+                                return sw.plusStore(dStack.pop(), offset, predefinedWords);
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "++!", "increment variable",
+                        (dStack, vStack) ->
+                        {
                             Object o = dStack.pop();
                             if (!(o instanceof StorageWord)) {
                                 return 0;
                             }
                             StorageWord sw = (StorageWord) o;
-                            int offset = 0;
-                            if (sw.isNotArray()) {
-                                if (dStack.empty()) {
-                                    return 0;
-                                }
-                            } else {
-                                if (dStack.size() < 2) {
-                                    return 0;
-                                }
-                                Object off = dStack.pop();
-                                if (!(off instanceof Long)) {
-                                    return 0;
-                                }
-                                offset = (int) ((Long) off).longValue();
+                            return sw.plusStore((long)1, 0, predefinedWords);
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "--!", "decrement variable",
+                        (dStack, vStack) ->
+                        {
+                            Object o = dStack.pop();
+                            if (!(o instanceof StorageWord)) {
+                                return 0;
                             }
-                            return sw.plusStore(dStack.pop(), offset, predefinedWords);
+                            StorageWord sw = (StorageWord) o;
+                            return sw.minusStore((long)1, 0);
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
+                        "-!", "Subtract value from variable",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Object o = dStack.pop();
+                                if (!(o instanceof StorageWord)) {
+                                    return 0;
+                                }
+                                StorageWord sw = (StorageWord) o;
+
+                                int offset = StorageWord.helper1(sw, dStack);
+                                return sw.minusStore(dStack.pop(), offset);
+                            } catch (Exception e) {
+                                return 0;
+                            }
                         }
                 ));
 

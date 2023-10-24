@@ -50,6 +50,13 @@ public final class StorageWord extends BaseWord {
         return 1;
     }
 
+    /**
+     * add value to variable
+     * @param data value
+     * @param offset variable
+     * @param pred list of predef words
+     * @return 1=ok, 0= failure
+     */
     public int plusStore(Object data, int offset, PredefinedWords pred) {
         if ((offset < 0) || (offset >= size))
             return 0;
@@ -58,6 +65,34 @@ public final class StorageWord extends BaseWord {
         WordHelpers.add(stack, data, o1, pred);
         array[offset] = stack.pop();
         return 1;
+    }
+
+    public int minusStore(Object data, int offset) {
+        if ((offset < 0) || (offset >= size))
+            return 0;
+        Object o1 = array[offset];
+        OStack stack = new OStack();
+        WordHelpers.sub(stack, data, o1);
+        array[offset] = stack.pop();
+        return 1;
+    }
+
+    static public int helper1 (StorageWord sw, OStack dStack) throws Exception {
+        if (sw.isNotArray()) {
+            if (dStack.empty()) {
+                throw new Exception("Empty stack");
+            }
+        } else {
+            if (dStack.size() < 2) {
+                throw new Exception("Too few args on stack");
+            }
+            Object off = dStack.pop();
+            if (!(off instanceof Long)) {
+                throw new Exception("not a Long type");
+            }
+            return (int) ((Long) off).longValue();
+        }
+        return 0;
     }
 
     private final int size;

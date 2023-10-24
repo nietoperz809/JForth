@@ -324,7 +324,7 @@ public class WordHelpers {
         return 0;
     }
 
-    static int sub(OStack dStack, Object o1, Object o2) {
+    public static int sub(OStack dStack, Object o1, Object o2) {
         try {
             dStack.push(Utilities.doCalcMatrix(o2, o1, Utilities::sub));
             return 1;
