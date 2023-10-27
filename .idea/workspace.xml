@@ -18,15 +18,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added test for variable increment &amp; decrement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programs/random.4th" beforeDir="false" afterPath="$PROJECT_DIR$/Programs/random.4th" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ForthTestCases.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratch.pad" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.pad" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/Brainfuck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/Brainfuck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/StringEscape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/StringEscape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/seq/DoubleSequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/DoubleSequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/seq/SequenceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/SequenceBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -463,10 +469,10 @@
       <recent name="jforth.waves" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="tools" />
       <recent name="jforth.seq" />
       <recent name="jforth" />
       <recent name="webserver" />
-      <recent name="tools" />
       <recent name="jforth.waves" />
     </key>
   </component>
@@ -635,22 +641,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestPiAndEinDS" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.DoubleSam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestPiAndEinDS" />
+      <option name="METHOD_NAME" value="DoubleSam" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForthTestCases.TestZip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ForthTestCases.TestRandomList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="JForth" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
-      <option name="METHOD_NAME" value="TestZip" />
+      <option name="METHOD_NAME" value="TestRandomList" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ForthTestCases.TestVarIncDec" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="JForth" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ForthTestCases" />
+      <option name="METHOD_NAME" value="TestVarIncDec" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -663,10 +680,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="JForthGui.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/jarfile/JForthGui.jar" />
-      <method v="2" />
     </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
@@ -740,18 +753,18 @@
     <list>
       <item itemvalue="Application.JForthGui" />
       <item itemvalue="Application.Brainfuck" />
-      <item itemvalue="JAR Application.JForthGui.jar" />
-      <item itemvalue="JUnit.ForthTestCases.TestPiAndEinDS" />
-      <item itemvalue="JUnit.ForthTestCases.TestZip" />
+      <item itemvalue="JUnit.ForthTestCases.DoubleSam" />
+      <item itemvalue="JUnit.ForthTestCases.TestRandomList" />
+      <item itemvalue="JUnit.ForthTestCases.TestVarIncDec" />
       <item itemvalue="JUnit.ForthTestCases" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Brainfuck" />
-        <item itemvalue="JUnit.ForthTestCases.TestZip" />
-        <item itemvalue="JAR Application.JForthGui.jar" />
         <item itemvalue="JUnit.ForthTestCases" />
-        <item itemvalue="JUnit.ForthTestCases.TestPiAndEinDS" />
+        <item itemvalue="JUnit.ForthTestCases.DoubleSam" />
+        <item itemvalue="JUnit.ForthTestCases.TestRandomList" />
+        <item itemvalue="JUnit.ForthTestCases.TestVarIncDec" />
+        <item itemvalue="Application.Brainfuck" />
       </list>
     </recent_temporary>
   </component>
@@ -1199,7 +1212,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686871387184</updated>
     </task>
-    <option name="localTasksCounter" value="407" />
+    <option name="localTasksCounter" value="410" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1326,9 +1339,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="octal string bugfix" />
-    <MESSAGE value="sam now waits for clip before" />
-    <MESSAGE value="suppress imaginary part in sqrt on rel numbers" />
     <MESSAGE value="little bugfix" />
     <MESSAGE value="added TOMIX word &amp; test" />
     <MESSAGE value="added seq pakage and made 'replace' handle DoubleSequence" />
@@ -1351,16 +1361,14 @@
     <MESSAGE value="new release" />
     <MESSAGE value="added zip/unzip &amp; test" />
     <MESSAGE value="backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup" />
+    <MESSAGE value="release" />
+    <MESSAGE value="added variable increment &amp; decrement" />
+    <MESSAGE value="added test for variable increment &amp; decrement" />
+    <option name="LAST_COMMIT_MESSAGE" value="added test for variable increment &amp; decrement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/jforth/forthwords/WordHelpers.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/audio/WaveTools.java</url>
           <line>51</line>
@@ -1378,8 +1386,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>2683</line>
+          <line>2723</line>
           <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
+          <line>1572</line>
+          <option name="timeStamp" value="124" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/StorageWord.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/guishell/JfTerminalPanel.java</url>
+          <line>155</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/guishell/JfTerminalPanel.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="132" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

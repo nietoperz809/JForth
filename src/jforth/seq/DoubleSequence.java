@@ -18,6 +18,9 @@ import tools.Utilities;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 
 /**
@@ -405,4 +408,22 @@ public class DoubleSequence extends SequenceBase<Double> implements java.io.Seri
     public double[] transformInnerArray(Func<double[], double[]> action) {
         return action.apply(asPrimitiveArray());
     }
+
+    public static DoubleSequence randomDoubles (double min, double max, int num) {
+        Random random = new Random();
+        DoubleStream x = random.doubles(min, max);
+        return new DoubleSequence (x.limit(num).toArray());
+    }
+
+
+    public static DoubleSequence randomInts (int min, int max, int num) {
+        Random random = new Random();
+        IntStream x = random.ints(min, max+1);
+        return new DoubleSequence (x.limit(num).toArray());
+    }
+
+    public int iPick(int i) {
+        return pick(i).intValue();
+    }
+
 }

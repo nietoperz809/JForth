@@ -1803,41 +1803,6 @@ final class Filler2 {
                         }
                 ));
 
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "col", "set default text color",
-//                        (dStack, vStack) ->
-//                        {
-//                            try {
-//                                Color col = Utilities.readColor(dStack);
-//                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
-//                                    predefinedWords._jforth.guiTerminal.setForeground(col);
-//                                }
-//                                return 1;
-//                            } catch (Exception e) {
-//                                return 0;
-//                            }
-//                        }
-//                ));
-
-//        _fw.add(new PrimitiveWord
-//                (
-//                        "tcol", "set default text color",
-//                        (dStack, vStack) ->
-//                        {
-//                            try {
-//                                Color col = Utilities.readColor(dStack);
-//                                if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
-//                                    predefinedWords._jforth.guiTerminal.setTextColor(col);
-//                                }
-//                                return 1;
-//                            } catch (Exception e) {
-//                                return 0;
-//                            }
-//                        }
-//                ));
-//
-
         _fw.add(new PrimitiveWord
                 (
                         "bkg", "set background color",

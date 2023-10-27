@@ -1067,7 +1067,7 @@ public class Utilities {
         } else if (o instanceof SerializableImage) {
             return "Image";
         } else {
-            return o.toString();
+            return StringEscape.unescape(o.toString());
         }
     }
 

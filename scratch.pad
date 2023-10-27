@@ -40,3 +40,28 @@ variable characters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456
 bubbleSort
 "content of array after sort: " . cr show cr
 
+//                if (word.startsWith("\"") && word.length() > 1) {
+//                    if (word.endsWith("\"")) {
+//                        word = word.substring(1, word.length() - 1);
+//                        tsb = new StringBuilder();
+//                        tsb_state = 0;
+//                    }
+//                    else {
+//                        tsb.append(word.substring(1));
+//                        tsb_state = 1;
+//                        tokenizer.nextToken();
+//                        continue;
+//                    }
+//                }
+//                if (word.endsWith("\"")) {
+//                    if (word.length() >1)
+//                        tsb.append(' ').append(word.substring(0, word.length() - 1));
+//                    word = tsb.toString();
+//                    tsb = new StringBuilder();
+//                    tsb_state = 0;
+//                }
+//                if (tsb_state == 1) {
+//                    tsb.append(' ').append(word);
+//                    tokenizer.nextToken();
+//                    continue;
+//                }

@@ -8,7 +8,6 @@ import jforth.seq.*;
 import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
-import tools.FileUtils;
 import tools.Func;
 import tools.Utilities;
 
@@ -23,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.function.BiConsumer;
+
+import static tools.FileUtils.loadStrings;
 
 public class JForth {
     public static final Charset ENCODING = StandardCharsets.ISO_8859_1;
@@ -238,6 +239,26 @@ public class JForth {
         return Utilities.makePrintable(o, base);
     }
 
+    public boolean runProg (String text) {
+        text = text.trim();
+        if (text.startsWith("file:/") && text.endsWith(".4th")) {
+            text = text.substring(5);
+            try {
+                ArrayList<String> prog = loadStrings(text);
+                for (String s : prog) {
+                    interpretLine(s);
+                }
+                return true;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    private StringBuilder tsb = new StringBuilder();
+    private int tsb_state = 0;
+
     /**
      * Run a single line of FORTH statements
      *
@@ -245,7 +266,10 @@ public class JForth {
      * @return false if an error occured
      */
     public boolean interpretLine(String text) {
+        if (runProg(text))
+            return true;
         try {
+            text = StringEscape.escape(text);
             StringReader sr = new StringReader(text);
             tokenizer = new MultiDotStreamTokenizer(sr);
             tokenizer.resetSyntax();
@@ -390,6 +414,6 @@ public class JForth {
     }
 
     public void executeFile(String fileName) throws Exception {
-        executeFile(FileUtils.loadStrings(fileName), false);
+        executeFile(loadStrings(fileName), false);
     }
 }

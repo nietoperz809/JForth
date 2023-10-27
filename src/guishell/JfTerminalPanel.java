@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 /**
  * @author Administrator
@@ -106,7 +105,7 @@ public class JfTerminalPanel extends ColorPane {
         setCaret(new BlockCaret());
         setBackground(ForthProperties.getBkColor());
         setFont(new java.awt.Font("Monospaced", Font.PLAIN, 16)); // NOI18N
-        setCaretColor(new java.awt.Color(255, 102, 102));
+        setCaretColor(new java.awt.Color(70, 116, 151, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         // run JForth
@@ -146,17 +145,28 @@ public class JfTerminalPanel extends ColorPane {
         return image;
     }
 
-    /**
-     * Handle text from clipboard
-     * "laladumm"
-     */
-    @Override
-    public void paste() {
-        super.paste();
-        String clip = Objects.requireNonNull(Utilities.getClipBoardString()).trim();
-        clip = clip.replaceAll("\\p{C}", " ");
-        //lineListener.fakeIn(clip);
-    }
+    //@Override
+//    public void paste() {
+//        super.paste();
+//        System.out.println("paste");
+//        String clip = Objects.requireNonNull(Utilities.getClipBoardString()).trim();
+//        if (clip.startsWith("file:/")) {
+//            clip = clip.substring(5);
+//            try {
+//                ArrayList<String> prog = loadStrings(clip);
+//                for (String s : prog) {
+//                    System.out.println(s);
+//                }
+//
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        //appendANSI(clip);
+//        //clip = clip.replaceAll("\\p{C}", " ");
+//        //System.out.println(clip);
+//        //lineListener.fakeIn(clip);
+//    }
 
     /**
      * Add image to our TextPane

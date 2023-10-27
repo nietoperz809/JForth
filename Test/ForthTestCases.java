@@ -1857,5 +1857,11 @@ public class ForthTestCases extends TestBase
         shouldBeThis("32" ,s);
     }
 
+    @Test
+    public void TestRandomList()
+    {
+        String s = check ("{1,10,20} rndSeq",".");
+        System.out.println(s);
+    }
 
 }

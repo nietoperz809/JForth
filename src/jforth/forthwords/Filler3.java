@@ -265,5 +265,37 @@ final class Filler3 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "rndSeq", "get Sequence of random numbers",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                DoubleSequence out = DoubleSequence.randomInts(ds.iPick(0),ds.iPick(1),ds.iPick(2));
+                                dStack.push (out);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "rndSeqD", "get Sequence of random double numbers",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = readDoubleSequence(dStack);
+                                DoubleSequence out = DoubleSequence.randomDoubles(ds.pick(0),ds.pick(1),ds.iPick(2));
+                                dStack.push (out);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }

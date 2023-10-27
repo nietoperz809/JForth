@@ -28,8 +28,7 @@ public class FileUtils {
         if (filesInFolder == null) {
             return "";
         }
-        Arrays.sort(filesInFolder, (f1, f2) ->
-        {
+        Arrays.sort(filesInFolder, (f1, f2) -> {
             if (f2.isDirectory()) {
                 return 1;
             }
