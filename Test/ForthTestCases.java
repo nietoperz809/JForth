@@ -1864,4 +1864,12 @@ public class ForthTestCases extends TestBase
         System.out.println(s);
     }
 
+    @Test
+    public void TestQuotedString()
+    {
+        String s = check ("3 7 * \"This is a quoted string\" 11 4 + ","...");
+        System.out.println(s);
+        shouldBeThis("15This is a quoted string21", s);
+    }
+
 }
