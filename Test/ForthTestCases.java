@@ -1872,4 +1872,14 @@ public class ForthTestCases extends TestBase
         shouldBeThis("15This is a quoted string21", s);
     }
 
+    @Test
+    public void TestSeqs()
+    {
+        String prg = ": equal? = if \"YES!\" else \"nope!\" then ;";
+        prg += " 1 10 2 seq {1,10,2} seq equal?";
+        String s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("YES!", s);
+    }
+
 }
