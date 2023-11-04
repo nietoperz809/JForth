@@ -271,10 +271,20 @@ final class Filler2 {
                         (dStack, vStack) ->
                         {
                             try {
-                                double d3 = Utilities.readDouble(dStack);
-                                int l2 = (int) Utilities.readLong(dStack);
-                                double d1 = Utilities.readDouble(dStack);
-                                DoubleSequence ds = DoubleSequence.makeCounted(d1, l2, d3);
+                                double step, start;
+                                int howmuch;
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence ds = (DoubleSequence)o;
+                                    start = ds.pick(0);
+                                    howmuch = (int)(double)(ds.pick(1));
+                                    step = ds.pick(2);
+                                } else {
+                                    step = Utilities.getDouble(o);
+                                    howmuch = (int) Utilities.readLong(dStack);
+                                    start = Utilities.readDouble(dStack);
+                                }
+                                DoubleSequence ds = DoubleSequence.makeCounted(start, howmuch, step);
                                 dStack.push(ds);
                                 return 1;
                             } catch (Exception ex) {
@@ -569,7 +579,8 @@ final class Filler2 {
                         (dStack, vStack) ->
                         {
                             if (!predefinedWords._jforth.compiling) {
-                                return 1;
+                                //return 1;
+                                predefinedWords._jforth.wordBeingDefined = new NonPrimitiveWord("directfor");
                             }
                             int currentIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
                             IfControlWord ifcw = new IfControlWord(currentIndex);
@@ -584,9 +595,9 @@ final class Filler2 {
                         "then", true,
                         (dStack, vStack) ->
                         {
-                            if (!predefinedWords._jforth.compiling) {
-                                return 1;
-                            }
+//                            if (!predefinedWords._jforth.compiling) {
+//                                return 1;
+//                            }
                             Object o = vStack.pop();
                             int thenIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex();
                             if (o instanceof ElseControlWord) {
@@ -607,9 +618,9 @@ final class Filler2 {
                         "else", true,
                         (dStack, vStack) ->
                         {
-                            if (!predefinedWords._jforth.compiling) {
-                                return 1;
-                            }
+//                            if (!predefinedWords._jforth.compiling) {
+//                                return 1;
+//                            }
                             Object o = vStack.peek();
                             if (o instanceof IfControlWord) {
                                 int elseIndex = predefinedWords._jforth.wordBeingDefined.getNextWordIndex() + 1;

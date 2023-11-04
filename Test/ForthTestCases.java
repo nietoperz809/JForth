@@ -1873,13 +1873,17 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
-    public void TestSeqs()
+    public void TestSeqsEqual()
     {
         String prg = ": equal? = if \"YES!\" else \"nope!\" then ;";
         prg += " 1 10 2 seq {1,10,2} seq equal?";
         String s = check (prg,".");
         System.out.println(s);
         shouldBeThis("YES!", s);
+        prg = "1 10 3 seq {1,10,2} seq = if \"YES!\" else \"nope!\" then";
+        s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("nope!", s);
     }
 
 }

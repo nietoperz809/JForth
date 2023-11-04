@@ -11,6 +11,7 @@ import tools.Haar;
 import tools.Utilities;
 
 import java.math.BigInteger;
+import java.net.InetAddress;
 import java.util.zip.Deflater;
 
 import static jforth.PositionalNumberSystem.getPnsInst;
@@ -297,5 +298,22 @@ final class Filler3 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "ipaddr", "get ip address of domain",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String domain = readString(dStack);
+                                InetAddress i = InetAddress.getByName(domain);
+                                dStack.push (new DoubleSequence(i.getAddress()));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
     }
 }

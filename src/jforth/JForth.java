@@ -268,6 +268,13 @@ public class JForth {
     public boolean interpretLine(String text) {
         if (runProg(text))
             return true;
+        //String[] lines = text.split("\r\n|\r|\n");
+        text = text.trim();
+        if (!text.startsWith(": ") && text.endsWith("then")) { /* if-then-else immediate form*/
+            if (text.contains("if") && text.contains("else")) {
+                text = ": prgi " + text + " ; prgi";
+            }
+        }
         try {
             text = StringEscape.escape(text);
             StringReader sr = new StringReader(text);
