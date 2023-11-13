@@ -1037,17 +1037,14 @@ final class Filler1 {
                         "and", "Binary and of 2 values",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 &= i1;
-                                dStack.push(i2);
-                            } else {
+                            try {
+                                long i1 = Utilities.readLong(dStack);
+                                long i2 = Utilities.readLong(dStack);
+                                dStack.push(i2 & i1);
+                                return 1;
+                            } catch (Exception e) {
                                 return 0;
                             }
-                            return 1;
                         }
                 ));
 
@@ -1056,17 +1053,14 @@ final class Filler1 {
                         "or", "Binary or of 2 values",
                         (dStack, vStack) ->
                         {
-                            Object o1 = dStack.pop();
-                            Object o2 = dStack.pop();
-                            if ((o1 instanceof Long) && (o2 instanceof Long)) {
-                                long i1 = (Long) o1;
-                                long i2 = (Long) o2;
-                                i2 |= i1;
-                                dStack.push(i2);
-                            } else {
+                            try {
+                                long i1 = Utilities.readLong(dStack);
+                                long i2 = Utilities.readLong(dStack);
+                                dStack.push(i2 | i1);
+                                return 1;
+                            } catch (Exception e) {
                                 return 0;
                             }
-                            return 1;
                         }
                 ));
 

@@ -1142,6 +1142,17 @@ public class ForthTestCases extends TestBase
     }
 
     @Test
+    public void TestLSystem2()
+    {
+        String s = check ("lsclr ab lsput a->ab lsrule b->a lsrule lsget lsrep lsrep lsrep", ".");
+        System.out.println(s);
+        shouldBeThis("abaababaabaab" ,s);
+        s = check ("{\"ba\",\"a->ab\",\"b->a\",\"3\"} lssys", ".");
+        System.out.println(s);
+        shouldBeThis("abaababaababa" ,s);
+    }
+
+    @Test
     public void StrSortRev()
     {
         String s = check ("move_back_motherfucker sort rev", ".");
@@ -1885,5 +1896,13 @@ public class ForthTestCases extends TestBase
         System.out.println(s);
         shouldBeThis("nope!", s);
     }
+
+    @Test
+    public void TestIfElseThen() {
+        String prg = "4 1 AND IF \"Number is odd\" ELSE \"Number is even\" THEN";
+        String s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("Number is even", s);
+   }
 
 }

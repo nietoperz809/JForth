@@ -268,10 +268,9 @@ public class JForth {
     public boolean interpretLine(String text) {
         if (runProg(text))
             return true;
-        //String[] lines = text.split("\r\n|\r|\n");
         text = text.trim();
-        if (!text.startsWith(": ") && text.endsWith("then")) { /* if-then-else immediate form*/
-            if (text.contains("if") && text.contains("else")) {
+        if (!text.startsWith(": ") && text.endsWith("then".toUpperCase())) { /* if-then-else immediate form*/
+            if (text.contains("if".toUpperCase()) && text.contains("else".toUpperCase())) {
                 text = ": prgi " + text + " ; prgi";
             }
         }
