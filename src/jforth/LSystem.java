@@ -21,6 +21,25 @@ public class LSystem {
         setMaterial(in);
     }
 
+    public String setAndRunFullSystem2(ArrayList<String> system) throws Exception{
+        clrRules();
+        setMaterial(system.get(0));
+        for (int s = 1; s<system.size()-1; s++) {
+            putRule(system.get(s));
+        }
+        int iter = Integer.parseInt(system.get(system.size()-1));
+        StringBuilder allres = new StringBuilder();
+        allres.append("\"").append(system.get(0)).append("\"");
+        String res = doIt();
+        allres.append(",\"").append(res).append("\"");
+        while (iter > 0) {
+            iter--;
+            res = doNext();
+            allres.append(",\"").append(res).append("\"");
+        }
+        return "{"+allres+"}";
+    }
+
     public String setAndRunFullSystem(ArrayList<String> system) throws Exception{
         clrRules();
         setMaterial(system.get(0));
@@ -40,21 +59,21 @@ public class LSystem {
     public LSystem() {
     }
 
-    public static void main(String[] args) throws Exception {
-        LSystem ch = new LSystem("A");
-
-        ch.putRule("A->AB");
-        ch.putRule("B->A");
-
-        String s = ch.doIt();
-        System.out.println(s);
-        s = ch.doNext();
-        System.out.println(s);
-        s = ch.doNext();
-        System.out.println(s);
-        s = ch.doNext();
-        System.out.println(s);
-    }
+//    public static void main(String[] args) throws Exception {
+//        LSystem ch = new LSystem("A");
+//
+//        ch.putRule("A->AB");
+//        ch.putRule("B->A");
+//
+//        String s = ch.doIt();
+//        System.out.println(s);
+//        s = ch.doNext();
+//        System.out.println(s);
+//        s = ch.doNext();
+//        System.out.println(s);
+//        s = ch.doNext();
+//        System.out.println(s);
+//    }
 
     public void setMaterial(String in) {
         m_str = in;
@@ -67,14 +86,19 @@ public class LSystem {
 
     public void putRule(String from, String to) throws Exception {
         from = from.trim();
-        to = to.trim();
-        if (from.isEmpty() || to.isEmpty())
+        if (to != null)
+            to = to.trim();
+        if (from.isEmpty())
             throw new Exception("Rule error");
         m_map.put(from, to);
     }
 
     public void putRule(String rule) throws Exception {
         String[] sp = rule.split("->");
+        if (sp.length == 1) {
+            putRule(sp[0], null);
+            return;
+        }
         if (sp.length != 2)
             throw new Exception("Not a valid rule! " + rule);
         putRule(sp[0], sp[1]);
@@ -101,7 +125,9 @@ public class LSystem {
                 for (Map.Entry<String, String> mapElement : m_map.entrySet()) {
                     String k = mapElement.getKey();
                     if (m_str.startsWith(k)) {
-                        bui.append(mapElement.getValue());
+                        String v = mapElement.getValue();
+                        if (v != null)
+                            bui.append(v);
                         m_str = m_str.substring(k.length());
                         found = true;
                         break;

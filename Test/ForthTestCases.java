@@ -1150,6 +1150,9 @@ public class ForthTestCases extends TestBase
         s = check ("{\"ba\",\"a->ab\",\"b->a\",\"3\"} lssys", ".");
         System.out.println(s);
         shouldBeThis("abaababaababa" ,s);
+        s = check ("{abcd,b->,c->ad,aa->b,dd->abc,d->abcd,4} lssys2", ".");
+        System.out.println(s);
+        shouldBeThis("{\"abcd\",\"aadabcd\",\"babcdaadabcd\",\"aadabcdbabcdaadabcd\",\"babcdaadabcdaadabcdbabcdaadabcd\",\"aadabcdbabcdaadabcdbabcdaadabcdaadabcdbabcdaadabcd\"}" ,s);
     }
 
     @Test

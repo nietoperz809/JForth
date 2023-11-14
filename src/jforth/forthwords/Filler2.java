@@ -161,12 +161,28 @@ final class Filler2 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "LsSys", "Set complete LSystem",
+                        "LsSys", "Set and run complete LSystem",
                         (dStack, vStack) ->
                         {
                             try {
                                 StringSequence ss = Utilities.readStringSequence(dStack);
                                 String res = lSys.setAndRunFullSystem(ss.get_list());
+                                dStack.push(res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "LsSys2", "Set and run complete LSystem",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                StringSequence ss = Utilities.readStringSequence(dStack);
+                                String res = lSys.setAndRunFullSystem2(ss.get_list());
                                 dStack.push(res);
                                 return 1;
                             } catch (Exception e) {
