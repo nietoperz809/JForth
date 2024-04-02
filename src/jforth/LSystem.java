@@ -21,19 +21,22 @@ public class LSystem {
         setMaterial(in);
     }
 
-    public String setAndRunFullSystem2(ArrayList<String> system) throws Exception{
+    private int setup(ArrayList<String> system) throws Exception {
         clrRules();
         setMaterial(system.get(0));
         for (int s = 1; s<system.size()-1; s++) {
             putRule(system.get(s));
         }
-        int iter = Integer.parseInt(system.get(system.size()-1));
+        return Integer.parseInt(system.get(system.size()-1));
+    }
+
+    public String setAndRunFullSystem2(ArrayList<String> system) throws Exception{
+        int iter = setup(system);
         StringBuilder allres = new StringBuilder();
         allres.append("\"").append(system.get(0)).append("\"");
         String res = doIt();
         allres.append(",\"").append(res).append("\"");
-        while (iter > 0) {
-            iter--;
+        while (iter-- > 0) {
             res = doNext();
             allres.append(",\"").append(res).append("\"");
         }
@@ -41,16 +44,10 @@ public class LSystem {
     }
 
     public String setAndRunFullSystem(ArrayList<String> system) throws Exception{
-        clrRules();
-        setMaterial(system.get(0));
-        for (int s = 1; s<system.size()-1; s++) {
-            putRule(system.get(s));
-        }
-        int iter = Integer.parseInt(system.get(system.size()-1));
+        int iter = setup(system);
         String res = null;
         doIt();
-        while (iter > 0) {
-            iter--;
+        while (iter-- > 0) {
             res = doNext();
         }
         return res;

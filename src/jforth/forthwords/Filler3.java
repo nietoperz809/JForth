@@ -315,5 +315,71 @@ final class Filler3 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "dbv", "calculate voltage amplification in dB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double d2 = readDouble(dStack);
+                                double res = 20.0 * Math.log10(d2/d1);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "dbp", "calculate power amplification in dB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double d2 = readDouble(dStack);
+                                double res = 10.0 * Math.log10(d2/d1);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "db2pf", "power: dB to factor",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double res = Math.pow(10, d1/10.0);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+
+        _fw.add(new PrimitiveWord
+                (
+                        "db2vf", "voltage: dB to factor",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double res = Math.pow(10, d1/20.0);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }
