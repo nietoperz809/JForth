@@ -40,7 +40,7 @@ class TestBase
 /**
  * Created by Administrator on 4/15/2017.
  */
-public class ForthTestCases extends TestBase
+public class forthTestCases extends TestBase
 {
     @Test
     public void TestSeqMult() {
@@ -1907,5 +1907,40 @@ public class ForthTestCases extends TestBase
         System.out.println(s);
         shouldBeThis("Number is even", s);
    }
+
+    @Test
+    public void TestStrToCharSeq() {
+        String prg = "peter seq";
+        String s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("{\"p\",\"e\",\"t\",\"e\",\"r\"}", s);
+    }
+
+    @Test
+    public void TestDbWords() {
+        String q4 = ". sp . sp . sp .";
+        String prg = "1 db2pf 0 round 2 db2pf 0 round 10 db2pf 0 round 20 db2pf 0 round";
+        String s = check (prg,q4);
+        shouldBeThis("100 10 2 1", s);
+
+        prg = "100 pf2db 0 round 1000 pf2db 0 round 30 pf2db 0 round 50 pf2db 0 round";
+        s = check (prg,q4);
+        shouldBeThis("17 15 30 20", s);
+
+        prg = "1 db2vf 0 round 2 db2vf 0 round 10 db2vf 0 round 20 db2vf 0 round";
+        s = check (prg,q4);
+        shouldBeThis("10 3 1 1", s);
+
+        prg = "100 vf2db 0 round 1000 vf2db 0 round 30 vf2db 0 round 50 vf2db 0 round";
+        s = check (prg,q4);
+        shouldBeThis("34 30 60 40", s);
+
+        prg = "100 db2vf 0 round 50 db2vf 0 round 20 db2vf 0 round 10 db2vf 0 round";
+        s = check (prg,q4);
+        shouldBeThis("3 10 316 100000", s);
+
+
+    }
+
 
 }

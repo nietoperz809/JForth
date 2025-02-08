@@ -306,6 +306,11 @@ final class Filler2 {
                                 double step, start;
                                 int howmuch;
                                 Object o = dStack.pop();
+                                if (o instanceof String) {
+                                    StringSequence seq = new StringSequence(((String)o).toCharArray());
+                                    dStack.push(seq);
+                                    return 1;
+                                }
                                 if (o instanceof DoubleSequence) {
                                     DoubleSequence ds = (DoubleSequence)o;
                                     start = ds.pick(0);

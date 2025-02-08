@@ -8,6 +8,7 @@ import org.apache.commons.math3.analysis.function.Signum;
 import org.apache.commons.math3.complex.Complex;
 import tools.ClipBoard;
 import tools.Haar;
+import tools.PiDigits;
 import tools.Utilities;
 
 import java.math.BigInteger;
@@ -365,6 +366,22 @@ final class Filler3 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "pf2db", "power: factor to dB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double res = 10.0*Math.log10(d1);
+//                                double res = Math.pow(10, -d1/10.0);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
         _fw.add(new PrimitiveWord
                 (
@@ -381,5 +398,38 @@ final class Filler3 {
                             }
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "vf2db", "voltage: factor to dB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                double d1 = readDouble(dStack);
+                                double res = 20.0*Math.log10(d1);
+                                dStack.push (res);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "pistr", "arbitrary length PI as string",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                long l1 = readLong(dStack);
+                                dStack.push (PiDigits.getPiString((int) l1));
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
+
+
     }
 }
