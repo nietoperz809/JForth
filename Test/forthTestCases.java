@@ -1917,6 +1917,27 @@ public class forthTestCases extends TestBase
     }
 
     @Test
+    public void TestNulls() {
+        String prg = "null";
+        String s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("NULL", s);
+    }
+
+    @Test
+    public void TestPistr() {
+        String prg = "20 pistr";
+        String s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("314159265358979323846", s);
+        prg = "{10,20} pistr";
+        s = check (prg,".");
+        System.out.println(s);
+        shouldBeThis("58979323846", s);
+    }
+
+
+    @Test
     public void TestDbWords() {
         String q4 = ". sp . sp . sp .";
         String prg = "1 db2pf 0 round 2 db2pf 0 round 10 db2pf 0 round 20 db2pf 0 round";
@@ -1938,9 +1959,5 @@ public class forthTestCases extends TestBase
         prg = "100 db2vf 0 round 50 db2vf 0 round 20 db2vf 0 round 10 db2vf 0 round";
         s = check (prg,q4);
         shouldBeThis("3 10 316 100000", s);
-
-
     }
-
-
 }

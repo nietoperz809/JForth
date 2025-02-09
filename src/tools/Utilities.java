@@ -1045,7 +1045,7 @@ public class Utilities {
      */
     public static String makePrintable(Object o, int base) {
         if (o == null) {
-            return null;
+            return "NULL";
         }
         if (base == -1) {
             base = 10;

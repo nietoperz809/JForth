@@ -421,12 +421,29 @@ final class Filler3 {
                         (dStack, vStack) ->
                         {
                             try {
-                                long l1 = readLong(dStack);
+                                Object o = dStack.pop();
+                                if (o instanceof DoubleSequence) {
+                                    DoubleSequence ds = (DoubleSequence)o;
+                                    String pi =PiDigits.getPiString(ds.iPick(0),ds.iPick(1));
+                                    dStack.push (pi);
+                                    return 1;
+                                }
+                                long l1 = (Long)o;
                                 dStack.push (PiDigits.getPiString((int) l1));
                                 return 1;
                             } catch (Exception e) {
                                 return 0;
                             }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "null", "put NULL on stack",
+                        (dStack, vStack) ->
+                        {
+                            dStack.push (null);
+                            return 1;
                         }
                 ));
 
