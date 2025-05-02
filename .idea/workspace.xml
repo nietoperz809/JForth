@@ -19,14 +19,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="introducing decibel related words">
-      <change afterPath="$PROJECT_DIR$/src/tools/PiDigits.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM__Default_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_9_24_2020_5_12_AM__Default_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Catalano/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Catalano/ColorConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/JForthGui.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ForthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/forthTestCases.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/guishell/ColorPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/ColorPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -408,7 +409,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -425,28 +426,28 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "last_opened_file_path": "C:/peter.home/java/JForth",
-    "project.structure.last.edited": "Project",
+    "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/JForth/src/catalano",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\IdeaProjects\JForth\src\catalano" />
       <recent name="C:\peter.home\java\JForth\lib" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\jforth" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth\Programs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\IdeaProjects\JForth\src\catalano" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\src\tools" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\jarfile" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\resource" />
       <recent name="C:\Users\Administrator\Desktop\java\JForth\lib" />
-      <recent name="C:\Users\Administrator\Desktop\java\JForth" />
     </key>
     <key name="MoveMembersDialog.RECENTS_KEY">
       <recent name="tools.Utilities" />
@@ -736,18 +737,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="Docker" type="docker-deploy" factoryName="docker-image" server-name="Docker">
-      <deployment type="docker-image">
-        <settings>
-          <option name="imageTag" value="jforth" />
-          <option name="command" value="" />
-          <option name="containerName" value="jforth" />
-          <option name="entrypoint" value="" />
-          <option name="commandLineOptions" value="" />
-        </settings>
-      </deployment>
-      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.JForthGui" />
@@ -1407,6 +1396,11 @@
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler2.java</url>
           <line>310</line>
           <option name="timeStamp" value="134" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler3.java</url>
+          <line>509</line>
+          <option name="timeStamp" value="136" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

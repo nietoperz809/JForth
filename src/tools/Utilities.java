@@ -587,6 +587,9 @@ public class Utilities {
                 throw new Exception("wrong Seq length");
             return new Color(ds.pick(0).intValue(), ds.pick(1).intValue(), ds.pick(2).intValue());
         }
+        else if (ox instanceof Color) {
+            return (Color)ox;
+        }
         int r = (int) getLong(ox);
         int g = (int) readLong(dStack);
         int b = (int) readLong(dStack);

@@ -18,7 +18,7 @@ public abstract class ColorPane extends JTextPane {
         currentFontsize = s;
     }
 
-    private void append (Color c, String s) {
+    public void append(Color c, String s) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
         aset = sc.addAttribute(aset, StyleConstants.FontSize, currentFontsize);

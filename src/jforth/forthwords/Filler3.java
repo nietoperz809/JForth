@@ -11,6 +11,8 @@ import tools.Haar;
 import tools.PiDigits;
 import tools.Utilities;
 
+import javax.swing.*;
+import java.awt.*;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.util.zip.Deflater;
@@ -447,6 +449,117 @@ final class Filler3 {
                         }
                 ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "RGB", "Color from RGB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                Color c = new Color(ds.iPick(0), ds.iPick(1), ds.iPick(2));
+                                dStack.push (c);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
 
+        _fw.add(new PrimitiveWord
+                (
+                        "HSB", "Color from HSB",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                Color c = Color.getHSBColor (ds.pick(0).floatValue(),
+                                        ds.pick(1).floatValue(),
+                                        ds.pick(2).floatValue());
+                                dStack.push(c);
+                                return 1;
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "HSV2RGB", "get RGB from HSV",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                DoubleSequence ds = Utilities.readDoubleSequence(dStack);
+                                int[] rgb = Catalano.ColorConverter.
+                                        HSVtoRGB(ds.pick(0), ds.pick(1), ds.pick(2));
+                                DoubleSequence seq = new DoubleSequence(rgb);
+                                dStack.push(seq);
+                                return 1;
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "RGB2HSV", "get HSV from Color",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Color c = Utilities.readColor (dStack);
+                                double[] hsv = Catalano.ColorConverter.
+                                        RGBtoHSV(c.getRed(), c.getGreen(), c.getBlue());
+                                dStack.push(new DoubleSequence(hsv));
+                                return 1;
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "RGB2IHS", "get HSV from Color",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                Color c = Utilities.readColor (dStack);
+                                double[] ihs = Catalano.ColorConverter.
+                                        RGBtoIHS(c.getRed(), c.getGreen(), c.getBlue());
+                                dStack.push(new DoubleSequence(ihs));
+                                return 1;
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "chCol", "Show color chooser",
+                        (dStack, vStack) ->
+                        {
+                            Color newColor = JColorChooser.showDialog(null, "Choose a color", Color.RED);
+                            dStack.push (newColor);
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        ".cs", "show colored string",
+                        (dStack, vStack) ->
+                        {
+                            try {
+                                String str = Utilities.readString(dStack);
+                                Color col = Utilities.readColor(dStack);
+                                predefinedWords._jforth.guiTerminal.append(col, str);
+                                return 1;
+                            } catch (Exception e) {
+                                return 0;
+                            }
+                        }
+                ));
     }
 }
