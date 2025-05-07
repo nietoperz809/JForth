@@ -9,9 +9,15 @@ public class Canvas //extends JPanel
     Graphics g_off;
 
     int oldx, oldy;
+    Dimension cDim = new Dimension (1024, 1024);
+    Color cCol = new Color (255, 255, 255);
 
     public Canvas() {
-        clear(new int[]{255, 255, 255});
+        create(new int[]{cCol.getRed(), cCol.getGreen(), cCol.getBlue()});
+    }
+
+    public void setCanvasDim (int x, int y) {
+        cDim = new Dimension(x,y);
     }
 
     /**
@@ -24,7 +30,7 @@ public class Canvas //extends JPanel
         g_off.drawImage(img, arr[0], arr[1], arr[2], arr[3], null);
     }
 
-    public void setColor(int[] arr) {
+    public void setDrawColor(int[] arr) {
         g_off.setColor(new Color(arr[0], arr[1], arr[2]));
     }
 
@@ -32,10 +38,20 @@ public class Canvas //extends JPanel
         return off_Image;
     }
 
-    public void clear(int[] color) {
-        off_Image = new BufferedImage(1024, 1024, BufferedImage.TYPE_INT_ARGB);
+    public void createXY(int[] xy) {
+        cDim = new Dimension(xy[0],xy[1]);
+        off_Image = new BufferedImage(cDim.width, cDim.height, BufferedImage.TYPE_INT_RGB);
         g_off = off_Image.createGraphics();
-        g_off.setColor(new Color(color[0], color[1], color[2]));
+        g_off.setColor(cCol);
+        g_off.fillRect(0, 0, off_Image.getWidth(), off_Image.getHeight());
+    }
+
+    public void create(int[] rgb) {
+        off_Image = new BufferedImage(cDim.width, cDim.height, BufferedImage.TYPE_INT_RGB);
+        g_off = off_Image.createGraphics();
+        cCol = new Color(rgb[0], rgb[1], rgb[2]);
+        assert g_off != null;
+        g_off.setColor(cCol);
         g_off.fillRect(0, 0, off_Image.getWidth(), off_Image.getHeight());
     }
 

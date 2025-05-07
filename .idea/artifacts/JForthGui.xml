@@ -16,7 +16,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/netty-3.2.7.Final.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/webbit-0.4.6.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/zxing-2.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../peter.home/java/IMG2/lib/Catalano.Image.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

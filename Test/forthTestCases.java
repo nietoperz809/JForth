@@ -1,8 +1,13 @@
+
+
 import jforth.JForth;
 import jforth.RuntimeEnvironment;
 import org.junit.Assert;
 import org.junit.Test;
 import tools.StringStream;
+
+// {255,0,0} gcolor {10,10,100,100} gbox gout .
+// {200,200} gcanvas {255,0,0} gcolor {10,10,100,100} gbox gout .
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -39,6 +44,7 @@ class TestBase
 
 /**
  * Created by Administrator on 4/15/2017.
+ * Using Nashorn, not for 1.8 anymore
  */
 public class forthTestCases extends TestBase
 {
@@ -1375,7 +1381,7 @@ public class forthTestCases extends TestBase
     {
         String code = "0 1024 0.01 seq dup cos(x)+sin(2*x) swap f= swap plot crc32 hash";
         String s = check (code,".");
-        shouldBeThis("219997675" ,s);
+        shouldBeThis("2088847588" ,s);
     }
 
     @Test
@@ -1654,15 +1660,15 @@ public class forthTestCases extends TestBase
     @Test
     public void testGraph() {
         String s = check ("gout crc32 hash",".");
-        shouldBeThis("95113177", s); // white canvas
+        shouldBeThis("3726394410", s); // white canvas
         s = check ("{255,0,0} gcolor {100,100,50,50} gbox gout crc32 hash",".");
-        shouldBeThis("1890457618", s); // little red box
+        shouldBeThis("2947799610", s); // little red box
     }
 
     @Test
     public void testQR() {
         String s = check ("helloWorld qr crc32 hash",".");
-        shouldBeThis("4277785947", s);
+        shouldBeThis("3559487486", s);
     }
 
     @Test
@@ -1934,6 +1940,14 @@ public class forthTestCases extends TestBase
         s = check (prg,".");
         System.out.println(s);
         shouldBeThis("58979323846", s);
+    }
+
+    @Test
+    public void Test2Swap() {
+        String prg = "1 2 3 4 2swap";
+        String s = check (prg,"....");
+        System.out.println(s);
+        shouldBeThis("2143", s);
     }
 
 

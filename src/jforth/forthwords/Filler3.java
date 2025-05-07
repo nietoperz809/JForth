@@ -520,7 +520,7 @@ final class Filler3 {
 
         _fw.add(new PrimitiveWord
                 (
-                        "RGB2IHS", "get HSV from Color",
+                        "RGB2IHS", "get IHS from Color",
                         (dStack, vStack) ->
                         {
                             try {

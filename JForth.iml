@@ -38,5 +38,6 @@
     <orderEntry type="library" name="zxing-2.1" level="project" />
     <orderEntry type="library" name="webbit-0.4.6" level="project" />
     <orderEntry type="library" name="netty-3.2.7.Final" level="project" />
+    <orderEntry type="library" name="openjdk.nashorn.core" level="project" />
   </component>
 </module>

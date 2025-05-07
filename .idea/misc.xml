@@ -42,7 +42,7 @@
     <option name="dpjConfigurationName" value="misc" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration" detection-enabled="false" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="adopt-openjdk-1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

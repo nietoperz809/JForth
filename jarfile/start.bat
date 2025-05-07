@@ -1,0 +1,1 @@
+C:\Users\Administrator\.jdks\openjdk-23.0.2\bin\java.exe -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -jar C:\Users\Administrator\IdeaProjects\JForth\jarfile\JForthGui.jar

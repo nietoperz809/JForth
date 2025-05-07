@@ -33,7 +33,7 @@ final class Graphics {
     }
 
     static void fill(WordsList _fw) {
-        add(_fw, "gcolor", "set drawing color", canvas::setColor);
+        add(_fw, "gcolor", "set drawing color", canvas::setDrawColor);
         add(_fw, "gcircle", "draw circle", canvas::circle);
         add(_fw, "gdisc", "draw disc", canvas::disc);
         add(_fw, "grect", "draw rectangle", canvas::square);
@@ -41,7 +41,8 @@ final class Graphics {
         add(_fw, "gline", "draw line", canvas::line);
         add(_fw, "gdrawto", "draw line from prev x/y to new x/y", canvas::drawto);
         add(_fw, "gplot", "plot x/y", canvas::plot);
-        add(_fw, "gclear", "clear canvas", canvas::clear);
+        add(_fw, "gclear", "clear & create canvas", canvas::create);
+        add(_fw, "gcanvas", "create x/y canvas", canvas::createXY);
 
         _fw.add(new PrimitiveWord
                 (

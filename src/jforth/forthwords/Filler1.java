@@ -1167,7 +1167,7 @@ final class Filler1 {
                                     }
                                     return 1;
                                 } else if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
-                                    byte[] buff = ((SerializableImage)o).getBytes();
+                                    byte[] buff = ((SerializableImage)o).getObjectAsBytes();
                                     String encoded = Base64.getEncoder().encodeToString(buff);
                                     predefinedWords._jforth._out.print ("imgBytes"+encoded);
                                     return 1;

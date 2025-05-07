@@ -1202,6 +1202,9 @@ public class Utilities {
     }
 
     public static byte[] convertToBytes(Object object) throws IOException {
+        if (object instanceof SerializableImage) {
+            return ((SerializableImage)object).getObjectAsBytes();
+        }
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              ObjectOutputStream out = new ObjectOutputStream(bos)) {
             out.writeObject(object);

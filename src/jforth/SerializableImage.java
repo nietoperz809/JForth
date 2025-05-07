@@ -5,7 +5,10 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 public class SerializableImage implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,17 +16,31 @@ public class SerializableImage implements Serializable {
     private final byte[] bytes;
     final int width;
     final int height;
+    private byte[] pixels;
+
+    private void getPixelBytes(BufferedImage img) {
+        int[] pix = ((DataBufferInt)img.getData().getDataBuffer()).getData();
+        ByteBuffer bb = ByteBuffer.allocate(pix.length*4);
+        IntBuffer ib = bb.asIntBuffer();
+        ib.put (pix);
+        pixels = bb.array();
+    }
 
     public SerializableImage (BufferedImage img) throws IOException {
         width = img.getWidth();
         height = img.getHeight();
+        getPixelBytes(img);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write (img, "png", baos);
         bytes = baos.toByteArray();
     }
 
-    public byte[] getBytes() {
+    public byte[] getObjectAsBytes() {
         return bytes;
+    }
+
+    public byte[] getPixels() {
+        return pixels;
     }
 
     public BufferedImage getImage() throws IOException {
@@ -38,7 +55,6 @@ public class SerializableImage implements Serializable {
         Graphics2D g = resizedImage.createGraphics();
         g.drawImage (getImage(), 0, 0, nwidth, nheight, null);
         g.dispose();
-
         return new SerializableImage(resizedImage);
     }
 
