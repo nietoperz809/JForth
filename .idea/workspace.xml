@@ -18,25 +18,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="backup">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added simple stringPermute">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/forthTestCases.java" beforeDir="false" afterPath="$PROJECT_DIR$/Test/forthTestCases.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/start.bat" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/start.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/SerializableImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/SerializableImage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/DtmfMorsePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/audio/DtmfMorsePlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/MusicTones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/audio/MusicTones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SAMSpeech.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/audio/SAMSpeech.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/SynthToneBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/audio/SynthToneBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/audio/WaveTools.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/audio/WaveTools.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Graphics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jforth/seq/SequenceBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/seq/SequenceBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/BuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/BuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/Utilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/Utilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/build.number" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/build.number" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1208,7 +1193,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686871387184</updated>
     </task>
-    <option name="localTasksCounter" value="419" />
+    <option name="localTasksCounter" value="420" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1335,7 +1320,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added mult. on 2 sequences and test" />
     <MESSAGE value="removed line editor" />
     <MESSAGE value="added levenshtein" />
     <MESSAGE value="added newrap, 1st version (single root)" />
@@ -1360,7 +1344,8 @@
     <MESSAGE value="lsystem: rule x-&gt; wipes out alles x'es" />
     <MESSAGE value="introducing decibel related words" />
     <MESSAGE value="backup" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup" />
+    <MESSAGE value="added simple stringPermute" />
+    <option name="LAST_COMMIT_MESSAGE" value="added simple stringPermute" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

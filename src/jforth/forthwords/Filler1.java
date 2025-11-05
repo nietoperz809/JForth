@@ -186,7 +186,7 @@ final class Filler1 {
                                     dStack.push(sb.toString());
                                 } else if (o1 instanceof String) {
                                     Set<String> set = Utilities.permuteString ((String) o1);
-                                    dStack.push(SequenceBase.fromSet(set));
+                                    dStack.push(new StringSequence(SequenceBase.fromSet(set)));
                                 }
                                 else {
                                     long l2 = Utilities.getLong(o1);  // perm #
