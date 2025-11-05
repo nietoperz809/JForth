@@ -1658,8 +1658,9 @@ public class forthTestCases extends TestBase
     }
 
     @Test
-    public void testGraph() {
-        String s = check ("gout crc32 hash",".");
+    public void testGraph() { // FIXME
+        String s;
+        s = check ("gout crc32 hash",".");
         shouldBeThis("3726394410", s); // white canvas
         s = check ("{255,0,0} gcolor {100,100,50,50} gbox gout crc32 hash",".");
         shouldBeThis("2947799610", s); // little red box

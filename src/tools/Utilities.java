@@ -19,8 +19,12 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.text.CharacterIterator;
@@ -78,6 +82,24 @@ public class Utilities {
         return null;
     }
 
+    public static Set<String> permuteString(String s){
+        Queue<String> permutations = new LinkedList<>();
+        Set<String> v = new HashSet<>();
+        permutations.add(s);
+
+        while(!permutations.isEmpty()){
+            String str = permutations.poll();
+            if(!v.contains(str)){
+                v.add(str);
+                for(int i = 0;i<str.length();i++){
+                    String c = String.valueOf(str.charAt(i));
+                    permutations.add(str.substring(i+1) + c +  str.substring(0,i));
+                }
+            }
+        }
+        return v;
+    }
+
     public static String textFileToString(String path) throws IOException {
         File f = new File(path);
         List<String> lines = Files.readAllLines(f.toPath());
@@ -115,7 +137,7 @@ public class Utilities {
         return r.toString();
     }
 
-    public static int hexToBin(char ch) {
+    public static int hexChar2Number(char ch) {
         if ('0' <= ch && ch <= '9') {
             return ch - '0';
         }
@@ -139,8 +161,8 @@ public class Utilities {
         byte[] out = new byte[len / 2];
 
         for (int i = 0; i < len; i += 2) {
-            int h = hexToBin(s.charAt(i));
-            int l = hexToBin(s.charAt(i + 1));
+            int h = hexChar2Number(s.charAt(i));
+            int l = hexChar2Number(s.charAt(i + 1));
             if (h == -1 || l == -1) {
                 throw new IllegalArgumentException("contains illegal character for hexBinary: " + s);
             }
@@ -226,7 +248,7 @@ public class Utilities {
      * @return Distance (higher is better)
      */
     public static int levenshteinDistance(String s, String t) {
-        if (s == null || t == null || s.length() == 0 || t.length() == 0) {
+        if (s == null || t == null || s.isEmpty() || t.isEmpty()) {
             return -1;
         }
 
@@ -629,8 +651,8 @@ public class Utilities {
             return ((Integer) o).longValue();
         }
         if (o instanceof Fraction) {
-            int denom = (int) ((Fraction) o).getDenominator();
-            int nume = (int) ((Fraction) o).getNumerator();
+            int denom = ((Fraction) o).getDenominator();
+            int nume = ((Fraction) o).getNumerator();
             if (nume % denom == 0) {
                 return nume / denom;
             }
@@ -1162,16 +1184,16 @@ public class Utilities {
     }
 
     public static String replaceUmlauts(String output) {
-        return output.replace("\u00fc", "ue")
-                .replace("\u00f6", "oe")
-                .replace("\u00e4", "ae")
-                .replace("\u00df", "ss")
-                .replaceAll("\u00dc(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Ue")
-                .replaceAll("\u00d6(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Oe")
-                .replaceAll("\u00c4(?=[a-z\u00e4\u00f6\u00fc\u00df ])", "Ae")
-                .replace("\u00dc", "UE")
-                .replace("\u00d6", "OE")
-                .replace("\u00c4", "AE");
+        return output.replace("ü", "ue")
+                .replace("ö", "oe")
+                .replace("ä", "ae")
+                .replace("ß", "ss")
+                .replaceAll("Ü(?=[a-zäöüß ])", "Ue")
+                .replaceAll("Ö(?=[a-zäöüß ])", "Oe")
+                .replaceAll("Ä(?=[a-zäöüß ])", "Ae")
+                .replace("Ü", "UE")
+                .replace("Ö", "OE")
+                .replace("Ä", "AE");
     }
 
     public static String humanReadableByteCountSI(long bytes) {
@@ -1203,7 +1225,7 @@ public class Utilities {
 
     public static byte[] convertToBytes(Object object) throws IOException {
         if (object instanceof SerializableImage) {
-            return ((SerializableImage)object).getObjectAsBytes();
+            return getImageAsBytes (((SerializableImage)object).getImage());
         }
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
              ObjectOutputStream out = new ObjectOutputStream(bos)) {
@@ -1294,5 +1316,18 @@ public class Utilities {
         }
         decompressor.end();
         return bao.toByteArray();
+    }
+
+    public static int[] getImageAsInts(BufferedImage img) {
+        DataBufferInt buf = (DataBufferInt)(img.getData().getDataBuffer());
+        return buf.getData();
+    }
+
+    public static byte[] getImageAsBytes(BufferedImage img) {
+        int[] iarr = getImageAsInts(img);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(iarr.length * 4);
+        IntBuffer intBuffer = byteBuffer.asIntBuffer();
+        intBuffer.put(iarr);
+        return byteBuffer.array();
     }
 }

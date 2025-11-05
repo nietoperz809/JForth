@@ -3,8 +3,8 @@ package jforth.forthwords;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jforth.*;
-import jforth.audio.SAMSpeech;
-import jforth.audio.WaveTools;
+import tools.audio.SAMSpeech;
+import tools.audio.WaveTools;
 import jforth.seq.*;
 import org.apache.commons.math3.analysis.function.*;
 import org.apache.commons.math3.analysis.integration.SimpsonIntegrator;
@@ -23,6 +23,7 @@ import tools.PollardRho;
 import tools.Utilities;
 import webserver.SimpleWebserver;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigInteger;
 import java.net.DatagramPacket;
@@ -31,6 +32,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.DoubleFunction;
 
 import static org.apache.commons.math3.special.Gamma.gamma;
@@ -182,7 +184,11 @@ final class Filler1 {
                                     }
                                     sb.append("}");
                                     dStack.push(sb.toString());
-                                } else {
+                                } else if (o1 instanceof String) {
+                                    Set<String> set = Utilities.permuteString ((String) o1);
+                                    dStack.push(SequenceBase.fromSet(set));
+                                }
+                                else {
                                     long l2 = Utilities.getLong(o1);  // perm #
                                     SequenceBase ds = (SequenceBase) dStack.pop();
                                     int[] arr = LehmerCode.perm(ds.length(), (int) l2);
@@ -1159,15 +1165,12 @@ final class Filler1 {
                         {
                             Object o = dStack.pop();
                             if (o instanceof SerializableImage) {
+                                BufferedImage bimg = ((SerializableImage)o).getImage();
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
-                                    try {
-                                        predefinedWords._jforth.guiTerminal.addImage(((SerializableImage)o).getImage());
-                                    } catch (IOException e) {
-                                        return 0;
-                                    }
+                                    predefinedWords._jforth.guiTerminal.addImage (bimg);
                                     return 1;
                                 } else if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.WEBSERVER) {
-                                    byte[] buff = ((SerializableImage)o).getObjectAsBytes();
+                                    byte[] buff = Utilities.getImageAsBytes (bimg);
                                     String encoded = Base64.getEncoder().encodeToString(buff);
                                     predefinedWords._jforth._out.print ("imgBytes"+encoded);
                                     return 1;

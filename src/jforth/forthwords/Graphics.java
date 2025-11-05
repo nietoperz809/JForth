@@ -41,7 +41,7 @@ final class Graphics {
         add(_fw, "gline", "draw line", canvas::line);
         add(_fw, "gdrawto", "draw line from prev x/y to new x/y", canvas::drawto);
         add(_fw, "gplot", "plot x/y", canvas::plot);
-        add(_fw, "gclear", "clear & create canvas", canvas::create);
+        add(_fw, "gclear", "clear & create canvas 1024*1024", canvas::create);
         add(_fw, "gcanvas", "create x/y canvas", canvas::createXY);
 
         _fw.add(new PrimitiveWord

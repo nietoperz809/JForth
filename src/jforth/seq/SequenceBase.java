@@ -5,6 +5,7 @@ import org.apache.commons.math3.fraction.Fraction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io.Serializable {
     public ArrayList<E> _list = new ArrayList<>();
@@ -12,6 +13,11 @@ public class SequenceBase<E extends Comparable<E>> implements Cloneable, java.io
     public SequenceBase() {
     }
 
+    public static <E> ArrayList<E> fromSet(Set<E> set) {
+        ArrayList<E> ar = new ArrayList<>();
+        ar.addAll(set);
+        return ar;
+    }
 
     @SuppressWarnings("unchecked")
     public static <E> ArrayList<E> mixin(SequenceBase<? extends E> d1, SequenceBase<? extends E> d2) {

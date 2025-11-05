@@ -1,4 +1,4 @@
-package jforth.audio;
+package tools.audio;
 
 import javax.sound.sampled.*;
 import java.io.*;

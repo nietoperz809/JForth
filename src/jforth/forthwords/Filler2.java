@@ -2,10 +2,10 @@ package jforth.forthwords;
 
 import jforth.*;
 import jforth.ControlWords.*;
-import jforth.audio.DtmfMorsePlayer;
-import jforth.audio.MusicTones;
-import jforth.audio.SynthToneBase;
-import jforth.audio.WaveTools;
+import tools.audio.DtmfMorsePlayer;
+import tools.audio.MusicTones;
+import tools.audio.SynthToneBase;
+import tools.audio.WaveTools;
 import jforth.seq.*;
 import org.apache.commons.math3.complex.Complex;
 import org.apache.commons.math3.fraction.Fraction;
@@ -34,12 +34,14 @@ import java.util.TimerTask;
 import java.util.zip.CRC32;
 
 import static java.lang.System.currentTimeMillis;
-import static jforth.audio.DtmfMorsePlayer.*;
-import static jforth.audio.MusicTones.putSongIntoMemory;
+import static tools.audio.DtmfMorsePlayer.*;
+import static tools.audio.MusicTones.putSongIntoMemory;
 import static org.apache.commons.math3.complex.ComplexUtils.polar2Complex;
 import static org.mathIT.numbers.Numbers.exactBinomial;
 import static tools.Utilities.humanReadableByteCountBin;
 import static tools.Utilities.humanReadableByteCountSI;
+import static tools.audio.SynthToneBase.AudiotoBrowser;
+import static tools.audio.SynthToneBase.createSingleToneWav;
 
 final class Filler2 {
     static void fill(WordsList _fw, PredefinedWords predefinedWords) {

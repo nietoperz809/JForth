@@ -1,4 +1,4 @@
-package jforth.audio;
+package tools.audio;
 
 import tools.ResourceLoader;
 
