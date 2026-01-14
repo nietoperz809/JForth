@@ -38,6 +38,7 @@ public class JForth {
     public final WordsList dictionary = new WordsList();
     public final transient PrintStream _out; // output channel
     public final LSystem _lsys = new LSystem();
+    public final ArrayList<Object> results = new ArrayList<>();
     private final OStack dStack = new OStack();
     private final OStack vStack = new OStack();
     public long LastETime;
@@ -222,6 +223,8 @@ public class JForth {
             res = false;
         } else {
             //if (this.CurrentEnvironment != RuntimeEnvironment.GUITERMINAL)
+//            if (!dStack.isEmpty())
+//                results.add(dStack.peek());
             _out.print(OK);
         }
         _out.print(FORTHPROMPT);
@@ -256,8 +259,8 @@ public class JForth {
         return false;
     }
 
-    private StringBuilder tsb = new StringBuilder();
-    private int tsb_state = 0;
+//    private StringBuilder tsb = new StringBuilder();
+//    private int tsb_state = 0;
 
     /**
      * Run a single line of FORTH statements

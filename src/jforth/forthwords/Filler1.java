@@ -1164,6 +1164,7 @@ final class Filler1 {
                         (dStack, vStack) ->
                         {
                             Object o = dStack.pop();
+                            predefinedWords._jforth.results.add(o);
                             if (o instanceof SerializableImage) {
                                 BufferedImage bimg = ((SerializableImage)o).getImage();
                                 if (predefinedWords._jforth.CurrentEnvironment == RuntimeEnvironment.GUITERMINAL) {
@@ -1226,6 +1227,37 @@ final class Filler1 {
                             return 1;
                         }
                 ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        ".results", "Show result list",
+                        (dStack, vStack) ->
+                        {
+                            for (int s=0; s< predefinedWords._jforth.results.size(); s++) {
+                                predefinedWords._jforth._out.print(
+                                        predefinedWords._jforth.makePrintable(
+                                                predefinedWords._jforth.results.get(s)) + "["+s+"]\n");
+                            }
+                            return 1;
+                        }
+                ));
+
+        _fw.add(new PrimitiveWord
+                (
+                        "result", "put result n on stack",
+                        (dStack, vStack) ->
+                        {
+                            Long o1 = (Long)dStack.pop();
+                            if (o1 instanceof Long) {
+                                Object ob = predefinedWords._jforth.results.get(o1.intValue());
+                                dStack.push(ob);
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                ));
+
 
         _fw.add(new PrimitiveWord
                 (

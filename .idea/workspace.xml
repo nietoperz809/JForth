@@ -18,10 +18,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added simple stringPermute">
+    <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="simple stringpermute now outputs stringsequence">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/JForth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/JForth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/OStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/OStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/Filler1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jforth/forthwords/PredefinedWords.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -407,35 +409,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.JForthGui.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;JAR Application.JForthGui.jar.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.All in JForth.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ForthTestCases.TestStrToCharSeq.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.forthTestCases.Test2Swap.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.forthTestCases.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.forthTestCases.testGraph.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.forthTestCases.testPlotter.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.forthTestCases.testQR.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.forthTestCases.testWavsInMemory.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/IdeaProjects/JForth/src&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.JForthGui.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "JAR Application.JForthGui.jar.executor": "Run",
+    "JUnit.All in JForth.executor": "Run",
+    "JUnit.ForthTestCases.TestStrToCharSeq.executor": "Run",
+    "JUnit.forthTestCases.Test2Swap.executor": "Run",
+    "JUnit.forthTestCases.executor": "Run",
+    "JUnit.forthTestCases.testGraph.executor": "Debug",
+    "JUnit.forthTestCases.testPlotter.executor": "Run",
+    "JUnit.forthTestCases.testQR.executor": "Run",
+    "JUnit.forthTestCases.testWavsInMemory.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/JForth/src/jforth/forthwords",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Administrator\IdeaProjects\JForth\src\catalano" />
@@ -748,6 +751,13 @@
         <item itemvalue="JUnit.forthTestCases.Test2Swap" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.138" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -1193,7 +1203,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686871387184</updated>
     </task>
-    <option name="localTasksCounter" value="420" />
+    <option name="localTasksCounter" value="422" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1320,7 +1330,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="removed line editor" />
     <MESSAGE value="added levenshtein" />
     <MESSAGE value="added newrap, 1st version (single root)" />
     <MESSAGE value="newrap now scans whole interval &#10;+ tests" />
@@ -1345,7 +1354,8 @@
     <MESSAGE value="introducing decibel related words" />
     <MESSAGE value="backup" />
     <MESSAGE value="added simple stringPermute" />
-    <option name="LAST_COMMIT_MESSAGE" value="added simple stringPermute" />
+    <MESSAGE value="simple stringpermute now outputs stringsequence" />
+    <option name="LAST_COMMIT_MESSAGE" value="simple stringpermute now outputs stringsequence" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1367,12 +1377,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>2720</line>
+          <line>2752</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/jforth/forthwords/Filler1.java</url>
-          <line>1569</line>
+          <line>1601</line>
           <option name="timeStamp" value="124" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
