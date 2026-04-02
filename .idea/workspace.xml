@@ -19,9 +19,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba1fe79d-2091-46b2-9bb1-379d0879000f" name="Default" comment="added result list">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/jna_5_7_0_jpms.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/net_java_dev_jna_jpms.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/openjdk_nashorn_core.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JForth.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JForth.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jarfile/JForthGui.jar" beforeDir="false" afterPath="$PROJECT_DIR$/jarfile/JForthGui.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/guishell/JfTerminalPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -429,6 +431,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Administrator/IdeaProjects/JForth/src/jforth/forthwords",
@@ -1205,7 +1208,7 @@
       <option name="project" value="LOCAL" />
       <updated>1686871387184</updated>
     </task>
-    <option name="localTasksCounter" value="423" />
+    <option name="localTasksCounter" value="424" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1332,7 +1335,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="added newrap, 1st version (single root)" />
     <MESSAGE value="newrap now scans whole interval &#10;+ tests" />
     <MESSAGE value="added PollardRho factorizer and BigSequence" />
     <MESSAGE value="added BigSequence + prod() + tests" />
@@ -1357,7 +1359,8 @@
     <MESSAGE value="added simple stringPermute" />
     <MESSAGE value="simple stringpermute now outputs stringsequence" />
     <MESSAGE value="added result list" />
-    <option name="LAST_COMMIT_MESSAGE" value="added result list" />
+    <MESSAGE value="newer jna lib" />
+    <option name="LAST_COMMIT_MESSAGE" value="newer jna lib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

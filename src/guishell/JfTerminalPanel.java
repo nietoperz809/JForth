@@ -30,8 +30,8 @@ public class JfTerminalPanel extends ColorPane {
 
     /**
      * Get some keystrokes (e.g. for forth accept word)
-     * @param n Number of keys that must be hit leave the wait state
-     * @return All keys as ons string
+     * @param n Number of keys that must be hit leave to the wait state
+     * @return All keys as one string
      * @throws Exception if smth. gone rong
      */
     public String collectKeys(int n) throws Exception{

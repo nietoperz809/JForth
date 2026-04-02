@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="net.java.dev.jna.jpms" type="repository">
+    <properties maven-id="net.java.dev.jna:jna-jpms:5.18.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jna-jpms-5.18.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
